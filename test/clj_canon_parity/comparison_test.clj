@@ -6,7 +6,7 @@
             [clj-canon-parity.comparison :as comparison]))
 
 (def canon
-  {:dialect-tag     "canon-jvm"
+  {:dialect-tag     "clojure"
    :clojure-version "1.12.4"
    :captured-at     "2026-05-22T10:30:00Z"
    :namespaces
@@ -40,7 +40,7 @@
 (deftest compare-produces-validated-shape
   (let [c (comparison/compare-surfaces
             canon dialect ['clojure.core 'clojure.string])]
-    (is (= "canon-jvm" (:canon-tag c)))
+    (is (= "clojure" (:canon-tag c)))
     (is (= "mino"      (:dialect-tag c)))
     (is (string? (:compared-at c)))
     (is (re-matches #"\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}Z" (:compared-at c)))))

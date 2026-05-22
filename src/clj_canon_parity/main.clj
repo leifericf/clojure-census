@@ -2,12 +2,13 @@
   "CLI orchestrator. Dispatches subcommands to the named entity
   namespaces:
 
-    validate-data          schema-check every EDN file under canon/,
+    validate-data          schema-check every EDN file under clojure/,
                            dialects/, data/
     dump <dialect-tag>     invoke the dialect's surface_dump.clj,
                            write output/<dialect>/surface.edn
-    diff <dialect-tag>     read vendored canon + dialect surfaces,
-                           produce dashboard.edn + badge.json
+    diff <dialect-tag>     read vendored Clojure (JVM) surface +
+                           dialect surface, produce dashboard.edn
+                           + badge.json
     render <dialect-tag>   re-render dashboard from existing surface
                            files (no new capture)
     all <dialect-tag>      dump + diff + history append
@@ -80,8 +81,8 @@
 (defn- load-categories []
   (category/read-file (p "data" "categories.edn")))
 
-(defn- load-canon-spec []
-  (canon/read-file (p "canon" "canon-spec.edn")))
+(defn- load-clojure-spec []
+  (canon/read-file (p "clojure" "spec.edn")))
 
 (defn- load-dialect [tag]
   (dialect/read-file (dialect-config-path tag)))
@@ -105,7 +106,7 @@
 (defn- subcmd-validate-data
   [_ctx _args]
   (let [cats  (load-categories)
-        _spec (load-canon-spec)]
+        _spec (load-clojure-spec)]
     (println "categories.edn:" (count cats) "entries")
     (doseq [df (sort (.list (io/file "dialects")))
             :when (str/ends-with? df ".edn")]
@@ -131,10 +132,10 @@
   [ctx [tag :as _args]]
   (let [cfg     (load-dialect tag)
         out     (surface-output-path tag)
-        env-out (System/getenv "CLJ_CANON_DUMP_OUT")
+        env-out (System/getenv "SURFACE_DUMP_OUT")
         path    (or env-out out)
-        env     {"CANON_SPEC_PATH" "canon/canon-spec.edn"
-                 "DIALECT_TAG"     tag}
+        env     {"CLOJURE_SPEC_PATH" "clojure/spec.edn"
+                 "DIALECT_TAG"       tag}
         ;; Merge in the parent env so JAVA_HOME etc. survive
         env'    (into {} (System/getenv))
         env''   (merge env' env)
@@ -150,7 +151,7 @@
   [_ctx [tag :as _args]]
   (let [cfg          (load-dialect tag)
         cats         (load-categories)
-        spec         (load-canon-spec)
+        spec         (load-clojure-spec)
         canon-s      (canon/read-surface spec)
         dialect-path (surface-output-path tag)
         dialect-s    (surface/read-file dialect-path)
@@ -208,7 +209,7 @@
   ;; already on disk and re-render.
   (let [cfg      (load-dialect tag)
         cats     (load-categories)
-        spec     (load-canon-spec)
+        spec     (load-clojure-spec)
         canon-s  (canon/read-surface spec)
         dialect-s (surface/read-file (surface-output-path tag))
         divs     (load-divergences cfg cats)

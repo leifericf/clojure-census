@@ -8,13 +8,13 @@
 
 (def jvm-config
   {:name             "Clojure (JVM)"
-   :tag              "canon-jvm"
-   :role             :canon
+   :tag              "clojure"
+   :role             :clojure
    :invocation       {:type :subprocess
                       :cmd  ["clojure" "-M" "{script}"]}
    :participates-in  ['clojure.core 'clojure.string]
-   :data-dir         "canon"
-   :output-dir       "canon"})
+   :data-dir         "clojure"
+   :output-dir       "clojure"})
 
 (def mino-config
   {:name             "mino"

@@ -6,7 +6,7 @@
             [clj-canon-parity.coverage :as coverage]))
 
 (def sample-comparison
-  {:canon-tag           "canon-jvm"
+  {:canon-tag           "clojure"
    :dialect-tag         "mino"
    :compared-at         "2026-05-22T10:30:00Z"
    :namespaces-compared

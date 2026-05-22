@@ -1,63 +1,63 @@
 # Clojure Census
 
-A periodic, mechanical census of Clojure dialect surface
-implementation, measured against Clojure (JVM).
+A periodic count of which Clojure (JVM) vars each dialect implements.
+
+Live site: <https://clojure-census.leifericf.com/>
 
 ## What this is
 
 A tool that **mechanically discovers** Clojure (JVM)'s surface
-(vars, arglists, metadata, special forms, spec registry) and compares
-it against each dialect's surface. Produces a per-dialect EDN
-dashboard plus a shields.io badge. The EDN is rendered into a static
-site under `site/`.
+— vars, arglists, metadata, special forms, spec registry — and
+compares it against each dialect's surface. The output is rendered
+into a static site as a per-dialect dashboard plus a shields.io
+badge.
 
-mino was the first consumer; Babashka (bb) shipped second as a
-working proof of the dialect-plug-in design; ClojureScript (cljs,
-via planck) shipped third, validating the `:namespace-renames` DSL
-(cljs.core -> clojure.core, cljs.test -> clojure.test, etc.) and the
-`scripts/surface_dump.cljs` parallel script (CLJS's `ns-publics` is
-a compile-time macro; the runtime equivalent is
-`cljs.analyzer.api/ns-publics`); ClojureCLR (clr) shipped fourth,
-where the .cljc portable script with `:cljr` reader conditionals
-covers CLR's host-specific env-var and catch-target differences;
-jank shipped fifth, alpha-stage and LLVM/C++-hosted, requiring its
-own `scripts/surface_dump_jank.cljc` because jank's `require`
-resolves at compile time (unknown modules cannot be try-required),
-catch targets are C++ types (`cpp/jank.runtime.object_ref`),
-env-vars come from `cpp/std.getenv`, and key print-control dynvars
-are not yet exposed. Other dialects (lpy, sci-derivatives) can plug
-in via configuration alone if their runtime is compatible with the
-default portable script.
+Five dialects participate today: Babashka, ClojureScript (planck),
+ClojureCLR, jank, and mino. New dialects can plug in via
+configuration alone when their runtime is compatible with the default
+portable surface-dump script.
 
-## Scope
+## Scope and limitations
 
-**v1 covers SURFACE only:**
+**v1 catches (surface only):**
 
 - Does the dialect implement var `clojure.core/foo`?
-- Does its `:arglists` match canon's?
-- Do its `:macro` / `:dynamic` flags match canon's?
-- What does the dialect add on top of canon?
-- What drifts between Clojure releases?
+- Do its `:arglists`, `:macro`, and `:dynamic` flags match?
+- What does the dialect add on top?
+- What drifts between Clojure (JVM) releases?
 
-**v1 does NOT cover behavior parity.** A function that exists with the
-right arity may still misbehave. Behavior parity is v2+ work via
-property-based oracle testing.
+**v1 does NOT catch behavior parity.** A var that exists with the
+right arity may still misbehave at runtime. Behavior parity is v2+
+work via property-based oracle testing.
 
-See `docs/honest-scope.md` for the full discussion of what this tool
-catches and what it cannot.
+**No version will catch, by design** — these resist mechanical
+introspection and stay hand-written tests:
+
+- Lazy realization timing (chunk size, side-effect order)
+- Dynamic-var interactions (combinatorial across `*print-*` etc.)
+- Concurrency semantics (`swap!` retry behavior, ref consistency)
+- Stack and recursion limits (implementation-bound)
+- Performance characteristics (measurement, not equality)
+- Error message text (often deliberately different)
+- Reader fine-grained corners (no public grammar introspection)
+
+**The number reported is honest, but limited.** "X% of vars
+implemented" answers "how many vars exist with matching shape", not
+"does my Clojure code work on this dialect?" The latter depends on
+behavior, which v1 doesn't measure. The persistent banner on the
+site spells this out.
 
 ## Layout
 
 ```
-src/clj_canon_parity/   pure transformations + IO, named for domain entities
-test/clj_canon_parity/  one test file per source file (TDD)
-scripts/                portable introspection that runs IN each dialect
-canon/                  canon-spec.edn + vendored surface dumps
-dialects/               per-dialect invocation config
-data/                   enumerations + per-dialect curated registries
-output/<dialect>/       generated dashboards (EDN), badges, history
-site/                   Stasis + Hiccup + Garden static site that
-                        renders output/<dialect>/dashboard.edn
+src/         engine: pure transformations + IO
+test/        engine tests (one file per source file)
+scripts/     portable introspection that runs IN each dialect
+clojure/     reference Clojure (JVM) surface dump + spec
+dialects/    per-dialect invocation config
+data/        enumerations + per-dialect curated registries
+output/      generated per-dialect dashboards (EDN), badges, history
+site/        Stasis + Hiccup + Garden static site
 ```
 
 ## Usage
@@ -66,31 +66,28 @@ site/                   Stasis + Hiccup + Garden static site that
 # Run unit + property tests
 clojure -M:test
 
-# Validate every EDN under canon/, dialects/, data/ against the schema
+# Validate every EDN under clojure/, dialects/, data/
 clojure -M:run validate-data
 
 # Capture a dialect's surface
-MINO_BIN=/path/to/mino clojure -M:run dump mino
-clojure -M:run dump bb        # bb on PATH, no env var needed
-clojure -M:run dump cljs      # planck on PATH
-DOTNET_ROOT=/path/to/dotnet9 clojure -M:run dump clr  # Clojure.Main on PATH
-clojure -M:run dump jank      # jank on PATH
+clojure -M:run dump bb                                  # bb on PATH
+clojure -M:run dump cljs                                # planck on PATH
+clojure -M:run dump jank                                # jank on PATH
+DOTNET_ROOT=/path/to/dotnet9 clojure -M:run dump clr    # Clojure.Main on PATH
+MINO_BIN=/path/to/mino       clojure -M:run dump mino
 
-# Diff captured surface against vendored canon, write dashboard
-MINO_BIN=/path/to/mino clojure -M:run diff mino
-clojure -M:run diff bb
-clojure -M:run diff cljs
-clojure -M:run diff clr
-clojure -M:run diff jank
+# Diff captured surface and write dashboard
+clojure -M:run diff <dialect>
 
 # Re-render from saved surface (no new capture)
-clojure -M:run render bb
+clojure -M:run render <dialect>
 ```
 
 ## Site
 
-The static site lives under `site/` and reads
-`output/<dialect>/dashboard.edn`. Stasis + Hiccup + Garden, no JS.
+The static site under `site/` reads `output/<dialect>/dashboard.edn`.
+Stasis + Hiccup + Garden, no JavaScript. Auto-deploys to
+<https://clojure-census.leifericf.com/> on every push to `main`.
 
 From the repo root:
 
@@ -99,19 +96,6 @@ clojure -M:dev     # serve on http://localhost:8000 with hot reload
 clojure -M:build   # write site/public/
 ```
 
-From `site/` (its own deps.edn — useful for site-only tests):
-
-```sh
-cd site
-clojure -M:test    # site unit tests
-clojure -M:dev
-clojure -M:build
-```
-
-CI deploys to GitHub Pages via `.github/workflows/pages.yml` on every
-push to `main` that touches `output/`, `site/`, `dialects/`, or
-`canon/`.
-
 ## Status
 
-v1 -- surface diff. Implementation in progress.
+v1 — surface diff. Work in progress.

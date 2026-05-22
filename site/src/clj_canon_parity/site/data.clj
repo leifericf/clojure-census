@@ -10,8 +10,8 @@
 
   Output:
     {:dialects [{:tag :name :dashboard}, ...]}, sorted alphabetically
-    by :tag, canon role excluded. A dialect with no snapshot on disk
-    has `:dashboard nil`."
+    by :tag, the reference Clojure (JVM) role excluded. A dialect
+    with no snapshot on disk has `:dashboard nil`."
   (:require [clojure.edn     :as edn]
             [clojure.java.io :as io]
             [clojure.string  :as str]))
@@ -28,7 +28,7 @@
 (defn- read-dialect-configs [dialects-dir]
   (for [f (edn-files dialects-dir)
         :let [cfg (read-edn-file f)]
-        :when (not= :canon (:role cfg))]
+        :when (not= :clojure (:role cfg))]
     {:tag  (:tag cfg)
      :name (:name cfg)}))
 
@@ -49,8 +49,8 @@
                   (sort-by :tag)
                   vec)})
 
-(defn load-canon-spec
-  "Read `canon/canon-spec.edn`. Used by the site to align the matrix's
+(defn load-clojure-spec
+  "Read `clojure/spec.edn`. Used by the site to align the matrix's
   column order with the engine's source-of-truth namespace list."
   [path]
   (read-edn-file path))

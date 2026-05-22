@@ -7,7 +7,7 @@ on:
       - 'output/**'
       - 'site/**'
       - 'dialects/**'
-      - 'canon/**'
+      - 'clojure/**'
       - '.github/workflows/pages.yml'
   workflow_dispatch: {}
 

@@ -2,7 +2,7 @@
  {:dialect-tag "mino",
   :dialect-name "mino",
   :canon-version "1.12.4",
-  :compared-at "2026-05-22T13:23:07Z"},
+  :compared-at "2026-05-22T19:52:17Z"},
  :divergences
  [{:dialect-example "(compare \"z\" \"a\") ;=> 1",
    :since "v0.1.0",

@@ -182,7 +182,7 @@
 
 (deftest comparison-minimal
   (is (s/valid? ::schema/comparison
-                {:canon-tag           "canon-jvm"
+                {:canon-tag           "clojure"
                  :dialect-tag         "mino"
                  :compared-at         "2026-05-22T10:30:00Z"
                  :namespaces-compared
@@ -194,7 +194,7 @@
 
 (deftest comparison-with-mismatch
   (is (s/valid? ::schema/comparison
-                {:canon-tag           "canon-jvm"
+                {:canon-tag           "clojure"
                  :dialect-tag         "mino"
                  :compared-at         "2026-05-22T10:30:00Z"
                  :namespaces-compared

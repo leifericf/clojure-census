@@ -4,13 +4,13 @@
   excluded with reasons, and where the vendored canon surface dump
   lives.
 
-  The spec is hand-curated in `canon/canon-spec.edn` and bumped via a
+  The spec is hand-curated in `clojure/spec.edn` and bumped via a
   small PR when a new Clojure release is adopted."
   (:require [clojure.edn :as edn]
             [clojure.java.io :as io]
             [clj-canon-parity.schema :as schema]))
 
-(def canon-dir "canon")
+(def clojure-dir "clojure")
 
 (defn validate!
   "Schema-validate `spec` and return `true` on success."
@@ -49,9 +49,9 @@
        (mapv :ns)))
 
 (defn surface-path
-  "Repo-relative path to the vendored canon surface dump."
+  "Repo-relative path to the vendored Clojure (JVM) surface dump."
   [spec]
-  (str canon-dir "/" (:surface-file spec)))
+  (str clojure-dir "/" (:surface-file spec)))
 
 ;; ===== IO ==========================================================
 

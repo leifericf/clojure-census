@@ -30,7 +30,7 @@
 
 (defn dialects-dir    [] (str (project-root) "/dialects"))
 (defn output-root     [] (str (project-root) "/output"))
-(defn canon-spec-path [] (str (project-root) "/canon/canon-spec.edn"))
+(defn clojure-spec-path [] (str (project-root) "/clojure/spec.edn"))
 (defn resources-dir   [] (str (project-root) "/site/resources/public"))
 
 (defn target-dir

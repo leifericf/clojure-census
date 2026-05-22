@@ -1,4 +1,4 @@
-;; Portable Clojure-canon surface dump.
+;; Portable surface dump for Clojure dialects.
 ;;
 ;; Runs IN any Clojure-shaped runtime that has `ns-publics`,
 ;; `find-ns`, `meta`, `require`, and `special-symbol?` -- verified
@@ -12,12 +12,12 @@
 ;; `System/getenv`. All other operations are portable across the
 ;; four supported runtimes.
 ;;
-;; Reads the target namespace list from canon/canon-spec.edn at the
-;; current working directory (override with CANON_SPEC_PATH).
+;; Reads the target namespace list from clojure/spec.edn at the
+;; current working directory (override with CLOJURE_SPEC_PATH).
 ;;
 ;; Writes one big EDN map to stdout. The orchestration layer in
-;; clj-canon-parity.surface adds `:captured-at` and validates the
-;; final shape -- keeping the on-dialect script free of host-specific
+;; the parity engine adds `:captured-at` and validates the final
+;; shape -- keeping the on-dialect script free of host-specific
 ;; date formatting.
 ;;
 ;; Diagnostics go to stderr; never to stdout (would corrupt EDN).
@@ -29,9 +29,9 @@
   #?(:cljr   (System.Environment/GetEnvironmentVariable k)
      :default (System/getenv k)))
 
-(def ^:private canon-spec-path
-  (or (get-env "CANON_SPEC_PATH")
-      "canon/canon-spec.edn"))
+(def ^:private clojure-spec-path
+  (or (get-env "CLOJURE_SPEC_PATH")
+      "clojure/spec.edn"))
 
 (def ^:private dialect-tag
   (or (get-env "DIALECT_TAG") "unknown"))
@@ -42,11 +42,11 @@
 
 (defn- read-target-namespaces []
   (try
-    (let [data (clojure.edn/read-string (slurp canon-spec-path))]
+    (let [data (clojure.edn/read-string (slurp clojure-spec-path))]
       (mapv :ns (:target-namespaces data)))
     (catch #?(:cljr Exception :default Exception) e
       (binding [*out* *err*]
-        (println "; could not read canon-spec at" canon-spec-path
+        (println "; could not read clojure-spec at" clojure-spec-path
                  "--" (error-message e)))
       [])))
 

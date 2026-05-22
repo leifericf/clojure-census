@@ -32,20 +32,20 @@
             [cljs.test]
             [cljs.pprint]))
 
-(def ^:private canon-spec-path
-  (or (:canon-spec-path env/env)
-      "canon/canon-spec.edn"))
+(def ^:private clojure-spec-path
+  (or (:clojure-spec-path env/env)
+      "clojure/spec.edn"))
 
 (def ^:private dialect-tag
   (or (:dialect-tag env/env) "unknown"))
 
 (defn- read-target-namespaces []
   (try
-    (let [data (reader/read-string (planck.core/slurp canon-spec-path))]
+    (let [data (reader/read-string (planck.core/slurp clojure-spec-path))]
       (mapv :ns (:target-namespaces data)))
     (catch :default e
       (binding [*out* planck.core/*err*]
-        (println "; could not read canon-spec at" canon-spec-path
+        (println "; could not read clojure-spec at" clojure-spec-path
                  "--" (or (.-message e) (str e))))
       [])))
 

@@ -1,0 +1,35 @@
+;; ClojureSpec -- single source of truth for the Clojure (JVM) side
+;; of every comparison. Bumping the reference Clojure version means
+;; editing this file and regenerating the vendored surface dump it
+;; references.
+;;
+;; :target-namespaces -- what we compare against
+;; :excluded-namespaces -- what we explicitly do NOT compare against,
+;;   with a reason that makes the exclusion auditable.
+{:version           "1.12.4"
+ :surface-file      "1.12.4-surface.edn"
+ :captured-at       "2026-05-22T00:00:00Z"
+
+ :target-namespaces
+ [{:ns clojure.core            :priority :critical}
+  {:ns clojure.string          :priority :high}
+  {:ns clojure.set             :priority :high}
+  {:ns clojure.walk            :priority :high}
+  {:ns clojure.edn             :priority :high}
+  {:ns clojure.zip             :priority :medium}
+  {:ns clojure.spec.alpha      :priority :high}
+  {:ns clojure.test            :priority :critical}
+  {:ns clojure.pprint          :priority :medium}
+  {:ns clojure.math            :priority :high  :since "1.11"}
+  {:ns clojure.datafy          :priority :medium :since "1.10"}
+  {:ns clojure.instant         :priority :low}
+  {:ns clojure.core.protocols  :priority :high}
+  {:ns clojure.core.reducers   :priority :medium}
+  {:ns clojure.template        :priority :low}
+  {:ns clojure.data            :priority :medium}]
+
+ :excluded-namespaces
+ [{:ns clojure.java.io    :reason "JVM filesystem semantics"}
+  {:ns clojure.java.shell :reason "host process model"}
+  {:ns clojure.reflect    :reason "JVM reflection"}
+  {:ns clojure.repl       :reason "REPL helpers, environment-bound"}]}

@@ -118,7 +118,7 @@
 
 (s/def ::name             ::non-blank-string)
 (s/def ::tag              ::non-blank-string)
-(s/def ::role             #{:canon :sut})
+(s/def ::role             #{:clojure :sut})
 (s/def ::enabled          boolean?)
 (s/def ::version-cmd      (s/coll-of string? :kind sequential? :min-count 1))
 (s/def ::type             #{:subprocess})

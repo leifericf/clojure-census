@@ -15,12 +15,12 @@
 (defn- render-html [hiccup]
   (str "<!DOCTYPE html>\n" (h/html hiccup)))
 
-(defn- landing-page [link dialects canon-spec]
+(defn- landing-page [link dialects clojure-spec]
   (fn [_]
     (render-html
       (layout/page
         {:title "" :link link}
-        (components/landing dialects canon-spec {:link link})))))
+        (components/landing dialects clojure-spec {:link link})))))
 
 (defn- dialect-page [link dialect]
   (fn [_]
@@ -45,11 +45,11 @@
   a restart."
   []
   (let [link        (components/make-link (config/site-base))
-        canon-spec  (data/load-canon-spec (config/canon-spec-path))
+        clojure-spec  (data/load-clojure-spec (config/clojure-spec-path))
         {:keys [dialects]} (data/load-all
                              {:dialects-dir (config/dialects-dir)
                               :output-root  (config/output-root)})
-        landing     {"/index.html" (landing-page link dialects canon-spec)}
+        landing     {"/index.html" (landing-page link dialects clojure-spec)}
         overviews   (into {}
                           (for [{:keys [dashboard] :as d} dialects
                                 :when (some? dashboard)]

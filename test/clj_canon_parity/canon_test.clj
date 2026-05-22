@@ -8,7 +8,7 @@
 
 (def sample-spec
   {:version           "1.12.4"
-   :surface-file      "clojure-1.12.4-surface.edn"
+   :surface-file      "1.12.4-surface.edn"
    :captured-at       "2026-05-22T10:30:00Z"
    :target-namespaces [{:ns 'clojure.core   :priority :critical}
                        {:ns 'clojure.string :priority :high}
@@ -34,8 +34,8 @@
   (testing "missing returns nil"
     (is (nil? (canon/priority-of sample-spec 'clojure.unknown)))))
 
-(deftest surface-path-resolves-relative-to-canon-dir
-  (is (= "canon/clojure-1.12.4-surface.edn"
+(deftest surface-path-resolves-relative-to-clojure-dir
+  (is (= "clojure/1.12.4-surface.edn"
          (canon/surface-path sample-spec))))
 
 (deftest target?

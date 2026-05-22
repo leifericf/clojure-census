@@ -19,11 +19,11 @@
   Returns the root path as a string."
   []
   (let [root (str (.toFile (java.nio.file.Files/createTempDirectory
-                             "canon-parity-site-"
+                             "clojure-census-site-"
                              (into-array java.nio.file.attribute.FileAttribute []))))]
-    ;; canon role -- must be excluded from the listing
-    (write-edn! (io/file root "dialects" "canon-jvm.edn")
-                {:name "Clojure (JVM)" :tag "canon-jvm" :role :canon})
+    ;; Clojure (JVM) role -- must be excluded from the listing
+    (write-edn! (io/file root "dialects" "clojure.edn")
+                {:name "Clojure (JVM)" :tag "clojure" :role :clojure})
     ;; two SUT dialects; "bar" sorts before "foo" alphabetically
     (write-edn! (io/file root "dialects" "foo.edn")
                 {:name "Foo Dialect" :tag "foo" :role :sut})
@@ -53,8 +53,8 @@
                               :output-root  (str root "/output")})
         tags  (mapv :tag (:dialects out))]
     (is (= ["bar" "foo"] tags))
-    (testing "canon role is excluded"
-      (is (not (some #{"canon-jvm"} tags))))))
+    (testing "Clojure (JVM) role is excluded"
+      (is (not (some #{"clojure"} tags))))))
 
 (deftest load-all-attaches-dashboard-when-present
   (let [root (mk-tmp-root!)
@@ -81,25 +81,25 @@
           tags (mapv :tag (:dialects out))]
       (is (= ["bar" "foo"] tags)))))
 
-(deftest load-canon-spec-reads-file
+(deftest load-clojure-spec-reads-file
   (let [root (str (.toFile (java.nio.file.Files/createTempDirectory
-                             "canon-parity-canon-spec-"
+                             "clojure-census-spec-"
                              (into-array java.nio.file.attribute.FileAttribute []))))
-        path (str root "/canon-spec.edn")]
+        path (str root "/spec.edn")]
     (write-edn! (io/file path)
                 {:version "1.12.4"
                  :target-namespaces [{:ns 'clojure.core   :priority :critical}
                                      {:ns 'clojure.string :priority :high}]})
-    (let [spec (data/load-canon-spec path)]
+    (let [spec (data/load-clojure-spec path)]
       (is (= "1.12.4" (:version spec)))
       (is (= ['clojure.core 'clojure.string]
              (mapv :ns (:target-namespaces spec))))
-      (testing "preserves canon-spec order (not alphabetical)"
+      (testing "preserves spec declaration order (not alphabetical)"
         (is (= 'clojure.core (:ns (first (:target-namespaces spec)))))))))
 
 (deftest load-all-preserves-clojure-types-in-dashboard
   (let [root (str (.toFile (java.nio.file.Files/createTempDirectory
-                             "canon-parity-site-types-"
+                             "clojure-census-site-types-"
                              (into-array java.nio.file.attribute.FileAttribute []))))]
     (write-edn! (io/file root "dialects" "foo.edn")
                 {:name "Foo" :tag "foo" :role :sut})

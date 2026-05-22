@@ -1,0 +1,25 @@
+{:name             "Clojure (JVM)"
+ :tag              "clojure"
+ :role             :clojure
+ :invocation       {:type :subprocess
+                    :cmd  ["clojure" "-M" "{script}"]}
+ :version-cmd      ["clojure" "-e" "(println (clojure-version))"]
+ :participates-in  [clojure.core
+                    clojure.string
+                    clojure.set
+                    clojure.walk
+                    clojure.edn
+                    clojure.zip
+                    clojure.test
+                    clojure.pprint
+                    clojure.math
+                    clojure.datafy
+                    clojure.instant
+                    clojure.core.protocols
+                    clojure.core.reducers
+                    clojure.template
+                    clojure.data
+                    clojure.spec.alpha]
+ :data-dir         "clojure"
+ :output-dir       "clojure"
+ :surface-normalization :default}
