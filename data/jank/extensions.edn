@@ -1,0 +1,23 @@
+;; jank host-specific extensions beyond canon.
+;;
+;; jank's standout feature is seamless C++ interop via the cpp/
+;; namespace tag. v1's parity comparison is scoped to canon's
+;; clojure.* target list, so cpp/ usage falls outside the
+;; comparison; this file documents the extension for completeness.
+[
+ {:id             :cpp-interop-namespace
+  :title          "Seamless C++ interop via cpp/ tag"
+  :affected-names ["cpp/std.cout"
+                   "cpp/std.getenv"
+                   "cpp/std.chrono.milliseconds"
+                   "cpp/std.this_thread.sleep_for"
+                   "cpp/jank.runtime.object_ref"
+                   "cpp/std.exception"]
+  :category-id    :jvm-statics
+  :rationale      "jank's defining feature: any C++ type, function, or
+                   static is reachable from jank source via cpp/. Type
+                   conversion is implicit at the boundary. Roughly the
+                   jank analog of JVM Clojure's Java interop, but with
+                   AOT-compiled C++ instead of JVM reflection."
+  :since          "jank-0.1"}
+]

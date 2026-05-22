@@ -1,0 +1,92 @@
+;; Hand-curated intentional divergences for jank.
+;;
+;; jank is an alpha-stage Clojure dialect targeting LLVM with C++
+;; interop. Its surface is intentionally Clojure-canon-shaped but
+;; AOT-compiled. Several canon namespaces are not yet implemented in
+;; jank-0.1-alpha; the C++ interop layer and ahead-of-time
+;; compilation drive most of the host divergences listed here.
+;;
+;; Schema: see ::clj-canon-parity.schema/divergence
+[
+ {:id              :stdlib-incomplete-alpha
+  :title           "Many canon stdlib namespaces are not yet implemented"
+  :category-id     :namespaces
+  :rationale       "jank-0.1-alpha ships clojure.core, .string, .set,
+                    .walk, .test, .template. The other 10 namespaces
+                    in canon's target list (clojure.edn, .zip, .pprint,
+                    .math, .data, .datafy, .instant, .core.protocols,
+                    .core.reducers, .spec.alpha) are tracked for
+                    later releases."
+  :since           "jank-0.1"
+  :doc-link        "https://book.jank-lang.org/"}
+
+ {:id              :compile-time-require
+  :title           "require resolves at compile time, not runtime"
+  :category-id     :namespaces
+  :rationale       "An unknown module aborts the script before any
+                    try/catch can intercept. Portable code that
+                    probes for optional namespaces via try-require
+                    must instead use a known-good list per dialect."
+  :since           "jank-0.1"
+  :affected        [clojure.core/require]}
+
+ {:id              :cpp-interop-instead-of-jvm
+  :title           "Host interop is C++ via cpp/, not Java"
+  :category-id     :jvm-statics
+  :rationale       "jank's host is LLVM/C++. Methods, types, and
+                    static functions are referenced via cpp/ (e.g.
+                    cpp/std.getenv, cpp/std.chrono.milliseconds).
+                    JVM-shaped interop (System/getenv, Math/PI) does
+                    not resolve."
+  :since           "jank-0.1"
+  :doc-link        "https://book.jank-lang.org/cpp-interop/"}
+
+ {:id              :catch-uses-cpp-types
+  :title           "catch targets C++ types, not JVM classes"
+  :category-id     :error-messages
+  :rationale       "(catch cpp/jank.runtime.object_ref e ...) for
+                    runtime objects; (catch cpp/std.exception e ...)
+                    for native exceptions. Portable code uses :jank
+                    reader conditionals around catch targets."
+  :since           "jank-0.1"}
+
+ {:id              :reader-conditional-jank
+  :title           "Reader conditional :clj does not fire under jank"
+  :category-id     :reader
+  :rationale       "Portable code uses :jank (or :default) to target
+                    jank. Code under :clj is invisible to jank's reader."
+  :since           "jank-0.1"
+  :doc-link        "https://book.jank-lang.org/differences-from-clojure.html"}
+
+ {:id              :no-print-control-vars
+  :title           "*print-namespace-maps* / *print-length* / *print-level* not exposed"
+  :category-id     :printer
+  :rationale       "jank-0.1-alpha does not yet provide the dynvars that
+                    control pretty-printing. Code that (binding [*print-length* 10] ...)
+                    fails at compile time with unresolved-var. Pending
+                    stdlib expansion."
+  :since           "jank-0.1"
+  :affected        [clojure.core/*print-namespace-maps*
+                    clojure.core/*print-length*
+                    clojure.core/*print-level*]}
+
+ {:id              :aot-only-compilation-model
+  :title           "AOT-compiled; semantics may differ at compile vs runtime"
+  :category-id     :macros
+  :rationale       "jank compiles ahead of time to LLVM IR. Macroexpansion
+                    and analysis happen during compilation; eval at runtime
+                    via the JIT is supported but exception behavior and
+                    var resolution timing can differ from JVM-Clojure's
+                    runtime model."
+  :since           "jank-0.1"}
+
+ {:id              :alpha-version-bigger-divergences-expected
+  :title           "Alpha-stage: any specific behavior may change before 1.0"
+  :category-id     :namespaces
+  :rationale       "jank is pre-1.0. The current snapshot reflects what
+                    is implemented today; behavior, var availability, and
+                    error shapes will continue to evolve. Hand-curated
+                    divergences here are starting points, not the final
+                    contract."
+  :since           "jank-0.1"}
+]

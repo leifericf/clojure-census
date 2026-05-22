@@ -1,0 +1,40 @@
+;; jank --- Clojure dialect targeting LLVM with C++ interop. Currently
+;; alpha (jank-0.1-alpha as of this seed); stdlib coverage is partial.
+;;
+;; Installation:
+;;   brew install jank-lang/jank/jank                       # macOS arm64
+;;   sudo apt install -y jank   (after enabling the jank PPA)  # Ubuntu
+;;
+;; Requires its own surface dump script because:
+;;   - jank's `require` resolves at compile time; an unknown module
+;;     aborts the script before any try/catch can intercept. The
+;;     namespace list must be hard-coded to known-existing modules.
+;;   - jank exposes env vars via C++ interop (cpp/std.getenv), not via
+;;     the JVM's System/getenv.
+;;   - Catch types must be C++ types via cpp/ (cpp/jank.runtime.object_ref
+;;     for runtime objects, cpp/std.exception for C++ exceptions).
+;;   - jank-0.1-alpha does not yet expose *print-namespace-maps*,
+;;     *print-length*, or *print-level* as resolvable vars.
+;;
+;; All three differences sit in scripts/surface_dump_jank.cljc; no
+;; CLI flag or env var unlocks them in the portable .cljc script.
+{:name             "jank"
+ :tag              "jank"
+ :role             :sut
+ :invocation       {:type :subprocess
+                    :cmd  ["jank" "run" "scripts/surface_dump_jank.cljc"]}
+ :version-cmd      ["jank" "check-health"]
+
+ ;; Six canon namespaces ship in jank-0.1-alpha. The other ten
+ ;; (clojure.edn / .zip / .pprint / .math / .data / .datafy /
+ ;; .instant / .core.protocols / .core.reducers / .spec.alpha) are
+ ;; tracked as divergences pending jank stdlib expansion.
+ :participates-in  [clojure.core
+                    clojure.string
+                    clojure.set
+                    clojure.walk
+                    clojure.test
+                    clojure.template]
+ :data-dir         "data/jank"
+ :output-dir       "output/jank"
+ :surface-normalization :default}
