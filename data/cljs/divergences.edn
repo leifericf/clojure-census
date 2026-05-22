@@ -1,0 +1,108 @@
+;; Hand-curated intentional divergences for ClojureScript.
+;;
+;; CLJS is a separate compiler targeting JavaScript hosts. Several
+;; canon namespaces and operations either don't apply (no JVM
+;; threads, no JVM class hierarchy) or were renamed (clojure.core →
+;; cljs.core, clojure.spec.alpha → cljs.spec.alpha).
+;;
+;; Schema: see ::clj-canon-parity.schema/divergence
+[
+ {:id              :no-jvm-class-system
+  :title           "No JVM class hierarchy"
+  :category-id     :type-system
+  :rationale       "CLJS targets JavaScript; there is no
+                    java.lang.Class, no clojure.lang.* concrete
+                    types. type returns the JS constructor function.
+                    Code that pattern-matches on JVM-class names is
+                    not portable."
+  :since           "cljs-0.1"
+  :affected        [clojure.core/class clojure.core/type
+                    clojure.core/instance?]
+  :doc-link        "https://clojurescript.org/about/differences"}
+
+ {:id              :no-jvm-numerics
+  :title           "Number tower follows JavaScript, not JVM"
+  :category-id     :numeric-tower
+  :rationale       "Numbers are JavaScript numbers (IEEE-754 doubles
+                    with integer fast path). No Long, no Ratio, no
+                    BigDecimal as separate types. Integer overflow
+                    silently converts to double; *' / +' have no
+                    additional precision over * / +."
+  :since           "cljs-0.1"
+  :affected        [clojure.core/long clojure.core/bigint
+                    clojure.core/bigdec clojure.core/biginteger]}
+
+ {:id              :no-clojure-edn-namespace
+  :title           "clojure.edn is cljs.reader"
+  :category-id     :namespaces
+  :rationale       "CLJS exposes the EDN reader as cljs.reader; the
+                    portable :namespace-renames in this tool maps
+                    cljs.reader -> clojure.edn for comparison
+                    purposes, but the canonical CLJS API name is
+                    cljs.reader/read-string."
+  :since           "cljs-0.1"
+  :affected        [clojure.edn/read-string clojure.edn/read]}
+
+ {:id              :no-reflection
+  :title           "No clojure.reflect / no runtime class inspection"
+  :category-id     :jvm-statics
+  :rationale       "JS has no class system to reflect on. Code that
+                    inspects member signatures must use JS interop
+                    (.constructor, Object.keys, etc.) directly."
+  :since           "cljs-0.1"}
+
+ {:id              :no-clojure-java-io
+  :title           "clojure.java.io is absent"
+  :category-id     :jvm-statics
+  :rationale       "No File / InputStream abstractions. CLJS hosts
+                    have host-specific IO (planck.io, lumo.io,
+                    browser fetch); excluded from parity comparison
+                    intentionally."
+  :since           "cljs-0.1"}
+
+ {:id              :no-jvm-threads
+  :title           "Concurrency primitives are JS-event-loop-bound"
+  :category-id     :concurrency
+  :rationale       "No JVM threads. atom is synchronous as in canon.
+                    future, agent, promise are absent or async-only;
+                    code relying on blocking semantics is not
+                    portable."
+  :since           "cljs-0.1"
+  :affected        [clojure.core/future clojure.core/agent
+                    clojure.core/promise]}
+
+ {:id              :no-proxy-no-gen-class
+  :title           "proxy and gen-class are not provided"
+  :category-id     :jvm-statics
+  :rationale       "No JVM bytecode emitter. JS-target equivalents
+                    are deftype + protocols or specify-based
+                    JS-object construction."
+  :since           "cljs-0.1"
+  :affected        [clojure.core/proxy clojure.core/gen-class]}
+
+ {:id              :namespace-naming-cljs-prefix
+  :title           "Some namespaces use the cljs.* prefix"
+  :category-id     :namespaces
+  :rationale       "clojure.core, clojure.spec.alpha, clojure.test,
+                    clojure.pprint are exposed as cljs.core,
+                    cljs.spec.alpha, cljs.test, cljs.pprint
+                    respectively. clojure.string, clojure.set,
+                    clojure.walk keep their canon names."
+  :since           "cljs-0.1"}
+
+ {:id              :reader-conditional-cljs
+  :title           "Reader conditional :clj does not fire under CLJS"
+  :category-id     :reader
+  :rationale       "Portable code must use :cljs (or :default) to
+                    target CLJS. Code under :clj is invisible to the
+                    CLJS reader."
+  :since           "cljs-0.1"}
+
+ {:id              :clojure-math-not-bundled
+  :title           "clojure.math is not provided"
+  :category-id     :namespaces
+  :rationale       "JS exposes Math/ statics directly; CLJS code uses
+                    js/Math.sin etc. or wraps them per-codebase rather
+                    than via a clojure.math namespace."
+  :since           "cljs-0.1"}
+]

@@ -1,0 +1,48 @@
+;; ClojureScript (self-hosted, planck). Other CLJS runtimes (lumo,
+;; browser-bound CLJS) can reuse this config with a different
+;; :invocation cmd.
+;;
+;; CLJS uses cljs.* names for several stdlib namespaces; the
+;; :surface-normalization :namespace-renames map them onto canon's
+;; clojure.* names so the comparison is apples-to-apples.
+;;
+;; The CLJS-specific surface_dump.cljs is needed because:
+;; - CLJS's `ns-publics` is a compile-time macro that requires a
+;;   literal quoted symbol; the runtime equivalent is
+;;   cljs.analyzer.api/ns-publics
+;; - CLJS's analyzer-api yields a var-info MAP rather than a Var; the
+;;   capture function reads fields directly instead of via `meta`
+{:name             "ClojureScript (planck)"
+ :tag              "cljs"
+ :role             :sut
+ :invocation       {:type :subprocess
+                    :cmd  ["planck" "scripts/surface_dump.cljs"]}
+ :version-cmd      ["planck" "--version"]
+
+ ;; CLJS-side canon parity targets — we ask for the canon clojure.*
+ ;; names; the script captures both the canon name (when present, e.g.
+ ;; clojure.string is a real namespace in CLJS) and the cljs.* name.
+ ;; namespace-renames below collapses them onto canon names.
+ :participates-in  [clojure.core
+                    clojure.string
+                    clojure.set
+                    clojure.walk
+                    clojure.test
+                    clojure.pprint
+                    clojure.edn
+                    clojure.spec.alpha]
+ :data-dir         "data/cljs"
+ :output-dir       "output/cljs"
+
+ :surface-normalization
+ {:namespace-renames {cljs.core         clojure.core
+                      cljs.spec.alpha   clojure.spec.alpha
+                      cljs.test         clojure.test
+                      cljs.pprint       clojure.pprint
+                      cljs.reader       clojure.edn}
+  ;; cljs.spec.gen.alpha has no canon equivalent — drop it from the
+  ;; comparison so it doesn't surface as a one-off "dialect-only ns".
+  :include-only-namespaces
+  #{cljs.core
+    cljs.spec.alpha cljs.test cljs.pprint cljs.reader
+    clojure.string clojure.set clojure.walk}}}
