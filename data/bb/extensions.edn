@@ -1,0 +1,45 @@
+;; Babashka batteries-included namespaces beyond canon's clojure.* tree.
+;;
+;; bb bundles many namespaces (clojure.tools.cli, clojure.tools.logging,
+;; cheshire.core, babashka.process, babashka.fs, ...). Only namespaces
+;; under canon's `clojure.*` target list participate in the parity
+;; comparison; bb's `babashka.*` and other third-party-namespace
+;; extensions are listed here for documentation only — they do not
+;; surface as :dialect-only in the current comparison because the
+;; comparison is scoped to canon's target list.
+;;
+;; v1 keeps this file as a docs-only registry; future v2 may widen the
+;; target list to include `babashka.*` for a more complete picture.
+[
+ {:id             :babashka-fs
+  :title          "babashka.fs — host filesystem helpers"
+  :affected-names ["babashka.fs/exists?"
+                   "babashka.fs/list-dir"
+                   "babashka.fs/file"
+                   "babashka.fs/path"]
+  :category-id    :jvm-statics
+  :rationale      "Cross-platform filesystem operations exposed as a
+                   namespace instead of through clojure.java.io's
+                   File-centric API. Closer to nio.file semantics."
+  :since          "bb-0.6.0"}
+
+ {:id             :babashka-process
+  :title          "babashka.process — subprocess invocation"
+  :affected-names ["babashka.process/process"
+                   "babashka.process/shell"
+                   "babashka.process/sh"]
+  :category-id    :jvm-statics
+  :rationale      "Replaces clojure.java.shell with a richer surface:
+                   pipelines, env override, working-dir control,
+                   streaming stdin/stdout. Standard in bb scripts."
+  :since          "bb-0.6.0"}
+
+ {:id             :pod-loading
+  :title          "babashka.pods — load extension binaries"
+  :affected-names ["babashka.pods/load-pod"]
+  :category-id    :jvm-statics
+  :rationale      "Pods are binaries that expose Clojure namespaces
+                   via a JSON/EDN-over-stdio protocol. They extend
+                   bb's surface at runtime without bytecode."
+  :since          "bb-0.2.0"}
+]

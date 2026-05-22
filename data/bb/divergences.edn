@@ -1,0 +1,66 @@
+;; Hand-curated intentional divergences for Babashka.
+;;
+;; bb wraps SCI (Small Clojure Interpreter); divergences fall in three
+;; buckets: (1) JVM-only features bb intentionally drops, (2) SCI's
+;; interpretation vs Clojure compilation, (3) bb's batteries-included
+;; namespaces that don't appear in canon's clojure.* tree.
+;;
+;; Schema: see ::clj-canon-parity.schema/divergence
+;; :category-id must reference an entry in data/categories.edn.
+[
+ {:id              :reducers-absent
+  :title           "clojure.core.reducers is not bundled"
+  :category-id     :collections
+  :rationale       "bb omits the reducers namespace — fold/r/map etc.
+                    are not available. Transducers cover the typical
+                    use cases."
+  :since           "bb-1.0"
+  :affected        [clojure.core.reducers/fold
+                    clojure.core.reducers/reduce
+                    clojure.core.reducers/map]
+  :doc-link        "https://book.babashka.org/#differences_with_clojure"}
+
+ {:id              :proxy-not-supported
+  :title           "proxy emits no JVM class"
+  :category-id     :jvm-statics
+  :rationale       "proxy generates a JVM class at runtime; SCI has no
+                    bytecode emitter. defrecord + protocols cover the
+                    portable use case."
+  :since           "bb-1.0"
+  :affected        [clojure.core/proxy]}
+
+ {:id              :gen-class-not-supported
+  :title           "gen-class is not supported"
+  :category-id     :jvm-statics
+  :rationale       "gen-class emits AOT JVM bytecode. SCI interprets;
+                    there is no class to emit."
+  :since           "bb-1.0"
+  :affected        [clojure.core/gen-class]}
+
+ {:id              :reflection-not-portable
+  :title           "clojure.reflect is not bundled"
+  :category-id     :jvm-statics
+  :rationale       "JVM reflection is available via clojure.core/bean
+                    and member-access, but the clojure.reflect
+                    namespace is omitted from bb's bundle."
+  :since           "bb-1.0"}
+
+ {:id              :sci-eval-semantics
+  :title           "eval / load-string interpret via SCI, not Compiler"
+  :category-id     :macros
+  :rationale       "Macroexpansion semantics generally match canon
+                    but the underlying interpreter is SCI, so certain
+                    macro hygiene edge cases that rely on the Clojure
+                    Compiler's specific behavior may differ."
+  :since           "bb-1.0"
+  :affected        [clojure.core/eval clojure.core/load-string]}
+
+ {:id              :startup-no-classloader-trickery
+  :title           "No classpath-time loading of user-supplied .class files"
+  :category-id     :jvm-statics
+  :rationale       "bb is a self-contained binary; the JVM
+                    classloader / classpath model that canon code can
+                    poke at (clojure.lang.RT/baseLoader, etc.) is
+                    not exposed."
+  :since           "bb-1.0"}
+]
