@@ -67,7 +67,11 @@
 (s/def ::clojure-version  ::non-blank-string)
 (s/def ::captured-at      ::iso-timestamp)
 
-(s/def ::vars (s/map-of simple-symbol? ::var-entry))
+;; Var-name keys are usually simple-symbol? (`map`, `filter`) but
+;; mino exposes JVM-static-name mirrors (`Math/min`, `Long/parseLong`)
+;; as qualified-style symbols in the `clojure.core` namespace. Allow
+;; either form.
+(s/def ::vars (s/map-of symbol? ::var-entry))
 
 (s/def ::ns-entry
   (s/keys :req-un [::vars]
@@ -188,7 +192,9 @@
 (s/def ::canon-tag         ::non-blank-string)
 (s/def ::compared-at       ::iso-timestamp)
 
-(s/def ::var-name          simple-symbol?)
+;; var-name within a namespace's comparison: usually simple
+;; (`map`, `filter`) but mino allows qualified-style (`Math/min`).
+(s/def ::var-name          symbol?)
 (s/def ::arglists-canon    ::arglists)
 (s/def ::arglists-dialect  ::arglists)
 (s/def ::macro-canon       boolean?)
@@ -202,9 +208,9 @@
                    ::macro-canon ::macro-dialect
                    ::dynamic-canon ::dynamic-dialect]))
 
-(s/def ::in-both      (s/coll-of simple-symbol? :kind set?))
-(s/def ::canon-only   (s/coll-of simple-symbol? :kind set?))
-(s/def ::dialect-only (s/coll-of simple-symbol? :kind set?))
+(s/def ::in-both      (s/coll-of symbol? :kind set?))
+(s/def ::canon-only   (s/coll-of symbol? :kind set?))
+(s/def ::dialect-only (s/coll-of symbol? :kind set?))
 (s/def ::mismatches   (s/coll-of ::mismatch :kind sequential?))
 
 (s/def ::ns-comparison

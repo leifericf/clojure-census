@@ -39,18 +39,25 @@
 
 (defn- mismatch-entry
   "Return a mismatch map iff canon/dialect disagree on `:arglists`,
-  `:macro`, or `:dynamic`; otherwise `nil`."
+  `:macro`, or `:dynamic`; otherwise `nil`.
+
+  Arglists are compared only when BOTH sides supply them — when the
+  dialect doesn't capture arglists at all (mino's metadata system is
+  sparser than JVM Clojure's), we don't flag every var as a mismatch;
+  that's information about the dialect's metadata system, not about
+  individual var-arity divergence."
   [var-name c-entry d-entry]
-  (let [c-args (norm-arglists (:arglists c-entry))
-        d-args (norm-arglists (:arglists d-entry))
+  (let [c-args (:arglists c-entry)
+        d-args (:arglists d-entry)
         c-mac  (norm-flag (:macro c-entry))
         d-mac  (norm-flag (:macro d-entry))
         c-dyn  (norm-flag (:dynamic c-entry))
         d-dyn  (norm-flag (:dynamic d-entry))
         diffs  (cond-> {}
-                 (not= c-args d-args)
-                 (assoc :arglists-canon   (:arglists c-entry)
-                        :arglists-dialect (:arglists d-entry))
+                 (and c-args d-args
+                      (not= (norm-arglists c-args) (norm-arglists d-args)))
+                 (assoc :arglists-canon   c-args
+                        :arglists-dialect d-args)
                  (not= c-mac d-mac)
                  (assoc :macro-canon c-mac :macro-dialect d-mac)
                  (not= c-dyn d-dyn)
