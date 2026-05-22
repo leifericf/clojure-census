@@ -23,6 +23,16 @@
     (is (string? (:script ctx)))
     (is (re-find #"surface_dump.clj$" (:script ctx)))))
 
+(deftest build-ctx-generalizes-env-vars
+  (testing "any env var snake-case+upper maps to a dashed-lower template key"
+    (let [ctx (main/build-ctx
+                {:env {"JANK_BIN"  "/opt/jank"
+                       "PLANCK_BIN" "planck"
+                       "HOME"      "/tmp/home"}})]
+      (is (= "/opt/jank" (:jank-bin ctx)))
+      (is (= "planck"    (:planck-bin ctx)))
+      (is (= "/tmp/home" (:home ctx))))))
+
 (deftest known-subcommands
   (is (= #{"validate-data" "dump" "diff" "render" "all" "help"}
          (set (keys main/dispatch-table)))))

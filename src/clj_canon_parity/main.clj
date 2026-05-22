@@ -46,12 +46,30 @@
 
 ;; ===== context =====================================================
 
+(defn- env->template-keys
+  "Map every env var into a template-substitution key: snake-case →
+  dashed, upper-case → lower-case. `MINO_BIN=...` becomes `{:mino-bin
+  ...}` in the context."
+  [env]
+  (into {}
+        (for [[k v] env]
+          [(keyword (-> k (str/replace "_" "-") str/lower-case)) v])))
+
 (defn build-ctx
-  "Build the template-substitution context for dialect invocations
-  from env vars + sensible defaults."
-  [{:keys [env] :or {env (into {} (System/getenv))}}]
-  {:script   (str repo-root "/scripts/surface_dump.clj")
-   :mino-bin (or (get env "MINO_BIN") "mino")})
+  "Build the template-substitution context for dialect invocations.
+
+  Every env var is exposed as a template key: `MINO_BIN` → `:mino-bin`,
+  `BB_BIN` → `:bb-bin`, etc. The dialect's invocation cmd template
+  picks whichever it needs. `:script` is always set to the portable
+  surface_dump.clj path. Conventional defaults (`:mino-bin` → `mino`
+  on PATH) seed any keys the env didn't set; a dialect that only uses
+  literal binaries (like bb on PATH) needs no env var at all."
+  ([] (build-ctx {}))
+  ([{:keys [env]
+     :or   {env (into {} (System/getenv))}}]
+   (merge {:mino-bin "mino"}     ;; default — look up `mino` on PATH
+          (env->template-keys env)
+          {:script (str repo-root "/scripts/surface_dump.clj")})))
 
 (defn- iso-date-now []
   (let [fmt (java.text.SimpleDateFormat. "yyyy-MM-dd")]
