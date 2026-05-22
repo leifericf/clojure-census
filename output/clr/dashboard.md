@@ -1,6 +1,6 @@
-# ClojureCLR — Clojure-canon parity
+# ClojureCLR -- Clojure-canon parity
 
-**Headline coverage: 96.7%** &nbsp;&nbsp; vs. Clojure 1.12.4 &nbsp;&nbsp; (surface only — see note below)
+**Headline coverage: 96.7%** &nbsp;&nbsp; vs. Clojure 1.12.4 &nbsp;&nbsp; (surface only -- see note below)
 
 > Coverage measures **surface** parity only: does the dialect
 > implement var `X` with matching arity and metadata flags?
@@ -87,11 +87,11 @@ Summary: **0** documented divergences, **33** undocumented gaps.
 Vars present in both surfaces but with differing arglists,
 :macro flag, or :dynamic flag.
 
-- `clojure.core/defn` — :dynamic canon=false dialect=true
-- `clojure.core/sorted-map` — arglists: canon ([& keyvals]) vs. dialect ([] [& keyvals])
-- `clojure.core/sorted-set` — arglists: canon ([& keys]) vs. dialect ([] [& keys])
-- `clojure.math/log` — arglists: canon ([a]) vs. dialect ([a] [a b])
-- `clojure.math/round` — arglists: canon ([a]) vs. dialect ([a] [a b] [a b c])
+- `clojure.core/defn` -- :dynamic canon=false dialect=true
+- `clojure.core/sorted-map` -- arglists: canon ([& keyvals]) vs. dialect ([] [& keyvals])
+- `clojure.core/sorted-set` -- arglists: canon ([& keys]) vs. dialect ([] [& keys])
+- `clojure.math/log` -- arglists: canon ([a]) vs. dialect ([a] [a b])
+- `clojure.math/round` -- arglists: canon ([a]) vs. dialect ([a] [a b] [a b c])
 
 
 ## Dialect-only vars (59)
@@ -103,8 +103,8 @@ removing.
 
 ### Documented extensions
 
-- **clojure.clr.io — CLR filesystem helpers** (`clr-1.0`, JVM-static value remap) — `clojure.clr.io/file`, `clojure.clr.io/reader`, `clojure.clr.io/writer`
-- **clojure.clr.shell — CLR process invocation** (`clr-1.0`, JVM-static value remap) — `clojure.clr.shell/sh`
+- **clojure.clr.io -- CLR filesystem helpers** (`clr-1.0`, JVM-static value remap) -- `clojure.clr.io/file`, `clojure.clr.io/reader`, `clojure.clr.io/writer`
+- **clojure.clr.shell -- CLR process invocation** (`clr-1.0`, JVM-static value remap) -- `clojure.clr.shell/sh`
 
 ### Undocumented dialect-only (59)
 
@@ -173,45 +173,45 @@ removing.
 
 ### Type-system representation
 
-- **Host classes are CLR System.*, not JVM java.*** (`clr-1.0`) — `(class x)` returns a CLR Type object. Code that
+- **Host classes are CLR System.*, not JVM java.*** (`clr-1.0`) -- `(class x)` returns a CLR Type object. Code that
                     pattern-matches on `java.lang.Long` or similar
                     names doesn't work; CLR equivalents are
                     `System.Int64`, `System.String`, etc.
 
 ### Reader behavior
 
-- **Reader conditional :clj does not fire under CLR** (`clr-1.0`) — Portable code uses :cljr (or :default) to target
+- **Reader conditional :clj does not fire under CLR** (`clr-1.0`) -- Portable code uses :cljr (or :default) to target
                     ClojureCLR. Code under :clj is invisible to CLR's
                     reader.
 
 ### Concurrency primitives
 
-- **Concurrency primitives use CLR thread pool** (`clr-1.0`) — Atom / future / agent are implemented on top of
+- **Concurrency primitives use CLR thread pool** (`clr-1.0`) -- Atom / future / agent are implemented on top of
                     System.Threading, not java.util.concurrent. The
                     semantics match canon; the underlying threads
                     differ if interop'd with.
 
 ### Error message shapes
 
-- **Throwables are System.Exception, not java.lang.Throwable** (`clr-1.0`) — `(catch Throwable e ...)` is not portable to CLR;
+- **Throwables are System.Exception, not java.lang.Throwable** (`clr-1.0`) -- `(catch Throwable e ...)` is not portable to CLR;
                     catch `Exception` instead. Portable code uses
                     `:cljr` reader conditionals around catch targets.
 
 ### JVM-static value remap
 
-- **Environment variables read via System.Environment** (`clr-1.0`) — `System/getenv` doesn't exist on CLR; the
+- **Environment variables read via System.Environment** (`clr-1.0`) -- `System/getenv` doesn't exist on CLR; the
                     equivalent is
                     `System.Environment/GetEnvironmentVariable`.
                     Portable code uses a host-conditional helper.
-- **gen-class emits CLR MSIL, not JVM bytecode** (`clr-1.0`) — `gen-class` works on CLR but the AOT artifact is
+- **gen-class emits CLR MSIL, not JVM bytecode** (`clr-1.0`) -- `gen-class` works on CLR but the AOT artifact is
                     a .NET assembly, not a .class file. Consumers
                     that load the generated class via JVM tooling do
                     not work.
-- **clojure.java.io is intentionally absent** (`clr-1.0`) — CLR's IO abstractions are System.IO.*; a separate
+- **clojure.java.io is intentionally absent** (`clr-1.0`) -- CLR's IO abstractions are System.IO.*; a separate
                     ClojureCLR-side namespace `clojure.clr.io` covers
                     the equivalent surface. Code that requires
                     `clojure.java.io` is JVM-bound.
-- **proxy targets CLR types, not JVM interfaces** (`clr-1.0`) — `proxy` is supported on CLR but emits CLR types
+- **proxy targets CLR types, not JVM interfaces** (`clr-1.0`) -- `proxy` is supported on CLR but emits CLR types
                     extending CLR base classes. Proxies of JVM-only
                     interfaces (Runnable, Callable) do not translate.
 

@@ -3,7 +3,7 @@
     "dialect-tag": "mino",
     "dialect-name": "mino",
     "canon-version": "1.12.4",
-    "compared-at": "2026-05-22T10:29:04Z"
+    "compared-at": "2026-05-22T12:28:07Z"
   },
   "divergences": [
     {
@@ -21,7 +21,7 @@
     },
     {
       "id": "one-integer-tier",
-      "title": "Single integer type \u2014 no Long\/Integer\/Short distinction",
+      "title": "Single integer type -- no Long\/Integer\/Short distinction",
       "category-id": "numeric-tower",
       "rationale": "mino has no JVM types; one integer representation\n                    suffices. Promotion within the integer tier never\n                    happens because there is only one tier.",
       "since": "v0.1.0",
@@ -55,7 +55,7 @@
     },
     {
       "id": "class-of-non-jvm",
-      "title": "class behaves like type \u2014 no JVM-class semantics",
+      "title": "class behaves like type -- no JVM-class semantics",
       "category-id": "type-system",
       "rationale": "There are no classes; class is provided as a\n                    Clojure-canon-shaped alias rather than a separate\n                    abstraction.",
       "since": "v0.1.0",
@@ -115,7 +115,7 @@
       "id": "keyword-namespaces-canonicalized",
       "title": "Namespaced keyword aliasing uses runtime aliases",
       "category-id": "namespaces",
-      "rationale": "::alias\/kw is resolved at read time against the\n                    current ns's aliases \u2014 same as JVM Clojure, but\n                    mino's reader does not have access to the JVM\n                    classloader hierarchy.",
+      "rationale": "::alias\/kw is resolved at read time against the\n                    current ns's aliases -- same as JVM Clojure, but\n                    mino's reader does not have access to the JVM\n                    classloader hierarchy.",
       "since": "v0.1.0"
     },
     {
@@ -127,7 +127,7 @@
     },
     {
       "id": "pprint-minimal",
-      "title": "pprint is minimal \u2014 no cl-format directives",
+      "title": "pprint is minimal -- no cl-format directives",
       "category-id": "printer",
       "rationale": "mino's clojure.pprint supports pretty-printing\n                    basic forms; cl-format and table directives are\n                    not implemented. Targets the common case.",
       "since": "v0.1.0",
@@ -147,7 +147,7 @@
     },
     {
       "id": "no-jvm-reflection",
-      "title": "No clojure.reflect \u2014 JVM-only",
+      "title": "No clojure.reflect -- JVM-only",
       "category-id": "jvm-statics",
       "rationale": "Reflection is meaningless without a JVM. mino's\n                    introspection uses ns-publics + meta, not class\n                    inspection.",
       "since": "v0.1.0"
@@ -156,7 +156,7 @@
       "id": "record-no-host-class",
       "title": "defrecord types are not Java classes",
       "category-id": "type-system",
-      "rationale": "mino's records carry identity, field slots, and a\n                    type keyword \u2014 no host-level class is generated.\n                    instance? on a record uses the type keyword as\n                    its discriminator.",
+      "rationale": "mino's records carry identity, field slots, and a\n                    type keyword -- no host-level class is generated.\n                    instance? on a record uses the type keyword as\n                    its discriminator.",
       "since": "v0.1.0",
       "affected": [
         "clojure.core\/defrecord",
@@ -167,7 +167,7 @@
       "id": "proxy-not-implemented",
       "title": "proxy is not provided",
       "category-id": "jvm-statics",
-      "rationale": "proxy generates a JVM class \u2014 no equivalent in\n                    mino. defrecord + protocols cover the same use\n                    case in a host-portable way.",
+      "rationale": "proxy generates a JVM class -- no equivalent in\n                    mino. defrecord + protocols cover the same use\n                    case in a host-portable way.",
       "since": "v0.1.0",
       "affected": [
         "clojure.core\/proxy"

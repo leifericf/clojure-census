@@ -1,6 +1,6 @@
-# Babashka — Clojure-canon parity
+# Babashka -- Clojure-canon parity
 
-**Headline coverage: 90.3%** &nbsp;&nbsp; vs. Clojure 1.12.4 &nbsp;&nbsp; (surface only — see note below)
+**Headline coverage: 90.3%** &nbsp;&nbsp; vs. Clojure 1.12.4 &nbsp;&nbsp; (surface only -- see note below)
 
 > Coverage measures **surface** parity only: does the dialect
 > implement var `X` with matching arity and metadata flags?
@@ -69,7 +69,7 @@ for future implementation.
 - `find-keyword`
 - `find-protocol-impl`
 - `find-protocol-method`
-- `gen-class` — documented as divergence :gen-class-not-supported
+- `gen-class` -- documented as divergence :gen-class-not-supported
 - `gen-interface`
 - `get-proxy-class`
 - `import`
@@ -108,14 +108,14 @@ for future implementation.
 - `filter`
 - `fjtask`
 - `flatten`
-- `fold` — documented as divergence :reducers-absent
+- `fold` -- documented as divergence :reducers-absent
 - `foldcat`
 - `folder`
-- `map` — documented as divergence :reducers-absent
+- `map` -- documented as divergence :reducers-absent
 - `mapcat`
 - `monoid`
 - `pool`
-- `reduce` — documented as divergence :reducers-absent
+- `reduce` -- documented as divergence :reducers-absent
 - `reducer`
 - `remove`
 - `take`
@@ -157,32 +157,32 @@ Summary: **4** documented divergences, **93** undocumented gaps.
 Vars present in both surfaces but with differing arglists,
 :macro flag, or :dynamic flag.
 
-- `clojure.core/*assert*` — :dynamic canon=false dialect=true
-- `clojure.core/*command-line-args*` — :dynamic canon=false dialect=true
-- `clojure.core/*compile-files*` — :dynamic canon=false dialect=true
-- `clojure.core/*compile-path*` — :dynamic canon=false dialect=true
-- `clojure.core/*compiler-options*` — :dynamic canon=false dialect=true
-- `clojure.core/*err*` — :dynamic canon=false dialect=true
-- `clojure.core/*file*` — :dynamic canon=false dialect=true
-- `clojure.core/*flush-on-newline*` — :dynamic canon=false dialect=true
-- `clojure.core/*in*` — :dynamic canon=false dialect=true
-- `clojure.core/*math-context*` — :dynamic canon=false dialect=true
-- `clojure.core/*ns*` — :dynamic canon=false dialect=true
-- `clojure.core/*out*` — :dynamic canon=false dialect=true
-- `clojure.core/*print-dup*` — :dynamic canon=false dialect=true
-- `clojure.core/*print-meta*` — :dynamic canon=false dialect=true
-- `clojure.core/*print-readably*` — :dynamic canon=false dialect=true
-- `clojure.core/*read-eval*` — :dynamic canon=false dialect=true
-- `clojure.core/*reader-resolver*` — :dynamic canon=false dialect=true
-- `clojure.core/*source-path*` — :dynamic canon=false dialect=true
-- `clojure.core/*suppress-read*` — :dynamic canon=false dialect=true
-- `clojure.core/*unchecked-math*` — :dynamic canon=false dialect=true
-- `clojure.core/*warn-on-reflection*` — :dynamic canon=false dialect=true
-- `clojure.core/destructure` — arglists: canon ([bindings]) vs. dialect ([b] [b loc])
-- `clojure.core/sync` — arglists: canon ([flags-ignored-for-now & body]) vs. dialect ([_flags-ignored-for-now & body])
-- `clojure.core/time` — arglists: canon ([expr]) vs. dialect ([_ _ expr])
-- `clojure.core/vswap!` — arglists: canon ([vol f & args]) vs. dialect ([_ _ vol f & args])
-- `clojure.template/do-template` — arglists: canon ([argv expr & values]) vs. dialect ([_ _ argv expr & values])
+- `clojure.core/*assert*` -- :dynamic canon=false dialect=true
+- `clojure.core/*command-line-args*` -- :dynamic canon=false dialect=true
+- `clojure.core/*compile-files*` -- :dynamic canon=false dialect=true
+- `clojure.core/*compile-path*` -- :dynamic canon=false dialect=true
+- `clojure.core/*compiler-options*` -- :dynamic canon=false dialect=true
+- `clojure.core/*err*` -- :dynamic canon=false dialect=true
+- `clojure.core/*file*` -- :dynamic canon=false dialect=true
+- `clojure.core/*flush-on-newline*` -- :dynamic canon=false dialect=true
+- `clojure.core/*in*` -- :dynamic canon=false dialect=true
+- `clojure.core/*math-context*` -- :dynamic canon=false dialect=true
+- `clojure.core/*ns*` -- :dynamic canon=false dialect=true
+- `clojure.core/*out*` -- :dynamic canon=false dialect=true
+- `clojure.core/*print-dup*` -- :dynamic canon=false dialect=true
+- `clojure.core/*print-meta*` -- :dynamic canon=false dialect=true
+- `clojure.core/*print-readably*` -- :dynamic canon=false dialect=true
+- `clojure.core/*read-eval*` -- :dynamic canon=false dialect=true
+- `clojure.core/*reader-resolver*` -- :dynamic canon=false dialect=true
+- `clojure.core/*source-path*` -- :dynamic canon=false dialect=true
+- `clojure.core/*suppress-read*` -- :dynamic canon=false dialect=true
+- `clojure.core/*unchecked-math*` -- :dynamic canon=false dialect=true
+- `clojure.core/*warn-on-reflection*` -- :dynamic canon=false dialect=true
+- `clojure.core/destructure` -- arglists: canon ([bindings]) vs. dialect ([b] [b loc])
+- `clojure.core/sync` -- arglists: canon ([flags-ignored-for-now & body]) vs. dialect ([_flags-ignored-for-now & body])
+- `clojure.core/time` -- arglists: canon ([expr]) vs. dialect ([_ _ expr])
+- `clojure.core/vswap!` -- arglists: canon ([vol f & args]) vs. dialect ([_ _ vol f & args])
+- `clojure.template/do-template` -- arglists: canon ([argv expr & values]) vs. dialect ([_ _ argv expr & values])
 
 
 ## Dialect-only vars (21)
@@ -194,9 +194,9 @@ removing.
 
 ### Documented extensions
 
-- **babashka.fs — host filesystem helpers** (`bb-0.6.0`, JVM-static value remap) — `babashka.fs/exists?`, `babashka.fs/list-dir`, `babashka.fs/file`, `babashka.fs/path`
-- **babashka.process — subprocess invocation** (`bb-0.6.0`, JVM-static value remap) — `babashka.process/process`, `babashka.process/shell`, `babashka.process/sh`
-- **babashka.pods — load extension binaries** (`bb-0.2.0`, JVM-static value remap) — `babashka.pods/load-pod`
+- **babashka.fs -- host filesystem helpers** (`bb-0.6.0`, JVM-static value remap) -- `babashka.fs/exists?`, `babashka.fs/list-dir`, `babashka.fs/file`, `babashka.fs/path`
+- **babashka.process -- subprocess invocation** (`bb-0.6.0`, JVM-static value remap) -- `babashka.process/process`, `babashka.process/shell`, `babashka.process/sh`
+- **babashka.pods -- load extension binaries** (`bb-0.2.0`, JVM-static value remap) -- `babashka.pods/load-pod`
 
 ### Undocumented dialect-only (21)
 
@@ -227,28 +227,28 @@ removing.
 
 ### Collection semantics
 
-- **clojure.core.reducers is not bundled** (`bb-1.0`) — bb omits the reducers namespace — fold/r/map etc.
+- **clojure.core.reducers is not bundled** (`bb-1.0`) -- bb omits the reducers namespace -- fold/r/map etc.
                     are not available. Transducers cover the typical
                     use cases.
 
 ### JVM-static value remap
 
-- **gen-class is not supported** (`bb-1.0`) — gen-class emits AOT JVM bytecode. SCI interprets;
+- **gen-class is not supported** (`bb-1.0`) -- gen-class emits AOT JVM bytecode. SCI interprets;
                     there is no class to emit.
-- **proxy emits no JVM class** (`bb-1.0`) — proxy generates a JVM class at runtime; SCI has no
+- **proxy emits no JVM class** (`bb-1.0`) -- proxy generates a JVM class at runtime; SCI has no
                     bytecode emitter. defrecord + protocols cover the
                     portable use case.
-- **clojure.reflect is not bundled** (`bb-1.0`) — JVM reflection is available via clojure.core/bean
+- **clojure.reflect is not bundled** (`bb-1.0`) -- JVM reflection is available via clojure.core/bean
                     and member-access, but the clojure.reflect
                     namespace is omitted from bb's bundle.
-- **No classpath-time loading of user-supplied .class files** (`bb-1.0`) — bb is a self-contained binary; the JVM
+- **No classpath-time loading of user-supplied .class files** (`bb-1.0`) -- bb is a self-contained binary; the JVM
                     classloader / classpath model that canon code can
                     poke at (clojure.lang.RT/baseLoader, etc.) is
                     not exposed.
 
 ### Macro semantics
 
-- **eval / load-string interpret via SCI, not Compiler** (`bb-1.0`) — Macroexpansion semantics generally match canon
+- **eval / load-string interpret via SCI, not Compiler** (`bb-1.0`) -- Macroexpansion semantics generally match canon
                     but the underlying interpreter is SCI, so certain
                     macro hygiene edge cases that rely on the Clojure
                     Compiler's specific behavior may differ.

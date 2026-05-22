@@ -1,6 +1,6 @@
-# mino — Clojure-canon parity
+# mino -- Clojure-canon parity
 
-**Headline coverage: 75.5%** &nbsp;&nbsp; vs. Clojure 1.12.4 &nbsp;&nbsp; (surface only — see note below)
+**Headline coverage: 75.5%** &nbsp;&nbsp; vs. Clojure 1.12.4 &nbsp;&nbsp; (surface only -- see note below)
 
 > Coverage measures **surface** parity only: does the dialect
 > implement var `X` with matching arity and metadata flags?
@@ -86,8 +86,8 @@ for future implementation.
 - `char-escape-string`
 - `char-name-string`
 - `chars`
-- `class` — documented as divergence :type-as-keyword
-- `class?` — documented as divergence :class-of-non-jvm
+- `class` -- documented as divergence :type-as-keyword
+- `class?` -- documented as divergence :class-of-non-jvm
 - `clear-agent-errors`
 - `compile`
 - `construct-proxy`
@@ -282,7 +282,7 @@ for future implementation.
 - `get-possibly-unbound-var`
 - `inc-report-counter`
 - `join-fixtures`
-- `report` — documented as divergence :clojure-test-machinery-mino-shape
+- `report` -- documented as divergence :clojure-test-machinery-mino-shape
 - `run-all-tests`
 - `run-test`
 - `run-test-var`
@@ -310,107 +310,107 @@ Summary: **3** documented divergences, **241** undocumented gaps.
 Vars present in both surfaces but with differing arglists,
 :macro flag, or :dynamic flag.
 
-- `clojure.core/*agent*` — :dynamic canon=false dialect=true
-- `clojure.core/*assert*` — :dynamic canon=false dialect=true
-- `clojure.core/*clojure-version*` — :dynamic canon=true dialect=false
-- `clojure.core/*command-line-args*` — :dynamic canon=false dialect=true
-- `clojure.core/*compile-files*` — :dynamic canon=false dialect=true
-- `clojure.core/*compile-path*` — :dynamic canon=false dialect=true
-- `clojure.core/*err*` — :dynamic canon=false dialect=true
-- `clojure.core/*file*` — :dynamic canon=false dialect=true
-- `clojure.core/*flush-on-newline*` — :dynamic canon=false dialect=true
-- `clojure.core/*in*` — :dynamic canon=false dialect=true
-- `clojure.core/*math-context*` — :dynamic canon=false dialect=true
-- `clojure.core/*out*` — :dynamic canon=false dialect=true
-- `clojure.core/*print-dup*` — :dynamic canon=false dialect=true
-- `clojure.core/*print-meta*` — :dynamic canon=false dialect=true
-- `clojure.core/*print-readably*` — :dynamic canon=false dialect=true
-- `clojure.core/*source-path*` — :dynamic canon=false dialect=true
-- `clojure.core/*unchecked-math*` — :dynamic canon=false dialect=true
-- `clojure.core/*warn-on-reflection*` — :dynamic canon=false dialect=true
-- `clojure.core/->` — :macro canon=true dialect=false
-- `clojure.core/->>` — :macro canon=true dialect=false
-- `clojure.core/and` — :macro canon=true dialect=false
-- `clojure.core/as->` — :macro canon=true dialect=false
-- `clojure.core/assert` — :macro canon=true dialect=false
-- `clojure.core/bound-fn` — :macro canon=true dialect=false
-- `clojure.core/case` — :macro canon=true dialect=false
-- `clojure.core/comment` — :macro canon=true dialect=false
-- `clojure.core/cond` — :macro canon=true dialect=false
-- `clojure.core/cond->` — :macro canon=true dialect=false
-- `clojure.core/cond->>` — :macro canon=true dialect=false
-- `clojure.core/condp` — :macro canon=true dialect=false
-- `clojure.core/definterface` — :macro canon=true dialect=false
-- `clojure.core/defmethod` — :macro canon=true dialect=false
-- `clojure.core/defmulti` — :macro canon=true dialect=false
-- `clojure.core/defn` — :macro canon=true dialect=false
-- `clojure.core/defn-` — :macro canon=true dialect=false
-- `clojure.core/defonce` — :macro canon=true dialect=false
-- `clojure.core/defprotocol` — :macro canon=true dialect=false
-- `clojure.core/defrecord` — :macro canon=true dialect=false
-- `clojure.core/deftype` — :macro canon=true dialect=false
-- `clojure.core/delay` — :macro canon=true dialect=false
-- `clojure.core/doseq` — :macro canon=true dialect=false
-- `clojure.core/dosync` — :macro canon=true dialect=false
-- `clojure.core/dotimes` — :macro canon=true dialect=false
-- `clojure.core/doto` — :macro canon=true dialect=false
-- `clojure.core/extend-protocol` — :macro canon=true dialect=false
-- `clojure.core/extend-type` — :macro canon=true dialect=false
-- `clojure.core/for` — :macro canon=true dialect=false
-- `clojure.core/future` — :macro canon=true dialect=false
-- `clojure.core/gen-class` — :macro canon=true dialect=false
-- `clojure.core/if-let` — :macro canon=true dialect=false
-- `clojure.core/if-not` — :macro canon=true dialect=false
-- `clojure.core/if-some` — :macro canon=true dialect=false
-- `clojure.core/import` — :macro canon=true dialect=false
-- `clojure.core/io!` — :macro canon=true dialect=false
-- `clojure.core/lazy-cat` — :macro canon=true dialect=false
-- `clojure.core/letfn` — :macro canon=true dialect=false
-- `clojure.core/or` — :macro canon=true dialect=false
-- `clojure.core/pr` — :dynamic canon=true dialect=false
-- `clojure.core/proxy` — :macro canon=true dialect=false
-- `clojure.core/pvalues` — :macro canon=true dialect=false
-- `clojure.core/reify` — :macro canon=true dialect=false
-- `clojure.core/some->` — :macro canon=true dialect=false
-- `clojure.core/some->>` — :macro canon=true dialect=false
-- `clojure.core/time` — :macro canon=true dialect=false
-- `clojure.core/vswap!` — :macro canon=true dialect=false
-- `clojure.core/when` — :macro canon=true dialect=false
-- `clojure.core/when-first` — :macro canon=true dialect=false
-- `clojure.core/when-let` — :macro canon=true dialect=false
-- `clojure.core/when-not` — :macro canon=true dialect=false
-- `clojure.core/when-some` — :macro canon=true dialect=false
-- `clojure.core/while` — :macro canon=true dialect=false
-- `clojure.core/with-bindings` — :macro canon=true dialect=false
-- `clojure.core/with-in-str` — :macro canon=true dialect=false
-- `clojure.core/with-local-vars` — :macro canon=true dialect=false
-- `clojure.core/with-open` — :macro canon=true dialect=false
-- `clojure.core/with-out-str` — :macro canon=true dialect=false
-- `clojure.core/with-precision` — :macro canon=true dialect=false
-- `clojure.core/with-redefs` — :macro canon=true dialect=false
-- `clojure.spec.alpha/&` — :macro canon=true dialect=false
-- `clojure.spec.alpha/*` — :macro canon=true dialect=false
-- `clojure.spec.alpha/+` — :macro canon=true dialect=false
-- `clojure.spec.alpha/?` — :macro canon=true dialect=false
-- `clojure.spec.alpha/alt` — :macro canon=true dialect=false
-- `clojure.spec.alpha/and` — :macro canon=true dialect=false
-- `clojure.spec.alpha/assert` — :macro canon=true dialect=false
-- `clojure.spec.alpha/cat` — :macro canon=true dialect=false
-- `clojure.spec.alpha/coll-of` — :macro canon=true dialect=false
-- `clojure.spec.alpha/conformer` — :macro canon=true dialect=false
-- `clojure.spec.alpha/def` — :macro canon=true dialect=false
-- `clojure.spec.alpha/fdef` — :macro canon=true dialect=false
-- `clojure.spec.alpha/keys` — :macro canon=true dialect=false
-- `clojure.spec.alpha/map-of` — :macro canon=true dialect=false
-- `clojure.spec.alpha/nilable` — :macro canon=true dialect=false
-- `clojure.spec.alpha/or` — :macro canon=true dialect=false
-- `clojure.spec.alpha/spec` — :macro canon=true dialect=false
-- `clojure.spec.alpha/tuple` — :macro canon=true dialect=false
-- `clojure.template/do-template` — :macro canon=true dialect=false
-- `clojure.test/are` — :macro canon=true dialect=false
-- `clojure.test/deftest` — :macro canon=true dialect=false
-- `clojure.test/is` — :macro canon=true dialect=false
-- `clojure.test/testing` — :macro canon=true dialect=false
+- `clojure.core/*agent*` -- :dynamic canon=false dialect=true
+- `clojure.core/*assert*` -- :dynamic canon=false dialect=true
+- `clojure.core/*clojure-version*` -- :dynamic canon=true dialect=false
+- `clojure.core/*command-line-args*` -- :dynamic canon=false dialect=true
+- `clojure.core/*compile-files*` -- :dynamic canon=false dialect=true
+- `clojure.core/*compile-path*` -- :dynamic canon=false dialect=true
+- `clojure.core/*err*` -- :dynamic canon=false dialect=true
+- `clojure.core/*file*` -- :dynamic canon=false dialect=true
+- `clojure.core/*flush-on-newline*` -- :dynamic canon=false dialect=true
+- `clojure.core/*in*` -- :dynamic canon=false dialect=true
+- `clojure.core/*math-context*` -- :dynamic canon=false dialect=true
+- `clojure.core/*out*` -- :dynamic canon=false dialect=true
+- `clojure.core/*print-dup*` -- :dynamic canon=false dialect=true
+- `clojure.core/*print-meta*` -- :dynamic canon=false dialect=true
+- `clojure.core/*print-readably*` -- :dynamic canon=false dialect=true
+- `clojure.core/*source-path*` -- :dynamic canon=false dialect=true
+- `clojure.core/*unchecked-math*` -- :dynamic canon=false dialect=true
+- `clojure.core/*warn-on-reflection*` -- :dynamic canon=false dialect=true
+- `clojure.core/->` -- :macro canon=true dialect=false
+- `clojure.core/->>` -- :macro canon=true dialect=false
+- `clojure.core/and` -- :macro canon=true dialect=false
+- `clojure.core/as->` -- :macro canon=true dialect=false
+- `clojure.core/assert` -- :macro canon=true dialect=false
+- `clojure.core/bound-fn` -- :macro canon=true dialect=false
+- `clojure.core/case` -- :macro canon=true dialect=false
+- `clojure.core/comment` -- :macro canon=true dialect=false
+- `clojure.core/cond` -- :macro canon=true dialect=false
+- `clojure.core/cond->` -- :macro canon=true dialect=false
+- `clojure.core/cond->>` -- :macro canon=true dialect=false
+- `clojure.core/condp` -- :macro canon=true dialect=false
+- `clojure.core/definterface` -- :macro canon=true dialect=false
+- `clojure.core/defmethod` -- :macro canon=true dialect=false
+- `clojure.core/defmulti` -- :macro canon=true dialect=false
+- `clojure.core/defn` -- :macro canon=true dialect=false
+- `clojure.core/defn-` -- :macro canon=true dialect=false
+- `clojure.core/defonce` -- :macro canon=true dialect=false
+- `clojure.core/defprotocol` -- :macro canon=true dialect=false
+- `clojure.core/defrecord` -- :macro canon=true dialect=false
+- `clojure.core/deftype` -- :macro canon=true dialect=false
+- `clojure.core/delay` -- :macro canon=true dialect=false
+- `clojure.core/doseq` -- :macro canon=true dialect=false
+- `clojure.core/dosync` -- :macro canon=true dialect=false
+- `clojure.core/dotimes` -- :macro canon=true dialect=false
+- `clojure.core/doto` -- :macro canon=true dialect=false
+- `clojure.core/extend-protocol` -- :macro canon=true dialect=false
+- `clojure.core/extend-type` -- :macro canon=true dialect=false
+- `clojure.core/for` -- :macro canon=true dialect=false
+- `clojure.core/future` -- :macro canon=true dialect=false
+- `clojure.core/gen-class` -- :macro canon=true dialect=false
+- `clojure.core/if-let` -- :macro canon=true dialect=false
+- `clojure.core/if-not` -- :macro canon=true dialect=false
+- `clojure.core/if-some` -- :macro canon=true dialect=false
+- `clojure.core/import` -- :macro canon=true dialect=false
+- `clojure.core/io!` -- :macro canon=true dialect=false
+- `clojure.core/lazy-cat` -- :macro canon=true dialect=false
+- `clojure.core/letfn` -- :macro canon=true dialect=false
+- `clojure.core/or` -- :macro canon=true dialect=false
+- `clojure.core/pr` -- :dynamic canon=true dialect=false
+- `clojure.core/proxy` -- :macro canon=true dialect=false
+- `clojure.core/pvalues` -- :macro canon=true dialect=false
+- `clojure.core/reify` -- :macro canon=true dialect=false
+- `clojure.core/some->` -- :macro canon=true dialect=false
+- `clojure.core/some->>` -- :macro canon=true dialect=false
+- `clojure.core/time` -- :macro canon=true dialect=false
+- `clojure.core/vswap!` -- :macro canon=true dialect=false
+- `clojure.core/when` -- :macro canon=true dialect=false
+- `clojure.core/when-first` -- :macro canon=true dialect=false
+- `clojure.core/when-let` -- :macro canon=true dialect=false
+- `clojure.core/when-not` -- :macro canon=true dialect=false
+- `clojure.core/when-some` -- :macro canon=true dialect=false
+- `clojure.core/while` -- :macro canon=true dialect=false
+- `clojure.core/with-bindings` -- :macro canon=true dialect=false
+- `clojure.core/with-in-str` -- :macro canon=true dialect=false
+- `clojure.core/with-local-vars` -- :macro canon=true dialect=false
+- `clojure.core/with-open` -- :macro canon=true dialect=false
+- `clojure.core/with-out-str` -- :macro canon=true dialect=false
+- `clojure.core/with-precision` -- :macro canon=true dialect=false
+- `clojure.core/with-redefs` -- :macro canon=true dialect=false
+- `clojure.spec.alpha/&` -- :macro canon=true dialect=false
+- `clojure.spec.alpha/*` -- :macro canon=true dialect=false
+- `clojure.spec.alpha/+` -- :macro canon=true dialect=false
+- `clojure.spec.alpha/?` -- :macro canon=true dialect=false
+- `clojure.spec.alpha/alt` -- :macro canon=true dialect=false
+- `clojure.spec.alpha/and` -- :macro canon=true dialect=false
+- `clojure.spec.alpha/assert` -- :macro canon=true dialect=false
+- `clojure.spec.alpha/cat` -- :macro canon=true dialect=false
+- `clojure.spec.alpha/coll-of` -- :macro canon=true dialect=false
+- `clojure.spec.alpha/conformer` -- :macro canon=true dialect=false
+- `clojure.spec.alpha/def` -- :macro canon=true dialect=false
+- `clojure.spec.alpha/fdef` -- :macro canon=true dialect=false
+- `clojure.spec.alpha/keys` -- :macro canon=true dialect=false
+- `clojure.spec.alpha/map-of` -- :macro canon=true dialect=false
+- `clojure.spec.alpha/nilable` -- :macro canon=true dialect=false
+- `clojure.spec.alpha/or` -- :macro canon=true dialect=false
+- `clojure.spec.alpha/spec` -- :macro canon=true dialect=false
+- `clojure.spec.alpha/tuple` -- :macro canon=true dialect=false
+- `clojure.template/do-template` -- :macro canon=true dialect=false
+- `clojure.test/are` -- :macro canon=true dialect=false
+- `clojure.test/deftest` -- :macro canon=true dialect=false
+- `clojure.test/is` -- :macro canon=true dialect=false
+- `clojure.test/testing` -- :macro canon=true dialect=false
 
 
 ## Dialect-only vars (218)
@@ -422,10 +422,10 @@ removing.
 
 ### Documented extensions
 
-- **JVM static method mirrors for integer radix conversion** (`v0.422.5`, JVM-static value remap) — `clojure.core/Integer/toBinaryString`, `clojure.core/Integer/toHexString`, `clojure.core/Integer/toOctalString`, `clojure.core/Long/toBinaryString`, `clojure.core/Long/toHexString`, `clojure.core/Long/toOctalString`
-- **Keyword-based bitmask matching primitive** (`v0.422.0`, Collection semantics) — `clojure.core/bits-kw-match`
-- **Monotonic-clock primitive** (`v0.166.0`, JVM-static value remap) — `clojure.core/time-ms`
-- **C++ RAII wrappers in mino.hpp** (`v0.421.0`, JVM-static value remap) — `clojure.core/cpp-wrappers`
+- **JVM static method mirrors for integer radix conversion** (`v0.422.5`, JVM-static value remap) -- `clojure.core/Integer/toBinaryString`, `clojure.core/Integer/toHexString`, `clojure.core/Integer/toOctalString`, `clojure.core/Long/toBinaryString`, `clojure.core/Long/toHexString`, `clojure.core/Long/toOctalString`
+- **Keyword-based bitmask matching primitive** (`v0.422.0`, Collection semantics) -- `clojure.core/bits-kw-match`
+- **Monotonic-clock primitive** (`v0.166.0`, JVM-static value remap) -- `clojure.core/time-ms`
+- **C++ RAII wrappers in mino.hpp** (`v0.421.0`, JVM-static value remap) -- `clojure.core/cpp-wrappers`
 
 ### Undocumented dialect-only (211)
 
@@ -646,133 +646,133 @@ removing.
 
 ### Ordering & comparison
 
-- **compare returns sign-only (-1, 0, 1)** (`v0.1.0`) — Hickey-test for what compare's contract is: a
+- **compare returns sign-only (-1, 0, 1)** (`v0.1.0`) -- Hickey-test for what compare's contract is: a
                     three-way ordering function. Sign-normalized
                     return values are simpler and avoid leaking
                     representation-specific deltas.
-- **sorted-map default comparator does not handle mixed types** (`v0.98.0`) — Cross-type comparison was closed in v0.98; mixed-
+- **sorted-map default comparator does not handle mixed types** (`v0.98.0`) -- Cross-type comparison was closed in v0.98; mixed-
                     type sorted-map keys without an explicit comparator
                     may throw rather than coerce.
 
 ### Type-system representation
 
-- **class behaves like type — no JVM-class semantics** (`v0.1.0`) — There are no classes; class is provided as a
+- **class behaves like type -- no JVM-class semantics** (`v0.1.0`) -- There are no classes; class is provided as a
                     Clojure-canon-shaped alias rather than a separate
                     abstraction.
-- **deftype is an alias for defrecord without map-like ops** (`v0.1.0`) — deftype's volatile-field and interface-impl
+- **deftype is an alias for defrecord without map-like ops** (`v0.1.0`) -- deftype's volatile-field and interface-impl
                     features depend on JVM semantics. mino provides
                     deftype as a structural type carrier; the JVM-
                     only knobs are no-ops.
-- **defrecord types are not Java classes** (`v0.1.0`) — mino's records carry identity, field slots, and a
-                    type keyword — no host-level class is generated.
+- **defrecord types are not Java classes** (`v0.1.0`) -- mino's records carry identity, field slots, and a
+                    type keyword -- no host-level class is generated.
                     instance? on a record uses the type keyword as
                     its discriminator.
-- **type returns a keyword, not a Java class** (`v0.1.0`) — No JVM classes. mino's type system is keyword-
+- **type returns a keyword, not a Java class** (`v0.1.0`) -- No JVM classes. mino's type system is keyword-
                     tagged (:vector, :map, :list, :symbol, ...).
                     Dispatch logic that pattern-matches on classes
                     must use the keyword tags instead.
 
 ### Numeric tower
 
-- **Float-32 is a distinct numeric type** (`v0.1.0`) — mino exposes a 32-bit float-tagged value for
+- **Float-32 is a distinct numeric type** (`v0.1.0`) -- mino exposes a 32-bit float-tagged value for
                     space-constrained embedded use; canon collapses
                     to Double.
-- **= on cross-type numbers follows Clojure-canon, not JVM =** (`v0.1.0`) — = remains a value-equality predicate; numeric
+- **= on cross-type numbers follows Clojure-canon, not JVM =** (`v0.1.0`) -- = remains a value-equality predicate; numeric
                     equality across float / int is what canon
                     specifies, not JVM-Object-equality.
-- **Single integer type — no Long/Integer/Short distinction** (`v0.1.0`) — mino has no JVM types; one integer representation
+- **Single integer type -- no Long/Integer/Short distinction** (`v0.1.0`) -- mino has no JVM types; one integer representation
                     suffices. Promotion within the integer tier never
                     happens because there is only one tier.
 
 ### Reader behavior
 
-- **Reader conditional :clj does not fire under mino** (`v0.1.0`) — mino is not JVM Clojure; portable code must use
+- **Reader conditional :clj does not fire under mino** (`v0.1.0`) -- mino is not JVM Clojure; portable code must use
                     :default or :mino to target it. Documented and
                     intentional.
 
 ### Printer behavior
 
-- **CLI default for *print-namespace-maps* is true** (`v0.422.0`) — mino's CLI alters the var-root to true on startup
+- **CLI default for *print-namespace-maps* is true** (`v0.422.0`) -- mino's CLI alters the var-root to true on startup
                     so user-facing prints collapse qualified-key maps.
                     bb and JVM Clojure do the same; library use sees
                     the documented false default.
-- **pprint is minimal — no cl-format directives** (`v0.1.0`) — mino's clojure.pprint supports pretty-printing
+- **pprint is minimal -- no cl-format directives** (`v0.1.0`) -- mino's clojure.pprint supports pretty-printing
                     basic forms; cl-format and table directives are
                     not implemented. Targets the common case.
 
 ### Collection semantics
 
-- **Sequence chunking is deterministic but not always 32** (`v0.1.0`) — Lazy realization batch size is implementation-
+- **Sequence chunking is deterministic but not always 32** (`v0.1.0`) -- Lazy realization batch size is implementation-
                     defined in canon; mino picks sizes that suit the
                     embedded use case. Code that depends on exact
                     chunk boundaries is non-portable in canon too.
-- **clojure.spec generators ship as separate primitives** (`v0.1.0`) — mino's spec.alpha implements the documented
+- **clojure.spec generators ship as separate primitives** (`v0.1.0`) -- mino's spec.alpha implements the documented
                     surface; clojure.spec.gen.alpha is partially
                     present and may diverge from clojure.test.check
                     behavior on edge cases.
-- **transit reader/writer are not bundled** (`v0.1.0`) — Transit is a JVM artifact in canon distributions;
+- **transit reader/writer are not bundled** (`v0.1.0`) -- Transit is a JVM artifact in canon distributions;
                     mino does not bundle it. EDN remains the wire
                     format.
 
 ### Concurrency primitives
 
-- **Atoms, refs, futures, agents have alpha-quality** (`v0.1.0`) — mino runs single-threaded in the embedded host;
+- **Atoms, refs, futures, agents have alpha-quality** (`v0.1.0`) -- mino runs single-threaded in the embedded host;
                     concurrency primitives are present but the
                     underlying execution model is cooperative, not
                     preemptive.
 
 ### Error message shapes
 
-- **clojure.test reports via mino's counters, not JVM clojure.test/report** (`v0.422.0`) — Per-assertion error isolation matches canon's
+- **clojure.test reports via mino's counters, not JVM clojure.test/report** (`v0.422.0`) -- Per-assertion error isolation matches canon's
                     contract. The underlying report mechanism uses
                     mino-native counters and prints rather than the
                     JVM clojure.test/report multimethod.
-- **Error messages and ex-info keys may differ** (`v0.1.0`) — Exception text is implementation-defined in
+- **Error messages and ex-info keys may differ** (`v0.1.0`) -- Exception text is implementation-defined in
                     canon. mino's messages aim to be informative but
                     are not byte-for-byte JVM-Clojure-compatible. Use
                     ex-data / ex-cause / category keys to dispatch.
-- **ex-info / throw use mino-native exception type** (`v0.1.0`) — No JVM Throwable. mino's exception type is its
+- **ex-info / throw use mino-native exception type** (`v0.1.0`) -- No JVM Throwable. mino's exception type is its
                     own runtime value with :message and :data fields;
                     instance checks via clojure.lang.ExceptionInfo do
                     not work.
 
 ### JVM-static value remap
 
-- **clojure.java.io namespace is intentionally absent** (`v0.1.0`) — mino's host I/O is exposed via mino-native
+- **clojure.java.io namespace is intentionally absent** (`v0.1.0`) -- mino's host I/O is exposed via mino-native
                     primitives that do not match File / InputStream
                     abstractions. clojure.java.io is excluded from
                     parity comparison.
-- **gen-class is not provided** (`v0.1.0`) — gen-class emits JVM bytecode. mino has no Java
+- **gen-class is not provided** (`v0.1.0`) -- gen-class emits JVM bytecode. mino has no Java
                     interop layer.
-- **clojure.repl is intentionally absent** (`v0.1.0`) — Repl support is environment-bound and uses
+- **clojure.repl is intentionally absent** (`v0.1.0`) -- Repl support is environment-bound and uses
                     embedder-specific input/output. doc, source,
                     apropos are exposed at the CLI rather than in
                     a namespace.
-- **Integer/MAX_VALUE etc. remapped or absent** (`v0.1.0`) — mino exposes a curated subset of JVM-static-name
+- **Integer/MAX_VALUE etc. remapped or absent** (`v0.1.0`) -- mino exposes a curated subset of JVM-static-name
                     values (Integer/toBinaryString, Long/toHexString,
                     ...) for Clojure-canon code that depends on
                     them. Most are absent.
-- **No clojure.reflect — JVM-only** (`v0.1.0`) — Reflection is meaningless without a JVM. mino's
+- **No clojure.reflect -- JVM-only** (`v0.1.0`) -- Reflection is meaningless without a JVM. mino's
                     introspection uses ns-publics + meta, not class
                     inspection.
-- **proxy is not provided** (`v0.1.0`) — proxy generates a JVM class — no equivalent in
+- **proxy is not provided** (`v0.1.0`) -- proxy generates a JVM class -- no equivalent in
                     mino. defrecord + protocols cover the same use
                     case in a host-portable way.
 
 ### Namespace mechanics
 
-- **Namespaced keyword aliasing uses runtime aliases** (`v0.1.0`) — ::alias/kw is resolved at read time against the
-                    current ns's aliases — same as JVM Clojure, but
+- **Namespaced keyword aliasing uses runtime aliases** (`v0.1.0`) -- ::alias/kw is resolved at read time against the
+                    current ns's aliases -- same as JVM Clojure, but
                     mino's reader does not have access to the JVM
                     classloader hierarchy.
 
 ### Metadata propagation
 
-- **Reader-tracked :file may be relative or absolute** (`v0.1.0`) — mino's reader records the path as the embedder
+- **Reader-tracked :file may be relative or absolute** (`v0.1.0`) -- mino's reader records the path as the embedder
                     passed it; JVM Clojure normalizes to classpath-
                     relative. Tools that compare :file values must
                     accept either.
-- **Reader attaches {:line :column} to lists only** (`v0.422.0`) — mino mirrors JVM Clojure: per-cons reader meta is
+- **Reader attaches {:line :column} to lists only** (`v0.422.0`) -- mino mirrors JVM Clojure: per-cons reader meta is
                     accessible through meta; literal vectors/maps/sets
                     receive no per-instance reader meta.
 

@@ -1,6 +1,6 @@
-# ClojureScript (planck) — Clojure-canon parity
+# ClojureScript (planck) -- Clojure-canon parity
 
-**Headline coverage: 53.5%** &nbsp;&nbsp; vs. Clojure 1.12.4 &nbsp;&nbsp; (surface only — see note below)
+**Headline coverage: 53.5%** &nbsp;&nbsp; vs. Clojure 1.12.4 &nbsp;&nbsp; (surface only -- see note below)
 
 > Coverage measures **surface** parity only: does the dialect
 > implement var `X` with matching arity and metadata flags?
@@ -77,7 +77,7 @@ for future implementation.
 - `StackTraceElement->vec`
 - `accessor`
 - `add-classpath`
-- `agent` — documented as divergence :no-jvm-threads
+- `agent` -- documented as divergence :no-jvm-threads
 - `agent-error`
 - `agent-errors`
 - `alias`
@@ -102,9 +102,9 @@ for future implementation.
 - `await1`
 - `bases`
 - `bean`
-- `bigdec` — documented as divergence :no-jvm-numerics
-- `bigint` — documented as divergence :no-jvm-numerics
-- `biginteger` — documented as divergence :no-jvm-numerics
+- `bigdec` -- documented as divergence :no-jvm-numerics
+- `bigint` -- documented as divergence :no-jvm-numerics
+- `biginteger` -- documented as divergence :no-jvm-numerics
 - `binding`
 - `boolean-array`
 - `bound-fn`
@@ -117,7 +117,7 @@ for future implementation.
 - `char-array`
 - `char-escape-string`
 - `char-name-string`
-- `class` — documented as divergence :no-jvm-class-system
+- `class` -- documented as divergence :no-jvm-class-system
 - `class?`
 - `clear-agent-errors`
 - `clojure-version`
@@ -172,13 +172,13 @@ for future implementation.
 - `fn`
 - `for`
 - `format`
-- `future` — documented as divergence :no-jvm-threads
+- `future` -- documented as divergence :no-jvm-threads
 - `future-call`
 - `future-cancel`
 - `future-cancelled?`
 - `future-done?`
 - `future?`
-- `gen-class` — documented as divergence :no-proxy-no-gen-class
+- `gen-class` -- documented as divergence :no-proxy-no-gen-class
 - `gen-interface`
 - `get-proxy-class`
 - `get-thread-bindings`
@@ -230,8 +230,8 @@ for future implementation.
 - `print-method`
 - `print-simple`
 - `printf`
-- `promise` — documented as divergence :no-jvm-threads
-- `proxy` — documented as divergence :no-proxy-no-gen-class
+- `promise` -- documented as divergence :no-jvm-threads
+- `proxy` -- documented as divergence :no-proxy-no-gen-class
 - `proxy-call-with-super`
 - `proxy-mappings`
 - `proxy-name`
@@ -537,119 +537,119 @@ Summary: **9** documented divergences, **454** undocumented gaps.
 Vars present in both surfaces but with differing arglists,
 :macro flag, or :dynamic flag.
 
-- `clojure.core/*assert*` — :dynamic canon=false dialect=true
-- `clojure.core/*flush-on-newline*` — :dynamic canon=false dialect=true
-- `clojure.core/*ns*` — :dynamic canon=false dialect=true
-- `clojure.core/*out*` — :dynamic canon=false dialect=true
-- `clojure.core/*print-dup*` — :dynamic canon=false dialect=true
-- `clojure.core/*print-meta*` — :dynamic canon=false dialect=true
-- `clojure.core/*print-readably*` — :dynamic canon=false dialect=true
-- `clojure.core/->ArrayChunk` — arglists: canon ([am arr off end]) vs. dialect ([arr off end])
-- `clojure.core/NaN?` — arglists: canon ([num]) vs. dialect ([val])
-- `clojure.core/aclone` — arglists: canon ([array]) vs. dialect ([arr])
-- `clojure.core/add-watch` — arglists: canon ([reference key fn]) vs. dialect ([iref key f])
-- `clojure.core/array-map` — arglists: canon ([] [& keyvals]) vs. dialect ([& keyvals])
-- `clojure.core/assoc` — arglists: canon ([map key val] [map key val & kvs]) vs. dialect ([coll k v] [coll k v & kvs])
-- `clojure.core/assoc!` — arglists: canon ([coll key val] [coll key val & kvs]) vs. dialect ([tcoll key val] [tcoll key val & kvs])
-- `clojure.core/associative?` — arglists: canon ([coll]) vs. dialect ([x])
-- `clojure.core/atom` — arglists: canon ([x] [x & options]) vs. dialect ([x] [x & {:keys [meta validator]}])
-- `clojure.core/booleans` — arglists: canon ([xs]) vs. dialect ([x])
-- `clojure.core/butlast` — arglists: canon ([coll]) vs. dialect ([s])
-- `clojure.core/bytes` — arglists: canon ([xs]) vs. dialect ([x])
-- `clojure.core/chars` — arglists: canon ([xs]) vs. dialect ([x])
-- `clojure.core/chunked-seq?` — arglists: canon ([s]) vs. dialect ([x])
-- `clojure.core/comp` — arglists: canon ([] [f] [f g] [f g & fs]) vs. dialect ([] [f] [f g] [f g h] [f1 f2 f3 & fs])
-- `clojure.core/compare-and-set!` — arglists: canon ([atom oldval newval]) vs. dialect ([a oldval newval])
-- `clojure.core/conj!` — arglists: canon ([] [coll] [coll x]) vs. dialect ([] [tcoll] [tcoll val] [tcoll val & vals])
-- `clojure.core/cons` — arglists: canon ([x seq]) vs. dialect ([x coll])
-- `clojure.core/contains?` — arglists: canon ([coll key]) vs. dialect ([coll v])
-- `clojure.core/counted?` — arglists: canon ([coll]) vs. dialect ([x])
-- `clojure.core/create-ns` — arglists: canon ([sym]) vs. dialect ([sym] [sym ns-obj])
-- `clojure.core/deref` — arglists: canon ([ref] [ref timeout-ms timeout-val]) vs. dialect ([o])
-- `clojure.core/disj` — arglists: canon ([set] [set key] [set key & ks]) vs. dialect ([coll] [coll k] [coll k & ks])
-- `clojure.core/disj!` — arglists: canon ([set] [set key] [set key & ks]) vs. dialect ([tcoll val] [tcoll val & vals])
-- `clojure.core/dissoc` — arglists: canon ([map] [map key] [map key & ks]) vs. dialect ([coll] [coll k] [coll k & ks])
-- `clojure.core/dissoc!` — arglists: canon ([map key] [map key & ks]) vs. dialect ([tcoll key] [tcoll key & ks])
-- `clojure.core/doubles` — arglists: canon ([xs]) vs. dialect ([x])
-- `clojure.core/drop-last` — arglists: canon ([coll] [n coll]) vs. dialect ([s] [n s])
-- `clojure.core/eduction` — arglists: canon ([xform* coll]) vs. dialect ([& xforms])
-- `clojure.core/ex-info` — arglists: canon ([msg map] [msg map cause]) vs. dialect ([msg data] [msg data cause])
-- `clojure.core/ffirst` — arglists: canon ([x]) vs. dialect ([coll])
-- `clojure.core/find` — arglists: canon ([map key]) vs. dialect ([coll k])
-- `clojure.core/find-ns` — arglists: canon ([sym]) vs. dialect ([ns])
-- `clojure.core/float?` — arglists: canon ([n]) vs. dialect ([x])
-- `clojure.core/floats` — arglists: canon ([xs]) vs. dialect ([x])
-- `clojure.core/fn?` — arglists: canon ([x]) vs. dialect ([f])
-- `clojure.core/fnext` — arglists: canon ([x]) vs. dialect ([coll])
-- `clojure.core/get` — arglists: canon ([map key] [map key not-found]) vs. dialect ([o k] [o k not-found])
-- `clojure.core/hash` — arglists: canon ([x]) vs. dialect ([o])
-- `clojure.core/hash-combine` — arglists: canon ([x y]) vs. dialect ([seed hash])
-- `clojure.core/hash-map` — arglists: canon ([] [& keyvals]) vs. dialect ([& keyvals])
-- `clojure.core/ifn?` — arglists: canon ([x]) vs. dialect ([f])
-- `clojure.core/indexed?` — arglists: canon ([coll]) vs. dialect ([x])
-- `clojure.core/infinite?` — arglists: canon ([num]) vs. dialect ([x])
-- `clojure.core/ints` — arglists: canon ([xs]) vs. dialect ([x])
-- `clojure.core/key` — arglists: canon ([e]) vs. dialect ([map-entry])
-- `clojure.core/last` — arglists: canon ([coll]) vs. dialect ([s])
-- `clojure.core/list` — arglists: canon ([& items]) vs. dialect ([& xs])
-- `clojure.core/load-file` — arglists: canon ([name]) vs. dialect ([file])
-- `clojure.core/longs` — arglists: canon ([xs]) vs. dialect ([x])
-- `clojure.core/make-array` — arglists: canon ([type len] [type dim & more-dims]) vs. dialect ([size] [type size] [type size & more-sizes])
-- `clojure.core/meta` — arglists: canon ([obj]) vs. dialect ([o])
-- `clojure.core/mod` — arglists: canon ([num div]) vs. dialect ([n d])
-- `clojure.core/munge` — arglists: canon ([s]) vs. dialect ([name])
-- `clojure.core/neg?` — arglists: canon ([num]) vs. dialect ([x])
-- `clojure.core/newline` — arglists: canon ([]) vs. dialect ([] [opts])
-- `clojure.core/nfirst` — arglists: canon ([x]) vs. dialect ([coll])
-- `clojure.core/nnext` — arglists: canon ([x]) vs. dialect ([coll])
-- `clojure.core/ns-name` — arglists: canon ([ns]) vs. dialect ([ns-obj])
-- `clojure.core/nth` — arglists: canon ([coll index] [coll index not-found]) vs. dialect ([coll n] [coll n not-found])
-- `clojure.core/object-array` — arglists: canon ([size-or-seq]) vs. dialect ([size-or-seq] [size init-val-or-seq])
-- `clojure.core/persistent!` — arglists: canon ([coll]) vs. dialect ([tcoll])
-- `clojure.core/pop!` — arglists: canon ([coll]) vs. dialect ([tcoll])
-- `clojure.core/pos?` — arglists: canon ([num]) vs. dialect ([x])
-- `clojure.core/pr` — arglists: canon ([] [x] [x & more]) vs. dialect ([& objs])
-- `clojure.core/pr-str` — arglists: canon ([& xs]) vs. dialect ([& objs])
-- `clojure.core/print-str` — arglists: canon ([& xs]) vs. dialect ([& objs])
-- `clojure.core/println` — arglists: canon ([& more]) vs. dialect ([& objs])
-- `clojure.core/println-str` — arglists: canon ([& xs]) vs. dialect ([& objs])
-- `clojure.core/prn` — arglists: canon ([& more]) vs. dialect ([& objs])
-- `clojure.core/prn-str` — arglists: canon ([& xs]) vs. dialect ([& objs])
-- `clojure.core/quot` — arglists: canon ([num div]) vs. dialect ([n d])
-- `clojure.core/re-find` — arglists: canon ([m] [re s]) vs. dialect ([re s])
-- `clojure.core/reduced?` — arglists: canon ([x]) vs. dialect ([r])
-- `clojure.core/rem` — arglists: canon ([num div]) vs. dialect ([n d])
-- `clojure.core/remove-watch` — arglists: canon ([reference key]) vs. dialect ([iref key])
-- `clojure.core/reset!` — arglists: canon ([atom newval]) vs. dialect ([a new-value])
-- `clojure.core/reset-meta!` — arglists: canon ([iref metadata-map]) vs. dialect ([iref m])
-- `clojure.core/reset-vals!` — arglists: canon ([atom newval]) vs. dialect ([a new-value])
-- `clojure.core/second` — arglists: canon ([x]) vs. dialect ([coll])
-- `clojure.core/seq?` — arglists: canon ([x]) vs. dialect ([s])
-- `clojure.core/seqable?` — arglists: canon ([x]) vs. dialect ([s])
-- `clojure.core/sequential?` — arglists: canon ([coll]) vs. dialect ([x])
-- `clojure.core/set-validator!` — arglists: canon ([iref validator-fn]) vs. dialect ([iref val])
-- `clojure.core/shorts` — arglists: canon ([xs]) vs. dialect ([x])
-- `clojure.core/sorted?` — arglists: canon ([coll]) vs. dialect ([x])
-- `clojure.core/special-symbol?` — arglists: canon ([s]) vs. dialect ([x])
-- `clojure.core/swap!` — arglists: canon ([atom f] [atom f x] [atom f x y] [atom f x y & args]) vs. dialect ([a f] [a f x] [a f x y] [a f x y & more])
-- `clojure.core/swap-vals!` — arglists: canon ([atom f] [atom f x] [atom f x y] [atom f x y & args]) vs. dialect ([a f] [a f x] [a f x y] [a f x y & more])
-- `clojure.core/unchecked-add` — arglists: canon ([x y]) vs. dialect ([] [x] [x y] [x y & more])
-- `clojure.core/unchecked-add-int` — arglists: canon ([x y]) vs. dialect ([] [x] [x y] [x y & more])
-- `clojure.core/unchecked-divide-int` — arglists: canon ([x y]) vs. dialect ([x] [x y] [x y & more])
-- `clojure.core/unchecked-multiply` — arglists: canon ([x y]) vs. dialect ([] [x] [x y] [x y & more])
-- `clojure.core/unchecked-multiply-int` — arglists: canon ([x y]) vs. dialect ([] [x] [x y] [x y & more])
-- `clojure.core/unchecked-remainder-int` — arglists: canon ([x y]) vs. dialect ([x n])
-- `clojure.core/unchecked-subtract` — arglists: canon ([x y]) vs. dialect ([x] [x y] [x y & more])
-- `clojure.core/unchecked-subtract-int` — arglists: canon ([x y]) vs. dialect ([x] [x y] [x y & more])
-- `clojure.core/update-in` — arglists: canon ([m ks f & args]) vs. dialect ([m [k & ks] f] [m [k & ks] f a] [m [k & ks] f a b] [m [k & ks] f a b c] [m [k & ks] f a b c & args])
-- `clojure.core/val` — arglists: canon ([e]) vs. dialect ([map-entry])
-- `clojure.core/vary-meta` — arglists: canon ([obj f & args]) vs. dialect ([obj f] [obj f a] [obj f a b] [obj f a b c] [obj f a b c d] [obj f a b c d & args])
-- `clojure.core/vector` — arglists: canon ([] [a] [a b] [a b c] [a b c d] [a b c d e] [a b c d e f] [a b c d e f & args]) vs. dialect ([& args])
-- `clojure.core/with-meta` — arglists: canon ([obj m]) vs. dialect ([o meta])
-- `clojure.core/zero?` — arglists: canon ([num]) vs. dialect ([x])
-- `clojure.edn/read` — arglists: canon ([] [stream] [opts stream]) vs. dialect ([reader] [{:keys [eof], :as opts} reader] [reader eof-error? eof opts])
-- `clojure.spec.alpha/every-impl` — arglists: canon ([form pred opts] [form pred {conform-into :into, describe-form :clojure.spec.alpha/describe, :keys [kind :clojure.spec.alpha/kind-form count max-count min-count distinct gen-max :clojure.spec.alpha/kfn :clojure.spec.alpha/cpred conform-keys :clojure.spec.alpha/conform-all], :or {gen-max 20}, :as opts} gfn]) vs. dialect ([form pred opts] [form pred {conform-into :into, describe-form :cljs.spec.alpha/describe, :keys [kind :cljs.spec.alpha/kind-form count max-count min-count distinct gen-max :cljs.spec.alpha/kfn :cljs.spec.alpha/cpred conform-keys :cljs.spec.alpha/conform-all], :or {gen-max 20}, :as opts} gfn])
-- `clojure.test/test-var` — :dynamic canon=true dialect=false
+- `clojure.core/*assert*` -- :dynamic canon=false dialect=true
+- `clojure.core/*flush-on-newline*` -- :dynamic canon=false dialect=true
+- `clojure.core/*ns*` -- :dynamic canon=false dialect=true
+- `clojure.core/*out*` -- :dynamic canon=false dialect=true
+- `clojure.core/*print-dup*` -- :dynamic canon=false dialect=true
+- `clojure.core/*print-meta*` -- :dynamic canon=false dialect=true
+- `clojure.core/*print-readably*` -- :dynamic canon=false dialect=true
+- `clojure.core/->ArrayChunk` -- arglists: canon ([am arr off end]) vs. dialect ([arr off end])
+- `clojure.core/NaN?` -- arglists: canon ([num]) vs. dialect ([val])
+- `clojure.core/aclone` -- arglists: canon ([array]) vs. dialect ([arr])
+- `clojure.core/add-watch` -- arglists: canon ([reference key fn]) vs. dialect ([iref key f])
+- `clojure.core/array-map` -- arglists: canon ([] [& keyvals]) vs. dialect ([& keyvals])
+- `clojure.core/assoc` -- arglists: canon ([map key val] [map key val & kvs]) vs. dialect ([coll k v] [coll k v & kvs])
+- `clojure.core/assoc!` -- arglists: canon ([coll key val] [coll key val & kvs]) vs. dialect ([tcoll key val] [tcoll key val & kvs])
+- `clojure.core/associative?` -- arglists: canon ([coll]) vs. dialect ([x])
+- `clojure.core/atom` -- arglists: canon ([x] [x & options]) vs. dialect ([x] [x & {:keys [meta validator]}])
+- `clojure.core/booleans` -- arglists: canon ([xs]) vs. dialect ([x])
+- `clojure.core/butlast` -- arglists: canon ([coll]) vs. dialect ([s])
+- `clojure.core/bytes` -- arglists: canon ([xs]) vs. dialect ([x])
+- `clojure.core/chars` -- arglists: canon ([xs]) vs. dialect ([x])
+- `clojure.core/chunked-seq?` -- arglists: canon ([s]) vs. dialect ([x])
+- `clojure.core/comp` -- arglists: canon ([] [f] [f g] [f g & fs]) vs. dialect ([] [f] [f g] [f g h] [f1 f2 f3 & fs])
+- `clojure.core/compare-and-set!` -- arglists: canon ([atom oldval newval]) vs. dialect ([a oldval newval])
+- `clojure.core/conj!` -- arglists: canon ([] [coll] [coll x]) vs. dialect ([] [tcoll] [tcoll val] [tcoll val & vals])
+- `clojure.core/cons` -- arglists: canon ([x seq]) vs. dialect ([x coll])
+- `clojure.core/contains?` -- arglists: canon ([coll key]) vs. dialect ([coll v])
+- `clojure.core/counted?` -- arglists: canon ([coll]) vs. dialect ([x])
+- `clojure.core/create-ns` -- arglists: canon ([sym]) vs. dialect ([sym] [sym ns-obj])
+- `clojure.core/deref` -- arglists: canon ([ref] [ref timeout-ms timeout-val]) vs. dialect ([o])
+- `clojure.core/disj` -- arglists: canon ([set] [set key] [set key & ks]) vs. dialect ([coll] [coll k] [coll k & ks])
+- `clojure.core/disj!` -- arglists: canon ([set] [set key] [set key & ks]) vs. dialect ([tcoll val] [tcoll val & vals])
+- `clojure.core/dissoc` -- arglists: canon ([map] [map key] [map key & ks]) vs. dialect ([coll] [coll k] [coll k & ks])
+- `clojure.core/dissoc!` -- arglists: canon ([map key] [map key & ks]) vs. dialect ([tcoll key] [tcoll key & ks])
+- `clojure.core/doubles` -- arglists: canon ([xs]) vs. dialect ([x])
+- `clojure.core/drop-last` -- arglists: canon ([coll] [n coll]) vs. dialect ([s] [n s])
+- `clojure.core/eduction` -- arglists: canon ([xform* coll]) vs. dialect ([& xforms])
+- `clojure.core/ex-info` -- arglists: canon ([msg map] [msg map cause]) vs. dialect ([msg data] [msg data cause])
+- `clojure.core/ffirst` -- arglists: canon ([x]) vs. dialect ([coll])
+- `clojure.core/find` -- arglists: canon ([map key]) vs. dialect ([coll k])
+- `clojure.core/find-ns` -- arglists: canon ([sym]) vs. dialect ([ns])
+- `clojure.core/float?` -- arglists: canon ([n]) vs. dialect ([x])
+- `clojure.core/floats` -- arglists: canon ([xs]) vs. dialect ([x])
+- `clojure.core/fn?` -- arglists: canon ([x]) vs. dialect ([f])
+- `clojure.core/fnext` -- arglists: canon ([x]) vs. dialect ([coll])
+- `clojure.core/get` -- arglists: canon ([map key] [map key not-found]) vs. dialect ([o k] [o k not-found])
+- `clojure.core/hash` -- arglists: canon ([x]) vs. dialect ([o])
+- `clojure.core/hash-combine` -- arglists: canon ([x y]) vs. dialect ([seed hash])
+- `clojure.core/hash-map` -- arglists: canon ([] [& keyvals]) vs. dialect ([& keyvals])
+- `clojure.core/ifn?` -- arglists: canon ([x]) vs. dialect ([f])
+- `clojure.core/indexed?` -- arglists: canon ([coll]) vs. dialect ([x])
+- `clojure.core/infinite?` -- arglists: canon ([num]) vs. dialect ([x])
+- `clojure.core/ints` -- arglists: canon ([xs]) vs. dialect ([x])
+- `clojure.core/key` -- arglists: canon ([e]) vs. dialect ([map-entry])
+- `clojure.core/last` -- arglists: canon ([coll]) vs. dialect ([s])
+- `clojure.core/list` -- arglists: canon ([& items]) vs. dialect ([& xs])
+- `clojure.core/load-file` -- arglists: canon ([name]) vs. dialect ([file])
+- `clojure.core/longs` -- arglists: canon ([xs]) vs. dialect ([x])
+- `clojure.core/make-array` -- arglists: canon ([type len] [type dim & more-dims]) vs. dialect ([size] [type size] [type size & more-sizes])
+- `clojure.core/meta` -- arglists: canon ([obj]) vs. dialect ([o])
+- `clojure.core/mod` -- arglists: canon ([num div]) vs. dialect ([n d])
+- `clojure.core/munge` -- arglists: canon ([s]) vs. dialect ([name])
+- `clojure.core/neg?` -- arglists: canon ([num]) vs. dialect ([x])
+- `clojure.core/newline` -- arglists: canon ([]) vs. dialect ([] [opts])
+- `clojure.core/nfirst` -- arglists: canon ([x]) vs. dialect ([coll])
+- `clojure.core/nnext` -- arglists: canon ([x]) vs. dialect ([coll])
+- `clojure.core/ns-name` -- arglists: canon ([ns]) vs. dialect ([ns-obj])
+- `clojure.core/nth` -- arglists: canon ([coll index] [coll index not-found]) vs. dialect ([coll n] [coll n not-found])
+- `clojure.core/object-array` -- arglists: canon ([size-or-seq]) vs. dialect ([size-or-seq] [size init-val-or-seq])
+- `clojure.core/persistent!` -- arglists: canon ([coll]) vs. dialect ([tcoll])
+- `clojure.core/pop!` -- arglists: canon ([coll]) vs. dialect ([tcoll])
+- `clojure.core/pos?` -- arglists: canon ([num]) vs. dialect ([x])
+- `clojure.core/pr` -- arglists: canon ([] [x] [x & more]) vs. dialect ([& objs])
+- `clojure.core/pr-str` -- arglists: canon ([& xs]) vs. dialect ([& objs])
+- `clojure.core/print-str` -- arglists: canon ([& xs]) vs. dialect ([& objs])
+- `clojure.core/println` -- arglists: canon ([& more]) vs. dialect ([& objs])
+- `clojure.core/println-str` -- arglists: canon ([& xs]) vs. dialect ([& objs])
+- `clojure.core/prn` -- arglists: canon ([& more]) vs. dialect ([& objs])
+- `clojure.core/prn-str` -- arglists: canon ([& xs]) vs. dialect ([& objs])
+- `clojure.core/quot` -- arglists: canon ([num div]) vs. dialect ([n d])
+- `clojure.core/re-find` -- arglists: canon ([m] [re s]) vs. dialect ([re s])
+- `clojure.core/reduced?` -- arglists: canon ([x]) vs. dialect ([r])
+- `clojure.core/rem` -- arglists: canon ([num div]) vs. dialect ([n d])
+- `clojure.core/remove-watch` -- arglists: canon ([reference key]) vs. dialect ([iref key])
+- `clojure.core/reset!` -- arglists: canon ([atom newval]) vs. dialect ([a new-value])
+- `clojure.core/reset-meta!` -- arglists: canon ([iref metadata-map]) vs. dialect ([iref m])
+- `clojure.core/reset-vals!` -- arglists: canon ([atom newval]) vs. dialect ([a new-value])
+- `clojure.core/second` -- arglists: canon ([x]) vs. dialect ([coll])
+- `clojure.core/seq?` -- arglists: canon ([x]) vs. dialect ([s])
+- `clojure.core/seqable?` -- arglists: canon ([x]) vs. dialect ([s])
+- `clojure.core/sequential?` -- arglists: canon ([coll]) vs. dialect ([x])
+- `clojure.core/set-validator!` -- arglists: canon ([iref validator-fn]) vs. dialect ([iref val])
+- `clojure.core/shorts` -- arglists: canon ([xs]) vs. dialect ([x])
+- `clojure.core/sorted?` -- arglists: canon ([coll]) vs. dialect ([x])
+- `clojure.core/special-symbol?` -- arglists: canon ([s]) vs. dialect ([x])
+- `clojure.core/swap!` -- arglists: canon ([atom f] [atom f x] [atom f x y] [atom f x y & args]) vs. dialect ([a f] [a f x] [a f x y] [a f x y & more])
+- `clojure.core/swap-vals!` -- arglists: canon ([atom f] [atom f x] [atom f x y] [atom f x y & args]) vs. dialect ([a f] [a f x] [a f x y] [a f x y & more])
+- `clojure.core/unchecked-add` -- arglists: canon ([x y]) vs. dialect ([] [x] [x y] [x y & more])
+- `clojure.core/unchecked-add-int` -- arglists: canon ([x y]) vs. dialect ([] [x] [x y] [x y & more])
+- `clojure.core/unchecked-divide-int` -- arglists: canon ([x y]) vs. dialect ([x] [x y] [x y & more])
+- `clojure.core/unchecked-multiply` -- arglists: canon ([x y]) vs. dialect ([] [x] [x y] [x y & more])
+- `clojure.core/unchecked-multiply-int` -- arglists: canon ([x y]) vs. dialect ([] [x] [x y] [x y & more])
+- `clojure.core/unchecked-remainder-int` -- arglists: canon ([x y]) vs. dialect ([x n])
+- `clojure.core/unchecked-subtract` -- arglists: canon ([x y]) vs. dialect ([x] [x y] [x y & more])
+- `clojure.core/unchecked-subtract-int` -- arglists: canon ([x y]) vs. dialect ([x] [x y] [x y & more])
+- `clojure.core/update-in` -- arglists: canon ([m ks f & args]) vs. dialect ([m [k & ks] f] [m [k & ks] f a] [m [k & ks] f a b] [m [k & ks] f a b c] [m [k & ks] f a b c & args])
+- `clojure.core/val` -- arglists: canon ([e]) vs. dialect ([map-entry])
+- `clojure.core/vary-meta` -- arglists: canon ([obj f & args]) vs. dialect ([obj f] [obj f a] [obj f a b] [obj f a b c] [obj f a b c d] [obj f a b c d & args])
+- `clojure.core/vector` -- arglists: canon ([] [a] [a b] [a b c] [a b c d] [a b c d e] [a b c d e f] [a b c d e f & args]) vs. dialect ([& args])
+- `clojure.core/with-meta` -- arglists: canon ([obj m]) vs. dialect ([o meta])
+- `clojure.core/zero?` -- arglists: canon ([num]) vs. dialect ([x])
+- `clojure.edn/read` -- arglists: canon ([] [stream] [opts stream]) vs. dialect ([reader] [{:keys [eof], :as opts} reader] [reader eof-error? eof opts])
+- `clojure.spec.alpha/every-impl` -- arglists: canon ([form pred opts] [form pred {conform-into :into, describe-form :clojure.spec.alpha/describe, :keys [kind :clojure.spec.alpha/kind-form count max-count min-count distinct gen-max :clojure.spec.alpha/kfn :clojure.spec.alpha/cpred conform-keys :clojure.spec.alpha/conform-all], :or {gen-max 20}, :as opts} gfn]) vs. dialect ([form pred opts] [form pred {conform-into :into, describe-form :cljs.spec.alpha/describe, :keys [kind :cljs.spec.alpha/kind-form count max-count min-count distinct gen-max :cljs.spec.alpha/kfn :cljs.spec.alpha/cpred conform-keys :cljs.spec.alpha/conform-all], :or {gen-max 20}, :as opts} gfn])
+- `clojure.test/test-var` -- :dynamic canon=true dialect=false
 
 
 ## Dialect-only vars (510)
@@ -661,8 +661,8 @@ removing.
 
 ### Documented extensions
 
-- **JavaScript-host interop sugar** (`cljs-0.1`, JVM-static value remap) — `cljs.core/js->clj`, `cljs.core/clj->js`, `cljs.core/array`, `cljs.core/aclone`, `cljs.core/aget`, `cljs.core/aset`
-- **cljs.spec.gen.alpha for generator wiring** (`cljs-0.1`, Collection semantics) — `cljs.spec.gen.alpha/generator`, `cljs.spec.gen.alpha/sample`
+- **JavaScript-host interop sugar** (`cljs-0.1`, JVM-static value remap) -- `cljs.core/js->clj`, `cljs.core/clj->js`, `cljs.core/array`, `cljs.core/aclone`, `cljs.core/aget`, `cljs.core/aset`
+- **cljs.spec.gen.alpha for generator wiring** (`cljs-0.1`, Collection semantics) -- `cljs.spec.gen.alpha/generator`, `cljs.spec.gen.alpha/sample`
 
 ### Undocumented dialect-only (510)
 
@@ -1182,7 +1182,7 @@ removing.
 
 ### Type-system representation
 
-- **No JVM class hierarchy** (`cljs-0.1`) — CLJS targets JavaScript; there is no
+- **No JVM class hierarchy** (`cljs-0.1`) -- CLJS targets JavaScript; there is no
                     java.lang.Class, no clojure.lang.* concrete
                     types. type returns the JS constructor function.
                     Code that pattern-matches on JVM-class names is
@@ -1190,7 +1190,7 @@ removing.
 
 ### Numeric tower
 
-- **Number tower follows JavaScript, not JVM** (`cljs-0.1`) — Numbers are JavaScript numbers (IEEE-754 doubles
+- **Number tower follows JavaScript, not JVM** (`cljs-0.1`) -- Numbers are JavaScript numbers (IEEE-754 doubles
                     with integer fast path). No Long, no Ratio, no
                     BigDecimal as separate types. Integer overflow
                     silently converts to double; *' / +' have no
@@ -1198,41 +1198,41 @@ removing.
 
 ### Reader behavior
 
-- **Reader conditional :clj does not fire under CLJS** (`cljs-0.1`) — Portable code must use :cljs (or :default) to
+- **Reader conditional :clj does not fire under CLJS** (`cljs-0.1`) -- Portable code must use :cljs (or :default) to
                     target CLJS. Code under :clj is invisible to the
                     CLJS reader.
 
 ### Concurrency primitives
 
-- **Concurrency primitives are JS-event-loop-bound** (`cljs-0.1`) — No JVM threads. atom is synchronous as in canon.
+- **Concurrency primitives are JS-event-loop-bound** (`cljs-0.1`) -- No JVM threads. atom is synchronous as in canon.
                     future, agent, promise are absent or async-only;
                     code relying on blocking semantics is not
                     portable.
 
 ### JVM-static value remap
 
-- **clojure.java.io is absent** (`cljs-0.1`) — No File / InputStream abstractions. CLJS hosts
+- **clojure.java.io is absent** (`cljs-0.1`) -- No File / InputStream abstractions. CLJS hosts
                     have host-specific IO (planck.io, lumo.io,
                     browser fetch); excluded from parity comparison
                     intentionally.
-- **proxy and gen-class are not provided** (`cljs-0.1`) — No JVM bytecode emitter. JS-target equivalents
+- **proxy and gen-class are not provided** (`cljs-0.1`) -- No JVM bytecode emitter. JS-target equivalents
                     are deftype + protocols or specify-based
                     JS-object construction.
-- **No clojure.reflect / no runtime class inspection** (`cljs-0.1`) — JS has no class system to reflect on. Code that
+- **No clojure.reflect / no runtime class inspection** (`cljs-0.1`) -- JS has no class system to reflect on. Code that
                     inspects member signatures must use JS interop
                     (.constructor, Object.keys, etc.) directly.
 
 ### Namespace mechanics
 
-- **clojure.math is not provided** (`cljs-0.1`) — JS exposes Math/ statics directly; CLJS code uses
+- **clojure.math is not provided** (`cljs-0.1`) -- JS exposes Math/ statics directly; CLJS code uses
                     js/Math.sin etc. or wraps them per-codebase rather
                     than via a clojure.math namespace.
-- **Some namespaces use the cljs.* prefix** (`cljs-0.1`) — clojure.core, clojure.spec.alpha, clojure.test,
+- **Some namespaces use the cljs.* prefix** (`cljs-0.1`) -- clojure.core, clojure.spec.alpha, clojure.test,
                     clojure.pprint are exposed as cljs.core,
                     cljs.spec.alpha, cljs.test, cljs.pprint
                     respectively. clojure.string, clojure.set,
                     clojure.walk keep their canon names.
-- **clojure.edn is cljs.reader** (`cljs-0.1`) — CLJS exposes the EDN reader as cljs.reader; the
+- **clojure.edn is cljs.reader** (`cljs-0.1`) -- CLJS exposes the EDN reader as cljs.reader; the
                     portable :namespace-renames in this tool maps
                     cljs.reader -> clojure.edn for comparison
                     purposes, but the canonical CLJS API name is
