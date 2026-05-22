@@ -15,11 +15,14 @@ shipped third — its inclusion validates the `:namespace-renames` DSL
 (cljs.core → clojure.core, cljs.test → clojure.test, etc.) and the
 `scripts/surface_dump.cljs` parallel script (CLJS's `ns-publics` is a
 compile-time macro; the runtime equivalent is
-`cljs.analyzer.api/ns-publics`). Other Clojure dialects (jank, lpy,
-sci-derivatives) can plug in via configuration alone for any runtime
-that supports the `.clj` portable script; runtimes with restrictive
-introspection follow the cljs pattern with a parallel `.cljs`-style
-script.
+`cljs.analyzer.api/ns-publics`); ClojureCLR (clr) shipped fourth —
+the .cljc portable script with `:cljr` reader conditionals covers
+CLR's host-specific environment-variable / catch-target differences,
+and the dialect/config requires zero changes to the comparison
+pipeline. Other Clojure dialects (jank, lpy, sci-derivatives) can
+plug in via configuration alone for any runtime that supports the
+`.cljc` portable script; runtimes with restrictive introspection
+follow the cljs pattern with a parallel `.cljs`-style script.
 
 ## Scope
 
@@ -63,11 +66,13 @@ clojure -M:run validate-data
 MINO_BIN=/path/to/mino clojure -M:run dump mino
 clojure -M:run dump bb        # bb on PATH, no env var needed
 clojure -M:run dump cljs      # planck on PATH
+DOTNET_ROOT=/path/to/dotnet9 clojure -M:run dump clr   # Clojure.Main on PATH
 
 # Diff captured surface against vendored canon, write dashboard
 MINO_BIN=/path/to/mino clojure -M:run diff mino
 clojure -M:run diff bb
 clojure -M:run diff cljs
+clojure -M:run diff clr
 
 # Re-render from saved surface (no new capture)
 clojure -M:run render bb
