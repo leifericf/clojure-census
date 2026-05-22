@@ -50,8 +50,10 @@ jobs:
             ${{ runner.os }}-maven-site-
 
       - name: Build site
-        env:
-          SITE_BASE: /clojure-census
+        # Custom domain (clojure-census.leifericf.com) serves the site
+        # from the root of the host, so SITE_BASE stays empty in CI.
+        # site/resources/public/CNAME signals the custom domain to
+        # GitHub Pages.
         working-directory: site
         run: clojure -M:build
 

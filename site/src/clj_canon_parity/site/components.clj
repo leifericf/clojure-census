@@ -18,8 +18,9 @@
 
 (defn make-link
   "Return a function that prepends `site-base` to a leading-slash
-  path. `site-base` is `\"\"` locally and `\"/clojure-census\"`
-  on GitHub Pages."
+  path. `site-base` is `\"\"` in both local dev and CI (custom
+  domain serves from the host root). The mechanism stays as an
+  escape hatch for sub-path deploys."
   [site-base]
   (let [base (or site-base "")]
     (fn [path]

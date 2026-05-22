@@ -31,6 +31,7 @@
 (defn dialects-dir    [] (str (project-root) "/dialects"))
 (defn output-root     [] (str (project-root) "/output"))
 (defn canon-spec-path [] (str (project-root) "/canon/canon-spec.edn"))
+(defn resources-dir   [] (str (project-root) "/site/resources/public"))
 
 (defn target-dir
   "Directory `-M:build` writes into. Defaults to `<root>/site/public`,
@@ -40,9 +41,11 @@
   (env "SITE_TARGET" (str (project-root) "/site/public")))
 
 (defn site-base
-  "URL prefix for every internal link. Empty locally; set to
-  `/clojure-census` (matching the GH Pages project base path)
-  in CI via the `SITE_BASE` env var."
+  "URL prefix for every internal link. Empty in both local dev and
+  CI because the site deploys to the custom domain
+  https://clojure-census.leifericf.com/ (served from the host root,
+  not a `/clojure-census/` project subpath). The env var is retained
+  as an escape hatch if the deploy target ever needs a prefix."
   []
   (env "SITE_BASE" ""))
 
