@@ -13,7 +13,8 @@
        :coverage-delta number}
 
   Pure transformation."
-  (:require [clj-canon-parity.schema :as schema]))
+  (:require [clojure.set :as cset]
+            [clj-canon-parity.schema :as schema]))
 
 (defn- date-prefix
   "Extract the `YYYY-MM-DD` portion of an ISO timestamp."
@@ -47,7 +48,7 @@
         after-vars  (surface-var-fqns after-surface)
         before-map  (surface-var-map before-surface)
         after-map   (surface-var-map after-surface)
-        common      (clojure.set/intersection before-vars after-vars)
+        common      (cset/intersection before-vars after-vars)
         changed     (vec
                       (for [fqn (sort common)
                             :let [b (get before-map fqn)
@@ -56,8 +57,8 @@
                         {:var fqn :before b :after a}))
         out         {:from-date      (date-prefix (:captured-at before-surface))
                      :to-date        (date-prefix (:captured-at after-surface))
-                     :added-vars     (clojure.set/difference after-vars  before-vars)
-                     :removed-vars   (clojure.set/difference before-vars after-vars)
+                     :added-vars     (cset/difference after-vars  before-vars)
+                     :removed-vars   (cset/difference before-vars after-vars)
                      :changed        changed
                      :coverage-delta (double coverage-delta)}]
     (schema/assert-conforms! ::schema/drift out "drift")

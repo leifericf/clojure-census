@@ -17,7 +17,8 @@
                                                        :dynamic-dialect ...}]}}}
 
   Pure data transformation: same inputs always produce the same output."
-  (:require [clj-canon-parity.schema :as schema]))
+  (:require [clojure.set :as cset]
+            [clj-canon-parity.schema :as schema]))
 
 (defn- iso-utc-now []
   (let [fmt (java.text.SimpleDateFormat. "yyyy-MM-dd'T'HH:mm:ss'Z'")]
@@ -62,7 +63,7 @@
   [canon-vars dialect-vars]
   (let [canon-keys   (set (keys canon-vars))
         dialect-keys (set (keys dialect-vars))
-        common       (clojure.set/intersection canon-keys dialect-keys)
+        common       (cset/intersection canon-keys dialect-keys)
         in-both-set  (atom #{})
         mismatches   (vec
                        (reduce
@@ -77,8 +78,8 @@
                          []
                          (sort common)))]
     {:in-both      @in-both-set
-     :canon-only   (clojure.set/difference canon-keys dialect-keys)
-     :dialect-only (clojure.set/difference dialect-keys canon-keys)
+     :canon-only   (cset/difference canon-keys dialect-keys)
+     :dialect-only (cset/difference dialect-keys canon-keys)
      :mismatches   mismatches}))
 
 (defn compare-surfaces
