@@ -155,8 +155,8 @@
   (let [page (c/landing [foo-dialect] canon-spec ctx)
         text (pr-str page)]
     (is (str/includes? text "matrix"))
-    (is (str/includes? text "Coverage by Namespace"))
-    (testing "matrix shows every canon-spec namespace as a column"
+    (is (str/includes? text "Implementation by Namespace"))
+    (testing "matrix shows every canon-spec namespace as a row"
       (is (str/includes? text "clojure.core"))
       (is (str/includes? text "clojure.string"))
       (is (str/includes? text "clojure.set")))))
@@ -178,13 +178,13 @@
 (deftest detail-renders-enriched-per-namespace-summary
   (let [page (c/dialect-detail foo-dialect ctx)
         text (pr-str page)]
-    (is (str/includes? text "Per-Namespace Coverage"))
-    (testing "six columns: Namespace / Implemented / Mismatched / Missing / Dialect-Only / Coverage"
+    (is (str/includes? text "Per-Namespace Implementation"))
+    (testing "five columns: Namespace / Implemented (merged % + fraction) / Mismatched / Missing / Dialect-Only"
       (is (str/includes? text "Mismatched"))
       (is (str/includes? text "Dialect-Only")))
     (testing "namespace cell links to deep dive"
       (is (str/includes? text "/dialects/foo/ns/clojure.core/")))
-    (testing "shows fraction and percent for each namespace"
+    (testing "Implemented cell shows percent and fraction together"
       (is (str/includes? text "5 / 6"))
       (is (str/includes? text "2 / 4"))
       (is (str/includes? text "83.3%"))

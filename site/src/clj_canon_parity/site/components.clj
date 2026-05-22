@@ -69,17 +69,25 @@
      [:h3 [:a {:href (link (str "/dialects/" tag "/"))} name]]
      (if dashboard
        [:dl.card-meta
-        [:dt "Coverage"]
-        [:dd.coverage (pct (:percent headline))
-         " "
-         [:span.fraction
-          (str "(" (:in-both-count headline) " / " (:canon-total headline) ")")]]
-        [:dt "Dialect"]
-        [:dd (or d-ver "—")]
-        [:dt "Clojure (JVM)"]
-        [:dd (:canon-version meta-info)]
-        [:dt "Snapshot"]
-        [:dd (human-time (:compared-at meta-info))]]
+        [:div.stat
+         [:dt "Implemented"]
+         [:dd
+          [:span.percent (pct (:percent headline))]
+          [:span.fraction (str (:in-both-count headline) " / "
+                                (:canon-total headline))]]]
+        ;; Each dialect's runtime reports its own value here -- which can be
+        ;; the Clojure version it claims compat with (bb, cljs, clr, mino) or
+        ;; the dialect's own release id (jank). Hence the literal var-name
+        ;; label: "Reported *clojure-version*" rather than "Dialect Version".
+        [:div.stat
+         [:dt "Reported " [:code "clojure-version"]]
+         [:dd (or d-ver "—")]]
+        [:div.stat
+         [:dt "Clojure (JVM)"]
+         [:dd (:canon-version meta-info)]]
+        [:div.stat
+         [:dt "Snapshot"]
+         [:dd (human-time (:compared-at meta-info))]]]
        [:p.no-snapshot "no snapshot yet"])]))
 
 ;; ===== landing: coverage matrix ===================================
@@ -91,7 +99,7 @@
   (mapv :ns (:target-namespaces canon-spec)))
 
 (defn- matrix-cell
-  "Render one (dialect × namespace) cell on the landing matrix. Empty
+  "Render one (namespace × dialect) cell on the landing matrix. Empty
   cell when the dialect doesn't participate in this namespace."
   [{:keys [tag dashboard]} ns-sym link]
   (let [per-ns  (some-> dashboard :coverage :per-namespace)
@@ -105,27 +113,32 @@
       [:td.matrix-empty "—"])))
 
 (defn coverage-matrix
-  "Landing matrix: rows = dialects (alpha), columns = canon
-  namespaces (canon-spec order), cells = coverage % linked to the
-  per-namespace deep dive."
+  "Landing matrix: rows = canon namespaces (canon-spec order),
+  columns = dialects (alpha), cells = implementation % linked to the
+  per-namespace deep dive.
+
+  Vertical orientation puts the long axis (16 namespaces) on the
+  rows so the table scrolls vertically with the page; sticky first
+  column keeps the namespace label visible when the dialect columns
+  scroll horizontally on narrow viewports."
   [dialects canon-spec link]
-  (let [ns-syms (ns-syms-from-spec canon-spec)
-        rows    (sort-by :tag dialects)]
+  (let [ns-syms  (ns-syms-from-spec canon-spec)
+        dialects (sort-by :tag dialects)]
     [:section
-     [:h2 "Coverage by Namespace"]
+     [:h2 "Implementation by Namespace"]
      [:div.matrix-wrap
       [:table.matrix
        [:thead
         [:tr
-         [:th.matrix-dialect "Dialect"]
-         (for [ns-sym ns-syms]
-           [:th.matrix-ns [:code (str ns-sym)]])]]
+         [:th.matrix-row-label "Namespace"]
+         (for [d dialects]
+           [:th.matrix-col-label
+            [:a {:href (link (str "/dialects/" (:tag d) "/"))} (:tag d)]])]]
        [:tbody
-        (for [d rows]
+        (for [ns-sym ns-syms]
           [:tr
-           [:td.matrix-dialect
-            [:a {:href (link (str "/dialects/" (:tag d) "/"))} (:name d)]]
-           (for [ns-sym ns-syms]
+           [:td.matrix-row-label [:code (str ns-sym)]]
+           (for [d dialects]
              (matrix-cell d ns-sym link))])]]]]))
 
 (defn landing
@@ -148,24 +161,28 @@
     [:header.detail-header
      [:h1 name]
      [:dl.headline
-      [:dt "Headline Coverage"]
-      [:dd [:span.percent (pct (:percent h))]
-       " "
-       [:span.fraction (str "(" (:in-both-count h) " / "
-                              (:canon-total h) " vars)")]]
-      [:dt "Dialect Version"]
-      [:dd (or dver "—")]
-      [:dt "Clojure (JVM) Version"]
-      [:dd (:canon-version m)]
-      [:dt "Snapshot Taken"]
-      [:dd (human-time (:compared-at m))]]]))
+      [:div.stat
+       [:dt "Implemented"]
+       [:dd
+        [:span.percent (pct (:percent h))]
+        [:span.fraction (str (:in-both-count h) " / "
+                              (:canon-total h) " vars")]]]
+      [:div.stat
+       [:dt "Reported " [:code "clojure-version"]]
+       [:dd (or dver "—")]]
+      [:div.stat
+       [:dt "Clojure (JVM) Version"]
+       [:dd (:canon-version m)]]
+      [:div.stat
+       [:dt "Snapshot Taken"]
+       [:dd (human-time (:compared-at m))]]]]))
 
 ;; ===== dialect overview: enriched per-namespace summary ===========
 
 (defn- per-namespace-summary [{:keys [tag dashboard]} link]
   (let [rows (agg/per-namespace-summary dashboard)]
     [:section
-     [:h2 "Per-Namespace Coverage"]
+     [:h2 "Per-Namespace Implementation"]
      [:table.summary
       [:thead
        [:tr
@@ -173,8 +190,7 @@
         [:th.num "Implemented"]
         [:th.num "Mismatched"]
         [:th.num "Missing"]
-        [:th.num "Dialect-Only"]
-        [:th.num "Coverage"]]]
+        [:th.num "Dialect-Only"]]]
       [:tbody
        (for [{:keys [namespace canon-total implemented mismatched missing
                      dialect-only percent]} rows]
@@ -182,11 +198,12 @@
           [:td.ns
            [:a {:href (link (str "/dialects/" tag "/ns/" (str namespace) "/"))}
             (str namespace)]]
-          [:td.num.muted  (str implemented " / " canon-total)]
+          [:td.num.implemented
+           [:span.pct (pct percent)]
+           [:span.fraction (str implemented " / " canon-total)]]
           [:td.num.muted  mismatched]
           [:td.num.muted  missing]
-          [:td.num.muted  dialect-only]
-          [:td.num.pct    (pct percent)]])]]]))
+          [:td.num.muted  dialect-only]])]]]))
 
 ;; ===== category-collapsibles (overview ext/div) ===================
 
@@ -244,7 +261,7 @@
       [:dt "Added Vars"]    [:dd (count-of (:added-vars d))]
       [:dt "Removed Vars"]  [:dd (count-of (:removed-vars d))]
       [:dt "Changed Vars"]  [:dd (count-of (:changed d))]
-      [:dt "Coverage Delta"][:dd (format "%+.4f" (double (or (:coverage-delta d) 0.0)))]]]))
+      [:dt "Implementation Delta"][:dd (format "%+.4f" (double (or (:coverage-delta d) 0.0)))]]]))
 
 (defn- history-table [dashboard]
   (let [hist (:history dashboard)]
@@ -253,7 +270,7 @@
        [:h2 (str "History (" (pluralize (count hist) "Snapshot" "Snapshots") ")")]
        [:table.history
         [:thead
-         [:tr [:th "Date"] [:th.num "Coverage"] [:th.num "Implemented / Total"]]]
+         [:tr [:th "Date"] [:th.num "Implemented"] [:th.num "Vars"]]]
         [:tbody
          (for [s (reverse (sort-by :date hist))]
            [:tr
@@ -290,13 +307,14 @@
   "Compact 4-stat strip at the top of a per-namespace deep dive."
   [{:keys [implemented mismatched missing dialect-only canon-total percent]}]
   [:dl.deep-dive-stats
-   [:dt "Coverage"]
-   [:dd (pct percent)
-    " "
-    [:span.fraction (str "(" implemented " / " canon-total ")")]]
-   [:dt "Mismatched"] [:dd.muted-stat mismatched]
-   [:dt "Missing"]    [:dd.muted-stat missing]
-   [:dt "Dialect-Only"] [:dd.muted-stat dialect-only]])
+   [:div.stat
+    [:dt "Implemented"]
+    [:dd
+     [:span.percent (pct percent)]
+     [:span.fraction (str implemented " / " canon-total)]]]
+   [:div.stat [:dt "Mismatched"]   [:dd.muted-stat mismatched]]
+   [:div.stat [:dt "Missing"]      [:dd.muted-stat missing]]
+   [:div.stat [:dt "Dialect-Only"] [:dd.muted-stat dialect-only]]])
 
 (defn- ns-mismatches-table [mismatches]
   [:section

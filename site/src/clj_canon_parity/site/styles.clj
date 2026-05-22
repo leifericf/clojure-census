@@ -181,19 +181,37 @@
                           :font-weight w-semibold}]]
    [:.dialect-card [:h3 [:a {:color fg}]]]
    [:.dialect-card [:h3 [:a:hover {:color accent}]]]
+   ;; Card metadata is a vertical stack of .stat blocks — label above value,
+   ;; full card width — to avoid awkward mid-value wrapping that the old
+   ;; 2-column grid produced when a long value met a narrow column.
    [:.dialect-card [:dl.card-meta
-                    {:display "grid"
-                     :grid-template-columns "max-content 1fr"
-                     :column-gap sp-4
-                     :row-gap sp-2
+                    {:display "flex"
+                     :flex-direction "column"
+                     :gap sp-3
                      :margin "0"
                      :font-size small}]]
-   [:.dialect-card [:dl.card-meta [:dt eyebrow-label]]]
-   [:.dialect-card [:dl.card-meta [:dd {:margin "0" :color fg}]]]
-   [:.dialect-card [:dl.card-meta [:dd.coverage
-                                    {:font-weight w-bold
-                                     :color accent}]]]
-   [:.dialect-card [:.fraction {:color muted :font-weight w-normal}]]
+   [:.dialect-card [:.card-meta [:.stat
+                                  {:display "flex"
+                                   :flex-direction "column"
+                                   :gap sp-1}]]]
+   [:.dialect-card [:.card-meta [:.stat [:dt eyebrow-label]]]]
+   [:.dialect-card [:.card-meta [:.stat [:dt [:code {:text-transform "none"
+                                                      :font-size "0.85em"
+                                                      :letter-spacing "normal"}]]]]]
+   [:.dialect-card [:.card-meta [:.stat [:dd {:margin "0"
+                                               :color fg
+                                               :font-size body
+                                               :line-height "1.35"}]]]]
+   [:.dialect-card [:.card-meta [:.stat [:.percent {:font-size lead
+                                                     :font-weight w-bold
+                                                     :color accent
+                                                     :display "block"
+                                                     :line-height "1.2"}]]]]
+   [:.dialect-card [:.card-meta [:.stat [:.fraction {:color muted
+                                                      :font-size small
+                                                      :font-weight w-normal
+                                                      :display "block"
+                                                      :margin-top "0.15rem"}]]]]
    [:.no-snapshot {:color subtle
                    :font-style "italic"
                    :margin "0"}]
@@ -221,22 +239,31 @@
                              :letter-spacing "normal"
                              :white-space "nowrap"
                              :border-bottom (str "1px solid " rule)}]]]
-   [:table.matrix [:thead [:th.matrix-dialect
-                            {:text-align "left"}]]]
-   [:table.matrix [:thead [:th.matrix-ns
-                            {:text-align "right"}]]]
+   ;; first column header + first column cells (row labels = namespace names)
+   [:table.matrix [:thead [:th.matrix-row-label
+                            {:text-align "left"
+                             :position "sticky"
+                             :left "0"
+                             :background surface
+                             :border-right (str "1px solid " rule)}]]]
    [:table.matrix [:tbody [:tr {:border-bottom (str "1px solid " rule-soft)}]]]
    [:table.matrix [:tbody [:tr:last-child {:border-bottom "none"}]]]
    [:table.matrix [:tbody [:td {:padding (str sp-2 " " sp-3)
                                  :vertical-align "middle"
                                  :white-space "nowrap"}]]]
-   [:table.matrix [:tbody [:td.matrix-dialect
+   [:table.matrix [:tbody [:td.matrix-row-label
                             {:position "sticky"
                              :left "0"
                              :background bg
                              :border-right (str "1px solid " rule)
-                             :font-weight w-semibold
+                             :font-weight w-medium
                              :text-align "left"}]]]
+   ;; column headers (dialect tags) — right-aligned to match the numeric cells
+   [:table.matrix [:thead [:th.matrix-col-label
+                            {:text-align "right"
+                             :font-family font-mono}]]]
+   [:table.matrix [:thead [:th.matrix-col-label [:a {:color muted}]]]]
+   [:table.matrix [:thead [:th.matrix-col-label [:a:hover {:color accent}]]]]
    [:table.matrix [:tbody [:td.matrix-cell numeric-cell]]]
    [:table.matrix [:tbody [:td.matrix-cell [:a {:color fg}]]]]
    [:table.matrix [:tbody [:td.matrix-cell [:a:hover {:color accent}]]]]
@@ -255,47 +282,71 @@
    [:.crumbs [:a:hover {:color accent}]]
 
    ;; ---------- detail headline stat block ----------
-   [:.detail-header {:padding (str sp-8 " 0 " sp-12 " 0")
+   [:.detail-header {:padding (str sp-6 " 0 " sp-8 " 0")
                      :border-bottom (str "1px solid " rule-soft)
                      :margin-bottom sp-6}]
    [:.detail-header [:h1 {:margin (str "0 0 " sp-8 " 0")}]]
+   ;; Each .stat is a self-contained label+value block. Grid lays out
+   ;; the four stats side-by-side; auto-fit wraps onto a new row on
+   ;; narrower viewports.
    [:.headline {:display "grid"
-                :grid-template-columns "repeat(auto-fit, minmax(13rem, 1fr))"
-                :gap sp-8
+                :grid-template-columns "repeat(auto-fit, minmax(11rem, 1fr))"
+                :gap sp-6
                 :margin "0"}]
-   [:.headline [:dt eyebrow-label]]
-   [:.headline [:dt {:margin-bottom sp-2}]]
-   [:.headline [:dd {:margin "0"
-                     :font-size body
-                     :color fg
-                     :font-weight w-medium}]]
-   [:.headline [:.percent {:font-size display
+   [:.headline [:.stat {:display "flex"
+                         :flex-direction "column"
+                         :gap sp-1}]]
+   [:.headline [:.stat [:dt eyebrow-label]]]
+   [:.headline [:.stat [:dt [:code {:text-transform "none"
+                                     :font-size "0.85em"
+                                     :letter-spacing "normal"}]]]]
+   [:.headline [:.stat [:dd {:margin "0"
+                              :font-size body
+                              :color fg
+                              :font-weight w-medium
+                              :line-height "1.3"}]]]
+   [:.headline [:.percent {:font-size "1.875rem"
                             :font-weight w-bold
                             :color accent
                             :letter-spacing "-0.02em"
-                            :line-height "1"
-                            :display "inline-block"
-                            :margin-right sp-2}]]
+                            :line-height "1.1"
+                            :display "block"}]]
    [:.headline [:.fraction {:color muted
                              :font-size small
-                             :font-weight w-normal}]]
+                             :font-weight w-normal
+                             :display "block"
+                             :margin-top sp-1}]]
 
    ;; ---------- deep-dive stat strip (compact stat block) ----------
    [:.deep-dive-stats {:display "grid"
                        :grid-template-columns "repeat(auto-fit, minmax(8rem, 1fr))"
                        :gap sp-6
                        :margin (str sp-4 " 0 " sp-8 " 0")
-                       :padding sp-4
+                       :padding (str sp-4 " " sp-6)
                        :background surface
                        :border-radius r-md}]
-   [:.deep-dive-stats [:dt eyebrow-label]]
-   [:.deep-dive-stats [:dt {:margin-bottom sp-1}]]
-   [:.deep-dive-stats [:dd {:margin "0"
-                             :font-size lead
-                             :font-weight w-bold
-                             :color fg
-                             :font-variant-numeric "tabular-nums"}]]
-   [:.deep-dive-stats [:dd.muted-stat {:color muted :font-weight w-medium}]]
+   [:.deep-dive-stats [:.stat {:display "flex"
+                                :flex-direction "column"
+                                :gap sp-1}]]
+   [:.deep-dive-stats [:.stat [:dt eyebrow-label]]]
+   [:.deep-dive-stats [:.stat [:dd {:margin "0"
+                                     :font-size lead
+                                     :font-weight w-bold
+                                     :color fg
+                                     :font-variant-numeric "tabular-nums"
+                                     :line-height "1.2"}]]]
+   [:.deep-dive-stats [:.stat [:dd.muted-stat {:color muted
+                                                :font-weight w-medium}]]]
+   [:.deep-dive-stats [:.stat [:.percent {:font-size "1.5rem"
+                                           :font-weight w-bold
+                                           :color accent
+                                           :display "block"
+                                           :line-height "1.1"}]]]
+   [:.deep-dive-stats [:.stat [:.fraction {:color muted
+                                            :font-size caption
+                                            :font-weight w-normal
+                                            :display "block"
+                                            :margin-top sp-1}]]]
 
    ;; ---------- section notes / empty ----------
    [:.section-note {:color muted
@@ -342,8 +393,14 @@
                              :font-size body}]]
    [:table.summary [:td.ns [:a {:color fg}]]]
    [:table.summary [:td.ns [:a:hover {:color accent}]]]
-   [:table.summary [:td.pct {:font-weight w-bold
-                              :color fg}]]
+   ;; Merged percent + fraction cell — percent prominent, fraction muted alongside
+   [:table.summary [:td.implemented {:line-height "1.4"}]]
+   [:table.summary [:td.implemented [:.pct {:font-weight w-bold
+                                              :color fg
+                                              :margin-right sp-2}]]]
+   [:table.summary [:td.implemented [:.fraction {:color muted
+                                                  :font-size caption
+                                                  :font-weight w-normal}]]]
 
    ;; ---------- var lists (deep-dive var tables) ----------
    [:table.var-table {:font-size small}]
