@@ -18,7 +18,7 @@
 ;; mino, Babashka, and ClojureCLR via narrower reader-conditional
 ;; branches.
 
-(ns clj-canon-parity.surface-dump-jank
+(ns clj-census.surface-dump-jank
   (:require [clojure.core]
             [clojure.string]
             [clojure.set]

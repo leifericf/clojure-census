@@ -1,6 +1,6 @@
 ;; Hand-curated intentional divergences from JVM Clojure canon.
 ;;
-;; Schema: see ::clj-canon-parity.schema/divergence
+;; Schema: see ::clj-census.schema/divergence
 ;;
 ;; :category-id must reference an entry in data/categories.edn --
 ;; load-time validation enforces this. New categories require an

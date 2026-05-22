@@ -6,7 +6,7 @@
 ;; jank-0.1-alpha; the C++ interop layer and ahead-of-time
 ;; compilation drive most of the host divergences listed here.
 ;;
-;; Schema: see ::clj-canon-parity.schema/divergence
+;; Schema: see ::clj-census.schema/divergence
 [
  {:id              :stdlib-incomplete-alpha
   :title           "Many canon stdlib namespaces are not yet implemented"

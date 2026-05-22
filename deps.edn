@@ -14,10 +14,10 @@
    :main-opts   ["-m" "cognitect.test-runner"]
    :exec-fn     cognitect.test-runner.api/test}
 
-  ;; Schema-validate every EDN under canon/, dialects/, data/.
+  ;; Schema-validate every EDN under clojure/, dialects/, data/.
   ;; Non-zero exit on the first malformed entry.
   :validate-data
-  {:main-opts ["-m" "clj-canon-parity.main" "validate-data"]}
+  {:main-opts ["-m" "clj-census.main" "validate-data"]}
 
   ;; Run the pipeline. Use `-- --help` to see options.
   ;; Examples:
@@ -25,7 +25,7 @@
   ;;   clojure -M:run diff   --dialect mino
   ;;   clojure -M:run render --dialect mino
   :run
-  {:main-opts ["-m" "clj-canon-parity.main"]}
+  {:main-opts ["-m" "clj-census.main"]}
 
   ;; Site: Stasis dev server (proxies into site/ via :local/root).
   ;;   clojure -M:dev
@@ -33,7 +33,7 @@
   {:replace-deps  {com.leifericf/clojure-census-site
                    {:local/root "site"}}
    :replace-paths []
-   :main-opts     ["-m" "clj-canon-parity.site.core" "dev"]}
+   :main-opts     ["-m" "clj-census.site.core" "dev"]}
 
   ;; Site: one-shot static build into site/public/.
   ;;   clojure -M:build
@@ -41,4 +41,4 @@
   {:replace-deps  {com.leifericf/clojure-census-site
                    {:local/root "site"}}
    :replace-paths []
-   :main-opts     ["-m" "clj-canon-parity.site.core" "build"]}}}
+   :main-opts     ["-m" "clj-census.site.core" "build"]}}}

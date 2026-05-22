@@ -5,7 +5,7 @@
 ;; threads, no JVM class hierarchy) or were renamed (clojure.core →
 ;; cljs.core, clojure.spec.alpha → cljs.spec.alpha).
 ;;
-;; Schema: see ::clj-canon-parity.schema/divergence
+;; Schema: see ::clj-census.schema/divergence
 [
  {:id              :no-jvm-class-system
   :title           "No JVM class hierarchy"

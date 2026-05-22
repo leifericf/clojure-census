@@ -9,11 +9,11 @@
  :aliases
  {;; Build the static site into site/public/.
   :build
-  {:main-opts ["-m" "clj-canon-parity.site.core" "build"]}
+  {:main-opts ["-m" "clj-census.site.core" "build"]}
 
   ;; Serve the site at http://localhost:8000 with hot reload.
   :dev
-  {:main-opts ["-m" "clj-canon-parity.site.core" "dev"]}
+  {:main-opts ["-m" "clj-census.site.core" "dev"]}
 
   ;; Run the site's own unit tests.
   :test

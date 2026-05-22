@@ -5,7 +5,7 @@
 ;; divergences are host-bound: JVM-specific class references and
 ;; java.* namespaces are replaced by CLR equivalents (System.*).
 ;;
-;; Schema: see ::clj-canon-parity.schema/divergence
+;; Schema: see ::clj-census.schema/divergence
 [
  {:id              :host-class-system-clr
   :title           "Host classes are CLR System.*, not JVM java.*"

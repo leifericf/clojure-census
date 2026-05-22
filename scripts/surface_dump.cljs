@@ -14,7 +14,7 @@
 ;; Clojure's eval/load-string for dynamic namespace loading. Adding a
 ;; namespace to the captured set means editing this file.
 
-(ns clj-canon-parity.surface-dump-cljs
+(ns clj-census.surface-dump-cljs
   (:require [cljs.analyzer.api :as ana]
             [cljs.reader       :as reader]
             [clojure.string    :as str]
