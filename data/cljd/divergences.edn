@@ -1,0 +1,91 @@
+;; Hand-curated intentional divergences for ClojureDart.
+;;
+;; ClojureDart compiles .cljd source to Dart and then relies on
+;; the Dart toolchain (Dart VM, AOT compiler, Flutter) to run the
+;; output. Divergences fall in four buckets: (1) Dart-host semantics
+;; bleeding into the language, (2) compile-time-only constructs that
+;; do not exist on the JVM, (3) AOT-only restrictions (no eval at
+;; runtime), (4) intentional Flutter / mobile-shaped extensions.
+;;
+;; Schema: see ::clj-census.schema/divergence
+[
+ {:id              :dart-host
+  :title           "Host runtime is Dart, not the JVM"
+  :category-id     :jvm-statics
+  :rationale       "Interop targets Dart libraries (`dart:core`,
+                    `dart:math`, `dart:io`, `dart:async`,
+                    `dart:isolate`). JVM-static names
+                    (System/getenv, Math/PI, java.io.File) do not
+                    resolve; equivalents come from the corresponding
+                    `dart:*` library via `(:require [\"dart:...\" :as
+                    ...])`."
+  :since           "cljd-0.1"
+  :doc-link        "https://github.com/Tensegritics/ClojureDart"}
+
+ {:id              :aot-only-compilation-model
+  :title           "AOT-compiled to Dart; no runtime eval"
+  :category-id     :macros
+  :rationale       "ClojureDart compiles ahead of time to Dart source,
+                    which Dart itself then compiles. `eval`,
+                    `load-string`, and `read-string`-then-evaluate
+                    have no runtime equivalent. Macro expansion
+                    happens only at compile time."
+  :since           "cljd-0.1"
+  :affected        [clojure.core/eval
+                    clojure.core/load-string
+                    clojure.core/load-file]}
+
+ {:id              :no-jvm-concurrency-primitives
+  :title           "Concurrency follows Dart's isolate model"
+  :category-id     :concurrency
+  :rationale       "Dart has single-threaded event loops with isolates
+                    for parallel work. Refs, agents, and the JVM's
+                    java.util.concurrent vocabulary do not translate;
+                    cljd.core surfaces atoms and provides a
+                    Dart-async-flavored alternative."
+  :since           "cljd-0.1"
+  :doc-link        "https://dart.dev/language/concurrency"}
+
+ {:id              :reader-conditional-cljd
+  :title           "Reader conditional :clj does not fire under ClojureDart"
+  :category-id     :reader
+  :rationale       "ClojureDart uses :cljd for its own branches and
+                    :cljd/clj-host for compile-time JVM-side code.
+                    Portable code that targets ClojureDart must
+                    use :cljd; code under :clj is invisible."
+  :since           "cljd-0.1"
+  :doc-link        "https://github.com/Tensegritics/ClojureDart/blob/main/doc/differences.md"}
+
+ {:id              :type-hint-syntax-extended
+  :title           "Extended type-hint syntax `^#/(Type ...)`"
+  :category-id     :type-system
+  :rationale       "ClojureDart introduces `#/`-prefixed type
+                    expressions to attach Dart type annotations to
+                    forms (e.g. `^#/(List String) xs`). The portable
+                    `^Type sym` syntax is also supported."
+  :since           "cljd-0.1"}
+
+ {:id              :stdlib-partial
+  :title           "Several Clojure (JVM) namespaces have no cljd analogue"
+  :category-id     :namespaces
+  :rationale       "ClojureDart ships cljd.core, .string, .set, .walk,
+                    .test, .template, .math, .data, .edn, .zip plus
+                    Dart-specific cljd.flutter and cljd.reader. The
+                    canonical clojure.pprint, .core.protocols,
+                    .core.reducers, .spec.alpha, .datafy, .instant
+                    are not present."
+  :since           "cljd-0.1"}
+
+ {:id              :static-analysis-surface
+  :title           "Surface measured via static source analysis"
+  :category-id     :namespaces
+  :rationale       "The census reads .cljd source forms directly
+                    rather than calling ns-publics at runtime. Some
+                    metadata that requires evaluation (computed
+                    `:arglists`, runtime-attached docs) is not
+                    captured. The captured surface is the set of
+                    `def` / `defn` / `defmacro` / `definline` forms
+                    visible to the reader; matches `(meta var)` for
+                    plain definitions."
+  :since           "cljd-0.1"}
+]

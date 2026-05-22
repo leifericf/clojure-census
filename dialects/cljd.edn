@@ -1,0 +1,67 @@
+;; ClojureDart -- a Clojure dialect that compiles `.cljd` source to
+;; Dart. Targets the Dart VM and (with cljd.flutter) the Flutter UI
+;; toolkit. Unlike the other dialects in this census, ClojureDart has
+;; no runtime `ns-publics` we can introspect: the surface only exists
+;; at compile time in the Tensegritics/ClojureDart source tree.
+;;
+;; This config drives a static-analysis dump (scripts/surface_dump_cljd.clj)
+;; that parses every `.cljd` / `.cljc` file directly under
+;; <CLJD_CHECKOUT>/clj/src/cljd/, locates each file's `ns` form, and
+;; records every `def` / `defn` / `defmacro` / `definline` it sees.
+;;
+;; Limits vs runtime introspection:
+;;   - `:arglists` is taken literally from the param vectors in the
+;;     source; hand-written `:arglists` overrides on the `(meta var)`
+;;     would not be picked up because nothing is evaluated.
+;;   - `:added` and `:doc` are surfaced where present.
+;;   - cljd.* namespaces are mapped onto canonical clojure.* names by
+;;     :surface-normalization :namespace-renames, mirroring the
+;;     ClojureScript pattern.
+;;
+;; Required env: CLJD_CHECKOUT must point at a clone of
+;; https://github.com/Tensegritics/ClojureDart (or a fork). The CI
+;; workflow checks the repo out automatically.
+{:name             "ClojureDart"
+ :tag              "cljd"
+ :role             :sut
+
+ :invocation       {:type :subprocess
+                    :cmd  ["clojure" "-M" "scripts/surface_dump_cljd.clj"]}
+ ;; ClojureDart releases out-of-tree (deps.edn coordinates rather than
+ ;; tags); the script captures the checkout's short SHA as the
+ ;; dialect's reported "clojure-version".
+ :version-cmd      ["bash" "-c"
+                    "cd ${CLJD_CHECKOUT:-cljd-checkout} && git rev-parse --short HEAD"]
+
+ ;; Canonical names; the dump captures cljd.* forms and the
+ ;; namespace-renames map normalizes them onto clojure.*.
+ :participates-in  [clojure.core
+                    clojure.string
+                    clojure.set
+                    clojure.walk
+                    clojure.test
+                    clojure.template
+                    clojure.math
+                    clojure.data
+                    clojure.edn
+                    clojure.zip]
+ :data-dir         "data/cljd"
+ :output-dir       "output/cljd"
+
+ :surface-normalization
+ {:namespace-renames {cljd.core      clojure.core
+                      cljd.string    clojure.string
+                      cljd.set       clojure.set
+                      cljd.walk      clojure.walk
+                      cljd.test      clojure.test
+                      cljd.template  clojure.template
+                      cljd.math      clojure.math
+                      cljd.data      clojure.data
+                      cljd.edn       clojure.edn
+                      cljd.zip       clojure.zip}
+  ;; cljd.compiler, cljd.flutter, cljd.reader are implementation-internal
+  ;; or host-only namespaces with no clojure.* analogue. Filter them
+  ;; out at the cljd.* layer so they don't surface as :dialect-only.
+  :include-only-namespaces
+  #{cljd.core cljd.string cljd.set cljd.walk cljd.test
+    cljd.template cljd.math cljd.data cljd.edn cljd.zip}}}

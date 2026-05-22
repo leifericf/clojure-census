@@ -2,7 +2,11 @@
 
  :deps  {org.clojure/clojure       {:mvn/version "1.12.4"}
          org.clojure/tools.cli     {:mvn/version "1.1.230"}
-         org.clojure/data.json     {:mvn/version "2.5.0"}}
+         org.clojure/data.json     {:mvn/version "2.5.0"}
+         ;; Used by scripts/surface_dump_cljd.clj to parse .cljd / .cljc
+         ;; source forms (reader conditionals, tagged literals) without
+         ;; evaluating them.
+         org.clojure/tools.reader  {:mvn/version "1.5.2"}}
 
  :aliases
  {;; Run the unit + property test suite.

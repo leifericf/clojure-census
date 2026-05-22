@@ -1,0 +1,41 @@
+;; ClojureDart namespaces beyond Clojure (JVM)'s clojure.* tree.
+;;
+;; Only namespaces under Clojure (JVM)'s target list participate in
+;; the parity comparison. ClojureDart's host-specific helpers and
+;; mobile-UI integrations live outside that list and are catalogued
+;; here for documentation only.
+[
+ {:id             :cljd-flutter
+  :title          "cljd.flutter -- declarative widgets and reactive state"
+  :affected-names ["cljd.flutter/widget"
+                   "cljd.flutter/run"
+                   "cljd.flutter/build"
+                   "cljd.flutter/state"]
+  :category-id    :jvm-statics
+  :rationale      "Declarative bindings around Flutter's widget tree.
+                   No JVM Clojure analogue; the closest comparison is
+                   seesaw / cljfx on the JVM, both third-party."
+  :since          "cljd-0.1"
+  :doc-link       "https://github.com/Tensegritics/ClojureDart/blob/main/doc/flutter-helpers.md"}
+
+ {:id             :cljd-reader
+  :title          "cljd.reader -- EDN reader implementation"
+  :affected-names ["cljd.reader/read-string"]
+  :category-id    :reader
+  :rationale      "Ships a Dart-native reader because ClojureDart
+                   cannot lean on the JVM's reader at runtime. API is
+                   a subset of clojure.edn/read-string."
+  :since          "cljd-0.1"}
+
+ {:id             :dart-interop
+  :title          "Dart library interop via `[\"dart:...\" :as ...]`"
+  :affected-names ["dart:core" "dart:math" "dart:io" "dart:async"
+                   "dart:isolate" "dart:collection" "dart:convert"]
+  :category-id    :jvm-statics
+  :rationale      "ClojureDart's analogue of Java-class interop.
+                   Dart libraries are imported via string-form
+                   require entries; their members are reached as
+                   `(alias/Symbol args)` in code."
+  :since          "cljd-0.1"
+  :doc-link       "https://dart.dev/libraries"}
+]
