@@ -3,7 +3,7 @@
     "dialect-tag": "clr",
     "dialect-name": "ClojureCLR",
     "canon-version": "1.12.4",
-    "compared-at": "2026-05-22T12:28:10Z"
+    "compared-at": "2026-05-22T12:40:33Z"
   },
   "divergences": [
     {

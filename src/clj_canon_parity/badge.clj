@@ -8,17 +8,18 @@
             [clojure.java.io   :as io]
             [clj-canon-parity.coverage :as coverage]))
 
+;; Single neutral color for every badge. Coverage is a measurement,
+;; not a value judgment -- a 50% number is no more "bad" than a 95%
+;; number is "good". Both are facts about how much of canon a dialect
+;; implements. shields.io's "blue" is recognizable as informational
+;; without the green-yellow-red goodness gradient most CI badges use.
+(def ^:private neutral-color "blue")
+
 (defn color-for
-  "Pick a shields.io color band for a 0..1 percent."
-  [percent]
-  (let [p (double (or percent 0.0))]
-    (cond
-      (>= p 0.90) "brightgreen"
-      (>= p 0.80) "green"
-      (>= p 0.70) "yellowgreen"
-      (>= p 0.55) "yellow"
-      (>= p 0.35) "orange"
-      :else       "red")))
+  "Return the shields.io color for a parity badge. Always neutral
+  regardless of percent -- the number IS the measurement."
+  [_percent]
+  neutral-color)
 
 (defn endpoint
   "Build a shields.io endpoint map from `{:dialect-tag :headline}`.
