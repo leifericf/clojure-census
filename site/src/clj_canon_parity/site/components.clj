@@ -145,8 +145,9 @@
   [dialects canon-spec {:keys [link]}]
   [:main.landing
    [:section.intro
-    [:h1 "Clojure Dialect Parity"]
-    [:p "Mechanical surface introspection of Clojure dialects against Clojure (JVM)."]]
+    [:h1 "Clojure Census"]
+    [:p "A periodic census of Clojure dialect surface implementation,"
+        " measured against Clojure (JVM)."]]
    [:section.dialect-list
     (for [d (sort-by :tag dialects)]
       (dialect-card d link))]

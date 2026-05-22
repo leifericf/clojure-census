@@ -1,13 +1,15 @@
-# clojure-canon-parity
+# Clojure Census
 
-Mechanical Clojure-canon parity tracking for Clojure dialects.
+A periodic, mechanical census of Clojure dialect surface
+implementation, measured against Clojure (JVM).
 
 ## What this is
 
-A tool that **mechanically discovers** JVM Clojure's surface (vars,
-arglists, metadata, special forms, spec registry) and compares it against
-a target dialect's surface. Produces a per-dialect EDN dashboard plus a
-shields.io badge. The EDN is rendered into a static site under `site/`.
+A tool that **mechanically discovers** Clojure (JVM)'s surface
+(vars, arglists, metadata, special forms, spec registry) and compares
+it against each dialect's surface. Produces a per-dialect EDN
+dashboard plus a shields.io badge. The EDN is rendered into a static
+site under `site/`.
 
 mino was the first consumer; Babashka (bb) shipped second as a
 working proof of the dialect-plug-in design; ClojureScript (cljs,

@@ -8,7 +8,7 @@
   `title` is the per-page <title>. `link` is the link-prefixing fn
   produced by `components/make-link`."
   [{:keys [title link]} body]
-  (let [t (cond-> "clojure-canon-parity"
+  (let [t (cond-> "Clojure Census"
             (and title (seq title)) (str " -- " title))]
     [:html {:lang "en"}
      [:head
