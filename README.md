@@ -90,11 +90,20 @@ clojure -M:run render bb
 The static site lives under `site/` and reads
 `output/<dialect>/dashboard.edn`. Stasis + Hiccup + Garden, no JS.
 
+From the repo root:
+
+```sh
+clojure -M:dev     # serve on http://localhost:8000 with hot reload
+clojure -M:build   # write site/public/
+```
+
+From `site/` (its own deps.edn — useful for site-only tests):
+
 ```sh
 cd site
 clojure -M:test    # site unit tests
-clojure -M:dev     # serve on http://localhost:8000 with hot reload
-clojure -M:build   # write site/public/
+clojure -M:dev
+clojure -M:build
 ```
 
 CI deploys to GitHub Pages via `.github/workflows/pages.yml` on every

@@ -1,10 +1,42 @@
 (ns clj-canon-parity.site.config
-  "Site-build configuration. Centralizes the few values that need to
-  change between local dev and the GitHub Pages deployment."
+  "Site-build configuration. Resolves paths from the project root so
+  `clojure -M:dev` / `-M:build` work whether invoked from the repo
+  root or from `site/`."
   (:require [clojure.java.io :as io]))
 
 (defn- env [k default]
   (or (System/getenv k) default))
+
+(defn- find-project-root
+  "Walk up from cwd until a directory containing `dialects/` is
+  found -- that marker uniquely identifies this repo's root."
+  []
+  (loop [d (.getCanonicalFile (io/file "."))]
+    (cond
+      (nil? d)
+      (throw (ex-info "project root not found (no dialects/ above cwd)"
+                      {:cwd (.getCanonicalPath (io/file "."))}))
+
+      (.exists (io/file d "dialects"))
+      d
+
+      :else
+      (recur (.getParentFile d)))))
+
+(defn project-root
+  "Absolute path to the repo root. Overridable via `PROJECT_ROOT`."
+  []
+  (env "PROJECT_ROOT" (.getPath (find-project-root))))
+
+(defn dialects-dir [] (str (project-root) "/dialects"))
+(defn output-root  [] (str (project-root) "/output"))
+
+(defn target-dir
+  "Directory `-M:build` writes into. Defaults to `<root>/site/public`,
+  which the root `.gitignore` already excludes. Override via
+  `SITE_TARGET`."
+  []
+  (env "SITE_TARGET" (str (project-root) "/site/public")))
 
 (defn site-base
   "URL prefix for every internal link. Empty locally; set to
@@ -12,24 +44,6 @@
   in CI via the `SITE_BASE` env var."
   []
   (env "SITE_BASE" ""))
-
-(defn project-root
-  "Repository root, resolved from the directory the JVM was started
-  in. The site lives in `<root>/site/`, so when invoked with
-  `cd site && clojure -M:build`, the cwd is `<root>/site/` and the
-  parent is the engine root."
-  []
-  (env "PROJECT_ROOT"
-       (.getCanonicalPath (io/file ".."))))
-
-(defn dialects-dir [] (str (project-root) "/dialects"))
-(defn output-root  [] (str (project-root) "/output"))
-
-(defn target-dir
-  "Directory that `clojure -M:build` writes into. Cleared on every
-  build, .gitignored at the repo root."
-  []
-  (env "SITE_TARGET" "public"))
 
 (defn dev-port
   "Port for `clojure -M:dev`'s Stasis serve."

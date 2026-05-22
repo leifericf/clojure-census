@@ -1,50 +1,39 @@
 (ns clj-canon-parity.site.core
-  "Build + dev entry points. `build` runs once and exports to disk;
-  `dev` starts Stasis's own serve handler behind Jetty.
+  "Stasis entry points. `app` is the canonical
+  `(stasis/serve-pages get-pages)` Ring handler -- Stasis
+  re-evaluates `get-pages` on every request, so editing
+  components/styles/data and refreshing the browser is enough.
 
-  Both consume the same page source produced by
-  `stasis.core/merge-page-sources`, combining the dynamic page map
-  from `pages.clj` with whatever static assets live under
-  `resources/public/`. The Stasis serve handler re-evaluates the page
-  source on every request, so editing components/styles/data and
-  refreshing the browser is enough -- no watcher needed."
+  `-main` dispatches `build` (one-shot export to disk) and `dev`
+  (Jetty wraps `app`)."
   (:require [clj-canon-parity.site.config :as config]
             [clj-canon-parity.site.pages  :as pages]
             [ring.adapter.jetty :as jetty]
             [stasis.core        :as stasis]))
 
-(defn- page-sources
+(defn- get-pages
   "Merge generated pages with any static assets shipped under
   `resources/public/`. Returns a single page map."
   []
   (stasis/merge-page-sources
     {:static (stasis/slurp-directory "resources/public"
-                                      #".*\.(html|css|js|svg|txt|xml)$")
+                                      #".*\.(html|css|svg|txt|xml)$")
      :pages  (pages/page-map)}))
 
-(defn build
-  "Export the site into `(config/target-dir)`. Clears the directory
-  first so deleted pages do not linger."
-  [& _]
-  (let [target (config/target-dir)]
-    (stasis/empty-directory! target)
-    (stasis/export-pages (page-sources) target)
-    (println "site built ->" target)))
+(def app
+  "Ring handler. Stasis re-invokes `get-pages` per request, so
+  changes to components/data/styles show up on refresh."
+  (stasis/serve-pages get-pages))
 
-(defn dev
-  "Serve the site at http://localhost:<dev-port>. Stasis's serve
-  handler re-evaluates `page-sources` on every request, so changes
-  to components/data/styles show up on refresh."
-  [& _]
-  (let [port (config/dev-port)
-        app  (stasis/serve-pages page-sources)]
-    (println (str "stasis serving on http://localhost:" port))
-    (jetty/run-jetty app {:port port :join? true})))
-
-(defn -main [& [cmd & rest]]
+(defn -main [& [cmd]]
   (case cmd
-    "build" (apply build rest)
-    "dev"   (apply dev   rest)
+    "build" (let [target (config/target-dir)]
+              (stasis/empty-directory! target)
+              (stasis/export-pages (get-pages) target)
+              (println "site built ->" target))
+    "dev"   (let [port (config/dev-port)]
+              (println (str "stasis serving on http://localhost:" port))
+              (jetty/run-jetty app {:port port :join? true}))
     (do (binding [*out* *err*]
           (println "usage: clojure -M:build  |  clojure -M:dev"))
         (System/exit 2))))
