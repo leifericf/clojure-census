@@ -1,0 +1,84 @@
+;; Hand-curated intentional divergences for ClojureCLR.
+;;
+;; ClojureCLR targets the Common Language Runtime (.NET) instead of
+;; the JVM. The Clojure surface is almost identical to canon; the
+;; divergences are host-bound: JVM-specific class references and
+;; java.* namespaces are replaced by CLR equivalents (System.*).
+;;
+;; Schema: see ::clj-canon-parity.schema/divergence
+[
+ {:id              :host-class-system-clr
+  :title           "Host classes are CLR System.*, not JVM java.*"
+  :category-id     :type-system
+  :rationale       "`(class x)` returns a CLR Type object. Code that
+                    pattern-matches on `java.lang.Long` or similar
+                    names doesn't work; CLR equivalents are
+                    `System.Int64`, `System.String`, etc."
+  :since           "clr-1.0"
+  :affected        [clojure.core/class clojure.core/type
+                    clojure.core/instance?]
+  :doc-link        "https://github.com/clojure/clojure-clr"}
+
+ {:id              :env-via-system-environment
+  :title           "Environment variables read via System.Environment"
+  :category-id     :jvm-statics
+  :rationale       "`System/getenv` doesn't exist on CLR; the
+                    equivalent is
+                    `System.Environment/GetEnvironmentVariable`.
+                    Portable code uses a host-conditional helper."
+  :since           "clr-1.0"}
+
+ {:id              :no-java-io-namespace
+  :title           "clojure.java.io is intentionally absent"
+  :category-id     :jvm-statics
+  :rationale       "CLR's IO abstractions are System.IO.*; a separate
+                    ClojureCLR-side namespace `clojure.clr.io` covers
+                    the equivalent surface. Code that requires
+                    `clojure.java.io` is JVM-bound."
+  :since           "clr-1.0"
+  :affected        [clojure.core/spit clojure.core/slurp]}
+
+ {:id              :no-proxy-on-clr-same-shape
+  :title           "proxy targets CLR types, not JVM interfaces"
+  :category-id     :jvm-statics
+  :rationale       "`proxy` is supported on CLR but emits CLR types
+                    extending CLR base classes. Proxies of JVM-only
+                    interfaces (Runnable, Callable) do not translate."
+  :since           "clr-1.0"
+  :affected        [clojure.core/proxy]}
+
+ {:id              :gen-class-targets-clr-msil
+  :title           "gen-class emits CLR MSIL, not JVM bytecode"
+  :category-id     :jvm-statics
+  :rationale       "`gen-class` works on CLR but the AOT artifact is
+                    a .NET assembly, not a .class file. Consumers
+                    that load the generated class via JVM tooling do
+                    not work."
+  :since           "clr-1.0"
+  :affected        [clojure.core/gen-class]}
+
+ {:id              :exception-type-from-system
+  :title           "Throwables are System.Exception, not java.lang.Throwable"
+  :category-id     :error-messages
+  :rationale       "`(catch Throwable e ...)` is not portable to CLR;
+                    catch `Exception` instead. Portable code uses
+                    `:cljr` reader conditionals around catch targets."
+  :since           "clr-1.0"}
+
+ {:id              :reader-conditional-cljr
+  :title           "Reader conditional :clj does not fire under CLR"
+  :category-id     :reader
+  :rationale       "Portable code uses :cljr (or :default) to target
+                    ClojureCLR. Code under :clj is invisible to CLR's
+                    reader."
+  :since           "clr-1.0"}
+
+ {:id              :concurrency-cli-thread-model
+  :title           "Concurrency primitives use CLR thread pool"
+  :category-id     :concurrency
+  :rationale       "Atom / future / agent are implemented on top of
+                    System.Threading, not java.util.concurrent. The
+                    semantics match canon; the underlying threads
+                    differ if interop'd with."
+  :since           "clr-1.0"}
+]

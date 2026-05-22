@@ -1,0 +1,38 @@
+;; ClojureCLR — Clojure on the Common Language Runtime (.NET).
+;;
+;; Installation:
+;;   dotnet tool install --global Clojure.Main
+;; The tool ships as a self-contained .NET 9 binary; set DOTNET_ROOT to a
+;; .NET 9 (or matching) SDK before invoking.
+;;
+;; Invocation:
+;;   DOTNET_ROOT=/path/to/dotnet9 clojure -M:run dump clr
+;;
+;; The portable surface_dump.cljc handles CLR via a `:cljr` reader
+;; conditional for env-var access (System.Environment/GetEnvironmentVariable
+;; on CLR; System/getenv elsewhere). No CLR-specific dump script needed.
+{:name             "ClojureCLR"
+ :tag              "clr"
+ :role             :sut
+ :invocation       {:type :subprocess
+                    :cmd  ["Clojure.Main" "{script}"]}
+ :version-cmd      ["Clojure.Main" "-e" "(print (clojure-version))"]
+ :participates-in  [clojure.core
+                    clojure.string
+                    clojure.set
+                    clojure.walk
+                    clojure.edn
+                    clojure.zip
+                    clojure.spec.alpha
+                    clojure.test
+                    clojure.pprint
+                    clojure.math
+                    clojure.template
+                    clojure.data
+                    clojure.datafy
+                    clojure.instant
+                    clojure.core.protocols
+                    clojure.core.reducers]
+ :data-dir         "data/clr"
+ :output-dir       "output/clr"
+ :surface-normalization :default}
