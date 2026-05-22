@@ -12,10 +12,13 @@ compares it against each dialect's surface. The output is rendered
 into a static site as a per-dialect dashboard plus a shields.io
 badge.
 
-Five dialects participate today: Babashka, ClojureScript (planck),
-ClojureCLR, jank, and mino. New dialects can plug in via
-configuration alone when their runtime is compatible with the default
-portable surface-dump script.
+Nine dialects participate today: Babashka, ClojureScript (planck),
+ClojureCLR, jank, mino, Basilisp, Joker, Clojerl, and ClojureDart.
+New dialects can plug in via configuration alone when their runtime
+is compatible with the default portable surface-dump script;
+dialects whose host blocks runtime introspection (ClojureDart, which
+compiles ahead-of-time to Dart) participate via a dialect-specific
+static-analysis script.
 
 ## Scope and limitations
 
@@ -73,8 +76,12 @@ clojure -M:run validate-data
 clojure -M:run dump bb                                  # bb on PATH
 clojure -M:run dump cljs                                # planck on PATH
 clojure -M:run dump jank                                # jank on PATH
+clojure -M:run dump joker                               # joker on PATH
+clojure -M:run dump basilisp                            # basilisp on PATH (pip)
+clojure -M:run dump clojerl                             # clojerl on PATH
 DOTNET_ROOT=/path/to/dotnet9 clojure -M:run dump clr    # Clojure.Main on PATH
 MINO_BIN=/path/to/mino       clojure -M:run dump mino
+CLJD_CHECKOUT=/path/to/ClojureDart clojure -M:run dump cljd  # static analysis
 
 # Diff captured surface and write dashboard
 clojure -M:run diff <dialect>
