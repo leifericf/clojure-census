@@ -68,8 +68,7 @@ jobs:
         with:
           name: parity-dashboard-cljs
           path: |
-            output/cljs/dashboard.md
-            output/cljs/dashboard.json
+            output/cljs/dashboard.edn
             output/cljs/badge.json
             output/cljs/surface.edn
             output/cljs/history/

@@ -6,8 +6,8 @@ Mechanical Clojure-canon parity tracking for Clojure dialects.
 
 A tool that **mechanically discovers** JVM Clojure's surface (vars,
 arglists, metadata, special forms, spec registry) and compares it against
-a target dialect's surface. Produces a Markdown dashboard, JSON snapshot,
-and shields.io badge per dialect.
+a target dialect's surface. Produces a per-dialect EDN dashboard plus a
+shields.io badge. The EDN is rendered into a static site under `site/`.
 
 mino was the first consumer; Babashka (bb) shipped second as a
 working proof of the dialect-plug-in design; ClojureScript (cljs,
@@ -53,7 +53,9 @@ scripts/                portable introspection that runs IN each dialect
 canon/                  canon-spec.edn + vendored surface dumps
 dialects/               per-dialect invocation config
 data/                   enumerations + per-dialect curated registries
-output/<dialect>/       generated dashboards, snapshots, history
+output/<dialect>/       generated dashboards (EDN), badges, history
+site/                   Stasis + Hiccup + Garden static site that
+                        renders output/<dialect>/dashboard.edn
 ```
 
 ## Usage
@@ -82,6 +84,22 @@ clojure -M:run diff jank
 # Re-render from saved surface (no new capture)
 clojure -M:run render bb
 ```
+
+## Site
+
+The static site lives under `site/` and reads
+`output/<dialect>/dashboard.edn`. Stasis + Hiccup + Garden, no JS.
+
+```sh
+cd site
+clojure -M:test    # site unit tests
+clojure -M:dev     # serve on http://localhost:8000 with hot reload
+clojure -M:build   # write site/public/
+```
+
+CI deploys to GitHub Pages via `.github/workflows/pages.yml` on every
+push to `main` that touches `output/`, `site/`, `dialects/`, or
+`canon/`.
 
 ## Status
 

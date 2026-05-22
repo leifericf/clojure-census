@@ -73,8 +73,7 @@ jobs:
         with:
           name: parity-dashboard-jank
           path: |
-            output/jank/dashboard.md
-            output/jank/dashboard.json
+            output/jank/dashboard.edn
             output/jank/badge.json
             output/jank/surface.edn
             output/jank/history/

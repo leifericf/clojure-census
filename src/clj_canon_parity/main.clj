@@ -7,7 +7,7 @@
     dump <dialect-tag>     invoke the dialect's surface_dump.clj,
                            write output/<dialect>/surface.edn
     diff <dialect-tag>     read vendored canon + dialect surfaces,
-                           produce dashboard.{md,json} + badge.json
+                           produce dashboard.edn + badge.json
     render <dialect-tag>   re-render dashboard from existing surface
                            files (no new capture)
     all <dialect-tag>      dump + diff + history append
@@ -39,8 +39,7 @@
 
 (defn dialect-config-path [tag] (p "dialects" (str tag ".edn")))
 (defn surface-output-path  [tag] (p "output" tag "surface.edn"))
-(defn dashboard-md-path    [tag] (p "output" tag "dashboard.md"))
-(defn dashboard-json-path  [tag] (p "output" tag "dashboard.json"))
+(defn dashboard-edn-path   [tag] (p "output" tag "dashboard.edn"))
 (defn badge-json-path      [tag] (p "output" tag "badge.json"))
 (defn history-dir-path     [tag] (p "output" tag "history"))
 
@@ -189,18 +188,16 @@
                                :changed       []
                                :coverage-delta cov-delta})
                        bundle)]
-    (dashboard/write-markdown! (dashboard-md-path   tag) bundle)
-    (dashboard/write-json!     (dashboard-json-path tag) bundle)
-    (badge/write-endpoint!     (badge-json-path     tag)
-                               (badge/endpoint
-                                 {:dialect-tag tag
-                                  :headline    (:headline cov)}))
-    (history/write-snapshot!   (history-dir-path tag) snap)
+    (dashboard/write-edn!  (dashboard-edn-path tag) bundle)
+    (badge/write-endpoint! (badge-json-path    tag)
+                           (badge/endpoint
+                             {:dialect-tag tag
+                              :headline    (:headline cov)}))
+    (history/write-snapshot! (history-dir-path tag) snap)
     (println "diff:" tag "→"
              (coverage/percent-as-pct-string
                (get-in cov [:headline :percent])))
-    (println "  dashboard:" (dashboard-md-path tag))
-    (println "  json:     " (dashboard-json-path tag))
+    (println "  dashboard:" (dashboard-edn-path tag))
     (println "  badge:    " (badge-json-path tag))
     (println "  history:  " (history-dir-path tag) "/" (:date snap) ".json")
     0))
@@ -228,12 +225,11 @@
                   :dialect-config  cfg
                   :history         (history/read-history
                                      (history-dir-path tag))}]
-    (dashboard/write-markdown! (dashboard-md-path   tag) bundle)
-    (dashboard/write-json!     (dashboard-json-path tag) bundle)
-    (badge/write-endpoint!     (badge-json-path     tag)
-                               (badge/endpoint
-                                 {:dialect-tag tag
-                                  :headline    (:headline cov)}))
+    (dashboard/write-edn!  (dashboard-edn-path tag) bundle)
+    (badge/write-endpoint! (badge-json-path    tag)
+                           (badge/endpoint
+                             {:dialect-tag tag
+                              :headline    (:headline cov)}))
     (println "render:" tag "→"
              (coverage/percent-as-pct-string
                (get-in cov [:headline :percent])))

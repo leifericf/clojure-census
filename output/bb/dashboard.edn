@@ -1,0 +1,403 @@
+{:meta
+ {:dialect-tag "bb",
+  :dialect-name "Babashka",
+  :canon-version "1.12.4",
+  :compared-at "2026-05-22T13:23:02Z"},
+ :divergences
+ [{:id :reducers-absent,
+   :title "clojure.core.reducers is not bundled",
+   :category-id :collections,
+   :rationale
+   "bb omits the reducers namespace -- fold/r/map etc.\n                    are not available. Transducers cover the typical\n                    use cases.",
+   :since "bb-1.0",
+   :affected
+   [clojure.core.reducers/fold
+    clojure.core.reducers/reduce
+    clojure.core.reducers/map],
+   :doc-link "https://book.babashka.org/#differences_with_clojure"}
+  {:id :proxy-not-supported,
+   :title "proxy emits no JVM class",
+   :category-id :jvm-statics,
+   :rationale
+   "proxy generates a JVM class at runtime; SCI has no\n                    bytecode emitter. defrecord + protocols cover the\n                    portable use case.",
+   :since "bb-1.0",
+   :affected [clojure.core/proxy]}
+  {:id :gen-class-not-supported,
+   :title "gen-class is not supported",
+   :category-id :jvm-statics,
+   :rationale
+   "gen-class emits AOT JVM bytecode. SCI interprets;\n                    there is no class to emit.",
+   :since "bb-1.0",
+   :affected [clojure.core/gen-class]}
+  {:id :reflection-not-portable,
+   :title "clojure.reflect is not bundled",
+   :category-id :jvm-statics,
+   :rationale
+   "JVM reflection is available via clojure.core/bean\n                    and member-access, but the clojure.reflect\n                    namespace is omitted from bb's bundle.",
+   :since "bb-1.0"}
+  {:id :sci-eval-semantics,
+   :title "eval / load-string interpret via SCI, not Compiler",
+   :category-id :macros,
+   :rationale
+   "Macroexpansion semantics generally match canon\n                    but the underlying interpreter is SCI, so certain\n                    macro hygiene edge cases that rely on the Clojure\n                    Compiler's specific behavior may differ.",
+   :since "bb-1.0",
+   :affected [clojure.core/eval clojure.core/load-string]}
+  {:id :startup-no-classloader-trickery,
+   :title "No classpath-time loading of user-supplied .class files",
+   :category-id :jvm-statics,
+   :rationale
+   "bb is a self-contained binary; the JVM\n                    classloader / classpath model that canon code can\n                    poke at (clojure.lang.RT/baseLoader, etc.) is\n                    not exposed.",
+   :since "bb-1.0"}],
+ :coverage
+ {:headline
+  {:in-both-count 898, :canon-total 995, :percent 0.9025125628140703},
+  :per-namespace
+  {clojure.spec.alpha
+   {:in-both-count 87, :canon-total 87, :percent 1.0},
+   clojure.datafy {:in-both-count 2, :canon-total 2, :percent 1.0},
+   clojure.zip {:in-both-count 28, :canon-total 28, :percent 1.0},
+   clojure.core.reducers
+   {:in-both-count 0, :canon-total 21, :percent 0.0},
+   clojure.test
+   {:in-both-count 37, :canon-total 39, :percent 0.9487179487179487},
+   clojure.core.protocols
+   {:in-both-count 5, :canon-total 11, :percent 0.45454545454545453},
+   clojure.core
+   {:in-both-count 629, :canon-total 679, :percent 0.9263622974963182},
+   clojure.set {:in-both-count 12, :canon-total 12, :percent 1.0},
+   clojure.pprint
+   {:in-both-count 14, :canon-total 26, :percent 0.5384615384615384},
+   clojure.math {:in-both-count 45, :canon-total 45, :percent 1.0},
+   clojure.edn {:in-both-count 2, :canon-total 2, :percent 1.0},
+   clojure.instant {:in-both-count 2, :canon-total 5, :percent 0.4},
+   clojure.string {:in-both-count 21, :canon-total 21, :percent 1.0},
+   clojure.data {:in-both-count 2, :canon-total 5, :percent 0.4},
+   clojure.walk {:in-both-count 10, :canon-total 10, :percent 1.0},
+   clojure.template {:in-both-count 2, :canon-total 2, :percent 1.0}}},
+ :history
+ [{:date "2026-05-22",
+   :dialect-tag "bb",
+   :clojure-version "1.12.4-SCI",
+   :headline
+   {:in-both-count 898, :canon-total 995, :percent 0.9025125628140703},
+   :per-namespace
+   {clojure.spec.alpha
+    {:in-both-count 87, :canon-total 87, :percent 1.0},
+    clojure.datafy {:in-both-count 2, :canon-total 2, :percent 1.0},
+    clojure.zip {:in-both-count 28, :canon-total 28, :percent 1.0},
+    clojure.core.reducers
+    {:in-both-count 0, :canon-total 21, :percent 0.0},
+    clojure.test
+    {:in-both-count 37, :canon-total 39, :percent 0.9487179487179487},
+    clojure.core.protocols
+    {:in-both-count 5, :canon-total 11, :percent 0.45454545454545453},
+    clojure.core
+    {:in-both-count 629,
+     :canon-total 679,
+     :percent 0.9263622974963182},
+    clojure.set {:in-both-count 12, :canon-total 12, :percent 1.0},
+    clojure.pprint
+    {:in-both-count 14, :canon-total 26, :percent 0.5384615384615384},
+    clojure.math {:in-both-count 45, :canon-total 45, :percent 1.0},
+    clojure.edn {:in-both-count 2, :canon-total 2, :percent 1.0},
+    clojure.instant {:in-both-count 2, :canon-total 5, :percent 0.4},
+    clojure.string {:in-both-count 21, :canon-total 21, :percent 1.0},
+    clojure.data {:in-both-count 2, :canon-total 5, :percent 0.4},
+    clojure.walk {:in-both-count 10, :canon-total 10, :percent 1.0},
+    clojure.template
+    {:in-both-count 2, :canon-total 2, :percent 1.0}}}],
+ :mismatches
+ [{:dynamic-canon false,
+   :dynamic-dialect true,
+   :namespace clojure.core,
+   :var *assert*}
+  {:dynamic-canon false,
+   :dynamic-dialect true,
+   :namespace clojure.core,
+   :var *command-line-args*}
+  {:dynamic-canon false,
+   :dynamic-dialect true,
+   :namespace clojure.core,
+   :var *compile-files*}
+  {:dynamic-canon false,
+   :dynamic-dialect true,
+   :namespace clojure.core,
+   :var *compile-path*}
+  {:dynamic-canon false,
+   :dynamic-dialect true,
+   :namespace clojure.core,
+   :var *compiler-options*}
+  {:dynamic-canon false,
+   :dynamic-dialect true,
+   :namespace clojure.core,
+   :var *err*}
+  {:dynamic-canon false,
+   :dynamic-dialect true,
+   :namespace clojure.core,
+   :var *file*}
+  {:dynamic-canon false,
+   :dynamic-dialect true,
+   :namespace clojure.core,
+   :var *flush-on-newline*}
+  {:dynamic-canon false,
+   :dynamic-dialect true,
+   :namespace clojure.core,
+   :var *in*}
+  {:dynamic-canon false,
+   :dynamic-dialect true,
+   :namespace clojure.core,
+   :var *math-context*}
+  {:dynamic-canon false,
+   :dynamic-dialect true,
+   :namespace clojure.core,
+   :var *ns*}
+  {:dynamic-canon false,
+   :dynamic-dialect true,
+   :namespace clojure.core,
+   :var *out*}
+  {:dynamic-canon false,
+   :dynamic-dialect true,
+   :namespace clojure.core,
+   :var *print-dup*}
+  {:dynamic-canon false,
+   :dynamic-dialect true,
+   :namespace clojure.core,
+   :var *print-meta*}
+  {:dynamic-canon false,
+   :dynamic-dialect true,
+   :namespace clojure.core,
+   :var *print-readably*}
+  {:dynamic-canon false,
+   :dynamic-dialect true,
+   :namespace clojure.core,
+   :var *read-eval*}
+  {:dynamic-canon false,
+   :dynamic-dialect true,
+   :namespace clojure.core,
+   :var *reader-resolver*}
+  {:dynamic-canon false,
+   :dynamic-dialect true,
+   :namespace clojure.core,
+   :var *source-path*}
+  {:dynamic-canon false,
+   :dynamic-dialect true,
+   :namespace clojure.core,
+   :var *suppress-read*}
+  {:dynamic-canon false,
+   :dynamic-dialect true,
+   :namespace clojure.core,
+   :var *unchecked-math*}
+  {:dynamic-canon false,
+   :dynamic-dialect true,
+   :namespace clojure.core,
+   :var *warn-on-reflection*}
+  {:arglists-canon ([bindings]),
+   :arglists-dialect ([b] [b loc]),
+   :namespace clojure.core,
+   :var destructure}
+  {:arglists-canon ([flags-ignored-for-now & body]),
+   :arglists-dialect ([_flags-ignored-for-now & body]),
+   :namespace clojure.core,
+   :var sync}
+  {:arglists-canon ([expr]),
+   :arglists-dialect ([_ _ expr]),
+   :namespace clojure.core,
+   :var time}
+  {:arglists-canon ([vol f & args]),
+   :arglists-dialect ([_ _ vol f & args]),
+   :namespace clojure.core,
+   :var vswap!}
+  {:arglists-canon ([argv expr & values]),
+   :arglists-dialect ([_ _ argv expr & values]),
+   :namespace clojure.template,
+   :var do-template}],
+ :categories
+ [{:id :ordering,
+   :title "Ordering & comparison",
+   :description "How sort, compare, and ordered iteration work."}
+  {:id :type-system,
+   :title "Type-system representation",
+   :description "How type, class, and dispatch report a value's kind."}
+  {:id :numeric-tower,
+   :title "Numeric tower",
+   :description "Integer tiers, ratio promotion, float precision."}
+  {:id :reader,
+   :title "Reader behavior",
+   :description
+   "Reader macros, literal forms, source-meta attachment."}
+  {:id :printer,
+   :title "Printer behavior",
+   :description
+   "pr-str output for various values and dynamic-var states."}
+  {:id :collections,
+   :title "Collection semantics",
+   :description "Iteration order, equality, hash, structural sharing."}
+  {:id :concurrency,
+   :title "Concurrency primitives",
+   :description "Atoms, refs, agents, futures, core.async behavior."}
+  {:id :error-messages,
+   :title "Error message shapes",
+   :description "Exception types, ex-data shapes, message phrasing."}
+  {:id :jvm-statics,
+   :title "JVM-static value remap",
+   :description
+   "JVM-only statics remapped to dialect-native equivalents."}
+  {:id :namespaces,
+   :title "Namespace mechanics",
+   :description "ns, require, refer, alias, var resolution semantics."}
+  {:id :macros,
+   :title "Macro semantics",
+   :description "Syntax-quote, macroexpansion order, hygiene."}
+  {:id :metadata,
+   :title "Metadata propagation",
+   :description
+   "Where reader attaches meta and which ops preserve it."}],
+ :extensions
+ [{:id :babashka-fs,
+   :title "babashka.fs -- host filesystem helpers",
+   :affected-names
+   ["babashka.fs/exists?"
+    "babashka.fs/list-dir"
+    "babashka.fs/file"
+    "babashka.fs/path"],
+   :category-id :jvm-statics,
+   :rationale
+   "Cross-platform filesystem operations exposed as a\n                   namespace instead of through clojure.java.io's\n                   File-centric API. Closer to nio.file semantics.",
+   :since "bb-0.6.0"}
+  {:id :babashka-process,
+   :title "babashka.process -- subprocess invocation",
+   :affected-names
+   ["babashka.process/process"
+    "babashka.process/shell"
+    "babashka.process/sh"],
+   :category-id :jvm-statics,
+   :rationale
+   "Replaces clojure.java.shell with a richer surface:\n                   pipelines, env override, working-dir control,\n                   streaming stdin/stdout. Standard in bb scripts.",
+   :since "bb-0.6.0"}
+  {:id :pod-loading,
+   :title "babashka.pods -- load extension binaries",
+   :affected-names ["babashka.pods/load-pod"],
+   :category-id :jvm-statics,
+   :rationale
+   "Pods are binaries that expose Clojure namespaces\n                   via a JSON/EDN-over-stdio protocol. They extend\n                   bb's surface at runtime without bytecode.",
+   :since "bb-0.2.0"}],
+ :dialect-only
+ [clojure.core/-add-loaded-lib
+  clojure.core/-locking-impl
+  clojure.core/-new-dynamic-var
+  clojure.core/-new-var
+  clojure.core/-reified-methods
+  clojure.core/-run-in-transaction
+  clojure.core/-with-precision
+  clojure.core/get-thread-binding-frame-impl
+  clojure.core/global-hierarchy
+  clojure.core/has-root-impl
+  clojure.core/multi-fn-add-method-impl
+  clojure.core/multi-fn-impl
+  clojure.core/multi-fn?-impl
+  clojure.core/protocol-type-impl
+  clojure.core/proxy*
+  clojure.core/reify*
+  clojure.core/reset-thread-binding-frame-impl
+  clojure.core/system-time
+  clojure.pprint/execute-format
+  clojure.spec.alpha/demunge
+  clojure.spec.alpha/if-bb],
+ :missing
+ [{:namespace clojure.core, :var *agent*}
+  {:namespace clojure.core, :var *allow-unresolved-vars*}
+  {:namespace clojure.core, :var *fn-loader*}
+  {:namespace clojure.core, :var *use-context-classloader*}
+  {:namespace clojure.core, :var *verbose-defrecords*}
+  {:namespace clojure.core, :var ->ArrayChunk}
+  {:namespace clojure.core, :var ->Vec}
+  {:namespace clojure.core, :var ->VecNode}
+  {:namespace clojure.core, :var ->VecSeq}
+  {:namespace clojure.core, :var -cache-protocol-fn}
+  {:namespace clojure.core, :var -reset-methods}
+  {:namespace clojure.core, :var EMPTY-NODE}
+  {:namespace clojure.core, :var Inst}
+  {:namespace clojure.core, :var accessor}
+  {:namespace clojure.core, :var add-classpath}
+  {:namespace clojure.core, :var agent-errors}
+  {:namespace clojure.core, :var await1}
+  {:namespace clojure.core, :var bases}
+  {:namespace clojure.core, :var cast}
+  {:namespace clojure.core, :var clear-agent-errors}
+  {:namespace clojure.core, :var compile}
+  {:namespace clojure.core, :var construct-proxy}
+  {:namespace clojure.core, :var create-struct}
+  {:namespace clojure.core, :var definline}
+  {:namespace clojure.core, :var definterface}
+  {:namespace clojure.core, :var defstruct}
+  {:namespace clojure.core, :var extenders}
+  {:namespace clojure.core, :var find-keyword}
+  {:namespace clojure.core, :var find-protocol-impl}
+  {:namespace clojure.core, :var find-protocol-method}
+  {:namespace clojure.core, :var gen-class}
+  {:namespace clojure.core, :var gen-interface}
+  {:namespace clojure.core, :var get-proxy-class}
+  {:namespace clojure.core, :var import}
+  {:namespace clojure.core, :var init-proxy}
+  {:namespace clojure.core, :var inst-ms*}
+  {:namespace clojure.core, :var io!}
+  {:namespace clojure.core, :var method-sig}
+  {:namespace clojure.core, :var mix-collection-hash}
+  {:namespace clojure.core, :var pcalls}
+  {:namespace clojure.core, :var primitives-classnames}
+  {:namespace clojure.core, :var print-ctor}
+  {:namespace clojure.core, :var proxy-name}
+  {:namespace clojure.core, :var pvalues}
+  {:namespace clojure.core, :var resultset-seq}
+  {:namespace clojure.core, :var struct}
+  {:namespace clojure.core, :var struct-map}
+  {:namespace clojure.core, :var unquote-splicing}
+  {:namespace clojure.core, :var vector-of}
+  {:namespace clojure.core, :var with-loading-context}
+  {:namespace clojure.core.protocols, :var CollReduce}
+  {:namespace clojure.core.protocols, :var InternalReduce}
+  {:namespace clojure.core.protocols, :var coll-reduce}
+  {:namespace clojure.core.protocols, :var internal-reduce}
+  {:namespace clojure.core.protocols, :var iterator-reduce!}
+  {:namespace clojure.core.protocols, :var kv-reduce}
+  {:namespace clojure.core.reducers, :var ->Cat}
+  {:namespace clojure.core.reducers, :var CollFold}
+  {:namespace clojure.core.reducers, :var append!}
+  {:namespace clojure.core.reducers, :var cat}
+  {:namespace clojure.core.reducers, :var coll-fold}
+  {:namespace clojure.core.reducers, :var drop}
+  {:namespace clojure.core.reducers, :var filter}
+  {:namespace clojure.core.reducers, :var fjtask}
+  {:namespace clojure.core.reducers, :var flatten}
+  {:namespace clojure.core.reducers, :var fold}
+  {:namespace clojure.core.reducers, :var foldcat}
+  {:namespace clojure.core.reducers, :var folder}
+  {:namespace clojure.core.reducers, :var map}
+  {:namespace clojure.core.reducers, :var mapcat}
+  {:namespace clojure.core.reducers, :var monoid}
+  {:namespace clojure.core.reducers, :var pool}
+  {:namespace clojure.core.reducers, :var reduce}
+  {:namespace clojure.core.reducers, :var reducer}
+  {:namespace clojure.core.reducers, :var remove}
+  {:namespace clojure.core.reducers, :var take}
+  {:namespace clojure.core.reducers, :var take-while}
+  {:namespace clojure.data, :var Diff}
+  {:namespace clojure.data, :var EqualityPartition}
+  {:namespace clojure.data, :var diff-similar}
+  {:namespace clojure.instant, :var read-instant-calendar}
+  {:namespace clojure.instant, :var read-instant-timestamp}
+  {:namespace clojure.instant, :var validated}
+  {:namespace clojure.pprint, :var *print-base*}
+  {:namespace clojure.pprint, :var *print-pretty*}
+  {:namespace clojure.pprint, :var *print-radix*}
+  {:namespace clojure.pprint, :var *print-suppress-namespaces*}
+  {:namespace clojure.pprint, :var formatter}
+  {:namespace clojure.pprint, :var fresh-line}
+  {:namespace clojure.pprint, :var pprint-indent}
+  {:namespace clojure.pprint, :var pprint-logical-block}
+  {:namespace clojure.pprint, :var pprint-newline}
+  {:namespace clojure.pprint, :var pprint-tab}
+  {:namespace clojure.pprint, :var print-length-loop}
+  {:namespace clojure.pprint, :var set-pprint-dispatch}
+  {:namespace clojure.test, :var file-position}
+  {:namespace clojure.test, :var get-possibly-unbound-var}]}

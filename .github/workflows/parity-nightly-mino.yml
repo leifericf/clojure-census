@@ -81,8 +81,7 @@ jobs:
         with:
           name: parity-dashboard
           path: |
-            output/mino/dashboard.md
-            output/mino/dashboard.json
+            output/mino/dashboard.edn
             output/mino/badge.json
             output/mino/surface.edn
             output/mino/history/

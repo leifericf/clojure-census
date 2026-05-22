@@ -79,8 +79,7 @@ jobs:
         with:
           name: parity-dashboard-clr
           path: |
-            output/clr/dashboard.md
-            output/clr/dashboard.json
+            output/clr/dashboard.edn
             output/clr/badge.json
             output/clr/surface.edn
             output/clr/history/

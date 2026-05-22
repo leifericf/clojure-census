@@ -1,0 +1,290 @@
+{:meta
+ {:dialect-tag "clr",
+  :dialect-name "ClojureCLR",
+  :canon-version "1.12.4",
+  :compared-at "2026-05-22T13:23:05Z"},
+ :divergences
+ [{:id :host-class-system-clr,
+   :title "Host classes are CLR System.*, not JVM java.*",
+   :category-id :type-system,
+   :rationale
+   "`(class x)` returns a CLR Type object. Code that\n                    pattern-matches on `java.lang.Long` or similar\n                    names doesn't work; CLR equivalents are\n                    `System.Int64`, `System.String`, etc.",
+   :since "clr-1.0",
+   :affected
+   [clojure.core/class clojure.core/type clojure.core/instance?],
+   :doc-link "https://github.com/clojure/clojure-clr"}
+  {:id :env-via-system-environment,
+   :title "Environment variables read via System.Environment",
+   :category-id :jvm-statics,
+   :rationale
+   "`System/getenv` doesn't exist on CLR; the\n                    equivalent is\n                    `System.Environment/GetEnvironmentVariable`.\n                    Portable code uses a host-conditional helper.",
+   :since "clr-1.0"}
+  {:id :no-java-io-namespace,
+   :title "clojure.java.io is intentionally absent",
+   :category-id :jvm-statics,
+   :rationale
+   "CLR's IO abstractions are System.IO.*; a separate\n                    ClojureCLR-side namespace `clojure.clr.io` covers\n                    the equivalent surface. Code that requires\n                    `clojure.java.io` is JVM-bound.",
+   :since "clr-1.0",
+   :affected [clojure.core/spit clojure.core/slurp]}
+  {:id :no-proxy-on-clr-same-shape,
+   :title "proxy targets CLR types, not JVM interfaces",
+   :category-id :jvm-statics,
+   :rationale
+   "`proxy` is supported on CLR but emits CLR types\n                    extending CLR base classes. Proxies of JVM-only\n                    interfaces (Runnable, Callable) do not translate.",
+   :since "clr-1.0",
+   :affected [clojure.core/proxy]}
+  {:id :gen-class-targets-clr-msil,
+   :title "gen-class emits CLR MSIL, not JVM bytecode",
+   :category-id :jvm-statics,
+   :rationale
+   "`gen-class` works on CLR but the AOT artifact is\n                    a .NET assembly, not a .class file. Consumers\n                    that load the generated class via JVM tooling do\n                    not work.",
+   :since "clr-1.0",
+   :affected [clojure.core/gen-class]}
+  {:id :exception-type-from-system,
+   :title "Throwables are System.Exception, not java.lang.Throwable",
+   :category-id :error-messages,
+   :rationale
+   "`(catch Throwable e ...)` is not portable to CLR;\n                    catch `Exception` instead. Portable code uses\n                    `:cljr` reader conditionals around catch targets.",
+   :since "clr-1.0"}
+  {:id :reader-conditional-cljr,
+   :title "Reader conditional :clj does not fire under CLR",
+   :category-id :reader,
+   :rationale
+   "Portable code uses :cljr (or :default) to target\n                    ClojureCLR. Code under :clj is invisible to CLR's\n                    reader.",
+   :since "clr-1.0"}
+  {:id :concurrency-cli-thread-model,
+   :title "Concurrency primitives use CLR thread pool",
+   :category-id :concurrency,
+   :rationale
+   "Atom / future / agent are implemented on top of\n                    System.Threading, not java.util.concurrent. The\n                    semantics match canon; the underlying threads\n                    differ if interop'd with.",
+   :since "clr-1.0"}],
+ :coverage
+ {:headline
+  {:in-both-count 962, :canon-total 995, :percent 0.9668341708542714},
+  :per-namespace
+  {clojure.spec.alpha
+   {:in-both-count 87, :canon-total 87, :percent 1.0},
+   clojure.datafy {:in-both-count 2, :canon-total 2, :percent 1.0},
+   clojure.zip {:in-both-count 28, :canon-total 28, :percent 1.0},
+   clojure.core.reducers
+   {:in-both-count 19, :canon-total 21, :percent 0.9047619047619048},
+   clojure.test {:in-both-count 39, :canon-total 39, :percent 1.0},
+   clojure.core.protocols
+   {:in-both-count 11, :canon-total 11, :percent 1.0},
+   clojure.core
+   {:in-both-count 674, :canon-total 679, :percent 0.9926362297496318},
+   clojure.set {:in-both-count 12, :canon-total 12, :percent 1.0},
+   clojure.pprint {:in-both-count 26, :canon-total 26, :percent 1.0},
+   clojure.math
+   {:in-both-count 22, :canon-total 45, :percent 0.4888888888888889},
+   clojure.edn {:in-both-count 2, :canon-total 2, :percent 1.0},
+   clojure.instant {:in-both-count 2, :canon-total 5, :percent 0.4},
+   clojure.string {:in-both-count 21, :canon-total 21, :percent 1.0},
+   clojure.data {:in-both-count 5, :canon-total 5, :percent 1.0},
+   clojure.walk {:in-both-count 10, :canon-total 10, :percent 1.0},
+   clojure.template {:in-both-count 2, :canon-total 2, :percent 1.0}}},
+ :history
+ [{:date "2026-05-22",
+   :dialect-tag "clr",
+   :clojure-version "1.12.2",
+   :headline
+   {:in-both-count 962, :canon-total 995, :percent 0.9668341708542714},
+   :per-namespace
+   {clojure.spec.alpha
+    {:in-both-count 87, :canon-total 87, :percent 1.0},
+    clojure.datafy {:in-both-count 2, :canon-total 2, :percent 1.0},
+    clojure.zip {:in-both-count 28, :canon-total 28, :percent 1.0},
+    clojure.core.reducers
+    {:in-both-count 19, :canon-total 21, :percent 0.9047619047619048},
+    clojure.test {:in-both-count 39, :canon-total 39, :percent 1.0},
+    clojure.core.protocols
+    {:in-both-count 11, :canon-total 11, :percent 1.0},
+    clojure.core
+    {:in-both-count 674,
+     :canon-total 679,
+     :percent 0.9926362297496318},
+    clojure.set {:in-both-count 12, :canon-total 12, :percent 1.0},
+    clojure.pprint {:in-both-count 26, :canon-total 26, :percent 1.0},
+    clojure.math
+    {:in-both-count 22, :canon-total 45, :percent 0.4888888888888889},
+    clojure.edn {:in-both-count 2, :canon-total 2, :percent 1.0},
+    clojure.instant {:in-both-count 2, :canon-total 5, :percent 0.4},
+    clojure.string {:in-both-count 21, :canon-total 21, :percent 1.0},
+    clojure.data {:in-both-count 5, :canon-total 5, :percent 1.0},
+    clojure.walk {:in-both-count 10, :canon-total 10, :percent 1.0},
+    clojure.template
+    {:in-both-count 2, :canon-total 2, :percent 1.0}}}],
+ :mismatches
+ [{:dynamic-canon false,
+   :dynamic-dialect true,
+   :namespace clojure.core,
+   :var defn}
+  {:arglists-canon ([& keyvals]),
+   :arglists-dialect ([] [& keyvals]),
+   :namespace clojure.core,
+   :var sorted-map}
+  {:arglists-canon ([& keys]),
+   :arglists-dialect ([] [& keys]),
+   :namespace clojure.core,
+   :var sorted-set}
+  {:arglists-canon ([a]),
+   :arglists-dialect ([a] [a b]),
+   :namespace clojure.math,
+   :var log}
+  {:arglists-canon ([a]),
+   :arglists-dialect ([a] [a b] [a b c]),
+   :namespace clojure.math,
+   :var round}],
+ :categories
+ [{:id :ordering,
+   :title "Ordering & comparison",
+   :description "How sort, compare, and ordered iteration work."}
+  {:id :type-system,
+   :title "Type-system representation",
+   :description "How type, class, and dispatch report a value's kind."}
+  {:id :numeric-tower,
+   :title "Numeric tower",
+   :description "Integer tiers, ratio promotion, float precision."}
+  {:id :reader,
+   :title "Reader behavior",
+   :description
+   "Reader macros, literal forms, source-meta attachment."}
+  {:id :printer,
+   :title "Printer behavior",
+   :description
+   "pr-str output for various values and dynamic-var states."}
+  {:id :collections,
+   :title "Collection semantics",
+   :description "Iteration order, equality, hash, structural sharing."}
+  {:id :concurrency,
+   :title "Concurrency primitives",
+   :description "Atoms, refs, agents, futures, core.async behavior."}
+  {:id :error-messages,
+   :title "Error message shapes",
+   :description "Exception types, ex-data shapes, message phrasing."}
+  {:id :jvm-statics,
+   :title "JVM-static value remap",
+   :description
+   "JVM-only statics remapped to dialect-native equivalents."}
+  {:id :namespaces,
+   :title "Namespace mechanics",
+   :description "ns, require, refer, alias, var resolution semantics."}
+  {:id :macros,
+   :title "Macro semantics",
+   :description "Syntax-quote, macroexpansion order, hygiene."}
+  {:id :metadata,
+   :title "Metadata propagation",
+   :description
+   "Where reader attaches meta and which ops preserve it."}],
+ :extensions
+ [{:id :clr-io,
+   :title "clojure.clr.io -- CLR filesystem helpers",
+   :affected-names
+   ["clojure.clr.io/file"
+    "clojure.clr.io/reader"
+    "clojure.clr.io/writer"],
+   :category-id :jvm-statics,
+   :rationale
+   "ClojureCLR equivalent of clojure.java.io for .NET\n                   FileInfo / Stream IO. Not in v1's target list\n                   because the comparison shape is anchored on\n                   canon's clojure.* tree.",
+   :since "clr-1.0"}
+  {:id :clr-shell,
+   :title "clojure.clr.shell -- CLR process invocation",
+   :affected-names ["clojure.clr.shell/sh"],
+   :category-id :jvm-statics,
+   :rationale
+   "Equivalent of clojure.java.shell for System.Diagnostics.Process.\n                   Same semantic shape as canon; different namespace.",
+   :since "clr-1.0"}],
+ :dialect-only
+ [clojure.core/*allow-symbol-escape*
+  clojure.core/*ns-load-mappings*
+  clojure.core/add-ns-load-mapping
+  clojure.core/array?
+  clojure.core/aset-decimal
+  clojure.core/aset-sbyte
+  clojure.core/aset-uint
+  clojure.core/aset-ulong
+  clojure.core/aset-ushort
+  clojure.core/assembly-load
+  clojure.core/assembly-load-file
+  clojure.core/assembly-load-from
+  clojure.core/assembly-load-with-partial-name
+  clojure.core/by-ref
+  clojure.core/compile-when
+  clojure.core/decimal
+  clojure.core/dotnet-platform
+  clojure.core/dotnet-version
+  clojure.core/enum-and
+  clojure.core/enum-or
+  clojure.core/enum-val
+  clojure.core/enum?
+  clojure.core/fp-str
+  clojure.core/framework-description
+  clojure.core/gen-delegate
+  clojure.core/print-throwable
+  clojure.core/sbyte
+  clojure.core/sbyte-array
+  clojure.core/sys-action
+  clojure.core/sys-func
+  clojure.core/type-args
+  clojure.core/uint
+  clojure.core/uint-array
+  clojure.core/ulong
+  clojure.core/ulong-array
+  clojure.core/ushort
+  clojure.core/ushort-array
+  clojure.instant/read-instant-datetime
+  clojure.instant/read-instant-datetimeoffset
+  clojure.math/Tau
+  clojure.math/acosh
+  clojure.math/asinh
+  clojure.math/atanh
+  clojure.math/bit-decrement
+  clojure.math/bit-increment
+  clojure.math/ceiling
+  clojure.math/clamp-double
+  clojure.math/clamp-long
+  clojure.math/fused-multiply-add
+  clojure.math/ilogb
+  clojure.math/log2
+  clojure.math/max-magnitude
+  clojure.math/min-magnitude
+  clojure.math/reciprocal-estimate
+  clojure.math/reciprocal-sqrt-estimate
+  clojure.math/scaleb
+  clojure.math/sign-double
+  clojure.math/sign-long
+  clojure.math/truncate],
+ :missing
+ [{:namespace clojure.core, :var *fn-loader*}
+  {:namespace clojure.core, :var add-classpath}
+  {:namespace clojure.core, :var bean}
+  {:namespace clojure.core, :var resultset-seq}
+  {:namespace clojure.core, :var seque}
+  {:namespace clojure.core.reducers, :var fjtask}
+  {:namespace clojure.core.reducers, :var pool}
+  {:namespace clojure.instant, :var read-instant-calendar}
+  {:namespace clojure.instant, :var read-instant-date}
+  {:namespace clojure.instant, :var read-instant-timestamp}
+  {:namespace clojure.math, :var add-exact}
+  {:namespace clojure.math, :var ceil}
+  {:namespace clojure.math, :var decrement-exact}
+  {:namespace clojure.math, :var expm1}
+  {:namespace clojure.math, :var floor-div}
+  {:namespace clojure.math, :var floor-mod}
+  {:namespace clojure.math, :var get-exponent}
+  {:namespace clojure.math, :var hypot}
+  {:namespace clojure.math, :var increment-exact}
+  {:namespace clojure.math, :var log1p}
+  {:namespace clojure.math, :var multiply-exact}
+  {:namespace clojure.math, :var negate-exact}
+  {:namespace clojure.math, :var next-after}
+  {:namespace clojure.math, :var next-down}
+  {:namespace clojure.math, :var next-up}
+  {:namespace clojure.math, :var random}
+  {:namespace clojure.math, :var rint}
+  {:namespace clojure.math, :var scalb}
+  {:namespace clojure.math, :var signum}
+  {:namespace clojure.math, :var subtract-exact}
+  {:namespace clojure.math, :var to-degrees}
+  {:namespace clojure.math, :var to-radians}
+  {:namespace clojure.math, :var ulp}]}

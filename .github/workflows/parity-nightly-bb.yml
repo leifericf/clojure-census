@@ -68,8 +68,7 @@ jobs:
         with:
           name: parity-dashboard-bb
           path: |
-            output/bb/dashboard.md
-            output/bb/dashboard.json
+            output/bb/dashboard.edn
             output/bb/badge.json
             output/bb/surface.edn
             output/bb/history/

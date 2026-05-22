@@ -14,3 +14,6 @@ out/
 # scratch — never committed
 /scratch/
 /tmp/
+
+# static site build output
+/site/public/

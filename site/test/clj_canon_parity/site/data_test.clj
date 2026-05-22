@@ -1,0 +1,107 @@
+(ns clj-canon-parity.site.data-test
+  "Loader reads dialect configs + their pre-computed EDN output. The
+  site itself never recomputes parity; everything downstream of
+  load-all is pure data → Hiccup."
+  (:require [clojure.test    :refer [deftest is testing]]
+            [clojure.java.io :as io]
+            [clj-canon-parity.site.data :as data]))
+
+(defn- write-edn! [f form]
+  (io/make-parents f)
+  (spit f (pr-str form)))
+
+(defn- write-text! [f s]
+  (io/make-parents f)
+  (spit f s))
+
+(defn- mk-tmp-root!
+  "Build a synthetic project root with dialects/ and output/ trees.
+  Returns the root path as a string."
+  []
+  (let [root (str (.toFile (java.nio.file.Files/createTempDirectory
+                             "canon-parity-site-"
+                             (into-array java.nio.file.attribute.FileAttribute []))))]
+    ;; canon role -- must be excluded from the listing
+    (write-edn! (io/file root "dialects" "canon-jvm.edn")
+                {:name "Clojure (JVM)" :tag "canon-jvm" :role :canon})
+    ;; two SUT dialects; "bar" sorts before "foo" alphabetically
+    (write-edn! (io/file root "dialects" "foo.edn")
+                {:name "Foo Dialect" :tag "foo" :role :sut})
+    (write-edn! (io/file root "dialects" "bar.edn")
+                {:name "Bar Dialect" :tag "bar" :role :sut})
+    ;; foo has output; bar does not (simulates a dialect with no snapshot yet)
+    (write-edn! (io/file root "output" "foo" "dashboard.edn")
+                {:meta {:dialect-tag "foo"
+                        :dialect-name "Foo Dialect"
+                        :canon-version "1.12.4"
+                        :compared-at "2026-05-22T00:00:00Z"}
+                 :coverage {:headline {:in-both-count 7
+                                       :canon-total   10
+                                       :percent       0.7}
+                            :per-namespace {}}
+                 :missing      []
+                 :mismatches   []
+                 :dialect-only []
+                 :divergences  []
+                 :extensions   []
+                 :categories   []})
+    root))
+
+(deftest load-all-returns-sut-dialects-sorted-alphabetically
+  (let [root  (mk-tmp-root!)
+        out   (data/load-all {:dialects-dir (str root "/dialects")
+                              :output-root  (str root "/output")})
+        tags  (mapv :tag (:dialects out))]
+    (is (= ["bar" "foo"] tags))
+    (testing "canon role is excluded"
+      (is (not (some #{"canon-jvm"} tags))))))
+
+(deftest load-all-attaches-dashboard-when-present
+  (let [root (mk-tmp-root!)
+        out  (data/load-all {:dialects-dir (str root "/dialects")
+                             :output-root  (str root "/output")})
+        foo  (first (filter #(= "foo" (:tag %)) (:dialects out)))]
+    (is (some? (:dashboard foo)))
+    (is (= "Foo Dialect" (:name foo)))
+    (is (= 0.7 (get-in foo [:dashboard :coverage :headline :percent])))))
+
+(deftest load-all-nil-dashboard-when-no-snapshot
+  (let [root (mk-tmp-root!)
+        out  (data/load-all {:dialects-dir (str root "/dialects")
+                             :output-root  (str root "/output")})
+        bar  (first (filter #(= "bar" (:tag %)) (:dialects out)))]
+    (is (nil? (:dashboard bar)))
+    (is (= "Bar Dialect" (:name bar)))))
+
+(deftest load-all-ignores-non-edn-files-in-dialects-dir
+  (let [root (mk-tmp-root!)]
+    (write-text! (io/file root "dialects" "README.md") "ignore me")
+    (let [out  (data/load-all {:dialects-dir (str root "/dialects")
+                               :output-root  (str root "/output")})
+          tags (mapv :tag (:dialects out))]
+      (is (= ["bar" "foo"] tags)))))
+
+(deftest load-all-preserves-clojure-types-in-dashboard
+  (let [root (str (.toFile (java.nio.file.Files/createTempDirectory
+                             "canon-parity-site-types-"
+                             (into-array java.nio.file.attribute.FileAttribute []))))]
+    (write-edn! (io/file root "dialects" "foo.edn")
+                {:name "Foo" :tag "foo" :role :sut})
+    (write-edn! (io/file root "output" "foo" "dashboard.edn")
+                {:meta {:dialect-tag "foo" :dialect-name "Foo"
+                        :canon-version "1.12.4" :compared-at "x"}
+                 :coverage {:headline {:percent 0.5
+                                       :in-both-count 1
+                                       :canon-total 2}
+                            :per-namespace {'clojure.core
+                                            {:in-both-count 1
+                                             :canon-total 2
+                                             :percent 0.5}}}
+                 :missing [{:namespace 'clojure.core :var 'reduce-kv}]
+                 :mismatches [] :dialect-only [] :divergences []
+                 :extensions [] :categories []})
+    (let [out (data/load-all {:dialects-dir (str root "/dialects")
+                              :output-root  (str root "/output")})
+          d   (-> out :dialects first :dashboard)]
+      (is (symbol? (-> d :missing first :namespace))
+          "EDN round-trip preserves symbol types"))))

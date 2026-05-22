@@ -1,10 +1,9 @@
 (ns clj-canon-parity.dashboard-test
   "Dashboard rendering takes a bundle of pure values (comparison,
   coverage, divergences, extensions, categories, optional drift +
-  history) and produces a deterministic Markdown string + JSON
-  data. Each section is a pure function over its inputs."
+  history) and produces a deterministic EDN data structure consumed
+  by the static site at `site/`."
   (:require [clojure.test    :refer [deftest is testing]]
-            [clojure.string  :as str]
             [clj-canon-parity.dashboard :as dashboard]))
 
 (def comparison
@@ -67,47 +66,65 @@
    :canon-spec      canon-spec
    :dialect-config  {:name "mino" :tag "mino" :role :sut}})
 
-(deftest renders-markdown-non-empty
-  (let [md (dashboard/render-markdown bundle)]
-    (is (string? md))
-    (is (pos? (count md)))))
+(deftest renders-edn-is-a-map
+  (let [e (dashboard/render-edn bundle)]
+    (is (map? e))))
 
-(deftest renders-headline-percent-with-caveat
-  (let [md (dashboard/render-markdown bundle)]
-    (is (re-find #"66\.7%" md))
-    (is (str/includes? md "surface only")
-        "headline carries the v1 caveat about behavior parity")))
+(deftest meta-block-carries-dialect-and-canon-version
+  (let [e (dashboard/render-edn bundle)]
+    (is (= "mino"   (get-in e [:meta :dialect-tag])))
+    (is (= "1.12.4" (get-in e [:meta :canon-version])))))
 
-(deftest renders-per-namespace-table
-  (let [md (dashboard/render-markdown bundle)]
-    (is (str/includes? md "clojure.core"))
-    (is (str/includes? md "clojure.string"))))
+(deftest coverage-block-is-preserved
+  (let [e (dashboard/render-edn bundle)]
+    (is (= 0.667 (get-in e [:coverage :headline :percent])))))
 
-(deftest renders-missing-list
-  (let [md (dashboard/render-markdown bundle)]
-    (is (str/includes? md "reduce-kv"))
-    (is (str/includes? md "blank?"))))
+(deftest missing-uses-symbols-not-strings
+  (let [e        (dashboard/render-edn bundle)
+        missing  (:missing e)
+        first-mm (first missing)]
+    (is (vector? missing))
+    (is (symbol? (:namespace first-mm)))
+    (is (symbol? (:var       first-mm)))
+    (is (= 'clojure.core (:namespace (first (filter #(= 'reduce-kv (:var %))
+                                                     missing)))))))
 
-(deftest renders-extensions-section
-  (let [md (dashboard/render-markdown bundle)]
-    (is (str/includes? md "Integer radix mirrors"))))
+(deftest mismatches-include-namespace-and-var
+  (let [e  (dashboard/render-edn bundle)
+        mm (first (:mismatches e))]
+    (is (= 'clojure.core (:namespace mm)))
+    (is (= 'when         (:var mm)))
+    (is (true?  (:macro-canon mm)))
+    (is (false? (:macro-dialect mm)))))
 
-(deftest renders-mismatch-section
-  (let [md (dashboard/render-markdown bundle)]
-    (is (str/includes? md "when"))))
+(deftest dialect-only-is-fully-qualified-symbols
+  (let [e (dashboard/render-edn bundle)]
+    (is (every? symbol? (:dialect-only e)))
+    (is (some #{'clojure.core/integer-radix-strings} (:dialect-only e)))))
 
-(deftest renders-divergences-section
-  (let [md (dashboard/render-markdown bundle)]
-    (is (str/includes? md "compare returns sign-only"))))
+(deftest extensions-and-divergences-passed-through
+  (let [e (dashboard/render-edn bundle)]
+    (is (= "Integer radix mirrors"
+           (-> e :extensions first :title)))
+    (is (= "compare returns sign-only"
+           (-> e :divergences first :title)))))
 
 (deftest deterministic-output
-  (testing "two renders of the same bundle are byte-equal -- no timestamps"
-    (is (= (dashboard/render-markdown bundle)
-           (dashboard/render-markdown bundle)))))
+  (testing "two renders of the same bundle are equal -- no timestamps"
+    (is (= (dashboard/render-edn bundle)
+           (dashboard/render-edn bundle)))))
 
-(deftest renders-json-mirrors-markdown
-  (let [j (dashboard/render-json bundle)]
-    (is (map? j))
-    (is (= 0.667 (:percent (:headline (:coverage j)))))
-    (is (= "mino" (:dialect-tag (:meta j))))
-    (is (vector? (:missing j)))))
+(deftest no-drift-or-history-when-absent
+  (let [e (dashboard/render-edn bundle)]
+    (is (not (contains? e :drift)))
+    (is (not (contains? e :history)))))
+
+(deftest drift-and-history-included-when-present
+  (let [b (assoc bundle
+                 :drift   {:from-date "2026-05-21" :to-date "2026-05-22"
+                           :added-vars #{} :removed-vars #{} :changed []
+                           :coverage-delta 0.0}
+                 :history [{:date "2026-05-22"}])
+        e (dashboard/render-edn b)]
+    (is (contains? e :drift))
+    (is (= [{:date "2026-05-22"}] (:history e)))))
