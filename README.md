@@ -10,9 +10,16 @@ a target dialect's surface. Produces a Markdown dashboard, JSON snapshot,
 and shields.io badge per dialect.
 
 mino was the first consumer; Babashka (bb) shipped second as a working
-proof of the dialect-plug-in design. Other Clojure dialects (jank,
-ClojureScript, lpy, sci-derivatives) can plug in via configuration
-alone: no tool code changes required.
+proof of the dialect-plug-in design; ClojureScript (cljs, via planck)
+shipped third — its inclusion validates the `:namespace-renames` DSL
+(cljs.core → clojure.core, cljs.test → clojure.test, etc.) and the
+`scripts/surface_dump.cljs` parallel script (CLJS's `ns-publics` is a
+compile-time macro; the runtime equivalent is
+`cljs.analyzer.api/ns-publics`). Other Clojure dialects (jank, lpy,
+sci-derivatives) can plug in via configuration alone for any runtime
+that supports the `.clj` portable script; runtimes with restrictive
+introspection follow the cljs pattern with a parallel `.cljs`-style
+script.
 
 ## Scope
 
@@ -55,10 +62,12 @@ clojure -M:run validate-data
 # Capture a dialect's surface
 MINO_BIN=/path/to/mino clojure -M:run dump mino
 clojure -M:run dump bb        # bb on PATH, no env var needed
+clojure -M:run dump cljs      # planck on PATH
 
 # Diff captured surface against vendored canon, write dashboard
 MINO_BIN=/path/to/mino clojure -M:run diff mino
 clojure -M:run diff bb
+clojure -M:run diff cljs
 
 # Re-render from saved surface (no new capture)
 clojure -M:run render bb
