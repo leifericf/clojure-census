@@ -101,7 +101,7 @@
     (is (str/includes? md "compare returns sign-only"))))
 
 (deftest deterministic-output
-  (testing "two renders of the same bundle are byte-equal — no timestamps"
+  (testing "two renders of the same bundle are byte-equal -- no timestamps"
     (is (= (dashboard/render-markdown bundle)
            (dashboard/render-markdown bundle)))))
 

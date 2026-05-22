@@ -1,7 +1,7 @@
 (ns clj-canon-parity.coverage-test
   "Coverage takes a Comparison and produces a headline + per-namespace
   stats. The headline is the SUM of in-both vars over the SUM of canon
-  vars across all namespaces — not the mean of per-namespace percents."
+  vars across all namespaces -- not the mean of per-namespace percents."
   (:require [clojure.test :refer [deftest is testing]]
             [clj-canon-parity.coverage :as coverage]))
 

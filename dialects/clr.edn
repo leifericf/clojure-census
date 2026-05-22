@@ -1,4 +1,4 @@
-;; ClojureCLR — Clojure on the Common Language Runtime (.NET).
+;; ClojureCLR -- Clojure on the Common Language Runtime (.NET).
 ;;
 ;; Installation:
 ;;   dotnet tool install --global Clojure.Main

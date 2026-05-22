@@ -41,7 +41,7 @@
   "Return a mismatch map iff canon/dialect disagree on `:arglists`,
   `:macro`, or `:dynamic`; otherwise `nil`.
 
-  Arglists are compared only when BOTH sides supply them — when the
+  Arglists are compared only when BOTH sides supply them -- when the
   dialect doesn't capture arglists at all (mino's metadata system is
   sparser than JVM Clojure's), we don't flag every var as a mismatch;
   that's information about the dialect's metadata system, not about

@@ -4,7 +4,7 @@
 ;; cheshire.core, babashka.process, babashka.fs, ...). Only namespaces
 ;; under canon's `clojure.*` target list participate in the parity
 ;; comparison; bb's `babashka.*` and other third-party-namespace
-;; extensions are listed here for documentation only — they do not
+;; extensions are listed here for documentation only -- they do not
 ;; surface as :dialect-only in the current comparison because the
 ;; comparison is scoped to canon's target list.
 ;;
@@ -12,7 +12,7 @@
 ;; target list to include `babashka.*` for a more complete picture.
 [
  {:id             :babashka-fs
-  :title          "babashka.fs — host filesystem helpers"
+  :title          "babashka.fs -- host filesystem helpers"
   :affected-names ["babashka.fs/exists?"
                    "babashka.fs/list-dir"
                    "babashka.fs/file"
@@ -24,7 +24,7 @@
   :since          "bb-0.6.0"}
 
  {:id             :babashka-process
-  :title          "babashka.process — subprocess invocation"
+  :title          "babashka.process -- subprocess invocation"
   :affected-names ["babashka.process/process"
                    "babashka.process/shell"
                    "babashka.process/sh"]
@@ -35,7 +35,7 @@
   :since          "bb-0.6.0"}
 
  {:id             :pod-loading
-  :title          "babashka.pods — load extension binaries"
+  :title          "babashka.pods -- load extension binaries"
   :affected-names ["babashka.pods/load-pod"]
   :category-id    :jvm-statics
   :rationale      "Pods are binaries that expose Clojure namespaces

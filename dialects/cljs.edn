@@ -19,7 +19,7 @@
                     :cmd  ["planck" "scripts/surface_dump.cljs"]}
  :version-cmd      ["planck" "--version"]
 
- ;; CLJS-side canon parity targets — we ask for the canon clojure.*
+ ;; CLJS-side canon parity targets -- we ask for the canon clojure.*
  ;; names; the script captures both the canon name (when present, e.g.
  ;; clojure.string is a real namespace in CLJS) and the cljs.* name.
  ;; namespace-renames below collapses them onto canon names.
@@ -40,7 +40,7 @@
                       cljs.test         clojure.test
                       cljs.pprint       clojure.pprint
                       cljs.reader       clojure.edn}
-  ;; cljs.spec.gen.alpha has no canon equivalent — drop it from the
+  ;; cljs.spec.gen.alpha has no canon equivalent -- drop it from the
   ;; comparison so it doesn't surface as a one-off "dialect-only ns".
   :include-only-namespaces
   #{cljs.core

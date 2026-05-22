@@ -2,7 +2,7 @@
   "Daily history snapshots accumulate under
   `output/<dialect>/history/YYYY-MM-DD.json`. Each snapshot is a
   lightweight projection of the day's coverage (just headline +
-  per-namespace stats — not the full surface).
+  per-namespace stats -- not the full surface).
 
   Pure operations on the loaded collection (`latest`, `last-n`) are
   testable with literal data. IO is `write-snapshot!` and

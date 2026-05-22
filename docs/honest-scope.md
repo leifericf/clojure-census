@@ -6,12 +6,12 @@ does.
 
 ## What v1 catches (surface only)
 
-- **Existence** — does the dialect implement var `clojure.core/foo`?
-- **Arity** — does the dialect's `:arglists` match canon's?
-- **Flags** — does the dialect's `:macro` / `:dynamic` flag match
+- **Existence** -- does the dialect implement var `clojure.core/foo`?
+- **Arity** -- does the dialect's `:arglists` match canon's?
+- **Flags** -- does the dialect's `:macro` / `:dynamic` flag match
   canon's?
-- **Drift between Clojure versions** — when 1.13 ships, what's new?
-- **Dialect-only extensions** — what does the dialect add on top of
+- **Drift between Clojure versions** -- when 1.13 ships, what's new?
+- **Dialect-only extensions** -- what does the dialect add on top of
   canon?
 
 ## What v1 does NOT catch
@@ -25,7 +25,7 @@ They are behavior bugs in functions that already exist with matching
 arities.
 
 v1 surface diff is necessary but **not sufficient**. Behavior parity
-— which catches those — is v2+ work via property-based oracle
+-- which catches those -- is v2+ work via property-based oracle
 testing.
 
 ## What no version will catch, by design
@@ -41,7 +41,7 @@ tests:
 - **Performance characteristics** (measurement, not equality)
 - **Error message text** (often deliberately different)
 - **Reader fine-grained corners** (no public grammar introspection
-  — reader-form parity stays a hand-curated EDN table)
+  -- reader-form parity stays a hand-curated EDN table)
 - **Side effects** (`with-out-str`, `binding`, `set!` need targeted
   design)
 
@@ -59,7 +59,7 @@ Realistic steady-state:
 - Per-fn generator overrides accumulate over time (v2+) as the
   heuristic generator produces noise on specific fns
 - Hand-written tests for the categories above (lazy timing, dyn-var
-  interactions, etc.) — when bugs surface in those areas
+  interactions, etc.) -- when bugs surface in those areas
 
 Net: low maintenance, **not zero maintenance**.
 
@@ -68,7 +68,7 @@ Net: low maintenance, **not zero maintenance**.
 **Coverage %** (how many vars the dialect implements) is the EASY
 number to produce and the headline of the dashboard. But it's not
 the question real users have. The real question is **does my Clojure
-code work on this dialect?** — which depends on (a) whether the
+code work on this dialect?** -- which depends on (a) whether the
 fns the code uses are implemented and (b) whether they behave
 correctly.
 

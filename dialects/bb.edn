@@ -1,4 +1,4 @@
-;; Babashka — SCI-based Clojure dialect with a JVM-class-free runtime.
+;; Babashka -- SCI-based Clojure dialect with a JVM-class-free runtime.
 ;; Most of canon's namespaces are available; clojure.core.reducers is
 ;; the notable absence in v1.12.4 (logged at load time by the
 ;; portable surface dump script as a stderr diagnostic).

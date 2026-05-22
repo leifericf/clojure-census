@@ -11,7 +11,7 @@
  {:id              :reducers-absent
   :title           "clojure.core.reducers is not bundled"
   :category-id     :collections
-  :rationale       "bb omits the reducers namespace — fold/r/map etc.
+  :rationale       "bb omits the reducers namespace -- fold/r/map etc.
                     are not available. Transducers cover the typical
                     use cases."
   :since           "bb-1.0"

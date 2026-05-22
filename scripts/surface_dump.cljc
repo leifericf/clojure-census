@@ -1,7 +1,7 @@
 ;; Portable Clojure-canon surface dump.
 ;;
 ;; Runs IN any Clojure-shaped runtime that has `ns-publics`,
-;; `find-ns`, `meta`, `require`, and `special-symbol?` — verified
+;; `find-ns`, `meta`, `require`, and `special-symbol?` -- verified
 ;; on JVM Clojure, mino, Babashka, and ClojureCLR. CLJS uses a
 ;; parallel `.cljs` script because its `ns-publics` is a compile-
 ;; time macro requiring a literal symbol; see surface_dump.cljs.
@@ -17,7 +17,7 @@
 ;;
 ;; Writes one big EDN map to stdout. The orchestration layer in
 ;; clj-canon-parity.surface adds `:captured-at` and validates the
-;; final shape — keeping the on-dialect script free of host-specific
+;; final shape -- keeping the on-dialect script free of host-specific
 ;; date formatting.
 ;;
 ;; Diagnostics go to stderr; never to stdout (would corrupt EDN).
@@ -47,7 +47,7 @@
     (catch #?(:cljr Exception :default Exception) e
       (binding [*out* *err*]
         (println "; could not read canon-spec at" canon-spec-path
-                 "—" (error-message e)))
+                 "--" (error-message e)))
       [])))
 
 (defn- try-require
@@ -59,7 +59,7 @@
     true
     (catch #?(:cljr Exception :default Throwable) e
       (binding [*out* *err*]
-        (println "; could not require" ns-sym "—" (error-message e)))
+        (println "; could not require" ns-sym "--" (error-message e)))
       false)))
 
 (defn- safe-tag
@@ -97,7 +97,7 @@
                    (ns-publics n))}
       (catch #?(:cljr Exception :default Throwable) e
         (binding [*out* *err*]
-          (println "; could not capture" ns-sym "—" (error-message e)))
+          (println "; could not capture" ns-sym "--" (error-message e)))
         {:vars {}}))))
 
 (def ^:private candidate-special-forms

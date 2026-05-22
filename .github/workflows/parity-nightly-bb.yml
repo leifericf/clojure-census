@@ -2,7 +2,7 @@ name: parity / nightly dashboard (bb)
 
 on:
   schedule:
-    # 05:15 UTC daily — staggered 15min after the mino run
+    # 05:15 UTC daily -- staggered 15min after the mino run
     - cron: '15 5 * * *'
   workflow_dispatch:
     inputs:

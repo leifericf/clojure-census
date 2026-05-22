@@ -2,7 +2,7 @@ name: parity / nightly dashboard (cljs)
 
 on:
   schedule:
-    # 05:30 UTC daily — staggered 30min after the mino run
+    # 05:30 UTC daily -- staggered 30min after the mino run
     - cron: '30 5 * * *'
   workflow_dispatch:
     inputs:

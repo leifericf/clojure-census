@@ -1,9 +1,9 @@
-;; CanonSpec — single source of truth for the canon side of every
+;; CanonSpec -- single source of truth for the canon side of every
 ;; parity comparison. Bumping canon means editing this file and
 ;; regenerating the vendored surface dump it references.
 ;;
-;; :target-namespaces — what we compare against
-;; :excluded-namespaces — what we explicitly do NOT compare against,
+;; :target-namespaces -- what we compare against
+;; :excluded-namespaces -- what we explicitly do NOT compare against,
 ;;   with a reason that makes the exclusion auditable.
 {:version           "1.12.4"
  :surface-file      "clojure-1.12.4-surface.edn"

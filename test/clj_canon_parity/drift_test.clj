@@ -48,7 +48,7 @@
     (is (= 0.05 (:coverage-delta d))))
   (let [d (drift/between yesterday today)]
     (is (= 0.0 (:coverage-delta d))
-        "default is 0.0 — caller can supply the real delta")))
+        "default is 0.0 -- caller can supply the real delta")))
 
 (deftest no-drift-when-surfaces-are-identical
   (let [d (drift/between today today)]

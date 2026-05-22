@@ -25,11 +25,11 @@
 (defn- header [{:keys [coverage canon-spec dialect-config]}]
   (let [pct (coverage/percent-as-pct-string
               (get-in coverage [:headline :percent]))]
-    (str "# " (:name dialect-config) " — Clojure-canon parity\n"
+    (str "# " (:name dialect-config) " -- Clojure-canon parity\n"
          "\n"
          "**Headline coverage: " pct
          "** &nbsp;&nbsp; vs. Clojure " (:version canon-spec)
-         " &nbsp;&nbsp; (surface only — see note below)\n"
+         " &nbsp;&nbsp; (surface only -- see note below)\n"
          "\n"
          "> Coverage measures **surface** parity only: does the dialect\n"
          "> implement var `X` with matching arity and metadata flags?\n"
@@ -100,7 +100,7 @@
                                                           divergences)]]
                                       (str "- `" v "`"
                                            (when doc
-                                             (str " — documented as divergence "
+                                             (str " -- documented as divergence "
                                                   (pr-str (:id doc))))))))))
          "\n\n"
          "Summary: **" (count (:documented flagged))
@@ -113,7 +113,7 @@
   (let [rows
         (for [[ns-sym ns-cmp] (sort-by key (:namespaces-compared comparison))
               mm              (:mismatches ns-cmp)]
-          (str "- `" ns-sym "/" (:var-name mm) "` — "
+          (str "- `" ns-sym "/" (:var-name mm) "` -- "
                (cond
                  (:arglists-canon mm)
                  (str "arglists: canon "
@@ -162,7 +162,7 @@
                                                      (:category-id e))]]
                        (str "- **" (:title e) "** (`" (:since e) "`"
                             (when cat (str ", " (:title cat)))
-                            ") — " (str/join ", "
+                            ") -- " (str/join ", "
                                               (map #(str "`" % "`")
                                                    (:affected-names e))))))
            "_No extensions documented._")
@@ -170,7 +170,7 @@
          "### Undocumented dialect-only (" (count undocumented) ")\n\n"
          (if (seq undocumented)
            (str/join "\n" (for [n undocumented] (str "- `" n "`")))
-           "_None — every dialect-only var has an extension entry._")
+           "_None -- every dialect-only var has an extension entry._")
          "\n")))
 
 (defn- divergences-section
@@ -187,7 +187,7 @@
                           (str/join "\n"
                                     (for [d ds]
                                       (str "- **" (:title d) "** (`" (:since d)
-                                           "`) — " (:rationale d)))))))
+                                           "`) -- " (:rationale d)))))))
          "\n")))
 
 (defn- drift-section

@@ -10,7 +10,7 @@
 ;; :namespace-renames maps them onto canon's clojure.* names so the
 ;; comparison is apples-to-apples.
 ;;
-;; Static requires only — CLJS's runtime has no equivalent to JVM
+;; Static requires only -- CLJS's runtime has no equivalent to JVM
 ;; Clojure's eval/load-string for dynamic namespace loading. Adding a
 ;; namespace to the captured set means editing this file.
 
@@ -46,14 +46,14 @@
     (catch :default e
       (binding [*out* planck.core/*err*]
         (println "; could not read canon-spec at" canon-spec-path
-                 "—" (or (.-message e) (str e))))
+                 "--" (or (.-message e) (str e))))
       [])))
 
 (defn- safe-tag [t]
   (when t (try (str t) (catch :default _ nil))))
 
 (defn- unwrap-arglists
-  "Analyzer-recorded arglists sometimes come as `(quote (...))` —
+  "Analyzer-recorded arglists sometimes come as `(quote (...))` --
   factory functions, certain macros. Strip the quote so all vars
   report `:arglists` in the same shape (a sequence of vectors)."
   [arglists]
@@ -84,7 +84,7 @@
                      m)}))
     (catch :default e
       (binding [*out* planck.core/*err*]
-        (println "; could not capture" ns-sym "—"
+        (println "; could not capture" ns-sym "--"
                  (or (.-message e) (str e))))
       nil)))
 
@@ -112,7 +112,7 @@
 ;; CLJS uses cljs.* for some namespaces; we probe both forms and let
 ;; the dialect's :surface-normalization map cljs.* onto canon's
 ;; clojure.* names downstream. Targets read from canon-spec only tell
-;; us what to LOOK FOR — we report whatever exists under either alias.
+;; us what to LOOK FOR -- we report whatever exists under either alias.
 (def ^:private extra-namespaces
   '[cljs.core cljs.spec.alpha cljs.spec.gen.alpha cljs.test
     cljs.pprint cljs.reader])

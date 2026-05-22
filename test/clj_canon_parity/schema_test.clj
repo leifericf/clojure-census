@@ -14,7 +14,7 @@
 (deftest var-entry-minimal
   (is (s/valid? ::schema/var-entry {:arglists '([x] [x y])}))
   (is (s/valid? ::schema/var-entry {:arglists '([])}))
-  (testing "empty map is legal — some vars have no metadata"
+  (testing "empty map is legal -- some vars have no metadata"
     (is (s/valid? ::schema/var-entry {})))
   (testing "vars with only :dynamic (like *ns*) are legal"
     (is (s/valid? ::schema/var-entry {:dynamic true}))))

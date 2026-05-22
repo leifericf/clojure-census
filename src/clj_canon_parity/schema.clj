@@ -174,7 +174,7 @@
 ;;
 ;; `:affected` (string vector) carries the names exposed by the
 ;; extension. Strings (not symbols) because JVM-static-style names like
-;; `Integer/toBinaryString` are not valid Clojure symbols — the name
+;; `Integer/toBinaryString` are not valid Clojure symbols -- the name
 ;; part cannot contain `/`.
 
 (s/def ::affected-names

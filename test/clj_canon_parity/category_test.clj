@@ -1,7 +1,7 @@
 (ns clj-canon-parity.category-test
   "Categories enumerate the classification axes used by divergences
   and extensions. The category enum is a foreign-key target for both
-  registries — referential integrity is a schema-validated invariant."
+  registries -- referential integrity is a schema-validated invariant."
   (:require [clojure.test :refer [deftest is testing]]
             [clojure.spec.alpha :as s]
             [clj-canon-parity.schema   :as schema]

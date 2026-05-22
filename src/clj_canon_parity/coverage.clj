@@ -2,10 +2,10 @@
   "Coverage stats derived from a Comparison.
 
   Headline coverage is the ratio of `in-both` (var exists on both
-  sides — INCLUDING mismatches: a var with the wrong arity still
+  sides -- INCLUDING mismatches: a var with the wrong arity still
   counts as implemented) to the TOTAL canon vars (in-both +
   canon-only). Mismatches are still surfaced in the dashboard, but
-  they don't reduce the headline number — that's a behavior-parity
+  they don't reduce the headline number -- that's a behavior-parity
   question, not a coverage question."
   (:require [clj-canon-parity.schema :as schema]))
 
@@ -45,8 +45,8 @@
 
 (defn percent-as-pct-string
   "Format a 0..1 `percent` value as a percentage string `\"83.3%\"`.
-  Returns `\"—\"` for nil. Renderer-friendly."
+  Returns `\"--\"` for nil. Renderer-friendly."
   [percent]
   (if (nil? percent)
-    "—"
+    "--"
     (format "%.1f%%" (* 100.0 (double percent)))))

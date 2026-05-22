@@ -1,16 +1,16 @@
 (ns clj-canon-parity.dialect
   "A Dialect is a Clojure-shaped runtime we can run a portable
   introspection script in (JVM Clojure, mino, Babashka, jank, lpy,
-  cljs, ...). Its configuration is data — see `dialects/*.edn`.
+  cljs, ...). Its configuration is data -- see `dialects/*.edn`.
 
   This namespace defines:
-    - validate!         — schema check + structural invariants
-    - expand-cmd        — substitute {var} placeholders in a command
+    - validate!         -- schema check + structural invariants
+    - expand-cmd        -- substitute {var} placeholders in a command
                           vector with values from a context map
-    - prepare-invocation — assemble the concrete invocation
-    - run-process       — IO: actually invoke the subprocess
-    - capture-stdout    — IO: invoke + return decoded stdout
-    - enabled?          — defaulting helper
+    - prepare-invocation -- assemble the concrete invocation
+    - run-process       -- IO: actually invoke the subprocess
+    - capture-stdout    -- IO: invoke + return decoded stdout
+    - enabled?          -- defaulting helper
 
   Pure operations are separated from IO so the orchestration layer
   can be tested with literal EDN."

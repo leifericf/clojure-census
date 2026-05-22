@@ -9,20 +9,23 @@ arglists, metadata, special forms, spec registry) and compares it against
 a target dialect's surface. Produces a Markdown dashboard, JSON snapshot,
 and shields.io badge per dialect.
 
-mino was the first consumer; Babashka (bb) shipped second as a working
-proof of the dialect-plug-in design; ClojureScript (cljs, via planck)
-shipped third — its inclusion validates the `:namespace-renames` DSL
-(cljs.core → clojure.core, cljs.test → clojure.test, etc.) and the
-`scripts/surface_dump.cljs` parallel script (CLJS's `ns-publics` is a
-compile-time macro; the runtime equivalent is
-`cljs.analyzer.api/ns-publics`); ClojureCLR (clr) shipped fourth —
-the .cljc portable script with `:cljr` reader conditionals covers
-CLR's host-specific environment-variable / catch-target differences,
-and the dialect/config requires zero changes to the comparison
-pipeline. Other Clojure dialects (jank, lpy, sci-derivatives) can
-plug in via configuration alone for any runtime that supports the
-`.cljc` portable script; runtimes with restrictive introspection
-follow the cljs pattern with a parallel `.cljs`-style script.
+mino was the first consumer; Babashka (bb) shipped second as a
+working proof of the dialect-plug-in design; ClojureScript (cljs,
+via planck) shipped third, validating the `:namespace-renames` DSL
+(cljs.core -> clojure.core, cljs.test -> clojure.test, etc.) and the
+`scripts/surface_dump.cljs` parallel script (CLJS's `ns-publics` is
+a compile-time macro; the runtime equivalent is
+`cljs.analyzer.api/ns-publics`); ClojureCLR (clr) shipped fourth,
+where the .cljc portable script with `:cljr` reader conditionals
+covers CLR's host-specific env-var and catch-target differences;
+jank shipped fifth, alpha-stage and LLVM/C++-hosted, requiring its
+own `scripts/surface_dump_jank.cljc` because jank's `require`
+resolves at compile time (unknown modules cannot be try-required),
+catch targets are C++ types (`cpp/jank.runtime.object_ref`),
+env-vars come from `cpp/std.getenv`, and key print-control dynvars
+are not yet exposed. Other dialects (lpy, sci-derivatives) can plug
+in via configuration alone if their runtime is compatible with the
+default portable script.
 
 ## Scope
 
@@ -66,13 +69,15 @@ clojure -M:run validate-data
 MINO_BIN=/path/to/mino clojure -M:run dump mino
 clojure -M:run dump bb        # bb on PATH, no env var needed
 clojure -M:run dump cljs      # planck on PATH
-DOTNET_ROOT=/path/to/dotnet9 clojure -M:run dump clr   # Clojure.Main on PATH
+DOTNET_ROOT=/path/to/dotnet9 clojure -M:run dump clr  # Clojure.Main on PATH
+clojure -M:run dump jank      # jank on PATH
 
 # Diff captured surface against vendored canon, write dashboard
 MINO_BIN=/path/to/mino clojure -M:run diff mino
 clojure -M:run diff bb
 clojure -M:run diff cljs
 clojure -M:run diff clr
+clojure -M:run diff jank
 
 # Re-render from saved surface (no new capture)
 clojure -M:run render bb
@@ -80,4 +85,4 @@ clojure -M:run render bb
 
 ## Status
 
-v1 — surface diff. Implementation in progress.
+v1 -- surface diff. Implementation in progress.

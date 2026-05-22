@@ -2,7 +2,7 @@ name: parity / nightly dashboard (clr)
 
 on:
   schedule:
-    # 05:45 UTC daily — staggered after the other dialect runs
+    # 05:45 UTC daily -- staggered after the other dialect runs
     - cron: '45 5 * * *'
   workflow_dispatch:
     inputs:

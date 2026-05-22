@@ -62,10 +62,10 @@
   raw Surface. The DSL is data; the interpreter is this pure function.
 
   Supported transforms:
-    :namespace-renames        {old new ...} — rewrite ns prefix
-    :strip-keys               [k1 k2 ...] — drop these meta keys
-    :include-only-namespaces  #{ns ...}  — filter to listed ns
-    :wrap-arglists            :sci / :default — unwrap dialect quirks
+    :namespace-renames        {old new ...} -- rewrite ns prefix
+    :strip-keys               [k1 k2 ...] -- drop these meta keys
+    :include-only-namespaces  #{ns ...}  -- filter to listed ns
+    :wrap-arglists            :sci / :default -- unwrap dialect quirks
 
   Pass `:default` (keyword) for identity."
   [surface norm]
@@ -111,7 +111,7 @@
 (defn write-file!
   "Write `surface` as canonical EDN to `path`. Sorts namespace keys
   (and var keys within each namespace) so the file is byte-stable
-  given the same inputs — important for git diffs."
+  given the same inputs -- important for git diffs."
   [path surface]
   (validate! surface)
   (let [sorted-namespaces

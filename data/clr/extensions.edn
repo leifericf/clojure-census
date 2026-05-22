@@ -3,11 +3,11 @@
 ;; CLR exposes its own namespaces (clojure.clr.io for filesystem,
 ;; clojure.clr.shell for processes) that aren't in canon. v1's
 ;; parity comparison is scoped to canon's clojure.* target list, so
-;; these are documentation-only — they don't surface as
+;; these are documentation-only -- they don't surface as
 ;; :dialect-only in the comparison.
 [
  {:id             :clr-io
-  :title          "clojure.clr.io — CLR filesystem helpers"
+  :title          "clojure.clr.io -- CLR filesystem helpers"
   :affected-names ["clojure.clr.io/file"
                    "clojure.clr.io/reader"
                    "clojure.clr.io/writer"]
@@ -19,7 +19,7 @@
   :since          "clr-1.0"}
 
  {:id             :clr-shell
-  :title          "clojure.clr.shell — CLR process invocation"
+  :title          "clojure.clr.shell -- CLR process invocation"
   :affected-names ["clojure.clr.shell/sh"]
   :category-id    :jvm-statics
   :rationale      "Equivalent of clojure.java.shell for System.Diagnostics.Process.

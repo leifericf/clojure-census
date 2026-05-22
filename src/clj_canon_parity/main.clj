@@ -67,7 +67,7 @@
   ([] (build-ctx {}))
   ([{:keys [env]
      :or   {env (into {} (System/getenv))}}]
-   (merge {:mino-bin "mino"}     ;; default — look up `mino` on PATH
+   (merge {:mino-bin "mino"}     ;; default -- look up `mino` on PATH
           (env->template-keys env)
           {:script (str repo-root "/scripts/surface_dump.cljc")})))
 

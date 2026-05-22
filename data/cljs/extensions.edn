@@ -3,7 +3,7 @@
 ;; CLJS exposes namespaces and operations that don't fit canon
 ;; (js-related interop, host IO via planck.io etc.). The v1 parity
 ;; comparison is scoped to canon's clojure.* target list, so these
-;; entries are documentation only — they don't surface as
+;; entries are documentation only -- they don't surface as
 ;; :dialect-only in the comparison.
 [
  {:id             :js-interop-syntax

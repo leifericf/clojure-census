@@ -91,4 +91,4 @@
           misms (get-in c [:namespaces-compared 'clojure.core :mismatches])
           filter-mismatch (first (filter #(= 'filter (:var-name %)) misms))]
       (is (nil? filter-mismatch)
-          "filter has :macro false on canon side and no :macro on dialect side — equivalent"))))
+          "filter has :macro false on canon side and no :macro on dialect side -- equivalent"))))
