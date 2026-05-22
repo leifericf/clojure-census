@@ -33,7 +33,12 @@
 ;; One captured public var. Shape mirrors what `(:arglists (meta v))`
 ;; etc. produce on JVM Clojure, plus a few advisory keys.
 
-(s/def ::arglist (s/coll-of symbol? :kind sequential?))
+;; Arglist elements are Clojure forms: a plain symbol (`x`), a `&`
+;; marker, a map destructure (`{:keys [a b]}`), a vector destructure
+;; (`[a b]`), or a tagged form. Validating shape beyond "sequential of
+;; arbitrary forms" requires re-implementing Clojure's binding-form
+;; parser; not v1's job.
+(s/def ::arglist (s/coll-of any? :kind sequential?))
 (s/def ::arglists
   (s/and sequential?
          (s/coll-of ::arglist :kind sequential?)))

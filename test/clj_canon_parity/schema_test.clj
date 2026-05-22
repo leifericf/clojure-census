@@ -33,6 +33,15 @@
   (is (not (s/valid? ::schema/var-entry {:arglists "x"})))
   (is (not (s/valid? ::schema/var-entry {:arglists 5}))))
 
+(deftest var-entry-accepts-destructuring-arglists
+  (testing "real-world :arglists carry map and vector destructure forms"
+    (is (s/valid? ::schema/var-entry
+                  {:arglists '([{:keys [a b]} c])}))
+    (is (s/valid? ::schema/var-entry
+                  {:arglists '([& {:as opts}])}))
+    (is (s/valid? ::schema/var-entry
+                  {:arglists '([[x y] z])}))))
+
 (deftest var-entry-rejects-non-boolean-flags
   (is (not (s/valid? ::schema/var-entry {:macro "true"})))
   (is (not (s/valid? ::schema/var-entry {:dynamic 1}))))
