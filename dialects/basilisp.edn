@@ -1,0 +1,32 @@
+;; Basilisp -- a Clojure-shaped Lisp hosted on Python 3.
+;;
+;; Installation:
+;;   pipx install basilisp                  # macOS / Linux
+;;   pip install --user basilisp            # if pipx unavailable
+;;
+;; Invocation reads the portable scripts/surface_dump.cljc; basilisp's
+;; reader treats the .cljc suffix as Clojure-with-reader-conditionals,
+;; and any host-specific branches under `:lpy` keep portable code clean.
+{:name             "Basilisp"
+ :tag              "basilisp"
+ :role             :sut
+ :invocation       {:type :subprocess
+                    :cmd  ["basilisp" "run" "{script}"]}
+ :version-cmd      ["basilisp" "--version"]
+
+ ;; Initial namespace coverage list. Basilisp ships a Clojure-shaped
+ ;; clojure.core plus a partial stdlib; this list will refine after
+ ;; the first surface dump validates which Clojure (JVM) namespaces have a
+ ;; resolvable analogue.
+ :participates-in  [clojure.core
+                    clojure.string
+                    clojure.set
+                    clojure.walk
+                    clojure.test
+                    clojure.template
+                    clojure.edn
+                    clojure.pprint
+                    clojure.data]
+ :data-dir         "data/basilisp"
+ :output-dir       "output/basilisp"
+ :surface-normalization :default}

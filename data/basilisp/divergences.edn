@@ -1,0 +1,74 @@
+;; Hand-curated intentional divergences for Basilisp.
+;;
+;; Basilisp is a Clojure-shaped Lisp hosted on Python 3. Divergences
+;; fall in three buckets: (1) JVM-only features Basilisp cannot
+;; reproduce on the Python host, (2) Python-platform semantics
+;; (GIL, integer model, exception types) that bleed into Clojure-side
+;; behavior, (3) stdlib namespaces Basilisp does not (yet) ship.
+;;
+;; Schema: see ::clj-census.schema/divergence
+[
+ {:id              :python-host
+  :title           "Host runtime is Python 3, not the JVM"
+  :category-id     :jvm-statics
+  :rationale       "Interop targets Python objects, not java.lang.*.
+                    JVM-static names (System/getenv, Math/PI,
+                    Integer/parseInt) do not resolve; equivalents
+                    are reached via Python interop (operator,
+                    os.environ, math)."
+  :since           "basilisp-0.1"
+  :doc-link        "https://basilisp.readthedocs.io/"}
+
+ {:id              :concurrency-gil
+  :title           "Python's GIL constrains threaded concurrency"
+  :category-id     :concurrency
+  :rationale       "Atoms, refs, and agents work, but CPython's
+                    Global Interpreter Lock serializes bytecode
+                    execution. Threaded throughput differs from
+                    JVM Clojure in both absolute speed and the
+                    granularity of fairness."
+  :since           "basilisp-0.1"}
+
+ {:id              :numeric-model
+  :title           "Numeric tower follows Python, not JVM Clojure"
+  :category-id     :numeric-tower
+  :rationale       "Integers are arbitrary-precision by default
+                    (Python's int). Float is IEEE-754 double, as on
+                    the JVM. Ratio is implemented as
+                    fractions.Fraction. Overflow semantics on auto-
+                    promoted ops match Python's rules, not the
+                    JVM's Long boxing model."
+  :since           "basilisp-0.1"}
+
+ {:id              :exception-types
+  :title           "Exceptions are Python exceptions"
+  :category-id     :error-messages
+  :rationale       "(catch Exception e ...) catches a Python
+                    Exception, not a java.lang.Exception. Code that
+                    catches specific JVM exception classes (e.g.
+                    java.io.IOException) must use Python-host
+                    equivalents (OSError) under a :lpy reader
+                    conditional."
+  :since           "basilisp-0.1"}
+
+ {:id              :stdlib-partial
+  :title           "Several Clojure (JVM) stdlib namespaces are not implemented"
+  :category-id     :namespaces
+  :rationale       "Basilisp ships clojure.core, .string, .set, .walk,
+                    .test, .template; coverage of .edn, .pprint, .data,
+                    .zip, .math, .datafy, .instant, .core.protocols,
+                    .core.reducers, and .spec.alpha varies by release.
+                    Refer to upstream release notes for the current
+                    state."
+  :since           "basilisp-0.1"
+  :doc-link        "https://basilisp.readthedocs.io/en/latest/differencesfromclojure.html"}
+
+ {:id              :reader-conditional-lpy
+  :title           "Reader conditional :clj does not fire under Basilisp"
+  :category-id     :reader
+  :rationale       "Basilisp uses the :lpy feature for its own
+                    branches. Code under :clj is not evaluated by
+                    Basilisp's reader."
+  :since           "basilisp-0.1"
+  :doc-link        "https://basilisp.readthedocs.io/en/latest/concepts.html#reader-conditionals"}
+]

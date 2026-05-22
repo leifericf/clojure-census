@@ -1,0 +1,8 @@
+;; Basilisp namespaces beyond Clojure (JVM)'s clojure.* tree.
+;;
+;; Only namespaces under Clojure (JVM)'s target list participate in
+;; the parity comparison. Anything Basilisp provides outside that
+;; tree (basilisp.*, host Python interop helpers) is listed here for
+;; documentation only -- it does not surface as :dialect-only in the
+;; current scope.
+[]
