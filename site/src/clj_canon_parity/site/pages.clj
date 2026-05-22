@@ -15,12 +15,12 @@
 (defn- render-html [hiccup]
   (str "<!DOCTYPE html>\n" (h/html hiccup)))
 
-(defn- landing-page [link dialects]
+(defn- landing-page [link dialects canon-spec]
   (fn [_]
     (render-html
       (layout/page
         {:title "" :link link}
-        (components/landing dialects {:link link})))))
+        (components/landing dialects canon-spec {:link link})))))
 
 (defn- dialect-page [link dialect]
   (fn [_]
@@ -28,6 +28,13 @@
       (layout/page
         {:title (:tag dialect) :link link}
         (components/dialect-detail dialect {:link link})))))
+
+(defn- dialect-namespace-page [link dialect ns-sym]
+  (fn [_]
+    (render-html
+      (layout/page
+        {:title (str (:tag dialect) " / " ns-sym) :link link}
+        (components/dialect-namespace-detail dialect ns-sym {:link link})))))
 
 (defn- stylesheet-page [_]
   (styles/css-string))
@@ -38,12 +45,23 @@
   a restart."
   []
   (let [link        (components/make-link (config/site-base))
+        canon-spec  (data/load-canon-spec (config/canon-spec-path))
         {:keys [dialects]} (data/load-all
                              {:dialects-dir (config/dialects-dir)
                               :output-root  (config/output-root)})
-        html-pages  (into {"/index.html" (landing-page link dialects)}
+        landing     {"/index.html" (landing-page link dialects canon-spec)}
+        overviews   (into {}
                           (for [{:keys [dashboard] :as d} dialects
                                 :when (some? dashboard)]
                             [(str "/dialects/" (:tag d) "/index.html")
-                             (dialect-page link d)]))]
-    (assoc html-pages "/css/main.css" stylesheet-page)))
+                             (dialect-page link d)]))
+        deep-dives  (into {}
+                          (for [{:keys [tag dashboard] :as d} dialects
+                                :when (some? dashboard)
+                                ns-sym (keys (-> dashboard :coverage :per-namespace))]
+                            [(str "/dialects/" tag "/ns/" (str ns-sym) "/index.html")
+                             (dialect-namespace-page link d ns-sym)]))]
+    (-> landing
+        (into overviews)
+        (into deep-dives)
+        (assoc "/css/main.css" stylesheet-page))))
