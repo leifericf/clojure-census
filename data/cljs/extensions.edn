@@ -1,8 +1,8 @@
-;; ClojureScript host-specific extensions beyond canon.
+;; ClojureScript host-specific extensions beyond Clojure (JVM).
 ;;
-;; CLJS exposes namespaces and operations that don't fit canon
+;; CLJS exposes namespaces and operations that don't fit Clojure (JVM)
 ;; (js-related interop, host IO via planck.io etc.). The v1 parity
-;; comparison is scoped to canon's clojure.* target list, so these
+;; comparison is scoped to Clojure (JVM)'s clojure.* target list, so these
 ;; entries are documentation only -- they don't surface as
 ;; :dialect-only in the comparison.
 [
@@ -17,7 +17,7 @@
   :category-id    :jvm-statics
   :rationale      "Bidirectional conversion between CLJS data and JS
                    data, plus typed-array helpers. Necessary for JS
-                   host interop; absent from canon by design."
+                   host interop; absent from Clojure (JVM) by design."
   :since          "cljs-0.1"}
 
  {:id             :spec-gen-cljs-alpha
@@ -25,7 +25,7 @@
   :affected-names ["cljs.spec.gen.alpha/generator"
                    "cljs.spec.gen.alpha/sample"]
   :category-id    :collections
-  :rationale      "Generator-side surface for cljs.spec.alpha; canon
+  :rationale      "Generator-side surface for cljs.spec.alpha; Clojure (JVM)
                    exposes the equivalent via clojure.spec.gen.alpha.
                    Captured as a cljs.* namespace for documentation;
                    not in the v1 :include-only-namespaces filter."

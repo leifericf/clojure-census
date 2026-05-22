@@ -1,5 +1,5 @@
 (ns clj-census.extension
-  "Extensions are hand-curated names the dialect exposes that canon
+  "Extensions are hand-curated names the dialect exposes that clojure-surface
   does not. Each entry has an `:id`, a list of `:affected-names`
   (string form, since JVM-static-style names like
   `Integer/toBinaryString` are not valid symbols), a `:category-id`

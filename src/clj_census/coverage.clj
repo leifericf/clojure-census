@@ -3,7 +3,7 @@
 
   Headline coverage is the ratio of `in-both` (var exists on both
   sides -- INCLUDING mismatches: a var with the wrong arity still
-  counts as implemented) to the TOTAL canon vars (in-both +
+  counts as implemented) to the TOTAL Clojure (JVM) vars (in-both +
   clojure-only). Mismatches are still surfaced in the dashboard, but
   they don't reduce the headline number -- that's a behavior-parity
   question, not a coverage question."

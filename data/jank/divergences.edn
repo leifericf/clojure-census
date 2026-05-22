@@ -1,19 +1,19 @@
 ;; Hand-curated intentional divergences for jank.
 ;;
 ;; jank is an alpha-stage Clojure dialect targeting LLVM with C++
-;; interop. Its surface is intentionally Clojure-canon-shaped but
-;; AOT-compiled. Several canon namespaces are not yet implemented in
+;; interop. Its surface is intentionally Clojure-shaped but
+;; AOT-compiled. Several Clojure (JVM) namespaces are not yet implemented in
 ;; jank-0.1-alpha; the C++ interop layer and ahead-of-time
 ;; compilation drive most of the host divergences listed here.
 ;;
 ;; Schema: see ::clj-census.schema/divergence
 [
  {:id              :stdlib-incomplete-alpha
-  :title           "Many canon stdlib namespaces are not yet implemented"
+  :title           "Many Clojure (JVM) stdlib namespaces are not yet implemented"
   :category-id     :namespaces
   :rationale       "jank-0.1-alpha ships clojure.core, .string, .set,
                     .walk, .test, .template. The other 10 namespaces
-                    in canon's target list (clojure.edn, .zip, .pprint,
+                    in Clojure (JVM)'s target list (clojure.edn, .zip, .pprint,
                     .math, .data, .datafy, .instant, .core.protocols,
                     .core.reducers, .spec.alpha) are tracked for
                     later releases."

@@ -1,7 +1,7 @@
 (ns clj-census.clojure
-  "CanonSpec models the canon side of a parity comparison: which
-  Clojure version is canon, which namespaces participate, which are
-  excluded with reasons, and where the vendored canon surface dump
+  "ClojureSpec models the Clojure (JVM) side of a parity comparison: which
+  Clojure version is the reference, which namespaces participate, which are
+  excluded with reasons, and where the vendored Clojure (JVM) surface dump
   lives.
 
   The spec is hand-curated in `clojure/spec.edn` and bumped via a
@@ -56,19 +56,19 @@
 ;; ===== IO ==========================================================
 
 (defn read-file
-  "Read and validate the CanonSpec EDN at `path`."
+  "Read and validate the ClojureSpec EDN at `path`."
   [path]
   (let [spec (-> path slurp edn/read-string)]
     (validate! spec)
     spec))
 
 (defn read-surface
-  "Read and validate the vendored canon Surface EDN referenced by
+  "Read and validate the vendored Clojure (JVM) surface EDN referenced by
   `spec`."
   [spec & {:keys [base-dir]
            :or   {base-dir "."}}]
   (let [path    (str base-dir "/" (surface-path spec))
         surface (-> path slurp edn/read-string)]
     (schema/assert-conforms! ::schema/surface surface
-                             (str "canon surface at " path))
+                             (str "Clojure (JVM) surface at " path))
     surface))

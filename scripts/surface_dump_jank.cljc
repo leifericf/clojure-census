@@ -1,4 +1,4 @@
-;; jank-specific Clojure-canon surface dump.
+;; jank-specific Clojure (JVM) surface dump.
 ;;
 ;; jank's host integration differs from the JVM-flavored runtimes in
 ;; ways the portable .cljc script cannot bridge with reader
@@ -9,7 +9,7 @@
 ;;   2. `require` resolves at compile time; an unknown module aborts
 ;;      the script before any try/catch can intercept. So the
 ;;      namespace list must be hard-coded to known-existing modules
-;;      (jank-0.1-alpha ships clojure.core + 5 canon namespaces).
+;;      (jank-0.1-alpha ships clojure.core + 5 Clojure (JVM) namespaces).
 ;;   3. Catch types must be C++ types via the cpp/ namespace
 ;;      (cpp/jank.runtime.object_ref for runtime objects,
 ;;      cpp/std.exception for native C++ exceptions).
@@ -76,7 +76,7 @@
     (catch cpp/jank.runtime.object_ref _ #{})
     (catch cpp/std.exception _ #{})))
 
-;; Known-existing jank-0.1-alpha canon namespaces. Hard-coded because
+;; Known-existing jank-0.1-alpha Clojure (JVM) namespaces. Hard-coded because
 ;; jank's `require` aborts at compile time for unknown modules; this
 ;; list expands as jank's stdlib catches up.
 (def ^:private known-namespaces

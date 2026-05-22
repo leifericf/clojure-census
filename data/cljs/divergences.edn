@@ -1,7 +1,7 @@
 ;; Hand-curated intentional divergences for ClojureScript.
 ;;
 ;; CLJS is a separate compiler targeting JavaScript hosts. Several
-;; canon namespaces and operations either don't apply (no JVM
+;; Clojure (JVM) namespaces and operations either don't apply (no JVM
 ;; threads, no JVM class hierarchy) or were renamed (clojure.core →
 ;; cljs.core, clojure.spec.alpha → cljs.spec.alpha).
 ;;
@@ -63,7 +63,7 @@
  {:id              :no-jvm-threads
   :title           "Concurrency primitives are JS-event-loop-bound"
   :category-id     :concurrency
-  :rationale       "No JVM threads. atom is synchronous as in canon.
+  :rationale       "No JVM threads. atom is synchronous as in Clojure (JVM).
                     future, agent, promise are absent or async-only;
                     code relying on blocking semantics is not
                     portable."
@@ -87,7 +87,7 @@
                     clojure.pprint are exposed as cljs.core,
                     cljs.spec.alpha, cljs.test, cljs.pprint
                     respectively. clojure.string, clojure.set,
-                    clojure.walk keep their canon names."
+                    clojure.walk keep their Clojure (JVM) names."
   :since           "cljs-0.1"}
 
  {:id              :reader-conditional-cljs

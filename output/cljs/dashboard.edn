@@ -2,7 +2,7 @@
  {:dialect-tag "cljs",
   :dialect-name "ClojureScript (planck)",
   :clojure-version "1.12.4",
-  :compared-at "2026-05-22T19:59:54Z"},
+  :compared-at "2026-05-22T20:14:05Z"},
  :divergences
  [{:id :no-jvm-class-system,
    :title "No JVM class hierarchy",
@@ -47,7 +47,7 @@
    :title "Concurrency primitives are JS-event-loop-bound",
    :category-id :concurrency,
    :rationale
-   "No JVM threads. atom is synchronous as in canon.\n                    future, agent, promise are absent or async-only;\n                    code relying on blocking semantics is not\n                    portable.",
+   "No JVM threads. atom is synchronous as in Clojure (JVM).\n                    future, agent, promise are absent or async-only;\n                    code relying on blocking semantics is not\n                    portable.",
    :since "cljs-0.1",
    :affected
    [clojure.core/future clojure.core/agent clojure.core/promise]}
@@ -62,7 +62,7 @@
    :title "Some namespaces use the cljs.* prefix",
    :category-id :namespaces,
    :rationale
-   "clojure.core, clojure.spec.alpha, clojure.test,\n                    clojure.pprint are exposed as cljs.core,\n                    cljs.spec.alpha, cljs.test, cljs.pprint\n                    respectively. clojure.string, clojure.set,\n                    clojure.walk keep their canon names.",
+   "clojure.core, clojure.spec.alpha, clojure.test,\n                    clojure.pprint are exposed as cljs.core,\n                    cljs.spec.alpha, cljs.test, cljs.pprint\n                    respectively. clojure.string, clojure.set,\n                    clojure.walk keep their Clojure (JVM) names.",
    :since "cljs-0.1"}
   {:id :reader-conditional-cljs,
    :title "Reader conditional :clj does not fire under CLJS",
@@ -113,32 +113,44 @@
    :dialect-tag "cljs",
    :clojure-version "1.11.132",
    :headline
-   {:in-both-count 532, :canon-total 995, :percent 0.5346733668341709},
+   {:in-both-count 532,
+    :clojure-total 995,
+    :percent 0.5346733668341709},
    :per-namespace
    {clojure.spec.alpha
-    {:in-both-count 59, :canon-total 87, :percent 0.6781609195402298},
-    clojure.datafy {:in-both-count 0, :canon-total 2, :percent 0.0},
-    clojure.zip {:in-both-count 0, :canon-total 28, :percent 0.0},
+    {:in-both-count 59,
+     :clojure-total 87,
+     :percent 0.6781609195402298},
+    clojure.datafy {:in-both-count 0, :clojure-total 2, :percent 0.0},
+    clojure.zip {:in-both-count 0, :clojure-total 28, :percent 0.0},
     clojure.core.reducers
-    {:in-both-count 0, :canon-total 21, :percent 0.0},
+    {:in-both-count 0, :clojure-total 21, :percent 0.0},
     clojure.test
-    {:in-both-count 9, :canon-total 39, :percent 0.23076923076923078},
+    {:in-both-count 9,
+     :clojure-total 39,
+     :percent 0.23076923076923078},
     clojure.core.protocols
-    {:in-both-count 0, :canon-total 11, :percent 0.0},
+    {:in-both-count 0, :clojure-total 11, :percent 0.0},
     clojure.core
-    {:in-both-count 403, :canon-total 679, :percent 0.593519882179676},
-    clojure.set {:in-both-count 12, :canon-total 12, :percent 1.0},
+    {:in-both-count 403,
+     :clojure-total 679,
+     :percent 0.593519882179676},
+    clojure.set {:in-both-count 12, :clojure-total 12, :percent 1.0},
     clojure.pprint
-    {:in-both-count 20, :canon-total 26, :percent 0.7692307692307693},
-    clojure.math {:in-both-count 0, :canon-total 45, :percent 0.0},
-    clojure.edn {:in-both-count 2, :canon-total 2, :percent 1.0},
-    clojure.instant {:in-both-count 0, :canon-total 5, :percent 0.0},
+    {:in-both-count 20,
+     :clojure-total 26,
+     :percent 0.7692307692307693},
+    clojure.math {:in-both-count 0, :clojure-total 45, :percent 0.0},
+    clojure.edn {:in-both-count 2, :clojure-total 2, :percent 1.0},
+    clojure.instant {:in-both-count 0, :clojure-total 5, :percent 0.0},
     clojure.string
-    {:in-both-count 20, :canon-total 21, :percent 0.9523809523809523},
-    clojure.data {:in-both-count 0, :canon-total 5, :percent 0.0},
-    clojure.walk {:in-both-count 7, :canon-total 10, :percent 0.7},
+    {:in-both-count 20,
+     :clojure-total 21,
+     :percent 0.9523809523809523},
+    clojure.data {:in-both-count 0, :clojure-total 5, :percent 0.0},
+    clojure.walk {:in-both-count 7, :clojure-total 10, :percent 0.7},
     clojure.template
-    {:in-both-count 0, :canon-total 2, :percent 0.0}}}],
+    {:in-both-count 0, :clojure-total 2, :percent 0.0}}}],
  :mismatches
  [{:dynamic-clojure false,
    :dynamic-dialect true,
@@ -711,7 +723,7 @@
     "cljs.core/aset"],
    :category-id :jvm-statics,
    :rationale
-   "Bidirectional conversion between CLJS data and JS\n                   data, plus typed-array helpers. Necessary for JS\n                   host interop; absent from canon by design.",
+   "Bidirectional conversion between CLJS data and JS\n                   data, plus typed-array helpers. Necessary for JS\n                   host interop; absent from Clojure (JVM) by design.",
    :since "cljs-0.1"}
   {:id :spec-gen-cljs-alpha,
    :title "cljs.spec.gen.alpha for generator wiring",
@@ -719,7 +731,7 @@
    ["cljs.spec.gen.alpha/generator" "cljs.spec.gen.alpha/sample"],
    :category-id :collections,
    :rationale
-   "Generator-side surface for cljs.spec.alpha; canon\n                   exposes the equivalent via clojure.spec.gen.alpha.\n                   Captured as a cljs.* namespace for documentation;\n                   not in the v1 :include-only-namespaces filter.",
+   "Generator-side surface for cljs.spec.alpha; Clojure (JVM)\n                   exposes the equivalent via clojure.spec.gen.alpha.\n                   Captured as a cljs.* namespace for documentation;\n                   not in the v1 :include-only-namespaces filter.",
    :since "cljs-0.1"}],
  :dialect-only
  [clojure.core/*clojurescript-version*

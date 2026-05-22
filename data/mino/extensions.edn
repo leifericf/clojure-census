@@ -1,4 +1,4 @@
-;; Hand-curated mino-only extensions beyond canon.
+;; Hand-curated mino-only extensions beyond Clojure (JVM).
 ;;
 ;; Schema: see ::clj-census.schema/extension
 ;;
@@ -17,7 +17,7 @@
                    "clojure.core/Long/toHexString"
                    "clojure.core/Long/toOctalString"]
   :category-id    :jvm-statics
-  :rationale      "Clojure-canon code that calls Integer/toBinaryString
+  :rationale      "Clojure code that calls Integer/toBinaryString
                    etc. is fairly common; mino mirrors these as named
                    bindings so portable code does not need to special-
                    case mino. The implementation is in C, exposed via

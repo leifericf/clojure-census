@@ -1,5 +1,5 @@
 (ns clj-census.divergence-test
-  "Divergences are hand-curated, intentional deviations from canon
+  "Divergences are hand-curated, intentional deviations from Clojure (JVM)
   behavior. Schema validation + referential integrity against
   categories is the load-time invariant."
   (:require [clojure.test :refer [deftest is testing]]

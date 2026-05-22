@@ -2,7 +2,7 @@
  {:dialect-tag "clr",
   :dialect-name "ClojureCLR",
   :clojure-version "1.12.4",
-  :compared-at "2026-05-22T19:59:55Z"},
+  :compared-at "2026-05-22T20:14:06Z"},
  :divergences
  [{:id :host-class-system-clr,
    :title "Host classes are CLR System.*, not JVM java.*",
@@ -56,7 +56,7 @@
    :title "Concurrency primitives use CLR thread pool",
    :category-id :concurrency,
    :rationale
-   "Atom / future / agent are implemented on top of\n                    System.Threading, not java.util.concurrent. The\n                    semantics match canon; the underlying threads\n                    differ if interop'd with.",
+   "Atom / future / agent are implemented on top of\n                    System.Threading, not java.util.concurrent. The\n                    semantics match Clojure (JVM); the underlying threads\n                    differ if interop'd with.",
    :since "clr-1.0"}],
  :coverage
  {:headline
@@ -93,32 +93,40 @@
    :dialect-tag "clr",
    :clojure-version "1.12.2",
    :headline
-   {:in-both-count 962, :canon-total 995, :percent 0.9668341708542714},
+   {:in-both-count 962,
+    :clojure-total 995,
+    :percent 0.9668341708542714},
    :per-namespace
    {clojure.spec.alpha
-    {:in-both-count 87, :canon-total 87, :percent 1.0},
-    clojure.datafy {:in-both-count 2, :canon-total 2, :percent 1.0},
-    clojure.zip {:in-both-count 28, :canon-total 28, :percent 1.0},
+    {:in-both-count 87, :clojure-total 87, :percent 1.0},
+    clojure.datafy {:in-both-count 2, :clojure-total 2, :percent 1.0},
+    clojure.zip {:in-both-count 28, :clojure-total 28, :percent 1.0},
     clojure.core.reducers
-    {:in-both-count 19, :canon-total 21, :percent 0.9047619047619048},
-    clojure.test {:in-both-count 39, :canon-total 39, :percent 1.0},
+    {:in-both-count 19,
+     :clojure-total 21,
+     :percent 0.9047619047619048},
+    clojure.test {:in-both-count 39, :clojure-total 39, :percent 1.0},
     clojure.core.protocols
-    {:in-both-count 11, :canon-total 11, :percent 1.0},
+    {:in-both-count 11, :clojure-total 11, :percent 1.0},
     clojure.core
     {:in-both-count 674,
-     :canon-total 679,
+     :clojure-total 679,
      :percent 0.9926362297496318},
-    clojure.set {:in-both-count 12, :canon-total 12, :percent 1.0},
-    clojure.pprint {:in-both-count 26, :canon-total 26, :percent 1.0},
+    clojure.set {:in-both-count 12, :clojure-total 12, :percent 1.0},
+    clojure.pprint
+    {:in-both-count 26, :clojure-total 26, :percent 1.0},
     clojure.math
-    {:in-both-count 22, :canon-total 45, :percent 0.4888888888888889},
-    clojure.edn {:in-both-count 2, :canon-total 2, :percent 1.0},
-    clojure.instant {:in-both-count 2, :canon-total 5, :percent 0.4},
-    clojure.string {:in-both-count 21, :canon-total 21, :percent 1.0},
-    clojure.data {:in-both-count 5, :canon-total 5, :percent 1.0},
-    clojure.walk {:in-both-count 10, :canon-total 10, :percent 1.0},
+    {:in-both-count 22,
+     :clojure-total 45,
+     :percent 0.4888888888888889},
+    clojure.edn {:in-both-count 2, :clojure-total 2, :percent 1.0},
+    clojure.instant {:in-both-count 2, :clojure-total 5, :percent 0.4},
+    clojure.string
+    {:in-both-count 21, :clojure-total 21, :percent 1.0},
+    clojure.data {:in-both-count 5, :clojure-total 5, :percent 1.0},
+    clojure.walk {:in-both-count 10, :clojure-total 10, :percent 1.0},
     clojure.template
-    {:in-both-count 2, :canon-total 2, :percent 1.0}}}],
+    {:in-both-count 2, :clojure-total 2, :percent 1.0}}}],
  :mismatches
  [{:dynamic-clojure false,
    :dynamic-dialect true,
@@ -190,14 +198,14 @@
     "clojure.clr.io/writer"],
    :category-id :jvm-statics,
    :rationale
-   "ClojureCLR equivalent of clojure.java.io for .NET\n                   FileInfo / Stream IO. Not in v1's target list\n                   because the comparison shape is anchored on\n                   canon's clojure.* tree.",
+   "ClojureCLR equivalent of clojure.java.io for .NET\n                   FileInfo / Stream IO. Not in v1's target list\n                   because the comparison shape is anchored on\n                   Clojure (JVM)'s clojure.* tree.",
    :since "clr-1.0"}
   {:id :clr-shell,
    :title "clojure.clr.shell -- CLR process invocation",
    :affected-names ["clojure.clr.shell/sh"],
    :category-id :jvm-statics,
    :rationale
-   "Equivalent of clojure.java.shell for System.Diagnostics.Process.\n                   Same semantic shape as canon; different namespace.",
+   "Equivalent of clojure.java.shell for System.Diagnostics.Process.\n                   Same semantic shape as Clojure (JVM); different namespace.",
    :since "clr-1.0"}],
  :dialect-only
  [clojure.core/*allow-symbol-escape*

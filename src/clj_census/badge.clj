@@ -10,7 +10,7 @@
 
 ;; Single neutral color for every badge. Coverage is a measurement,
 ;; not a value judgment -- a 50% number is no more "bad" than a 95%
-;; number is "good". Both are facts about how much of canon a dialect
+;; number is "good". Both are facts about how much of Clojure (JVM) a dialect
 ;; implements. shields.io's "blue" is recognizable as informational
 ;; without the green-yellow-red goodness gradient most CI badges use.
 (def ^:private neutral-color "blue")

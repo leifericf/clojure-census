@@ -1,12 +1,12 @@
-;; Babashka batteries-included namespaces beyond canon's clojure.* tree.
+;; Babashka batteries-included namespaces beyond Clojure (JVM)'s clojure.* tree.
 ;;
 ;; bb bundles many namespaces (clojure.tools.cli, clojure.tools.logging,
 ;; cheshire.core, babashka.process, babashka.fs, ...). Only namespaces
-;; under canon's `clojure.*` target list participate in the parity
+;; under Clojure (JVM)'s `clojure.*` target list participate in the parity
 ;; comparison; bb's `babashka.*` and other third-party-namespace
 ;; extensions are listed here for documentation only -- they do not
 ;; surface as :dialect-only in the current comparison because the
-;; comparison is scoped to canon's target list.
+;; comparison is scoped to Clojure (JVM)'s target list.
 ;;
 ;; v1 keeps this file as a docs-only registry; future v2 may widen the
 ;; target list to include `babashka.*` for a more complete picture.

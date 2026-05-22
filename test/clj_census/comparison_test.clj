@@ -5,7 +5,7 @@
   (:require [clojure.test :refer [deftest is testing]]
             [clj-census.comparison :as comparison]))
 
-(def canon
+(def clojure-surface
   {:dialect-tag     "clojure"
    :clojure-version "1.12.4"
    :captured-at     "2026-05-22T10:30:00Z"
@@ -39,14 +39,14 @@
 
 (deftest compare-produces-validated-shape
   (let [c (comparison/compare-surfaces
-            canon dialect ['clojure.core 'clojure.string])]
+            clojure-surface dialect ['clojure.core 'clojure.string])]
     (is (= "clojure" (:clojure-tag c)))
     (is (= "mino"      (:dialect-tag c)))
     (is (string? (:compared-at c)))
     (is (re-matches #"\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}Z" (:compared-at c)))))
 
 (deftest compare-clojure-core-buckets
-  (let [c (comparison/compare-surfaces canon dialect ['clojure.core])
+  (let [c (comparison/compare-surfaces clojure-surface dialect ['clojure.core])
         ns-cmp (get-in c [:namespaces-compared 'clojure.core])]
     (is (= #{'map 'filter 'when 'reduce}
            (set (concat (:in-both ns-cmp) (map :var-name (:mismatches ns-cmp))))))
@@ -54,7 +54,7 @@
     (is (= #{} (:clojure-only ns-cmp)))))
 
 (deftest compare-mismatches-on-arglists
-  (let [c       (comparison/compare-surfaces canon dialect ['clojure.core])
+  (let [c       (comparison/compare-surfaces clojure-surface dialect ['clojure.core])
         misms   (get-in c [:namespaces-compared 'clojure.core :mismatches])
         reduce-mismatch (first (filter #(= 'reduce (:var-name %)) misms))]
     (is (some? reduce-mismatch))
@@ -62,7 +62,7 @@
     (is (= '([f coll])               (:arglists-dialect reduce-mismatch)))))
 
 (deftest compare-mismatches-on-macro-flag
-  (let [c     (comparison/compare-surfaces canon dialect ['clojure.core])
+  (let [c     (comparison/compare-surfaces clojure-surface dialect ['clojure.core])
         misms (get-in c [:namespaces-compared 'clojure.core :mismatches])
         when-mismatch (first (filter #(= 'when (:var-name %)) misms))]
     (is (some? when-mismatch))
@@ -70,7 +70,7 @@
     (is (= false (:macro-dialect when-mismatch)))))
 
 (deftest compare-handles-missing-namespace-on-dialect-side
-  (let [c (comparison/compare-surfaces canon
+  (let [c (comparison/compare-surfaces clojure-surface
                                        (update dialect :namespaces dissoc 'clojure.string)
                                        ['clojure.string])
         ns-cmp (get-in c [:namespaces-compared 'clojure.string])]
@@ -80,15 +80,15 @@
     (is (= []  (:mismatches ns-cmp)))))
 
 (deftest compare-handles-missing-namespace-on-both-sides
-  (let [c (comparison/compare-surfaces canon dialect ['clojure.missing])
+  (let [c (comparison/compare-surfaces clojure-surface dialect ['clojure.missing])
         ns-cmp (get-in c [:namespaces-compared 'clojure.missing])]
     (is (= {:in-both #{} :clojure-only #{} :dialect-only #{} :mismatches []}
            ns-cmp))))
 
 (deftest filter-flag-mismatch-is-suppressed-when-both-effectively-false
   (testing "absent :macro key ≡ explicit :macro false"
-    (let [c     (comparison/compare-surfaces canon dialect ['clojure.core])
+    (let [c     (comparison/compare-surfaces clojure-surface dialect ['clojure.core])
           misms (get-in c [:namespaces-compared 'clojure.core :mismatches])
           filter-mismatch (first (filter #(= 'filter (:var-name %)) misms))]
       (is (nil? filter-mismatch)
-          "filter has :macro false on canon side and no :macro on dialect side -- equivalent"))))
+          "filter has :macro false on Clojure (JVM) side and no :macro on dialect side -- equivalent"))))

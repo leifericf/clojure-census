@@ -1,7 +1,7 @@
 ;; Hand-curated intentional divergences for ClojureCLR.
 ;;
 ;; ClojureCLR targets the Common Language Runtime (.NET) instead of
-;; the JVM. The Clojure surface is almost identical to canon; the
+;; the JVM. The Clojure surface is almost identical to Clojure (JVM); the
 ;; divergences are host-bound: JVM-specific class references and
 ;; java.* namespaces are replaced by CLR equivalents (System.*).
 ;;
@@ -78,7 +78,7 @@
   :category-id     :concurrency
   :rationale       "Atom / future / agent are implemented on top of
                     System.Threading, not java.util.concurrent. The
-                    semantics match canon; the underlying threads
+                    semantics match Clojure (JVM); the underlying threads
                     differ if interop'd with."
   :since           "clr-1.0"}
 ]

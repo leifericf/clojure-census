@@ -1,8 +1,8 @@
 (ns clj-census.comparison
-  "Comparing a canon Surface to a dialect Surface, namespace by
+  "Comparing a Clojure (JVM) surface to a dialect Surface, namespace by
   namespace, produces a Comparison value:
 
-      {:clojure-tag           \"canon-jvm\"
+      {:clojure-tag           \"clojure\"
        :dialect-tag         \"mino\"
        :compared-at         \"...Z\"
        :namespaces-compared {ns-sym {:in-both       #{var-name ...}
@@ -38,7 +38,7 @@
     (mapv vec arglists)))
 
 (defn- mismatch-entry
-  "Return a mismatch map iff canon/dialect disagree on `:arglists`,
+  "Return a mismatch map iff Clojure-and-dialect disagree on `:arglists`,
   `:macro`, or `:dynamic`; otherwise `nil`.
 
   Arglists are compared only when BOTH sides supply them -- when the
@@ -66,18 +66,18 @@
       (assoc diffs :var-name var-name))))
 
 (defn- compare-ns
-  "Compare canon-side and dialect-side var-maps for one namespace."
-  [canon-vars dialect-vars]
-  (let [canon-keys   (set (keys canon-vars))
+  "Compare Clojure-(JVM)-side and dialect-side var-maps for one namespace."
+  [clojure-vars dialect-vars]
+  (let [clojure-keys   (set (keys clojure-vars))
         dialect-keys (set (keys dialect-vars))
-        common       (cset/intersection canon-keys dialect-keys)
+        common       (cset/intersection clojure-keys dialect-keys)
         in-both-set  (atom #{})
         mismatches   (vec
                        (reduce
                          (fn [acc var-name]
                            (if-let [mm (mismatch-entry
                                          var-name
-                                         (get canon-vars var-name)
+                                         (get clojure-vars var-name)
                                          (get dialect-vars var-name))]
                              (conj acc mm)
                              (do (swap! in-both-set conj var-name)
@@ -85,25 +85,25 @@
                          []
                          (sort common)))]
     {:in-both      @in-both-set
-     :clojure-only   (cset/difference canon-keys dialect-keys)
-     :dialect-only (cset/difference dialect-keys canon-keys)
+     :clojure-only   (cset/difference clojure-keys dialect-keys)
+     :dialect-only (cset/difference dialect-keys clojure-keys)
      :mismatches   mismatches}))
 
 (defn compare-surfaces
-  "Produce a Comparison from `canon-surface` and `dialect-surface`,
+  "Produce a Comparison from `clojure-surface` and `dialect-surface`,
   restricted to `target-namespaces`. Missing namespaces on either
   side are treated as empty (all vars become clojure-only or
   dialect-only accordingly)."
-  [canon-surface dialect-surface target-namespaces]
+  [clojure-surface dialect-surface target-namespaces]
   (let [namespaces-compared
         (into {}
               (for [ns-sym target-namespaces]
-                (let [canon-vars   (get-in canon-surface
+                (let [clojure-vars   (get-in clojure-surface
                                             [:namespaces ns-sym :vars] {})
                       dialect-vars (get-in dialect-surface
                                             [:namespaces ns-sym :vars] {})]
-                  [ns-sym (compare-ns canon-vars dialect-vars)])))
-        out {:clojure-tag           (:dialect-tag canon-surface)
+                  [ns-sym (compare-ns clojure-vars dialect-vars)])))
+        out {:clojure-tag           (:dialect-tag clojure-surface)
              :dialect-tag         (:dialect-tag dialect-surface)
              :compared-at         (iso-utc-now)
              :namespaces-compared namespaces-compared}]

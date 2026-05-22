@@ -1,5 +1,5 @@
 (ns clj-census.extension-test
-  "Extensions are hand-curated names mino exposes that canon does
+  "Extensions are hand-curated names mino exposes that Clojure (JVM) does
   not. Cross-referenced against the comparison's :dialect-only set
   to distinguish intentional extensions from accidental drift."
   (:require [clojure.test :refer [deftest is testing]]

@@ -1,5 +1,5 @@
 (ns clj-census.divergence
-  "Divergences are hand-curated, intentional deviations from canon
+  "Divergences are hand-curated, intentional deviations from Clojure (JVM)
   behavior. Each entry has a stable `:id`, a `:category-id` that
   must reference an entry in `data/categories.edn`, a short rationale,
   and the affected vars (when applicable).

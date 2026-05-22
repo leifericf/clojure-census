@@ -1,4 +1,4 @@
-;; Hand-curated intentional divergences from JVM Clojure canon.
+;; Hand-curated intentional divergences from JVM Clojure.
 ;;
 ;; Schema: see ::clj-census.schema/divergence
 ;;
@@ -37,7 +37,7 @@
   :title           "Float-32 is a distinct numeric type"
   :category-id     :numeric-tower
   :rationale       "mino exposes a 32-bit float-tagged value for
-                    space-constrained embedded use; canon collapses
+                    space-constrained embedded use; Clojure (JVM) collapses
                     to Double."
   :since           "v0.1.0"
   :doc-link        "/coming-from-clojure#numeric"}
@@ -59,7 +59,7 @@
   :title           "class behaves like type -- no JVM-class semantics"
   :category-id     :type-system
   :rationale       "There are no classes; class is provided as a
-                    Clojure-canon-shaped alias rather than a separate
+                    Clojure-shaped alias rather than a separate
                     abstraction."
   :since           "v0.1.0"
   :affected        [clojure.core/class clojure.core/class? clojure.core/instance?]}
@@ -81,7 +81,7 @@
   :category-id     :jvm-statics
   :rationale       "mino exposes a curated subset of JVM-static-name
                     values (Integer/toBinaryString, Long/toHexString,
-                    ...) for Clojure-canon code that depends on
+                    ...) for Clojure code that depends on
                     them. Most are absent."
   :since           "v0.1.0"
   :doc-link        "/coming-from-clojure#jvm-statics"}
@@ -195,7 +195,7 @@
  {:id              :transit-not-bundled
   :title           "transit reader/writer are not bundled"
   :category-id     :collections
-  :rationale       "Transit is a JVM artifact in canon distributions;
+  :rationale       "Transit is a JVM artifact in Clojure (JVM) distributions;
                     mino does not bundle it. EDN remains the wire
                     format."
   :since           "v0.1.0"}
@@ -220,10 +220,10 @@
   :doc-link        "/coming-from-clojure#ordering"}
 
  {:id              :equality-default-strict
-  :title           "= on cross-type numbers follows Clojure-canon, not JVM ="
+  :title           "= on cross-type numbers follows Clojure (JVM), not JVM ="
   :category-id     :numeric-tower
   :rationale       "= remains a value-equality predicate; numeric
-                    equality across float / int is what canon
+                    equality across float / int is what Clojure (JVM)
                     specifies, not JVM-Object-equality."
   :since           "v0.1.0"
   :affected        [clojure.core/=]}
@@ -232,9 +232,9 @@
   :title           "Sequence chunking is deterministic but not always 32"
   :category-id     :collections
   :rationale       "Lazy realization batch size is implementation-
-                    defined in canon; mino picks sizes that suit the
+                    defined in Clojure (JVM); mino picks sizes that suit the
                     embedded use case. Code that depends on exact
-                    chunk boundaries is non-portable in canon too."
+                    chunk boundaries is non-portable in Clojure (JVM) too."
   :since           "v0.1.0"}
 
  {:id              :namespaced-map-default-true
@@ -260,7 +260,7 @@
   :title           "Error messages and ex-info keys may differ"
   :category-id     :error-messages
   :rationale       "Exception text is implementation-defined in
-                    canon. mino's messages aim to be informative but
+                    Clojure (JVM). mino's messages aim to be informative but
                     are not byte-for-byte JVM-Clojure-compatible. Use
                     ex-data / ex-cause / category keys to dispatch."
   :since           "v0.1.0"}
@@ -268,7 +268,7 @@
  {:id              :clojure-test-machinery-mino-shape
   :title           "clojure.test reports via mino's counters, not JVM clojure.test/report"
   :category-id     :error-messages
-  :rationale       "Per-assertion error isolation matches canon's
+  :rationale       "Per-assertion error isolation matches Clojure (JVM)'s
                     contract. The underlying report mechanism uses
                     mino-native counters and prints rather than the
                     JVM clojure.test/report multimethod."

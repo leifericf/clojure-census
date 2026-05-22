@@ -25,7 +25,7 @@
                     :cmd  ["jank" "run" "scripts/surface_dump_jank.cljc"]}
  :version-cmd      ["jank" "check-health"]
 
- ;; Six canon namespaces ship in jank-0.1-alpha. The other ten
+ ;; Six Clojure (JVM) namespaces ship in jank-0.1-alpha. The other ten
  ;; (clojure.edn / .zip / .pprint / .math / .data / .datafy /
  ;; .instant / .core.protocols / .core.reducers / .spec.alpha) are
  ;; tracked as divergences pending jank stdlib expansion.

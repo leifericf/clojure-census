@@ -1,7 +1,7 @@
-;; jank host-specific extensions beyond canon.
+;; jank host-specific extensions beyond Clojure (JVM).
 ;;
 ;; jank's standout feature is seamless C++ interop via the cpp/
-;; namespace tag. v1's parity comparison is scoped to canon's
+;; namespace tag. v1's parity comparison is scoped to Clojure (JVM)'s
 ;; clojure.* target list, so cpp/ usage falls outside the
 ;; comparison; this file documents the extension for completeness.
 [

@@ -3,7 +3,7 @@
 ;; bb wraps SCI (Small Clojure Interpreter); divergences fall in three
 ;; buckets: (1) JVM-only features bb intentionally drops, (2) SCI's
 ;; interpretation vs Clojure compilation, (3) bb's batteries-included
-;; namespaces that don't appear in canon's clojure.* tree.
+;; namespaces that don't appear in Clojure (JVM)'s clojure.* tree.
 ;;
 ;; Schema: see ::clj-census.schema/divergence
 ;; :category-id must reference an entry in data/categories.edn.
@@ -48,7 +48,7 @@
  {:id              :sci-eval-semantics
   :title           "eval / load-string interpret via SCI, not Compiler"
   :category-id     :macros
-  :rationale       "Macroexpansion semantics generally match canon
+  :rationale       "Macroexpansion semantics generally match Clojure (JVM)
                     but the underlying interpreter is SCI, so certain
                     macro hygiene edge cases that rely on the Clojure
                     Compiler's specific behavior may differ."
@@ -59,7 +59,7 @@
   :title           "No classpath-time loading of user-supplied .class files"
   :category-id     :jvm-statics
   :rationale       "bb is a self-contained binary; the JVM
-                    classloader / classpath model that canon code can
+                    classloader / classpath model that Clojure (JVM) code can
                     poke at (clojure.lang.RT/baseLoader, etc.) is
                     not exposed."
   :since           "bb-1.0"}

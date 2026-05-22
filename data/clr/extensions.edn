@@ -1,8 +1,8 @@
-;; ClojureCLR host-specific extensions beyond canon.
+;; ClojureCLR host-specific extensions beyond Clojure (JVM).
 ;;
 ;; CLR exposes its own namespaces (clojure.clr.io for filesystem,
-;; clojure.clr.shell for processes) that aren't in canon. v1's
-;; parity comparison is scoped to canon's clojure.* target list, so
+;; clojure.clr.shell for processes) that aren't in Clojure (JVM). v1's
+;; parity comparison is scoped to Clojure (JVM)'s clojure.* target list, so
 ;; these are documentation-only -- they don't surface as
 ;; :dialect-only in the comparison.
 [
@@ -15,7 +15,7 @@
   :rationale      "ClojureCLR equivalent of clojure.java.io for .NET
                    FileInfo / Stream IO. Not in v1's target list
                    because the comparison shape is anchored on
-                   canon's clojure.* tree."
+                   Clojure (JVM)'s clojure.* tree."
   :since          "clr-1.0"}
 
  {:id             :clr-shell
@@ -23,6 +23,6 @@
   :affected-names ["clojure.clr.shell/sh"]
   :category-id    :jvm-statics
   :rationale      "Equivalent of clojure.java.shell for System.Diagnostics.Process.
-                   Same semantic shape as canon; different namespace."
+                   Same semantic shape as Clojure (JVM); different namespace."
   :since          "clr-1.0"}
 ]

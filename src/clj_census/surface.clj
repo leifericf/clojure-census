@@ -76,7 +76,7 @@
     (let [{:keys [namespace-renames strip-keys include-only-namespaces]} norm]
       ;; Order: filter pre-rename → rename → strip-keys.
     ;; Filter uses the dialect's native namespace names, so it
-    ;; runs before renames map them onto canon names.
+    ;; runs before renames map them onto Clojure (JVM) names.
     (cond-> surface
         include-only-namespaces (filter-namespaces include-only-namespaces)
         namespace-renames       (rename-namespaces namespace-renames)

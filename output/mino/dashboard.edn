@@ -2,7 +2,7 @@
  {:dialect-tag "mino",
   :dialect-name "mino",
   :clojure-version "1.12.4",
-  :compared-at "2026-05-22T19:59:57Z"},
+  :compared-at "2026-05-22T20:14:08Z"},
  :divergences
  [{:dialect-example "(compare \"z\" \"a\") ;=> 1",
    :since "v0.1.0",
@@ -26,7 +26,7 @@
    :title "Float-32 is a distinct numeric type",
    :category-id :numeric-tower,
    :rationale
-   "mino exposes a 32-bit float-tagged value for\n                    space-constrained embedded use; canon collapses\n                    to Double.",
+   "mino exposes a 32-bit float-tagged value for\n                    space-constrained embedded use; Clojure (JVM) collapses\n                    to Double.",
    :since "v0.1.0",
    :doc-link "/coming-from-clojure#numeric"}
   {:dialect-example "(type [1 2 3]) ;=> :vector",
@@ -43,7 +43,7 @@
    :title "class behaves like type -- no JVM-class semantics",
    :category-id :type-system,
    :rationale
-   "There are no classes; class is provided as a\n                    Clojure-canon-shaped alias rather than a separate\n                    abstraction.",
+   "There are no classes; class is provided as a\n                    Clojure-shaped alias rather than a separate\n                    abstraction.",
    :since "v0.1.0",
    :affected
    [clojure.core/class clojure.core/class? clojure.core/instance?]}
@@ -63,7 +63,7 @@
    :title "Integer/MAX_VALUE etc. remapped or absent",
    :category-id :jvm-statics,
    :rationale
-   "mino exposes a curated subset of JVM-static-name\n                    values (Integer/toBinaryString, Long/toHexString,\n                    ...) for Clojure-canon code that depends on\n                    them. Most are absent.",
+   "mino exposes a curated subset of JVM-static-name\n                    values (Integer/toBinaryString, Long/toHexString,\n                    ...) for Clojure code that depends on\n                    them. Most are absent.",
    :since "v0.1.0",
    :doc-link "/coming-from-clojure#jvm-statics"}
   {:id :concurrency-no-jvm-threads,
@@ -152,7 +152,7 @@
    :title "transit reader/writer are not bundled",
    :category-id :collections,
    :rationale
-   "Transit is a JVM artifact in canon distributions;\n                    mino does not bundle it. EDN remains the wire\n                    format.",
+   "Transit is a JVM artifact in Clojure (JVM) distributions;\n                    mino does not bundle it. EDN remains the wire\n                    format.",
    :since "v0.1.0"}
   {:id :clojure-java-io-absent,
    :title "clojure.java.io namespace is intentionally absent",
@@ -169,17 +169,17 @@
    :affected [clojure.core/sorted-map clojure.core/sorted-set],
    :doc-link "/coming-from-clojure#ordering"}
   {:id :equality-default-strict,
-   :title "= on cross-type numbers follows Clojure-canon, not JVM =",
+   :title "= on cross-type numbers follows Clojure (JVM), not JVM =",
    :category-id :numeric-tower,
    :rationale
-   "= remains a value-equality predicate; numeric\n                    equality across float / int is what canon\n                    specifies, not JVM-Object-equality.",
+   "= remains a value-equality predicate; numeric\n                    equality across float / int is what Clojure (JVM)\n                    specifies, not JVM-Object-equality.",
    :since "v0.1.0",
    :affected [clojure.core/=]}
   {:id :iterate-chunking,
    :title "Sequence chunking is deterministic but not always 32",
    :category-id :collections,
    :rationale
-   "Lazy realization batch size is implementation-\n                    defined in canon; mino picks sizes that suit the\n                    embedded use case. Code that depends on exact\n                    chunk boundaries is non-portable in canon too.",
+   "Lazy realization batch size is implementation-\n                    defined in Clojure (JVM); mino picks sizes that suit the\n                    embedded use case. Code that depends on exact\n                    chunk boundaries is non-portable in Clojure (JVM) too.",
    :since "v0.1.0"}
   {:id :namespaced-map-default-true,
    :title "CLI default for *print-namespace-maps* is true",
@@ -199,14 +199,14 @@
    :title "Error messages and ex-info keys may differ",
    :category-id :error-messages,
    :rationale
-   "Exception text is implementation-defined in\n                    canon. mino's messages aim to be informative but\n                    are not byte-for-byte JVM-Clojure-compatible. Use\n                    ex-data / ex-cause / category keys to dispatch.",
+   "Exception text is implementation-defined in\n                    Clojure (JVM). mino's messages aim to be informative but\n                    are not byte-for-byte JVM-Clojure-compatible. Use\n                    ex-data / ex-cause / category keys to dispatch.",
    :since "v0.1.0"}
   {:id :clojure-test-machinery-mino-shape,
    :title
    "clojure.test reports via mino's counters, not JVM clojure.test/report",
    :category-id :error-messages,
    :rationale
-   "Per-assertion error isolation matches canon's\n                    contract. The underlying report mechanism uses\n                    mino-native counters and prints rather than the\n                    JVM clojure.test/report multimethod.",
+   "Per-assertion error isolation matches Clojure (JVM)'s\n                    contract. The underlying report mechanism uses\n                    mino-native counters and prints rather than the\n                    JVM clojure.test/report multimethod.",
    :since "v0.422.0",
    :affected [clojure.test/report clojure.test/run-tests]}
   {:id :no-clojure-repl,
@@ -252,34 +252,47 @@
    :dialect-tag "mino",
    :clojure-version "1.11.0",
    :headline
-   {:in-both-count 751, :canon-total 995, :percent 0.7547738693467336},
+   {:in-both-count 751,
+    :clojure-total 995,
+    :percent 0.7547738693467336},
    :per-namespace
    {clojure.spec.alpha
-    {:in-both-count 49, :canon-total 87, :percent 0.5632183908045977},
-    clojure.datafy {:in-both-count 2, :canon-total 2, :percent 1.0},
-    clojure.zip {:in-both-count 28, :canon-total 28, :percent 1.0},
+    {:in-both-count 49,
+     :clojure-total 87,
+     :percent 0.5632183908045977},
+    clojure.datafy {:in-both-count 2, :clojure-total 2, :percent 1.0},
+    clojure.zip {:in-both-count 28, :clojure-total 28, :percent 1.0},
     clojure.core.reducers
-    {:in-both-count 13, :canon-total 21, :percent 0.6190476190476191},
+    {:in-both-count 13,
+     :clojure-total 21,
+     :percent 0.6190476190476191},
     clojure.test
-    {:in-both-count 8, :canon-total 39, :percent 0.20512820512820512},
+    {:in-both-count 8,
+     :clojure-total 39,
+     :percent 0.20512820512820512},
     clojure.core.protocols
-    {:in-both-count 8, :canon-total 11, :percent 0.7272727272727273},
+    {:in-both-count 8, :clojure-total 11, :percent 0.7272727272727273},
     clojure.core
     {:in-both-count 560,
-     :canon-total 679,
+     :clojure-total 679,
      :percent 0.8247422680412371},
-    clojure.set {:in-both-count 12, :canon-total 12, :percent 1.0},
+    clojure.set {:in-both-count 12, :clojure-total 12, :percent 1.0},
     clojure.pprint
-    {:in-both-count 3, :canon-total 26, :percent 0.11538461538461539},
+    {:in-both-count 3,
+     :clojure-total 26,
+     :percent 0.11538461538461539},
     clojure.math
-    {:in-both-count 31, :canon-total 45, :percent 0.6888888888888889},
-    clojure.edn {:in-both-count 2, :canon-total 2, :percent 1.0},
-    clojure.instant {:in-both-count 3, :canon-total 5, :percent 0.6},
-    clojure.string {:in-both-count 21, :canon-total 21, :percent 1.0},
-    clojure.data {:in-both-count 1, :canon-total 5, :percent 0.2},
-    clojure.walk {:in-both-count 8, :canon-total 10, :percent 0.8},
+    {:in-both-count 31,
+     :clojure-total 45,
+     :percent 0.6888888888888889},
+    clojure.edn {:in-both-count 2, :clojure-total 2, :percent 1.0},
+    clojure.instant {:in-both-count 3, :clojure-total 5, :percent 0.6},
+    clojure.string
+    {:in-both-count 21, :clojure-total 21, :percent 1.0},
+    clojure.data {:in-both-count 1, :clojure-total 5, :percent 0.2},
+    clojure.walk {:in-both-count 8, :clojure-total 10, :percent 0.8},
     clojure.template
-    {:in-both-count 2, :canon-total 2, :percent 1.0}}}],
+    {:in-both-count 2, :clojure-total 2, :percent 1.0}}}],
  :mismatches
  [{:dynamic-clojure false,
    :dynamic-dialect true,
@@ -738,7 +751,7 @@
     "clojure.core/Long/toOctalString"],
    :category-id :jvm-statics,
    :rationale
-   "Clojure-canon code that calls Integer/toBinaryString\n                   etc. is fairly common; mino mirrors these as named\n                   bindings so portable code does not need to special-\n                   case mino. The implementation is in C, exposed via\n                   the jvm_statics module.",
+   "Clojure code that calls Integer/toBinaryString\n                   etc. is fairly common; mino mirrors these as named\n                   bindings so portable code does not need to special-\n                   case mino. The implementation is in C, exposed via\n                   the jvm_statics module.",
    :since "v0.422.5"}
   {:id :bits-kw-match,
    :title "Keyword-based bitmask matching primitive",

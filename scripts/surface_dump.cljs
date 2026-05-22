@@ -7,7 +7,7 @@
 ;; (cljs.core for clojure.core, cljs.spec.alpha for clojure.spec.alpha,
 ;; cljs.test for clojure.test, cljs.pprint for clojure.pprint, etc.).
 ;; This script captures both forms when present; the dialect config's
-;; :namespace-renames maps them onto canon's clojure.* names so the
+;; :namespace-renames maps them onto the canonical clojure.* namespace names so the
 ;; comparison is apples-to-apples.
 ;;
 ;; Static requires only -- CLJS's runtime has no equivalent to JVM
@@ -23,7 +23,7 @@
             ;; Static requires of every namespace we want to capture.
             ;; Only listing namespaces verified present in stock planck;
             ;; namespaces NOT listed here are simply absent from the
-            ;; captured surface and surface as canon-only in the diff.
+            ;; captured surface and surface as clojure-only in the diff.
             [clojure.string]
             [clojure.set]
             [clojure.walk]
@@ -110,8 +110,8 @@
     (catch :default _ "unknown")))
 
 ;; CLJS uses cljs.* for some namespaces; we probe both forms and let
-;; the dialect's :surface-normalization map cljs.* onto canon's
-;; clojure.* names downstream. Targets read from canon-spec only tell
+;; the dialect's :surface-normalization map cljs.* onto the canonical
+;; clojure.* names downstream. Targets read from the spec only tells
 ;; us what to LOOK FOR -- we report whatever exists under either alias.
 (def ^:private extra-namespaces
   '[cljs.core cljs.spec.alpha cljs.spec.gen.alpha cljs.test

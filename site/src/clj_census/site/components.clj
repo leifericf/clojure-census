@@ -9,7 +9,7 @@
     - 'missing' framed neutrally: 'vars present in Clojure (JVM) but
       absent from this surface', never 'the dialect is missing X'
     - the reference implementation is always written 'Clojure (JVM)';
-      never 'canon' in user-facing strings
+      no shorthand
     - every site-generated header is in Title Case (Chicago style)
     - no ranking, no leaderboards"
   (:require [clj-census.site.aggregations :as agg]))
@@ -114,7 +114,7 @@
       [:td.matrix-empty "—"])))
 
 (defn coverage-matrix
-  "Landing matrix: rows = canon namespaces (clojure-spec order),
+  "Landing matrix: rows = Clojure (JVM) namespaces (clojure-spec order),
   columns = dialects (alpha), cells = implementation % linked to the
   per-namespace deep dive.
 
@@ -147,8 +147,10 @@
   [:main.landing
    [:section.intro
     [:h1 "Clojure Census"]
-    [:p "A periodic census of Clojure dialect surface implementation,"
-        " measured against Clojure (JVM)."]]
+    ;;   (non-breaking space) keeps "Clojure (JVM)" together so it
+    ;; never breaks across a line at any viewport width.
+    [:p "A periodic count of which Clojure (JVM) vars each"
+        " dialect implements."]]
    [:section.dialect-list
     (for [d (sort-by :tag dialects)]
       (dialect-card d link))]
@@ -328,26 +330,26 @@
      [:table.mismatches
       [:thead [:tr [:th "Var"] [:th "Difference"]]]
       [:tbody
-       (for [{:keys [var arglists-canon arglists-dialect
-                     macro-canon macro-dialect
-                     dynamic-canon dynamic-dialect]
+       (for [{:keys [var arglists-clojure arglists-dialect
+                     macro-clojure macro-dialect
+                     dynamic-clojure dynamic-dialect]
               :as mm}
              (sort-by (comp str :var) mismatches)]
          [:tr
           [:td [:code (str var)]]
           [:td
            (cond
-             arglists-canon
+             arglists-clojure
              [:div "arglists"
-              [:div "Clojure (JVM): " [:code (pr-str arglists-canon)]]
+              [:div "Clojure (JVM): " [:code (pr-str arglists-clojure)]]
               [:div "this surface: " [:code (pr-str arglists-dialect)]]]
-             (some? macro-canon)
+             (some? macro-clojure)
              [:div ":macro"
-              [:div "Clojure (JVM): " (str macro-canon)]
+              [:div "Clojure (JVM): " (str macro-clojure)]
               [:div "this surface: " (str macro-dialect)]]
-             (some? dynamic-canon)
+             (some? dynamic-clojure)
              [:div ":dynamic"
-              [:div "Clojure (JVM): " (str dynamic-canon)]
+              [:div "Clojure (JVM): " (str dynamic-clojure)]
               [:div "this surface: " (str dynamic-dialect)]])]])]]
      [:p.empty "None."])])
 

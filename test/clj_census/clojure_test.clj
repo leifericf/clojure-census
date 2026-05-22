@@ -1,6 +1,6 @@
 (ns clj-census.clojure-test
-  "CanonSpec is the source of truth for which Clojure version is
-  canon and which namespaces participate. The canon module loads
+  "ClojureSpec is the source of truth for which Clojure version is
+  Clojure (JVM) and which namespaces participate. The module loads
   the spec, validates it, and provides accessors used during the
   comparison pipeline."
   (:require [clojure.test :refer [deftest is testing]]

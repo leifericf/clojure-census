@@ -1,6 +1,6 @@
 (ns clj-census.coverage-test
   "Coverage takes a Comparison and produces a headline + per-namespace
-  stats. The headline is the SUM of in-both vars over the SUM of canon
+  stats. The headline is the SUM of in-both vars over the SUM of Clojure (JVM)
   vars across all namespaces -- not the mean of per-namespace percents."
   (:require [clojure.test :refer [deftest is testing]]
             [clj-census.coverage :as coverage]))
@@ -51,7 +51,7 @@
     (is (= 0.0 (:percent (:headline cov)))
         "100% of zero is undefined; we render 0% to keep things safe")))
 
-(deftest zero-canon-vars-in-one-namespace
+(deftest zero-clojure-vars-in-one-namespace
   (let [cov (coverage/from-comparison
               {:clojure-tag "x" :dialect-tag "y"
                :compared-at "2026-05-22T10:30:00Z"
