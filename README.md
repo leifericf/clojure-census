@@ -9,9 +9,10 @@ arglists, metadata, special forms, spec registry) and compares it against
 a target dialect's surface. Produces a Markdown dashboard, JSON snapshot,
 and shields.io badge per dialect.
 
-mino is the first consumer. Other Clojure dialects (Babashka, jank,
-ClojureScript, lpy, sci-derivatives) can plug in via configuration alone:
-no tool code changes required.
+mino was the first consumer; Babashka (bb) shipped second as a working
+proof of the dialect-plug-in design. Other Clojure dialects (jank,
+ClojureScript, lpy, sci-derivatives) can plug in via configuration
+alone: no tool code changes required.
 
 ## Scope
 
@@ -49,13 +50,18 @@ output/<dialect>/       generated dashboards, snapshots, history
 clojure -M:test
 
 # Validate every EDN under canon/, dialects/, data/ against the schema
-clojure -M:validate-data
+clojure -M:run validate-data
 
-# Capture the dialect's surface
-clojure -X:run :dialect :mino
+# Capture a dialect's surface
+MINO_BIN=/path/to/mino clojure -M:run dump mino
+clojure -M:run dump bb        # bb on PATH, no env var needed
 
-# Diff captured dialect surface against vendored canon, write dashboard
-clojure -X:run :diff :mino
+# Diff captured surface against vendored canon, write dashboard
+MINO_BIN=/path/to/mino clojure -M:run diff mino
+clojure -M:run diff bb
+
+# Re-render from saved surface (no new capture)
+clojure -M:run render bb
 ```
 
 ## Status
