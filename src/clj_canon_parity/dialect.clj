@@ -77,13 +77,25 @@
                env (into [:env env]))]
     (apply sh/sh (concat cmd opts))))
 
+(defn- strip-non-edn-prefix
+  "Some dialects emit a banner line on stdout before any user output
+  (e.g. ClojureCLR's `Clojure core loaded in NNN milliseconds.`).
+  Skip any text before the first `{` so EDN parsing succeeds. If
+  there is no `{` the original string is returned and EDN-read will
+  fail with the usual diagnostic."
+  [s]
+  (let [idx (.indexOf ^String s "{")]
+    (if (pos? idx) (subs s idx) s)))
+
 (defn capture-stdout
   "Invoke and decode stdout as EDN. Throws if the subprocess exits
-  non-zero, or if stdout is not parseable EDN."
+  non-zero, or if stdout is not parseable EDN. Strips any
+  non-EDN banner prefix some hosts emit before user output."
   [{:keys [cmd] :as inv} & {:keys [dir env timeout-ms]}]
   (let [start (System/currentTimeMillis)
         {:keys [exit out err]} (run-process inv :dir dir :env env)
-        elapsed (- (System/currentTimeMillis) start)]
+        elapsed (- (System/currentTimeMillis) start)
+        cleaned (strip-non-edn-prefix out)]
     (when-not (zero? exit)
       (throw (ex-info (str "subprocess exited " exit)
                       {:cmd     cmd
@@ -91,7 +103,7 @@
                        :stderr  err
                        :elapsed elapsed})))
     (try
-      (edn/read-string {:default tagged-literal} out)
+      (edn/read-string {:default tagged-literal} cleaned)
       (catch Exception e
         (throw (ex-info "subprocess stdout was not valid EDN"
                         {:cmd     cmd

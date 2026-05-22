@@ -65,6 +65,21 @@
             :cmd  ["clojure" "-M" "/tmp/dump.clj"]}
            inv))))
 
+(deftest capture-stdout-strips-banner-prefix
+  (testing "ClojureCLR-style banner before EDN is silently stripped"
+    (with-redefs [dialect/run-process
+                  (fn [_inv & _opts]
+                    {:exit 0
+                     :out  "Clojure core loaded in 250 milliseconds.\n{:a 1, :b 2}"
+                     :err  ""})]
+      (is (= {:a 1 :b 2}
+             (dialect/capture-stdout {:cmd ["fake"]})))))
+  (testing "Plain EDN with no banner is unchanged"
+    (with-redefs [dialect/run-process
+                  (fn [_inv & _opts]
+                    {:exit 0 :out "{:x 42}" :err ""})]
+      (is (= {:x 42} (dialect/capture-stdout {:cmd ["fake"]}))))))
+
 (deftest enabled?
   (testing "missing :enabled defaults to true"
     (is (true? (dialect/enabled? jvm-config))))
