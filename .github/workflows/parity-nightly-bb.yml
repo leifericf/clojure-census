@@ -1,0 +1,75 @@
+name: parity / nightly dashboard (bb)
+
+on:
+  schedule:
+    # 05:15 UTC daily — staggered 15min after the mino run
+    - cron: '15 5 * * *'
+  workflow_dispatch:
+    inputs:
+      bb_version:
+        description: 'Babashka version to install (default: latest)'
+        required: false
+        default: latest
+
+jobs:
+  build-dashboard:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout parity tool
+        uses: actions/checkout@v4
+
+      - name: Set up JDK 21
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+
+      - name: Set up Clojure CLI
+        uses: DeLaGuardo/setup-clojure@13.1
+        with:
+          cli: 1.12.4.1618
+
+      - name: Cache Maven local
+        uses: actions/cache@v4
+        with:
+          path: ~/.m2
+          key: ${{ runner.os }}-maven-${{ hashFiles('deps.edn') }}
+          restore-keys: |
+            ${{ runner.os }}-maven-
+
+      - name: Install Babashka
+        uses: DeLaGuardo/setup-clojure@13.1
+        with:
+          bb: ${{ github.event.inputs.bb_version || 'latest' }}
+
+      - name: Capture bb surface
+        run: clojure -M:run dump bb
+
+      - name: Produce dashboard
+        run: clojure -M:run diff bb
+
+      - name: Commit artifacts
+        run: |
+          git config user.name  "parity-nightly[bot]"
+          git config user.email "parity-nightly@users.noreply.github.com"
+          git add output/bb/
+          if git diff --cached --quiet; then
+            echo "no changes to commit"
+          else
+            DATE=$(date -u +%Y-%m-%d)
+            git commit -m "nightly: bb parity dashboard ${DATE}"
+            git push
+          fi
+
+      - name: Upload dashboard as workflow artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: parity-dashboard-bb
+          path: |
+            output/bb/dashboard.md
+            output/bb/dashboard.json
+            output/bb/badge.json
+            output/bb/surface.edn
+            output/bb/history/
