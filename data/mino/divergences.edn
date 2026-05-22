@@ -1,0 +1,286 @@
+;; Hand-curated intentional divergences from JVM Clojure canon.
+;;
+;; Schema: see ::clj-canon-parity.schema/divergence
+;;
+;; :category-id must reference an entry in data/categories.edn —
+;; load-time validation enforces this. New categories require an
+;; entry in data/categories.edn first.
+;;
+;; This file is the single source of truth for what is intentionally
+;; different in mino. The mino-site's "Intentional Divergences" page
+;; renders from this data (in a separate cycle); the dashboard cross-
+;; references each missing/mismatched var against this list.
+[
+ {:id              :compare-sign-normalized
+  :title           "compare returns sign-only (-1, 0, 1)"
+  :category-id     :ordering
+  :rationale       "Hickey-test for what compare's contract is: a
+                    three-way ordering function. Sign-normalized
+                    return values are simpler and avoid leaking
+                    representation-specific deltas."
+  :since           "v0.1.0"
+  :dialect-example "(compare \"z\" \"a\") ;=> 1"
+  :canon-example   "(compare \"z\" \"a\") ;=> 25"
+  :affected        [clojure.core/compare]
+  :doc-link        "/coming-from-clojure#ordering"}
+
+ {:id              :one-integer-tier
+  :title           "Single integer type — no Long/Integer/Short distinction"
+  :category-id     :numeric-tower
+  :rationale       "mino has no JVM types; one integer representation
+                    suffices. Promotion within the integer tier never
+                    happens because there is only one tier."
+  :since           "v0.1.0"
+  :affected        [clojure.core/integer? clojure.core/int? clojure.core/long]}
+
+ {:id              :double-float32-distinct
+  :title           "Float-32 is a distinct numeric type"
+  :category-id     :numeric-tower
+  :rationale       "mino exposes a 32-bit float-tagged value for
+                    space-constrained embedded use; canon collapses
+                    to Double."
+  :since           "v0.1.0"
+  :doc-link        "/coming-from-clojure#numeric"}
+
+ {:id              :type-as-keyword
+  :title           "type returns a keyword, not a Java class"
+  :category-id     :type-system
+  :rationale       "No JVM classes. mino's type system is keyword-
+                    tagged (:vector, :map, :list, :symbol, ...).
+                    Dispatch logic that pattern-matches on classes
+                    must use the keyword tags instead."
+  :since           "v0.1.0"
+  :dialect-example "(type [1 2 3]) ;=> :vector"
+  :canon-example   "(type [1 2 3]) ;=> clojure.lang.PersistentVector"
+  :affected        [clojure.core/type clojure.core/class]
+  :doc-link        "/coming-from-clojure#types"}
+
+ {:id              :class-of-non-jvm
+  :title           "class behaves like type — no JVM-class semantics"
+  :category-id     :type-system
+  :rationale       "There are no classes; class is provided as a
+                    Clojure-canon-shaped alias rather than a separate
+                    abstraction."
+  :since           "v0.1.0"
+  :affected        [clojure.core/class clojure.core/class? clojure.core/instance?]}
+
+ {:id              :ex-info-no-jvm-throwable-hierarchy
+  :title           "ex-info / throw use mino-native exception type"
+  :category-id     :error-messages
+  :rationale       "No JVM Throwable. mino's exception type is its
+                    own runtime value with :message and :data fields;
+                    instance checks via clojure.lang.ExceptionInfo do
+                    not work."
+  :since           "v0.1.0"
+  :affected        [clojure.core/ex-info clojure.core/ex-data
+                    clojure.core/ex-message clojure.core/ex-cause]
+  :doc-link        "/coming-from-clojure#exceptions"}
+
+ {:id              :no-jvm-class-statics
+  :title           "Integer/MAX_VALUE etc. remapped or absent"
+  :category-id     :jvm-statics
+  :rationale       "mino exposes a curated subset of JVM-static-name
+                    values (Integer/toBinaryString, Long/toHexString,
+                    ...) for Clojure-canon code that depends on
+                    them. Most are absent."
+  :since           "v0.1.0"
+  :doc-link        "/coming-from-clojure#jvm-statics"}
+
+ {:id              :concurrency-no-jvm-threads
+  :title           "Atoms, refs, futures, agents have alpha-quality"
+  :category-id     :concurrency
+  :rationale       "mino runs single-threaded in the embedded host;
+                    concurrency primitives are present but the
+                    underlying execution model is cooperative, not
+                    preemptive."
+  :since           "v0.1.0"
+  :affected        [clojure.core/future clojure.core/agent clojure.core/send
+                    clojure.core/send-off]
+  :doc-link        "/coming-from-clojure#concurrency"}
+
+ {:id              :no-reader-conditional-clj
+  :title           "Reader conditional :clj does not fire under mino"
+  :category-id     :reader
+  :rationale       "mino is not JVM Clojure; portable code must use
+                    :default or :mino to target it. Documented and
+                    intentional."
+  :since           "v0.1.0"
+  :dialect-example "#?(:clj :A :mino :B :default :C) ;=> :B"
+  :canon-example   "#?(:clj :A :mino :B :default :C) ;=> :A"
+  :doc-link        "/coming-from-clojure#reader-conditionals"}
+
+ {:id              :keyword-namespaces-canonicalized
+  :title           "Namespaced keyword aliasing uses runtime aliases"
+  :category-id     :namespaces
+  :rationale       "::alias/kw is resolved at read time against the
+                    current ns's aliases — same as JVM Clojure, but
+                    mino's reader does not have access to the JVM
+                    classloader hierarchy."
+  :since           "v0.1.0"}
+
+ {:id              :file-line-meta-source-aware
+  :title           "Reader-tracked :file may be relative or absolute"
+  :category-id     :metadata
+  :rationale       "mino's reader records the path as the embedder
+                    passed it; JVM Clojure normalizes to classpath-
+                    relative. Tools that compare :file values must
+                    accept either."
+  :since           "v0.1.0"}
+
+ {:id              :pprint-minimal
+  :title           "pprint is minimal — no cl-format directives"
+  :category-id     :printer
+  :rationale       "mino's clojure.pprint supports pretty-printing
+                    basic forms; cl-format and table directives are
+                    not implemented. Targets the common case."
+  :since           "v0.1.0"
+  :affected        [clojure.pprint/cl-format clojure.pprint/print-table]
+  :doc-link        "/coming-from-clojure#pprint"}
+
+ {:id              :spec-gen-minimal
+  :title           "clojure.spec generators ship as separate primitives"
+  :category-id     :collections
+  :rationale       "mino's spec.alpha implements the documented
+                    surface; clojure.spec.gen.alpha is partially
+                    present and may diverge from clojure.test.check
+                    behavior on edge cases."
+  :since           "v0.1.0"
+  :doc-link        "/coming-from-clojure#spec"}
+
+ {:id              :no-jvm-reflection
+  :title           "No clojure.reflect — JVM-only"
+  :category-id     :jvm-statics
+  :rationale       "Reflection is meaningless without a JVM. mino's
+                    introspection uses ns-publics + meta, not class
+                    inspection."
+  :since           "v0.1.0"}
+
+ {:id              :record-no-host-class
+  :title           "defrecord types are not Java classes"
+  :category-id     :type-system
+  :rationale       "mino's records carry identity, field slots, and a
+                    type keyword — no host-level class is generated.
+                    instance? on a record uses the type keyword as
+                    its discriminator."
+  :since           "v0.1.0"
+  :affected        [clojure.core/defrecord clojure.core/instance?]}
+
+ {:id              :proxy-not-implemented
+  :title           "proxy is not provided"
+  :category-id     :jvm-statics
+  :rationale       "proxy generates a JVM class — no equivalent in
+                    mino. defrecord + protocols cover the same use
+                    case in a host-portable way."
+  :since           "v0.1.0"
+  :affected        [clojure.core/proxy]}
+
+ {:id              :gen-class-not-implemented
+  :title           "gen-class is not provided"
+  :category-id     :jvm-statics
+  :rationale       "gen-class emits JVM bytecode. mino has no Java
+                    interop layer."
+  :since           "v0.1.0"
+  :affected        [clojure.core/gen-class]}
+
+ {:id              :deftype-record-only
+  :title           "deftype is an alias for defrecord without map-like ops"
+  :category-id     :type-system
+  :rationale       "deftype's volatile-field and interface-impl
+                    features depend on JVM semantics. mino provides
+                    deftype as a structural type carrier; the JVM-
+                    only knobs are no-ops."
+  :since           "v0.1.0"
+  :affected        [clojure.core/deftype]}
+
+ {:id              :transit-not-bundled
+  :title           "transit reader/writer are not bundled"
+  :category-id     :collections
+  :rationale       "Transit is a JVM artifact in canon distributions;
+                    mino does not bundle it. EDN remains the wire
+                    format."
+  :since           "v0.1.0"}
+
+ {:id              :clojure-java-io-absent
+  :title           "clojure.java.io namespace is intentionally absent"
+  :category-id     :jvm-statics
+  :rationale       "mino's host I/O is exposed via mino-native
+                    primitives that do not match File / InputStream
+                    abstractions. clojure.java.io is excluded from
+                    parity comparison."
+  :since           "v0.1.0"}
+
+ {:id              :sorted-coll-comparator-default
+  :title           "sorted-map default comparator does not handle mixed types"
+  :category-id     :ordering
+  :rationale       "Cross-type comparison was closed in v0.98; mixed-
+                    type sorted-map keys without an explicit comparator
+                    may throw rather than coerce."
+  :since           "v0.98.0"
+  :affected        [clojure.core/sorted-map clojure.core/sorted-set]
+  :doc-link        "/coming-from-clojure#ordering"}
+
+ {:id              :equality-default-strict
+  :title           "= on cross-type numbers follows Clojure-canon, not JVM ="
+  :category-id     :numeric-tower
+  :rationale       "= remains a value-equality predicate; numeric
+                    equality across float / int is what canon
+                    specifies, not JVM-Object-equality."
+  :since           "v0.1.0"
+  :affected        [clojure.core/=]}
+
+ {:id              :iterate-chunking
+  :title           "Sequence chunking is deterministic but not always 32"
+  :category-id     :collections
+  :rationale       "Lazy realization batch size is implementation-
+                    defined in canon; mino picks sizes that suit the
+                    embedded use case. Code that depends on exact
+                    chunk boundaries is non-portable in canon too."
+  :since           "v0.1.0"}
+
+ {:id              :namespaced-map-default-true
+  :title           "CLI default for *print-namespace-maps* is true"
+  :category-id     :printer
+  :rationale       "mino's CLI alters the var-root to true on startup
+                    so user-facing prints collapse qualified-key maps.
+                    bb and JVM Clojure do the same; library use sees
+                    the documented false default."
+  :since           "v0.422.0"
+  :affected        [clojure.core/*print-namespace-maps*]}
+
+ {:id              :reader-list-attaches-meta
+  :title           "Reader attaches {:line :column} to lists only"
+  :category-id     :metadata
+  :rationale       "mino mirrors JVM Clojure: per-cons reader meta is
+                    accessible through meta; literal vectors/maps/sets
+                    receive no per-instance reader meta."
+  :since           "v0.422.0"
+  :doc-link        "/coming-from-clojure#metadata"}
+
+ {:id              :error-message-text-may-differ
+  :title           "Error messages and ex-info keys may differ"
+  :category-id     :error-messages
+  :rationale       "Exception text is implementation-defined in
+                    canon. mino's messages aim to be informative but
+                    are not byte-for-byte JVM-Clojure-compatible. Use
+                    ex-data / ex-cause / category keys to dispatch."
+  :since           "v0.1.0"}
+
+ {:id              :clojure-test-machinery-mino-shape
+  :title           "clojure.test reports via mino's counters, not JVM clojure.test/report"
+  :category-id     :error-messages
+  :rationale       "Per-assertion error isolation matches canon's
+                    contract. The underlying report mechanism uses
+                    mino-native counters and prints rather than the
+                    JVM clojure.test/report multimethod."
+  :since           "v0.422.0"
+  :affected        [clojure.test/report clojure.test/run-tests]}
+
+ {:id              :no-clojure-repl
+  :title           "clojure.repl is intentionally absent"
+  :category-id     :jvm-statics
+  :rationale       "Repl support is environment-bound and uses
+                    embedder-specific input/output. doc, source,
+                    apropos are exposed at the CLI rather than in
+                    a namespace."
+  :since           "v0.1.0"}
+]

@@ -1,0 +1,67 @@
+(ns clj-canon-parity.divergence
+  "Divergences are hand-curated, intentional deviations from canon
+  behavior. Each entry has a stable `:id`, a `:category-id` that
+  must reference an entry in `data/categories.edn`, a short rationale,
+  and the affected vars (when applicable).
+
+  Loading validates both the schema shape and referential integrity
+  (`:category-id` must exist in the supplied categories collection)."
+  (:require [clojure.edn :as edn]
+            [clj-canon-parity.category :as category]
+            [clj-canon-parity.schema   :as schema]))
+
+;; ===== pure operations =============================================
+
+(defn- duplicate-ids
+  [divergences]
+  (->> divergences
+       (map :id)
+       frequencies
+       (filter (fn [[_ n]] (> n 1)))
+       (map first)
+       set))
+
+(defn validate!
+  "Schema-validate `divergences` and enforce referential integrity
+  against `categories`. Returns `true` on success."
+  [divergences categories]
+  (schema/assert-conforms! ::schema/divergences divergences "divergences")
+  (let [known (category/known-ids categories)
+        dups  (duplicate-ids divergences)]
+    (when (seq dups)
+      (throw (ex-info (str "divergences: duplicate :id " (pr-str dups))
+                      {:duplicates dups})))
+    (doseq [d divergences]
+      (when-not (contains? known (:category-id d))
+        (throw (ex-info (str "divergence " (pr-str (:id d))
+                             ": unknown category " (pr-str (:category-id d)))
+                        {:divergence d
+                         :known-categories known})))))
+  true)
+
+(defn by-id
+  "Return the divergence whose `:id` equals `id`, or `nil`."
+  [divergences id]
+  (some #(when (= id (:id %)) %) divergences))
+
+(defn for-var
+  "Return the vector of divergences that mention `var-fqn` in their
+  `:affected` list."
+  [divergences var-fqn]
+  (vec (filter (fn [d] (some #{var-fqn} (:affected d))) divergences)))
+
+(defn by-category
+  "Return the vector of divergences whose `:category-id` equals
+  `category-id`."
+  [divergences category-id]
+  (vec (filter #(= category-id (:category-id %)) divergences)))
+
+;; ===== IO ==========================================================
+
+(defn read-file
+  "Read EDN at `path`, validate against `categories`, return the
+  validated collection."
+  [path categories]
+  (let [data (edn/read-string (slurp path))]
+    (validate! data categories)
+    data))
