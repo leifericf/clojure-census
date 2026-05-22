@@ -1,0 +1,94 @@
+name: parity / nightly dashboard (clojerl)
+
+on:
+  schedule:
+    # 07:00 UTC daily -- staggered after the cljd run.
+    - cron: '0 7 * * *'
+  workflow_dispatch:
+    inputs:
+      clojerl_ref:
+        description: 'Clojerl git ref to build (default: main)'
+        required: false
+        default: main
+
+jobs:
+  build-dashboard:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout parity tool
+        uses: actions/checkout@v4
+
+      - name: Set up JDK 21
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+
+      - name: Set up Clojure CLI
+        uses: DeLaGuardo/setup-clojure@13.1
+        with:
+          cli: 1.12.4.1618
+
+      - name: Cache Maven local
+        uses: actions/cache@v4
+        with:
+          path: ~/.m2
+          key: ${{ runner.os }}-maven-${{ hashFiles('deps.edn') }}
+          restore-keys: |
+            ${{ runner.os }}-maven-
+
+      - name: Set up Erlang/OTP
+        uses: erlef/setup-beam@v1
+        with:
+          otp-version: '26'
+          rebar3-version: '3.22'
+
+      - name: Cache Clojerl build
+        uses: actions/cache@v4
+        with:
+          path: clojerl-build
+          key: ${{ runner.os }}-clojerl-${{ github.event.inputs.clojerl_ref || 'main' }}
+
+      - name: Build Clojerl
+        run: |
+          if [ ! -x clojerl-build/bin/clojerl ]; then
+            git clone --depth 1 \
+              --branch "${{ github.event.inputs.clojerl_ref || 'main' }}" \
+              https://github.com/clojerl/clojerl clojerl-build
+            cd clojerl-build && make
+          fi
+          echo "$(pwd)/clojerl-build/bin" >> $GITHUB_PATH
+
+      - name: Confirm clojerl install
+        run: clojerl --version
+
+      - name: Capture clojerl surface
+        run: clojure -M:run dump clojerl
+
+      - name: Produce dashboard
+        run: clojure -M:run diff clojerl
+
+      - name: Commit artifacts
+        run: |
+          git config user.name  "parity-nightly[bot]"
+          git config user.email "parity-nightly@users.noreply.github.com"
+          git add output/clojerl/
+          if git diff --cached --quiet; then
+            echo "no changes to commit"
+          else
+            DATE=$(date -u +%Y-%m-%d)
+            git commit -m "nightly: clojerl parity dashboard ${DATE}"
+            git push
+          fi
+
+      - name: Upload dashboard as workflow artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: parity-dashboard-clojerl
+          path: |
+            output/clojerl/dashboard.edn
+            output/clojerl/badge.json
+            output/clojerl/surface.edn
+            output/clojerl/history/

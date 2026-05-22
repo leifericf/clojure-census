@@ -1,0 +1,106 @@
+;; Clojerl surface dump.
+;;
+;; Clojerl is Clojure on the BEAM (Erlang virtual machine). It exposes
+;; the standard `ns-publics`, `find-ns`, `meta`, and `require` like
+;; JVM Clojure does, but the host's exception model is Erlang's (no
+;; java.lang.Throwable class), so the portable script's
+;; `(catch Throwable e ...)` form does not compile here.
+;;
+;; This script is intentionally kept simple: it does not use catch on
+;; introspection calls, relying on Clojerl's `try` with a generic
+;; binding to handle any errors silently.
+
+(require '[clojure.edn :as edn]
+         '[clojure.string :as str])
+
+(def ^:private clojure-spec-path
+  (or (erlang/os.getenv "CLOJURE_SPEC_PATH")
+      "clojure/spec.edn"))
+
+(def ^:private dialect-tag
+  (or (erlang/os.getenv "DIALECT_TAG") "clojerl"))
+
+(defn- read-target-namespaces []
+  (try
+    (let [data (edn/read-string (slurp clojure-spec-path))]
+      (mapv :ns (:target-namespaces data)))
+    (catch _ e
+      (binding [*out* *err*]
+        (println "; could not read clojure-spec at" clojure-spec-path "--" e))
+      [])))
+
+(defn- try-require [ns-sym]
+  (try
+    (require ns-sym)
+    true
+    (catch _ e
+      (binding [*out* *err*]
+        (println "; could not require" ns-sym "--" e))
+      false)))
+
+(defn- safe-tag [t]
+  (when t
+    (try (str t) (catch _ _ nil))))
+
+(defn- capture-var-meta [v]
+  (try
+    (let [m (meta v)]
+      (cond-> {}
+        (:arglists m)        (assoc :arglists (:arglists m))
+        (string? (:doc m))   (assoc :doc      (:doc m))
+        (string? (:added m)) (assoc :added    (:added m))
+        (:macro m)           (assoc :macro    true)
+        (:dynamic m)         (assoc :dynamic  true)
+        (:tag m)             (assoc :tag      (safe-tag (:tag m)))
+        (string? (:file m))  (assoc :file     (:file m))
+        (integer? (:line m)) (assoc :line     (:line m))))
+    (catch _ _ {})))
+
+(defn- capture-namespace [ns-sym]
+  (when-let [n (find-ns ns-sym)]
+    (try
+      {:vars (reduce-kv (fn [acc var-name v]
+                          (assoc acc var-name (capture-var-meta v)))
+                        {}
+                        (ns-publics n))}
+      (catch _ e
+        (binding [*out* *err*]
+          (println "; could not capture" ns-sym "--" e))
+        {:vars {}}))))
+
+(def ^:private candidate-special-forms
+  '[def if do let fn quote var loop recur try throw new . set!
+    catch finally])
+
+(defn- capture-special-forms []
+  (try
+    (set (filter (fn [s]
+                   (try (special-symbol? s) (catch _ _ false)))
+                 candidate-special-forms))
+    (catch _ _ #{})))
+
+(defn- dialect-clojure-version []
+  (try
+    (clojure-version)
+    (catch _ _ "unknown")))
+
+(defn -main [& _]
+  (let [targets    (read-target-namespaces)
+        loaded     (filter try-require targets)
+        namespaces (reduce (fn [acc ns-sym]
+                             (if-let [data (capture-namespace ns-sym)]
+                               (assoc acc ns-sym data)
+                               acc))
+                           {}
+                           loaded)
+        surface    {:dialect-tag     dialect-tag
+                    :clojure-version (dialect-clojure-version)
+                    :namespaces      namespaces
+                    :special-forms   (capture-special-forms)
+                    :spec-keys       #{}}]
+    (binding [*print-namespace-maps* false
+              *print-length*         nil
+              *print-level*          nil]
+      (println (pr-str surface)))))
+
+(-main)

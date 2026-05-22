@@ -1,0 +1,90 @@
+;; Hand-curated intentional divergences for Clojerl.
+;;
+;; Clojerl is Clojure on the BEAM (Erlang virtual machine).
+;; Divergences fall in four buckets: (1) BEAM-host semantics (process
+;; model, actor-based concurrency, immutable everything),
+;; (2) Erlang's pattern-matched exception model in place of the JVM's
+;; class-based one, (3) the BEAM's numeric tower (arbitrary-precision
+;; integers, IEEE-754 floats), (4) stdlib namespaces not yet ported.
+;;
+;; Schema: see ::clj-census.schema/divergence
+[
+ {:id              :beam-host
+  :title           "Host runtime is the BEAM, not the JVM"
+  :category-id     :jvm-statics
+  :rationale       "Interop targets Erlang modules. JVM-static names
+                    (System/getenv, Math/PI, java.io.File) do not
+                    resolve; equivalents reach into OTP's `os`,
+                    `math`, `file`, `binary`, etc. via Clojerl's
+                    erlang/* shim namespace."
+  :since           "clojerl-0.1"
+  :doc-link        "https://github.com/clojerl/clojerl"}
+
+ {:id              :erlang-exception-model
+  :title           "Exceptions are Erlang errors, not JVM Throwables"
+  :category-id     :error-messages
+  :rationale       "Erlang raises errors tagged as `error`, `throw`,
+                    or `exit`. Clojerl's catch syntax is
+                    `(catch _ e ...)` for any kind of error;
+                    `(catch :error reason ...)` for a specific Erlang
+                    error class. Portable code that catches JVM
+                    exception classes must use a :clje reader
+                    conditional."
+  :since           "clojerl-0.1"
+  :doc-link        "https://www.erlang.org/doc/system/errors.html"}
+
+ {:id              :actor-concurrency
+  :title           "Concurrency is process-and-message, not shared-state"
+  :category-id     :concurrency
+  :rationale       "Clojerl inherits BEAM's actor model: lightweight
+                    processes communicate by sending messages. Refs
+                    and agents do not map to that model. Atoms are
+                    implemented; deref/swap! semantics match
+                    Clojure (JVM)'s where the value is in-process."
+  :since           "clojerl-0.1"
+  :doc-link        "https://www.erlang.org/doc/system/processes.html"}
+
+ {:id              :immutable-everything
+  :title           "All values are immutable, including strings"
+  :category-id     :collections
+  :rationale       "On the BEAM there are no mutable references that
+                    user code can observe. Strings are lists of
+                    integers or binaries; mutation operations from
+                    JVM-Clojure idioms (StringBuilder, transient!)
+                    have different shapes."
+  :since           "clojerl-0.1"}
+
+ {:id              :numeric-tower-beam
+  :title           "Numeric tower follows the BEAM, not the JVM"
+  :category-id     :numeric-tower
+  :rationale       "Integers are arbitrary-precision (BEAM's
+                    `integer()`). Floats are IEEE-754 double.
+                    `bigint` is not a separate type. Ratios are not
+                    a built-in BEAM type."
+  :since           "clojerl-0.1"}
+
+ {:id              :reader-conditional-clje
+  :title           "Reader conditional :clj does not fire under Clojerl"
+  :category-id     :reader
+  :rationale       "Clojerl uses :clje for its own branches. Code
+                    under :clj is not evaluated by Clojerl's
+                    reader."
+  :since           "clojerl-0.1"}
+
+ {:id              :stdlib-partial
+  :title           "Many Clojure (JVM) stdlib namespaces are not implemented"
+  :category-id     :namespaces
+  :rationale       "Clojerl ships clojure.core, .string, .set, .walk,
+                    .test, .template. clojure.edn, .pprint, .math,
+                    .data, .zip, .datafy, .instant, .core.protocols,
+                    .core.reducers, .spec.alpha are not yet ported."
+  :since           "clojerl-0.1"}
+
+ {:id              :pre-1-0-alpha
+  :title           "Pre-1.0; behavior may change between releases"
+  :category-id     :namespaces
+  :rationale       "Clojerl is pre-1.0. The current snapshot reflects
+                    what is implemented today; the divergence list
+                    will continue to evolve."
+  :since           "clojerl-0.1"}
+]

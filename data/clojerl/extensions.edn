@@ -1,0 +1,20 @@
+;; Clojerl namespaces beyond Clojure (JVM)'s clojure.* tree.
+;;
+;; Clojerl exposes the BEAM's OTP libraries via `erlang/*` shims
+;; (erlang/os.getenv, erlang/lists.reverse, etc.). Only namespaces
+;; under Clojure (JVM)'s target list participate in the parity
+;; comparison; these extensions are listed for documentation only.
+[
+ {:id             :erlang-shim
+  :title          "erlang/* -- direct BEAM module interop"
+  :affected-names ["erlang/os.getenv"
+                   "erlang/lists.reverse"
+                   "erlang/maps.get"
+                   "erlang/binary.split"]
+  :category-id    :jvm-statics
+  :rationale      "BEAM modules become Clojerl namespaces under the
+                   `erlang/` prefix. This is the analogue of JVM
+                   class interop -- the surface is everything OTP
+                   ships, surfaced as Clojure-callable functions."
+  :since          "clojerl-0.1"}
+]

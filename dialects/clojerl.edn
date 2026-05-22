@@ -1,0 +1,36 @@
+;; Clojerl -- Clojure on the BEAM (Erlang virtual machine).
+;;
+;; Installation:
+;;   git clone https://github.com/clojerl/clojerl
+;;   cd clojerl && make
+;;   # then put clojerl/bin on PATH
+;;
+;; Clojerl uses the `:clje` reader-conditional feature (the binary is
+;; usually `clojerl` and the file extension is `.clje`).
+;;
+;; Requires its own surface_dump_clojerl.clje because the portable
+;; `.cljc` script's `(catch Throwable e ...)` clauses depend on JVM
+;; class names that have no BEAM analogue. Clojerl's catch syntax is
+;; `(catch _ e ...)` for "any kind of error".
+{:name             "Clojerl"
+ :tag              "clojerl"
+ :role             :sut
+ :invocation       {:type :subprocess
+                    :cmd  ["clojerl" "scripts/surface_dump_clojerl.clje"]}
+ :version-cmd      ["clojerl" "--version"]
+
+ ;; Initial namespace coverage list. Clojerl's stdlib is partial; the
+ ;; .edn, .pprint, .math, .data, .zip, .datafy, .instant,
+ ;; .core.protocols, .core.reducers, .spec.alpha namespaces have not
+ ;; been ported as of the current pre-1.0 releases. This list will
+ ;; refine after the first nightly run validates which Clojure (JVM)
+ ;; names have a resolvable analogue.
+ :participates-in  [clojure.core
+                    clojure.string
+                    clojure.set
+                    clojure.walk
+                    clojure.test
+                    clojure.template]
+ :data-dir         "data/clojerl"
+ :output-dir       "output/clojerl"
+ :surface-normalization :default}
