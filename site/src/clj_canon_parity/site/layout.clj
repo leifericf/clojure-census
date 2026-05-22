@@ -21,5 +21,5 @@
       body
       [:footer.site-footer
        [:p "Source: "
-        [:a {:href "https://github.com/leifericf/clojure-canon-parity"}
-         "github.com/leifericf/clojure-canon-parity"]]]]]))
+        [:a {:href "https://github.com/leifericf/clojure-census"}
+         "github.com/leifericf/clojure-census"]]]]]))

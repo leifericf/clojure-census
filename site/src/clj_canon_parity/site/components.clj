@@ -18,7 +18,7 @@
 
 (defn make-link
   "Return a function that prepends `site-base` to a leading-slash
-  path. `site-base` is `\"\"` locally and `\"/clojure-canon-parity\"`
+  path. `site-base` is `\"\"` locally and `\"/clojure-census\"`
   on GitHub Pages."
   [site-base]
   (let [base (or site-base "")]

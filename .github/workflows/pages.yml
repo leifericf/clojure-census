@@ -51,7 +51,7 @@ jobs:
 
       - name: Build site
         env:
-          SITE_BASE: /clojure-canon-parity
+          SITE_BASE: /clojure-census
         working-directory: site
         run: clojure -M:build
 

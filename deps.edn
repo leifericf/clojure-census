@@ -30,7 +30,7 @@
   ;; Site: Stasis dev server (proxies into site/ via :local/root).
   ;;   clojure -M:dev
   :dev
-  {:replace-deps  {com.leifericf/clojure-canon-parity-site
+  {:replace-deps  {com.leifericf/clojure-census-site
                    {:local/root "site"}}
    :replace-paths []
    :main-opts     ["-m" "clj-canon-parity.site.core" "dev"]}
@@ -38,7 +38,7 @@
   ;; Site: one-shot static build into site/public/.
   ;;   clojure -M:build
   :build
-  {:replace-deps  {com.leifericf/clojure-canon-parity-site
+  {:replace-deps  {com.leifericf/clojure-census-site
                    {:local/root "site"}}
    :replace-paths []
    :main-opts     ["-m" "clj-canon-parity.site.core" "build"]}}}

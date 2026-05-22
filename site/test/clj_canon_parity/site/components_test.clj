@@ -263,9 +263,9 @@
 ;; ===== link helper ================================================
 
 (deftest link-prefixes-with-site-base
-  (let [f (c/make-link "/clojure-canon-parity")]
-    (is (= "/clojure-canon-parity/" (f "/")))
-    (is (= "/clojure-canon-parity/dialects/foo/" (f "/dialects/foo/")))))
+  (let [f (c/make-link "/clojure-census")]
+    (is (= "/clojure-census/" (f "/")))
+    (is (= "/clojure-census/dialects/foo/" (f "/dialects/foo/")))))
 
 (deftest link-empty-base-is-passthrough
   (let [f (c/make-link "")]

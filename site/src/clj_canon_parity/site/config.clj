@@ -41,7 +41,7 @@
 
 (defn site-base
   "URL prefix for every internal link. Empty locally; set to
-  `/clojure-canon-parity` (matching the GH Pages project base path)
+  `/clojure-census` (matching the GH Pages project base path)
   in CI via the `SITE_BASE` env var."
   []
   (env "SITE_BASE" ""))
