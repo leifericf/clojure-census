@@ -1,0 +1,16 @@
+.cpcache/
+.clj-kondo/
+.lsp/
+.calva/
+.idea/
+.vscode/
+*.log
+.DS_Store
+
+# transient build artifacts
+target/
+out/
+
+# scratch — never committed
+/scratch/
+/tmp/
