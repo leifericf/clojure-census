@@ -1,13 +1,16 @@
 (ns clj-canon-parity.site.components
   "Pure Hiccup components for the parity site. No I/O. Components
-  receive plain-data inputs (the JSON shapes produced by the parity
-  engine, with keyword keys) and return Hiccup vectors.
+  receive plain-data inputs (the EDN shapes produced by the parity
+  engine) and return Hiccup vectors.
 
   Tone is enforced here:
     - no qualitative adjectives or per-dialect blurbs
     - dialects rendered alphabetically by :tag wherever a list appears
     - phrases like 'missing' use the neutral framing 'vars present in
-      canon but absent from this surface', never 'the dialect is missing X'
+      Clojure (JVM) but absent from this surface', never 'the dialect
+      is missing X'
+    - the reference implementation is always written 'Clojure (JVM)';
+      never 'canon Clojure' or just 'canon' in user-facing strings
     - no ranking words, no leaderboard framing")
 
 ;; ---------- link helper ----------
@@ -30,6 +33,19 @@
   for nil."
   [p]
   (if (nil? p) "--" (format "%.1f%%" (* 100.0 (double p)))))
+
+(def ^:private ^java.time.format.DateTimeFormatter human-time-formatter
+  (java.time.format.DateTimeFormatter/ofPattern "yyyy-MM-dd HH:mm 'UTC'"))
+
+(defn- human-time
+  "Render an ISO-8601 instant (`2026-05-22T13:23:07Z`) as
+  `2026-05-22 13:23 UTC`. nil/blank input passes through unchanged."
+  [s]
+  (if (or (nil? s) (and (string? s) (zero? (count s))))
+    s
+    (-> (java.time.Instant/parse s)
+        (.atOffset java.time.ZoneOffset/UTC)
+        (.format human-time-formatter))))
 
 (defn- count-of [coll] (count (or coll [])))
 
@@ -64,7 +80,7 @@
         [:dt "vs. Clojure"]
         [:dd (:canon-version meta-info)]
         [:dt "Snapshot taken"]
-        [:dd (:compared-at meta-info)]]
+        [:dd (human-time (:compared-at meta-info))]]
        [:p.no-snapshot "no snapshot yet"])]))
 
 (defn landing
@@ -73,8 +89,8 @@
   [dialects {:keys [link]}]
   [:main.landing
    [:section.intro
-    [:h1 "Clojure canon parity"]
-    [:p "Mechanical surface introspection of Clojure dialects against canon Clojure."]]
+    [:h1 "Clojure dialect parity"]
+    [:p "Mechanical surface introspection of Clojure dialects against Clojure (JVM)."]]
    [:section.dialect-list
     (for [d (sort-by :tag dialects)]
       (dialect-card d link))]])
@@ -92,10 +108,10 @@
        " ("
        [:span.fraction (str (:in-both-count h) " / " (:canon-total h))]
        " vars implemented)"]
-      [:dt "Canon version"]
+      [:dt "Clojure (JVM) version"]
       [:dd (:canon-version m)]
       [:dt "Snapshot taken"]
-      [:dd (:compared-at m)]]]))
+      [:dd (human-time (:compared-at m))]]]))
 
 (defn- per-namespace-table [dashboard]
   (let [rows (->> (some-> dashboard :coverage :per-namespace)
@@ -109,31 +125,27 @@
        (for [[ns-key {:keys [in-both-count canon-total percent]}] rows]
          [:tr
           [:td [:code (name ns-key)]]
-          [:td (str in-both-count " / " canon-total)]
-          [:td (pct percent)]])]]]))
+          [:td.num.muted  (str in-both-count " / " canon-total)]
+          [:td.num.strong (pct percent)]])]]]))
 
 ;; ---------- detail: missing / mismatches / dialect-only ----------
 
-(defn- group-by-namespace
-  "Given a seq of {:namespace :var ...}, group by :namespace, sorted."
-  [items]
-  (->> items
-       (group-by :namespace)
-       (sort-by key)))
+(defn- sort-by-ns-var [items]
+  (sort-by (juxt (comp str :namespace) (comp str :var)) items))
 
 (defn- missing-list [dashboard]
-  (let [missing (:missing dashboard)
-        by-ns   (group-by-namespace missing)]
+  (let [missing (sort-by-ns-var (:missing dashboard))]
     [:section
-     [:h2 (str "Vars present in canon but absent from this surface ("
-               (count-of missing) ")")]
+     [:h2 (str "Vars present in Clojure (JVM) but absent from this surface ("
+               (count missing) ")")]
      (if (seq missing)
-       (for [[ns-name vars] by-ns]
-         [:details {:open false}
-          [:summary [:code ns-name] " (" (count vars) ")"]
-          [:ul.var-list
-           (for [{:keys [var]} (sort-by :var vars)]
-             [:li [:code var]])]])
+       [:table.var-table
+        [:thead [:tr [:th "Namespace"] [:th "Var"]]]
+        [:tbody
+         (for [{:keys [namespace var]} missing]
+           [:tr
+            [:td.ns (str namespace)]
+            [:td    (str var)]])]]
        [:p.empty "None."])]))
 
 (defn- arglists-cell [arglists]
@@ -150,15 +162,15 @@
     (cond
       arglists-canon
       [:div "arglists"
-       [:div "canon: " (arglists-cell arglists-canon)]
+       [:div "Clojure (JVM): " (arglists-cell arglists-canon)]
        [:div "this surface: " (arglists-cell arglists-dialect)]]
       (some? macro-canon)
       [:div ":macro"
-       [:div "canon: " (str macro-canon)]
+       [:div "Clojure (JVM): " (str macro-canon)]
        [:div "this surface: " (str macro-dialect)]]
       (some? dynamic-canon)
       [:div ":dynamic"
-       [:div "canon: " (str dynamic-canon)]
+       [:div "Clojure (JVM): " (str dynamic-canon)]
        [:div "this surface: " (str dynamic-dialect)]])]])
 
 (defn- mismatches-list [dashboard]
@@ -166,8 +178,8 @@
     [:section
      [:h2 (str "Metadata mismatches (" (count-of mismatches) ")")]
      [:p.section-note
-      "Vars present in both canon and this surface but with differing"
-      " arglists, :macro flag, or :dynamic flag."]
+      "Vars present in both Clojure (JVM) and this surface but with"
+      " differing arglists, :macro flag, or :dynamic flag."]
      (if (seq mismatches)
        [:table.mismatches
         [:thead [:tr [:th "Var"] [:th "Difference"]]]
@@ -176,15 +188,31 @@
            (mismatch-row mm))]]
        [:p.empty "None."])]))
 
+(defn- split-fqn
+  "Split a fully-qualified symbol like `clojure.core/foo` into
+  `[\"clojure.core\" \"foo\"]`. Strings (rare; e.g. `cpp/std.cout`)
+  are accepted too."
+  [fqn]
+  (let [s (str fqn)
+        i (.indexOf s "/")]
+    (if (neg? i)
+      ["" s]
+      [(subs s 0 i) (subs s (inc i))])))
+
 (defn- dialect-only-list [dashboard]
-  (let [items (:dialect-only dashboard)]
+  (let [items (sort-by str (:dialect-only dashboard))]
     [:section
-     [:h2 (str "Vars present in this surface but not in canon ("
-               (count-of items) ")")]
+     [:h2 (str "Vars present in this surface but not in Clojure (JVM) ("
+               (count items) ")")]
      (if (seq items)
-       [:ul.var-list
-        (for [fqn (sort items)]
-          [:li [:code fqn]])]
+       [:table.var-table
+        [:thead [:tr [:th "Namespace"] [:th "Var"]]]
+        [:tbody
+         (for [fqn items
+               :let [[ns-part v-part] (split-fqn fqn)]]
+           [:tr
+            [:td.ns ns-part]
+            [:td    v-part]])]]
        [:p.empty "None."])]))
 
 ;; ---------- detail: extensions / divergences ----------
@@ -198,8 +226,8 @@
     [:section
      [:h2 (str "Documented extensions (" (count-of exts) ")")]
      [:p.section-note
-      "Vars in this surface that are intentionally outside canon, as"
-      " documented in the dialect's registry."]
+      "Vars in this surface that are intentionally outside Clojure (JVM),"
+      " as documented in the dialect's registry."]
      (if (seq exts)
        [:ul.entry-list
         (for [e (sort-by :id exts)
@@ -223,8 +251,8 @@
     [:section
      [:h2 (str "Documented intentional divergences (" (count-of divs) ")")]
      [:p.section-note
-      "Decisions where this surface intentionally departs from canon,"
-      " as documented in the dialect's registry."]
+      "Decisions where this surface intentionally departs from Clojure"
+      " (JVM), as documented in the dialect's registry."]
      (if (seq divs)
        [:ul.entry-list
         (for [d (sort-by :id divs)
@@ -262,10 +290,10 @@
          (for [s (reverse (sort-by :date hist))]
            [:tr
             [:td (:date s)]
-            [:td (pct (get-in s [:headline :percent]))]
-            [:td (str (get-in s [:headline :in-both-count])
-                      " / "
-                      (get-in s [:headline :canon-total]))]])]]])))
+            [:td.num.strong (pct (get-in s [:headline :percent]))]
+            [:td.num.muted  (str (get-in s [:headline :in-both-count])
+                                 " / "
+                                 (get-in s [:headline :canon-total]))]])]]])))
 
 ;; ---------- detail entry point ----------
 
