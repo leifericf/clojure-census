@@ -1,8 +1,16 @@
 ;; Portable Clojure-canon surface dump.
 ;;
-;; Runs IN a Clojure-shaped runtime (JVM Clojure, mino, bb, jank, …)
-;; using only portable introspection: ns-publics, find-ns, meta,
-;; require, special-symbol?, and (if available) clojure.spec.alpha.
+;; Runs IN any Clojure-shaped runtime that has `ns-publics`,
+;; `find-ns`, `meta`, `require`, and `special-symbol?` — verified
+;; on JVM Clojure, mino, Babashka, and ClojureCLR. CLJS uses a
+;; parallel `.cljs` script because its `ns-publics` is a compile-
+;; time macro requiring a literal symbol; see surface_dump.cljs.
+;;
+;; Reader conditionals (`#?(:cljr ...)`) carry the one host-specific
+;; difference: CLR's environment-variable access uses
+;; `System.Environment/GetEnvironmentVariable` instead of JVM-style
+;; `System/getenv`. All other operations are portable across the
+;; four supported runtimes.
 ;;
 ;; Reads the target namespace list from canon/canon-spec.edn at the
 ;; current working directory (override with CANON_SPEC_PATH).
@@ -17,21 +25,29 @@
 (require 'clojure.edn)
 (require 'clojure.string)
 
+(defn- get-env [k]
+  #?(:cljr   (System.Environment/GetEnvironmentVariable k)
+     :default (System/getenv k)))
+
 (def ^:private canon-spec-path
-  (or (System/getenv "CANON_SPEC_PATH")
+  (or (get-env "CANON_SPEC_PATH")
       "canon/canon-spec.edn"))
 
 (def ^:private dialect-tag
-  (or (System/getenv "DIALECT_TAG") "unknown"))
+  (or (get-env "DIALECT_TAG") "unknown"))
+
+(defn- error-message [e]
+  #?(:cljr   (.Message e)
+     :default (.getMessage e)))
 
 (defn- read-target-namespaces []
   (try
     (let [data (clojure.edn/read-string (slurp canon-spec-path))]
       (mapv :ns (:target-namespaces data)))
-    (catch Exception e
+    (catch #?(:cljr Exception :default Exception) e
       (binding [*out* *err*]
         (println "; could not read canon-spec at" canon-spec-path
-                 "—" (.getMessage e)))
+                 "—" (error-message e)))
       [])))
 
 (defn- try-require
@@ -41,9 +57,9 @@
   (try
     (require ns-sym)
     true
-    (catch Throwable e
+    (catch #?(:cljr Exception :default Throwable) e
       (binding [*out* *err*]
-        (println "; could not require" ns-sym "—" (.getMessage e)))
+        (println "; could not require" ns-sym "—" (error-message e)))
       false)))
 
 (defn- safe-tag
@@ -52,7 +68,7 @@
   fails on a host-specific class literal."
   [t]
   (when t
-    (try (str t) (catch Throwable _ nil))))
+    (try (str t) (catch #?(:cljr Exception :default Throwable) _ nil))))
 
 (defn- capture-var-meta [v]
   (try
@@ -70,7 +86,7 @@
                       (assoc :file     (:file m))
         (integer? (:line m))
                       (assoc :line     (:line m))))
-    (catch Throwable _
+    (catch #?(:cljr Exception :default Throwable) _
       {})))
 
 (defn- capture-namespace [ns-sym]
@@ -79,9 +95,9 @@
       {:vars (into {}
                    (map (fn [[var-name v]] [var-name (capture-var-meta v)]))
                    (ns-publics n))}
-      (catch Throwable e
+      (catch #?(:cljr Exception :default Throwable) e
         (binding [*out* *err*]
-          (println "; could not capture" ns-sym "—" (.getMessage e)))
+          (println "; could not capture" ns-sym "—" (error-message e)))
         {:vars {}}))))
 
 (def ^:private candidate-special-forms
@@ -92,21 +108,21 @@
   (try
     (set (filter (fn [s]
                    (try (special-symbol? s)
-                        (catch Throwable _ false)))
+                        (catch #?(:cljr Exception :default Throwable) _ false)))
                  candidate-special-forms))
-    (catch Throwable _ #{})))
+    (catch #?(:cljr Exception :default Throwable) _ #{})))
 
 (defn- capture-spec-keys []
   (try
     (when (find-ns 'clojure.spec.alpha)
       (when-let [reg (resolve 'clojure.spec.alpha/registry)]
-        (try (set (keys (@reg))) (catch Throwable _ #{}))))
-    (catch Throwable _ #{})))
+        (try (set (keys (@reg))) (catch #?(:cljr Exception :default Throwable) _ #{}))))
+    (catch #?(:cljr Exception :default Throwable) _ #{})))
 
 (defn- dialect-clojure-version []
   (try
     (clojure-version)
-    (catch Throwable _ "unknown")))
+    (catch #?(:cljr Exception :default Throwable) _ "unknown")))
 
 (defn -main [& _]
   (let [targets    (read-target-namespaces)

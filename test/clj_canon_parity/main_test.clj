@@ -21,7 +21,7 @@
 (deftest build-ctx-script-path
   (let [ctx (main/build-ctx {:env {}})]
     (is (string? (:script ctx)))
-    (is (re-find #"surface_dump.clj$" (:script ctx)))))
+    (is (re-find #"surface_dump\.cljc$" (:script ctx)))))
 
 (deftest build-ctx-generalizes-env-vars
   (testing "any env var snake-case+upper maps to a dashed-lower template key"

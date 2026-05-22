@@ -69,7 +69,7 @@
      :or   {env (into {} (System/getenv))}}]
    (merge {:mino-bin "mino"}     ;; default — look up `mino` on PATH
           (env->template-keys env)
-          {:script (str repo-root "/scripts/surface_dump.clj")})))
+          {:script (str repo-root "/scripts/surface_dump.cljc")})))
 
 (defn- iso-date-now []
   (let [fmt (java.text.SimpleDateFormat. "yyyy-MM-dd")]
