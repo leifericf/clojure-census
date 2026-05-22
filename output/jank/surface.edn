@@ -1,0 +1,2567 @@
+{:dialect-tag "jank",
+ :clojure-version "jank-alpha",
+ :namespaces
+ {clojure.core
+  {:vars
+   {* {:arglists ([] [x] [l r] [l r & args])},
+    *'
+    {:arglists ([] [x] [x y] [x y & more]),
+     :doc
+     "Returns the product of nums. (*') returns 1. Supports arbitrary precision.\n  See also: *"},
+    *1
+    {:doc "bound in a repl thread to the most recent value printed",
+     :dynamic true},
+    *2
+    {:doc
+     "bound in a repl thread to the second most recent value printed",
+     :dynamic true},
+    *3
+    {:doc
+     "bound in a repl thread to the third most recent value printed",
+     :dynamic true},
+    *assert* {:dynamic true},
+    *command-line-args* {},
+    *compile-files* {:dynamic true},
+    *compile-path* {:dynamic true},
+    *compiler-options* {:dynamic true},
+    *data-readers*
+    {:doc
+     "Map from reader tag symbols to data reader Vars, like this:\n\n      {foo/bar my.project.foo/bar\n       foo/baz my.project/baz}\n\n  The first symbol in each pair is a tag that will be recognized by\n  the jank reader. The second symbol in the pair is the\n  fully-qualified name of a Var which will be invoked by the reader to\n  parse the form following the tag. For example, given the\n  *data-readers* var value above, the jank reader would parse this\n  form:\n\n      #foo/bar [1 2 3]\n\n  by invoking the Var #'my.project.foo/bar on the vector [1 2 3]. The\n  data reader function is invoked on the form AFTER it has been read\n  as a normal jank data structure by the reader.\n\n  Reader tags without namespace qualifiers are reserved for\n  jank. Default reader tags are baked into the jank parser but may\n  be overridden by rebinding this Var.",
+     :dynamic true},
+    *default-data-reader-fn*
+    {:doc
+     "When no data reader is found for a tag and *default-data-reader-fn*\n  is non-nil, it will be called with two arguments,\n  the tag and the value.  If *default-data-reader-fn* is nil (the\n  default), an exception will be thrown for the unknown tag.",
+     :dynamic true},
+    *e
+    {:doc
+     "bound in a repl thread to the most recent exception caught by the repl",
+     :dynamic true},
+    *err* {:dynamic true},
+    *file* {:dynamic true},
+    *flush-on-newline* {:dynamic true},
+    *in* {:dynamic true},
+    *loaded-libs*
+    {:doc
+     "An atom holding a sorted set of symbols representing loaded libs",
+     :dynamic true},
+    *loading-verbosely*
+    {:doc "True while a verbose load is pending", :dynamic true},
+    *ns* {:dynamic true},
+    *out* {:dynamic true},
+    *pending-paths*
+    {:doc "A stack of paths currently being loaded by this thread",
+     :dynamic true},
+    *print-dup* {:dynamic true},
+    *print-meta* {:dynamic true},
+    *print-readably* {:dynamic true},
+    *read-eval* {:dynamic true},
+    *repl* {:doc "Bound to true in a repl thread", :dynamic true},
+    *unchecked-math* {:dynamic true},
+    *warn-on-reflection* {:dynamic true},
+    + {:arglists ([] [x] [l r] [l r & args])},
+    +'
+    {:arglists ([] [x] [x y] [x y & more]),
+     :doc
+     "Returns the sum of nums. (+') returns 0. Supports arbitrary precision.\n  See also: +"},
+    - {:arglists ([x] [l r] [l r & args])},
+    -'
+    {:arglists ([x] [x y] [x y & more]),
+     :doc
+     "If no ys are supplied, returns the negation of x, else subtracts\n  the ys from x and returns the result. Supports arbitrary precision.\n  See also: -"},
+    ->
+    {:arglists ([x & forms]),
+     :doc
+     "Threads the expr through the forms. Inserts x as the\n   second item in the first form, making a list of it if it is not a\n   list already. If there are more forms, inserts the first form as the\n   second item in second form, etc.",
+     :macro true},
+    ->>
+    {:arglists ([x & forms]),
+     :doc
+     "Threads the expr through the forms. Inserts x as the\n   last item in the first form, making a list of it if it is not a\n   list already. If there are more forms, inserts the first form as the\n   last item in second form, etc.",
+     :macro true},
+    / {:arglists ([x] [l r] [l r & args])},
+    < {:arglists ([x] [l r] [l r & args])},
+    <= {:arglists ([x] [l r] [l r & args])},
+    =
+    {:arglists ([x] [x y] [x y & more]),
+     :doc
+     "Equality. Returns true if x equals y, false if not. It also works\n       for nil and compares numbers and collections in a type-independent\n       manner. Clojure's immutable data structures define equals() (and\n       thus =) as a value, not an identity, comparison."},
+    ==
+    {:arglists ([x] [x y] [x y & more]),
+     :doc
+     "Returns non-nil if nums all have the equivalent\n       value (type-independent), otherwise false"},
+    > {:arglists ([x] [l r] [l r & args])},
+    >= {:arglists ([x] [l r] [l r & args])},
+    NaN?
+    {:arglists ([num]), :doc "Returns true if num is NaN, else false"},
+    abs
+    {:arglists ([a]),
+     :doc
+     "Returns the absolute value of a.\n  If a is Long/MIN_VALUE => Long/MIN_VALUE\n  If a is a double and zero => +0.0\n  If a is a double and ##Inf or ##-Inf => ##Inf\n  If a is a double and ##NaN => ##NaN"},
+    accessor
+    {:arglists ([s key]),
+     :doc
+     "Returns a fn that, given an instance of a structmap with the basis,\n  returns the value at the key.  The key must be in the basis. The\n  returned function should be (slightly) more efficient than using\n  get, but such use of accessors should be limited to known\n  performance-critical areas."},
+    aclone
+    {:arglists ([array]),
+     :doc
+     "Returns a clone of the Java array. Works on arrays of known\n  types."},
+    add-annotation {:arglists ([av name v])},
+    add-annotations {:arglists ([visitor m] [visitor m i])},
+    add-classpath
+    {:arglists ([url]),
+     :doc
+     "DEPRECATED\n\n  Adds the url (String or URL object) to the classpath per\n  URLClassLoader.addURL"},
+    add-doc-and-meta {:arglists ([name docstring meta]), :macro true},
+    add-tap
+    {:arglists ([f]),
+     :doc
+     "adds f, a fn of one argument, to the tap set. This function will be called with anything sent via tap>.\n  This function may (briefly) block (e.g. for streams), and will never impede calls to tap>,\n  but blocking indefinitely may cause tap values to be dropped.\n  Remember f in order to remove-tap"},
+    add-watch
+    {:arglists ([reference key f]),
+     :doc
+     "Adds a watch function to an agent/atom/var/ref reference. The watch\n  fn must be a fn of 4 args: a key, the reference, its old-state, its\n  new-state. Whenever the reference's state might have been changed,\n  any registered watches will have their functions called. The watch fn\n  will be called synchronously, on the agent's thread if an agent,\n  before any pending sends if agent or ref. Note that an atom's or\n  ref's state may have changed again prior to the fn call, so use\n  old/new-state rather than derefing the reference. Note also that watch\n  fns may be called from multiple threads simultaneously. Var watchers\n  are triggered only by root binding changes, not thread-local\n  set!s. Keys must be unique per reference, and can be used to remove\n  the watch with remove-watch, but are otherwise considered opaque by\n  the watch mechanism."},
+    agent
+    {:arglists ([state & options]),
+     :doc
+     "Creates and returns an agent with an initial value of state and\n  zero or more options (in any order):\n\n  :meta metadata-map\n\n  :validator validate-fn\n\n  :error-handler handler-fn\n\n  :error-mode mode-keyword\n\n  If metadata-map is supplied, it will become the metadata on the\n  agent. validate-fn must be nil or a side-effect-free fn of one\n  argument, which will be passed the intended new state on any state\n  change. If the new state is unacceptable, the validate-fn should\n  return false or throw an exception.  handler-fn is called if an\n  action throws an exception or if validate-fn rejects a new state --\n  see set-error-handler! for details.  The mode-keyword may be either\n  :continue (the default if an error-handler is given) or :fail (the\n  default if no error-handler is given) -- see set-error-mode! for\n  details."},
+    agent-error
+    {:arglists ([a]),
+     :doc
+     "Returns the exception thrown during an asynchronous action of the\n  agent if the agent is failed.  Returns nil if the agent is not\n  failed."},
+    agent-errors
+    {:arglists ([a]),
+     :doc
+     "DEPRECATED: Use 'agent-error' instead.\n  Returns a sequence of the exceptions thrown during asynchronous\n  actions of the agent."},
+    aget
+    {:arglists ([array idx] [array idx & idxs]),
+     :doc
+     "Returns the value at the index/indices. Works on Java arrays of all\n  types."},
+    alength
+    {:arglists ([array]),
+     :doc
+     "Returns the length of the Java array. Works on arrays of all\n  types."},
+    alias
+    {:arglists ([alias ns-sym]),
+     :doc
+     "Add an alias in the current namespace to another\n   namespace. Arguments are two symbols: the alias to be used, and\n   the symbolic name of the target namespace. Use :as in the ns macro in preference\n   to calling this directly."},
+    all-ns
+    {:arglists ([]), :doc "Returns a sequence of all namespaces."},
+    alter
+    {:arglists ([ref fun & args]),
+     :doc
+     "Must be called in a transaction. Sets the in-transaction-value of\n  ref to:\n\n  (apply fun in-transaction-value-of-ref args)\n\n  and returns the in-transaction-value of ref."},
+    alter-meta!
+    {:arglists ([o f & args]),
+     :doc
+     "Atomically sets the metadata for a namespace/var/ref/agent/atom to be:\n\n   (apply f its-current-meta args)\n\n   f must be free of side-effects"},
+    alter-var-root
+    {:arglists ([v f & args]),
+     :doc
+     "Atomically alters the root binding of var v by applying f to its\n   current value plus any args"},
+    amap
+    {:arglists ([a idx ret expr]),
+     :doc
+     "Maps an expression across an array a, using an index named idx, and\n  return value named ret, initialized to a clone of a, then setting\n  each element of ret to the evaluation of expr, returning the new\n  array ret.",
+     :macro true},
+    ancestors
+    {:arglists ([tag] [h tag]),
+     :doc
+     "Returns the immediate and indirect parents of tag, either via a Java type\n   inheritance relationship or a relationship established via derive. h\n   must be a hierarchy obtained from make-hierarchy, if not supplied\n   defaults to the global hierarchy"},
+    and
+    {:arglists ([] [x] [x & more]),
+     :doc
+     "Evaluates exprs one at a time, from left to right. If a form\n   returns logical false (nil or false), and returns that value and\n   doesn't evaluate any of the other expressions, otherwise it returns\n   the value of the last expr. (and) returns true.",
+     :macro true},
+    any? {:arglists ([x]), :doc "Returns true given any argument."},
+    apply
+    {:arglists
+     ([f args]
+      [f x args]
+      [f x y args]
+      [f x y z args]
+      [f a b c d & args]),
+     :doc
+     "Applies fn f to the argument list formed by prepending intervening arguments to args."},
+    apply* {},
+    areduce
+    {:arglists ([a idx ret init expr]),
+     :doc
+     "Reduces an expression across an array a, using an index named idx,\n  and return value named ret, initialized to init, setting ret to the\n  evaluation of expr at each step, returning ret.",
+     :macro true},
+    array {:arglists ([& items])},
+    array-map
+    {:arglists ([] [& keyvals]),
+     :doc
+     "Constructs an array-map. If any keys are equal, they are handled as\n  if by repeated uses of assoc."},
+    as->
+    {:arglists ([expr name & forms]),
+     :doc
+     "Binds name to expr, evaluates the first form in the lexical context\n   of that binding, then binds name to that result, repeating for each\n   successive form, returning the result of the last form.",
+     :macro true},
+    aset
+    {:arglists ([array idx & more]),
+     :doc "Sets the value at the index/indices. Returns val.",
+     :macro true},
+    aset-boolean
+    {:arglists ([array idx val] [array idx idx2 & idxv]),
+     :doc
+     "Sets the value at the index/indices. Works on arrays of boolean. Returns val."},
+    aset-byte
+    {:arglists ([array idx val] [array idx idx2 & idxv]),
+     :doc
+     "Sets the value at the index/indices. Works on arrays of byte. Returns val."},
+    aset-char
+    {:arglists ([array idx val] [array idx idx2 & idxv]),
+     :doc
+     "Sets the value at the index/indices. Works on arrays of char. Returns val."},
+    aset-double
+    {:arglists ([array idx val] [array idx idx2 & idxv]),
+     :doc
+     "Sets the value at the index/indices. Works on arrays of double. Returns val."},
+    aset-float
+    {:arglists ([array idx val] [array idx idx2 & idxv]),
+     :doc
+     "Sets the value at the index/indices. Works on arrays of float. Returns val."},
+    aset-int
+    {:arglists ([array idx val] [array idx idx2 & idxv]),
+     :doc
+     "Sets the value at the index/indices. Works on arrays of int. Returns val."},
+    aset-long
+    {:arglists ([array idx val] [array idx idx2 & idxv]),
+     :doc
+     "Sets the value at the index/indices. Works on arrays of long. Returns val."},
+    aset-short
+    {:arglists ([array idx val] [array idx idx2 & idxv]),
+     :doc
+     "Sets the value at the index/indices. Works on arrays of short. Returns val."},
+    assert
+    {:arglists ([x] [x message]),
+     :doc
+     "Evaluates expr and throws an exception if it does not evaluate to\n   logical true.",
+     :macro true},
+    assert-macro-args {:arglists ([& pairs]), :macro true},
+    assert-valid-fdecl
+    {:arglists ([fdecl]),
+     :doc
+     "A good fdecl looks like (([a] ...) ([a b] ...)) near the end of defn.",
+     :dynamic true},
+    assoc
+    {:arglists ([map key val] [map key val & kvs]),
+     :doc
+     "assoc[iate]. When applied to a map, returns a new map of the\n       same (hashed/sorted) type, that contains the mapping of key(s) to\n       val(s). When applied to a vector, returns a new vector that\n       contains val at index. Note - index must be <= (count vector)."},
+    assoc!
+    {:arglists ([coll k v] [coll k v & kvs]),
+     :doc
+     "When applied to a transient map, adds mapping of key(s) to\n   val(s). When applied to a transient vector, sets the val at index.\n   Note - index must be <= (count vector). Returns coll."},
+    assoc-in
+    {:arglists ([m [k & ks] v]),
+     :doc
+     "Associates a value in a nested associative structure, where ks is a\n   sequence of keys and v is the new value and returns a new nested structure.\n   If any levels do not exist, hash-maps will be created."},
+    associative?
+    {:arglists ([coll]),
+     :doc "Returns true if coll implements Associative"},
+    atom
+    {:arglists ([x]),
+     :doc
+     "Creates and returns an Atom with an initial value of x and zero or\n   more options (in any order):\n\n   :meta metadata-map\n\n   :validator validate-fn\n\n   If metadata-map is supplied, it will become the metadata on the\n   atom. validate-fn must be nil or a side-effect-free fn of one\n   argument, which will be passed the intended new state on any state\n   change. If the new state is unacceptable, the validate-fn should\n   return false or throw an exception."},
+    await
+    {:arglists ([& agents]),
+     :doc
+     "Blocks the current thread (indefinitely!) until all actions\n  dispatched thus far, from this thread or agent, to the agent(s) have\n  occurred.  Will block on failed agents.  Will never return if\n  a failed agent is restarted with :clear-actions true or shutdown-agents was called."},
+    await-for
+    {:arglists ([timeout-ms & agents]),
+     :doc
+     "Blocks the current thread until all actions dispatched thus\n  far (from this thread or agent) to the agents have occurred, or the\n  timeout (in milliseconds) has elapsed. Returns logical false if\n  returning due to timeout, logical true otherwise."},
+    await1 {:arglists ([a])},
+    bases
+    {:arglists ([c]),
+     :doc
+     "Returns the immediate superclass and direct interfaces of c, if any"},
+    bigdec {:arglists ([x]), :doc "Coerce to BigDecimal"},
+    bigint {:arglists ([x]), :doc "Coerce to BigInt"},
+    biginteger {:arglists ([x]), :doc "Coerce to BigInteger"},
+    binding
+    {:arglists ([bindings & body]),
+     :doc
+     "binding => var-symbol init-expr\n\n   Creates new bindings for the (already-existing) vars, with the\n   supplied initial values, executes the exprs in an implicit do, then\n   re-establishes the bindings that existed before.  The new bindings\n   are made in parallel (unlike let); all init-exprs are evaluated\n   before the vars are bound to their new values.",
+     :macro true},
+    bit-and {:arglists ([x y] [x y & more]), :doc "Bitwise and"},
+    bit-and-not
+    {:arglists ([x y] [x y & more]),
+     :doc "Bitwise and with complement"},
+    bit-clear {:arglists ([x n]), :doc "Clear bit at index n"},
+    bit-flip {:arglists ([x n]), :doc "Flip bit at index n"},
+    bit-not {:arglists ([x]), :doc "Bitwise complement"},
+    bit-or {:arglists ([x y] [x y & more]), :doc "Bitwise or"},
+    bit-set {:arglists ([x n]), :doc "Set bit at index n"},
+    bit-shift-left {:arglists ([x n]), :doc "Bitwise shift left"},
+    bit-shift-right {:arglists ([x n]), :doc "Bitwise shift right"},
+    bit-test {:arglists ([x n]), :doc "Test bit at index n"},
+    bit-xor
+    {:arglists ([x y] [x y & more]), :doc "Bitwise exclusive or"},
+    boolean {:arglists ([x]), :doc "Coerce to boolean"},
+    boolean-array
+    {:arglists ([size-or-seq] [size init-val-or-seq]),
+     :doc "Creates an array of booleans"},
+    boolean? {:arglists ([x]), :doc "Returns true if x is a boolean"},
+    bound-fn
+    {:arglists ([& fntail]),
+     :doc
+     "Returns a function defined by the given fntail, which will install the\n  same bindings in effect as in the thread at the time bound-fn was called.\n  This may be used to define a helper function which runs on a different\n  thread, but needs the same bindings in place.",
+     :macro true},
+    bound-fn*
+    {:arglists ([f]),
+     :doc
+     "Returns a function, which will install the same bindings in effect as in\n  the thread at the time bound-fn* was called and then call f with any given\n  arguments. This may be used to define a helper function which runs on a\n  different thread, but needs the same bindings in place."},
+    bound?
+    {:arglists ([& vars]),
+     :doc
+     "Returns true if all of the vars provided as arguments have any bound value, root or thread-local.\n   Implies that deref'ing the provided vars will succeed. Returns true if no vars are provided."},
+    bounded-count
+    {:arglists ([n coll]),
+     :doc
+     "If coll is counted? returns its count, else will count at most the first n\n  elements of coll using its seq"},
+    butlast
+    {:arglists ([coll]),
+     :doc
+     "Return a seq of all but the last item in coll, in linear time."},
+    byte {:arglists ([x]), :doc "Coerce to byte"},
+    byte-array
+    {:arglists ([size-or-seq] [size init-val-or-seq]),
+     :doc "Creates an array of bytes"},
+    bytes? {:arglists ([x]), :doc "Return true if x is a byte array"},
+    case
+    {:arglists ([e & clauses]),
+     :doc
+     "Takes an expression, and a set of clauses.\n\n   Each clause can take the form of either:\n\n   test-constant result-expr\n\n   (test-constant1 ... test-constantN)  result-expr\n\n   The test-constants are not evaluated. They must be compile-time\n   literals, and need not be quoted.  If the expression is equal to a\n   test-constant, the corresponding result-expr is returned. A single\n   default expression can follow the clauses, and its value will be\n   returned if no clause matches. If no default expression is provided\n   and no clause matches, an IllegalArgumentException is thrown.\n\n   Unlike cond and condp, case does a constant-time dispatch, the\n   clauses are not considered sequentially.  All manner of constant\n   expressions are acceptable in case, including numbers, strings,\n   symbols, keywords, and (Clojure) composites thereof. Note that since\n   lists are used to group multiple constants that map to the same\n   expression, a vector can be used to match a list if needed. The\n   test-constants need not be all of the same type.",
+     :added "1.2",
+     :macro true},
+    case-hash
+    {:arglists ([input]),
+     :doc
+     "Returns the input if it is within the range of a 32-bit signed integer, otherwise returns the hash of the\n  input. The native hash returns a int32 int so this is to make sure that (case-hash (case-hash x)) == (case-hash x).\n  A key may be hashed more than once and we need to make sure its value does not change in later hashing."},
+    case-map
+    {:arglists
+     ([expr-sym default case-f test-f tests thens skip-check])},
+    case-map-collison-merged
+    {:arglists ([case-f test-f tests thens]),
+     :doc
+     "Transforms a sequence of test constants and their corresponding branch expressions\n   into a sorted map for consumption by `case*`.\n\n   This version is selected when hash collisions have been detected (i.e. the skip-check set is nonempty)\n   and resolved (typically via merging in `merge-hash-collisions`). In these cases, the branch expressions\n   have already been pre-wrapped in `condp` forms to handle multiple colliding constants. Therefore, no additional\n   wrapping is needed here-the transformed test constants are mapped directly to their corresponding branch expressions.\n\n   Returns a sorted map mapping each transformed test constant directly to its branch expression."},
+    case-map-with-check
+    {:arglists ([expr-sym default case-f test-f tests thens]),
+     :doc
+     "Transforms a sequence of test constants and their corresponding branch expressions\n   into a sorted map for consumption by `case*`. This version is used when no hash collisions\n   are detected (i.e. the skip-check set is empty).\n\n   Returns a sorted map where each key is the transformed test constant and each value is a `condp` form\n   that checks the original expression against the test constant before selecting the branch."},
+    cast
+    {:arglists ([c x]),
+     :doc
+     "Throws a ClassCastException if x is not a c, else returns x."},
+    cat
+    {:arglists ([rf]),
+     :doc
+     "A transducer which concatenates the contents of each input, which must be a\n   collection, into the reduction."},
+    char {:arglists ([x]), :doc "Coerce to char"},
+    char-array
+    {:arglists ([size-or-seq] [size init-val-or-seq]),
+     :doc "Creates an array of chars"},
+    char? {:arglists ([x]), :doc "Return true if x is a Character"},
+    check-cyclic-dependency
+    {:arglists ([path]),
+     :doc
+     "Detects and rejects non-trivial cyclic load dependencies. The\n  exception message shows the dependency chain with the cycle\n  highlighted. Ignores the trivial case of a file attempting to load\n  itself because that can occur when a gen-class'd class loads its\n  implementation."},
+    check-valid-options
+    {:arglists ([options & valid-keys]),
+     :doc
+     "Throws an exception if the given option map contains keys not listed\n   as valid, else returns nil."},
+    chunk {:arglists ([b])},
+    chunk-append {:arglists ([b x])},
+    chunk-buffer {:arglists ([capacity])},
+    chunk-cons {:arglists ([chunk rest])},
+    chunk-first {:arglists ([s])},
+    chunk-next {:arglists ([s])},
+    chunk-rest {:arglists ([s])},
+    chunked-seq? {:arglists ([s])},
+    class {:arglists ([x]), :doc "Returns the Class of x"},
+    class?
+    {:arglists ([x]),
+     :doc "Returns true if x is an instance of Class"},
+    clear-agent-errors
+    {:arglists ([a]),
+     :doc
+     "DEPRECATED: Use 'restart-agent' instead.\n  Clears any exceptions thrown during asynchronous actions of the\n  agent, allowing subsequent actions to occur."},
+    clojure-version
+    {:arglists ([]),
+     :doc "Returns clojure version as a printable string."},
+    coll?
+    {:arglists ([x]),
+     :doc "Returns true if x implements IPersistentCollection"},
+    comment
+    {:arglists ([& body]),
+     :doc "Ignores body, yields nil",
+     :macro true},
+    commute
+    {:arglists ([ref fun & args]),
+     :doc
+     "Must be called in a transaction. Sets the in-transaction-value of\n  ref to:\n\n  (apply fun in-transaction-value-of-ref args)\n\n  and returns the in-transaction-value of ref.\n\n  At the commit point of the transaction, sets the value of ref to be:\n\n  (apply fun most-recently-committed-value-of-ref args)\n\n  Thus fun should be commutative, or, failing that, you must accept\n  last-one-in-wins behavior.  commute allows for more concurrency than\n  ref-set."},
+    comp
+    {:arglists ([] [f] [f g] [f g & fs]),
+     :doc
+     "Takes a set of functions and returns a fn that is the composition\n   of those fns.  The returned fn takes a variable number of args,\n   applies the rightmost of fns to the args, the next\n   fn (right-to-left) to the result, etc."},
+    comparator
+    {:arglists ([pred]),
+     :doc
+     "Returns an implementation of java.util.Comparator based upon pred."},
+    compare
+    {:arglists ([x y]),
+     :doc
+     "Comparator. Returns a negative number, zero, or a positive number\n  when x is logically 'less than', 'equal to', or 'greater than'\n  y. Same as Java x.compareTo(y) except it also works for nil, and\n  compares numbers and collections in a type-independent manner. x\n  must implement Comparable"},
+    compare-and-set!
+    {:arglists ([atom oldval newval]),
+     :doc
+     "Atomically sets the value of atom to newval if and only if the\n   current value of the atom is identical to oldval. Returns true if\n   set happened, else false"},
+    compile
+    {:arglists ([path]),
+     :doc
+     "Compiles the namespace named by the symbol lib into a set of\n   classfiles. The source for the lib must be in a proper\n   module-path-relative directory. The output files will go into the\n   directory specified by *compile-path*, and that directory too must\n   be in the module path."},
+    complement
+    {:arglists ([f]),
+     :doc
+     "Takes a fn f and returns a fn that takes the same arguments as f,\n   has the same effects, if any, and returns the opposite truth value."},
+    completing
+    {:arglists ([f] [f cf]),
+     :doc
+     "Takes a reducing function f of 2 args and returns a fn suitable for\n   transduce by adding an arity-1 signature that calls cf (default -\n   identity) on the result argument."},
+    concat
+    {:arglists ([] [x] [x y] [x y & zs]),
+     :doc
+     "Returns a lazy seq representing the concatenation of the elements in the supplied colls."},
+    concat* {},
+    cond
+    {:arglists ([& clauses]),
+     :doc
+     "Takes a set of test/expr pairs. It evaluates each test one at a\n   time. If a test returns logical true, cond evaluates and returns\n   the value of the corresponding expr and doesn't evaluate any of the\n   other tests or exprs. (cond) returns nil.",
+     :macro true},
+    cond->
+    {:arglists ([expr & clauses]),
+     :doc
+     "Takes an expression and a set of test/form pairs. Threads expr (via ->)\n   through each form for which the corresponding test\n   expression is true. Note that, unlike cond branching, cond-> threading does\n   not short circuit after the first true test expression.",
+     :macro true},
+    cond->>
+    {:arglists ([expr & clauses]),
+     :doc
+     "Takes an expression and a set of test/form pairs. Threads expr (via ->>)\n   through each form for which the corresponding test expression\n   is true.  Note that, unlike cond branching, cond->> threading does not short circuit\n   after the first true test expression.",
+     :macro true},
+    condp
+    {:arglists ([pred expr & clauses]),
+     :doc
+     "Takes a binary predicate, an expression, and a set of clauses.\n   Each clause can take the form of either:\n\n   test-expr result-expr\n\n   test-expr :>> result-fn\n\n   Note :>> is an ordinary keyword.\n\n   For each clause, (pred test-expr expr) is evaluated. If it returns\n   logical true, the clause is a match. If a binary clause matches, the\n   result-expr is returned, if a ternary clause matches, its result-fn,\n   which must be a unary function, is called with the result of the\n   predicate as its argument, the result of that call being the return\n   value of condp. A single default expression can follow the clauses,\n   and its value will be returned if no clause matches. If no default\n   expression is provided and no clause matches, an\n   IllegalArgumentException is thrown.",
+     :macro true},
+    conj
+    {:arglists ([] [coll] [coll x] [coll x & xs]),
+     :doc
+     "conj[oin]. Returns a new collection with the xs\n   'added'. (conj nil item) returns (item).\n   (conj coll) returns coll. (conj) returns [].\n   The 'addition' may happen at different 'places' depending\n   on the concrete type."},
+    conj!
+    {:arglists ([] [coll] [coll x]),
+     :doc
+     "Adds x to the transient collection, and return coll. The 'addition'\n   may happen at different 'places' depending on the concrete type."},
+    cons
+    {:arglists ([x seq]),
+     :doc
+     "Returns a new seq where x is the first element and seq is\n   the rest."},
+    constantly
+    {:arglists ([x]),
+     :doc
+     "Returns a function that takes any number of arguments and returns x."},
+    contains?
+    {:arglists ([coll key]),
+     :doc
+     "Returns true if key is present in the given collection, otherwise\n   returns false.  Note that for numerically indexed collections like\n   vectors and Java arrays, this tests if the numeric key is within the\n   range of indexes. 'contains?' operates constant or logarithmic time;\n   it will not perform a linear search for a value.  See also 'some'."},
+    count
+    {:arglists ([coll]),
+     :doc
+     "Returns the number of items in the collection. (count nil) returns\n       0.  Also works on strings, arrays, and Java Collections and Maps"},
+    counted?
+    {:arglists ([coll]),
+     :doc "Returns true if coll implements count in constant time"},
+    create-ns
+    {:arglists ([sym]),
+     :doc
+     "Create a new namespace named by the symbol if one doesn't already\n   exist, returns it or the already-existing namespace of the same\n   name."},
+    create-struct
+    {:arglists ([& keys]), :doc "Returns a structure basis object."},
+    current-time {:arglists ([])},
+    cycle
+    {:arglists ([coll]),
+     :doc
+     "Returns a lazy (infinite!) sequence of repetitions of the items in coll."},
+    dec
+    {:arglists ([x]),
+     :doc
+     "Returns a number one less than num. Does not auto-promote\n   longs, will throw on overflow. See also: dec"},
+    dec'
+    {:arglists ([x]),
+     :doc
+     "Returns a number one less than num. Supports arbitrary precision.\n  See also: dec"},
+    decimal?
+    {:arglists ([n]), :doc "Returns true if n is a BigDecimal"},
+    declare
+    {:arglists ([& names]),
+     :doc
+     "defs the supplied var names with no bindings, useful for making forward declarations.",
+     :macro true},
+    dedupe
+    {:arglists ([] [coll]),
+     :doc
+     "Returns a lazy sequence removing consecutive duplicates in coll.\n   Returns a transducer when no collection is provided."},
+    def-aset {:arglists ([name method coerce]), :macro true},
+    definline
+    {:arglists ([name & decl]),
+     :doc
+     "Experimental - like defmacro, except defines a named function whose\n  body is the expansion, calls to which may be expanded inline as if\n  it were a macro. Cannot be used with variadic (&) args.",
+     :macro true},
+    defmacro
+    {:arglists ([name & args]),
+     :doc
+     "Like defn, but the resulting function name is declared as a\n          macro and will be used as a macro by the compiler when it is\n          called.",
+     :macro true},
+    defmethod
+    {:arglists ([multifn dispatch-val & fn-tail]),
+     :doc
+     "Creates and installs a new method of multimethod associated with dispatch-value. ",
+     :macro true},
+    defmethod* {:arglists ([multifn dispatch-val f])},
+    defmulti
+    {:arglists ([mm-name & options]),
+     :doc
+     "Creates a new multimethod with the associated dispatch function.\n   The docstring and attr-map are optional.\n\n   Options are key-value pairs and may be one of:\n\n   :default\n\n   The default dispatch value, defaults to :default\n\n   :hierarchy\n\n   The value used for hierarchical dispatch (e.g. ::square is-a ::shape)\n\n   Hierarchies are type-like relationships that do not depend upon type\n   inheritance. By default Clojure's multimethods dispatch off of a\n   global hierarchy map.  However, a hierarchy relationship can be\n   created with the derive function used to augment the root ancestor\n   created with make-hierarchy.\n\n   Multimethods expect the value of the hierarchy option to be supplied as\n   a reference type e.g. a var (i.e. via the Var-quote dispatch macro #'\n   or the var special form).",
+     :macro true},
+    defn
+    {:arglists
+     ([name doc-string? attr-map? [params*] prepost-map? body]
+      [name
+       doc-string?
+       attr-map?
+       ([params*] prepost-map? body)
+       +
+       attr-map?]),
+     :doc
+     "Same as (def name (fn [params* ] exprs*)) or (def\n             name (fn ([params* ] exprs*)+)) with any doc-string or attrs added\n             to the var metadata. prepost-map defines a map with optional keys\n             :pre and :post that contain collections of pre or post conditions.",
+     :macro true},
+    defn-
+    {:arglists ([name & decls]),
+     :doc "Same as defn, yielding non-public def.",
+     :added "1.0",
+     :macro true},
+    defonce
+    {:arglists ([name expr]),
+     :doc
+     "defs name to have the root value of the expr iff the named var has no root value,\n   else expr is unevaluated",
+     :macro true},
+    defstruct
+    {:arglists ([name & keys]),
+     :doc "Same as (def name (create-struct keys...))",
+     :macro true},
+    delay
+    {:arglists ([& body]),
+     :doc
+     "Takes a body of expressions and yields a Delay object that will\n   invoke the body only the first time it is forced (with force or deref/@), and\n   will cache the result and return it on all subsequent force\n   calls. See also - realized?",
+     :macro true},
+    delay* {:arglists ([f])},
+    delay?
+    {:arglists ([x]),
+     :doc "returns true if x is a Delay created with delay"},
+    deliver
+    {:arglists ([promise val]),
+     :doc
+     "Delivers the supplied value to the promise, releasing any pending\n  derefs. A subsequent call to deliver on a promise will have no effect."},
+    denominator
+    {:arglists ([r]), :doc "Returns the denominator part of a Ratio."},
+    deref
+    {:arglists ([ref] [ref timeout-ms timeout-val]),
+     :doc
+     "Also reader macro: @ref/@agent/@var/@atom/@delay/@future/@promise. Within a transaction,\n   returns the in-transaction-value of ref, else returns the\n   most-recently-committed value of ref. When applied to a var, agent\n   or atom, returns its current state. When applied to a delay, forces\n   it if not already forced. When applied to a future, will block if\n   computation not complete. When applied to a promise, will block\n   until a value is delivered.  The variant taking a timeout can be\n   used for blocking references (futures and promises), and will return\n   timeout-val if the timeout (in milliseconds) is reached before a\n   value is available. See also - realized?."},
+    deref-future {:arglists ([fut] [fut timeout-ms timeout-val])},
+    derive
+    {:arglists ([tag parent] [h tag parent]),
+     :doc
+     "Establishes a parent/child relationship between parent and\n   tag. Parent must be a namespace-qualified symbol or keyword and\n   child can be either a namespace-qualified symbol or keyword or a\n   class. h must be a hierarchy obtained from make-hierarchy, if not\n   supplied defaults to, and modifies, the global hierarchy."},
+    descendants
+    {:arglists ([tag] [h tag]),
+     :doc
+     "Returns the immediate and indirect children of tag, through a\n   relationship established via derive. h must be a hierarchy obtained\n   from make-hierarchy, if not supplied defaults to the global\n   hierarchy. Note: does not work on Java type inheritance\n   relationships."},
+    descriptor {:arglists ([c])},
+    destructure {:arglists ([bindings])},
+    disj
+    {:arglists ([set] [set key] [set key & ks]),
+     :doc
+     "disj[oin]. Returns a new set of the same (hashed/sorted) type, that\n   does not contain key(s)."},
+    disj!
+    {:arglists ([set] [set elem] [set elem & elems]),
+     :doc
+     "disj[oin]. Returns a transient set of the same (hashed/sorted) type, that\n   does not contain key(s)."},
+    dissoc
+    {:arglists ([m] [m k] [m k & ks]),
+     :doc
+     "dissoc[iate]. Returns a new map of the same (hashed/sorted) type,\n   that does not contain a mapping for key(s)."},
+    dissoc!
+    {:arglists ([coll k] [coll k & ks]),
+     :doc
+     "Returns a transient map that doesn't contain a mapping for key(s)."},
+    distinct
+    {:arglists ([] [coll]),
+     :doc
+     "Returns a lazy sequence of the elements of coll with duplicates removed.\n   Returns a stateful transducer when no collection is provided."},
+    distinct?
+    {:arglists ([x] [x y] [x y & more]),
+     :doc "Returns true if no two of the arguments are ="},
+    doall
+    {:arglists ([coll] [n coll]),
+     :doc
+     "When lazy sequences are produced via functions that have side\n   effects, any effects other than those needed to produce the first\n   element in the seq do not occur until the seq is consumed. doall can\n   be used to force any effects. Walks through the successive nexts of\n   the seq, retains the head and returns it, thus causing the entire\n   seq to reside in memory at one time."},
+    dorun
+    {:arglists ([coll] [n coll]),
+     :doc
+     "When lazy sequences are produced via functions that have side\n   effects, any effects other than those needed to produce the first\n   element in the seq do not occur until the seq is consumed. dorun can\n   be used to force any effects. Walks through the successive nexts of\n   the seq, does not retain the head and returns nil."},
+    doseq
+    {:arglists ([seq-exprs & body]),
+     :doc
+     "Repeatedly executes body (presumably for side-effects) with\n   bindings and filtering as provided by `for`.  Does not retain\n   the head of the sequence. Returns nil.",
+     :macro true},
+    dosync
+    {:arglists ([& exprs]),
+     :doc
+     "Runs the exprs (in an implicit do) in a transaction that encompasses\n  exprs and any nested calls.  Starts a transaction if none is already\n  running on this thread. Any uncaught exception will abort the\n  transaction and flow out of dosync. The exprs may be run more than\n  once, but any effects on Refs will be atomic.",
+     :macro true},
+    dotimes
+    {:arglists ([bindings & body]),
+     :doc
+     "bindings => name n\n\n   Repeatedly executes body (presumably for side-effects) with name\n   bound to integers from 0 through n-1.",
+     :macro true},
+    doto
+    {:arglists ([x & forms]),
+     :doc
+     "Evaluates x then calls all of the methods and functions with the\n   value of x supplied at the front of the given arguments.  The forms\n   are evaluated in order.  Returns x.",
+     :macro true},
+    double {:arglists ([x]), :doc "Coerce to double"},
+    double-array
+    {:arglists ([size-or-seq] [size init-val-or-seq]),
+     :doc "Creates an array of doubles"},
+    double? {:arglists ([x]), :doc "Return true if x is a Double"},
+    drop
+    {:arglists ([n] [n coll]),
+     :doc
+     "Returns a lazy sequence of all but the first n items in coll.\n   Returns a stateful transducer when no collection is provided."},
+    drop-last
+    {:arglists ([coll] [n coll]),
+     :doc
+     "Return a lazy sequence of all but the last n (default 1) items in coll"},
+    drop-while
+    {:arglists ([pred] [pred coll]),
+     :doc
+     "Returns a lazy sequence of the items in coll starting from the\n   first item for which (pred item) returns logical false.  Returns a\n   stateful transducer when no collection is provided."},
+    elide-top-frames {:arglists ([ex class-name])},
+    empty
+    {:arglists ([coll]),
+     :doc
+     "Returns an empty collection of the same category as coll, or nil"},
+    empty?
+    {:arglists ([coll]),
+     :doc
+     "Returns true if coll has no items - same as (not (seq coll))."},
+    ensure
+    {:arglists ([ref]),
+     :doc
+     "Must be called in a transaction. Protects the ref from modification\n  by other transactions.  Returns the in-transaction-value of\n  ref. Allows for more concurrency than (ref-set ref @ref)"},
+    ensure-reduced
+    {:arglists ([x]),
+     :doc
+     "If x is already reduced?, returns it, else returns (reduced x)"},
+    enumeration-seq
+    {:arglists ([e]), :doc "Returns a seq on a java.util.Enumeration"},
+    error-handler
+    {:arglists ([a]),
+     :doc
+     "Returns the error-handler of agent a, or nil if there is none.\n  See set-error-handler!"},
+    error-mode
+    {:arglists ([a]),
+     :doc "Returns the error-mode of agent a.  See set-error-mode!"},
+    eval
+    {:arglists ([form]),
+     :doc
+     "Evaluates the form data structure (not text!) and returns the result."},
+    even?
+    {:arglists ([n]),
+     :doc
+     "Returns true if n is even, throws an exception if n is not an integer"},
+    every-pred
+    {:arglists ([p] [p1 p2] [p1 p2 p3] [p1 p2 p3 & ps]),
+     :doc
+     "Takes a set of predicates and returns a function f that returns true if all of its\n   composing predicates return a logical true value against all of its arguments, else it returns\n   false. Note that f is short-circuiting in that it will stop execution on the first\n   argument that triggers a logical false result against the original predicates."},
+    every?
+    {:arglists ([pred coll]),
+     :doc
+     "Returns true if (pred x) is logical true for every x in coll, else false."},
+    ex-cause
+    {:arglists ([ex]),
+     :doc
+     "Returns the cause of ex if ex is a Throwable.\n  Otherwise returns nil."},
+    ex-data
+    {:arglists ([ex]),
+     :doc
+     "Returns exception data (a map) if ex is an IExceptionInfo.\n   Otherwise returns nil."},
+    ex-info
+    {:arglists ([msg map] [msg map cause]),
+     :doc
+     "Create an instance of ExceptionInfo, a RuntimeException subclass\n   that carries a map of additional data."},
+    ex-message
+    {:arglists ([ex]),
+     :doc
+     "Returns the message attached to ex if ex is a Throwable.\n  Otherwise returns nil."},
+    false?
+    {:arglists ([x]),
+     :doc "Returns true if x is the value false, false otherwise."},
+    ffirst {:arglists ([x]), :doc "Same as (first (first x))"},
+    file-seq {:arglists ([dir]), :doc "A tree seq on java.io.Files"},
+    filter
+    {:arglists ([pred] [pred coll]),
+     :doc
+     "Returns a lazy sequence of the items in coll for which\n   (pred item) returns logical true. pred must be free of side-effects.\n   Returns a transducer when no collection is provided."},
+    filter-key {:arglists ([keyfn pred amap])},
+    filterv
+    {:arglists ([pred coll]),
+     :doc
+     "Returns a vector of the items in coll for which\n   (pred item) returns logical true. pred must be free of side-effects."},
+    find
+    {:arglists ([map key]),
+     :doc "Returns the map entry for key, or nil if key not present."},
+    find-keyword
+    {:arglists ([name] [ns name]),
+     :doc
+     "Returns a Keyword with the given namespace and name if one already\n  exists.  This function will not intern a new keyword. If the keyword\n  has not already been interned, it will return nil.  Do not use :\n  in the keyword strings, it will be added automatically."},
+    find-ns
+    {:arglists ([sym]),
+     :doc
+     "Returns the namespace named by the symbol or nil if it doesn't exist."},
+    find-var
+    {:arglists ([sym]),
+     :doc
+     "Returns the global var named by the namespace-qualified symbol, or\n  nil if no var with that name."},
+    first
+    {:arglists ([coll]),
+     :doc
+     "Returns the first item in the collection. Calls seq on its\n       argument. If coll is nil, returns nil."},
+    fits-table?
+    {:arglists ([ints]),
+     :doc
+     "Returns true if the collection of ints can fit within the\n   max-table-switch-size, false otherwise."},
+    flatten
+    {:arglists ([x]),
+     :doc
+     "Takes any nested combination of sequential things (lists, vectors,\n   etc.) and returns their contents as a single, flat lazy sequence.\n   (flatten nil) returns an empty sequence."},
+    float {:arglists ([x]), :doc "Coerce to float"},
+    float-array
+    {:arglists ([size-or-seq] [size init-val-or-seq]),
+     :doc "Creates an array of floats"},
+    float?
+    {:arglists ([n]),
+     :doc "Returns true if n is a floating point number"},
+    flush
+    {:arglists ([]),
+     :doc
+     "Flushes the output stream that is the current value of\n  *out*"},
+    fn
+    {:arglists ([& sigs]),
+     :doc
+     "params => positional-params*, or positional-params* & rest-param\n   positional-param => binding-form\n   rest-param => binding-form\n   binding-form => name, or destructuring-form\n\n   Defines a function.\n\n   See https://clojure.org/reference/special_forms#fn for more information",
+     :macro true},
+    fn?
+    {:arglists ([x]),
+     :doc
+     "Returns true if x implements Fn, i.e. is an object created via fn."},
+    fnext {:arglists ([x]), :doc "Same as (first (next x))"},
+    fnil
+    {:arglists ([f x] [f x y] [f x y z]),
+     :doc
+     "Takes a function f, and returns a function that calls f, replacing\n   a nil first argument to f with the supplied value x. Higher arity\n   versions can replace arguments in the second and third\n   positions (y, z). Note that the function f can take any number of\n   arguments, not just the one(s) being nil-patched."},
+    for
+    {:arglists ([seq-exprs body-expr]),
+     :doc
+     "List comprehension. Takes a vector of one or more\n   binding-form/collection-expr pairs, each followed by zero or more\n   modifiers, and yields a lazy sequence of evaluations of expr.\n   Collections are iterated in a nested fashion, rightmost fastest,\n   and nested coll-exprs can refer to bindings created in prior\n   binding-forms.  Supported modifiers are: :let [binding-form expr ...],\n   :while test, :when test.\n\n   (take 100 (for [x (range 100000000) y (range 1000000) :while (< y x)] [x y]))",
+     :macro true},
+    force
+    {:arglists ([x]),
+     :doc
+     "If x is a Delay, returns the (possibly cached) value of its expression, else returns x"},
+    format
+    {:arglists ([fmt & args]),
+     :doc
+     "Formats a string using java.lang.String.format, see java.util.Formatter for format\n  string syntax"},
+    frequencies
+    {:arglists ([coll]),
+     :doc
+     "Returns a map from distinct items in coll to the number of times\n   they appear."},
+    fresh-seq {:arglists ([coll])},
+    future
+    {:arglists ([& body]),
+     :doc
+     "Takes a body of expressions and yields a future object that will\n  invoke the body in another thread, and will cache the result and\n  return it on all subsequent calls to deref/@. If the computation has\n  not yet finished, calls to deref/@ will block, unless the variant of\n  deref with timeout is used. See also - realized?.",
+     :macro true},
+    future-call
+    {:arglists ([f]),
+     :doc
+     "Takes a function of no args and yields a future object that will\n  invoke the function in another thread, and will cache the result and\n  return it on all subsequent calls to deref/@. If the computation has\n  not yet finished, calls to deref/@ will block, unless the variant\n  of deref with timeout is used. See also - realized?."},
+    future-cancel
+    {:arglists ([f]), :doc "Cancels the future, if possible."},
+    future-cancelled?
+    {:arglists ([f]), :doc "Returns true if future f is cancelled"},
+    future-done?
+    {:arglists ([f]), :doc "Returns true if future f is done"},
+    future? {:arglists ([x]), :doc "Returns true if x is a future"},
+    gen-class {},
+    gensym
+    {:arglists ([] [prefix-string]),
+     :doc
+     "Returns a new symbol with a unique name. If a prefix string is\n   supplied, the name is prefix# where # is some unique number. If\n   prefix is not supplied, the prefix is 'G__'."},
+    get
+    {:arglists ([map key] [map key not-found]),
+     :doc
+     "Returns the value mapped to key, not-found or nil if key not present\n   in associative collection, set, string, array, or ILookup instance."},
+    get-in
+    {:arglists ([m ks] [m ks not-found]),
+     :doc
+     "Returns the value in a nested associative structure,\n   where ks is a sequence of keys. Returns nil if the key\n   is not present, or the not-found value if supplied."},
+    get-method
+    {:arglists ([multifn dispatch-val]),
+     :doc
+     "Given a multimethod and a dispatch value, returns the dispatch fn\n   that would apply to that value, or nil if none apply and no default"},
+    get-thread-bindings
+    {:arglists ([]),
+     :doc
+     "Get a map with the Var/value pairs which is currently in effect for the\n   current thread."},
+    get-validator
+    {:arglists ([iref]),
+     :doc "Gets the validator-fn for a var/ref/agent/atom."},
+    global-hierarchy {},
+    group-by
+    {:arglists ([f coll]),
+     :doc
+     "Returns a map of the elements of coll keyed by the result of\n   f on each element. The value at each key will be a vector of the\n   corresponding elements, in the order they appeared in coll."},
+    hash
+    {:arglists ([o]),
+     :doc
+     "Returns the hash code of its argument. Note this is the hash code\n   consistent with =, and thus is different than .hashCode for Integer,\n   Short, Byte and Clojure collections."},
+    hash-map
+    {:arglists ([] [& keyvals]),
+     :doc
+     "keyval => key val\n   Returns a new hash map with supplied mappings. If any keys are\n   equal, they are handled as if by repeated uses of assoc."},
+    hash-ordered-coll
+    {:arglists ([coll]),
+     :doc
+     "Returns the hash code, consistent with =, for an external ordered\n   collection implementing Iterable.\n   See http://clojure.org/data_structures#hash for full algorithms."},
+    hash-set
+    {:arglists ([] [& keys]),
+     :doc
+     "Returns a new hash set with supplied keys.  Any equal keys are\n   handled as if by repeated uses of conj."},
+    hash-unordered-coll
+    {:arglists ([coll]),
+     :doc
+     "Returns the hash code, consistent with =, for an external unordered\n   collection implementing Iterable. For maps, the iterator should\n   return map entries whose hash is computed as\n     (hash-ordered-coll [k v]).\n   See http://clojure.org/data_structures#hash for full algorithms."},
+    i32? {:arglists ([n])},
+    i64? {:arglists ([n])},
+    ident?
+    {:arglists ([x]), :doc "Returns true if x is a symbol or keyword"},
+    identical?
+    {:arglists ([lhs rhs]),
+     :doc
+     "Tests if 2 arguments are the same object, meaning the same pointer address."},
+    identity {:arglists ([x]), :doc "Returns its argument."},
+    if-let
+    {:arglists ([bindings then] [bindings then else & oldform]),
+     :doc
+     "bindings => binding-form test\n\n   If test is true, evaluates then with binding-form bound to the value of\n   test, if not, yields else",
+     :macro true},
+    if-not
+    {:arglists ([test then] [test then else]),
+     :doc
+     "Evaluates test. If logical false, evaluates and returns then expr,\n  otherwise else expr, if supplied, else nil.",
+     :macro true},
+    if-some
+    {:arglists ([bindings then] [bindings then else & oldform]),
+     :doc
+     "bindings => binding-form test\n\n   If test is not nil, evaluates then with binding-form bound to the\n   value of test, if not, yields else",
+     :macro true},
+    ifn?
+    {:arglists ([x]),
+     :doc
+     "Returns true if x implements IFn. Note that many data structures\n   (e.g. sets and maps) implement IFn"},
+    import
+    {:arglists ([& _]),
+     :doc
+     "import is not implemented for jank, but a var is still bound to its symbol for portability. import always throws an exception"},
+    in-ns
+    {:arglists ([name]),
+     :doc
+     "Sets *ns* to the namespace named by the symbol, creating it if needed."},
+    inc
+    {:arglists ([x]),
+     :doc
+     "Returns a number one greater than num. Does not auto-promote\n   longs, will throw on overflow. See also: inc'"},
+    inc'
+    {:arglists ([x]),
+     :doc
+     "Returns a number one greater than num. Supports arbitrary precision.\n  See also: inc"},
+    include {:arglists ([& headers]), :macro true},
+    indexed?
+    {:arglists ([coll]),
+     :doc
+     "Return true if coll implements Indexed, indicating efficient lookup by index"},
+    infinite?
+    {:arglists ([num]),
+     :doc
+     "Returns true if num is negative or positive infinity, else false"},
+    inst-ms
+    {:arglists ([inst]),
+     :doc
+     "Return the number of milliseconds since January 1, 1970, 00:00:00 GMT"},
+    inst? {:arglists ([x]), :doc "Return true if x satisfies Inst"},
+    instance?
+    {:arglists ([c x]),
+     :doc
+     "Evaluates x and tests if it is an instance of the class\n  c. Returns true or false"},
+    int {:arglists ([x]), :doc "Coerce to int"},
+    int-array
+    {:arglists ([size-or-seq] [size init-val-or-seq]),
+     :doc "Creates an array of ints"},
+    int?
+    {:arglists ([x]),
+     :doc "Return true if x is a fixed precision integer"},
+    integer? {:arglists ([n]), :doc "Returns true if n is an integer"},
+    interleave
+    {:arglists ([] [c1] [c1 c2] [c1 c2 & colls]),
+     :doc
+     "Returns a lazy seq of the first item in each coll, then the second etc."},
+    intern
+    {:arglists ([ns name] [ns name val]),
+     :doc
+     "Finds or creates a var named by the symbol name in the namespace\n  ns (which can be a symbol or a namespace), setting its root binding\n  to val if supplied. The namespace must exist. The var will adopt any\n  metadata from the name symbol.  Returns the var."},
+    interpose
+    {:arglists ([sep] [sep coll]),
+     :doc
+     "Returns a lazy seq of the elements of coll separated by sep.\n   Returns a stateful transducer when no collection is provided."},
+    into
+    {:arglists ([] [to] [to from] [to xform from]),
+     :doc
+     "Returns a new coll consisting of to-coll with all of the items of\n   from-coll conjoined. A transducer may be supplied."},
+    into-array
+    {:arglists ([aseq] [type aseq]),
+     :doc
+     "Returns an array with components set to the values in aseq. The array's\n  component type is type if provided, or the type of the first value in\n  aseq if present, or Object. All values in aseq must be compatible with\n  the component type. Class objects for the primitive types can be obtained\n  using, e.g., Integer/TYPE."},
+    io!
+    {:arglists ([& body]),
+     :doc
+     "If an io! block occurs in a transaction, throws an\n  IllegalStateException, else runs body in an implicit do. If the\n  first expression in body is a literal string, will use that as the\n  exception message.",
+     :macro true},
+    is-annotation? {:arglists ([c])},
+    is-runtime-annotation? {:arglists ([c])},
+    isa?
+    {:arglists ([child parent] [h child parent]),
+     :doc
+     "Returns true if (= child parent), or child is directly or indirectly derived from\n   parent, either via a Java type inheritance relationship or a\n   relationship established via derive. h must be a hierarchy obtained\n   from make-hierarchy, if not supplied defaults to the global\n   hierarchy"},
+    iterate
+    {:arglists ([fn x]),
+     :doc
+     "Returns a lazy (infinite!) sequence of x, (f x), (f (f x)) etc.\n   f must be free of side-effects"},
+    iteration
+    {:arglists
+     ([step
+       &
+       {:keys [somef vf kf initk],
+        :or {vf identity, kf identity, somef some?, initk nil}}]),
+     :doc
+     "Creates a seqable/reducible via repeated calls to step,\n  a function of some (continuation token) 'k'. The first call to step\n  will be passed initk, returning 'ret'. Iff (somef ret) is true,\n  (vf ret) will be included in the iteration, else iteration will\n  terminate and vf/kf will not be called. If (kf ret) is non-nil it\n  will be passed to the next step call, else iteration will terminate.\n\n  This can be used e.g. to consume APIs that return paginated or batched data.\n\n   step - (possibly impure) fn of 'k' -> 'ret'\n\n   :somef - fn of 'ret' -> logical true/false, default 'some?'\n   :vf - fn of 'ret' -> 'v', a value produced by the iteration, default 'identity'\n   :kf - fn of 'ret' -> 'next-k' or nil (signaling 'do not continue'), default 'identity'\n   :initk - the first value passed to step, default 'nil'\n\n  It is presumed that step with non-initk is unreproducible/non-idempotent.\n  If step with initk is unreproducible it is on the consumer to not consume twice."},
+    iterator-seq
+    {:arglists ([iter]),
+     :doc
+     "Returns a seq on a java.util.Iterator. Note that most collections\n  providing iterators implement Iterable and thus support seq directly.\n  Seqs cache values, thus iterator-seq should not be used on any\n  iterator that repeatedly returns the same mutable object."},
+    juxt
+    {:arglists ([f] [f g] [f g h] [f g h & fs]),
+     :doc
+     "Takes a set of functions and returns a fn that is the juxtaposition\n   of those fns. The returned fn takes a variable number of args, and\n   returns a vector containing the result of applying each fn to the\n   args (left-to-right).\n   ((juxt a b c) x) => [(a x) (b x) (c x)]"},
+    keep
+    {:arglists ([f] [f coll]),
+     :doc
+     "Returns a lazy sequence of the non-nil results of (f item). Note,\n   this means false return values will be included.  f must be free of\n   side-effects.  Returns a transducer when no collection is provided."},
+    keep-indexed
+    {:arglists ([f] [f coll]),
+     :doc
+     "Returns a lazy sequence of the non-nil results of (f index item). Note,\n   this means false return values will be included.  f must be free of\n   side-effects.  Returns a stateful transducer when no collection is\n   provided."},
+    key {:arglists ([e]), :doc "Returns the key of the map entry."},
+    keys
+    {:arglists ([m]),
+     :doc
+     "Returns a sequence of the map's keys, in the same order as (seq map)."},
+    keyword
+    {:arglists ([name] [ns name]),
+     :doc
+     "Returns a Keyword with the given namespace and name.  Do not use :\n   in the keyword strings, it will be added automatically."},
+    keyword? {:arglists ([x]), :doc "Return true if x is a Keyword"},
+    last
+    {:arglists ([coll]),
+     :doc "Return the last item in coll, in linear time."},
+    lazy-cat
+    {:arglists ([& colls]),
+     :doc
+     "Expands to code which yields a lazy sequence of the concatenation\n  of the supplied colls.  Each coll expr is not evaluated until it is\n  needed.\n\n  (lazy-cat xs ys zs) === (concat (lazy-seq xs) (lazy-seq ys) (lazy-seq zs))",
+     :macro true},
+    lazy-seq
+    {:arglists ([& body]),
+     :doc
+     "Takes a body of expressions that returns an ISeq or nil, and yields\n   a Seqable object that will invoke the body only the first time seq\n   is called, and will cache the result and return it on all subsequent\n   seq calls. See also - realized?",
+     :macro true},
+    lazy-seq* {:arglists ([o])},
+    let
+    {:arglists ([bindings & body]),
+     :doc
+     "binding => binding-form init-expr\n   binding-form => name, or destructuring-form\n   destructuring-form => map-destructure-form, or seq-destructure-form\n\n   Evaluates the exprs in a lexical context in which the symbols in\n   the binding-forms are bound to their respective init-exprs or parts\n   therein.\n\n   See https://clojure.org/reference/special_forms#binding-forms for\n   more information about destructuring.",
+     :macro true},
+    letfn
+    {:arglists ([fnspecs & body]),
+     :doc
+     "fnspec ==> (fname [params*] exprs) or (fname ([params*] exprs)+)\n\n  Takes a vector of function specs and a body, and generates a set of\n  bindings of functions to their names. All of the names are available\n  in all of the definitions of the functions, as well as the body.",
+     :macro true},
+    libspec? {:arglists ([x])},
+    line-seq
+    {:arglists ([rdr]),
+     :doc
+     "Returns the lines of text from rdr as a lazy sequence of strings.\n  rdr must implement java.io.BufferedReader."},
+    list
+    {:arglists ([& items]),
+     :doc "Creates a new list containing the items."},
+    list*
+    {:arglists
+     ([args] [a args] [a b args] [a b c args] [a b c d & more]),
+     :doc
+     "Creates a new seq containing the items prepended to the rest, the\n   last of which will be treated as a sequence."},
+    list?
+    {:arglists ([x]),
+     :doc "Returns true if x implements IPersistentList"},
+    load
+    {:arglists ([& paths]),
+     :doc
+     "Loads Clojure code from resources in the module path. A path is interpreted as\n   module-path-relative if it begins with a slash or relative to the root\n   directory for the current namespace otherwise."},
+    load-all
+    {:arglists ([lib need-ns? require?]),
+     :doc
+     "Loads a lib given its name and forces a load of any libs it directly or\n   indirectly loads. If need-ns?, ensures that the associated namespace\n   exists after loading. If require?, records the load so any duplicate loads\n   can be skipped."},
+    load-lib
+    {:arglists ([lib & options]), :doc "Loads a lib with options"},
+    load-libs
+    {:arglists ([& args]),
+     :doc
+     "Loads libs, interpreting libspecs, prefix lists, and flags for\n   forwarding to load-lib"},
+    load-one
+    {:arglists ([lib need-ns? require?]),
+     :doc
+     "Loads a lib given its name. If `need-ns?`, ensures that the associated\n   namespace exists after loading. If `require?`, records the load so any\n   duplicate loads can be skipped."},
+    load-reader
+    {:arglists ([rdr]),
+     :doc
+     "Sequentially read and evaluate the set of forms contained in the\n  stream/file"},
+    load-string
+    {:arglists ([s]),
+     :doc
+     "Sequentially read and evaluate the set of forms contained in the\n  string"},
+    loaded-libs
+    {:arglists ([]),
+     :doc
+     "Returns a sorted set of symbols naming the currently loaded libs"},
+    locking
+    {:arglists ([x & body]),
+     :doc
+     "Executes exprs in an implicit do, while holding the monitor of x.\n  Will release the monitor of x in all circumstances.",
+     :macro true},
+    long {:arglists ([x]), :doc "Coerce to long"},
+    long-array
+    {:arglists ([size-or-seq] [size init-val-or-seq]),
+     :doc "Creates an array of longs"},
+    loop
+    {:arglists ([all-bindings & body]),
+     :doc
+     "Evaluates the exprs in a lexical context in which the symbols in\n   the binding-forms are bound to their respective init-exprs or parts\n   therein. Acts as a recur target.",
+     :macro true},
+    macroexpand
+    {:arglists ([form]),
+     :doc
+     "Repeatedly calls macroexpand-1 on form until it no longer\n   represents a macro form, then returns it.  Note neither\n   macroexpand-1 nor macroexpand expand macros in subforms."},
+    macroexpand-1
+    {:arglists ([form]),
+     :doc
+     "If form represents a macro form, returns its expansion,\n   else returns form."},
+    make-array
+    {:arglists ([type len] [type dim & more-dims]),
+     :doc
+     "Creates and returns an array of instances of the specified class of\n  the specified dimension(s).  Note that a class object is required.\n  Class objects can be obtained by using their name.\n  Class objects for the primitive types can be obtained using, e.g., Integer/TYPE."},
+    make-hierarchy
+    {:arglists ([]),
+     :doc "Creates a hierarchy object for use with derive, isa? etc."},
+    map
+    {:arglists
+     ([f] [f coll] [f c1 c2] [f c1 c2 c3] [f c1 c2 c3 & colls]),
+     :doc
+     "Returns a lazy sequence consisting of the result of applying f to\n   the set of first items of each coll, followed by applying f to the\n   set of second items in each coll, until any one of the colls is\n   exhausted.  Any remaining items in other colls are ignored. Function\n   f should accept number-of-colls arguments. Returns a transducer when\n   no collection is provided."},
+    map-entry?
+    {:arglists ([x]), :doc "Return true if x is a map entry"},
+    map-indexed
+    {:arglists ([f] [f coll]),
+     :doc
+     "Returns a lazy sequence consisting of the result of applying f to 0\n   and the first item of coll, followed by applying f to 1 and the second\n   item in coll, etc, until coll is exhausted. Thus function f should\n   accept 2 arguments, index and item. Returns a stateful transducer when\n   no collection is provided."},
+    map?
+    {:arglists ([x]),
+     :doc "Return true if x implements IPersistentMap"},
+    mapcat
+    {:arglists ([f] [f & colls]),
+     :doc
+     "Returns the result of applying concat to the result of applying map\n  to f and colls.  Thus function f should return a collection. Returns\n  a transducer when no collections are provided"},
+    mapv
+    {:arglists ([f coll] [f c1 c2] [f c1 c2 c3] [f c1 c2 c3 & colls]),
+     :doc
+     "Returns a vector consisting of the result of applying f to the\n   set of first items of each coll, followed by applying f to the set\n   of second items in each coll, until any one of the colls is\n   exhausted.  Any remaining items in other colls are ignored. Function\n   f should accept number-of-colls arguments."},
+    max {:arglists ([x] [l r] [l r & args])},
+    max-key
+    {:arglists ([k x] [k x y] [k x y & more]),
+     :doc
+     "Returns the x for which (k x), a number, is greatest.\n\n  If there are multiple such xs, the last one is returned."},
+    max-mask-bits {},
+    max-switch-table-size {},
+    maybe-destructured {:arglists ([params body])},
+    maybe-min-hash
+    {:arglists ([hashes]),
+     :doc
+     "Takes a collection of hashes and returns [shift mask] or nil if none found"},
+    memfn
+    {:arglists ([name & args]),
+     :doc
+     "Expands into code that creates a fn that expects to be passed an\n  object and any args and calls the named instance method on the\n  object passing the args. Use when you want to treat a Java method as\n  a first-class fn. name may be type-hinted with the method receiver's\n  type in order to avoid reflective calls.",
+     :macro true},
+    memoize
+    {:arglists ([f]),
+     :doc
+     "Returns a memoized version of a referentially transparent function. The\n  memoized version of the function keeps a cache of the mapping from arguments\n  to results and, when calls with the same arguments are repeated often, has\n  higher performance at the expense of higher memory use."},
+    merge
+    {:arglists ([& maps]),
+     :doc
+     "Returns a map that consists of the rest of the maps conj-ed onto\n  the first.  If a key occurs in more than one map, the mapping from\n  the latter (left-to-right) will be the mapping in the result."},
+    merge-hash-collisions
+    {:arglists ([expr-sym default tests thens]),
+     :doc
+     "Takes a case expression, default expression, and a sequence of test constants\n   and a corresponding sequence of then expressions. Returns a tuple of\n   [tests thens skip-check-set] where no tests have the same hash. Each set of\n   input test constants with the same hash is replaced with a single test\n   constant (the case int), and their respective thens are combined into:\n   (condp = expr\n   test-1 then-1\n   ...\n   test-n then-n\n   default).\n   The skip-check is a set of case ints for which post-switch equivalence\n   checking must not be done (the cases holding the above condp thens)."},
+    merge-with
+    {:arglists ([f & maps]),
+     :doc
+     "Returns a map that consists of the rest of the maps conj-ed onto\n  the first.  If a key occurs in more than one map, the mapping(s)\n  from the latter (left-to-right) will be combined with the mapping in\n  the result by calling (f val-in-result val-in-latter)."},
+    meta
+    {:arglists ([obj]),
+     :doc
+     "Returns the metadata of obj, returns nil if there is no metadata."},
+    methods
+    {:arglists ([multifn]),
+     :doc
+     "Given a multimethod, returns a map of dispatch values -> dispatch fns"},
+    min {:arglists ([x] [l r] [l r & args])},
+    min-key
+    {:arglists ([k x] [k x y] [k x y & more]),
+     :doc
+     "Returns the x for which (k x), a number, is least.\n\n  If there are multiple such xs, the last one is returned."},
+    mix-collection-hash
+    {:arglists ([hash-basis count]),
+     :doc
+     "Mix final collection hash for ordered or unordered collections.\n   hash-basis is the combined collection hash, count is the number\n   of elements included in the basis. Note this is the hash code\n   consistent with =, different from .hashCode.\n   See http://clojure.org/data_structures#hash for full algorithms."},
+    mk-bound-fn {:arglists ([sc test key])},
+    mod
+    {:arglists ([num div]),
+     :doc
+     "Modulus of num and div. Truncates toward negative infinity."},
+    multi-fn* {:arglists ([name dispatch_fn default hierarchy])},
+    multi-fn? {:arglists ([x])},
+    name
+    {:arglists ([x]),
+     :doc "Returns the name String of a string, symbol or keyword."},
+    named? {:arglists ([x])},
+    namespace
+    {:arglists ([x]),
+     :doc
+     "Returns the namespace String of a symbol or keyword, or nil if not present."},
+    nat-int?
+    {:arglists ([x]),
+     :doc
+     "Return true if x is a non-negative fixed precision integer"},
+    neg-int?
+    {:arglists ([x]),
+     :doc "Return true if x is a negative fixed precision integer"},
+    neg?
+    {:arglists ([num]),
+     :doc "Returns true if num is less than zero, else false"},
+    newline
+    {:arglists ([]),
+     :doc "Writes a platform-specific newline to *out*"},
+    next
+    {:arglists ([coll]),
+     :doc
+     "Returns a seq of the items after the first. Calls seq on its\n   argument.  If there are no more items, returns nil."},
+    next-in-place {:arglists ([coll])},
+    nfirst {:arglists ([x]), :doc "Same as (next (first x))"},
+    nil?
+    {:arglists ([o]),
+     :doc "Returns true if x is nil, false otherwise."},
+    nnext {:arglists ([x]), :doc "Same as (next (next x))"},
+    not
+    {:arglists ([x]),
+     :doc "Returns true if x is logical false, false otherwise."},
+    not-any? {:arglists ([pred coll])},
+    not-empty
+    {:arglists ([coll]),
+     :doc "If coll is empty, returns nil, else coll"},
+    not-every?
+    {:arglists ([pred coll]),
+     :doc
+     "Returns false if (pred x) is logical true for every x in\n  coll, else true."},
+    not= {:arglists ([x] [x y] [x y & more])},
+    ns
+    {:arglists ([name docstring? attr-map? references*]),
+     :doc
+     "Sets *ns* to the namespace named by name (unevaluated), creating it\n  if needed.  references can be zero or more of: (:refer-clojure ...)\n  (:require ...) (:use ...) (:import ...) (:load ...) (:gen-class)\n  with the syntax of refer-clojure/require/use/import/load/gen-class\n  respectively, except the arguments are unevaluated and need not be\n  quoted. (:gen-class ...), when supplied, defaults to :name\n  corresponding to the ns name, :main true, :impl-ns same as ns, and\n  :init-impl-ns true. All options of gen-class are\n  supported. The :gen-class directive is ignored when not\n  compiling. If :gen-class is not supplied, when compiled only an\n  nsname__init.class will be generated. If :refer-clojure is not used, a\n  default (refer 'clojure.core) is used.  Use of ns is preferred to\n  individual calls to in-ns/require/use/import:\n\n  (ns foo.bar\n    (:refer-clojure :exclude [ancestors printf])\n    (:require (clojure.contrib sql combinatorics))\n    (:use (my.lib this that))\n    (:import (java.util Date Timer Random)\n             (java.sql Connection Statement)))",
+     :added "1.0",
+     :macro true},
+    ns-aliases
+    {:arglists ([ns]),
+     :doc "Returns a map of the aliases for the namespace."},
+    ns-imports
+    {:arglists ([ns]),
+     :doc "Returns a map of the import mappings for the namespace."},
+    ns-interns
+    {:arglists ([ns]),
+     :doc "Returns a map of the intern mappings for the namespace."},
+    ns-map
+    {:arglists ([ns-sym]),
+     :doc "Returns a map of all the mappings for the namespace."},
+    ns-name
+    {:arglists ([ns-sym]),
+     :doc "Returns the name of the namespace, a symbol."},
+    ns-publics
+    {:arglists ([ns-sym]),
+     :doc
+     "Returns a map of the public intern mappings for the namespace."},
+    ns-refers
+    {:arglists ([ns]),
+     :doc "Returns a map of the refer mappings for the namespace."},
+    ns-resolve
+    {:arglists ([ns sym] [ns env sym]),
+     :doc
+     "Returns the var to which a symbol will be resolved in the\n   namespace (unless found in the environment), else nil.  Note that\n   if the symbol is fully qualified, the var to which it resolves\n   need not be present in the namespace."},
+    ns-unalias
+    {:arglists ([ns sym]),
+     :doc "Removes the alias for the symbol from the namespace."},
+    ns-unmap
+    {:arglists ([ns sym]),
+     :doc "Removes the mappings for the symbol from the namespace."},
+    nth
+    {:arglists ([coll index] [coll index not-found]),
+     :doc
+     "Returns the value at the index. get returns nil if index out of\n   bounds, nth throws an exception unless not-found is supplied.  nth\n   also works for strings, Java arrays, regex Matchers and Lists, and,\n   in O(n) time, for sequences."},
+    nthnext
+    {:arglists ([coll n]),
+     :doc "Returns the nth next of coll, (seq coll) when n is 0."},
+    nthrest
+    {:arglists ([coll n]),
+     :doc "Returns the nth rest of coll, coll when n is 0."},
+    num {:arglists ([x]), :doc "Coerce to Number"},
+    number? {:arglists ([x]), :doc "Returns true if x is a number"},
+    numerator
+    {:arglists ([r]), :doc "Returns the numerator part of a Ratio."},
+    object-array
+    {:arglists ([size-or-seq]), :doc "Creates an array of objects"},
+    odd?
+    {:arglists ([n]),
+     :doc
+     "Returns true if n is odd, throws an exception if n is not an integer"},
+    or
+    {:arglists ([] [x] [x & more]),
+     :doc
+     "Evaluates exprs one at a time, from left to right. If a form\n   returns a logical true value, or returns that value and doesn't\n   evaluate any of the other expressions, otherwise it returns the\n   value of the last expression. (or) returns nil.",
+     :macro true},
+    parents
+    {:arglists ([tag] [h tag]),
+     :doc
+     "Returns the immediate parents of tag, either via a Java type\n   inheritance relationship or a relationship established via derive. h\n   must be a hierarchy obtained from make-hierarchy, if not supplied\n   defaults to the global hierarchy"},
+    parse-boolean
+    {:arglists ([s]),
+     :doc
+     "Parse strings \"true\" or \"false\" and return a boolean, or nil if invalid"},
+    parse-double
+    {:arglists ([s]),
+     :doc
+     "Parse string with floating point components and return a Double value,\n  or nil if parse fails.\n\n  Grammar: https://docs.oracle.com/javase/8/docs/api/java/lang/Double.html#valueOf-java.lang.String-"},
+    parse-long
+    {:arglists ([s]),
+     :doc
+     "Parse string of decimal digits with optional leading -/+ and return a\n  Long value, or nil if parse fails"},
+    parse-uuid
+    {:arglists ([s]),
+     :doc
+     "Parse a string representing a UUID and return a java.util.UUID instance,\n  or nil if parse fails.\n\n  Grammar: https://docs.oracle.com/javase/8/docs/api/java/util/UUID.html#toString--"},
+    parsing-err
+    {:arglists ([val]),
+     :doc
+     "Construct message for parsing for non-string parsing error"},
+    partial
+    {:arglists
+     ([f]
+      [f arg1]
+      [f arg1 arg2]
+      [f arg1 arg2 arg3]
+      [f arg1 arg2 arg3 & more]),
+     :doc
+     "Takes a function f and fewer than the normal arguments to f, and\n   returns a fn that takes a variable number of additional args. When\n   called, the returned function calls f with args + additional args."},
+    partition
+    {:arglists ([n coll] [n step coll] [n step pad coll]),
+     :doc
+     "Returns a lazy sequence of lists of n items each, at offsets step\n   apart. If step is not supplied, defaults to n, i.e. the partitions\n   do not overlap. If a pad collection is supplied, use its elements as\n   necessary to complete last partition upto n items. In case there are\n   not enough padding elements, return a partition with less than n items."},
+    partition-all
+    {:arglists ([n] [n coll] [n step coll]),
+     :doc
+     "Returns a lazy sequence of lists like partition, but may include\n   partitions with fewer than n items at the end.  Returns a stateful\n   transducer when no collection is provided."},
+    partition-by
+    {:arglists ([f] [f coll]),
+     :doc
+     "Applies f to each value in coll, splitting it each time f returns a\n   new value.  Returns a lazy seq of partitions.  Returns a stateful\n   transducer when no collection is provided."},
+    partitionv
+    {:arglists ([n coll] [n step coll] [n step pad coll]),
+     :doc
+     "Returns a lazy sequence of vectors of n items each, at offsets step\n  apart. If step is not supplied, defaults to n, i.e. the partitions\n  do not overlap. If a pad collection is supplied, use its elements as\n  necessary to complete last partition upto n items. In case there are\n  not enough padding elements, return a partition with less than n items."},
+    partitionv-all
+    {:arglists ([n] [n coll] [n step coll]),
+     :doc
+     "Returns a lazy sequence of vector partitions, but may include\n  partitions with fewer than n items at the end.\n  Returns a stateful transducer when no collection is provided."},
+    pcalls
+    {:arglists ([& fns]),
+     :doc
+     "Executes the no-arg fns in parallel, returning a lazy sequence of\n  their values"},
+    peek
+    {:arglists ([coll]),
+     :doc
+     "For a list or queue, same as first, for a vector, same as, but much\n   more efficient than, last. If the collection is empty, returns nil."},
+    persistent!
+    {:arglists ([coll]),
+     :doc
+     "Returns a new, persistent version of the transient collection, in\n   constant time. The transient collection cannot be used after this\n   call, any such use will throw an exception."},
+    pmap
+    {:arglists ([f coll] [f coll & colls]),
+     :doc
+     "Like map, except f is applied in parallel. Semi-lazy in that the\n  parallel computation stays ahead of the consumption, but doesn't\n  realize the entire result unless required. Only useful for\n  computationally intensive functions where the time of f dominates\n  the coordination overhead."},
+    pop
+    {:arglists ([coll]),
+     :doc
+     "For a list or queue, returns a new list/queue without the first\n   item, for a vector, returns a new vector without the last item. If\n   the collection is empty, throws an exception. Note - not the same\n   as next/butlast."},
+    pop!
+    {:arglists ([coll]),
+     :doc
+     "Removes the last item from a transient vector. If\n   the collection is empty, throws an exception. Returns coll"},
+    pop-thread-bindings
+    {:arglists ([]),
+     :doc
+     "Pop one set of bindings pushed with push-binding before. It is an error to\n   pop bindings without pushing before."},
+    pos-int?
+    {:arglists ([x]),
+     :doc "Return true if x is a positive fixed precision integer"},
+    pos?
+    {:arglists ([num]),
+     :doc "Returns true if num is greater than zero, else false"},
+    pr
+    {:arglists ([& more]),
+     :doc
+     "Prints the object(s) to the output stream that is the current value\n   of *out*.  Prints the object(s), separated by spaces if there is\n   more than one.  By default, pr and prn print in a way that objects\n   can be read by the reader"},
+    pr-str {:arglists ([x]), :doc "pr to a string, returning it"},
+    prefer-method
+    {:arglists ([multifn dispatch-val-x dispatch-val-y]),
+     :doc
+     "Causes the multimethod to prefer matches of dispatch-val-x over dispatch-val-y\n   when there is a conflict"},
+    prefers
+    {:arglists ([multifn]),
+     :doc
+     "Given a multimethod, returns a map of preferred value -> set of other values"},
+    prep-hashes
+    {:arglists ([expr-sym default tests thens skip-check]),
+     :doc
+     "Takes a sequence of test constants and a corresponding sequence of then\n   expressions. Returns a tuple of [shift mask case-map]\n   where case-map is a map of int case values to [test then] tuples."},
+    prep-ints
+    {:arglists ([expr-sym default tests thens]),
+     :doc
+     "Takes a sequence of int-sized test constants and a corresponding sequence of\n   then expressions. Returns a tuple of [shift mask case-map] where\n   case-map is a map of int case values to [test then] tuples"},
+    prependss {:arglists ([x coll])},
+    preserving-reduced {:arglists ([rf])},
+    print
+    {:arglists ([& more]),
+     :doc
+     "Prints the object(s) to the output stream that is the current value\n   of *out*.  print and println produce output for human consumption."},
+    print-dup {},
+    print-initialized {:dynamic true},
+    print-method {},
+    print-str
+    {:arglists ([& xs]), :doc "print to a string, returning it"},
+    printf
+    {:arglists ([fmt & args]),
+     :doc "Prints formatted output, as per format"},
+    println
+    {:arglists ([& more]), :doc "Same as print followed by (newline)"},
+    println-str
+    {:arglists ([& xs]), :doc "println to a string, returning it"},
+    prn
+    {:arglists ([& more]),
+     :doc
+     "Same as pr followed by (newline). Observes *flush-on-newline*"},
+    prn-str {:arglists ([& xs]), :doc "prn to a string, returning it"},
+    process-annotation {:arglists ([av v])},
+    promise
+    {:arglists ([]),
+     :doc
+     "Returns a promise object that can be read with deref/@, and set,\n  once only, with deliver. Calls to deref/@ prior to delivery will\n  block, unless the variant of deref with timeout is used. All\n  subsequent derefs will return the same delivered value without\n  blocking. See also - realized?."},
+    push-thread-bindings
+    {:arglists ([bindings]),
+     :doc
+     "WARNING: This is a low-level function. Prefer high-level macros like\n   binding where ever possible.\n\n   Takes a map of Var/value pairs. Binds each Var to the associated value for\n   the current thread. Each call *MUST* be accompanied by a matching call to\n   pop-thread-bindings wrapped in a try-finally!\n\n   (push-thread-bindings bindings)\n   (try\n     ...\n     (finally\n     (pop-thread-bindings)))"},
+    pvalues
+    {:arglists ([& exprs]),
+     :doc
+     "Returns a lazy sequence of the values of the exprs, which are\n  evaluated in parallel",
+     :macro true},
+    qualified-ident?
+    {:arglists ([x]),
+     :doc "Returns true if x is a symbol or keyword with a namespace"},
+    qualified-keyword?
+    {:arglists ([x]),
+     :doc "Return true if x is a keyword with a namespace"},
+    qualified-symbol?
+    {:arglists ([x]),
+     :doc "Return true if x is a symbol with a namespace"},
+    quot
+    {:arglists ([num div]),
+     :doc "quot[ient] of dividing numerator by denominator."},
+    rand
+    {:arglists ([] [n]),
+     :doc
+     "Returns a random floating point number between 0 (inclusive) and\n   n (default 1) (exclusive)."},
+    rand-int
+    {:arglists ([n]),
+     :doc
+     "Returns a random integer between 0 (inclusive) and n (exclusive)."},
+    rand-nth
+    {:arglists ([coll]),
+     :doc
+     "Return a random element of the (sequential) collection. Will have\n  the same performance characteristics as nth for the given\n  collection."},
+    random-sample
+    {:arglists ([prob] [prob coll]),
+     :doc
+     "Returns items from coll with random probability of prob (0.0 -\n  1.0).  Returns a transducer when no collection is provided."},
+    random-uuid
+    {:arglists ([]),
+     :doc
+     "Returns a pseudo-randomly generated java.util.UUID instance (i.e. type 4).\n\n  See: https://docs.oracle.com/javase/8/docs/api/java/util/UUID.html#randomUUID--"},
+    range
+    {:arglists ([] [end] [start end] [start end step]),
+     :doc
+     "Returns a lazy seq of nums from start (inclusive) to end\n   (exclusive), by step, where start defaults to 0, step to 1, and end to\n   infinity. When step is equal to 0, returns an infinite sequence of\n   start. When start is equal to end, returns empty list."},
+    ratio? {:arglists ([r]), :doc "Returns true if n is a Ratio"},
+    rational?
+    {:arglists ([n]), :doc "Returns true if n is a rational number"},
+    rationalize
+    {:arglists ([num]), :doc "returns the rational value of num"},
+    re-find
+    {:arglists ([m] [re s]),
+     :doc
+     "Returns the next regex match, if any, of string to pattern, using\n  java.util.regex.Matcher.find().  Uses re-groups to return the\n  groups."},
+    re-groups
+    {:arglists ([m]),
+     :doc
+     "Returns the groups from the most recent match/find. If there are no\n  nested groups, returns a string of the entire match. If there are\n  nested groups, returns a vector of the groups, the first element\n  being the entire match."},
+    re-matcher
+    {:arglists ([re s]),
+     :doc
+     "Returns an instance of java.util.regex.Matcher, for use, e.g. in\n  re-find."},
+    re-matches
+    {:arglists ([re s]),
+     :doc
+     "Returns the match, if any, of string to pattern, using\n  java.util.regex.Matcher.matches().  Uses re-groups to return the\n  groups."},
+    re-pattern
+    {:arglists ([s]),
+     :doc
+     "Returns an instance of java.util.regex.Pattern, for use, e.g. in\n  re-matcher."},
+    re-seq
+    {:arglists ([re s]),
+     :doc
+     "Returns a lazy sequence of successive matches of pattern in string,\n  using java.util.regex.Matcher.find(), each such match processed with\n  re-groups."},
+    read
+    {:arglists
+     ([]
+      [stream]
+      [stream eof-error? eof-value]
+      [stream eof-error? eof-value recursive?]
+      [opts stream]),
+     :doc
+     "Reads the next object from stream, which must be an instance of\n  java.io.PushbackReader or some derivee.  stream defaults to the\n  current value of *in*.\n\n  Opts is a persistent map with valid keys:\n    :read-cond - :allow to process reader conditionals, or\n                 :preserve to keep all branches\n    :features - persistent set of feature keywords for reader conditionals\n    :eof - on eof, return value unless :eofthrow, then throw.\n           if not specified, will throw\n\n  Note that read can execute code (controlled by *read-eval*),\n  and as such should be used only with trusted sources.\n\n  For data structure interop use clojure.edn/read"},
+    read+string
+    {:arglists
+     ([]
+      [stream]
+      [stream eof-error? eof-value]
+      [stream eof-error? eof-value recursive?]
+      [opts stream]),
+     :doc
+     "Like read, and taking the same args. stream must be a LineNumberingPushbackReader.\n  Returns a vector containing the object read and the (whitespace-trimmed) string read."},
+    read-line
+    {:arglists ([]),
+     :doc
+     "Reads the next line from stream that is the current value of *in* ."},
+    read-string
+    {:arglists ([s] [opts s]),
+     :doc
+     "Reads one object from the string s. Optionally include reader\n  options, as specified in read.\n\n  Note that read-string can execute code (controlled by *read-eval*),\n  and as such should be used only with trusted sources.\n\n  For data structure interop use clojure.edn/read-string"},
+    reader-conditional
+    {:arglists ([form splicing?]),
+     :doc
+     "Construct a data representation of a reader conditional.\n  If true, splicing? indicates read-cond-splicing."},
+    reader-conditional?
+    {:arglists ([value]),
+     :doc
+     "Return true if the value is the data representation of a reader conditional"},
+    realized?
+    {:arglists ([x]),
+     :doc
+     "Returns true if a value has been produced for a promise, delay, future or lazy sequence."},
+    reduce
+    {:arglists ([f coll] [f init coll]),
+     :doc
+     "f should be a function of 2 arguments. If val is not supplied,\n   returns the result of applying f to the first 2 items in coll, then\n   applying f to that result and the 3rd item, etc. If coll contains no\n   items, f must accept no arguments as well, and reduce returns the\n   result of calling f with no arguments.  If coll has only 1 item, it\n   is returned and f is not called.  If val is supplied, returns the\n   result of applying f to val and the first item in coll, then\n   applying f to that result and the 2nd item, etc. If coll contains no\n   items, returns val and f is not called."},
+    reduce-kv
+    {:arglists ([f init coll]),
+     :doc
+     "Reduces an associative collection. f should be a function of 3\n  arguments. Returns the result of applying f to init, the first key\n  and the first value in coll, then applying f to that result and the\n  2nd key and value, etc. If coll contains no entries, returns init\n  and f is not called. Note that reduce-kv is supported on vectors,\n  where the keys will be the ordinals."},
+    reduced
+    {:arglists ([x]),
+     :doc
+     "Wraps x in a way such that a reduce will terminate with the value x"},
+    reduced?
+    {:arglists ([x]),
+     :doc "Returns true if x is the result of a call to reduced"},
+    reductions
+    {:arglists ([f coll] [f init coll]),
+     :doc
+     "Returns a lazy seq of the intermediate values of the reduction (as\n   per reduce) of coll by f, starting with init."},
+    ref
+    {:arglists ([x] [x & options]),
+     :doc
+     "Creates and returns a Ref with an initial value of x and zero or\n  more options (in any order):\n\n  :meta metadata-map\n\n  :validator validate-fn\n\n  :min-history (default 0)\n  :max-history (default 10)\n\n  If metadata-map is supplied, it will become the metadata on the\n  ref. validate-fn must be nil or a side-effect-free fn of one\n  argument, which will be passed the intended new state on any state\n  change. If the new state is unacceptable, the validate-fn should\n  return false or throw an exception. validate-fn will be called on\n  transaction commit, when all refs have their final values.\n\n  Normally refs accumulate history dynamically as needed to deal with\n  read demands. If you know in advance you will need history you can\n  set :min-history to ensure it will be available when first needed (instead\n  of after a read fault). History is limited, and the limit can be set\n  with :max-history."},
+    ref-history-count
+    {:arglists ([ref]), :doc "Returns the history count of a ref"},
+    ref-max-history
+    {:arglists ([ref] [ref n]),
+     :doc
+     "Gets the max-history of a ref, or sets it and returns the ref"},
+    ref-min-history
+    {:arglists ([ref] [ref n]),
+     :doc
+     "Gets the min-history of a ref, or sets it and returns the ref"},
+    ref-set
+    {:arglists ([ref val]),
+     :doc
+     "Must be called in a transaction. Sets the value of ref.\n  Returns val."},
+    refer
+    {:arglists ([ns-sym & filters]),
+     :doc
+     "refers to all public vars of ns, subject to filters.\n   filters can include at most one each of:\n\n   :exclude list-of-symbols\n   :only list-of-symbols\n   :rename map-of-fromsymbol-tosymbol\n\n   For each public interned var in the namespace named by the symbol,\n   adds a mapping from the name of the var to the var to the current\n   namespace.  Throws an exception if name is already mapped to\n   something else in the current namespace. Filters can be used to\n   select a subset, via inclusion or exclusion, or to provide a mapping\n   to a symbol different from the var's name, in order to prevent\n   clashes. Use :use in the ns macro in preference to calling this directly."},
+    refer-clojure
+    {:arglists ([& filters]),
+     :doc "Same as (refer 'clojure.core <filters>)",
+     :macro true},
+    refer-global {:arglists ([& filters])},
+    release-pending-sends
+    {:arglists ([]),
+     :doc
+     "Normally, actions sent directly or indirectly during another action\n  are held until the action completes (changes the agent's\n  state). This function can be used to dispatch any pending sent\n  actions immediately. This has no impact on actions sent during a\n  transaction, which are still held until commit. If no action is\n  occurring, does nothing. Returns the number of actions dispatched."},
+    rem
+    {:arglists ([num div]),
+     :doc
+     "Returns the remainder of dividing numerator by denominator."},
+    remove
+    {:arglists ([pred] [pred coll]),
+     :doc
+     "Returns a lazy sequence of the items in coll for which\n   (pred item) returns logical false. pred must be free of side-effects.\n   Returns a transducer when no collection is provided."},
+    remove-all-methods
+    {:arglists ([multifn]),
+     :doc "Removes all of the methods of multimethod."},
+    remove-method
+    {:arglists ([multifn dispatch-val]),
+     :doc
+     "Removes the method of multimethod associated with dispatch-value."},
+    remove-ns
+    {:arglists ([sym]),
+     :doc
+     "Removes the namespace named by the symbol. Use with caution.\n   Cannot be used to remove the clojure namespace."},
+    remove-tap {:arglists ([f]), :doc "Remove f from the tap set."},
+    remove-watch
+    {:arglists ([reference key]),
+     :doc "Removes a watch (set by add-watch) from a reference"},
+    repeat
+    {:arglists ([x] [n x]),
+     :doc
+     "Returns a lazy (infinite!, or length n if supplied) sequence of val."},
+    repeatedly
+    {:arglists ([f] [n f]),
+     :doc
+     "Takes a function of no args, presumably with side effects, and\n   returns an infinite (or length n if supplied) lazy sequence of calls\n   to it"},
+    replace
+    {:arglists ([smap] [smap coll]),
+     :doc
+     "Given a map of replacement pairs and a vector/collection, returns a\n  vector/seq with any elements = a key in smap replaced with the\n  corresponding val in smap.  Returns a transducer when no collection\n  is provided."},
+    replicate
+    {:arglists ([n x]),
+     :doc
+     "DEPRECATED: Use 'repeat' instead.\n   Returns a lazy seq of n xs."},
+    require
+    {:arglists ([& args]),
+     :doc
+     "Loads libs, skipping any that are already loaded. Each argument is\n   either a libspec that identifies a lib, a prefix list that identifies\n   multiple libs whose names share a common prefix, or a flag that modifies\n   how all the identified libs are loaded. Use :require in the ns macro\n   in preference to calling this directly.\n\n   Libs\n\n   A 'lib' is a named set of resources in module path whose contents define a\n   library of Clojure code. Lib names are symbols and each lib is associated\n   with a Clojure namespace and a Java package that share its name. A lib's\n   name also locates its root directory within module path using Java's\n   package name to module path-relative path mapping. All resources in a lib\n   should be contained in the directory structure under its root directory.\n   All definitions a lib makes should be in its associated namespace.\n\n   'require loads a lib by loading its root resource. The root resource path\n   is derived from the lib name in the following manner:\n   Consider a lib named by the symbol 'x.y.z; it has the root directory\n   <module path>/x/y/, and its root resource is <module path>/x/y/z.clj, or\n   <module path>/x/y/z.cljc if <module path>/x/y/z.clj does not exist. The\n   root resource should contain code to create the lib's\n   namespace (usually by using the ns macro) and load any additional\n   lib resources.\n\n   Libspecs\n\n   A libspec is a lib name or a vector containing a lib name followed by\n   options expressed as sequential keywords and arguments.\n\n   Recognized options:\n   :as takes a symbol as its argument and makes that symbol an alias to the\n   lib's namespace in the current namespace.\n   :as-alias takes a symbol as its argument and aliases like :as, however\n   the lib will not be loaded. If the lib has not been loaded, a new\n   empty namespace will be created (as with create-ns).\n   :refer takes a list of symbols to refer from the namespace or the :all\n   keyword to bring in all public vars.\n\n   Prefix Lists\n\n   It's common for Clojure code to depend on several libs whose names have\n   the same prefix. When specifying libs, prefix lists can be used to reduce\n   repetition. A prefix list contains the shared prefix followed by libspecs\n   with the shared prefix removed from the lib names. After removing the\n   prefix, the names that remain must not contain any periods.\n\n   Flags\n\n   A flag is a keyword.\n   Recognized flags: :reload, :reload-all, :verbose\n   :reload forces loading of all the identified libs even if they are\n   already loaded (has no effect on libspecs using :as-alias)\n   :reload-all implies :reload and also forces loading of all libs that the\n   identified libs directly or indirectly load via require or use\n   (has no effect on libspecs using :as-alias)\n   :verbose triggers printing information about each load, alias, and refer\n\n   Example:\n\n   The following would load the libraries clojure.zip and clojure.set\n   abbreviated as 's'.\n\n   (require '(clojure zip [set :as s]))"},
+    requiring-resolve
+    {:arglists ([sym]),
+     :doc
+     "Resolves namespace-qualified sym per 'resolve'. If initial resolve\nfails, attempts to require sym's namespace and retries."},
+    reset!
+    {:arglists ([atom newval]),
+     :doc
+     "Sets the value of atom to newval without regard for the\n   current value. Returns newval."},
+    reset-meta!
+    {:arglists ([iref metadata-map]),
+     :doc
+     "Atomically resets the metadata for a namespace/var/ref/agent/atom"},
+    reset-vals!
+    {:arglists ([atom newval]),
+     :doc
+     "Sets the value of atom to newval. Returns [old new], the value of the\n   atom before and after the reset."},
+    resolve
+    {:arglists ([sym] [env sym]),
+     :doc
+     "Same as (ns-resolve *ns* symbol) or (ns-resolve *ns* &env symbol)"},
+    rest
+    {:arglists ([coll]),
+     :doc
+     "Returns a possibly empty seq of the items after the first. Calls seq on its\n   argument."},
+    restart-agent
+    {:arglists ([a new-state & options]),
+     :doc
+     "When an agent is failed, changes the agent state to new-state and\n  then un-fails the agent so that sends are allowed again.  If\n  a :clear-actions true option is given, any actions queued on the\n  agent that were being held while it was failed will be discarded,\n  otherwise those held actions will proceed.  The new-state must pass\n  the validator if any, or restart will throw an exception and the\n  agent will remain failed with its old state and error.  Watchers, if\n  any, will NOT be notified of the new state.  Throws an exception if\n  the agent is not failed."},
+    resultset-seq
+    {:arglists ([rs]),
+     :doc
+     "Creates and returns a lazy sequence of structmaps corresponding to\n  the rows in the java.sql.ResultSet rs"},
+    reverse
+    {:arglists ([coll]),
+     :doc
+     "Returns a seq of the items in coll in reverse order. Not lazy."},
+    reverse* {},
+    reversible?
+    {:arglists ([coll]),
+     :doc "Returns true if coll implements Reversible"},
+    rseq
+    {:arglists ([rev]),
+     :doc
+     "Returns, in constant time, a seq of the items in rev (which\n  can be a vector or sorted-map), in reverse order. If rev is empty returns nil"},
+    rsubseq
+    {:arglists
+     ([sc test key] [sc start-test start-key end-test end-key]),
+     :doc
+     "sc must be a sorted collection, test(s) one of <, <=, > or\n  >=. Returns a reverse seq of those entries with keys ek for\n  which (test (.. sc comparator (compare ek key)) 0) is true"},
+    run!
+    {:arglists ([proc coll]),
+     :doc
+     "Runs the supplied procedure (via reduce), for purposes of side\n   effects, on successive items in the collection. Returns nil"},
+    second {:arglists ([x]), :doc "Same as (first (next x))"},
+    select-keys
+    {:arglists ([m ks]),
+     :doc
+     "Returns a map containing only those entries in map whose key is in keys"},
+    send
+    {:arglists ([a f & args]),
+     :doc
+     "Dispatch an action to an agent. Returns the agent immediately.\n  Subsequently, in a thread from a thread pool, the state of the agent\n  will be set to the value of:\n\n  (apply action-fn state-of-agent args)"},
+    send-off
+    {:arglists ([a f & args]),
+     :doc
+     "Dispatch a potentially blocking action to an agent. Returns the\n  agent immediately. Subsequently, in a separate thread, the state of\n  the agent will be set to the value of:\n\n  (apply action-fn state-of-agent args)"},
+    send-via
+    {:arglists ([executor a f & args]),
+     :doc
+     "Dispatch an action to an agent. Returns the agent immediately.\n  Subsequently, in a thread supplied by executor, the state of the agent\n  will be set to the value of:\n\n  (apply action-fn state-of-agent args)"},
+    seq
+    {:arglists ([coll]),
+     :doc
+     "Returns a seq on the collection. If the collection is\n       empty, returns nil.  (seq nil) returns nil. seq also works on\n       Strings, native Java arrays (of reference types) and any objects\n       that implement Iterable. Note that seqs cache values, thus seq\n       should not be used on any Iterable whose iterator repeatedly\n       returns the same mutable object."},
+    seq-to-map-for-destructuring
+    {:arglists ([s]),
+     :doc
+     "Builds a map from a seq as described in\n  https://clojure.org/reference/special_forms#keyword-arguments"},
+    seq? {:arglists ([x]), :doc "Return true if x implements ISeq"},
+    seqable?
+    {:arglists ([x]),
+     :doc "Return true if the seq function is supported for x"},
+    seque
+    {:arglists ([s] [n-or-q s]),
+     :doc
+     "Creates a queued seq on another (presumably lazy) seq s. The queued\n  seq will produce a concrete seq in the background, and can get up to\n  n items ahead of the consumer. n-or-q can be an integer n buffer\n  size, or an instance of java.util.concurrent BlockingQueue. Note\n  that reading from a seque can block if the reader gets ahead of the\n  producer."},
+    sequence
+    {:arglists ([coll] [xform coll] [xform coll & colls]),
+     :doc
+     "Coerces coll to a (possibly empty) sequence, if it is not already\n  one. Will not force a lazy seq. (sequence nil) yields (), When a\n  transducer is supplied, returns a lazy sequence of applications of\n  the transform to the items in coll(s), i.e. to the set of first\n  items of each coll, followed by the set of second\n  items in each coll, until any one of the colls is exhausted.  Any\n  remaining items in other colls are ignored. The transform should accept\n  number-of-colls arguments"},
+    sequential?
+    {:arglists ([coll]),
+     :doc "Returns true if coll implements sequential"},
+    serialized-require
+    {:arglists ([& args]),
+     :doc
+     "Like 'require', but serializes loading.\n  Interim function preferred over 'require' for known asynchronous loads.\n  Future changes may make these equivalent."},
+    set
+    {:arglists ([coll]),
+     :doc "Returns a set of the distinct elements of coll."},
+    set-agent-send-executor!
+    {:arglists ([executor]),
+     :doc "Sets the ExecutorService to be used by send"},
+    set-agent-send-off-executor!
+    {:arglists ([executor]),
+     :doc "Sets the ExecutorService to be used by send-off"},
+    set-error-handler!
+    {:arglists ([a handler-fn]),
+     :doc
+     "Sets the error-handler of agent a to handler-fn.  If an action\n  being run by the agent throws an exception or doesn't pass the\n  validator fn, handler-fn will be called with two arguments: the\n  agent and the exception."},
+    set-error-mode!
+    {:arglists ([a mode-keyword]),
+     :doc
+     "Sets the error-mode of agent a to mode-keyword, which must be\n  either :fail or :continue.  If an action being run by the agent\n  throws an exception or doesn't pass the validator fn, an\n  error-handler may be called (see set-error-handler!), after which,\n  if the mode is :continue, the agent will continue as if neither the\n  action that caused the error nor the error itself ever happened.\n\n  If the mode is :fail, the agent will become failed and will stop\n  accepting new 'send' and 'send-off' actions, and any previously\n  queued actions will be held until a 'restart-agent'.  Deref will\n  still work, returning the state of the agent before the error."},
+    set-validator!
+    {:arglists ([iref validator-fn]),
+     :doc
+     "Sets the validator-fn for a var/ref/agent/atom. validator-fn must be nil or a\n  side-effect-free fn of one argument, which will be passed the intended\n  new state on any state change. If the new state is unacceptable, the\n  validator-fn should return false or throw an exception. If the current state (root\n  value if var) is not acceptable to the new validator, an exception\n  will be thrown and the validator will not be changed."},
+    set?
+    {:arglists ([x]),
+     :doc "Returns true if x implements IPersistentSet"},
+    setup-reference {:arglists ([r options])},
+    shift-mask {:arglists ([shift mask x])},
+    short {:arglists ([x]), :doc "Coerce to short"},
+    short-array
+    {:arglists ([size-or-seq] [size init-val-or-seq]),
+     :doc "Creates an array of shorts"},
+    shuffle
+    {:arglists ([coll]), :doc "Return a random permutation of coll"},
+    shutdown-agents
+    {:arglists ([]),
+     :doc
+     "Initiates a shutdown of the thread pools that back the agent\n  system. Running actions will complete, but no new actions will be\n  accepted"},
+    sigs {},
+    simple-ident?
+    {:arglists ([x]),
+     :doc
+     "Returns true if x is a symbol or keyword without a namespace"},
+    simple-keyword?
+    {:arglists ([x]),
+     :doc "Return true if x is a keyword without a namespace"},
+    simple-symbol?
+    {:arglists ([x]),
+     :doc "Return true if x is a symbol without a namespace"},
+    sleep {:arglists ([ms])},
+    slurp
+    {:arglists ([f]),
+     :doc "Reads the file at the specified path into a string."},
+    some
+    {:arglists ([pred coll]),
+     :doc
+     "Returns the first logical true value of (pred x) for any x in coll,\n   else nil.  One common idiom is to use a set as pred, for example\n   this will return :fred if :fred is in the sequence, otherwise nil:\n   (some #{:fred} coll)"},
+    some->
+    {:arglists ([expr & forms]),
+     :doc
+     "When expr is not nil, threads it into the first form (via ->),\n   and when that result is not nil, through the next etc",
+     :macro true},
+    some->>
+    {:arglists ([expr & forms]),
+     :doc
+     "When expr is not nil, threads it into the first form (via ->>),\n   and when that result is not nil, through the next etc",
+     :macro true},
+    some-fn
+    {:arglists ([p] [p1 p2] [p1 p2 p3] [p1 p2 p3 & ps]),
+     :doc
+     "Takes a set of predicates and returns a function f that returns the first logical true value\n   returned by one of its composing predicates against any of its arguments, else it returns\n   logical false. Note that f is short-circuiting in that it will stop execution on the first\n   argument that triggers a logical true result against the original predicates."},
+    some?
+    {:arglists ([x]),
+     :doc "Returns true if x is not nil, false otherwise."},
+    sort
+    {:arglists ([coll]),
+     :doc
+     "Returns a sorted sequence of the items in coll. If no comparator is\n  supplied, uses compare.  comparator must implement\n  java.util.Comparator.  Guaranteed to be stable: equal elements will\n  not be reordered.  If coll is a Java array, it will be modified.  To\n  avoid this, sort a copy of the array."},
+    sort-by
+    {:arglists ([keyfn coll] [keyfn comp coll]),
+     :doc
+     "Returns a sorted sequence of the items in coll, where the sort\n  order is determined by comparing (keyfn item).  If no comparator is\n  supplied, uses compare.  comparator must implement\n  java.util.Comparator.  Guaranteed to be stable: equal elements will\n  not be reordered.  If coll is a Java array, it will be modified.  To\n  avoid this, sort a copy of the array."},
+    sorted-map
+    {:arglists ([] [& keyvals]),
+     :doc
+     "keyval => key val\n   Returns a new sorted map with supplied mappings. If any keys are\n   equal, they are handled as if by repeated uses of assoc."},
+    sorted-map-by
+    {:arglists ([comparator & keyvals]),
+     :doc
+     "keyval => key val\n  Returns a new sorted map with supplied mappings, using the supplied\n  comparator.  If any keys are equal, they are handled as if by\n  repeated uses of assoc."},
+    sorted-set
+    {:arglists ([] [& keys]),
+     :doc
+     "Returns a new sorted set with supplied keys.  Any equal keys are\n   handled as if by repeated uses of conj."},
+    sorted-set-by
+    {:arglists ([comparator & keys]),
+     :doc
+     "Returns a new sorted set with supplied keys, using the supplied\n   comparator.  Any equal keys are handled as if by repeated uses of\n   conj."},
+    sorted?
+    {:arglists ([coll]),
+     :doc "Returns true if coll implements Sorted"},
+    special-symbol?
+    {:arglists ([s]), :doc "Returns true if s names a special form"},
+    spit
+    {:arglists ([f content & options]),
+     :doc
+     "Opposite of slurp.  Opens f with writer, writes content, then\n  closes f. Options passed to clojure.java.io/writer."},
+    split-at
+    {:arglists ([n coll]),
+     :doc "Returns a vector of [(take n coll) (drop n coll)]"},
+    split-with
+    {:arglists ([pred coll]),
+     :doc
+     "Returns a vector of [(take-while pred coll) (drop-while pred coll)]"},
+    splitv-at
+    {:arglists ([n coll]),
+     :doc
+     "Returns a vector of [(into [] (take n) coll) (drop n coll)]"},
+    spread {:arglists ([arglist])},
+    str
+    {:arglists ([] [x] [x & ys]),
+     :doc
+     "With no args, returns the empty string. With one arg x, returns\n       x.toString().  (str nil) returns the empty string. With more than\n       one arg, returns the concatenation of the str values of the args."},
+    stream-into!
+    {:arglists ([to stream] [to xform stream]),
+     :doc
+     "Returns a new coll consisting of coll with all of the items of the\n  stream conjoined. This is a terminal operation on the stream."},
+    stream-reduce!
+    {:arglists ([f s] [f init s]),
+     :doc
+     "Works like reduce but takes a java.util.stream.BaseStream as its source.\n  Honors 'reduced', is a terminal operation on the stream"},
+    stream-seq!
+    {:arglists ([stream]),
+     :doc
+     "Takes a java.util.stream.BaseStream instance s and returns a seq of its\n  contents. This is a terminal operation on the stream."},
+    stream-transduce!
+    {:arglists ([xform f stream] [xform f init stream]),
+     :doc
+     "Works like transduce but takes a java.util.stream.BaseStream as its source.\n  This is a terminal operation on the stream."},
+    string? {:arglists ([x]), :doc "Return true if x is a String"},
+    struct
+    {:arglists ([s & vals]),
+     :doc
+     "Returns a new structmap instance with the keys of the\n  structure-basis. vals must be supplied for basis keys in order -\n  where values are not supplied they will default to nil."},
+    struct-map
+    {:arglists ([s & inits]),
+     :doc
+     "Returns a new structmap instance with the keys of the\n  structure-basis. keyvals may contain all, some or none of the basis\n  keys - where values are not supplied they will default to nil.\n  keyvals can also contain keys not in the basis."},
+    subs
+    {:arglists ([s start] [s start end]),
+     :doc
+     "Returns the substring of s beginning at start inclusive, and ending\n   at end (defaults to length of string), exclusive."},
+    subseq
+    {:arglists
+     ([sc test key] [sc start-test start-key end-test end-key]),
+     :doc
+     "sc must be a sorted collection, test(s) one of <, <=, > or\n  >=. Returns a seq of those entries with keys ek for\n  which (test (.. sc comparator (compare ek key)) 0) is true"},
+    subvec
+    {:arglists ([v start] [v start end]),
+     :doc
+     "Returns a persistent vector of the items in vector from\n   start (inclusive) to end (exclusive).  If end is not supplied,\n   defaults to (count vector). This operation is O(1) and very fast, as\n   the resulting vector shares structure with the original and no\n   trimming is done."},
+    supers
+    {:arglists ([class]),
+     :doc
+     "Returns the immediate and indirect superclasses and interfaces of c, if any"},
+    swap!
+    {:arglists ([atom f] [atom f x] [atom f x y] [atom f x y & args]),
+     :doc
+     "Atomically swaps the value of atom to be:\n   (apply f current-value-of-atom args). Note that f may be called\n   multiple times, and thus should be free of side effects. Returns\n   the value that was swapped in."},
+    swap-vals!
+    {:arglists ([atom f] [atom f x] [atom f x y] [atom f x y & args]),
+     :doc
+     "Atomically swaps the value of atom to be:\n   (apply f current-value-of-atom args). Note that f may be called\n   multiple times, and thus should be free of side effects.\n   Returns [old new], the value of the atom before and after the swap."},
+    symbol
+    {:arglists ([name] [ns name]),
+     :doc
+     "Returns a Symbol with the given namespace and name. Arity-1 works\n   on strings, keywords, and vars."},
+    symbol? {:arglists ([x]), :doc "Return true if x is a Symbol"},
+    sync
+    {:arglists ([flags-ignored-for-now & body]),
+     :doc
+     "transaction-flags => TBD, pass nil for now\n\n  Runs the exprs (in an implicit do) in a transaction that encompasses\n  exprs and any nested calls.  Starts a transaction if none is already\n  running on this thread. Any uncaught exception will abort the\n  transaction and flow out of sync. The exprs may be run more than\n  once, but any effects on Refs will be atomic.",
+     :macro true},
+    system-newline {},
+    tagged-literal
+    {:arglists ([tag form]),
+     :doc
+     "Construct a data representation of a tagged literal from a\n  tag symbol and a form."},
+    tagged-literal?
+    {:arglists ([value]),
+     :doc
+     "Return true if the value is the data representation of a tagged literal"},
+    take
+    {:arglists ([n] [n coll]),
+     :doc
+     "Returns a lazy sequence of the first n items in coll, or all items if\n   there are fewer than n. Returns a stateful transducer when\n   no collection is provided."},
+    take-last
+    {:arglists ([n coll]),
+     :doc
+     "Returns a seq of the last n items in coll.  Depending on the type\n   of coll may be no better than linear time.  For vectors, see also subvec."},
+    take-nth
+    {:arglists ([n] [n coll]),
+     :doc
+     "Returns a lazy seq of every nth item in coll.  Returns a stateful\n   transducer when no collection is provided."},
+    take-while
+    {:arglists ([pred] [pred coll]),
+     :doc
+     "Returns a lazy sequence of successive items from coll while\n   (pred item) returns logical true. pred must be free of side-effects.\n   Returns a transducer when no collection is provided"},
+    tap-loop {},
+    tap>
+    {:arglists ([x]),
+     :doc
+     "sends x to any taps. Will not block. Returns true if there was room in the queue,\n  false if not (dropped)."},
+    tapq {},
+    tapset {},
+    test
+    {:arglists ([v]),
+     :doc
+     "test [v] finds fn at key :test in var metadata and calls it,\n  presuming failure will throw exception"},
+    the-ns
+    {:arglists ([ns-or-sym]),
+     :doc
+     "If passed a namespace, returns it. Else, when passed a symbol,\n   returns the namespace named by it, throwing an exception if not\n   found."},
+    thread-bound?
+    {:arglists ([& vars]),
+     :doc
+     "Returns true if all of the vars provided as arguments have thread-local bindings.\n   Implies that set!'ing the provided vars will succeed.  Returns true if no vars are provided."},
+    throw-if {:arglists ([pred msg])},
+    time
+    {:arglists ([expr]),
+     :doc
+     "Evaluates expr and prints the time it took. Returns the value of expr.",
+     :macro true},
+    to-array
+    {:arglists ([coll]),
+     :doc
+     "Returns an array of Objects containing the contents of coll, which\n  can be any Collection.  Maps to java.util.Collection.toArray()."},
+    to-array-2d
+    {:arglists ([coll]),
+     :doc
+     "Returns a (potentially-ragged) 2-dimensional array of Objects\n  containing the contents of coll, which can be any Collection of any\n  Collection."},
+    trampoline
+    {:arglists ([f] [f & args]),
+     :doc
+     "trampoline can be used to convert algorithms requiring mutual\n  recursion without stack consumption. Calls f with supplied args, if\n  any. If f returns a fn, calls that fn with no arguments, and\n  continues to repeat, until the return value is not a fn, then\n  returns that non-fn value. Note that if you want to return a fn as a\n  final value, you must wrap it in some data structure and unpack it\n  after trampoline returns."},
+    transduce
+    {:arglists ([xform rf coll] [xform rf init coll]),
+     :doc
+     "reduce with a transformation of rf (xf). If init is not\n   supplied, (rf) will be called to produce it. f should be a reducing\n   step function that accepts both 1 and 2 arguments, if it accepts\n   only 2 you can add the arity-1 with 'completing'. Returns the result\n   of applying (the transformed) xf to init and the first item in coll,\n   then applying xf to that result and the 2nd item, etc. If coll\n   contains no items, returns init and rf is not called. Note that\n   certain transforms may inject or skip items."},
+    transient
+    {:arglists ([coll]),
+     :doc
+     "Returns a new, transient version of the collection, in constant time."},
+    transientable?
+    {:arglists ([coll]),
+     :doc "Returns a whether the collection can be made transient."},
+    tree-seq
+    {:arglists ([branch? children root]),
+     :doc
+     "Returns a lazy sequence of the nodes in a tree, via a depth-first walk.\n   branch? must be a fn of one arg that returns true if passed a node\n   that can have children (but may not).  children must be a fn of one\n   arg that returns a sequence of the children. Will only be called on\n   nodes for which branch? returns true. Root is the root node of the\n   tree."},
+    true?
+    {:arglists ([x]),
+     :doc "Returns true if x is the value true, false otherwise."},
+    type {:arglists ([o])},
+    unchecked-add
+    {:arglists ([x y]),
+     :doc
+     "Returns the sum of x and y, both long.\n  Note - uses a primitive operator subject to overflow."},
+    unchecked-add-int
+    {:arglists ([x y]),
+     :doc
+     "Returns the sum of x and y, both int.\n  Note - uses a primitive operator subject to overflow."},
+    unchecked-byte
+    {:arglists ([x]),
+     :doc "Coerce to byte. Subject to rounding or truncation."},
+    unchecked-char
+    {:arglists ([x]),
+     :doc "Coerce to char. Subject to rounding or truncation."},
+    unchecked-dec
+    {:arglists ([x]),
+     :doc
+     "Returns a number one less than x, a long.\n  Note - uses a primitive operator subject to overflow."},
+    unchecked-dec-int
+    {:arglists ([x]),
+     :doc
+     "Returns a number one less than x, an int.\n  Note - uses a primitive operator subject to overflow."},
+    unchecked-divide-int
+    {:arglists ([x y]),
+     :doc
+     "Returns the division of x by y, both int.\n  Note - uses a primitive operator subject to truncation."},
+    unchecked-double
+    {:arglists ([x]), :doc "Coerce to double. Subject to rounding."},
+    unchecked-float
+    {:arglists ([x]), :doc "Coerce to float. Subject to rounding."},
+    unchecked-inc
+    {:arglists ([x]),
+     :doc
+     "Returns a number one greater than x, a long.\n  Note - uses a primitive operator subject to overflow."},
+    unchecked-inc-int
+    {:arglists ([x]),
+     :doc
+     "Returns a number one greater than x, an int.\n  Note - uses a primitive operator subject to overflow."},
+    unchecked-int
+    {:arglists ([x]),
+     :doc "Coerce to int. Subject to rounding or truncation."},
+    unchecked-long
+    {:arglists ([x]),
+     :doc "Coerce to long. Subject to rounding or truncation."},
+    unchecked-multiply
+    {:arglists ([x y]),
+     :doc
+     "Returns the product of x and y, both long.\n  Note - uses a primitive operator subject to overflow."},
+    unchecked-multiply-int
+    {:arglists ([x y]),
+     :doc
+     "Returns the product of x and y, both int.\n  Note - uses a primitive operator subject to overflow."},
+    unchecked-negate
+    {:arglists ([x]),
+     :doc
+     "Returns the negation of x, a long.\n  Note - uses a primitive operator subject to overflow."},
+    unchecked-negate-int
+    {:arglists ([x]),
+     :doc
+     "Returns the negation of x, an int.\n  Note - uses a primitive operator subject to overflow."},
+    unchecked-remainder-int
+    {:arglists ([x y]),
+     :doc
+     "Returns the remainder of division of x by y, both int.\n  Note - uses a primitive operator subject to truncation."},
+    unchecked-short
+    {:arglists ([x]),
+     :doc "Coerce to short. Subject to rounding or truncation."},
+    unchecked-subtract
+    {:arglists ([x y]),
+     :doc
+     "Returns the difference of x and y, both long.\n  Note - uses a primitive operator subject to overflow."},
+    unchecked-subtract-int
+    {:arglists ([x y]),
+     :doc
+     "Returns the difference of x and y, both int.\n  Note - uses a primitive operator subject to overflow."},
+    underive
+    {:arglists ([tag parent] [h tag parent]),
+     :doc
+     "Removes a parent/child relationship between parent and\n   tag. h must be a hierarchy obtained from make-hierarchy, if not\n   supplied defaults to, and modifies, the global hierarchy."},
+    unquote {:arglists ([_])},
+    unquote-splicing {:arglists ([_])},
+    unreduced
+    {:arglists ([x]),
+     :doc "If x is reduced?, returns (deref x), else returns x"},
+    unsigned-bit-shift-right
+    {:arglists ([x n]),
+     :doc "Bitwise shift right, without sign-extension."},
+    update
+    {:arglists
+     ([m k f]
+      [m k f x]
+      [m k f x y]
+      [m k f x y z]
+      [m k f x y z & more]),
+     :doc
+     "'Updates' a value in an associative structure, where k is a\n   key and f is a function that will take the old value\n   and any supplied args and return the new value, and returns a new\n   structure.  If the key does not exist, nil is passed as the old value."},
+    update-in
+    {:arglists ([m ks f & args]),
+     :doc
+     "'Updates' a value in a nested associative structure, where ks is a\n   sequence of keys and f is a function that will take the old value\n   and any supplied args and return the new value, and returns a new\n   nested structure.  If any levels do not exist, hash-maps will be\n   created."},
+    update-keys
+    {:arglists ([m f]),
+     :doc
+     "m f => {(f k) v ...}\n\n  Given a map m and a function f of 1-argument, returns a new map whose\n  keys are the result of applying f to the keys of m, mapped to the\n  corresponding values of m.\n  f must return a unique key for each key of m, else the behavior is undefined."},
+    update-vals
+    {:arglists ([m f]),
+     :doc
+     "m f => {k (f v) ...}\n\n  Given a map m and a function f of 1-argument, returns a new map where the keys of m\n  are mapped to result of applying f to the corresponding values of m."},
+    use
+    {:arglists ([& args]),
+     :doc
+     "Like 'require, but also refers to each lib's namespace using\n   clojure.core/refer. Use :use in the ns macro in preference to calling\n   this directly.\n\n   'use accepts additional options in libspecs: :exclude, :only, :rename.\n   The arguments and semantics for :exclude, :only, and :rename are the same\n   as those documented for clojure.core/refer."},
+    uuid?
+    {:arglists ([x]), :doc "Return true if x is a java.util.UUID"},
+    val {:arglists ([e]), :doc "Returns the value in the map entry."},
+    vals
+    {:arglists ([m]),
+     :doc
+     "Returns a sequence of the map's values, in the same order as (seq map)."},
+    var-get
+    {:arglists ([x]), :doc "Gets the value in the var object."},
+    var-set
+    {:arglists ([x val]),
+     :doc
+     "Sets the value in the var object to val. The var must be\n thread-locally bound."},
+    var? {:arglists ([x]), :doc "Returns true if v is a var."},
+    vary-meta
+    {:arglists ([o f & args]),
+     :doc
+     "Returns an object of the same type and value as obj, with\n   (apply f (meta obj) args) as its metadata."},
+    vec
+    {:arglists ([coll]),
+     :doc
+     "Creates a new vector containing the contents of coll. Java arrays\n   will be aliased and should not be modified."},
+    vector
+    {:arglists
+     ([]
+      [a]
+      [a b]
+      [a b c]
+      [a b c d]
+      [a b c d e]
+      [a b c d e f]
+      [a b c d e f & args]),
+     :doc "Creates a new vector containing the args."},
+    vector?
+    {:arglists ([x]),
+     :doc "Return true if x implements IPersistentVector"},
+    volatile!
+    {:arglists ([val]),
+     :doc
+     "Creates and returns a volatile with an initial value of val."},
+    volatile?
+    {:arglists ([x]), :doc "Returns true if x is a volatile."},
+    vreset!
+    {:arglists ([vol newval]),
+     :doc
+     "Sets the value of volatile to newval without regard for the\n   current value. Returns newval."},
+    vswap!
+    {:arglists ([vol f] [vol f & args]),
+     :doc
+     "Non-atomically swaps the value of the volatile as if:\n   (apply f current-value-of-vol args). Returns the value that\n   was swapped in."},
+    when
+    {:arglists ([condition & body]),
+     :doc
+     "Evaluates test. If logical true, evaluates body in an implicit do.",
+     :macro true},
+    when-class {:arglists ([class-name & body]), :macro true},
+    when-first
+    {:arglists ([bindings & body]),
+     :doc
+     "bindings => x xs\n\n   Roughly the same as (when (seq xs) (let [x (first xs)] body)) but xs is evaluated only once",
+     :macro true},
+    when-let
+    {:arglists ([bindings & body]),
+     :doc
+     "bindings => binding-form test\n\n   When test is true, evaluates body with binding-form bound to the value of test",
+     :macro true},
+    when-not
+    {:arglists ([condition & body]),
+     :doc
+     "Evaluates test. If logical false, evaluates body in an implicit do.",
+     :macro true},
+    when-some
+    {:arglists ([bindings & body]),
+     :doc
+     "bindings => binding-form test\n\n   When test is not nil, evaluates body with binding-form bound to the\n   value of test",
+     :macro true},
+    while
+    {:arglists ([test & body]),
+     :doc
+     "Repeatedly executes body while test expression is true. Presumes\n  some side-effect will cause test to become false/nil. Returns nil",
+     :macro true},
+    with-bindings
+    {:arglists ([binding-map & body]),
+     :doc
+     "Takes a map of Var/value pairs. Installs for the given Vars the associated\n  values as thread-local bindings. Then executes body. Pops the installed\n  bindings after body was evaluated. Returns the value of body.",
+     :macro true},
+    with-bindings*
+    {:arglists ([binding-map f & args]),
+     :doc
+     "Takes a map of Var/value pairs. Installs for the given Vars the associated\n  values as thread-local bindings. Then calls f with the supplied arguments.\n  Pops the installed bindings after f returned. Returns whatever f returns."},
+    with-in-str
+    {:arglists ([s & body]),
+     :doc
+     "Evaluates body in a context in which *in* is bound to a fresh\n  StringReader initialized with the string s.",
+     :macro true},
+    with-loading-context {:arglists ([& body]), :macro true},
+    with-local-vars
+    {:arglists ([name-vals-vec & body]),
+     :doc
+     "varbinding=> symbol init-expr\n\n  Executes the exprs in a context in which the symbols are bound to\n  vars with per-thread bindings to the init-exprs.  The symbols refer\n  to the var objects themselves, and must be accessed with var-get and\n  var-set",
+     :macro true},
+    with-meta
+    {:arglists ([obj m]),
+     :doc
+     "Returns an object of the same type and value as obj, with\n   map m as its metadata."},
+    with-open
+    {:arglists ([bindings & body]),
+     :doc
+     "bindings => [name init ...]\n\n  Evaluates body in a try expression with names bound to the values\n  of the inits, and a finally clause that calls (.close name) on each\n  name in reverse order.",
+     :macro true},
+    with-out-str
+    {:arglists ([& body]),
+     :doc
+     "Evaluates exprs in a context in which *out* is bound to a fresh\n  StringWriter.  Returns the string created by any nested printing\n  calls.",
+     :macro true},
+    with-precision
+    {:arglists ([precision & exprs]),
+     :doc
+     "Sets the precision and rounding mode to be used for BigDecimal operations.\n\n  Usage: (with-precision 10 (/ 1M 3))\n  or:    (with-precision 10 :rounding HALF_DOWN (/ 1M 3))\n\n  The rounding mode is one of CEILING, FLOOR, HALF_UP, HALF_DOWN,\n  HALF_EVEN, UP, DOWN and UNNECESSARY; it defaults to HALF_UP.",
+     :macro true},
+    with-redefs
+    {:arglists ([bindings & body]),
+     :doc
+     "binding => var-symbol temp-value-expr\n\n   Temporarily redefines Vars while executing the body.  The\n   temp-value-exprs will be evaluated and each resulting value will\n   replace in parallel the root value of its Var.  After the body is\n   executed, the root values of all the Vars will be set back to their\n   old values.  These temporary changes will be visible in all threads.\n   Useful for mocking out functions during testing.",
+     :macro true},
+    with-redefs-fn
+    {:arglists ([binding-map fun]),
+     :doc
+     "Temporarily redefines Vars during a call to func. Each val of\n   binding-map will replace the root value of its key which must be\n   a Var. After func is called with no args, the root values of all\n   the Vars will be set back to their old values. These temporary\n   changes will be visible in all threads. Useful for mocking out\n   functions during testing."},
+    xml-seq
+    {:arglists ([root]),
+     :doc "A tree seq on the xml elements as per xml/parse"},
+    zero?
+    {:arglists ([num]),
+     :doc "Returns true if num is zero, else false"},
+    zipmap
+    {:arglists ([keys vals]),
+     :doc
+     "Returns a map with the keys mapped to the corresponding vals."}}},
+  clojure.set
+  {:vars
+   {bubble-max-key
+    {:arglists ([k coll]),
+     :doc
+     "Move a maximal element of coll according to fn k (which returns a\n  number) to the front of coll."},
+    difference
+    {:arglists ([s1] [s1 s2] [s1 s2 & sets]),
+     :doc
+     "Return a set that is the first set without elements of the remaining sets"},
+    index
+    {:arglists ([xrel ks]),
+     :doc
+     "Returns a map of the distinct values of ks in the xrel mapped to a\n  set of the maps in xrel with the corresponding values of ks."},
+    intersection
+    {:arglists ([s1] [s1 s2] [s1 s2 & sets]),
+     :doc "Return a set that is the intersection of the input sets"},
+    join
+    {:arglists ([xrel yrel] [xrel yrel km]),
+     :doc
+     "When passed 2 rels, returns the rel corresponding to the natural\n  join. When passed an additional keymap, joins on the corresponding\n  keys."},
+    map-invert
+    {:arglists ([m]),
+     :doc "Returns the map with the vals mapped to the keys."},
+    project
+    {:arglists ([xrel ks]),
+     :doc
+     "Returns a rel of the elements of xrel with only the keys in ks"},
+    rename
+    {:arglists ([xrel kmap]),
+     :doc
+     "Returns a rel of the maps in xrel with the keys in kmap renamed to the vals in kmap"},
+    rename-keys
+    {:arglists ([map kmap]),
+     :doc
+     "Returns the map with the keys in kmap renamed to the vals in kmap"},
+    select
+    {:arglists ([pred xset]),
+     :doc "Returns a set of the elements for which pred is true"},
+    subset?
+    {:arglists ([set1 set2]), :doc "Is set1 a subset of set2?"},
+    superset?
+    {:arglists ([set1 set2]), :doc "Is set1 a superset of set2?"},
+    union
+    {:arglists ([] [s1] [s1 s2] [s1 s2 & sets]),
+     :doc "Return a set that is the union of the input sets"}}},
+  clojure.string
+  {:vars
+   {blank?
+    {:arglists ([s]),
+     :doc "True if s is nil, empty, or contains only whitespace."},
+    capitalize
+    {:arglists ([s]),
+     :doc
+     "Converts first character of the string to upper-case, all other\n  characters to lower-case."},
+    ends-with?
+    {:arglists ([s substr]), :doc "True if s ends with substr."},
+    escape
+    {:arglists ([s cmap]),
+     :doc
+     "Return a new string, using cmap to escape each character ch\n  from s as follows:\n\n  If (cmap ch) is nil, append ch to the new string.\n  If (cmap ch) is non-nil, append (str (cmap ch)) instead."},
+    includes?
+    {:arglists ([s substr]), :doc "True if s includes substr."},
+    index-of
+    {:arglists ([s value] [s value from-index]),
+     :doc
+     "Return index of value (string or char) in s, optionally searching\n  forward from from-index. Return nil if value not found."},
+    join
+    {:arglists ([coll] [separator coll]),
+     :doc
+     "Returns a string of all elements in coll, as returned by (seq coll),\n  separated by an optional separator."},
+    last-index-of
+    {:arglists ([s value] [s value from-index]),
+     :doc
+     "Return last index of value (string or char) in s, optionally\n  searching backward from from-index. Return nil if value not found."},
+    lower-case
+    {:arglists ([s]), :doc "Converts string to all lower-case."},
+    re-quote-replacement
+    {:arglists ([replacement]),
+     :doc
+     "Given a replacement string that you wish to be a literal\n  replacement for a pattern match in replace or replace-first, do the\n  necessary escaping of special characters in the replacement."},
+    replace
+    {:arglists ([s match replacement]),
+     :doc
+     "Replaces all instance of match with replacement in s.\n\n  match/replacement can be:\n\n  string / string\n  char / char\n  pattern / (string or function of match).\n\n  See also replace-first.\n\n  The replacement is literal (i.e. none of its characters are treated\n                                   specially) for all cases above except pattern / string.\n\n  For pattern / string, $1, $2, etc. in the replacement string are\n  substituted with the string that matched the corresponding\n  parenthesized group in the pattern.  If you wish your replacement\n  string r to be used literally, use (re-quote-replacement r) as the\n  replacement argument.  See also documentation for\n  java.util.regex.Matcher's appendReplacement method.\n\n  Example:\n  (clojure.string/replace \"Almost Pig Latin\" #\"\\b(\\w)(\\w+)\\b\" \"$2$1ay\")\n  -> \"lmostAay igPay atinLay\""},
+    replace-first
+    {:arglists ([s match replacement]),
+     :doc
+     "Replaces the first instance of match with replacement in s.\n\n  match/replacement can be:\n\n  char / char\n  string / string\n  pattern / (string or function of match).\n\n  See also replace.\n\n  The replacement is literal (i.e. none of its characters are treated\n                                   specially) for all cases above except pattern / string.\n\n  For pattern / string, $1, $2, etc. in the replacement string are\n  substituted with the string that matched the corresponding\n  parenthesized group in the pattern.  If you wish your replacement\n  string r to be used literally, use (re-quote-replacement r) as the\n  replacement argument.  See also documentation for\n  java.util.regex.Matcher's appendReplacement method.\n\n  Example:\n  (clojure.string/replace-first \"swap first two words\"\n                                #\"(\\w+)(\\s+)(\\w+)\" \"$3$2$1\")\n  -> \"first swap two words\""},
+    reverse
+    {:arglists ([s]), :doc "returns s with its characters reversed."},
+    split
+    {:arglists ([s re] [s re limit]),
+     :doc
+     "Splits string on a regular expression.  Optional argument limit is\n  the maximum number of parts. Not lazy. Returns vector of the parts.\n  Trailing empty strings are not returned - pass limit of -1 to return all."},
+    split-lines
+    {:arglists ([s]),
+     :doc
+     "Splits s on \\n or \\r\\n. Trailing empty lines are not returned."},
+    starts-with?
+    {:arglists ([s substr]), :doc "True if s starts with substr."},
+    trim
+    {:arglists ([s]),
+     :doc "Removes whitespace from both ends of string."},
+    trim-newline
+    {:arglists ([s]),
+     :doc
+     "Removes all trailing newline \\n or return \\r characters from\n  string.  Similar to Perl's chomp."},
+    triml
+    {:arglists ([s]),
+     :doc "Removes whitespace from the left side of string."},
+    trimr
+    {:arglists ([s]),
+     :doc "Removes whitespace from the right side of string."},
+    upper-case
+    {:arglists ([s]), :doc "Converts string to all upper-case."}}},
+  clojure.template
+  {:vars
+   {apply-template
+    {:arglists ([argv expr values]),
+     :doc
+     "For use in macros.  argv is an argument list, as in defn.  expr is\n  a quoted expression using the symbols in argv.  values is a sequence\n  of values to be used for the arguments.\n\n  apply-template will recursively replace argument symbols in expr\n  with their corresponding values, returning a modified expr.\n\n  Example: (apply-template '[x] '(+ x x) '[2])\n           ;=> (+ 2 2)"},
+    do-template
+    {:arglists ([argv expr & values]),
+     :doc
+     "Repeatedly copies expr (in a do block) for each group of arguments\n  in values.  values are automatically partitioned by the number of\n  arguments in argv, an argument vector as in defn.\n\n  Example: (macroexpand '(do-template [x y] (+ y x) 2 4 3 5))\n           ;=> (do (+ 4 2) (+ 5 3))",
+     :macro true}}},
+  clojure.test
+  {:vars
+   {*initial-report-counters* {:dynamic true},
+    *load-tests*
+    {:doc
+     "True by default.  If set to false, no test functions will\n   be created by deftest, set-test, or with-test.  Use this to omit\n   tests when compiling or loading production code.",
+     :dynamic true},
+    *report-counters* {:dynamic true},
+    *stack-trace-depth*
+    {:doc
+     "The maximum depth of stack traces to print when an Exception\n  is thrown during a test.  Defaults to nil, which means print the \n  complete stack trace.",
+     :dynamic true},
+    *test-out* {:dynamic true},
+    *testing-contexts* {:dynamic true},
+    *testing-vars* {:dynamic true},
+    -workaround-get-test {:arglists ([v])},
+    -workaround-set-test {:arglists ([v f])},
+    -workaround-test-mappings {},
+    -workaround-var->ns {:arglists ([v])},
+    add-ns-meta
+    {:arglists ([key coll]),
+     :doc
+     "Adds elements in coll to the current namespace metadata as the\n  value of key."},
+    are
+    {:arglists ([argv expr & args]),
+     :doc
+     "Checks multiple assertions with a template expression.\n  See clojure.template/do-template for an explanation of\n  templates.\n\n  Example: (are [x y] (= x y)  \n                2 (+ 1 1)\n                4 (* 2 2))\n  Expands to: \n           (do (is (= 2 (+ 1 1)))\n               (is (= 4 (* 2 2))))\n\n  Note: This breaks some reporting features, such as line numbers.",
+     :macro true},
+    assert-any
+    {:arglists ([msg form]),
+     :doc
+     "Returns generic assertion code for any test, including macros, Java\n  method calls, or isolated symbols."},
+    assert-expr {},
+    assert-predicate
+    {:arglists ([msg form]),
+     :doc
+     "Returns generic assertion code for any functional predicate.  The\n  'expected' argument to 'report' will contains the original form, the\n  'actual' argument will contain the form with all its sub-forms\n  evaluated.  If the predicate returns false, the 'actual' form will\n  be wrapped in (not...)."},
+    compose-fixtures
+    {:arglists ([f1 f2]),
+     :doc
+     "Composes two fixture functions, creating a new fixture function\n  that combines their behavior."},
+    default-fixture
+    {:arglists ([f]),
+     :doc
+     "The default, empty, fixture function.  Just calls its argument."},
+    deftest
+    {:arglists ([name & body]),
+     :doc
+     "Defines a test function with no arguments.  Test functions may call\n  other tests, so tests may be composed.  If you compose tests, you\n  should also define a function named test-ns-hook; run-tests will\n  call test-ns-hook instead of testing all vars.\n\n  Note: Actually, the test body goes in the :test metadata on the var,\n  and the real function (the value of the var) calls test-var on\n  itself.\n\n  When *load-tests* is false, deftest is ignored.",
+     :macro true},
+    deftest-
+    {:arglists ([name & body]),
+     :doc "Like deftest but creates a private var.",
+     :macro true},
+    do-report
+    {:arglists ([m]),
+     :doc
+     "Add file and line information to a test result and call report.\n   If you are writing a custom assert-expr method, call this function\n   to pass test results to report."},
+    function?
+    {:arglists ([x]),
+     :doc
+     "Returns true if argument is a function or a symbol that resolves to\n  a function (not a macro)."},
+    get-possibly-unbound-var
+    {:arglists ([v]),
+     :doc "Like var-get but returns nil if the var is unbound."},
+    inc-report-counter
+    {:arglists ([name]),
+     :doc
+     "Increments the named counter in *report-counters*, a ref to a map.\n  Does nothing if *report-counters* is nil."},
+    is
+    {:arglists ([form] [form msg]),
+     :doc
+     "Generic assertion macro.  'form' is any predicate test.\n  'msg' is an optional message to attach to the assertion.\n  \n  Example: (is (= 4 (+ 2 2)) \"Two plus two should be 4\")\n\n  Special forms:\n\n  (is (thrown? c body)) checks that an instance of c is thrown from\n  body, fails if not; then returns the thing thrown.\n\n  (is (thrown-with-msg? c re body)) checks that an instance of c is\n  thrown AND that the message on the exception matches (with\n  re-find) the regular expression re.",
+     :macro true},
+    join-fixtures
+    {:arglists ([fixtures]),
+     :doc
+     "Composes a collection of fixtures, in order.  Always returns a valid\n  fixture function, even if the collection is empty."},
+    report
+    {:doc
+     "Generic reporting function, may be overridden to plug in\n   different report formats (e.g., TAP, JUnit).  Assertions such as\n   'is' call 'report' to indicate results.  The argument given to\n   'report' will be a map with a :type key.  See the documentation at\n   the top of test_is.clj for more information on the types of\n   arguments for 'report'.",
+     :dynamic true},
+    run-all-tests
+    {:arglists ([] [re]),
+     :doc
+     "Runs all tests in all namespaces; prints results.\n  Optional argument is a regular expression; only namespaces with\n  names matching the regular expression (with re-matches) will be\n  tested."},
+    run-test
+    {:arglists ([test-symbol]),
+     :doc
+     "Runs a single test.\n\n  Because the intent is to run a single test, there is no check for the namespace test-ns-hook.",
+     :macro true},
+    run-test-var
+    {:arglists ([v]),
+     :doc
+     "Runs the tests for a single Var, with fixtures executed around the test, and summary output after."},
+    run-tests
+    {:arglists ([] [& namespaces]),
+     :doc
+     "Runs all tests in the given namespaces; prints results.\n  Defaults to current namespace if none given.  Returns a map\n  summarizing test results."},
+    set-test
+    {:arglists ([name & body]),
+     :doc
+     "Experimental.\n  Sets :test metadata of the named var to a fn with the given body.\n  The var must already exist.  Does not modify the value of the var.\n\n  When *load-tests* is false, set-test is ignored.",
+     :macro true},
+    successful?
+    {:arglists ([summary]),
+     :doc
+     "Returns true if the given test summary indicates all tests\n  were successful, false otherwise."},
+    test-all-vars
+    {:arglists ([ns]),
+     :doc
+     "Calls test-vars on every var interned in the namespace, with fixtures."},
+    test-ns
+    {:arglists ([ns]),
+     :doc
+     "If the namespace defines a function named test-ns-hook, calls that.\n  Otherwise, calls test-all-vars on the namespace.  'ns' is a\n  namespace object or a symbol.\n\n  Internally binds *report-counters* to a ref initialized to\n  *initial-report-counters*.  Returns the final, dereferenced state of\n  *report-counters*."},
+    test-var
+    {:arglists ([v]),
+     :doc
+     "If v has a function in its :test metadata, calls that function,\n  with *testing-vars* bound to (conj *testing-vars* v).",
+     :dynamic true},
+    test-vars
+    {:arglists ([vars]),
+     :doc
+     "Groups vars by their namespace and runs test-var on them with\n  appropriate fixtures applied."},
+    testing
+    {:arglists ([string & body]),
+     :doc
+     "Adds a new string to the list of testing contexts.  May be nested,\n  but must occur inside a test function (deftest).",
+     :macro true},
+    testing-contexts-str
+    {:arglists ([]),
+     :doc
+     "Returns a string representation of the current test context. Joins\n  strings in *testing-contexts* with spaces."},
+    testing-vars-str
+    {:arglists ([m]),
+     :doc
+     "Returns a string representation of the current test.  Renders names\n  in *testing-vars* as a list, then the source file and line of\n  current assertion."},
+    try-expr
+    {:arglists ([msg form]),
+     :doc
+     "Used by the 'is' macro to catch unexpected exceptions.\n  You don't call this.",
+     :macro true},
+    use-fixtures
+    {:doc
+     "Wrap test runs in a fixture function to perform setup and\n  teardown. Using a fixture-type of :each wraps every test\n  individually, while :once wraps the whole run in a single function."},
+    with-test
+    {:arglists ([definition & body]),
+     :doc
+     "Takes any definition form (that returns a Var) as the first argument.\n  Remaining body goes in the :test metadata function for that Var.\n\n  When *load-tests* is false, only evaluates the definition, ignoring\n  the tests.",
+     :macro true},
+    with-test-out
+    {:arglists ([& body]),
+     :doc "Runs body with *out* bound to the value of *test-out*.",
+     :macro true}}},
+  clojure.walk
+  {:vars
+   {keywordize-keys
+    {:arglists ([m]),
+     :doc
+     "Recursively transforms all map keys from strings to keywords."},
+    macroexpand-all
+    {:arglists ([form]),
+     :doc
+     "Recursively performs all possible macroexpansions in form."},
+    postwalk
+    {:arglists ([f form]),
+     :doc
+     "Performs a depth-first, post-order traversal of form.  Calls f on\n  each sub-form, uses f's return value in place of the original.\n  Recognizes all Clojure data structures. Consumes seqs as with doall."},
+    postwalk-demo
+    {:arglists ([form]),
+     :doc
+     "Demonstrates the behavior of postwalk by printing each form as it is\n  walked.  Returns form."},
+    postwalk-replace
+    {:arglists ([smap form]),
+     :doc
+     "Recursively transforms form by replacing keys in smap with their\n  values.  Like clojure/replace but works on any data structure.  Does\n  replacement at the leaves of the tree first."},
+    prewalk
+    {:arglists ([f form]),
+     :doc "Like postwalk, but does pre-order traversal."},
+    prewalk-demo
+    {:arglists ([form]),
+     :doc
+     "Demonstrates the behavior of prewalk by printing each form as it is\n  walked.  Returns form."},
+    prewalk-replace
+    {:arglists ([smap form]),
+     :doc
+     "Recursively transforms form by replacing keys in smap with their\n  values.  Like clojure/replace but works on any data structure.  Does\n  replacement at the root of the tree first."},
+    stringify-keys
+    {:arglists ([m]),
+     :doc
+     "Recursively transforms all map keys from keywords to strings."},
+    walk
+    {:arglists ([inner outer form]),
+     :doc
+     "Traverses form, an arbitrary data structure.  inner and outer are\n  functions.  Applies inner to each element of form, building up a\n  data structure of the same type, then applies outer to the result.\n  Recognizes all Clojure data structures. Consumes seqs as with doall."}}}},
+ :special-forms #{},
+ :spec-keys #{},
+ :captured-at "2026-05-22T12:33:49Z"}

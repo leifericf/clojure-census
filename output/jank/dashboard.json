@@ -1,0 +1,2950 @@
+{
+  "meta": {
+    "dialect-tag": "jank",
+    "dialect-name": "jank",
+    "canon-version": "1.12.4",
+    "compared-at": "2026-05-22T12:34:08Z"
+  },
+  "divergences": [
+    {
+      "id": "stdlib-incomplete-alpha",
+      "title": "Many canon stdlib namespaces are not yet implemented",
+      "category-id": "namespaces",
+      "rationale": "jank-0.1-alpha ships clojure.core, .string, .set,\n                    .walk, .test, .template. The other 10 namespaces\n                    in canon's target list (clojure.edn, .zip, .pprint,\n                    .math, .data, .datafy, .instant, .core.protocols,\n                    .core.reducers, .spec.alpha) are tracked for\n                    later releases.",
+      "since": "jank-0.1",
+      "doc-link": "https:\/\/book.jank-lang.org\/"
+    },
+    {
+      "id": "compile-time-require",
+      "title": "require resolves at compile time, not runtime",
+      "category-id": "namespaces",
+      "rationale": "An unknown module aborts the script before any\n                    try\/catch can intercept. Portable code that\n                    probes for optional namespaces via try-require\n                    must instead use a known-good list per dialect.",
+      "since": "jank-0.1",
+      "affected": [
+        "clojure.core\/require"
+      ]
+    },
+    {
+      "id": "cpp-interop-instead-of-jvm",
+      "title": "Host interop is C++ via cpp\/, not Java",
+      "category-id": "jvm-statics",
+      "rationale": "jank's host is LLVM\/C++. Methods, types, and\n                    static functions are referenced via cpp\/ (e.g.\n                    cpp\/std.getenv, cpp\/std.chrono.milliseconds).\n                    JVM-shaped interop (System\/getenv, Math\/PI) does\n                    not resolve.",
+      "since": "jank-0.1",
+      "doc-link": "https:\/\/book.jank-lang.org\/cpp-interop\/"
+    },
+    {
+      "id": "catch-uses-cpp-types",
+      "title": "catch targets C++ types, not JVM classes",
+      "category-id": "error-messages",
+      "rationale": "(catch cpp\/jank.runtime.object_ref e ...) for\n                    runtime objects; (catch cpp\/std.exception e ...)\n                    for native exceptions. Portable code uses :jank\n                    reader conditionals around catch targets.",
+      "since": "jank-0.1"
+    },
+    {
+      "id": "reader-conditional-jank",
+      "title": "Reader conditional :clj does not fire under jank",
+      "category-id": "reader",
+      "rationale": "Portable code uses :jank (or :default) to target\n                    jank. Code under :clj is invisible to jank's reader.",
+      "since": "jank-0.1",
+      "doc-link": "https:\/\/book.jank-lang.org\/differences-from-clojure.html"
+    },
+    {
+      "id": "no-print-control-vars",
+      "title": "*print-namespace-maps* \/ *print-length* \/ *print-level* not exposed",
+      "category-id": "printer",
+      "rationale": "jank-0.1-alpha does not yet provide the dynvars that\n                    control pretty-printing. Code that (binding [*print-length* 10] ...)\n                    fails at compile time with unresolved-var. Pending\n                    stdlib expansion.",
+      "since": "jank-0.1",
+      "affected": [
+        "clojure.core\/*print-namespace-maps*",
+        "clojure.core\/*print-length*",
+        "clojure.core\/*print-level*"
+      ]
+    },
+    {
+      "id": "aot-only-compilation-model",
+      "title": "AOT-compiled; semantics may differ at compile vs runtime",
+      "category-id": "macros",
+      "rationale": "jank compiles ahead of time to LLVM IR. Macroexpansion\n                    and analysis happen during compilation; eval at runtime\n                    via the JIT is supported but exception behavior and\n                    var resolution timing can differ from JVM-Clojure's\n                    runtime model.",
+      "since": "jank-0.1"
+    },
+    {
+      "id": "alpha-version-bigger-divergences-expected",
+      "title": "Alpha-stage: any specific behavior may change before 1.0",
+      "category-id": "namespaces",
+      "rationale": "jank is pre-1.0. The current snapshot reflects what\n                    is implemented today; behavior, var availability, and\n                    error shapes will continue to evolve. Hand-curated\n                    divergences here are starting points, not the final\n                    contract.",
+      "since": "jank-0.1"
+    }
+  ],
+  "coverage": {
+    "headline": {
+      "in-both-count": 687,
+      "canon-total": 995,
+      "percent": 0.6904522613065327
+    },
+    "per-namespace": {
+      "clojure.zip": {
+        "in-both-count": 0,
+        "canon-total": 28,
+        "percent": 0.0
+      },
+      "clojure.pprint": {
+        "in-both-count": 0,
+        "canon-total": 26,
+        "percent": 0.0
+      },
+      "clojure.set": {
+        "in-both-count": 12,
+        "canon-total": 12,
+        "percent": 1.0
+      },
+      "clojure.datafy": {
+        "in-both-count": 0,
+        "canon-total": 2,
+        "percent": 0.0
+      },
+      "clojure.core": {
+        "in-both-count": 604,
+        "canon-total": 679,
+        "percent": 0.8895434462444771
+      },
+      "clojure.core.protocols": {
+        "in-both-count": 0,
+        "canon-total": 11,
+        "percent": 0.0
+      },
+      "clojure.walk": {
+        "in-both-count": 10,
+        "canon-total": 10,
+        "percent": 1.0
+      },
+      "clojure.edn": {
+        "in-both-count": 0,
+        "canon-total": 2,
+        "percent": 0.0
+      },
+      "clojure.test": {
+        "in-both-count": 38,
+        "canon-total": 39,
+        "percent": 0.9743589743589743
+      },
+      "clojure.instant": {
+        "in-both-count": 0,
+        "canon-total": 5,
+        "percent": 0.0
+      },
+      "clojure.string": {
+        "in-both-count": 21,
+        "canon-total": 21,
+        "percent": 1.0
+      },
+      "clojure.spec.alpha": {
+        "in-both-count": 0,
+        "canon-total": 87,
+        "percent": 0.0
+      },
+      "clojure.template": {
+        "in-both-count": 2,
+        "canon-total": 2,
+        "percent": 1.0
+      },
+      "clojure.math": {
+        "in-both-count": 0,
+        "canon-total": 45,
+        "percent": 0.0
+      },
+      "clojure.data": {
+        "in-both-count": 0,
+        "canon-total": 5,
+        "percent": 0.0
+      },
+      "clojure.core.reducers": {
+        "in-both-count": 0,
+        "canon-total": 21,
+        "percent": 0.0
+      }
+    }
+  },
+  "history": [
+    {
+      "date": "2026-05-22",
+      "dialect-tag": "jank",
+      "clojure-version": "jank-alpha",
+      "headline": {
+        "in-both-count": 687,
+        "canon-total": 995,
+        "percent": 0.6904522613065327
+      },
+      "per-namespace": {
+        "clojure.zip": {
+          "in-both-count": 0,
+          "canon-total": 28,
+          "percent": 0.0
+        },
+        "clojure.pprint": {
+          "in-both-count": 0,
+          "canon-total": 26,
+          "percent": 0.0
+        },
+        "clojure.set": {
+          "in-both-count": 12,
+          "canon-total": 12,
+          "percent": 1.0
+        },
+        "clojure.datafy": {
+          "in-both-count": 0,
+          "canon-total": 2,
+          "percent": 0.0
+        },
+        "clojure.core": {
+          "in-both-count": 604,
+          "canon-total": 679,
+          "percent": 0.8895434462444771
+        },
+        "clojure.core.protocols": {
+          "in-both-count": 0,
+          "canon-total": 11,
+          "percent": 0.0
+        },
+        "clojure.walk": {
+          "in-both-count": 10,
+          "canon-total": 10,
+          "percent": 1.0
+        },
+        "clojure.edn": {
+          "in-both-count": 0,
+          "canon-total": 2,
+          "percent": 0.0
+        },
+        "clojure.test": {
+          "in-both-count": 38,
+          "canon-total": 39,
+          "percent": 0.9743589743589743
+        },
+        "clojure.instant": {
+          "in-both-count": 0,
+          "canon-total": 5,
+          "percent": 0.0
+        },
+        "clojure.string": {
+          "in-both-count": 21,
+          "canon-total": 21,
+          "percent": 1.0
+        },
+        "clojure.spec.alpha": {
+          "in-both-count": 0,
+          "canon-total": 87,
+          "percent": 0.0
+        },
+        "clojure.template": {
+          "in-both-count": 2,
+          "canon-total": 2,
+          "percent": 1.0
+        },
+        "clojure.math": {
+          "in-both-count": 0,
+          "canon-total": 45,
+          "percent": 0.0
+        },
+        "clojure.data": {
+          "in-both-count": 0,
+          "canon-total": 5,
+          "percent": 0.0
+        },
+        "clojure.core.reducers": {
+          "in-both-count": 0,
+          "canon-total": 21,
+          "percent": 0.0
+        }
+      }
+    }
+  ],
+  "mismatches": [
+    {
+      "arglists-canon": [
+        [],
+        [
+          "x"
+        ],
+        [
+          "x",
+          "y"
+        ],
+        [
+          "x",
+          "y",
+          "&",
+          "more"
+        ]
+      ],
+      "arglists-dialect": [
+        [],
+        [
+          "x"
+        ],
+        [
+          "l",
+          "r"
+        ],
+        [
+          "l",
+          "r",
+          "&",
+          "args"
+        ]
+      ],
+      "namespace": "clojure.core",
+      "var": "*"
+    },
+    {
+      "dynamic-canon": false,
+      "dynamic-dialect": true,
+      "namespace": "clojure.core",
+      "var": "*assert*"
+    },
+    {
+      "dynamic-canon": false,
+      "dynamic-dialect": true,
+      "namespace": "clojure.core",
+      "var": "*compile-files*"
+    },
+    {
+      "dynamic-canon": false,
+      "dynamic-dialect": true,
+      "namespace": "clojure.core",
+      "var": "*compile-path*"
+    },
+    {
+      "dynamic-canon": false,
+      "dynamic-dialect": true,
+      "namespace": "clojure.core",
+      "var": "*compiler-options*"
+    },
+    {
+      "dynamic-canon": false,
+      "dynamic-dialect": true,
+      "namespace": "clojure.core",
+      "var": "*err*"
+    },
+    {
+      "dynamic-canon": false,
+      "dynamic-dialect": true,
+      "namespace": "clojure.core",
+      "var": "*file*"
+    },
+    {
+      "dynamic-canon": false,
+      "dynamic-dialect": true,
+      "namespace": "clojure.core",
+      "var": "*flush-on-newline*"
+    },
+    {
+      "dynamic-canon": false,
+      "dynamic-dialect": true,
+      "namespace": "clojure.core",
+      "var": "*in*"
+    },
+    {
+      "dynamic-canon": false,
+      "dynamic-dialect": true,
+      "namespace": "clojure.core",
+      "var": "*ns*"
+    },
+    {
+      "dynamic-canon": false,
+      "dynamic-dialect": true,
+      "namespace": "clojure.core",
+      "var": "*out*"
+    },
+    {
+      "dynamic-canon": false,
+      "dynamic-dialect": true,
+      "namespace": "clojure.core",
+      "var": "*print-dup*"
+    },
+    {
+      "dynamic-canon": false,
+      "dynamic-dialect": true,
+      "namespace": "clojure.core",
+      "var": "*print-meta*"
+    },
+    {
+      "dynamic-canon": false,
+      "dynamic-dialect": true,
+      "namespace": "clojure.core",
+      "var": "*print-readably*"
+    },
+    {
+      "dynamic-canon": false,
+      "dynamic-dialect": true,
+      "namespace": "clojure.core",
+      "var": "*read-eval*"
+    },
+    {
+      "dynamic-canon": false,
+      "dynamic-dialect": true,
+      "namespace": "clojure.core",
+      "var": "*unchecked-math*"
+    },
+    {
+      "dynamic-canon": false,
+      "dynamic-dialect": true,
+      "namespace": "clojure.core",
+      "var": "*warn-on-reflection*"
+    },
+    {
+      "arglists-canon": [
+        [],
+        [
+          "x"
+        ],
+        [
+          "x",
+          "y"
+        ],
+        [
+          "x",
+          "y",
+          "&",
+          "more"
+        ]
+      ],
+      "arglists-dialect": [
+        [],
+        [
+          "x"
+        ],
+        [
+          "l",
+          "r"
+        ],
+        [
+          "l",
+          "r",
+          "&",
+          "args"
+        ]
+      ],
+      "namespace": "clojure.core",
+      "var": "+"
+    },
+    {
+      "arglists-canon": [
+        [
+          "x"
+        ],
+        [
+          "x",
+          "y"
+        ],
+        [
+          "x",
+          "y",
+          "&",
+          "more"
+        ]
+      ],
+      "arglists-dialect": [
+        [
+          "x"
+        ],
+        [
+          "l",
+          "r"
+        ],
+        [
+          "l",
+          "r",
+          "&",
+          "args"
+        ]
+      ],
+      "namespace": "clojure.core",
+      "var": "-"
+    },
+    {
+      "arglists-canon": [
+        [
+          "x"
+        ],
+        [
+          "x",
+          "y"
+        ],
+        [
+          "x",
+          "y",
+          "&",
+          "more"
+        ]
+      ],
+      "arglists-dialect": [
+        [
+          "x"
+        ],
+        [
+          "l",
+          "r"
+        ],
+        [
+          "l",
+          "r",
+          "&",
+          "args"
+        ]
+      ],
+      "namespace": "clojure.core",
+      "var": "\/"
+    },
+    {
+      "arglists-canon": [
+        [
+          "x"
+        ],
+        [
+          "x",
+          "y"
+        ],
+        [
+          "x",
+          "y",
+          "&",
+          "more"
+        ]
+      ],
+      "arglists-dialect": [
+        [
+          "x"
+        ],
+        [
+          "l",
+          "r"
+        ],
+        [
+          "l",
+          "r",
+          "&",
+          "args"
+        ]
+      ],
+      "namespace": "clojure.core",
+      "var": "<"
+    },
+    {
+      "arglists-canon": [
+        [
+          "x"
+        ],
+        [
+          "x",
+          "y"
+        ],
+        [
+          "x",
+          "y",
+          "&",
+          "more"
+        ]
+      ],
+      "arglists-dialect": [
+        [
+          "x"
+        ],
+        [
+          "l",
+          "r"
+        ],
+        [
+          "l",
+          "r",
+          "&",
+          "args"
+        ]
+      ],
+      "namespace": "clojure.core",
+      "var": "<="
+    },
+    {
+      "arglists-canon": [
+        [
+          "x"
+        ],
+        [
+          "x",
+          "y"
+        ],
+        [
+          "x",
+          "y",
+          "&",
+          "more"
+        ]
+      ],
+      "arglists-dialect": [
+        [
+          "x"
+        ],
+        [
+          "l",
+          "r"
+        ],
+        [
+          "l",
+          "r",
+          "&",
+          "args"
+        ]
+      ],
+      "namespace": "clojure.core",
+      "var": ">"
+    },
+    {
+      "arglists-canon": [
+        [
+          "x"
+        ],
+        [
+          "x",
+          "y"
+        ],
+        [
+          "x",
+          "y",
+          "&",
+          "more"
+        ]
+      ],
+      "arglists-dialect": [
+        [
+          "x"
+        ],
+        [
+          "l",
+          "r"
+        ],
+        [
+          "l",
+          "r",
+          "&",
+          "args"
+        ]
+      ],
+      "namespace": "clojure.core",
+      "var": ">="
+    },
+    {
+      "arglists-canon": [
+        [
+          "reference",
+          "key",
+          "fn"
+        ]
+      ],
+      "arglists-dialect": [
+        [
+          "reference",
+          "key",
+          "f"
+        ]
+      ],
+      "namespace": "clojure.core",
+      "var": "add-watch"
+    },
+    {
+      "arglists-canon": [
+        [
+          "alias",
+          "namespace-sym"
+        ]
+      ],
+      "arglists-dialect": [
+        [
+          "alias",
+          "ns-sym"
+        ]
+      ],
+      "namespace": "clojure.core",
+      "var": "alias"
+    },
+    {
+      "arglists-canon": [
+        [
+          "iref",
+          "f",
+          "&",
+          "args"
+        ]
+      ],
+      "arglists-dialect": [
+        [
+          "o",
+          "f",
+          "&",
+          "args"
+        ]
+      ],
+      "namespace": "clojure.core",
+      "var": "alter-meta!"
+    },
+    {
+      "arglists-canon": [
+        [],
+        [
+          "x"
+        ],
+        [
+          "x",
+          "&",
+          "next"
+        ]
+      ],
+      "arglists-dialect": [
+        [],
+        [
+          "x"
+        ],
+        [
+          "x",
+          "&",
+          "more"
+        ]
+      ],
+      "namespace": "clojure.core",
+      "var": "and"
+    },
+    {
+      "arglists-canon": [
+        [
+          "array",
+          "idx",
+          "val"
+        ],
+        [
+          "array",
+          "idx",
+          "idx2",
+          "&",
+          "idxv"
+        ]
+      ],
+      "arglists-dialect": [
+        [
+          "array",
+          "idx",
+          "&",
+          "more"
+        ]
+      ],
+      "macro-canon": false,
+      "macro-dialect": true,
+      "namespace": "clojure.core",
+      "var": "aset"
+    },
+    {
+      "arglists-canon": [
+        [
+          "coll",
+          "key",
+          "val"
+        ],
+        [
+          "coll",
+          "key",
+          "val",
+          "&",
+          "kvs"
+        ]
+      ],
+      "arglists-dialect": [
+        [
+          "coll",
+          "k",
+          "v"
+        ],
+        [
+          "coll",
+          "k",
+          "v",
+          "&",
+          "kvs"
+        ]
+      ],
+      "namespace": "clojure.core",
+      "var": "assoc!"
+    },
+    {
+      "arglists-canon": [
+        [
+          "x"
+        ],
+        [
+          "x",
+          "&",
+          "options"
+        ]
+      ],
+      "arglists-dialect": [
+        [
+          "x"
+        ]
+      ],
+      "namespace": "clojure.core",
+      "var": "atom"
+    },
+    {
+      "arglists-canon": [
+        [
+          "lib"
+        ]
+      ],
+      "arglists-dialect": [
+        [
+          "path"
+        ]
+      ],
+      "namespace": "clojure.core",
+      "var": "compile"
+    },
+    {
+      "arglists-canon": [
+        [
+          "name",
+          "doc-string?",
+          "attr-map?",
+          [
+            "params*"
+          ],
+          "body"
+        ],
+        [
+          "name",
+          "doc-string?",
+          "attr-map?",
+          [
+            [
+              "params*"
+            ],
+            "body"
+          ],
+          "+",
+          "attr-map?"
+        ]
+      ],
+      "arglists-dialect": [
+        [
+          "name",
+          "&",
+          "args"
+        ]
+      ],
+      "namespace": "clojure.core",
+      "var": "defmacro"
+    },
+    {
+      "arglists-canon": [
+        [
+          "name",
+          "docstring?",
+          "attr-map?",
+          "dispatch-fn",
+          "&",
+          "options"
+        ]
+      ],
+      "arglists-dialect": [
+        [
+          "mm-name",
+          "&",
+          "options"
+        ]
+      ],
+      "namespace": "clojure.core",
+      "var": "defmulti"
+    },
+    {
+      "arglists-canon": [
+        [
+          "set"
+        ],
+        [
+          "set",
+          "key"
+        ],
+        [
+          "set",
+          "key",
+          "&",
+          "ks"
+        ]
+      ],
+      "arglists-dialect": [
+        [
+          "set"
+        ],
+        [
+          "set",
+          "elem"
+        ],
+        [
+          "set",
+          "elem",
+          "&",
+          "elems"
+        ]
+      ],
+      "namespace": "clojure.core",
+      "var": "disj!"
+    },
+    {
+      "arglists-canon": [
+        [
+          "map"
+        ],
+        [
+          "map",
+          "key"
+        ],
+        [
+          "map",
+          "key",
+          "&",
+          "ks"
+        ]
+      ],
+      "arglists-dialect": [
+        [
+          "m"
+        ],
+        [
+          "m",
+          "k"
+        ],
+        [
+          "m",
+          "k",
+          "&",
+          "ks"
+        ]
+      ],
+      "namespace": "clojure.core",
+      "var": "dissoc"
+    },
+    {
+      "arglists-canon": [
+        [
+          "map",
+          "key"
+        ],
+        [
+          "map",
+          "key",
+          "&",
+          "ks"
+        ]
+      ],
+      "arglists-dialect": [
+        [
+          "coll",
+          "k"
+        ],
+        [
+          "coll",
+          "k",
+          "&",
+          "ks"
+        ]
+      ],
+      "namespace": "clojure.core",
+      "var": "dissoc!"
+    },
+    {
+      "macro-canon": true,
+      "macro-dialect": false,
+      "namespace": "clojure.core",
+      "var": "gen-class"
+    },
+    {
+      "arglists-canon": [
+        [
+          "x"
+        ]
+      ],
+      "arglists-dialect": [
+        [
+          "o"
+        ]
+      ],
+      "namespace": "clojure.core",
+      "var": "hash"
+    },
+    {
+      "arglists-canon": [
+        [
+          "x",
+          "y"
+        ]
+      ],
+      "arglists-dialect": [
+        [
+          "lhs",
+          "rhs"
+        ]
+      ],
+      "namespace": "clojure.core",
+      "var": "identical?"
+    },
+    {
+      "arglists-canon": [
+        [
+          "&",
+          "import-symbols-or-lists"
+        ]
+      ],
+      "arglists-dialect": [
+        [
+          "&",
+          "_"
+        ]
+      ],
+      "macro-canon": true,
+      "macro-dialect": false,
+      "namespace": "clojure.core",
+      "var": "import"
+    },
+    {
+      "arglists-canon": [
+        [
+          "f",
+          "x"
+        ]
+      ],
+      "arglists-dialect": [
+        [
+          "fn",
+          "x"
+        ]
+      ],
+      "namespace": "clojure.core",
+      "var": "iterate"
+    },
+    {
+      "arglists-canon": [
+        [
+          "map"
+        ]
+      ],
+      "arglists-dialect": [
+        [
+          "m"
+        ]
+      ],
+      "namespace": "clojure.core",
+      "var": "keys"
+    },
+    {
+      "arglists-canon": [
+        [
+          "bindings",
+          "&",
+          "body"
+        ]
+      ],
+      "arglists-dialect": [
+        [
+          "all-bindings",
+          "&",
+          "body"
+        ]
+      ],
+      "namespace": "clojure.core",
+      "var": "loop"
+    },
+    {
+      "arglists-canon": [
+        [
+          "x"
+        ],
+        [
+          "x",
+          "y"
+        ],
+        [
+          "x",
+          "y",
+          "&",
+          "more"
+        ]
+      ],
+      "arglists-dialect": [
+        [
+          "x"
+        ],
+        [
+          "l",
+          "r"
+        ],
+        [
+          "l",
+          "r",
+          "&",
+          "args"
+        ]
+      ],
+      "namespace": "clojure.core",
+      "var": "max"
+    },
+    {
+      "arglists-canon": [
+        [
+          "x"
+        ],
+        [
+          "x",
+          "y"
+        ],
+        [
+          "x",
+          "y",
+          "&",
+          "more"
+        ]
+      ],
+      "arglists-dialect": [
+        [
+          "x"
+        ],
+        [
+          "l",
+          "r"
+        ],
+        [
+          "l",
+          "r",
+          "&",
+          "args"
+        ]
+      ],
+      "namespace": "clojure.core",
+      "var": "min"
+    },
+    {
+      "arglists-canon": [
+        [
+          "x"
+        ]
+      ],
+      "arglists-dialect": [
+        [
+          "o"
+        ]
+      ],
+      "namespace": "clojure.core",
+      "var": "nil?"
+    },
+    {
+      "arglists-canon": [
+        [
+          "ns"
+        ]
+      ],
+      "arglists-dialect": [
+        [
+          "ns-sym"
+        ]
+      ],
+      "namespace": "clojure.core",
+      "var": "ns-map"
+    },
+    {
+      "arglists-canon": [
+        [
+          "ns"
+        ]
+      ],
+      "arglists-dialect": [
+        [
+          "ns-sym"
+        ]
+      ],
+      "namespace": "clojure.core",
+      "var": "ns-name"
+    },
+    {
+      "arglists-canon": [
+        [
+          "ns"
+        ]
+      ],
+      "arglists-dialect": [
+        [
+          "ns-sym"
+        ]
+      ],
+      "namespace": "clojure.core",
+      "var": "ns-publics"
+    },
+    {
+      "arglists-canon": [
+        [],
+        [
+          "x"
+        ],
+        [
+          "x",
+          "&",
+          "next"
+        ]
+      ],
+      "arglists-dialect": [
+        [],
+        [
+          "x"
+        ],
+        [
+          "x",
+          "&",
+          "more"
+        ]
+      ],
+      "namespace": "clojure.core",
+      "var": "or"
+    },
+    {
+      "arglists-canon": [
+        [],
+        [
+          "x"
+        ],
+        [
+          "x",
+          "&",
+          "more"
+        ]
+      ],
+      "arglists-dialect": [
+        [
+          "&",
+          "more"
+        ]
+      ],
+      "dynamic-canon": true,
+      "dynamic-dialect": false,
+      "namespace": "clojure.core",
+      "var": "pr"
+    },
+    {
+      "arglists-canon": [
+        [
+          "&",
+          "xs"
+        ]
+      ],
+      "arglists-dialect": [
+        [
+          "x"
+        ]
+      ],
+      "namespace": "clojure.core",
+      "var": "pr-str"
+    },
+    {
+      "arglists-canon": [
+        [
+          "n"
+        ]
+      ],
+      "arglists-dialect": [
+        [
+          "r"
+        ]
+      ],
+      "namespace": "clojure.core",
+      "var": "ratio?"
+    },
+    {
+      "arglists-canon": [
+        [
+          "f",
+          "coll"
+        ],
+        [
+          "f",
+          "val",
+          "coll"
+        ]
+      ],
+      "arglists-dialect": [
+        [
+          "f",
+          "coll"
+        ],
+        [
+          "f",
+          "init",
+          "coll"
+        ]
+      ],
+      "namespace": "clojure.core",
+      "var": "reduce"
+    },
+    {
+      "arglists-canon": [
+        [
+          "map",
+          "keyseq"
+        ]
+      ],
+      "arglists-dialect": [
+        [
+          "m",
+          "ks"
+        ]
+      ],
+      "namespace": "clojure.core",
+      "var": "select-keys"
+    },
+    {
+      "arglists-canon": [
+        [
+          "f",
+          "&",
+          "opts"
+        ]
+      ],
+      "arglists-dialect": [
+        [
+          "f"
+        ]
+      ],
+      "namespace": "clojure.core",
+      "var": "slurp"
+    },
+    {
+      "arglists-canon": [
+        [
+          "coll"
+        ],
+        [
+          "comp",
+          "coll"
+        ]
+      ],
+      "arglists-dialect": [
+        [
+          "coll"
+        ]
+      ],
+      "namespace": "clojure.core",
+      "var": "sort"
+    },
+    {
+      "arglists-canon": [
+        [
+          "&",
+          "keyvals"
+        ]
+      ],
+      "arglists-dialect": [
+        [],
+        [
+          "&",
+          "keyvals"
+        ]
+      ],
+      "namespace": "clojure.core",
+      "var": "sorted-map"
+    },
+    {
+      "arglists-canon": [
+        [
+          "&",
+          "keys"
+        ]
+      ],
+      "arglists-dialect": [
+        [],
+        [
+          "&",
+          "keys"
+        ]
+      ],
+      "namespace": "clojure.core",
+      "var": "sorted-set"
+    },
+    {
+      "arglists-canon": [
+        [
+          "x"
+        ]
+      ],
+      "arglists-dialect": [
+        [
+          "ns-or-sym"
+        ]
+      ],
+      "namespace": "clojure.core",
+      "var": "the-ns"
+    },
+    {
+      "arglists-canon": [
+        [
+          "xform",
+          "f",
+          "coll"
+        ],
+        [
+          "xform",
+          "f",
+          "init",
+          "coll"
+        ]
+      ],
+      "arglists-dialect": [
+        [
+          "xform",
+          "rf",
+          "coll"
+        ],
+        [
+          "xform",
+          "rf",
+          "init",
+          "coll"
+        ]
+      ],
+      "namespace": "clojure.core",
+      "var": "transduce"
+    },
+    {
+      "arglists-canon": [
+        [
+          "x"
+        ]
+      ],
+      "arglists-dialect": [
+        [
+          "o"
+        ]
+      ],
+      "namespace": "clojure.core",
+      "var": "type"
+    },
+    {
+      "arglists-canon": [
+        [
+          "map"
+        ]
+      ],
+      "arglists-dialect": [
+        [
+          "m"
+        ]
+      ],
+      "namespace": "clojure.core",
+      "var": "vals"
+    },
+    {
+      "arglists-canon": [
+        [
+          "v"
+        ]
+      ],
+      "arglists-dialect": [
+        [
+          "x"
+        ]
+      ],
+      "namespace": "clojure.core",
+      "var": "var?"
+    },
+    {
+      "arglists-canon": [
+        [
+          "obj",
+          "f",
+          "&",
+          "args"
+        ]
+      ],
+      "arglists-dialect": [
+        [
+          "o",
+          "f",
+          "&",
+          "args"
+        ]
+      ],
+      "namespace": "clojure.core",
+      "var": "vary-meta"
+    },
+    {
+      "arglists-canon": [
+        [
+          "vol",
+          "f",
+          "&",
+          "args"
+        ]
+      ],
+      "arglists-dialect": [
+        [
+          "vol",
+          "f"
+        ],
+        [
+          "vol",
+          "f",
+          "&",
+          "args"
+        ]
+      ],
+      "macro-canon": true,
+      "macro-dialect": false,
+      "namespace": "clojure.core",
+      "var": "vswap!"
+    },
+    {
+      "arglists-canon": [
+        [
+          "test",
+          "&",
+          "body"
+        ]
+      ],
+      "arglists-dialect": [
+        [
+          "condition",
+          "&",
+          "body"
+        ]
+      ],
+      "namespace": "clojure.core",
+      "var": "when"
+    },
+    {
+      "arglists-canon": [
+        [
+          "test",
+          "&",
+          "body"
+        ]
+      ],
+      "arglists-dialect": [
+        [
+          "condition",
+          "&",
+          "body"
+        ]
+      ],
+      "namespace": "clojure.core",
+      "var": "when-not"
+    },
+    {
+      "arglists-canon": [
+        [
+          "binding-map",
+          "func"
+        ]
+      ],
+      "arglists-dialect": [
+        [
+          "binding-map",
+          "fun"
+        ]
+      ],
+      "namespace": "clojure.core",
+      "var": "with-redefs-fn"
+    }
+  ],
+  "categories": [
+    {
+      "id": "ordering",
+      "title": "Ordering & comparison",
+      "description": "How sort, compare, and ordered iteration work."
+    },
+    {
+      "id": "type-system",
+      "title": "Type-system representation",
+      "description": "How type, class, and dispatch report a value's kind."
+    },
+    {
+      "id": "numeric-tower",
+      "title": "Numeric tower",
+      "description": "Integer tiers, ratio promotion, float precision."
+    },
+    {
+      "id": "reader",
+      "title": "Reader behavior",
+      "description": "Reader macros, literal forms, source-meta attachment."
+    },
+    {
+      "id": "printer",
+      "title": "Printer behavior",
+      "description": "pr-str output for various values and dynamic-var states."
+    },
+    {
+      "id": "collections",
+      "title": "Collection semantics",
+      "description": "Iteration order, equality, hash, structural sharing."
+    },
+    {
+      "id": "concurrency",
+      "title": "Concurrency primitives",
+      "description": "Atoms, refs, agents, futures, core.async behavior."
+    },
+    {
+      "id": "error-messages",
+      "title": "Error message shapes",
+      "description": "Exception types, ex-data shapes, message phrasing."
+    },
+    {
+      "id": "jvm-statics",
+      "title": "JVM-static value remap",
+      "description": "JVM-only statics remapped to dialect-native equivalents."
+    },
+    {
+      "id": "namespaces",
+      "title": "Namespace mechanics",
+      "description": "ns, require, refer, alias, var resolution semantics."
+    },
+    {
+      "id": "macros",
+      "title": "Macro semantics",
+      "description": "Syntax-quote, macroexpansion order, hygiene."
+    },
+    {
+      "id": "metadata",
+      "title": "Metadata propagation",
+      "description": "Where reader attaches meta and which ops preserve it."
+    }
+  ],
+  "extensions": [
+    {
+      "id": "cpp-interop-namespace",
+      "title": "Seamless C++ interop via cpp\/ tag",
+      "affected-names": [
+        "cpp\/std.cout",
+        "cpp\/std.getenv",
+        "cpp\/std.chrono.milliseconds",
+        "cpp\/std.this_thread.sleep_for",
+        "cpp\/jank.runtime.object_ref",
+        "cpp\/std.exception"
+      ],
+      "category-id": "jvm-statics",
+      "rationale": "jank's defining feature: any C++ type, function, or\n                   static is reachable from jank source via cpp\/. Type\n                   conversion is implicit at the boundary. Roughly the\n                   jank analog of JVM Clojure's Java interop, but with\n                   AOT-compiled C++ instead of JVM reflection.",
+      "since": "jank-0.1"
+    }
+  ],
+  "dialect-only": [
+    "clojure.core\/*loaded-libs*",
+    "clojure.core\/*loading-verbosely*",
+    "clojure.core\/*pending-paths*",
+    "clojure.core\/add-annotation",
+    "clojure.core\/add-annotations",
+    "clojure.core\/add-doc-and-meta",
+    "clojure.core\/apply*",
+    "clojure.core\/array",
+    "clojure.core\/assert-macro-args",
+    "clojure.core\/assert-valid-fdecl",
+    "clojure.core\/case-hash",
+    "clojure.core\/case-map",
+    "clojure.core\/case-map-collison-merged",
+    "clojure.core\/case-map-with-check",
+    "clojure.core\/check-cyclic-dependency",
+    "clojure.core\/check-valid-options",
+    "clojure.core\/concat*",
+    "clojure.core\/current-time",
+    "clojure.core\/def-aset",
+    "clojure.core\/defmethod*",
+    "clojure.core\/delay*",
+    "clojure.core\/deref-future",
+    "clojure.core\/descriptor",
+    "clojure.core\/elide-top-frames",
+    "clojure.core\/filter-key",
+    "clojure.core\/fits-table?",
+    "clojure.core\/fresh-seq",
+    "clojure.core\/global-hierarchy",
+    "clojure.core\/i32?",
+    "clojure.core\/i64?",
+    "clojure.core\/include",
+    "clojure.core\/is-annotation?",
+    "clojure.core\/is-runtime-annotation?",
+    "clojure.core\/lazy-seq*",
+    "clojure.core\/libspec?",
+    "clojure.core\/load-all",
+    "clojure.core\/load-lib",
+    "clojure.core\/load-libs",
+    "clojure.core\/load-one",
+    "clojure.core\/max-mask-bits",
+    "clojure.core\/max-switch-table-size",
+    "clojure.core\/maybe-destructured",
+    "clojure.core\/maybe-min-hash",
+    "clojure.core\/merge-hash-collisions",
+    "clojure.core\/mk-bound-fn",
+    "clojure.core\/multi-fn*",
+    "clojure.core\/multi-fn?",
+    "clojure.core\/named?",
+    "clojure.core\/next-in-place",
+    "clojure.core\/parsing-err",
+    "clojure.core\/prep-hashes",
+    "clojure.core\/prep-ints",
+    "clojure.core\/prependss",
+    "clojure.core\/preserving-reduced",
+    "clojure.core\/print-initialized",
+    "clojure.core\/process-annotation",
+    "clojure.core\/refer-global",
+    "clojure.core\/reverse*",
+    "clojure.core\/serialized-require",
+    "clojure.core\/setup-reference",
+    "clojure.core\/shift-mask",
+    "clojure.core\/sigs",
+    "clojure.core\/sleep",
+    "clojure.core\/spread",
+    "clojure.core\/system-newline",
+    "clojure.core\/tap-loop",
+    "clojure.core\/tapq",
+    "clojure.core\/tapset",
+    "clojure.core\/throw-if",
+    "clojure.core\/transientable?",
+    "clojure.core\/when-class",
+    "clojure.set\/bubble-max-key",
+    "clojure.test\/-workaround-get-test",
+    "clojure.test\/-workaround-set-test",
+    "clojure.test\/-workaround-test-mappings",
+    "clojure.test\/-workaround-var->ns",
+    "clojure.test\/add-ns-meta",
+    "clojure.test\/default-fixture"
+  ],
+  "missing": [
+    {
+      "namespace": "clojure.core",
+      "var": "*agent*"
+    },
+    {
+      "namespace": "clojure.core",
+      "var": "*allow-unresolved-vars*"
+    },
+    {
+      "namespace": "clojure.core",
+      "var": "*clojure-version*"
+    },
+    {
+      "namespace": "clojure.core",
+      "var": "*fn-loader*"
+    },
+    {
+      "namespace": "clojure.core",
+      "var": "*math-context*"
+    },
+    {
+      "namespace": "clojure.core",
+      "var": "*print-length*"
+    },
+    {
+      "namespace": "clojure.core",
+      "var": "*print-level*"
+    },
+    {
+      "namespace": "clojure.core",
+      "var": "*print-namespace-maps*"
+    },
+    {
+      "namespace": "clojure.core",
+      "var": "*reader-resolver*"
+    },
+    {
+      "namespace": "clojure.core",
+      "var": "*source-path*"
+    },
+    {
+      "namespace": "clojure.core",
+      "var": "*suppress-read*"
+    },
+    {
+      "namespace": "clojure.core",
+      "var": "*use-context-classloader*"
+    },
+    {
+      "namespace": "clojure.core",
+      "var": "*verbose-defrecords*"
+    },
+    {
+      "namespace": "clojure.core",
+      "var": "->ArrayChunk"
+    },
+    {
+      "namespace": "clojure.core",
+      "var": "->Eduction"
+    },
+    {
+      "namespace": "clojure.core",
+      "var": "->Vec"
+    },
+    {
+      "namespace": "clojure.core",
+      "var": "->VecNode"
+    },
+    {
+      "namespace": "clojure.core",
+      "var": "->VecSeq"
+    },
+    {
+      "namespace": "clojure.core",
+      "var": "-cache-protocol-fn"
+    },
+    {
+      "namespace": "clojure.core",
+      "var": "-reset-methods"
+    },
+    {
+      "namespace": "clojure.core",
+      "var": ".."
+    },
+    {
+      "namespace": "clojure.core",
+      "var": "EMPTY-NODE"
+    },
+    {
+      "namespace": "clojure.core",
+      "var": "Inst"
+    },
+    {
+      "namespace": "clojure.core",
+      "var": "PrintWriter-on"
+    },
+    {
+      "namespace": "clojure.core",
+      "var": "StackTraceElement->vec"
+    },
+    {
+      "namespace": "clojure.core",
+      "var": "Throwable->map"
+    },
+    {
+      "namespace": "clojure.core",
+      "var": "bean"
+    },
+    {
+      "namespace": "clojure.core",
+      "var": "booleans"
+    },
+    {
+      "namespace": "clojure.core",
+      "var": "bytes"
+    },
+    {
+      "namespace": "clojure.core",
+      "var": "char-escape-string"
+    },
+    {
+      "namespace": "clojure.core",
+      "var": "char-name-string"
+    },
+    {
+      "namespace": "clojure.core",
+      "var": "chars"
+    },
+    {
+      "namespace": "clojure.core",
+      "var": "construct-proxy"
+    },
+    {
+      "namespace": "clojure.core",
+      "var": "default-data-readers"
+    },
+    {
+      "namespace": "clojure.core",
+      "var": "definterface"
+    },
+    {
+      "namespace": "clojure.core",
+      "var": "defprotocol"
+    },
+    {
+      "namespace": "clojure.core",
+      "var": "defrecord"
+    },
+    {
+      "namespace": "clojure.core",
+      "var": "deftype"
+    },
+    {
+      "namespace": "clojure.core",
+      "var": "doubles"
+    },
+    {
+      "namespace": "clojure.core",
+      "var": "eduction"
+    },
+    {
+      "namespace": "clojure.core",
+      "var": "extend"
+    },
+    {
+      "namespace": "clojure.core",
+      "var": "extend-protocol"
+    },
+    {
+      "namespace": "clojure.core",
+      "var": "extend-type"
+    },
+    {
+      "namespace": "clojure.core",
+      "var": "extenders"
+    },
+    {
+      "namespace": "clojure.core",
+      "var": "extends?"
+    },
+    {
+      "namespace": "clojure.core",
+      "var": "find-protocol-impl"
+    },
+    {
+      "namespace": "clojure.core",
+      "var": "find-protocol-method"
+    },
+    {
+      "namespace": "clojure.core",
+      "var": "floats"
+    },
+    {
+      "namespace": "clojure.core",
+      "var": "gen-interface"
+    },
+    {
+      "namespace": "clojure.core",
+      "var": "get-proxy-class"
+    },
+    {
+      "namespace": "clojure.core",
+      "var": "halt-when"
+    },
+    {
+      "namespace": "clojure.core",
+      "var": "hash-combine"
+    },
+    {
+      "namespace": "clojure.core",
+      "var": "init-proxy"
+    },
+    {
+      "namespace": "clojure.core",
+      "var": "inst-ms*"
+    },
+    {
+      "namespace": "clojure.core",
+      "var": "ints"
+    },
+    {
+      "namespace": "clojure.core",
+      "var": "load-file"
+    },
+    {
+      "namespace": "clojure.core",
+      "var": "longs"
+    },
+    {
+      "namespace": "clojure.core",
+      "var": "method-sig"
+    },
+    {
+      "namespace": "clojure.core",
+      "var": "munge"
+    },
+    {
+      "namespace": "clojure.core",
+      "var": "namespace-munge"
+    },
+    {
+      "namespace": "clojure.core",
+      "var": "primitives-classnames"
+    },
+    {
+      "namespace": "clojure.core",
+      "var": "print-ctor"
+    },
+    {
+      "namespace": "clojure.core",
+      "var": "print-simple"
+    },
+    {
+      "namespace": "clojure.core",
+      "var": "proxy"
+    },
+    {
+      "namespace": "clojure.core",
+      "var": "proxy-call-with-super"
+    },
+    {
+      "namespace": "clojure.core",
+      "var": "proxy-mappings"
+    },
+    {
+      "namespace": "clojure.core",
+      "var": "proxy-name"
+    },
+    {
+      "namespace": "clojure.core",
+      "var": "proxy-super"
+    },
+    {
+      "namespace": "clojure.core",
+      "var": "record?"
+    },
+    {
+      "namespace": "clojure.core",
+      "var": "reify"
+    },
+    {
+      "namespace": "clojure.core",
+      "var": "satisfies?"
+    },
+    {
+      "namespace": "clojure.core",
+      "var": "shorts"
+    },
+    {
+      "namespace": "clojure.core",
+      "var": "update-proxy"
+    },
+    {
+      "namespace": "clojure.core",
+      "var": "uri?"
+    },
+    {
+      "namespace": "clojure.core",
+      "var": "vector-of"
+    },
+    {
+      "namespace": "clojure.core.protocols",
+      "var": "CollReduce"
+    },
+    {
+      "namespace": "clojure.core.protocols",
+      "var": "Datafiable"
+    },
+    {
+      "namespace": "clojure.core.protocols",
+      "var": "IKVReduce"
+    },
+    {
+      "namespace": "clojure.core.protocols",
+      "var": "InternalReduce"
+    },
+    {
+      "namespace": "clojure.core.protocols",
+      "var": "Navigable"
+    },
+    {
+      "namespace": "clojure.core.protocols",
+      "var": "coll-reduce"
+    },
+    {
+      "namespace": "clojure.core.protocols",
+      "var": "datafy"
+    },
+    {
+      "namespace": "clojure.core.protocols",
+      "var": "internal-reduce"
+    },
+    {
+      "namespace": "clojure.core.protocols",
+      "var": "iterator-reduce!"
+    },
+    {
+      "namespace": "clojure.core.protocols",
+      "var": "kv-reduce"
+    },
+    {
+      "namespace": "clojure.core.protocols",
+      "var": "nav"
+    },
+    {
+      "namespace": "clojure.core.reducers",
+      "var": "->Cat"
+    },
+    {
+      "namespace": "clojure.core.reducers",
+      "var": "CollFold"
+    },
+    {
+      "namespace": "clojure.core.reducers",
+      "var": "append!"
+    },
+    {
+      "namespace": "clojure.core.reducers",
+      "var": "cat"
+    },
+    {
+      "namespace": "clojure.core.reducers",
+      "var": "coll-fold"
+    },
+    {
+      "namespace": "clojure.core.reducers",
+      "var": "drop"
+    },
+    {
+      "namespace": "clojure.core.reducers",
+      "var": "filter"
+    },
+    {
+      "namespace": "clojure.core.reducers",
+      "var": "fjtask"
+    },
+    {
+      "namespace": "clojure.core.reducers",
+      "var": "flatten"
+    },
+    {
+      "namespace": "clojure.core.reducers",
+      "var": "fold"
+    },
+    {
+      "namespace": "clojure.core.reducers",
+      "var": "foldcat"
+    },
+    {
+      "namespace": "clojure.core.reducers",
+      "var": "folder"
+    },
+    {
+      "namespace": "clojure.core.reducers",
+      "var": "map"
+    },
+    {
+      "namespace": "clojure.core.reducers",
+      "var": "mapcat"
+    },
+    {
+      "namespace": "clojure.core.reducers",
+      "var": "monoid"
+    },
+    {
+      "namespace": "clojure.core.reducers",
+      "var": "pool"
+    },
+    {
+      "namespace": "clojure.core.reducers",
+      "var": "reduce"
+    },
+    {
+      "namespace": "clojure.core.reducers",
+      "var": "reducer"
+    },
+    {
+      "namespace": "clojure.core.reducers",
+      "var": "remove"
+    },
+    {
+      "namespace": "clojure.core.reducers",
+      "var": "take"
+    },
+    {
+      "namespace": "clojure.core.reducers",
+      "var": "take-while"
+    },
+    {
+      "namespace": "clojure.data",
+      "var": "Diff"
+    },
+    {
+      "namespace": "clojure.data",
+      "var": "EqualityPartition"
+    },
+    {
+      "namespace": "clojure.data",
+      "var": "diff"
+    },
+    {
+      "namespace": "clojure.data",
+      "var": "diff-similar"
+    },
+    {
+      "namespace": "clojure.data",
+      "var": "equality-partition"
+    },
+    {
+      "namespace": "clojure.datafy",
+      "var": "datafy"
+    },
+    {
+      "namespace": "clojure.datafy",
+      "var": "nav"
+    },
+    {
+      "namespace": "clojure.edn",
+      "var": "read"
+    },
+    {
+      "namespace": "clojure.edn",
+      "var": "read-string"
+    },
+    {
+      "namespace": "clojure.instant",
+      "var": "parse-timestamp"
+    },
+    {
+      "namespace": "clojure.instant",
+      "var": "read-instant-calendar"
+    },
+    {
+      "namespace": "clojure.instant",
+      "var": "read-instant-date"
+    },
+    {
+      "namespace": "clojure.instant",
+      "var": "read-instant-timestamp"
+    },
+    {
+      "namespace": "clojure.instant",
+      "var": "validated"
+    },
+    {
+      "namespace": "clojure.math",
+      "var": "E"
+    },
+    {
+      "namespace": "clojure.math",
+      "var": "IEEE-remainder"
+    },
+    {
+      "namespace": "clojure.math",
+      "var": "PI"
+    },
+    {
+      "namespace": "clojure.math",
+      "var": "acos"
+    },
+    {
+      "namespace": "clojure.math",
+      "var": "add-exact"
+    },
+    {
+      "namespace": "clojure.math",
+      "var": "asin"
+    },
+    {
+      "namespace": "clojure.math",
+      "var": "atan"
+    },
+    {
+      "namespace": "clojure.math",
+      "var": "atan2"
+    },
+    {
+      "namespace": "clojure.math",
+      "var": "cbrt"
+    },
+    {
+      "namespace": "clojure.math",
+      "var": "ceil"
+    },
+    {
+      "namespace": "clojure.math",
+      "var": "copy-sign"
+    },
+    {
+      "namespace": "clojure.math",
+      "var": "cos"
+    },
+    {
+      "namespace": "clojure.math",
+      "var": "cosh"
+    },
+    {
+      "namespace": "clojure.math",
+      "var": "decrement-exact"
+    },
+    {
+      "namespace": "clojure.math",
+      "var": "exp"
+    },
+    {
+      "namespace": "clojure.math",
+      "var": "expm1"
+    },
+    {
+      "namespace": "clojure.math",
+      "var": "floor"
+    },
+    {
+      "namespace": "clojure.math",
+      "var": "floor-div"
+    },
+    {
+      "namespace": "clojure.math",
+      "var": "floor-mod"
+    },
+    {
+      "namespace": "clojure.math",
+      "var": "get-exponent"
+    },
+    {
+      "namespace": "clojure.math",
+      "var": "hypot"
+    },
+    {
+      "namespace": "clojure.math",
+      "var": "increment-exact"
+    },
+    {
+      "namespace": "clojure.math",
+      "var": "log"
+    },
+    {
+      "namespace": "clojure.math",
+      "var": "log10"
+    },
+    {
+      "namespace": "clojure.math",
+      "var": "log1p"
+    },
+    {
+      "namespace": "clojure.math",
+      "var": "multiply-exact"
+    },
+    {
+      "namespace": "clojure.math",
+      "var": "negate-exact"
+    },
+    {
+      "namespace": "clojure.math",
+      "var": "next-after"
+    },
+    {
+      "namespace": "clojure.math",
+      "var": "next-down"
+    },
+    {
+      "namespace": "clojure.math",
+      "var": "next-up"
+    },
+    {
+      "namespace": "clojure.math",
+      "var": "pow"
+    },
+    {
+      "namespace": "clojure.math",
+      "var": "random"
+    },
+    {
+      "namespace": "clojure.math",
+      "var": "rint"
+    },
+    {
+      "namespace": "clojure.math",
+      "var": "round"
+    },
+    {
+      "namespace": "clojure.math",
+      "var": "scalb"
+    },
+    {
+      "namespace": "clojure.math",
+      "var": "signum"
+    },
+    {
+      "namespace": "clojure.math",
+      "var": "sin"
+    },
+    {
+      "namespace": "clojure.math",
+      "var": "sinh"
+    },
+    {
+      "namespace": "clojure.math",
+      "var": "sqrt"
+    },
+    {
+      "namespace": "clojure.math",
+      "var": "subtract-exact"
+    },
+    {
+      "namespace": "clojure.math",
+      "var": "tan"
+    },
+    {
+      "namespace": "clojure.math",
+      "var": "tanh"
+    },
+    {
+      "namespace": "clojure.math",
+      "var": "to-degrees"
+    },
+    {
+      "namespace": "clojure.math",
+      "var": "to-radians"
+    },
+    {
+      "namespace": "clojure.math",
+      "var": "ulp"
+    },
+    {
+      "namespace": "clojure.pprint",
+      "var": "*print-base*"
+    },
+    {
+      "namespace": "clojure.pprint",
+      "var": "*print-miser-width*"
+    },
+    {
+      "namespace": "clojure.pprint",
+      "var": "*print-pprint-dispatch*"
+    },
+    {
+      "namespace": "clojure.pprint",
+      "var": "*print-pretty*"
+    },
+    {
+      "namespace": "clojure.pprint",
+      "var": "*print-radix*"
+    },
+    {
+      "namespace": "clojure.pprint",
+      "var": "*print-right-margin*"
+    },
+    {
+      "namespace": "clojure.pprint",
+      "var": "*print-suppress-namespaces*"
+    },
+    {
+      "namespace": "clojure.pprint",
+      "var": "cl-format"
+    },
+    {
+      "namespace": "clojure.pprint",
+      "var": "code-dispatch"
+    },
+    {
+      "namespace": "clojure.pprint",
+      "var": "formatter"
+    },
+    {
+      "namespace": "clojure.pprint",
+      "var": "formatter-out"
+    },
+    {
+      "namespace": "clojure.pprint",
+      "var": "fresh-line"
+    },
+    {
+      "namespace": "clojure.pprint",
+      "var": "get-pretty-writer"
+    },
+    {
+      "namespace": "clojure.pprint",
+      "var": "pp"
+    },
+    {
+      "namespace": "clojure.pprint",
+      "var": "pprint"
+    },
+    {
+      "namespace": "clojure.pprint",
+      "var": "pprint-indent"
+    },
+    {
+      "namespace": "clojure.pprint",
+      "var": "pprint-logical-block"
+    },
+    {
+      "namespace": "clojure.pprint",
+      "var": "pprint-newline"
+    },
+    {
+      "namespace": "clojure.pprint",
+      "var": "pprint-tab"
+    },
+    {
+      "namespace": "clojure.pprint",
+      "var": "print-length-loop"
+    },
+    {
+      "namespace": "clojure.pprint",
+      "var": "print-table"
+    },
+    {
+      "namespace": "clojure.pprint",
+      "var": "set-pprint-dispatch"
+    },
+    {
+      "namespace": "clojure.pprint",
+      "var": "simple-dispatch"
+    },
+    {
+      "namespace": "clojure.pprint",
+      "var": "with-pprint-dispatch"
+    },
+    {
+      "namespace": "clojure.pprint",
+      "var": "write"
+    },
+    {
+      "namespace": "clojure.pprint",
+      "var": "write-out"
+    },
+    {
+      "namespace": "clojure.spec.alpha",
+      "var": "&"
+    },
+    {
+      "namespace": "clojure.spec.alpha",
+      "var": "*"
+    },
+    {
+      "namespace": "clojure.spec.alpha",
+      "var": "*coll-check-limit*"
+    },
+    {
+      "namespace": "clojure.spec.alpha",
+      "var": "*coll-error-limit*"
+    },
+    {
+      "namespace": "clojure.spec.alpha",
+      "var": "*compile-asserts*"
+    },
+    {
+      "namespace": "clojure.spec.alpha",
+      "var": "*explain-out*"
+    },
+    {
+      "namespace": "clojure.spec.alpha",
+      "var": "*fspec-iterations*"
+    },
+    {
+      "namespace": "clojure.spec.alpha",
+      "var": "*recursion-limit*"
+    },
+    {
+      "namespace": "clojure.spec.alpha",
+      "var": "+"
+    },
+    {
+      "namespace": "clojure.spec.alpha",
+      "var": "?"
+    },
+    {
+      "namespace": "clojure.spec.alpha",
+      "var": "Spec"
+    },
+    {
+      "namespace": "clojure.spec.alpha",
+      "var": "Specize"
+    },
+    {
+      "namespace": "clojure.spec.alpha",
+      "var": "abbrev"
+    },
+    {
+      "namespace": "clojure.spec.alpha",
+      "var": "alt"
+    },
+    {
+      "namespace": "clojure.spec.alpha",
+      "var": "alt-impl"
+    },
+    {
+      "namespace": "clojure.spec.alpha",
+      "var": "amp-impl"
+    },
+    {
+      "namespace": "clojure.spec.alpha",
+      "var": "and"
+    },
+    {
+      "namespace": "clojure.spec.alpha",
+      "var": "and-spec-impl"
+    },
+    {
+      "namespace": "clojure.spec.alpha",
+      "var": "assert"
+    },
+    {
+      "namespace": "clojure.spec.alpha",
+      "var": "assert*"
+    },
+    {
+      "namespace": "clojure.spec.alpha",
+      "var": "cat"
+    },
+    {
+      "namespace": "clojure.spec.alpha",
+      "var": "cat-impl"
+    },
+    {
+      "namespace": "clojure.spec.alpha",
+      "var": "check-asserts"
+    },
+    {
+      "namespace": "clojure.spec.alpha",
+      "var": "check-asserts?"
+    },
+    {
+      "namespace": "clojure.spec.alpha",
+      "var": "coll-of"
+    },
+    {
+      "namespace": "clojure.spec.alpha",
+      "var": "conform"
+    },
+    {
+      "namespace": "clojure.spec.alpha",
+      "var": "conform*"
+    },
+    {
+      "namespace": "clojure.spec.alpha",
+      "var": "conformer"
+    },
+    {
+      "namespace": "clojure.spec.alpha",
+      "var": "def"
+    },
+    {
+      "namespace": "clojure.spec.alpha",
+      "var": "def-impl"
+    },
+    {
+      "namespace": "clojure.spec.alpha",
+      "var": "describe"
+    },
+    {
+      "namespace": "clojure.spec.alpha",
+      "var": "describe*"
+    },
+    {
+      "namespace": "clojure.spec.alpha",
+      "var": "double-in"
+    },
+    {
+      "namespace": "clojure.spec.alpha",
+      "var": "every"
+    },
+    {
+      "namespace": "clojure.spec.alpha",
+      "var": "every-impl"
+    },
+    {
+      "namespace": "clojure.spec.alpha",
+      "var": "every-kv"
+    },
+    {
+      "namespace": "clojure.spec.alpha",
+      "var": "exercise"
+    },
+    {
+      "namespace": "clojure.spec.alpha",
+      "var": "exercise-fn"
+    },
+    {
+      "namespace": "clojure.spec.alpha",
+      "var": "explain"
+    },
+    {
+      "namespace": "clojure.spec.alpha",
+      "var": "explain*"
+    },
+    {
+      "namespace": "clojure.spec.alpha",
+      "var": "explain-data"
+    },
+    {
+      "namespace": "clojure.spec.alpha",
+      "var": "explain-data*"
+    },
+    {
+      "namespace": "clojure.spec.alpha",
+      "var": "explain-out"
+    },
+    {
+      "namespace": "clojure.spec.alpha",
+      "var": "explain-printer"
+    },
+    {
+      "namespace": "clojure.spec.alpha",
+      "var": "explain-str"
+    },
+    {
+      "namespace": "clojure.spec.alpha",
+      "var": "fdef"
+    },
+    {
+      "namespace": "clojure.spec.alpha",
+      "var": "form"
+    },
+    {
+      "namespace": "clojure.spec.alpha",
+      "var": "fspec"
+    },
+    {
+      "namespace": "clojure.spec.alpha",
+      "var": "fspec-impl"
+    },
+    {
+      "namespace": "clojure.spec.alpha",
+      "var": "gen"
+    },
+    {
+      "namespace": "clojure.spec.alpha",
+      "var": "gen*"
+    },
+    {
+      "namespace": "clojure.spec.alpha",
+      "var": "get-spec"
+    },
+    {
+      "namespace": "clojure.spec.alpha",
+      "var": "inst-in"
+    },
+    {
+      "namespace": "clojure.spec.alpha",
+      "var": "inst-in-range?"
+    },
+    {
+      "namespace": "clojure.spec.alpha",
+      "var": "int-in"
+    },
+    {
+      "namespace": "clojure.spec.alpha",
+      "var": "int-in-range?"
+    },
+    {
+      "namespace": "clojure.spec.alpha",
+      "var": "invalid?"
+    },
+    {
+      "namespace": "clojure.spec.alpha",
+      "var": "keys"
+    },
+    {
+      "namespace": "clojure.spec.alpha",
+      "var": "keys*"
+    },
+    {
+      "namespace": "clojure.spec.alpha",
+      "var": "map-of"
+    },
+    {
+      "namespace": "clojure.spec.alpha",
+      "var": "map-spec-impl"
+    },
+    {
+      "namespace": "clojure.spec.alpha",
+      "var": "maybe-impl"
+    },
+    {
+      "namespace": "clojure.spec.alpha",
+      "var": "merge"
+    },
+    {
+      "namespace": "clojure.spec.alpha",
+      "var": "merge-spec-impl"
+    },
+    {
+      "namespace": "clojure.spec.alpha",
+      "var": "multi-spec"
+    },
+    {
+      "namespace": "clojure.spec.alpha",
+      "var": "multi-spec-impl"
+    },
+    {
+      "namespace": "clojure.spec.alpha",
+      "var": "nilable"
+    },
+    {
+      "namespace": "clojure.spec.alpha",
+      "var": "nilable-impl"
+    },
+    {
+      "namespace": "clojure.spec.alpha",
+      "var": "nonconforming"
+    },
+    {
+      "namespace": "clojure.spec.alpha",
+      "var": "or"
+    },
+    {
+      "namespace": "clojure.spec.alpha",
+      "var": "or-spec-impl"
+    },
+    {
+      "namespace": "clojure.spec.alpha",
+      "var": "regex-spec-impl"
+    },
+    {
+      "namespace": "clojure.spec.alpha",
+      "var": "regex?"
+    },
+    {
+      "namespace": "clojure.spec.alpha",
+      "var": "registry"
+    },
+    {
+      "namespace": "clojure.spec.alpha",
+      "var": "rep+impl"
+    },
+    {
+      "namespace": "clojure.spec.alpha",
+      "var": "rep-impl"
+    },
+    {
+      "namespace": "clojure.spec.alpha",
+      "var": "spec"
+    },
+    {
+      "namespace": "clojure.spec.alpha",
+      "var": "spec-impl"
+    },
+    {
+      "namespace": "clojure.spec.alpha",
+      "var": "spec?"
+    },
+    {
+      "namespace": "clojure.spec.alpha",
+      "var": "specize*"
+    },
+    {
+      "namespace": "clojure.spec.alpha",
+      "var": "tuple"
+    },
+    {
+      "namespace": "clojure.spec.alpha",
+      "var": "tuple-impl"
+    },
+    {
+      "namespace": "clojure.spec.alpha",
+      "var": "unform"
+    },
+    {
+      "namespace": "clojure.spec.alpha",
+      "var": "unform*"
+    },
+    {
+      "namespace": "clojure.spec.alpha",
+      "var": "valid?"
+    },
+    {
+      "namespace": "clojure.spec.alpha",
+      "var": "with-gen"
+    },
+    {
+      "namespace": "clojure.spec.alpha",
+      "var": "with-gen*"
+    },
+    {
+      "namespace": "clojure.test",
+      "var": "file-position"
+    },
+    {
+      "namespace": "clojure.zip",
+      "var": "append-child"
+    },
+    {
+      "namespace": "clojure.zip",
+      "var": "branch?"
+    },
+    {
+      "namespace": "clojure.zip",
+      "var": "children"
+    },
+    {
+      "namespace": "clojure.zip",
+      "var": "down"
+    },
+    {
+      "namespace": "clojure.zip",
+      "var": "edit"
+    },
+    {
+      "namespace": "clojure.zip",
+      "var": "end?"
+    },
+    {
+      "namespace": "clojure.zip",
+      "var": "insert-child"
+    },
+    {
+      "namespace": "clojure.zip",
+      "var": "insert-left"
+    },
+    {
+      "namespace": "clojure.zip",
+      "var": "insert-right"
+    },
+    {
+      "namespace": "clojure.zip",
+      "var": "left"
+    },
+    {
+      "namespace": "clojure.zip",
+      "var": "leftmost"
+    },
+    {
+      "namespace": "clojure.zip",
+      "var": "lefts"
+    },
+    {
+      "namespace": "clojure.zip",
+      "var": "make-node"
+    },
+    {
+      "namespace": "clojure.zip",
+      "var": "next"
+    },
+    {
+      "namespace": "clojure.zip",
+      "var": "node"
+    },
+    {
+      "namespace": "clojure.zip",
+      "var": "path"
+    },
+    {
+      "namespace": "clojure.zip",
+      "var": "prev"
+    },
+    {
+      "namespace": "clojure.zip",
+      "var": "remove"
+    },
+    {
+      "namespace": "clojure.zip",
+      "var": "replace"
+    },
+    {
+      "namespace": "clojure.zip",
+      "var": "right"
+    },
+    {
+      "namespace": "clojure.zip",
+      "var": "rightmost"
+    },
+    {
+      "namespace": "clojure.zip",
+      "var": "rights"
+    },
+    {
+      "namespace": "clojure.zip",
+      "var": "root"
+    },
+    {
+      "namespace": "clojure.zip",
+      "var": "seq-zip"
+    },
+    {
+      "namespace": "clojure.zip",
+      "var": "up"
+    },
+    {
+      "namespace": "clojure.zip",
+      "var": "vector-zip"
+    },
+    {
+      "namespace": "clojure.zip",
+      "var": "xml-zip"
+    },
+    {
+      "namespace": "clojure.zip",
+      "var": "zipper"
+    }
+  ]
+}
