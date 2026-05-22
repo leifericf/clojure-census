@@ -12,11 +12,11 @@
    :dialect-tag     "mino"
    :clojure-version "1.12.4"
    :headline        {:in-both-count 950
-                     :canon-total   1000
+                     :clojure-total   1000
                      :percent       0.95}
    :per-namespace   {'clojure.core
                      {:in-both-count 600
-                      :canon-total   650
+                      :clojure-total   650
                       :percent       0.923}}})
 
 (deftest snapshot-from-coverage
@@ -24,9 +24,9 @@
                {:dialect-tag     "mino"
                 :clojure-version "1.12.4"
                 :date            "2026-05-22"}
-               {:headline      {:in-both-count 100 :canon-total 120 :percent 0.833}
+               {:headline      {:in-both-count 100 :clojure-total 120 :percent 0.833}
                 :per-namespace {'clojure.core
-                                {:in-both-count 80 :canon-total 100 :percent 0.8}}})]
+                                {:in-both-count 80 :clojure-total 100 :percent 0.8}}})]
     (is (= "mino" (:dialect-tag snap)))
     (is (= "1.12.4" (:clojure-version snap)))
     (is (= "2026-05-22" (:date snap)))

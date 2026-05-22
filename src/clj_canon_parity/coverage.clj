@@ -4,7 +4,7 @@
   Headline coverage is the ratio of `in-both` (var exists on both
   sides -- INCLUDING mismatches: a var with the wrong arity still
   counts as implemented) to the TOTAL canon vars (in-both +
-  canon-only). Mismatches are still surfaced in the dashboard, but
+  clojure-only). Mismatches are still surfaced in the dashboard, but
   they don't reduce the headline number -- that's a behavior-parity
   question, not a coverage question."
   (:require [clj-canon-parity.schema :as schema]))
@@ -21,12 +21,12 @@
   [ns-comparison]
   (let [in-both     (count (:in-both ns-comparison))
         mismatched  (count (:mismatches ns-comparison))
-        canon-only  (count (:canon-only ns-comparison))
+        clojure-only  (count (:clojure-only ns-comparison))
         implemented (+ in-both mismatched)
-        canon-total (+ implemented canon-only)]
+        clojure-total (+ implemented clojure-only)]
     {:in-both-count implemented
-     :canon-total   canon-total
-     :percent       (safe-ratio implemented canon-total)}))
+     :clojure-total   clojure-total
+     :percent       (safe-ratio implemented clojure-total)}))
 
 (defn from-comparison
   "Produce a Coverage value from a Comparison."
@@ -35,9 +35,9 @@
                      (for [[ns-sym ns-cmp] (:namespaces-compared comparison)]
                        [ns-sym (ns-stat ns-cmp)]))
         headline-in  (reduce + (map :in-both-count (vals per-ns)))
-        headline-tot (reduce + (map :canon-total   (vals per-ns)))
+        headline-tot (reduce + (map :clojure-total   (vals per-ns)))
         out {:headline      {:in-both-count headline-in
-                             :canon-total   headline-tot
+                             :clojure-total   headline-tot
                              :percent       (safe-ratio headline-in headline-tot)}
              :per-namespace per-ns}]
     (schema/assert-conforms! ::schema/coverage out "coverage")

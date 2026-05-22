@@ -23,7 +23,7 @@
 
 (defn endpoint
   "Build a shields.io endpoint map from `{:dialect-tag :headline}`.
-  `:headline` is a coverage-stat (`{:in-both-count :canon-total
+  `:headline` is a coverage-stat (`{:in-both-count :clojure-total
   :percent}`)."
   [{:keys [dialect-tag headline]}]
   {:schemaVersion 1

@@ -177,7 +177,7 @@
                       :divergences     divs
                       :extensions      exts
                       :categories      cats
-                      :canon-spec      spec
+                      :clojure-spec      spec
                       :dialect-config  cfg
                       :history         all-history}
         bundle       (if-let [yesterday (history/latest prior)]
@@ -222,7 +222,7 @@
                   :divergences     divs
                   :extensions      exts
                   :categories      cats
-                  :canon-spec      spec
+                  :clojure-spec      spec
                   :dialect-config  cfg
                   :history         (history/read-history
                                      (history-dir-path tag))}]

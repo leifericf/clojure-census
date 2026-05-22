@@ -7,28 +7,28 @@
             [clj-canon-parity.dashboard :as dashboard]))
 
 (def comparison
-  {:canon-tag           "clojure"
+  {:clojure-tag           "clojure"
    :dialect-tag         "mino"
    :compared-at         "2026-05-22T10:30:00Z"
    :namespaces-compared
    {'clojure.core
     {:in-both       #{'map 'filter}
-     :canon-only    #{'reduce-kv}
+     :clojure-only    #{'reduce-kv}
      :dialect-only  #{'integer-radix-strings}
      :mismatches    [{:var-name 'when
-                      :macro-canon true :macro-dialect false}]}
+                      :macro-clojure true :macro-dialect false}]}
     'clojure.string
     {:in-both      #{'join}
-     :canon-only   #{'blank?}
+     :clojure-only   #{'blank?}
      :dialect-only #{}
      :mismatches   []}}})
 
 (def coverage
-  {:headline      {:in-both-count 4 :canon-total 6 :percent 0.667}
+  {:headline      {:in-both-count 4 :clojure-total 6 :percent 0.667}
    :per-namespace {'clojure.core
-                   {:in-both-count 3 :canon-total 4 :percent 0.75}
+                   {:in-both-count 3 :clojure-total 4 :percent 0.75}
                    'clojure.string
-                   {:in-both-count 1 :canon-total 2 :percent 0.5}}})
+                   {:in-both-count 1 :clojure-total 2 :percent 0.5}}})
 
 (def categories
   [{:id :ordering    :title "Ordering"    :description "x"}
@@ -50,7 +50,7 @@
     :rationale      "..."
     :since          "v0.422.5"}])
 
-(def canon-spec
+(def clojure-spec
   {:version           "1.12.4"
    :surface-file      "x"
    :captured-at       "2026-05-22T10:30:00Z"
@@ -63,17 +63,17 @@
    :divergences     divergences
    :extensions      extensions
    :categories      categories
-   :canon-spec      canon-spec
+   :clojure-spec      clojure-spec
    :dialect-config  {:name "mino" :tag "mino" :role :sut}})
 
 (deftest renders-edn-is-a-map
   (let [e (dashboard/render-edn bundle)]
     (is (map? e))))
 
-(deftest meta-block-carries-dialect-and-canon-version
+(deftest meta-block-carries-dialect-and-clojure-version
   (let [e (dashboard/render-edn bundle)]
     (is (= "mino"   (get-in e [:meta :dialect-tag])))
-    (is (= "1.12.4" (get-in e [:meta :canon-version])))))
+    (is (= "1.12.4" (get-in e [:meta :clojure-version])))))
 
 (deftest coverage-block-is-preserved
   (let [e (dashboard/render-edn bundle)]
@@ -94,7 +94,7 @@
         mm (first (:mismatches e))]
     (is (= 'clojure.core (:namespace mm)))
     (is (= 'when         (:var mm)))
-    (is (true?  (:macro-canon mm)))
+    (is (true?  (:macro-clojure mm)))
     (is (false? (:macro-dialect mm)))))
 
 (deftest dialect-only-is-fully-qualified-symbols

@@ -1,8 +1,8 @@
 {:meta
  {:dialect-tag "bb",
   :dialect-name "Babashka",
-  :canon-version "1.12.4",
-  :compared-at "2026-05-22T19:52:13Z"},
+  :clojure-version "1.12.4",
+  :compared-at "2026-05-22T19:59:53Z"},
  :divergences
  [{:id :reducers-absent,
    :title "clojure.core.reducers is not bundled",
@@ -50,30 +50,35 @@
    :since "bb-1.0"}],
  :coverage
  {:headline
-  {:in-both-count 898, :canon-total 995, :percent 0.9025125628140703},
+  {:in-both-count 898,
+   :clojure-total 995,
+   :percent 0.9025125628140703},
   :per-namespace
   {clojure.spec.alpha
-   {:in-both-count 87, :canon-total 87, :percent 1.0},
-   clojure.datafy {:in-both-count 2, :canon-total 2, :percent 1.0},
-   clojure.zip {:in-both-count 28, :canon-total 28, :percent 1.0},
+   {:in-both-count 87, :clojure-total 87, :percent 1.0},
+   clojure.datafy {:in-both-count 2, :clojure-total 2, :percent 1.0},
+   clojure.zip {:in-both-count 28, :clojure-total 28, :percent 1.0},
    clojure.core.reducers
-   {:in-both-count 0, :canon-total 21, :percent 0.0},
+   {:in-both-count 0, :clojure-total 21, :percent 0.0},
    clojure.test
-   {:in-both-count 37, :canon-total 39, :percent 0.9487179487179487},
+   {:in-both-count 37, :clojure-total 39, :percent 0.9487179487179487},
    clojure.core.protocols
-   {:in-both-count 5, :canon-total 11, :percent 0.45454545454545453},
+   {:in-both-count 5, :clojure-total 11, :percent 0.45454545454545453},
    clojure.core
-   {:in-both-count 629, :canon-total 679, :percent 0.9263622974963182},
-   clojure.set {:in-both-count 12, :canon-total 12, :percent 1.0},
+   {:in-both-count 629,
+    :clojure-total 679,
+    :percent 0.9263622974963182},
+   clojure.set {:in-both-count 12, :clojure-total 12, :percent 1.0},
    clojure.pprint
-   {:in-both-count 14, :canon-total 26, :percent 0.5384615384615384},
-   clojure.math {:in-both-count 45, :canon-total 45, :percent 1.0},
-   clojure.edn {:in-both-count 2, :canon-total 2, :percent 1.0},
-   clojure.instant {:in-both-count 2, :canon-total 5, :percent 0.4},
-   clojure.string {:in-both-count 21, :canon-total 21, :percent 1.0},
-   clojure.data {:in-both-count 2, :canon-total 5, :percent 0.4},
-   clojure.walk {:in-both-count 10, :canon-total 10, :percent 1.0},
-   clojure.template {:in-both-count 2, :canon-total 2, :percent 1.0}}},
+   {:in-both-count 14, :clojure-total 26, :percent 0.5384615384615384},
+   clojure.math {:in-both-count 45, :clojure-total 45, :percent 1.0},
+   clojure.edn {:in-both-count 2, :clojure-total 2, :percent 1.0},
+   clojure.instant {:in-both-count 2, :clojure-total 5, :percent 0.4},
+   clojure.string {:in-both-count 21, :clojure-total 21, :percent 1.0},
+   clojure.data {:in-both-count 2, :clojure-total 5, :percent 0.4},
+   clojure.walk {:in-both-count 10, :clojure-total 10, :percent 1.0},
+   clojure.template
+   {:in-both-count 2, :clojure-total 2, :percent 1.0}}},
  :history
  [{:date "2026-05-22",
    :dialect-tag "bb",
@@ -107,107 +112,107 @@
     clojure.template
     {:in-both-count 2, :canon-total 2, :percent 1.0}}}],
  :mismatches
- [{:dynamic-canon false,
+ [{:dynamic-clojure false,
    :dynamic-dialect true,
    :namespace clojure.core,
    :var *assert*}
-  {:dynamic-canon false,
+  {:dynamic-clojure false,
    :dynamic-dialect true,
    :namespace clojure.core,
    :var *command-line-args*}
-  {:dynamic-canon false,
+  {:dynamic-clojure false,
    :dynamic-dialect true,
    :namespace clojure.core,
    :var *compile-files*}
-  {:dynamic-canon false,
+  {:dynamic-clojure false,
    :dynamic-dialect true,
    :namespace clojure.core,
    :var *compile-path*}
-  {:dynamic-canon false,
+  {:dynamic-clojure false,
    :dynamic-dialect true,
    :namespace clojure.core,
    :var *compiler-options*}
-  {:dynamic-canon false,
+  {:dynamic-clojure false,
    :dynamic-dialect true,
    :namespace clojure.core,
    :var *err*}
-  {:dynamic-canon false,
+  {:dynamic-clojure false,
    :dynamic-dialect true,
    :namespace clojure.core,
    :var *file*}
-  {:dynamic-canon false,
+  {:dynamic-clojure false,
    :dynamic-dialect true,
    :namespace clojure.core,
    :var *flush-on-newline*}
-  {:dynamic-canon false,
+  {:dynamic-clojure false,
    :dynamic-dialect true,
    :namespace clojure.core,
    :var *in*}
-  {:dynamic-canon false,
+  {:dynamic-clojure false,
    :dynamic-dialect true,
    :namespace clojure.core,
    :var *math-context*}
-  {:dynamic-canon false,
+  {:dynamic-clojure false,
    :dynamic-dialect true,
    :namespace clojure.core,
    :var *ns*}
-  {:dynamic-canon false,
+  {:dynamic-clojure false,
    :dynamic-dialect true,
    :namespace clojure.core,
    :var *out*}
-  {:dynamic-canon false,
+  {:dynamic-clojure false,
    :dynamic-dialect true,
    :namespace clojure.core,
    :var *print-dup*}
-  {:dynamic-canon false,
+  {:dynamic-clojure false,
    :dynamic-dialect true,
    :namespace clojure.core,
    :var *print-meta*}
-  {:dynamic-canon false,
+  {:dynamic-clojure false,
    :dynamic-dialect true,
    :namespace clojure.core,
    :var *print-readably*}
-  {:dynamic-canon false,
+  {:dynamic-clojure false,
    :dynamic-dialect true,
    :namespace clojure.core,
    :var *read-eval*}
-  {:dynamic-canon false,
+  {:dynamic-clojure false,
    :dynamic-dialect true,
    :namespace clojure.core,
    :var *reader-resolver*}
-  {:dynamic-canon false,
+  {:dynamic-clojure false,
    :dynamic-dialect true,
    :namespace clojure.core,
    :var *source-path*}
-  {:dynamic-canon false,
+  {:dynamic-clojure false,
    :dynamic-dialect true,
    :namespace clojure.core,
    :var *suppress-read*}
-  {:dynamic-canon false,
+  {:dynamic-clojure false,
    :dynamic-dialect true,
    :namespace clojure.core,
    :var *unchecked-math*}
-  {:dynamic-canon false,
+  {:dynamic-clojure false,
    :dynamic-dialect true,
    :namespace clojure.core,
    :var *warn-on-reflection*}
-  {:arglists-canon ([bindings]),
+  {:arglists-clojure ([bindings]),
    :arglists-dialect ([b] [b loc]),
    :namespace clojure.core,
    :var destructure}
-  {:arglists-canon ([flags-ignored-for-now & body]),
+  {:arglists-clojure ([flags-ignored-for-now & body]),
    :arglists-dialect ([_flags-ignored-for-now & body]),
    :namespace clojure.core,
    :var sync}
-  {:arglists-canon ([expr]),
+  {:arglists-clojure ([expr]),
    :arglists-dialect ([_ _ expr]),
    :namespace clojure.core,
    :var time}
-  {:arglists-canon ([vol f & args]),
+  {:arglists-clojure ([vol f & args]),
    :arglists-dialect ([_ _ vol f & args]),
    :namespace clojure.core,
    :var vswap!}
-  {:arglists-canon ([argv expr & values]),
+  {:arglists-clojure ([argv expr & values]),
    :arglists-dialect ([_ _ argv expr & values]),
    :namespace clojure.template,
    :var do-template}],

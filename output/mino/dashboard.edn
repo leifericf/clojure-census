@@ -1,15 +1,15 @@
 {:meta
  {:dialect-tag "mino",
   :dialect-name "mino",
-  :canon-version "1.12.4",
-  :compared-at "2026-05-22T19:52:17Z"},
+  :clojure-version "1.12.4",
+  :compared-at "2026-05-22T19:59:57Z"},
  :divergences
  [{:dialect-example "(compare \"z\" \"a\") ;=> 1",
    :since "v0.1.0",
    :affected [clojure.core/compare],
+   :clojure-example "(compare \"z\" \"a\") ;=> 25",
    :category-id :ordering,
    :title "compare returns sign-only (-1, 0, 1)",
-   :canon-example "(compare \"z\" \"a\") ;=> 25",
    :doc-link "/coming-from-clojure#ordering",
    :rationale
    "Hickey-test for what compare's contract is: a\n                    three-way ordering function. Sign-normalized\n                    return values are simpler and avoid leaking\n                    representation-specific deltas.",
@@ -32,9 +32,9 @@
   {:dialect-example "(type [1 2 3]) ;=> :vector",
    :since "v0.1.0",
    :affected [clojure.core/type clojure.core/class],
+   :clojure-example "(type [1 2 3]) ;=> clojure.lang.PersistentVector",
    :category-id :type-system,
    :title "type returns a keyword, not a Java class",
-   :canon-example "(type [1 2 3]) ;=> clojure.lang.PersistentVector",
    :doc-link "/coming-from-clojure#types",
    :rationale
    "No JVM classes. mino's type system is keyword-\n                    tagged (:vector, :map, :list, :symbol, ...).\n                    Dispatch logic that pattern-matches on classes\n                    must use the keyword tags instead.",
@@ -85,7 +85,7 @@
    "mino is not JVM Clojure; portable code must use\n                    :default or :mino to target it. Documented and\n                    intentional.",
    :since "v0.1.0",
    :dialect-example "#?(:clj :A :mino :B :default :C) ;=> :B",
-   :canon-example "#?(:clj :A :mino :B :default :C) ;=> :A",
+   :clojure-example "#?(:clj :A :mino :B :default :C) ;=> :A",
    :doc-link "/coming-from-clojure#reader-conditionals"}
   {:id :keyword-namespaces-canonicalized,
    :title "Namespaced keyword aliasing uses runtime aliases",
@@ -217,31 +217,36 @@
    :since "v0.1.0"}],
  :coverage
  {:headline
-  {:in-both-count 751, :canon-total 995, :percent 0.7547738693467336},
+  {:in-both-count 751,
+   :clojure-total 995,
+   :percent 0.7547738693467336},
   :per-namespace
   {clojure.spec.alpha
-   {:in-both-count 49, :canon-total 87, :percent 0.5632183908045977},
-   clojure.datafy {:in-both-count 2, :canon-total 2, :percent 1.0},
-   clojure.zip {:in-both-count 28, :canon-total 28, :percent 1.0},
+   {:in-both-count 49, :clojure-total 87, :percent 0.5632183908045977},
+   clojure.datafy {:in-both-count 2, :clojure-total 2, :percent 1.0},
+   clojure.zip {:in-both-count 28, :clojure-total 28, :percent 1.0},
    clojure.core.reducers
-   {:in-both-count 13, :canon-total 21, :percent 0.6190476190476191},
+   {:in-both-count 13, :clojure-total 21, :percent 0.6190476190476191},
    clojure.test
-   {:in-both-count 8, :canon-total 39, :percent 0.20512820512820512},
+   {:in-both-count 8, :clojure-total 39, :percent 0.20512820512820512},
    clojure.core.protocols
-   {:in-both-count 8, :canon-total 11, :percent 0.7272727272727273},
+   {:in-both-count 8, :clojure-total 11, :percent 0.7272727272727273},
    clojure.core
-   {:in-both-count 560, :canon-total 679, :percent 0.8247422680412371},
-   clojure.set {:in-both-count 12, :canon-total 12, :percent 1.0},
+   {:in-both-count 560,
+    :clojure-total 679,
+    :percent 0.8247422680412371},
+   clojure.set {:in-both-count 12, :clojure-total 12, :percent 1.0},
    clojure.pprint
-   {:in-both-count 3, :canon-total 26, :percent 0.11538461538461539},
+   {:in-both-count 3, :clojure-total 26, :percent 0.11538461538461539},
    clojure.math
-   {:in-both-count 31, :canon-total 45, :percent 0.6888888888888889},
-   clojure.edn {:in-both-count 2, :canon-total 2, :percent 1.0},
-   clojure.instant {:in-both-count 3, :canon-total 5, :percent 0.6},
-   clojure.string {:in-both-count 21, :canon-total 21, :percent 1.0},
-   clojure.data {:in-both-count 1, :canon-total 5, :percent 0.2},
-   clojure.walk {:in-both-count 8, :canon-total 10, :percent 0.8},
-   clojure.template {:in-both-count 2, :canon-total 2, :percent 1.0}}},
+   {:in-both-count 31, :clojure-total 45, :percent 0.6888888888888889},
+   clojure.edn {:in-both-count 2, :clojure-total 2, :percent 1.0},
+   clojure.instant {:in-both-count 3, :clojure-total 5, :percent 0.6},
+   clojure.string {:in-both-count 21, :clojure-total 21, :percent 1.0},
+   clojure.data {:in-both-count 1, :clojure-total 5, :percent 0.2},
+   clojure.walk {:in-both-count 8, :clojure-total 10, :percent 0.8},
+   clojure.template
+   {:in-both-count 2, :clojure-total 2, :percent 1.0}}},
  :history
  [{:date "2026-05-22",
    :dialect-tag "mino",
@@ -276,407 +281,407 @@
     clojure.template
     {:in-both-count 2, :canon-total 2, :percent 1.0}}}],
  :mismatches
- [{:dynamic-canon false,
+ [{:dynamic-clojure false,
    :dynamic-dialect true,
    :namespace clojure.core,
    :var *agent*}
-  {:dynamic-canon false,
+  {:dynamic-clojure false,
    :dynamic-dialect true,
    :namespace clojure.core,
    :var *assert*}
-  {:dynamic-canon true,
+  {:dynamic-clojure true,
    :dynamic-dialect false,
    :namespace clojure.core,
    :var *clojure-version*}
-  {:dynamic-canon false,
+  {:dynamic-clojure false,
    :dynamic-dialect true,
    :namespace clojure.core,
    :var *command-line-args*}
-  {:dynamic-canon false,
+  {:dynamic-clojure false,
    :dynamic-dialect true,
    :namespace clojure.core,
    :var *compile-files*}
-  {:dynamic-canon false,
+  {:dynamic-clojure false,
    :dynamic-dialect true,
    :namespace clojure.core,
    :var *compile-path*}
-  {:dynamic-canon false,
+  {:dynamic-clojure false,
    :dynamic-dialect true,
    :namespace clojure.core,
    :var *err*}
-  {:dynamic-canon false,
+  {:dynamic-clojure false,
    :dynamic-dialect true,
    :namespace clojure.core,
    :var *file*}
-  {:dynamic-canon false,
+  {:dynamic-clojure false,
    :dynamic-dialect true,
    :namespace clojure.core,
    :var *flush-on-newline*}
-  {:dynamic-canon false,
+  {:dynamic-clojure false,
    :dynamic-dialect true,
    :namespace clojure.core,
    :var *in*}
-  {:dynamic-canon false,
+  {:dynamic-clojure false,
    :dynamic-dialect true,
    :namespace clojure.core,
    :var *math-context*}
-  {:dynamic-canon false,
+  {:dynamic-clojure false,
    :dynamic-dialect true,
    :namespace clojure.core,
    :var *out*}
-  {:dynamic-canon false,
+  {:dynamic-clojure false,
    :dynamic-dialect true,
    :namespace clojure.core,
    :var *print-dup*}
-  {:dynamic-canon false,
+  {:dynamic-clojure false,
    :dynamic-dialect true,
    :namespace clojure.core,
    :var *print-meta*}
-  {:dynamic-canon false,
+  {:dynamic-clojure false,
    :dynamic-dialect true,
    :namespace clojure.core,
    :var *print-readably*}
-  {:dynamic-canon false,
+  {:dynamic-clojure false,
    :dynamic-dialect true,
    :namespace clojure.core,
    :var *source-path*}
-  {:dynamic-canon false,
+  {:dynamic-clojure false,
    :dynamic-dialect true,
    :namespace clojure.core,
    :var *unchecked-math*}
-  {:dynamic-canon false,
+  {:dynamic-clojure false,
    :dynamic-dialect true,
    :namespace clojure.core,
    :var *warn-on-reflection*}
-  {:macro-canon true,
+  {:macro-clojure true,
    :macro-dialect false,
    :namespace clojure.core,
    :var ->}
-  {:macro-canon true,
+  {:macro-clojure true,
    :macro-dialect false,
    :namespace clojure.core,
    :var ->>}
-  {:macro-canon true,
+  {:macro-clojure true,
    :macro-dialect false,
    :namespace clojure.core,
    :var and}
-  {:macro-canon true,
+  {:macro-clojure true,
    :macro-dialect false,
    :namespace clojure.core,
    :var as->}
-  {:macro-canon true,
+  {:macro-clojure true,
    :macro-dialect false,
    :namespace clojure.core,
    :var assert}
-  {:macro-canon true,
+  {:macro-clojure true,
    :macro-dialect false,
    :namespace clojure.core,
    :var bound-fn}
-  {:macro-canon true,
+  {:macro-clojure true,
    :macro-dialect false,
    :namespace clojure.core,
    :var case}
-  {:macro-canon true,
+  {:macro-clojure true,
    :macro-dialect false,
    :namespace clojure.core,
    :var comment}
-  {:macro-canon true,
+  {:macro-clojure true,
    :macro-dialect false,
    :namespace clojure.core,
    :var cond}
-  {:macro-canon true,
+  {:macro-clojure true,
    :macro-dialect false,
    :namespace clojure.core,
    :var cond->}
-  {:macro-canon true,
+  {:macro-clojure true,
    :macro-dialect false,
    :namespace clojure.core,
    :var cond->>}
-  {:macro-canon true,
+  {:macro-clojure true,
    :macro-dialect false,
    :namespace clojure.core,
    :var condp}
-  {:macro-canon true,
+  {:macro-clojure true,
    :macro-dialect false,
    :namespace clojure.core,
    :var definterface}
-  {:macro-canon true,
+  {:macro-clojure true,
    :macro-dialect false,
    :namespace clojure.core,
    :var defmethod}
-  {:macro-canon true,
+  {:macro-clojure true,
    :macro-dialect false,
    :namespace clojure.core,
    :var defmulti}
-  {:macro-canon true,
+  {:macro-clojure true,
    :macro-dialect false,
    :namespace clojure.core,
    :var defn}
-  {:macro-canon true,
+  {:macro-clojure true,
    :macro-dialect false,
    :namespace clojure.core,
    :var defn-}
-  {:macro-canon true,
+  {:macro-clojure true,
    :macro-dialect false,
    :namespace clojure.core,
    :var defonce}
-  {:macro-canon true,
+  {:macro-clojure true,
    :macro-dialect false,
    :namespace clojure.core,
    :var defprotocol}
-  {:macro-canon true,
+  {:macro-clojure true,
    :macro-dialect false,
    :namespace clojure.core,
    :var defrecord}
-  {:macro-canon true,
+  {:macro-clojure true,
    :macro-dialect false,
    :namespace clojure.core,
    :var deftype}
-  {:macro-canon true,
+  {:macro-clojure true,
    :macro-dialect false,
    :namespace clojure.core,
    :var delay}
-  {:macro-canon true,
+  {:macro-clojure true,
    :macro-dialect false,
    :namespace clojure.core,
    :var doseq}
-  {:macro-canon true,
+  {:macro-clojure true,
    :macro-dialect false,
    :namespace clojure.core,
    :var dosync}
-  {:macro-canon true,
+  {:macro-clojure true,
    :macro-dialect false,
    :namespace clojure.core,
    :var dotimes}
-  {:macro-canon true,
+  {:macro-clojure true,
    :macro-dialect false,
    :namespace clojure.core,
    :var doto}
-  {:macro-canon true,
+  {:macro-clojure true,
    :macro-dialect false,
    :namespace clojure.core,
    :var extend-protocol}
-  {:macro-canon true,
+  {:macro-clojure true,
    :macro-dialect false,
    :namespace clojure.core,
    :var extend-type}
-  {:macro-canon true,
+  {:macro-clojure true,
    :macro-dialect false,
    :namespace clojure.core,
    :var for}
-  {:macro-canon true,
+  {:macro-clojure true,
    :macro-dialect false,
    :namespace clojure.core,
    :var future}
-  {:macro-canon true,
+  {:macro-clojure true,
    :macro-dialect false,
    :namespace clojure.core,
    :var gen-class}
-  {:macro-canon true,
+  {:macro-clojure true,
    :macro-dialect false,
    :namespace clojure.core,
    :var if-let}
-  {:macro-canon true,
+  {:macro-clojure true,
    :macro-dialect false,
    :namespace clojure.core,
    :var if-not}
-  {:macro-canon true,
+  {:macro-clojure true,
    :macro-dialect false,
    :namespace clojure.core,
    :var if-some}
-  {:macro-canon true,
+  {:macro-clojure true,
    :macro-dialect false,
    :namespace clojure.core,
    :var import}
-  {:macro-canon true,
+  {:macro-clojure true,
    :macro-dialect false,
    :namespace clojure.core,
    :var io!}
-  {:macro-canon true,
+  {:macro-clojure true,
    :macro-dialect false,
    :namespace clojure.core,
    :var lazy-cat}
-  {:macro-canon true,
+  {:macro-clojure true,
    :macro-dialect false,
    :namespace clojure.core,
    :var letfn}
-  {:macro-canon true,
+  {:macro-clojure true,
    :macro-dialect false,
    :namespace clojure.core,
    :var or}
-  {:dynamic-canon true,
+  {:dynamic-clojure true,
    :dynamic-dialect false,
    :namespace clojure.core,
    :var pr}
-  {:macro-canon true,
+  {:macro-clojure true,
    :macro-dialect false,
    :namespace clojure.core,
    :var proxy}
-  {:macro-canon true,
+  {:macro-clojure true,
    :macro-dialect false,
    :namespace clojure.core,
    :var pvalues}
-  {:macro-canon true,
+  {:macro-clojure true,
    :macro-dialect false,
    :namespace clojure.core,
    :var reify}
-  {:macro-canon true,
+  {:macro-clojure true,
    :macro-dialect false,
    :namespace clojure.core,
    :var some->}
-  {:macro-canon true,
+  {:macro-clojure true,
    :macro-dialect false,
    :namespace clojure.core,
    :var some->>}
-  {:macro-canon true,
+  {:macro-clojure true,
    :macro-dialect false,
    :namespace clojure.core,
    :var time}
-  {:macro-canon true,
+  {:macro-clojure true,
    :macro-dialect false,
    :namespace clojure.core,
    :var vswap!}
-  {:macro-canon true,
+  {:macro-clojure true,
    :macro-dialect false,
    :namespace clojure.core,
    :var when}
-  {:macro-canon true,
+  {:macro-clojure true,
    :macro-dialect false,
    :namespace clojure.core,
    :var when-first}
-  {:macro-canon true,
+  {:macro-clojure true,
    :macro-dialect false,
    :namespace clojure.core,
    :var when-let}
-  {:macro-canon true,
+  {:macro-clojure true,
    :macro-dialect false,
    :namespace clojure.core,
    :var when-not}
-  {:macro-canon true,
+  {:macro-clojure true,
    :macro-dialect false,
    :namespace clojure.core,
    :var when-some}
-  {:macro-canon true,
+  {:macro-clojure true,
    :macro-dialect false,
    :namespace clojure.core,
    :var while}
-  {:macro-canon true,
+  {:macro-clojure true,
    :macro-dialect false,
    :namespace clojure.core,
    :var with-bindings}
-  {:macro-canon true,
+  {:macro-clojure true,
    :macro-dialect false,
    :namespace clojure.core,
    :var with-in-str}
-  {:macro-canon true,
+  {:macro-clojure true,
    :macro-dialect false,
    :namespace clojure.core,
    :var with-local-vars}
-  {:macro-canon true,
+  {:macro-clojure true,
    :macro-dialect false,
    :namespace clojure.core,
    :var with-open}
-  {:macro-canon true,
+  {:macro-clojure true,
    :macro-dialect false,
    :namespace clojure.core,
    :var with-out-str}
-  {:macro-canon true,
+  {:macro-clojure true,
    :macro-dialect false,
    :namespace clojure.core,
    :var with-precision}
-  {:macro-canon true,
+  {:macro-clojure true,
    :macro-dialect false,
    :namespace clojure.core,
    :var with-redefs}
-  {:macro-canon true,
+  {:macro-clojure true,
    :macro-dialect false,
    :namespace clojure.spec.alpha,
    :var &}
-  {:macro-canon true,
+  {:macro-clojure true,
    :macro-dialect false,
    :namespace clojure.spec.alpha,
    :var *}
-  {:macro-canon true,
+  {:macro-clojure true,
    :macro-dialect false,
    :namespace clojure.spec.alpha,
    :var +}
-  {:macro-canon true,
+  {:macro-clojure true,
    :macro-dialect false,
    :namespace clojure.spec.alpha,
    :var ?}
-  {:macro-canon true,
+  {:macro-clojure true,
    :macro-dialect false,
    :namespace clojure.spec.alpha,
    :var alt}
-  {:macro-canon true,
+  {:macro-clojure true,
    :macro-dialect false,
    :namespace clojure.spec.alpha,
    :var and}
-  {:macro-canon true,
+  {:macro-clojure true,
    :macro-dialect false,
    :namespace clojure.spec.alpha,
    :var assert}
-  {:macro-canon true,
+  {:macro-clojure true,
    :macro-dialect false,
    :namespace clojure.spec.alpha,
    :var cat}
-  {:macro-canon true,
+  {:macro-clojure true,
    :macro-dialect false,
    :namespace clojure.spec.alpha,
    :var coll-of}
-  {:macro-canon true,
+  {:macro-clojure true,
    :macro-dialect false,
    :namespace clojure.spec.alpha,
    :var conformer}
-  {:macro-canon true,
+  {:macro-clojure true,
    :macro-dialect false,
    :namespace clojure.spec.alpha,
    :var def}
-  {:macro-canon true,
+  {:macro-clojure true,
    :macro-dialect false,
    :namespace clojure.spec.alpha,
    :var fdef}
-  {:macro-canon true,
+  {:macro-clojure true,
    :macro-dialect false,
    :namespace clojure.spec.alpha,
    :var keys}
-  {:macro-canon true,
+  {:macro-clojure true,
    :macro-dialect false,
    :namespace clojure.spec.alpha,
    :var map-of}
-  {:macro-canon true,
+  {:macro-clojure true,
    :macro-dialect false,
    :namespace clojure.spec.alpha,
    :var nilable}
-  {:macro-canon true,
+  {:macro-clojure true,
    :macro-dialect false,
    :namespace clojure.spec.alpha,
    :var or}
-  {:macro-canon true,
+  {:macro-clojure true,
    :macro-dialect false,
    :namespace clojure.spec.alpha,
    :var spec}
-  {:macro-canon true,
+  {:macro-clojure true,
    :macro-dialect false,
    :namespace clojure.spec.alpha,
    :var tuple}
-  {:macro-canon true,
+  {:macro-clojure true,
    :macro-dialect false,
    :namespace clojure.template,
    :var do-template}
-  {:macro-canon true,
+  {:macro-clojure true,
    :macro-dialect false,
    :namespace clojure.test,
    :var are}
-  {:macro-canon true,
+  {:macro-clojure true,
    :macro-dialect false,
    :namespace clojure.test,
    :var deftest}
-  {:macro-canon true,
+  {:macro-clojure true,
    :macro-dialect false,
    :namespace clojure.test,
    :var is}
-  {:macro-canon true,
+  {:macro-clojure true,
    :macro-dialect false,
    :namespace clojure.test,
    :var testing}],

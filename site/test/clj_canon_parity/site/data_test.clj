@@ -33,10 +33,10 @@
     (write-edn! (io/file root "output" "foo" "dashboard.edn")
                 {:meta {:dialect-tag "foo"
                         :dialect-name "Foo Dialect"
-                        :canon-version "1.12.4"
+                        :clojure-version "1.12.4"
                         :compared-at "2026-05-22T00:00:00Z"}
                  :coverage {:headline {:in-both-count 7
-                                       :canon-total   10
+                                       :clojure-total   10
                                        :percent       0.7}
                             :per-namespace {}}
                  :missing      []
@@ -105,13 +105,13 @@
                 {:name "Foo" :tag "foo" :role :sut})
     (write-edn! (io/file root "output" "foo" "dashboard.edn")
                 {:meta {:dialect-tag "foo" :dialect-name "Foo"
-                        :canon-version "1.12.4" :compared-at "x"}
+                        :clojure-version "1.12.4" :compared-at "x"}
                  :coverage {:headline {:percent 0.5
                                        :in-both-count 1
-                                       :canon-total 2}
+                                       :clojure-total 2}
                             :per-namespace {'clojure.core
                                             {:in-both-count 1
-                                             :canon-total 2
+                                             :clojure-total 2
                                              :percent 0.5}}}
                  :missing [{:namespace 'clojure.core :var 'reduce-kv}]
                  :mismatches [] :dialect-only [] :divergences []

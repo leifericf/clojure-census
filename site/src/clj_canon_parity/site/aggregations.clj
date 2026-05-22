@@ -51,7 +51,7 @@
 (defn per-namespace-summary
   "Build the enriched per-namespace row for the dialect overview.
   Returns a seq of
-    `{:namespace :canon-total :implemented :mismatched :missing
+    `{:namespace :clojure-total :implemented :mismatched :missing
       :dialect-only :percent}`
   sorted alphabetically by namespace name. Counts derive from the
   flat `:mismatches` / `:dialect-only` lists so the totals match the
@@ -62,14 +62,14 @@
         per-ns    (:per-namespace coverage)]
     (->> per-ns
          (map (fn [[ns-sym
-                    {:keys [in-both-count canon-total percent]}]]
+                    {:keys [in-both-count clojure-total percent]}]]
                 (let [mm-cnt (count (get mm-by-ns ns-sym []))
                       do-cnt (count (get only-by-ns ns-sym []))]
                   {:namespace    ns-sym
-                   :canon-total  canon-total
+                   :clojure-total  clojure-total
                    :implemented  in-both-count
                    :mismatched   mm-cnt
-                   :missing      (- canon-total in-both-count)
+                   :missing      (- clojure-total in-both-count)
                    :dialect-only do-cnt
                    :percent      percent})))
          (sort-by (comp str :namespace))

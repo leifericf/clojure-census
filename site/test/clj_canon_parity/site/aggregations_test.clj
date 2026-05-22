@@ -12,19 +12,19 @@
 
 (def dashboard
   {:meta {:dialect-tag "foo" :dialect-name "Foo"
-          :canon-version "1.12.4" :compared-at "2026-05-22T00:00:00Z"}
+          :clojure-version "1.12.4" :compared-at "2026-05-22T00:00:00Z"}
    :coverage
-   {:headline {:in-both-count 5 :canon-total 8 :percent 0.625}
+   {:headline {:in-both-count 5 :clojure-total 8 :percent 0.625}
     :per-namespace
-    {'clojure.core   {:in-both-count 3 :canon-total 4 :percent 0.75}
-     'clojure.string {:in-both-count 2 :canon-total 4 :percent 0.5}}}
+    {'clojure.core   {:in-both-count 3 :clojure-total 4 :percent 0.75}
+     'clojure.string {:in-both-count 2 :clojure-total 4 :percent 0.5}}}
    :missing
    [{:namespace 'clojure.core   :var 'reduce-kv}
     {:namespace 'clojure.string :var 'blank?}
     {:namespace 'clojure.string :var 'split-lines}]
    :mismatches
-   [{:namespace 'clojure.core :var 'when :macro-canon true :macro-dialect false}
-    {:namespace 'clojure.core :var '+    :arglists-canon [["x"]] :arglists-dialect [["l"]]}]
+   [{:namespace 'clojure.core :var 'when :macro-clojure true :macro-dialect false}
+    {:namespace 'clojure.core :var '+    :arglists-clojure [["x"]] :arglists-dialect [["l"]]}]
    :dialect-only
    ['clojure.core/foo-ext
     'clojure.core/bar-ext
@@ -94,14 +94,14 @@
         strg (first (filter #(= 'clojure.string (:namespace %)) rows))]
     (is (= 2 (count rows)))
     (testing "clojure.core row"
-      (is (= 4 (:canon-total   core)))
+      (is (= 4 (:clojure-total   core)))
       (is (= 3 (:implemented   core)))
       (is (= 2 (:mismatched    core)))
       (is (= 1 (:missing       core)))
       (is (= 2 (:dialect-only  core)))
       (is (= 0.75 (:percent     core))))
     (testing "clojure.string row"
-      (is (= 4 (:canon-total   strg)))
+      (is (= 4 (:clojure-total   strg)))
       (is (= 2 (:implemented   strg)))
       (is (= 0 (:mismatched    strg)))
       (is (= 2 (:missing       strg)))

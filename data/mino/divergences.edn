@@ -20,7 +20,7 @@
                     representation-specific deltas."
   :since           "v0.1.0"
   :dialect-example "(compare \"z\" \"a\") ;=> 1"
-  :canon-example   "(compare \"z\" \"a\") ;=> 25"
+  :clojure-example   "(compare \"z\" \"a\") ;=> 25"
   :affected        [clojure.core/compare]
   :doc-link        "/coming-from-clojure#ordering"}
 
@@ -51,7 +51,7 @@
                     must use the keyword tags instead."
   :since           "v0.1.0"
   :dialect-example "(type [1 2 3]) ;=> :vector"
-  :canon-example   "(type [1 2 3]) ;=> clojure.lang.PersistentVector"
+  :clojure-example   "(type [1 2 3]) ;=> clojure.lang.PersistentVector"
   :affected        [clojure.core/type clojure.core/class]
   :doc-link        "/coming-from-clojure#types"}
 
@@ -106,7 +106,7 @@
                     intentional."
   :since           "v0.1.0"
   :dialect-example "#?(:clj :A :mino :B :default :C) ;=> :B"
-  :canon-example   "#?(:clj :A :mino :B :default :C) ;=> :A"
+  :clojure-example   "#?(:clj :A :mino :B :default :C) ;=> :A"
   :doc-link        "/coming-from-clojure#reader-conditionals"}
 
  {:id              :keyword-namespaces-canonicalized

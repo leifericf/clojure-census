@@ -1,7 +1,7 @@
 (ns clj-canon-parity.dashboard
   "Dashboard takes a bundle of pure values
   (`{:comparison :coverage :divergences :extensions :categories
-     :canon-spec :dialect-config :drift? :history?}`) and produces a
+     :clojure-spec :dialect-config :drift? :history?}`) and produces a
   deterministic EDN data structure.
 
   The EDN is the canonical artifact: humans browse it via the static
@@ -12,7 +12,7 @@
 
   Pure transformations: same bundle -> same output. No timestamps in
   the output. Iteration order over namespaces is stable
-  (`canon-spec` declaration order)."
+  (`clojure-spec` declaration order)."
   (:require [clojure.java.io :as io]
             [clojure.pprint  :as pprint]))
 
@@ -22,12 +22,12 @@
   "Pure: produce the EDN-friendly data for the bundle. The static
   site at `site/` consumes this shape directly via `edn/read-string`."
   [{:keys [comparison coverage divergences extensions categories
-           canon-spec dialect-config drift history]}]
+           clojure-spec dialect-config drift history]}]
   (let [missing
         (vec
           (for [[ns-sym ns-cmp] (sort-by key
                                           (:namespaces-compared comparison))
-                v (sort (:canon-only ns-cmp))]
+                v (sort (:clojure-only ns-cmp))]
             {:namespace ns-sym :var v}))
         mismatches
         (vec
@@ -45,7 +45,7 @@
             (symbol (str ns-sym) (str v))))]
     (cond-> {:meta         {:dialect-tag   (:tag dialect-config)
                             :dialect-name  (:name dialect-config)
-                            :canon-version (:version canon-spec)
+                            :clojure-version (:version clojure-spec)
                             :compared-at   (:compared-at comparison)}
              :coverage     coverage
              :missing      missing

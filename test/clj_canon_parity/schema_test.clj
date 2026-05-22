@@ -70,17 +70,17 @@
                       :captured-at     "2026-05-22T10:30:00Z"
                       :namespaces      {"clojure.core" {:vars {}}}}))))
 
-;; ----- canon-spec --------------------------------------------------
+;; ----- clojure-spec --------------------------------------------------
 
-(deftest canon-spec-minimal
-  (is (s/valid? ::schema/canon-spec
+(deftest clojure-spec-minimal
+  (is (s/valid? ::schema/clojure-spec
                 {:version           "1.12.4"
                  :surface-file      "clojure-1.12.4-surface.edn"
                  :captured-at       "2026-05-22T10:30:00Z"
                  :target-namespaces [{:ns 'clojure.core :priority :critical}]})))
 
-(deftest canon-spec-rejects-invalid-priority
-  (is (not (s/valid? ::schema/canon-spec
+(deftest clojure-spec-rejects-invalid-priority
+  (is (not (s/valid? ::schema/clojure-spec
                      {:version           "1.12.4"
                       :surface-file      "x"
                       :captured-at       "2026-05-22T10:30:00Z"
@@ -162,7 +162,7 @@
                  :rationale       "rationale"
                  :since           "v0.1.0"
                  :dialect-example "(compare \"z\" \"a\") ;=> 1"
-                 :canon-example   "(compare \"z\" \"a\") ;=> 25"
+                 :clojure-example   "(compare \"z\" \"a\") ;=> 25"
                  :affected        ['clojure.core/compare]
                  :doc-link        "/coming-from-clojure#ordering"})))
 
@@ -182,45 +182,45 @@
 
 (deftest comparison-minimal
   (is (s/valid? ::schema/comparison
-                {:canon-tag           "clojure"
+                {:clojure-tag           "clojure"
                  :dialect-tag         "mino"
                  :compared-at         "2026-05-22T10:30:00Z"
                  :namespaces-compared
                  {'clojure.core
                   {:in-both       #{'map 'filter}
-                   :canon-only    #{'reduce-kv}
+                   :clojure-only    #{'reduce-kv}
                    :dialect-only  #{}
                    :mismatches    []}}})))
 
 (deftest comparison-with-mismatch
   (is (s/valid? ::schema/comparison
-                {:canon-tag           "clojure"
+                {:clojure-tag           "clojure"
                  :dialect-tag         "mino"
                  :compared-at         "2026-05-22T10:30:00Z"
                  :namespaces-compared
                  {'clojure.core
                   {:in-both       #{}
-                   :canon-only    #{}
+                   :clojure-only    #{}
                    :dialect-only  #{}
                    :mismatches    [{:var-name        'reduce
-                                    :arglists-canon  '([f coll] [f init coll])
+                                    :arglists-clojure  '([f coll] [f init coll])
                                     :arglists-dialect '([f coll])}]}}})))
 
 ;; ----- coverage ----------------------------------------------------
 
 (deftest coverage-stat
   (is (s/valid? ::schema/coverage-stat
-                {:in-both-count 100 :canon-total 120 :percent 0.833})))
+                {:in-both-count 100 :clojure-total 120 :percent 0.833})))
 
 (deftest coverage-stat-rejects-percent-out-of-range
   (is (not (s/valid? ::schema/coverage-stat
-                     {:in-both-count 1 :canon-total 1 :percent 2.5}))))
+                     {:in-both-count 1 :clojure-total 1 :percent 2.5}))))
 
 (deftest coverage-shape
   (is (s/valid? ::schema/coverage
-                {:headline      {:in-both-count 100 :canon-total 120 :percent 0.833}
+                {:headline      {:in-both-count 100 :clojure-total 120 :percent 0.833}
                  :per-namespace {'clojure.core
-                                 {:in-both-count 80 :canon-total 100 :percent 0.8}}})))
+                                 {:in-both-count 80 :clojure-total 100 :percent 0.8}}})))
 
 ;; ----- drift -------------------------------------------------------
 
@@ -240,7 +240,7 @@
                 {:date            "2026-05-22"
                  :dialect-tag     "mino"
                  :clojure-version "1.12.4"
-                 :headline        {:in-both-count 100 :canon-total 120 :percent 0.833}})))
+                 :headline        {:in-both-count 100 :clojure-total 120 :percent 0.833}})))
 
 ;; ----- explain/assert helpers -------------------------------------
 

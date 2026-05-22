@@ -1,8 +1,8 @@
 {:meta
  {:dialect-tag "cljs",
   :dialect-name "ClojureScript (planck)",
-  :canon-version "1.12.4",
-  :compared-at "2026-05-22T19:52:14Z"},
+  :clojure-version "1.12.4",
+  :compared-at "2026-05-22T19:59:54Z"},
  :divergences
  [{:id :no-jvm-class-system,
    :title "No JVM class hierarchy",
@@ -78,31 +78,36 @@
    :since "cljs-0.1"}],
  :coverage
  {:headline
-  {:in-both-count 532, :canon-total 995, :percent 0.5346733668341709},
+  {:in-both-count 532,
+   :clojure-total 995,
+   :percent 0.5346733668341709},
   :per-namespace
   {clojure.spec.alpha
-   {:in-both-count 59, :canon-total 87, :percent 0.6781609195402298},
-   clojure.datafy {:in-both-count 0, :canon-total 2, :percent 0.0},
-   clojure.zip {:in-both-count 0, :canon-total 28, :percent 0.0},
+   {:in-both-count 59, :clojure-total 87, :percent 0.6781609195402298},
+   clojure.datafy {:in-both-count 0, :clojure-total 2, :percent 0.0},
+   clojure.zip {:in-both-count 0, :clojure-total 28, :percent 0.0},
    clojure.core.reducers
-   {:in-both-count 0, :canon-total 21, :percent 0.0},
+   {:in-both-count 0, :clojure-total 21, :percent 0.0},
    clojure.test
-   {:in-both-count 9, :canon-total 39, :percent 0.23076923076923078},
+   {:in-both-count 9, :clojure-total 39, :percent 0.23076923076923078},
    clojure.core.protocols
-   {:in-both-count 0, :canon-total 11, :percent 0.0},
+   {:in-both-count 0, :clojure-total 11, :percent 0.0},
    clojure.core
-   {:in-both-count 403, :canon-total 679, :percent 0.593519882179676},
-   clojure.set {:in-both-count 12, :canon-total 12, :percent 1.0},
+   {:in-both-count 403,
+    :clojure-total 679,
+    :percent 0.593519882179676},
+   clojure.set {:in-both-count 12, :clojure-total 12, :percent 1.0},
    clojure.pprint
-   {:in-both-count 20, :canon-total 26, :percent 0.7692307692307693},
-   clojure.math {:in-both-count 0, :canon-total 45, :percent 0.0},
-   clojure.edn {:in-both-count 2, :canon-total 2, :percent 1.0},
-   clojure.instant {:in-both-count 0, :canon-total 5, :percent 0.0},
+   {:in-both-count 20, :clojure-total 26, :percent 0.7692307692307693},
+   clojure.math {:in-both-count 0, :clojure-total 45, :percent 0.0},
+   clojure.edn {:in-both-count 2, :clojure-total 2, :percent 1.0},
+   clojure.instant {:in-both-count 0, :clojure-total 5, :percent 0.0},
    clojure.string
-   {:in-both-count 20, :canon-total 21, :percent 0.9523809523809523},
-   clojure.data {:in-both-count 0, :canon-total 5, :percent 0.0},
-   clojure.walk {:in-both-count 7, :canon-total 10, :percent 0.7},
-   clojure.template {:in-both-count 0, :canon-total 2, :percent 0.0}}},
+   {:in-both-count 20, :clojure-total 21, :percent 0.9523809523809523},
+   clojure.data {:in-both-count 0, :clojure-total 5, :percent 0.0},
+   clojure.walk {:in-both-count 7, :clojure-total 10, :percent 0.7},
+   clojure.template
+   {:in-both-count 0, :clojure-total 2, :percent 0.0}}},
  :history
  [{:date "2026-05-22",
    :dialect-tag "cljs",
@@ -135,427 +140,427 @@
     clojure.template
     {:in-both-count 0, :canon-total 2, :percent 0.0}}}],
  :mismatches
- [{:dynamic-canon false,
+ [{:dynamic-clojure false,
    :dynamic-dialect true,
    :namespace clojure.core,
    :var *assert*}
-  {:dynamic-canon false,
+  {:dynamic-clojure false,
    :dynamic-dialect true,
    :namespace clojure.core,
    :var *flush-on-newline*}
-  {:dynamic-canon false,
+  {:dynamic-clojure false,
    :dynamic-dialect true,
    :namespace clojure.core,
    :var *ns*}
-  {:dynamic-canon false,
+  {:dynamic-clojure false,
    :dynamic-dialect true,
    :namespace clojure.core,
    :var *out*}
-  {:dynamic-canon false,
+  {:dynamic-clojure false,
    :dynamic-dialect true,
    :namespace clojure.core,
    :var *print-dup*}
-  {:dynamic-canon false,
+  {:dynamic-clojure false,
    :dynamic-dialect true,
    :namespace clojure.core,
    :var *print-meta*}
-  {:dynamic-canon false,
+  {:dynamic-clojure false,
    :dynamic-dialect true,
    :namespace clojure.core,
    :var *print-readably*}
-  {:arglists-canon ([am arr off end]),
+  {:arglists-clojure ([am arr off end]),
    :arglists-dialect ([arr off end]),
    :namespace clojure.core,
    :var ->ArrayChunk}
-  {:arglists-canon ([num]),
+  {:arglists-clojure ([num]),
    :arglists-dialect ([val]),
    :namespace clojure.core,
    :var NaN?}
-  {:arglists-canon ([array]),
+  {:arglists-clojure ([array]),
    :arglists-dialect ([arr]),
    :namespace clojure.core,
    :var aclone}
-  {:arglists-canon ([reference key fn]),
+  {:arglists-clojure ([reference key fn]),
    :arglists-dialect ([iref key f]),
    :namespace clojure.core,
    :var add-watch}
-  {:arglists-canon ([] [& keyvals]),
+  {:arglists-clojure ([] [& keyvals]),
    :arglists-dialect ([& keyvals]),
    :namespace clojure.core,
    :var array-map}
-  {:arglists-canon ([map key val] [map key val & kvs]),
+  {:arglists-clojure ([map key val] [map key val & kvs]),
    :arglists-dialect ([coll k v] [coll k v & kvs]),
    :namespace clojure.core,
    :var assoc}
-  {:arglists-canon ([coll key val] [coll key val & kvs]),
+  {:arglists-clojure ([coll key val] [coll key val & kvs]),
    :arglists-dialect ([tcoll key val] [tcoll key val & kvs]),
    :namespace clojure.core,
    :var assoc!}
-  {:arglists-canon ([coll]),
+  {:arglists-clojure ([coll]),
    :arglists-dialect ([x]),
    :namespace clojure.core,
    :var associative?}
-  {:arglists-canon ([x] [x & options]),
+  {:arglists-clojure ([x] [x & options]),
    :arglists-dialect ([x] [x & {:keys [meta validator]}]),
    :namespace clojure.core,
    :var atom}
-  {:arglists-canon ([xs]),
+  {:arglists-clojure ([xs]),
    :arglists-dialect ([x]),
    :namespace clojure.core,
    :var booleans}
-  {:arglists-canon ([coll]),
+  {:arglists-clojure ([coll]),
    :arglists-dialect ([s]),
    :namespace clojure.core,
    :var butlast}
-  {:arglists-canon ([xs]),
+  {:arglists-clojure ([xs]),
    :arglists-dialect ([x]),
    :namespace clojure.core,
    :var bytes}
-  {:arglists-canon ([xs]),
+  {:arglists-clojure ([xs]),
    :arglists-dialect ([x]),
    :namespace clojure.core,
    :var chars}
-  {:arglists-canon ([s]),
+  {:arglists-clojure ([s]),
    :arglists-dialect ([x]),
    :namespace clojure.core,
    :var chunked-seq?}
-  {:arglists-canon ([] [f] [f g] [f g & fs]),
+  {:arglists-clojure ([] [f] [f g] [f g & fs]),
    :arglists-dialect ([] [f] [f g] [f g h] [f1 f2 f3 & fs]),
    :namespace clojure.core,
    :var comp}
-  {:arglists-canon ([atom oldval newval]),
+  {:arglists-clojure ([atom oldval newval]),
    :arglists-dialect ([a oldval newval]),
    :namespace clojure.core,
    :var compare-and-set!}
-  {:arglists-canon ([] [coll] [coll x]),
+  {:arglists-clojure ([] [coll] [coll x]),
    :arglists-dialect ([] [tcoll] [tcoll val] [tcoll val & vals]),
    :namespace clojure.core,
    :var conj!}
-  {:arglists-canon ([x seq]),
+  {:arglists-clojure ([x seq]),
    :arglists-dialect ([x coll]),
    :namespace clojure.core,
    :var cons}
-  {:arglists-canon ([coll key]),
+  {:arglists-clojure ([coll key]),
    :arglists-dialect ([coll v]),
    :namespace clojure.core,
    :var contains?}
-  {:arglists-canon ([coll]),
+  {:arglists-clojure ([coll]),
    :arglists-dialect ([x]),
    :namespace clojure.core,
    :var counted?}
-  {:arglists-canon ([sym]),
+  {:arglists-clojure ([sym]),
    :arglists-dialect ([sym] [sym ns-obj]),
    :namespace clojure.core,
    :var create-ns}
-  {:arglists-canon ([ref] [ref timeout-ms timeout-val]),
+  {:arglists-clojure ([ref] [ref timeout-ms timeout-val]),
    :arglists-dialect ([o]),
    :namespace clojure.core,
    :var deref}
-  {:arglists-canon ([set] [set key] [set key & ks]),
+  {:arglists-clojure ([set] [set key] [set key & ks]),
    :arglists-dialect ([coll] [coll k] [coll k & ks]),
    :namespace clojure.core,
    :var disj}
-  {:arglists-canon ([set] [set key] [set key & ks]),
+  {:arglists-clojure ([set] [set key] [set key & ks]),
    :arglists-dialect ([tcoll val] [tcoll val & vals]),
    :namespace clojure.core,
    :var disj!}
-  {:arglists-canon ([map] [map key] [map key & ks]),
+  {:arglists-clojure ([map] [map key] [map key & ks]),
    :arglists-dialect ([coll] [coll k] [coll k & ks]),
    :namespace clojure.core,
    :var dissoc}
-  {:arglists-canon ([map key] [map key & ks]),
+  {:arglists-clojure ([map key] [map key & ks]),
    :arglists-dialect ([tcoll key] [tcoll key & ks]),
    :namespace clojure.core,
    :var dissoc!}
-  {:arglists-canon ([xs]),
+  {:arglists-clojure ([xs]),
    :arglists-dialect ([x]),
    :namespace clojure.core,
    :var doubles}
-  {:arglists-canon ([coll] [n coll]),
+  {:arglists-clojure ([coll] [n coll]),
    :arglists-dialect ([s] [n s]),
    :namespace clojure.core,
    :var drop-last}
-  {:arglists-canon ([xform* coll]),
+  {:arglists-clojure ([xform* coll]),
    :arglists-dialect ([& xforms]),
    :namespace clojure.core,
    :var eduction}
-  {:arglists-canon ([msg map] [msg map cause]),
+  {:arglists-clojure ([msg map] [msg map cause]),
    :arglists-dialect ([msg data] [msg data cause]),
    :namespace clojure.core,
    :var ex-info}
-  {:arglists-canon ([x]),
+  {:arglists-clojure ([x]),
    :arglists-dialect ([coll]),
    :namespace clojure.core,
    :var ffirst}
-  {:arglists-canon ([map key]),
+  {:arglists-clojure ([map key]),
    :arglists-dialect ([coll k]),
    :namespace clojure.core,
    :var find}
-  {:arglists-canon ([sym]),
+  {:arglists-clojure ([sym]),
    :arglists-dialect ([ns]),
    :namespace clojure.core,
    :var find-ns}
-  {:arglists-canon ([n]),
+  {:arglists-clojure ([n]),
    :arglists-dialect ([x]),
    :namespace clojure.core,
    :var float?}
-  {:arglists-canon ([xs]),
+  {:arglists-clojure ([xs]),
    :arglists-dialect ([x]),
    :namespace clojure.core,
    :var floats}
-  {:arglists-canon ([x]),
+  {:arglists-clojure ([x]),
    :arglists-dialect ([f]),
    :namespace clojure.core,
    :var fn?}
-  {:arglists-canon ([x]),
+  {:arglists-clojure ([x]),
    :arglists-dialect ([coll]),
    :namespace clojure.core,
    :var fnext}
-  {:arglists-canon ([map key] [map key not-found]),
+  {:arglists-clojure ([map key] [map key not-found]),
    :arglists-dialect ([o k] [o k not-found]),
    :namespace clojure.core,
    :var get}
-  {:arglists-canon ([x]),
+  {:arglists-clojure ([x]),
    :arglists-dialect ([o]),
    :namespace clojure.core,
    :var hash}
-  {:arglists-canon ([x y]),
+  {:arglists-clojure ([x y]),
    :arglists-dialect ([seed hash]),
    :namespace clojure.core,
    :var hash-combine}
-  {:arglists-canon ([] [& keyvals]),
+  {:arglists-clojure ([] [& keyvals]),
    :arglists-dialect ([& keyvals]),
    :namespace clojure.core,
    :var hash-map}
-  {:arglists-canon ([x]),
+  {:arglists-clojure ([x]),
    :arglists-dialect ([f]),
    :namespace clojure.core,
    :var ifn?}
-  {:arglists-canon ([coll]),
+  {:arglists-clojure ([coll]),
    :arglists-dialect ([x]),
    :namespace clojure.core,
    :var indexed?}
-  {:arglists-canon ([num]),
+  {:arglists-clojure ([num]),
    :arglists-dialect ([x]),
    :namespace clojure.core,
    :var infinite?}
-  {:arglists-canon ([xs]),
+  {:arglists-clojure ([xs]),
    :arglists-dialect ([x]),
    :namespace clojure.core,
    :var ints}
-  {:arglists-canon ([e]),
+  {:arglists-clojure ([e]),
    :arglists-dialect ([map-entry]),
    :namespace clojure.core,
    :var key}
-  {:arglists-canon ([coll]),
+  {:arglists-clojure ([coll]),
    :arglists-dialect ([s]),
    :namespace clojure.core,
    :var last}
-  {:arglists-canon ([& items]),
+  {:arglists-clojure ([& items]),
    :arglists-dialect ([& xs]),
    :namespace clojure.core,
    :var list}
-  {:arglists-canon ([name]),
+  {:arglists-clojure ([name]),
    :arglists-dialect ([file]),
    :namespace clojure.core,
    :var load-file}
-  {:arglists-canon ([xs]),
+  {:arglists-clojure ([xs]),
    :arglists-dialect ([x]),
    :namespace clojure.core,
    :var longs}
-  {:arglists-canon ([type len] [type dim & more-dims]),
+  {:arglists-clojure ([type len] [type dim & more-dims]),
    :arglists-dialect ([size] [type size] [type size & more-sizes]),
    :namespace clojure.core,
    :var make-array}
-  {:arglists-canon ([obj]),
+  {:arglists-clojure ([obj]),
    :arglists-dialect ([o]),
    :namespace clojure.core,
    :var meta}
-  {:arglists-canon ([num div]),
+  {:arglists-clojure ([num div]),
    :arglists-dialect ([n d]),
    :namespace clojure.core,
    :var mod}
-  {:arglists-canon ([s]),
+  {:arglists-clojure ([s]),
    :arglists-dialect ([name]),
    :namespace clojure.core,
    :var munge}
-  {:arglists-canon ([num]),
+  {:arglists-clojure ([num]),
    :arglists-dialect ([x]),
    :namespace clojure.core,
    :var neg?}
-  {:arglists-canon ([]),
+  {:arglists-clojure ([]),
    :arglists-dialect ([] [opts]),
    :namespace clojure.core,
    :var newline}
-  {:arglists-canon ([x]),
+  {:arglists-clojure ([x]),
    :arglists-dialect ([coll]),
    :namespace clojure.core,
    :var nfirst}
-  {:arglists-canon ([x]),
+  {:arglists-clojure ([x]),
    :arglists-dialect ([coll]),
    :namespace clojure.core,
    :var nnext}
-  {:arglists-canon ([ns]),
+  {:arglists-clojure ([ns]),
    :arglists-dialect ([ns-obj]),
    :namespace clojure.core,
    :var ns-name}
-  {:arglists-canon ([coll index] [coll index not-found]),
+  {:arglists-clojure ([coll index] [coll index not-found]),
    :arglists-dialect ([coll n] [coll n not-found]),
    :namespace clojure.core,
    :var nth}
-  {:arglists-canon ([size-or-seq]),
+  {:arglists-clojure ([size-or-seq]),
    :arglists-dialect ([size-or-seq] [size init-val-or-seq]),
    :namespace clojure.core,
    :var object-array}
-  {:arglists-canon ([coll]),
+  {:arglists-clojure ([coll]),
    :arglists-dialect ([tcoll]),
    :namespace clojure.core,
    :var persistent!}
-  {:arglists-canon ([coll]),
+  {:arglists-clojure ([coll]),
    :arglists-dialect ([tcoll]),
    :namespace clojure.core,
    :var pop!}
-  {:arglists-canon ([num]),
+  {:arglists-clojure ([num]),
    :arglists-dialect ([x]),
    :namespace clojure.core,
    :var pos?}
-  {:arglists-canon ([] [x] [x & more]),
+  {:arglists-clojure ([] [x] [x & more]),
    :arglists-dialect ([& objs]),
-   :dynamic-canon true,
+   :dynamic-clojure true,
    :dynamic-dialect false,
    :namespace clojure.core,
    :var pr}
-  {:arglists-canon ([& xs]),
+  {:arglists-clojure ([& xs]),
    :arglists-dialect ([& objs]),
    :namespace clojure.core,
    :var pr-str}
-  {:arglists-canon ([& xs]),
+  {:arglists-clojure ([& xs]),
    :arglists-dialect ([& objs]),
    :namespace clojure.core,
    :var print-str}
-  {:arglists-canon ([& more]),
+  {:arglists-clojure ([& more]),
    :arglists-dialect ([& objs]),
    :namespace clojure.core,
    :var println}
-  {:arglists-canon ([& xs]),
+  {:arglists-clojure ([& xs]),
    :arglists-dialect ([& objs]),
    :namespace clojure.core,
    :var println-str}
-  {:arglists-canon ([& more]),
+  {:arglists-clojure ([& more]),
    :arglists-dialect ([& objs]),
    :namespace clojure.core,
    :var prn}
-  {:arglists-canon ([& xs]),
+  {:arglists-clojure ([& xs]),
    :arglists-dialect ([& objs]),
    :namespace clojure.core,
    :var prn-str}
-  {:arglists-canon ([num div]),
+  {:arglists-clojure ([num div]),
    :arglists-dialect ([n d]),
    :namespace clojure.core,
    :var quot}
-  {:arglists-canon ([m] [re s]),
+  {:arglists-clojure ([m] [re s]),
    :arglists-dialect ([re s]),
    :namespace clojure.core,
    :var re-find}
-  {:arglists-canon ([x]),
+  {:arglists-clojure ([x]),
    :arglists-dialect ([r]),
    :namespace clojure.core,
    :var reduced?}
-  {:arglists-canon ([num div]),
+  {:arglists-clojure ([num div]),
    :arglists-dialect ([n d]),
    :namespace clojure.core,
    :var rem}
-  {:arglists-canon ([reference key]),
+  {:arglists-clojure ([reference key]),
    :arglists-dialect ([iref key]),
    :namespace clojure.core,
    :var remove-watch}
-  {:arglists-canon ([atom newval]),
+  {:arglists-clojure ([atom newval]),
    :arglists-dialect ([a new-value]),
    :namespace clojure.core,
    :var reset!}
-  {:arglists-canon ([iref metadata-map]),
+  {:arglists-clojure ([iref metadata-map]),
    :arglists-dialect ([iref m]),
    :namespace clojure.core,
    :var reset-meta!}
-  {:arglists-canon ([atom newval]),
+  {:arglists-clojure ([atom newval]),
    :arglists-dialect ([a new-value]),
    :namespace clojure.core,
    :var reset-vals!}
-  {:arglists-canon ([x]),
+  {:arglists-clojure ([x]),
    :arglists-dialect ([coll]),
    :namespace clojure.core,
    :var second}
-  {:arglists-canon ([x]),
+  {:arglists-clojure ([x]),
    :arglists-dialect ([s]),
    :namespace clojure.core,
    :var seq?}
-  {:arglists-canon ([x]),
+  {:arglists-clojure ([x]),
    :arglists-dialect ([s]),
    :namespace clojure.core,
    :var seqable?}
-  {:arglists-canon ([coll]),
+  {:arglists-clojure ([coll]),
    :arglists-dialect ([x]),
    :namespace clojure.core,
    :var sequential?}
-  {:arglists-canon ([iref validator-fn]),
+  {:arglists-clojure ([iref validator-fn]),
    :arglists-dialect ([iref val]),
    :namespace clojure.core,
    :var set-validator!}
-  {:arglists-canon ([xs]),
+  {:arglists-clojure ([xs]),
    :arglists-dialect ([x]),
    :namespace clojure.core,
    :var shorts}
-  {:arglists-canon ([coll]),
+  {:arglists-clojure ([coll]),
    :arglists-dialect ([x]),
    :namespace clojure.core,
    :var sorted?}
-  {:arglists-canon ([s]),
+  {:arglists-clojure ([s]),
    :arglists-dialect ([x]),
    :namespace clojure.core,
    :var special-symbol?}
-  {:arglists-canon
+  {:arglists-clojure
    ([atom f] [atom f x] [atom f x y] [atom f x y & args]),
    :arglists-dialect ([a f] [a f x] [a f x y] [a f x y & more]),
    :namespace clojure.core,
    :var swap!}
-  {:arglists-canon
+  {:arglists-clojure
    ([atom f] [atom f x] [atom f x y] [atom f x y & args]),
    :arglists-dialect ([a f] [a f x] [a f x y] [a f x y & more]),
    :namespace clojure.core,
    :var swap-vals!}
-  {:arglists-canon ([x y]),
+  {:arglists-clojure ([x y]),
    :arglists-dialect ([] [x] [x y] [x y & more]),
    :namespace clojure.core,
    :var unchecked-add}
-  {:arglists-canon ([x y]),
+  {:arglists-clojure ([x y]),
    :arglists-dialect ([] [x] [x y] [x y & more]),
    :namespace clojure.core,
    :var unchecked-add-int}
-  {:arglists-canon ([x y]),
+  {:arglists-clojure ([x y]),
    :arglists-dialect ([x] [x y] [x y & more]),
    :namespace clojure.core,
    :var unchecked-divide-int}
-  {:arglists-canon ([x y]),
+  {:arglists-clojure ([x y]),
    :arglists-dialect ([] [x] [x y] [x y & more]),
    :namespace clojure.core,
    :var unchecked-multiply}
-  {:arglists-canon ([x y]),
+  {:arglists-clojure ([x y]),
    :arglists-dialect ([] [x] [x y] [x y & more]),
    :namespace clojure.core,
    :var unchecked-multiply-int}
-  {:arglists-canon ([x y]),
+  {:arglists-clojure ([x y]),
    :arglists-dialect ([x n]),
    :namespace clojure.core,
    :var unchecked-remainder-int}
-  {:arglists-canon ([x y]),
+  {:arglists-clojure ([x y]),
    :arglists-dialect ([x] [x y] [x y & more]),
    :namespace clojure.core,
    :var unchecked-subtract}
-  {:arglists-canon ([x y]),
+  {:arglists-clojure ([x y]),
    :arglists-dialect ([x] [x y] [x y & more]),
    :namespace clojure.core,
    :var unchecked-subtract-int}
-  {:arglists-canon ([m ks f & args]),
+  {:arglists-clojure ([m ks f & args]),
    :arglists-dialect
    ([m [k & ks] f]
     [m [k & ks] f a]
@@ -564,11 +569,11 @@
     [m [k & ks] f a b c & args]),
    :namespace clojure.core,
    :var update-in}
-  {:arglists-canon ([e]),
+  {:arglists-clojure ([e]),
    :arglists-dialect ([map-entry]),
    :namespace clojure.core,
    :var val}
-  {:arglists-canon ([obj f & args]),
+  {:arglists-clojure ([obj f & args]),
    :arglists-dialect
    ([obj f]
     [obj f a]
@@ -578,7 +583,7 @@
     [obj f a b c d & args]),
    :namespace clojure.core,
    :var vary-meta}
-  {:arglists-canon
+  {:arglists-clojure
    ([]
     [a]
     [a b]
@@ -590,22 +595,22 @@
    :arglists-dialect ([& args]),
    :namespace clojure.core,
    :var vector}
-  {:arglists-canon ([obj m]),
+  {:arglists-clojure ([obj m]),
    :arglists-dialect ([o meta]),
    :namespace clojure.core,
    :var with-meta}
-  {:arglists-canon ([num]),
+  {:arglists-clojure ([num]),
    :arglists-dialect ([x]),
    :namespace clojure.core,
    :var zero?}
-  {:arglists-canon ([] [stream] [opts stream]),
+  {:arglists-clojure ([] [stream] [opts stream]),
    :arglists-dialect
    ([reader]
     [{:keys [eof], :as opts} reader]
     [reader eof-error? eof opts]),
    :namespace clojure.edn,
    :var read}
-  {:arglists-canon
+  {:arglists-clojure
    ([form pred opts]
     [form
      pred
@@ -649,7 +654,7 @@
      gfn]),
    :namespace clojure.spec.alpha,
    :var every-impl}
-  {:dynamic-canon true,
+  {:dynamic-clojure true,
    :dynamic-dialect false,
    :namespace clojure.test,
    :var test-var}],

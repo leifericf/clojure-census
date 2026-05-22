@@ -2,18 +2,18 @@
   "Comparing a canon Surface to a dialect Surface, namespace by
   namespace, produces a Comparison value:
 
-      {:canon-tag           \"canon-jvm\"
+      {:clojure-tag           \"canon-jvm\"
        :dialect-tag         \"mino\"
        :compared-at         \"...Z\"
        :namespaces-compared {ns-sym {:in-both       #{var-name ...}
-                                      :canon-only    #{var-name ...}
+                                      :clojure-only    #{var-name ...}
                                       :dialect-only  #{var-name ...}
                                       :mismatches    [{:var-name ...
-                                                       :arglists-canon ...
+                                                       :arglists-clojure ...
                                                        :arglists-dialect ...
-                                                       :macro-canon ...
+                                                       :macro-clojure ...
                                                        :macro-dialect ...
-                                                       :dynamic-canon ...
+                                                       :dynamic-clojure ...
                                                        :dynamic-dialect ...}]}}}
 
   Pure data transformation: same inputs always produce the same output."
@@ -56,12 +56,12 @@
         diffs  (cond-> {}
                  (and c-args d-args
                       (not= (norm-arglists c-args) (norm-arglists d-args)))
-                 (assoc :arglists-canon   c-args
+                 (assoc :arglists-clojure   c-args
                         :arglists-dialect d-args)
                  (not= c-mac d-mac)
-                 (assoc :macro-canon c-mac :macro-dialect d-mac)
+                 (assoc :macro-clojure c-mac :macro-dialect d-mac)
                  (not= c-dyn d-dyn)
-                 (assoc :dynamic-canon c-dyn :dynamic-dialect d-dyn))]
+                 (assoc :dynamic-clojure c-dyn :dynamic-dialect d-dyn))]
     (when (seq diffs)
       (assoc diffs :var-name var-name))))
 
@@ -85,14 +85,14 @@
                          []
                          (sort common)))]
     {:in-both      @in-both-set
-     :canon-only   (cset/difference canon-keys dialect-keys)
+     :clojure-only   (cset/difference canon-keys dialect-keys)
      :dialect-only (cset/difference dialect-keys canon-keys)
      :mismatches   mismatches}))
 
 (defn compare-surfaces
   "Produce a Comparison from `canon-surface` and `dialect-surface`,
   restricted to `target-namespaces`. Missing namespaces on either
-  side are treated as empty (all vars become canon-only or
+  side are treated as empty (all vars become clojure-only or
   dialect-only accordingly)."
   [canon-surface dialect-surface target-namespaces]
   (let [namespaces-compared
@@ -103,7 +103,7 @@
                       dialect-vars (get-in dialect-surface
                                             [:namespaces ns-sym :vars] {})]
                   [ns-sym (compare-ns canon-vars dialect-vars)])))
-        out {:canon-tag           (:dialect-tag canon-surface)
+        out {:clojure-tag           (:dialect-tag canon-surface)
              :dialect-tag         (:dialect-tag dialect-surface)
              :compared-at         (iso-utc-now)
              :namespaces-compared namespaces-compared}]

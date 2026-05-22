@@ -17,7 +17,7 @@
 (deftest endpoint-shape
   (let [b (badge/endpoint
             {:dialect-tag "mino"
-             :headline    {:in-both-count 100 :canon-total 120 :percent 0.833}})]
+             :headline    {:in-both-count 100 :clojure-total 120 :percent 0.833}})]
     (is (= 1                (:schemaVersion b)))
     (is (= "mino parity"    (:label   b)))
     (is (= "83.3%"          (:message b)))
@@ -26,7 +26,7 @@
 (deftest endpoint-zero-percent
   (let [b (badge/endpoint
             {:dialect-tag "x"
-             :headline    {:in-both-count 0 :canon-total 0 :percent 0.0}})]
+             :headline    {:in-both-count 0 :clojure-total 0 :percent 0.0}})]
     (is (= "0.0%" (:message b)))
     (is (= "blue" (:color b))
         "color stays neutral even at 0 -- the badge is a measurement, not a verdict")))

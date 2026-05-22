@@ -91,7 +91,7 @@
                    ::namespaces]
           :opt-un [::dialect-version ::special-forms ::spec-keys]))
 
-;; ===== canon-spec ==================================================
+;; ===== clojure-spec ==================================================
 
 (s/def ::version       ::non-blank-string)
 (s/def ::surface-file  ::non-blank-string)
@@ -110,7 +110,7 @@
 (s/def ::target-namespaces   (s/coll-of ::target-ns   :kind sequential? :min-count 1))
 (s/def ::excluded-namespaces (s/coll-of ::excluded-ns :kind sequential?))
 
-(s/def ::canon-spec
+(s/def ::clojure-spec
   (s/keys :req-un [::version ::surface-file ::captured-at ::target-namespaces]
           :opt-un [::excluded-namespaces]))
 
@@ -160,13 +160,13 @@
 (s/def ::category-id     keyword?)
 (s/def ::rationale       ::non-blank-string)
 (s/def ::dialect-example ::non-blank-string)
-(s/def ::canon-example   ::non-blank-string)
+(s/def ::clojure-example   ::non-blank-string)
 (s/def ::affected        (s/coll-of qualified-symbol? :kind sequential? :min-count 1))
 (s/def ::doc-link        ::non-blank-string)
 
 (s/def ::divergence
   (s/keys :req-un [::id ::title ::category-id ::rationale ::since]
-          :opt-un [::dialect-example ::canon-example ::affected ::doc-link]))
+          :opt-un [::dialect-example ::clojure-example ::affected ::doc-link]))
 
 (s/def ::divergences (s/coll-of ::divergence :kind sequential?))
 
@@ -189,48 +189,48 @@
 
 ;; ===== comparison ==================================================
 
-(s/def ::canon-tag         ::non-blank-string)
+(s/def ::clojure-tag         ::non-blank-string)
 (s/def ::compared-at       ::iso-timestamp)
 
 ;; var-name within a namespace's comparison: usually simple
 ;; (`map`, `filter`) but mino allows qualified-style (`Math/min`).
 (s/def ::var-name          symbol?)
-(s/def ::arglists-canon    ::arglists)
+(s/def ::arglists-clojure    ::arglists)
 (s/def ::arglists-dialect  ::arglists)
-(s/def ::macro-canon       boolean?)
+(s/def ::macro-clojure       boolean?)
 (s/def ::macro-dialect     boolean?)
-(s/def ::dynamic-canon     boolean?)
+(s/def ::dynamic-clojure     boolean?)
 (s/def ::dynamic-dialect   boolean?)
 
 (s/def ::mismatch
   (s/keys :req-un [::var-name]
-          :opt-un [::arglists-canon ::arglists-dialect
-                   ::macro-canon ::macro-dialect
-                   ::dynamic-canon ::dynamic-dialect]))
+          :opt-un [::arglists-clojure ::arglists-dialect
+                   ::macro-clojure ::macro-dialect
+                   ::dynamic-clojure ::dynamic-dialect]))
 
 (s/def ::in-both      (s/coll-of symbol? :kind set?))
-(s/def ::canon-only   (s/coll-of symbol? :kind set?))
+(s/def ::clojure-only   (s/coll-of symbol? :kind set?))
 (s/def ::dialect-only (s/coll-of symbol? :kind set?))
 (s/def ::mismatches   (s/coll-of ::mismatch :kind sequential?))
 
 (s/def ::ns-comparison
-  (s/keys :req-un [::in-both ::canon-only ::dialect-only ::mismatches]))
+  (s/keys :req-un [::in-both ::clojure-only ::dialect-only ::mismatches]))
 
 (s/def ::namespaces-compared
   (s/map-of simple-symbol? ::ns-comparison))
 
 (s/def ::comparison
-  (s/keys :req-un [::canon-tag ::dialect-tag ::compared-at
+  (s/keys :req-un [::clojure-tag ::dialect-tag ::compared-at
                    ::namespaces-compared]))
 
 ;; ===== coverage ====================================================
 
 (s/def ::in-both-count nat-int?)
-(s/def ::canon-total   nat-int?)
+(s/def ::clojure-total   nat-int?)
 (s/def ::percent       (s/and number? #(<= 0 % 1)))
 
 (s/def ::coverage-stat
-  (s/keys :req-un [::in-both-count ::canon-total ::percent]))
+  (s/keys :req-un [::in-both-count ::clojure-total ::percent]))
 
 (s/def ::headline      ::coverage-stat)
 (s/def ::per-namespace (s/map-of simple-symbol? ::coverage-stat))

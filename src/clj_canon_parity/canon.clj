@@ -15,7 +15,7 @@
 (defn validate!
   "Schema-validate `spec` and return `true` on success."
   [spec]
-  (schema/assert-conforms! ::schema/canon-spec spec "canon-spec")
+  (schema/assert-conforms! ::schema/clojure-spec spec "clojure-spec")
   true)
 
 (defn target-namespaces

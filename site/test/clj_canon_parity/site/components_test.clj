@@ -57,22 +57,22 @@
 (def foo-dashboard
   {:meta {:dialect-tag "foo"
           :dialect-name "Foo Dialect"
-          :canon-version "1.12.4"
+          :clojure-version "1.12.4"
           :compared-at "2026-05-22T00:00:00Z"}
    :coverage
-   {:headline {:in-both-count 7 :canon-total 10 :percent 0.7}
+   {:headline {:in-both-count 7 :clojure-total 10 :percent 0.7}
     :per-namespace
-    {'clojure.core   {:in-both-count 5 :canon-total 6 :percent 0.833}
-     'clojure.string {:in-both-count 2 :canon-total 4 :percent 0.5}}}
+    {'clojure.core   {:in-both-count 5 :clojure-total 6 :percent 0.833}
+     'clojure.string {:in-both-count 2 :clojure-total 4 :percent 0.5}}}
    :missing
    [{:namespace 'clojure.core   :var 'reduce-kv}
     {:namespace 'clojure.string :var 'blank?}
     {:namespace 'clojure.string :var 'join}]
    :mismatches
    [{:namespace 'clojure.core :var 'when
-     :macro-canon true :macro-dialect false}
+     :macro-clojure true :macro-dialect false}
     {:namespace 'clojure.core :var '+
-     :arglists-canon [["x"] ["x" "y"]]
+     :arglists-clojure [["x"] ["x" "y"]]
      :arglists-dialect [["x"] ["l" "r"]]}]
    :dialect-only ['clojure.core/foo-extension]
    :divergences
@@ -94,9 +94,9 @@
     {:id :jvm-statics :title "JVM Statics" :description "y"}]
    :history
    [{:date "2026-05-20" :clojure-version "foo-0.1"
-     :headline {:in-both-count 6 :canon-total 10 :percent 0.6}}
+     :headline {:in-both-count 6 :clojure-total 10 :percent 0.6}}
     {:date "2026-05-22" :clojure-version "foo-0.2"
-     :headline {:in-both-count 7 :canon-total 10 :percent 0.7}}]})
+     :headline {:in-both-count 7 :clojure-total 10 :percent 0.7}}]})
 
 (def foo-dialect
   {:tag "foo" :name "Foo Dialect" :dashboard foo-dashboard})
@@ -104,7 +104,7 @@
 (def bar-dialect-no-snapshot
   {:tag "bar" :name "Bar Dialect" :dashboard nil})
 
-(def canon-spec
+(def clojure-spec
   {:version "1.12.4"
    :target-namespaces [{:ns 'clojure.core   :priority :critical}
                        {:ns 'clojure.string :priority :high}
@@ -124,7 +124,7 @@
 ;; ===== landing ====================================================
 
 (deftest landing-lists-every-dialect-alphabetically
-  (let [page (c/landing [foo-dialect bar-dialect-no-snapshot] canon-spec ctx)
+  (let [page (c/landing [foo-dialect bar-dialect-no-snapshot] clojure-spec ctx)
         text (pr-str page)
         bar  (.indexOf text "Bar Dialect")
         foo  (.indexOf text "Foo Dialect")]
@@ -133,18 +133,18 @@
     (is (< bar foo))))
 
 (deftest landing-card-shows-coverage-and-versions
-  (let [page (c/landing [foo-dialect] canon-spec ctx)]
+  (let [page (c/landing [foo-dialect] clojure-spec ctx)]
     (is (tree-contains-string? page "70.0%"))
     (is (tree-contains-string? page "foo-0.2")    ; dialect version
         "shows the dialect's reported version from latest history snapshot")
     (is (tree-contains-string? page "1.12.4"))))  ; Clojure (JVM) version
 
 (deftest landing-shows-no-snapshot-for-dialects-without-output
-  (let [page (c/landing [bar-dialect-no-snapshot] canon-spec ctx)]
+  (let [page (c/landing [bar-dialect-no-snapshot] clojure-spec ctx)]
     (is (tree-contains-string? page "no snapshot yet"))))
 
 (deftest landing-does-not-rank-dialects
-  (let [page (c/landing [foo-dialect bar-dialect-no-snapshot] canon-spec ctx)
+  (let [page (c/landing [foo-dialect bar-dialect-no-snapshot] clojure-spec ctx)
         text (pr-str page)]
     (doseq [forbidden ["leaderboard" "ranked" "ranking" "#1" "#2"
                         "lagging" "behind" "incomplete"]]
@@ -152,17 +152,17 @@
           (str "must not contain " forbidden)))))
 
 (deftest landing-includes-coverage-matrix
-  (let [page (c/landing [foo-dialect] canon-spec ctx)
+  (let [page (c/landing [foo-dialect] clojure-spec ctx)
         text (pr-str page)]
     (is (str/includes? text "matrix"))
     (is (str/includes? text "Implementation by Namespace"))
-    (testing "matrix shows every canon-spec namespace as a row"
+    (testing "matrix shows every clojure-spec namespace as a row"
       (is (str/includes? text "clojure.core"))
       (is (str/includes? text "clojure.string"))
       (is (str/includes? text "clojure.set")))))
 
 (deftest landing-matrix-renders-em-dash-for-non-participating-ns
-  (let [page (c/landing [foo-dialect] canon-spec ctx)]
+  (let [page (c/landing [foo-dialect] clojure-spec ctx)]
     (testing "foo participates in clojure.core + clojure.string but not clojure.set"
       (is (tree-contains-string? page "—")))))
 
@@ -338,7 +338,7 @@
 
 (deftest landing-headers-are-title-case
   (assert-all-headers-title-case!
-    (c/landing [foo-dialect] canon-spec ctx) "landing"))
+    (c/landing [foo-dialect] clojure-spec ctx) "landing"))
 
 (deftest dialect-overview-headers-are-title-case
   (assert-all-headers-title-case!

@@ -1,7 +1,7 @@
 (ns clj-canon-parity.drift
   "Drift = the change in a Surface between two points in time. Used
   both for daily delta on a single dialect (yesterday vs. today)
-  and for canon-version bumps (Clojure 1.12 vs. 1.13).
+  and for clojure-version bumps (Clojure 1.12 vs. 1.13).
 
   Output shape (see ::schema/drift):
 
