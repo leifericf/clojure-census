@@ -48,3 +48,9 @@
                                 (load-dashboard-for output-root (:tag cfg)))))
                   (sort-by :tag)
                   vec)})
+
+(defn load-canon-spec
+  "Read `canon/canon-spec.edn`. Used by the site to align the matrix's
+  column order with the engine's source-of-truth namespace list."
+  [path]
+  (read-edn-file path))

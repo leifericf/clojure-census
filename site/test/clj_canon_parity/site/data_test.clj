@@ -81,6 +81,22 @@
           tags (mapv :tag (:dialects out))]
       (is (= ["bar" "foo"] tags)))))
 
+(deftest load-canon-spec-reads-file
+  (let [root (str (.toFile (java.nio.file.Files/createTempDirectory
+                             "canon-parity-canon-spec-"
+                             (into-array java.nio.file.attribute.FileAttribute []))))
+        path (str root "/canon-spec.edn")]
+    (write-edn! (io/file path)
+                {:version "1.12.4"
+                 :target-namespaces [{:ns 'clojure.core   :priority :critical}
+                                     {:ns 'clojure.string :priority :high}]})
+    (let [spec (data/load-canon-spec path)]
+      (is (= "1.12.4" (:version spec)))
+      (is (= ['clojure.core 'clojure.string]
+             (mapv :ns (:target-namespaces spec))))
+      (testing "preserves canon-spec order (not alphabetical)"
+        (is (= 'clojure.core (:ns (first (:target-namespaces spec)))))))))
+
 (deftest load-all-preserves-clojure-types-in-dashboard
   (let [root (str (.toFile (java.nio.file.Files/createTempDirectory
                              "canon-parity-site-types-"

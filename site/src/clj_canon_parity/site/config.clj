@@ -28,8 +28,9 @@
   []
   (env "PROJECT_ROOT" (.getPath (find-project-root))))
 
-(defn dialects-dir [] (str (project-root) "/dialects"))
-(defn output-root  [] (str (project-root) "/output"))
+(defn dialects-dir    [] (str (project-root) "/dialects"))
+(defn output-root     [] (str (project-root) "/output"))
+(defn canon-spec-path [] (str (project-root) "/canon/canon-spec.edn"))
 
 (defn target-dir
   "Directory `-M:build` writes into. Defaults to `<root>/site/public`,
