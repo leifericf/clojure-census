@@ -1,0 +1,56 @@
+;; Joker -- a small Clojure interpreter, linter, and formatter
+;; written in Go. Distributed as a single static binary.
+;;
+;; Installation:
+;;   brew install joker                              # macOS
+;;   github.com/candid82/joker releases tarball      # Linux
+;;
+;; Joker's stdlib is exposed under `joker.*` (joker.core, joker.string,
+;; joker.set, joker.walk, joker.test, joker.template, joker.pprint,
+;; joker.math). The :namespace-renames map collapses those onto the
+;; canonical Clojure (JVM) names so the parity comparison is
+;; apples-to-apples.
+;;
+;; Requires its own surface_dump_joker.cljc because:
+;;   - Joker has no `clojure-version`; it exposes `*joker-version*`.
+;;   - Joker's `require` resolves namespaces via filesystem lookup
+;;     unless the symbol is a known built-in (joker.*); the portable
+;;     script tries to `(require 'clojure.string)` which fails before
+;;     any try/catch can intercept.
+;;   - Joker omits `clojure.spec.alpha` entirely.
+;;   - Joker's `map` has no single-arg transducer form; common
+;;     `(into {} (map ...) coll)` patterns in the portable script
+;;     fail with arity errors.
+;;
+;; Joker's reader-conditional feature is `:joker`; portable code that
+;; needs Joker-specific branches uses `#?(:joker ...)`.
+{:name             "Joker"
+ :tag              "joker"
+ :role             :sut
+ :invocation       {:type :subprocess
+                    :cmd  ["joker" "scripts/surface_dump_joker.cljc"]}
+ :version-cmd      ["joker" "--version"]
+
+ ;; What the diff engine looks for, expressed in canonical Clojure
+ ;; (JVM) names. The dump script captures the joker.* form;
+ ;; :namespace-renames below maps them onto these canonical names.
+ :participates-in  [clojure.core
+                    clojure.string
+                    clojure.set
+                    clojure.walk
+                    clojure.test
+                    clojure.template
+                    clojure.pprint
+                    clojure.math]
+ :data-dir         "data/joker"
+ :output-dir       "output/joker"
+
+ :surface-normalization
+ {:namespace-renames {joker.core      clojure.core
+                      joker.string    clojure.string
+                      joker.set       clojure.set
+                      joker.walk      clojure.walk
+                      joker.test      clojure.test
+                      joker.template  clojure.template
+                      joker.pprint    clojure.pprint
+                      joker.math      clojure.math}}}

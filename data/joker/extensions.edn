@@ -1,0 +1,59 @@
+;; Joker namespaces beyond Clojure (JVM)'s clojure.* tree.
+;;
+;; Joker ships a batteries-included stdlib for scripting: joker.os,
+;; joker.filepath, joker.http, joker.json, joker.yaml, joker.csv,
+;; joker.tools.cli, joker.time, joker.html, joker.url, joker.crypto,
+;; joker.base64, joker.hex, joker.uuid, etc. Only namespaces under
+;; Clojure (JVM)'s target list participate in the parity comparison;
+;; these are listed here for documentation only.
+[
+ {:id             :joker-os
+  :title          "joker.os -- host process and environment access"
+  :affected-names ["joker.os/get-env"
+                   "joker.os/env"
+                   "joker.os/exec"
+                   "joker.os/sh"
+                   "joker.os/exit"]
+  :category-id    :jvm-statics
+  :rationale      "Replaces System/getenv, java.lang.ProcessBuilder,
+                   and clojure.java.shell with a Go-flavored API."
+  :since          "joker-1.0"
+  :doc-link       "https://candid82.github.io/joker/joker.os.html"}
+
+ {:id             :joker-filepath
+  :title          "joker.filepath -- path manipulation"
+  :affected-names ["joker.filepath/join"
+                   "joker.filepath/base"
+                   "joker.filepath/dir"
+                   "joker.filepath/ext"
+                   "joker.filepath/abs"]
+  :category-id    :jvm-statics
+  :rationale      "Replaces clojure.java.io's File-centric path
+                   helpers with a string-first API matching Go's
+                   path/filepath package."
+  :since          "joker-1.0"
+  :doc-link       "https://candid82.github.io/joker/joker.filepath.html"}
+
+ {:id             :joker-tools-cli
+  :title          "joker.tools.cli -- command-line argument parsing"
+  :affected-names ["joker.tools.cli/parse-opts"]
+  :category-id    :jvm-statics
+  :rationale      "A port of org.clojure/tools.cli to Joker's
+                   interpreter; same API shape, no JVM dependency."
+  :since          "joker-1.0"
+  :doc-link       "https://candid82.github.io/joker/joker.tools.cli.html"}
+
+ {:id             :joker-json-yaml-csv
+  :title          "joker.{json,yaml,csv} -- data-interchange formats"
+  :affected-names ["joker.json/read-string"
+                   "joker.json/write-string"
+                   "joker.yaml/read-string"
+                   "joker.yaml/write-string"
+                   "joker.csv/read-string"]
+  :category-id    :jvm-statics
+  :rationale      "Built-in parsers/emitters for common data
+                   formats. On the JVM, equivalents live in
+                   third-party libraries (cheshire, clj-yaml,
+                   clojure.data.csv)."
+  :since          "joker-1.0"}
+]

@@ -1,0 +1,73 @@
+name: parity / nightly dashboard (joker)
+
+on:
+  schedule:
+    # 06:30 UTC daily -- staggered after the basilisp run.
+    - cron: '30 6 * * *'
+  workflow_dispatch: {}
+
+jobs:
+  build-dashboard:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout parity tool
+        uses: actions/checkout@v4
+
+      - name: Set up JDK 21
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+
+      - name: Set up Clojure CLI
+        uses: DeLaGuardo/setup-clojure@13.1
+        with:
+          cli: 1.12.4.1618
+
+      - name: Cache Maven local
+        uses: actions/cache@v4
+        with:
+          path: ~/.m2
+          key: ${{ runner.os }}-maven-${{ hashFiles('deps.edn') }}
+          restore-keys: |
+            ${{ runner.os }}-maven-
+
+      - name: Install Joker
+        run: |
+          JOKER_VERSION=$(curl -fsSL https://api.github.com/repos/candid82/joker/releases/latest | jq -r .tag_name)
+          curl -fsSL -o joker.zip \
+            "https://github.com/candid82/joker/releases/download/${JOKER_VERSION}/joker-${JOKER_VERSION#v}-linux-amd64.zip"
+          sudo unzip -o joker.zip -d /usr/local/bin/
+          rm joker.zip
+          joker --version
+
+      - name: Capture joker surface
+        run: clojure -M:run dump joker
+
+      - name: Produce dashboard
+        run: clojure -M:run diff joker
+
+      - name: Commit artifacts
+        run: |
+          git config user.name  "parity-nightly[bot]"
+          git config user.email "parity-nightly@users.noreply.github.com"
+          git add output/joker/
+          if git diff --cached --quiet; then
+            echo "no changes to commit"
+          else
+            DATE=$(date -u +%Y-%m-%d)
+            git commit -m "nightly: joker parity dashboard ${DATE}"
+            git push
+          fi
+
+      - name: Upload dashboard as workflow artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: parity-dashboard-joker
+          path: |
+            output/joker/dashboard.edn
+            output/joker/badge.json
+            output/joker/surface.edn
+            output/joker/history/

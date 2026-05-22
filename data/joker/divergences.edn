@@ -1,0 +1,94 @@
+;; Hand-curated intentional divergences for Joker.
+;;
+;; Joker is a small Clojure interpreter, linter, and formatter
+;; written in Go. It is deliberately a subset of Clojure with extra
+;; tooling, not a full Clojure implementation. Divergences here fall
+;; in three buckets: (1) JVM-only features the Go host cannot
+;; reproduce, (2) Joker's narrower stdlib, (3) Joker's lint-time
+;; type system that catches a class of errors Clojure (JVM) defers
+;; to runtime.
+;;
+;; Schema: see ::clj-census.schema/divergence
+[
+ {:id              :go-host
+  :title           "Host runtime is Go, not the JVM"
+  :category-id     :jvm-statics
+  :rationale       "Interop targets Go packages, not java.lang.*.
+                    JVM-static names (System/getenv, Math/PI,
+                    java.io.File) do not resolve; equivalents are
+                    reached via Joker's batteries-included
+                    joker.os, joker.filepath, joker.http, etc."
+  :since           "joker-1.0"
+  :doc-link        "https://github.com/candid82/joker"}
+
+ {:id              :subset-by-design
+  :title           "Joker is a deliberate subset of Clojure"
+  :category-id     :namespaces
+  :rationale       "Joker targets scripting and linting; it ships
+                    joker.core, joker.string, joker.set, joker.walk,
+                    joker.test, joker.template, joker.pprint,
+                    joker.math. clojure.edn, .zip, .data,
+                    .core.protocols, .core.reducers, .datafy,
+                    .instant, .spec.alpha are not implemented."
+  :since           "joker-1.0"
+  :doc-link        "https://github.com/candid82/joker#joker"}
+
+ {:id              :no-spec
+  :title           "clojure.spec.alpha is not implemented"
+  :category-id     :namespaces
+  :rationale       "Spec's macro and dynamic-registry design does
+                    not fit Joker's lint-time analysis. Code that
+                    uses spec must guard with a :joker reader
+                    conditional."
+  :since           "joker-1.0"
+  :affected        [clojure.spec.alpha/def
+                    clojure.spec.alpha/valid?
+                    clojure.spec.alpha/conform]}
+
+ {:id              :lint-time-types
+  :title           "Joker performs lint-time type checking"
+  :category-id     :type-system
+  :rationale       "Many shape errors that Clojure (JVM) reports at
+                    runtime are reported at lint time by Joker
+                    (joker --lint). This shifts the failure mode
+                    but does not change the runtime semantics of
+                    correct code."
+  :since           "joker-1.0"
+  :doc-link        "https://github.com/candid82/joker#linter-mode"}
+
+ {:id              :no-transducer-arities
+  :title           "Several core fns lack the single-arg transducer arity"
+  :category-id     :collections
+  :rationale       "`(map f)`, `(filter pred)`, etc. -- the transducer
+                    forms -- are not all implemented. Calling
+                    `(into [] (map inc) coll)` with the single-arg
+                    transducer form raises an arity error. The
+                    sequence-returning forms (`(map f coll)`) work
+                    as expected."
+  :since           "joker-1.0"
+  :affected        [clojure.core/map
+                    clojure.core/filter
+                    clojure.core/remove
+                    clojure.core/take
+                    clojure.core/drop]}
+
+ {:id              :no-print-dynvars
+  :title           "*print-namespace-maps* / *print-length* / *print-level* not exposed"
+  :category-id     :printer
+  :rationale       "Joker's pr-str emits a canonical form without
+                    exposing these binding-controlled dynvars to
+                    user code. Portable code that depends on
+                    binding them must guard with a :joker reader
+                    conditional."
+  :since           "joker-1.0"
+  :affected        [clojure.core/*print-namespace-maps*
+                    clojure.core/*print-length*
+                    clojure.core/*print-level*]}
+
+ {:id              :reader-conditional-joker
+  :title           "Reader conditional :clj does not fire under Joker"
+  :category-id     :reader
+  :rationale       "Joker uses :joker for its own branches. Code
+                    under :clj is not evaluated by Joker's reader."
+  :since           "joker-1.0"}
+]
