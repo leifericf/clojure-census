@@ -1,0 +1,25 @@
+{:name             "Clojure (JVM)"
+ :tag              "canon-jvm"
+ :role             :canon
+ :invocation       {:type :subprocess
+                    :cmd  ["clojure" "-M" "{script}"]}
+ :version-cmd      ["clojure" "-e" "(println (clojure-version))"]
+ :participates-in  [clojure.core
+                    clojure.string
+                    clojure.set
+                    clojure.walk
+                    clojure.edn
+                    clojure.zip
+                    clojure.test
+                    clojure.pprint
+                    clojure.math
+                    clojure.datafy
+                    clojure.instant
+                    clojure.core.protocols
+                    clojure.core.reducers
+                    clojure.template
+                    clojure.data
+                    clojure.spec.alpha]
+ :data-dir         "canon"
+ :output-dir       "canon"
+ :surface-normalization :default}

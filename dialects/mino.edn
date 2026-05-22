@@ -1,0 +1,21 @@
+{:name             "mino"
+ :tag              "mino"
+ :role             :sut
+ :invocation       {:type :subprocess
+                    :cmd  ["{mino-bin}" "{script}"]}
+ :version-cmd      ["{mino-bin}" "--version"]
+ :participates-in  [clojure.core
+                    clojure.string
+                    clojure.set
+                    clojure.walk
+                    clojure.edn
+                    clojure.zip
+                    clojure.test
+                    clojure.pprint
+                    clojure.math
+                    clojure.template
+                    clojure.data
+                    clojure.spec.alpha]
+ :data-dir         "data/mino"
+ :output-dir       "output/mino"
+ :surface-normalization :default}
