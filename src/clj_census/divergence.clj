@@ -22,9 +22,36 @@
 (s/def ::affected        (s/coll-of qualified-symbol? :kind sequential? :min-count 1))
 (s/def ::doc-link        ::schema/non-blank-string)
 
+;; ----- optional behavior expectation ------------------------------
+;; Attached to a divergence to make it executable against the
+;; behavior-parity harness. Three expectations:
+;;   :matches  (default; treat oracle/dialect as expected to agree)
+;;   :diverges (run the named predicate; pass -> divergent-as-expected)
+;;   :skip     (out of scope; the harness reports :skipped)
+(s/def ::expectation #{:matches :diverges :skip})
+(s/def ::predicate   keyword?)
+(s/def ::note        ::schema/non-blank-string)
+
+(defmulti ^:private behavior-shape :expectation)
+
+(defmethod behavior-shape :diverges [_]
+  (s/keys :req-un [::expectation ::predicate]
+          :opt-un [::note]))
+
+(defmethod behavior-shape :skip [_]
+  (s/keys :req-un [::expectation]
+          :opt-un [::note]))
+
+(defmethod behavior-shape :matches [_]
+  (s/keys :req-un [::expectation]
+          :opt-un [::predicate ::note]))
+
+(s/def ::behavior (s/multi-spec behavior-shape :expectation))
+
 (s/def ::divergence
   (s/keys :req-un [::id ::title ::category-id ::rationale ::since]
-          :opt-un [::dialect-example ::clojure-example ::affected ::doc-link]))
+          :opt-un [::dialect-example ::clojure-example ::affected
+                   ::doc-link ::behavior]))
 
 (s/def ::divergences (s/coll-of ::divergence :kind sequential?))
 

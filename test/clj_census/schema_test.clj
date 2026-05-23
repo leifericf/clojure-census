@@ -9,17 +9,20 @@
             [clojure.test.check.clojure-test :refer [defspec]]
             [clojure.test.check.generators :as gen]
             [clojure.test.check.properties :as prop]
-            [clj-census.category   :as category]
-            [clj-census.comparison :as comparison]
-            [clj-census.coverage   :as coverage]
-            [clj-census.dialect    :as dialect]
-            [clj-census.divergence :as divergence]
-            [clj-census.drift      :as drift]
-            [clj-census.extension  :as extension]
-            [clj-census.history    :as history]
-            [clj-census.reference  :as reference]
-            [clj-census.schema     :as schema]
-            [clj-census.surface    :as surface]))
+            [clj-census.case        :as case-ns]
+            [clj-census.category    :as category]
+            [clj-census.comparison  :as comparison]
+            [clj-census.coverage    :as coverage]
+            [clj-census.dialect     :as dialect]
+            [clj-census.divergence  :as divergence]
+            [clj-census.drift       :as drift]
+            [clj-census.extension   :as extension]
+            [clj-census.history     :as history]
+            [clj-census.observation :as observation]
+            [clj-census.parity      :as parity]
+            [clj-census.reference   :as reference]
+            [clj-census.schema      :as schema]
+            [clj-census.surface     :as surface]))
 
 ;; ----- var-entry ---------------------------------------------------
 
@@ -253,6 +256,128 @@
                  :dialect-tag     "mino"
                  :clojure-version "1.12.4"
                  :headline        {:in-both-count 100 :clojure-total 120 :percent 0.833}})))
+
+;; ----- case (behavior probe) --------------------------------------
+
+(deftest case-minimal
+  (is (s/valid? ::case-ns/case
+                {:id          :compare/strings-positive
+                 :var         'clojure.core/compare
+                 :category-id :ordering
+                 :form        '(compare "z" "a")})))
+
+(deftest case-with-tags
+  (is (s/valid? ::case-ns/case
+                {:id          :compare/strings-positive
+                 :var         'clojure.core/compare
+                 :category-id :ordering
+                 :form        '(compare "z" "a")
+                 :tags        #{:happy-path}})))
+
+(deftest case-rejects-unqualified-id
+  (is (not (s/valid? ::case-ns/case
+                     {:id          :strings-positive    ; unqualified
+                      :var         'clojure.core/compare
+                      :category-id :ordering
+                      :form        '(compare "z" "a")}))))
+
+(deftest case-rejects-non-qualified-var
+  (is (not (s/valid? ::case-ns/case
+                     {:id          :compare/strings-positive
+                      :var         'compare            ; unqualified
+                      :category-id :ordering
+                      :form        '(compare "z" "a")}))))
+
+;; ----- observation (one eval's result) ----------------------------
+
+(deftest observation-value
+  (is (s/valid? ::observation/observation
+                {:status :value :value 3 :elapsed-ms 12})))
+
+(deftest observation-exception
+  (is (s/valid? ::observation/observation
+                {:status :exception
+                 :ex     {:type "ArithmeticException" :message "/ by 0"}
+                 :elapsed-ms 4})))
+
+(deftest observation-timeout-and-unsupported
+  (is (s/valid? ::observation/observation
+                {:status :timeout :elapsed-ms 100}))
+  (is (s/valid? ::observation/observation
+                {:status :unsupported :elapsed-ms 0})))
+
+(deftest observation-rejects-value-status-without-value-key
+  (is (not (s/valid? ::observation/observation
+                     {:status :value :elapsed-ms 0}))))
+
+(deftest observation-rejects-exception-status-without-ex-key
+  (is (not (s/valid? ::observation/observation
+                     {:status :exception :elapsed-ms 0}))))
+
+;; ----- parity (one comparison verdict) ----------------------------
+
+(deftest parity-minimal
+  (is (s/valid? ::parity/parity
+                {:case-id :compare/strings-positive
+                 :var     'clojure.core/compare
+                 :oracle  {:status :value :value 25 :elapsed-ms 1}
+                 :dialect {:status :value :value 1  :elapsed-ms 1}
+                 :verdict :divergent-as-expected
+                 :reason  "predicate :sign-normalized matched"
+                 :divergence-id :compare-sign-normalized})))
+
+(deftest parity-rejects-unknown-verdict
+  (is (not (s/valid? ::parity/parity
+                     {:case-id :x
+                      :var     'clojure.core/x
+                      :oracle  {:status :value :value 1}
+                      :dialect {:status :value :value 1}
+                      :verdict :weird
+                      :reason  "x"}))))
+
+(deftest parity-report-minimal
+  (is (s/valid? ::parity/report
+                {:dialect-tag "bb"
+                 :run-at      "2026-05-23T00:00:00Z"
+                 :totals      {:match 1 :mismatch 0
+                               :divergent-as-expected 0 :skipped 0}
+                 :parities    [{:case-id :a
+                                :var     'clojure.core/+
+                                :oracle  {:status :value :value 1}
+                                :dialect {:status :value :value 1}
+                                :verdict :match
+                                :reason  "values equal"}]})))
+
+;; ----- divergence with :behavior key ------------------------------
+
+(deftest divergence-with-behavior-diverges
+  (is (s/valid? ::divergence/divergence
+                {:id          :compare-sign-normalized
+                 :title       "compare returns sign-only"
+                 :category-id :ordering
+                 :rationale   "x"
+                 :since       "v0.1.0"
+                 :affected    ['clojure.core/compare]
+                 :behavior    {:expectation :diverges
+                               :predicate   :sign-normalized}})))
+
+(deftest divergence-with-behavior-skip
+  (is (s/valid? ::divergence/divergence
+                {:id          :error-messages-text
+                 :title       "x"
+                 :category-id :error-messages
+                 :rationale   "x"
+                 :since       "v0.1.0"
+                 :behavior    {:expectation :skip}})))
+
+(deftest divergence-rejects-behavior-diverges-without-predicate
+  (is (not (s/valid? ::divergence/divergence
+                     {:id          :x
+                      :title       "x"
+                      :category-id :ordering
+                      :rationale   "x"
+                      :since       "v0.1.0"
+                      :behavior    {:expectation :diverges}}))))
 
 ;; ----- explain/assert helpers -------------------------------------
 
