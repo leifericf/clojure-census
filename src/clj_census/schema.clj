@@ -298,7 +298,10 @@
   the ex-data, so a caller can identify which validation tripped."
   [spec value context]
   (when-not (s/valid? spec value)
-    (throw (ex-info (str context ": data does not conform to spec")
+    ;; Embed the human-readable explanation in the message so it surfaces in
+    ;; CI logs even when the /tmp/clojure-*.edn report isn't accessible.
+    (throw (ex-info (str context ": data does not conform to spec\n"
+                         (s/explain-str spec value))
                     {:spec    spec
                      :context context
                      :explain (s/explain-data spec value)})))
