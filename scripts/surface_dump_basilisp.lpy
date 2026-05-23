@@ -13,7 +13,8 @@
 ;; Diagnostics go to stderr; never stdout (would corrupt EDN).
 
 (import os)
-(require '[clojure.edn :as edn])
+(require '[clojure.edn :as edn]
+         '[clojure.string :as str])
 
 (defn- get-env [k]
   (.getenv os k))
@@ -34,14 +35,23 @@
         (println "; could not read clojure-spec at" clojure-spec-path "--" (str e)))
       [])))
 
-(defn- try-require [ns-sym]
-  (try
-    (require ns-sym)
-    true
-    (catch Exception e
-      (binding [*out* *err*]
-        (println "; could not require" ns-sym "--" (str e)))
-      false)))
+(defn- silent-try-require [ns-sym]
+  (try (require ns-sym) true (catch Exception _ false)))
+
+(defn- resolve-basilisp-ns
+  "Basilisp ships its stdlib as basilisp.* (basilisp.core, basilisp.string,
+  …) — there is no `clojure.core` namespace on the Python host. For each
+  clojure.X target, try clojure.X first (in case future Basilisp adds
+  aliasing), then fall back to basilisp.X. Returns the loaded namespace
+  object, or nil if neither resolves."
+  [target-sym]
+  (let [target-name (str target-sym)
+        alt-sym (when (str/starts-with? target-name "clojure.")
+                  (symbol (str/replace target-name #"^clojure\." "basilisp.")))
+        candidates (if alt-sym [target-sym alt-sym] [target-sym])]
+    (some (fn [sym]
+            (when (silent-try-require sym) (find-ns sym)))
+          candidates)))
 
 (defn- safe-tag [t]
   (when t
@@ -61,15 +71,15 @@
         (integer? (:line m)) (assoc :line     (:line m))))
     (catch Exception _ {})))
 
-(defn- capture-namespace [ns-sym]
-  (when-let [n (find-ns ns-sym)]
+(defn- capture-namespace [target-sym]
+  (when-let [n (resolve-basilisp-ns target-sym)]
     (try
       {:vars (into {}
                    (map (fn [[var-name v]] [var-name (capture-var-meta v)]))
                    (ns-publics n))}
       (catch Exception e
         (binding [*out* *err*]
-          (println "; could not capture" ns-sym "--" (str e)))
+          (println "; could not capture" target-sym "--" (str e)))
         {:vars {}}))))
 
 (def ^:private candidate-special-forms
@@ -103,12 +113,14 @@
 
 (defn -main [& _]
   (let [targets    (read-target-namespaces)
-        loaded     (filter try-require targets)
+        ;; capture-namespace handles the clojure.X → basilisp.X fallback
+        ;; internally, so we iterate targets directly and key the result
+        ;; by the canonical clojure.X name.
         namespaces (into {}
-                         (keep (fn [ns-sym]
-                                 (when-let [data (capture-namespace ns-sym)]
-                                   [ns-sym data])))
-                         loaded)
+                         (keep (fn [target-sym]
+                                 (when-let [data (capture-namespace target-sym)]
+                                   [target-sym data])))
+                         targets)
         surface    {:dialect-tag     dialect-tag
                     :clojure-version (dialect-clojure-version)
                     :namespaces      namespaces
