@@ -80,6 +80,29 @@
                     {:exit 0 :out "{:x 42}" :err ""})]
       (is (= {:x 42} (dialect/capture-stdout {:cmd ["fake"]}))))))
 
+(deftest capture-stdout-passes-stdin-through
+  (testing "the :stdin string is forwarded to run-process via :in"
+    (let [seen-opts (atom nil)]
+      (with-redefs [dialect/run-process
+                    (fn [_inv & opts]
+                      (reset! seen-opts opts)
+                      {:exit 0 :out "{:status :value :value 3}" :err ""})]
+        (is (= {:status :value :value 3}
+               (dialect/capture-stdout {:cmd ["fake"]}
+                                       :stdin "{:form (+ 1 2)}")))
+        (is (= "{:form (+ 1 2)}" (get (apply hash-map @seen-opts) :in))
+            ":stdin should be forwarded under the :in key")))))
+
+(deftest capture-stdout-without-stdin-omits-in
+  (testing "no :stdin -> no :in keyword to run-process"
+    (let [seen-opts (atom nil)]
+      (with-redefs [dialect/run-process
+                    (fn [_inv & opts]
+                      (reset! seen-opts opts)
+                      {:exit 0 :out "{:x 1}" :err ""})]
+        (dialect/capture-stdout {:cmd ["fake"]})
+        (is (not (contains? (apply hash-map @seen-opts) :in)))))))
+
 (deftest enabled?
   (testing "missing :enabled defaults to true"
     (is (true? (dialect/enabled? jvm-config))))

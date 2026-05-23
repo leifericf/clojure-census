@@ -1,0 +1,34 @@
+;; Clojure (JVM) -- the oracle. Used by the behavior subcommand as
+;; the reference runtime against which dialect observations are
+;; compared. The diff/render pipeline still ignores :role :clojure
+;; entries; only the behavior pipeline reads this file.
+;;
+;; The reference *surface* (clojure/1.12.4-surface.edn) is a
+;; hand-curated artifact -- this file does NOT drive nightly surface
+;; capture for JVM Clojure. See clojure/spec.edn for the manual
+;; regeneration recipe.
+{:name             "Clojure (JVM)"
+ :tag              "clojure"
+ :role             :clojure
+ :invocation       {:type :subprocess
+                    :cmd  ["clojure" "-M" "{script}"]}
+ :version-cmd      ["clojure" "-e" "(println (clojure-version))"]
+ :participates-in  [clojure.core
+                    clojure.string
+                    clojure.set
+                    clojure.walk
+                    clojure.edn
+                    clojure.zip
+                    clojure.test
+                    clojure.pprint
+                    clojure.math
+                    clojure.datafy
+                    clojure.instant
+                    clojure.core.protocols
+                    clojure.core.reducers
+                    clojure.template
+                    clojure.data
+                    clojure.spec.alpha]
+ :data-dir         "clojure"
+ :output-dir       "clojure"
+ :surface-normalization :default}

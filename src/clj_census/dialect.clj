@@ -102,11 +102,13 @@
 ;; ===== IO ==========================================================
 
 (defn run-process
-  "Invoke a prepared invocation. Returns `{:exit :out :err}`."
-  [{:keys [cmd]} & {:keys [dir env]}]
+  "Invoke a prepared invocation. Returns `{:exit :out :err}`. The
+  optional `:in` string is forwarded as the subprocess's stdin."
+  [{:keys [cmd]} & {:keys [dir env in]}]
   (let [opts (cond-> []
                dir (into [:dir dir])
-               env (into [:env env]))]
+               env (into [:env env])
+               in  (into [:in in]))]
     (apply sh/sh (concat cmd opts))))
 
 (defn- strip-non-edn-prefix
@@ -121,11 +123,17 @@
 
 (defn capture-stdout
   "Invoke and decode stdout as EDN. Throws if the subprocess exits
-  non-zero, or if stdout is not parseable EDN. Strips any
-  non-EDN banner prefix some hosts emit before user output."
-  [{:keys [cmd] :as inv} & {:keys [dir env timeout-ms]}]
+  non-zero, or if stdout is not parseable EDN. Strips any non-EDN
+  banner prefix some hosts emit before user output.
+
+  Optional `:stdin` is a string forwarded to the subprocess's
+  standard input -- used by the behavior-eval script to receive the
+  case form as EDN."
+  [{:keys [cmd] :as inv} & {:keys [dir env timeout-ms stdin]}]
   (let [start (System/currentTimeMillis)
-        {:keys [exit out err]} (run-process inv :dir dir :env env)
+        {:keys [exit out err]} (if stdin
+                                 (run-process inv :dir dir :env env :in stdin)
+                                 (run-process inv :dir dir :env env))
         elapsed (- (System/currentTimeMillis) start)
         cleaned (strip-non-edn-prefix out)]
     (when-not (zero? exit)

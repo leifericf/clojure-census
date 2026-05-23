@@ -69,16 +69,27 @@
 
   Every env var is exposed as a template key: `MINO_BIN` → `:mino-bin`,
   `BB_BIN` → `:bb-bin`, etc. The dialect's invocation cmd template
-  picks whichever it needs. `:script` is always set to the portable
-  surface_dump.clj path. Conventional defaults (`:mino-bin` → `mino`
-  on PATH) seed any keys the env didn't set; a dialect that only uses
-  literal binaries (like bb on PATH) needs no env var at all."
+  picks whichever it needs. Conventional defaults (`:mino-bin` →
+  `mino` on PATH) seed any keys the env didn't set; a dialect that
+  only uses literal binaries (like bb on PATH) needs no env var at
+  all.
+
+  `:script` is intentionally NOT set here -- each subcommand injects
+  the script it needs (surface_dump.cljc for `dump`,
+  behavior_eval.cljc for `behavior`)."
   ([] (build-ctx {}))
   ([{:keys [env]
      :or   {env (into {} (System/getenv))}}]
    (merge {:mino-bin "mino"}     ;; default -- look up `mino` on PATH
-          (env->template-keys env)
-          {:script (str repo-root "/scripts/surface_dump.cljc")})))
+          (env->template-keys env))))
+
+(def surface-dump-script
+  "Repo-relative path to the portable surface-introspection script."
+  (str repo-root "/scripts/surface_dump.cljc"))
+
+(def behavior-eval-script
+  "Repo-relative path to the portable behavior-evaluation script."
+  (str repo-root "/scripts/behavior_eval.cljc"))
 
 (defn- iso-date-now []
   (let [fmt (java.text.SimpleDateFormat. "yyyy-MM-dd")]
@@ -332,6 +343,7 @@
 (defn- subcmd-dump
   [ctx [tag :as _args]]
   (let [cfg     (load-dialect tag)
+        ctx'    (assoc ctx :script surface-dump-script)
         out     (surface-output-path tag)
         env-out (System/getenv "SURFACE_DUMP_OUT")
         path    (or env-out out)
@@ -340,7 +352,7 @@
         ;; Merge in the parent env so JAVA_HOME etc. survive
         env'    (into {} (System/getenv))
         env''   (merge env' env)
-        surface (surface/capture! cfg ctx :env env'')]
+        surface (surface/capture! cfg ctx' :env env'')]
     ;; Rotate the canonical surface before overwriting it so the next
     ;; diff can compute drift. Skip when redirected via env (the env
     ;; output is for test/dev only and the canonical file shouldn't

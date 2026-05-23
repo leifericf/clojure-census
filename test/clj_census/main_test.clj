@@ -18,10 +18,16 @@
     (is (= "mino" (:mino-bin ctx))
         "default to looking up 'mino' on PATH")))
 
-(deftest build-ctx-script-path
-  (let [ctx (main/build-ctx {:env {}})]
-    (is (string? (:script ctx)))
-    (is (re-find #"surface_dump\.cljc$" (:script ctx)))))
+(deftest build-ctx-no-longer-pins-script
+  (testing "subcommands inject the script they need; build-ctx stays neutral"
+    (let [ctx (main/build-ctx {:env {}})]
+      (is (not (contains? ctx :script))))))
+
+(deftest script-paths-exist
+  (is (string? main/surface-dump-script))
+  (is (re-find #"surface_dump\.cljc$" main/surface-dump-script))
+  (is (string? main/behavior-eval-script))
+  (is (re-find #"behavior_eval\.cljc$" main/behavior-eval-script)))
 
 (deftest build-ctx-generalizes-env-vars
   (testing "any env var snake-case+upper maps to a dashed-lower template key"
