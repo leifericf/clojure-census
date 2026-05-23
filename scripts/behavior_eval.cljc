@@ -4,15 +4,19 @@
 ;; map to stdout.
 ;;
 ;; Input shape  : {:form FORM, :require [ns ...]}
-;;   :form    is read as an EDN value and then evaluated as-is.
-;;   :require is a vector of ns symbols to load before evaluation.
-;;
 ;; Output shape : a clj-census.observation map
 ;;   {:status :value     :value <normalized>      :elapsed-ms N}
 ;;   {:status :exception :ex {:type "..." :message "..."} :elapsed-ms N}
 ;;
-;; Reader conditionals (#?(:cljr ...)) carry the few host-specific
-;; differences: CLR's Type vs JVM's Class, CLR's exception API.
+;; Three runtimes are supported via reader conditionals:
+;;   :mino    -- mino, whose `catch` takes ONE symbol (the binding)
+;;               and whose exceptions are plain maps with
+;;               :mino/code and :mino/message keys.
+;;   :cljr    -- ClojureCLR (uses System.* types and `(catch
+;;               Exception e ...)`).
+;;   :default -- JVM Clojure / Babashka / anything else
+;;               Clojure-shaped (uses java.lang.* types and
+;;               `(catch Throwable e ...)`).
 ;;
 ;; Diagnostics go to stderr; never to stdout (would corrupt EDN).
 
@@ -20,39 +24,33 @@
 (require 'clojure.walk)
 
 (defn- error-type [e]
-  (try
-    #?(:cljr   (.. e GetType FullName)
-       :default (.getName (class e)))
-    (catch #?(:cljr Exception :default Throwable) _ "Unknown")))
+  #?(:mino    (str (get e :mino/code "Unknown"))
+     :cljr    (.. e GetType FullName)
+     :default (.getName (class e))))
 
 (defn- error-message [e]
-  (try
-    #?(:cljr   (.Message e)
-       :default (.getMessage e))
-    (catch #?(:cljr Exception :default Throwable) _ nil)))
+  #?(:mino    (get e :mino/message)
+     :cljr    (.Message e)
+     :default (.getMessage e)))
 
 (defn- class-like? [x]
-  (try
-    #?(:cljr   (instance? System.Type x)
-       :default (instance? java.lang.Class x))
-    (catch #?(:cljr Exception :default Throwable) _ false)))
-
-(defn- nan? [x]
-  (try
-    (and (number? x) (not (== x x)))
-    (catch #?(:cljr Exception :default Throwable) _ false)))
+  ;; Mino has no JVM class layer; nothing is "class-like" there.
+  #?(:mino    false
+     :cljr    (instance? System.Type x)
+     :default (instance? java.lang.Class x)))
 
 (defn- inf-double? [x]
-  (try
-    (and (number? x)
-         #?(:cljr   (System.Double/IsInfinity (double x))
-            :default (Double/isInfinite (double x))))
-    (catch #?(:cljr Exception :default Throwable) _ false)))
+  ;; Portable: both mino and Clojure 1.11+ expose `infinite?` and
+  ;; accept any number.
+  (and (number? x) (infinite? x)))
+
+(defn- nan? [x]
+  (and (number? x) (NaN? x)))
 
 (defn- replace-non-edn [x]
   (cond
     (nan? x)               :clj-census/nan
-    (inf-double? x)          (if (pos? x) :clj-census/+inf :clj-census/-inf)
+    (inf-double? x)        (if (pos? x) :clj-census/+inf :clj-census/-inf)
     (fn? x)                :clj-census/non-serializable-fn
     (class-like? x)        {:clj-census/opaque (str x)}
     :else                  x))
@@ -72,11 +70,8 @@
     x))
 
 (defn- normalize [x]
-  (try
-    (clojure.walk/postwalk replace-non-edn
-                           (clojure.walk/prewalk realize-seqs x))
-    (catch #?(:cljr Exception :default Throwable) _
-      :clj-census/non-serializable)))
+  (clojure.walk/postwalk replace-non-edn
+                         (clojure.walk/prewalk realize-seqs x)))
 
 (defn- read-stdin
   "Read all of stdin as a single string. Uses read-line in a loop so
@@ -92,31 +87,58 @@
   (clojure.edn/read-string {:default tagged-literal} (read-stdin)))
 
 (defn- now-ms []
-  #?(:cljr   (long (/ (.Ticks (System.DateTime/UtcNow)) 10000))
-     :default (System/currentTimeMillis)))
+  ;; mino's `time-ms` returns a :float; coerce uniformly to integer
+  ;; so the observation spec's `(s/and integer? ...)` for :elapsed-ms
+  ;; holds across all hosts.
+  (long
+    #?(:mino    (time-ms)
+       :cljr    (long (/ (.Ticks (System.DateTime/UtcNow)) 10000))
+       :default (System/currentTimeMillis))))
 
 (defn- try-require! [ns-syms]
   (doseq [s ns-syms]
-    (try
-      (require s)
-      (catch #?(:cljr Exception :default Throwable) e
-        (binding [*out* *err*]
-          (println "; could not require" s "--" (error-message e)))))))
+    #?(:mino
+       (try (require s)
+            (catch err
+              (binding [*out* *err*]
+                (println "; could not require" s "--" (error-message err)))))
+       :cljr
+       (try (require s)
+            (catch Exception err
+              (binding [*out* *err*]
+                (println "; could not require" s "--" (error-message err)))))
+       :default
+       (try (require s)
+            (catch Throwable err
+              (binding [*out* *err*]
+                (println "; could not require" s "--" (error-message err))))))))
 
 (defn- evaluate [form]
   (let [t0 (now-ms)]
-    (try
-      (let [v (eval form)
-            elapsed (- (now-ms) t0)]
-        {:status     :value
-         :value      (normalize v)
-         :elapsed-ms elapsed})
-      (catch #?(:cljr Exception :default Throwable) e
-        (let [elapsed (- (now-ms) t0)]
-          {:status     :exception
-           :ex         {:type    (error-type e)
-                        :message (error-message e)}
-           :elapsed-ms elapsed})))))
+    #?(:mino
+       (try
+         (let [v (eval form)]
+           {:status :value :value (normalize v) :elapsed-ms (- (now-ms) t0)})
+         (catch err
+           {:status :exception
+            :ex     {:type (error-type err) :message (error-message err)}
+            :elapsed-ms (- (now-ms) t0)}))
+       :cljr
+       (try
+         (let [v (eval form)]
+           {:status :value :value (normalize v) :elapsed-ms (- (now-ms) t0)})
+         (catch Exception err
+           {:status :exception
+            :ex     {:type (error-type err) :message (error-message err)}
+            :elapsed-ms (- (now-ms) t0)}))
+       :default
+       (try
+         (let [v (eval form)]
+           {:status :value :value (normalize v) :elapsed-ms (- (now-ms) t0)})
+         (catch Throwable err
+           {:status :exception
+            :ex     {:type (error-type err) :message (error-message err)}
+            :elapsed-ms (- (now-ms) t0)})))))
 
 (defn -main [& _]
   (let [{:keys [form require]} (read-input)

@@ -18,12 +18,4 @@
                     clojure.spec.alpha]
  :data-dir         "data/mino"
  :output-dir       "output/mino"
- :surface-normalization :default
-
- ;; The portable scripts/behavior_eval.cljc trips a mino-side parser
- ;; rejection ("unbound symbol: e", reported at EOF) somewhere in
- ;; the try/catch chain. Surface_dump.cljc uses the same catch
- ;; pattern and passes, so the cause is subtle and needs a tailored
- ;; scripts/behavior_eval_mino.cljc. Until that script exists, opt
- ;; out so the nightly stays green.
- :behavior {:enabled false}}
+ :surface-normalization :default}
