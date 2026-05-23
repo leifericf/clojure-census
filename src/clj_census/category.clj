@@ -4,9 +4,9 @@
   by registry entries), a human title, and a short description.
 
   Pure data + pure operations. The on-disk file `data/categories.edn`
-  is parsed by `read-file` (IO) into this namespace's domain."
-  (:require [clojure.edn :as edn]
-            [clojure.spec.alpha :as s]
+  is loaded via `clj-census.store/slurp-edn`; this namespace validates
+  the parsed value."
+  (:require [clojure.spec.alpha :as s]
             [clj-census.schema :as schema]))
 
 ;; ===== specs =======================================================
@@ -57,12 +57,3 @@
                        :categories categories}))))
   true)
 
-;; ===== IO (named for what it does) =================================
-
-(defn read-file
-  "Read EDN at `path` and validate it as categories. Return the
-  validated collection."
-  [path]
-  (let [data (-> path slurp edn/read-string)]
-    (validate! data)
-    data))

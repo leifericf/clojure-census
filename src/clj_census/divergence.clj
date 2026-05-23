@@ -6,8 +6,7 @@
 
   Loading validates both the schema shape and referential integrity
   (`:category-id` must exist in the supplied categories collection)."
-  (:require [clojure.edn :as edn]
-            [clojure.spec.alpha :as s]
+  (:require [clojure.spec.alpha :as s]
             [clj-census.category :as category]
             [clj-census.schema   :as schema]))
 
@@ -75,12 +74,3 @@
   [divergences category-id]
   (vec (filter #(= category-id (:category-id %)) divergences)))
 
-;; ===== IO ==========================================================
-
-(defn read-file
-  "Read EDN at `path`, validate against `categories`, return the
-  validated collection."
-  [path categories]
-  (let [data (edn/read-string (slurp path))]
-    (validate! data categories)
-    data))

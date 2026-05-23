@@ -13,9 +13,7 @@
   Pure transformations: same bundle -> same output. No timestamps in
   the output. Iteration order over namespaces is stable
   (`clojure-spec` declaration order)."
-  (:require [clojure.java.io :as io]
-            [clojure.pprint  :as pprint]
-            [clojure.spec.alpha   :as s]
+  (:require [clojure.spec.alpha    :as s]
             [clj-census.category   :as category]
             [clj-census.comparison :as comparison]
             [clj-census.coverage   :as coverage]
@@ -81,13 +79,3 @@
       drift   (assoc :drift drift)
       history (assoc :history (vec history)))))
 
-;; ===== IO =========================================================
-
-(defn write-edn!
-  "Pretty-print the rendered EDN to `path`. Returns the path."
-  [path bundle]
-  (io/make-parents path)
-  (with-open [w (io/writer path)]
-    (binding [*out* w]
-      (pprint/pprint (render-edn bundle))))
-  path)

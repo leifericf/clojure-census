@@ -4,13 +4,11 @@
   lightweight projection of the day's coverage (just headline +
   per-namespace stats -- not the full surface).
 
-  Pure operations on the loaded collection (`latest`, `last-n`) are
-  testable with literal data. IO is `write-snapshot!` and
-  `read-history`."
-  (:require [clojure.data.json :as json]
-            [clojure.java.io :as io]
-            [clojure.string  :as str]
-            [clojure.spec.alpha :as s]
+  Pure operations: building snapshots, ranking by date, and the
+  JSON-friendly projection used when serializing. The disk I/O
+  itself (slurp + spit) lives in the shell layer (`clj-census.main`),
+  composed with `clj-census.store`."
+  (:require [clojure.spec.alpha :as s]
             [clj-census.coverage :as coverage]
             [clj-census.schema   :as schema]))
 
@@ -42,6 +40,12 @@
     (schema/assert-conforms! ::history-snapshot out "history-snapshot")
     out))
 
+(defn validate-snapshot!
+  "Schema-validate a history snapshot. Returns `true` on success."
+  [snapshot]
+  (schema/assert-conforms! ::history-snapshot snapshot "history-snapshot")
+  true)
+
 (defn latest
   "Most recent snapshot in `snapshots`, by `:date`, or `nil` if empty.
   Uses `sort-by` so date strings (`compare`-compatible) work; the
@@ -59,55 +63,32 @@
        (take-last n)
        vec))
 
-;; ===== IO ==========================================================
+(defn sort-by-date
+  "Sort `snapshots` ascending by `:date`."
+  [snapshots]
+  (vec (sort-by :date snapshots)))
 
-(defn- json-write-friendly
-  "JSON-friendly projection: stringify symbol keys + values."
-  [snapshot]
-  (-> snapshot
-      (update :per-namespace
-              (fn [m]
-                (into {} (for [[k v] m] [(str k) v]))))))
+;; ===== JSON projection =============================================
 
-(defn- json-read-friendly
-  "Reverse the JSON-friendly projection: re-symbolize ns keys."
-  [snapshot]
-  (-> snapshot
-      (update :per-namespace
-              (fn [m]
-                (into {} (for [[k v] m] [(symbol k) v]))))))
+(def snapshot-filename-regex
+  "Snapshot files are named `YYYY-MM-DD.json` exactly."
+  #"\d{4}-\d{2}-\d{2}\.json")
 
-(defn write-snapshot!
-  "Write `snapshot` to `dir/YYYY-MM-DD.json`. Returns the written path.
-  Creates parent dirs as needed."
+(defn snapshot-path
+  "Resolve the on-disk path for `snapshot` within `dir`."
   [dir snapshot]
-  (schema/assert-conforms! ::history-snapshot snapshot
-                           "history-snapshot")
-  (let [path (str dir "/" (:date snapshot) ".json")]
-    (io/make-parents path)
-    (with-open [w (io/writer path)]
-      (json/write (json-write-friendly snapshot) w
-                  :indent true
-                  :key-fn (fn [k]
-                            (if (keyword? k) (name k) (str k)))))
-    path))
+  (str dir "/" (:date snapshot) ".json"))
 
-(defn- snapshot-file? [f]
-  (and (.isFile f)
-       (re-matches #"\d{4}-\d{2}-\d{2}\.json" (.getName f))))
+(defn to-json
+  "JSON-friendly projection: stringify the symbol keys under
+  `:per-namespace` so they survive a JSON round-trip."
+  [snapshot]
+  (update snapshot :per-namespace
+          (fn [m] (into {} (for [[k v] m] [(str k) v])))))
 
-(defn read-history
-  "Read every YYYY-MM-DD.json under `dir`, return as a vector sorted
-  ascending by date. Missing directory yields `[]`."
-  [dir]
-  (let [d (io/file dir)]
-    (if (and (.exists d) (.isDirectory d))
-      (->> (file-seq d)
-           (filter snapshot-file?)
-           (map (fn [f]
-                  (with-open [r (io/reader f)]
-                    (-> (json/read r :key-fn keyword)
-                        json-read-friendly))))
-           (sort-by :date)
-           vec)
-      [])))
+(defn from-json
+  "Reverse `to-json`: re-symbolize the namespace keys under
+  `:per-namespace`."
+  [snapshot]
+  (update snapshot :per-namespace
+          (fn [m] (into {} (for [[k v] m] [(symbol k) v])))))

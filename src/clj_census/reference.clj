@@ -6,8 +6,7 @@
 
   The spec is hand-curated in `clojure/spec.edn` and bumped via a
   small PR when a new Clojure release is adopted."
-  (:require [clojure.edn :as edn]
-            [clojure.spec.alpha :as s]
+  (:require [clojure.spec.alpha :as s]
             [clj-census.schema  :as schema]
             [clj-census.surface :as surface]))
 
@@ -82,22 +81,8 @@
   [spec]
   (str reference-dir "/" (:surface-file spec)))
 
-;; ===== IO ==========================================================
-
-(defn read-file
-  "Read and validate the ClojureSpec EDN at `path`."
-  [path]
-  (let [spec (-> path slurp edn/read-string)]
-    (validate! spec)
-    spec))
-
-(defn read-surface
-  "Read and validate the vendored Clojure (JVM) surface EDN referenced by
-  `spec`."
-  [spec & {:keys [base-dir]
-           :or   {base-dir "."}}]
-  (let [path (str base-dir "/" (surface-path spec))
-        s    (-> path slurp edn/read-string)]
-    (schema/assert-conforms! ::surface/surface s
-                             (str "Clojure (JVM) surface at " path))
-    s))
+(defn validate-surface!
+  "Schema-validate `s` as a Clojure (JVM) reference Surface."
+  [s]
+  (schema/assert-conforms! ::surface/surface s "reference surface")
+  true)

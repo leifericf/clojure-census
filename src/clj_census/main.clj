@@ -14,9 +14,8 @@
     all <dialect-tag>      dump + diff + history append
 
   Pure operations live in the entity namespaces; this namespace is
-  the IO seam that glues them together."
-  (:require [clojure.edn       :as edn]
-            [clojure.java.io   :as io]
+  the IO seam that glues them together via `clj-census.store`."
+  (:require [clojure.java.io   :as io]
             [clojure.string    :as str]
             [clj-census.badge      :as badge]
             [clj-census.reference  :as reference]
@@ -26,9 +25,9 @@
             [clj-census.dashboard  :as dashboard]
             [clj-census.dialect    :as dialect]
             [clj-census.divergence :as divergence]
-            [clj-census.drift      :as drift]
             [clj-census.extension  :as extension]
             [clj-census.history    :as history]
+            [clj-census.store      :as store]
             [clj-census.surface    :as surface]))
 
 ;; ===== layout ======================================================
@@ -43,6 +42,12 @@
 (defn dashboard-edn-path   [tag] (p "output" tag "dashboard.edn"))
 (defn badge-json-path      [tag] (p "output" tag "badge.json"))
 (defn history-dir-path     [tag] (p "output" tag "history"))
+
+(defn reference-surface-path
+  "Repo-relative path to the vendored Clojure (JVM) reference surface
+  referenced by `spec`."
+  [spec]
+  (str repo-root "/" (reference/surface-path spec)))
 
 ;; ===== context =====================================================
 
@@ -78,28 +83,70 @@
 
 ;; ===== loaders =====================================================
 
+(defn- load-edn-validated
+  "Slurp EDN at `path`, run `validate-fn` on the parsed value, return
+  the value. `validate-fn` should throw on schema violations."
+  [path validate-fn]
+  (let [data (store/slurp-edn path)]
+    (validate-fn data)
+    data))
+
 (defn- load-categories []
-  (category/read-file (p "data" "categories.edn")))
+  (load-edn-validated (p "data" "categories.edn") category/validate!))
 
 (defn- load-reference []
-  (reference/read-file (p "clojure" "spec.edn")))
+  (load-edn-validated (p "clojure" "spec.edn") reference/validate!))
 
 (defn- load-dialect [tag]
-  (dialect/read-file (dialect-config-path tag)))
+  (load-edn-validated (dialect-config-path tag) dialect/validate!))
+
+(defn- load-reference-surface [spec]
+  (load-edn-validated (reference-surface-path spec)
+                      reference/validate-surface!))
+
+(defn- load-surface [path]
+  (load-edn-validated path surface/validate!))
 
 (defn- load-divergences [cfg cats]
-  (let [path (str (:data-dir cfg) "/divergences.edn")
-        f    (io/file path)]
-    (if (.exists f)
-      (divergence/read-file path cats)
+  (let [path (str (:data-dir cfg) "/divergences.edn")]
+    (if (.exists (io/file path))
+      (load-edn-validated path #(divergence/validate! % cats))
       [])))
 
 (defn- load-extensions [cfg cats]
-  (let [path (str (:data-dir cfg) "/extensions.edn")
-        f    (io/file path)]
-    (if (.exists f)
-      (extension/read-file path cats)
+  (let [path (str (:data-dir cfg) "/extensions.edn")]
+    (if (.exists (io/file path))
+      (load-edn-validated path #(extension/validate! % cats))
       [])))
+
+(defn- load-history [dir]
+  (let [d (io/file dir)]
+    (if (and (.exists d) (.isDirectory d))
+      (->> (file-seq d)
+           (filter #(and (.isFile %)
+                         (re-matches history/snapshot-filename-regex
+                                     (.getName %))))
+           (map (fn [f]
+                  (history/from-json (store/slurp-json (.getPath f)))))
+           history/sort-by-date)
+      [])))
+
+;; ===== writers (compose pure projections with store IO) ============
+
+(defn- write-surface! [path surface]
+  (surface/validate! surface)
+  (store/spit-edn! path (surface/canonicalize surface)))
+
+(defn- write-dashboard! [path bundle]
+  (store/spit-edn! path (dashboard/render-edn bundle)))
+
+(defn- write-badge! [path badge]
+  (store/spit-json! path badge))
+
+(defn- write-history-snapshot! [dir snapshot]
+  (history/validate-snapshot! snapshot)
+  (store/spit-json! (history/snapshot-path dir snapshot)
+                    (history/to-json snapshot)))
 
 ;; ===== subcommands =================================================
 
@@ -117,13 +164,15 @@
       (let [base (str "data/" d-dir)]
         (when (.exists (io/file (str base "/divergences.edn")))
           (println base "/divergences.edn:"
-                   (count (divergence/read-file
-                            (str base "/divergences.edn") cats))
+                   (count (load-edn-validated
+                            (str base "/divergences.edn")
+                            #(divergence/validate! % cats)))
                    "entries"))
         (when (.exists (io/file (str base "/extensions.edn")))
           (println base "/extensions.edn:"
-                   (count (extension/read-file
-                            (str base "/extensions.edn") cats))
+                   (count (load-edn-validated
+                            (str base "/extensions.edn")
+                            #(extension/validate! % cats)))
                    "entries"))))
     (println "validate-data: OK")
     0))
@@ -140,7 +189,7 @@
         env'    (into {} (System/getenv))
         env''   (merge env' env)
         surface (surface/capture! cfg ctx :env env'')]
-    (surface/write-file! path surface)
+    (write-surface! path surface)
     (println "dump:" path)
     (println "  vars:" (reduce + (map (comp count :vars val)
                                        (:namespaces surface))))
@@ -152,15 +201,14 @@
   (let [cfg          (load-dialect tag)
         cats         (load-categories)
         spec         (load-reference)
-        reference-s  (reference/read-surface spec)
-        dialect-path (surface-output-path tag)
-        dialect-s    (surface/read-file dialect-path)
+        reference-s  (load-reference-surface spec)
+        dialect-s    (load-surface (surface-output-path tag))
         divs         (load-divergences cfg cats)
         exts         (load-extensions  cfg cats)
         cmp          (comparison/compare-surfaces
                        reference-s dialect-s (reference/target-namespaces spec))
         cov          (coverage/from-comparison cmp)
-        prior        (history/read-history (history-dir-path tag))
+        prior        (load-history (history-dir-path tag))
         prev-percent (some-> prior history/latest :headline :percent)
         cov-delta    (if prev-percent
                        (double (- (get-in cov [:headline :percent])
@@ -177,7 +225,7 @@
                       :divergences     divs
                       :extensions      exts
                       :categories      cats
-                      :clojure-spec      spec
+                      :clojure-spec    spec
                       :dialect-config  cfg
                       :history         all-history}
         bundle       (if-let [yesterday (history/latest prior)]
@@ -189,12 +237,12 @@
                                :changed       []
                                :coverage-delta cov-delta})
                        bundle)]
-    (dashboard/write-edn!  (dashboard-edn-path tag) bundle)
-    (badge/write-endpoint! (badge-json-path    tag)
-                           (badge/endpoint
-                             {:dialect-tag tag
-                              :headline    (:headline cov)}))
-    (history/write-snapshot! (history-dir-path tag) snap)
+    (write-dashboard! (dashboard-edn-path tag) bundle)
+    (write-badge!     (badge-json-path tag)
+                      (badge/endpoint
+                        {:dialect-tag tag
+                         :headline    (:headline cov)}))
+    (write-history-snapshot! (history-dir-path tag) snap)
     (println "diff:" tag "→"
              (coverage/percent-as-pct-string
                (get-in cov [:headline :percent])))
@@ -207,30 +255,29 @@
   [_ctx [tag :as _args]]
   ;; Render with no new capture: re-read whatever surfaces are
   ;; already on disk and re-render.
-  (let [cfg       (load-dialect tag)
-        cats      (load-categories)
-        spec      (load-reference)
-        reference-s (reference/read-surface spec)
-        dialect-s (surface/read-file (surface-output-path tag))
-        divs      (load-divergences cfg cats)
-        exts      (load-extensions  cfg cats)
-        cmp       (comparison/compare-surfaces
-                    reference-s dialect-s (reference/target-namespaces spec))
-        cov      (coverage/from-comparison cmp)
-        bundle   {:comparison      cmp
-                  :coverage        cov
-                  :divergences     divs
-                  :extensions      exts
-                  :categories      cats
-                  :clojure-spec      spec
-                  :dialect-config  cfg
-                  :history         (history/read-history
-                                     (history-dir-path tag))}]
-    (dashboard/write-edn!  (dashboard-edn-path tag) bundle)
-    (badge/write-endpoint! (badge-json-path    tag)
-                           (badge/endpoint
-                             {:dialect-tag tag
-                              :headline    (:headline cov)}))
+  (let [cfg         (load-dialect tag)
+        cats        (load-categories)
+        spec        (load-reference)
+        reference-s (load-reference-surface spec)
+        dialect-s   (load-surface (surface-output-path tag))
+        divs        (load-divergences cfg cats)
+        exts        (load-extensions  cfg cats)
+        cmp         (comparison/compare-surfaces
+                      reference-s dialect-s (reference/target-namespaces spec))
+        cov         (coverage/from-comparison cmp)
+        bundle      {:comparison      cmp
+                     :coverage        cov
+                     :divergences     divs
+                     :extensions      exts
+                     :categories      cats
+                     :clojure-spec    spec
+                     :dialect-config  cfg
+                     :history         (load-history (history-dir-path tag))}]
+    (write-dashboard! (dashboard-edn-path tag) bundle)
+    (write-badge!     (badge-json-path tag)
+                      (badge/endpoint
+                        {:dialect-tag tag
+                         :headline    (:headline cov)}))
     (println "render:" tag "→"
              (coverage/percent-as-pct-string
                (get-in cov [:headline :percent])))

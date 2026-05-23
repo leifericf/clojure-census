@@ -1,11 +1,13 @@
 (ns clj-census.history-test
   "Daily history snapshots accumulate under output/<dialect>/history/.
-  Filenames are YYYY-MM-DD.json. Pure operations on the loaded
-  collection are tested in isolation; IO is covered by a tmpdir
-  round-trip."
+  Filenames are YYYY-MM-DD.json. All snapshot operations are pure;
+  the JSON-friendly projection (`to-json` / `from-json`) is tested
+  for round-trip fidelity here. Disk I/O lives in clj-census.store
+  and is composed in clj-census.main."
   (:require [clojure.test :refer [deftest is testing]]
             [clojure.java.io :as io]
-            [clj-census.history :as history]))
+            [clj-census.history :as history]
+            [clj-census.store   :as store]))
 
 (def sample
   {:date            "2026-05-22"
@@ -54,16 +56,38 @@
 (deftest last-n-when-fewer-available
   (is (= 1 (count (history/last-n [sample] 5)))))
 
-(deftest write+read-roundtrip
-  (let [dir (str (System/getProperty "java.io.tmpdir") "/cc-parity-history-test-"
+(deftest to-json-from-json-roundtrip
+  (testing "stringify namespace symbols on write, re-symbolize on read"
+    (let [projected (history/to-json sample)
+          restored  (history/from-json projected)]
+      (is (string? (-> projected :per-namespace ffirst)))
+      (is (symbol? (-> restored  :per-namespace ffirst)))
+      (is (= sample restored)))))
+
+(deftest snapshot-path-is-date-keyed
+  (is (= "/tmp/h/2026-05-22.json"
+         (history/snapshot-path "/tmp/h" sample))))
+
+(deftest sort-by-date-orders-ascending
+  (let [snaps [(assoc sample :date "2026-05-22")
+               (assoc sample :date "2026-05-19")
+               (assoc sample :date "2026-05-21")]]
+    (is (= ["2026-05-19" "2026-05-21" "2026-05-22"]
+           (map :date (history/sort-by-date snaps))))))
+
+(deftest disk-roundtrip-via-store
+  (let [dir (str (System/getProperty "java.io.tmpdir")
+                 "/cc-parity-history-test-"
                  (System/currentTimeMillis))]
     (try
       (.mkdirs (io/file dir))
-      (let [path (history/write-snapshot! dir sample)]
-        (is (.exists (io/file path))))
-      (let [loaded (history/read-history dir)]
-        (is (= 1 (count loaded)))
-        (is (= "2026-05-22" (:date (first loaded)))))
+      (let [path (history/snapshot-path dir sample)]
+        (history/validate-snapshot! sample)
+        (store/spit-json! path (history/to-json sample))
+        (is (.exists (io/file path)))
+        (let [loaded (history/from-json (store/slurp-json path))]
+          (is (= "2026-05-22" (:date loaded)))
+          (is (contains? (:per-namespace loaded) 'clojure.core))))
       (finally
         (doseq [f (reverse (file-seq (io/file dir)))]
           (.delete f))))))

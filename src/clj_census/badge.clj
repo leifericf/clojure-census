@@ -4,9 +4,7 @@
   badge from that endpoint JSON.
 
   See https://shields.io/endpoint for the schema."
-  (:require [clojure.data.json :as json]
-            [clojure.java.io   :as io]
-            [clj-census.coverage :as coverage]))
+  (:require [clj-census.coverage :as coverage]))
 
 ;; Single neutral color for every badge. Coverage is a measurement,
 ;; not a value judgment -- a 50% number is no more "bad" than a 95%
@@ -31,11 +29,3 @@
    :message       (coverage/percent-as-pct-string (:percent headline))
    :color         (color-for (:percent headline))})
 
-(defn write-endpoint!
-  "Write the badge JSON to `path` (typically
-  `output/<dialect>/badge.json`). Returns the path."
-  [path badge]
-  (io/make-parents path)
-  (with-open [w (io/writer path)]
-    (json/write badge w :indent true))
-  path)

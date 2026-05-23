@@ -11,10 +11,7 @@
 
   Capturing a Surface is IO (subprocess invocation). Normalizing one
   against another dialect's local conventions is pure data transformation."
-  (:require [clojure.edn       :as edn]
-            [clojure.java.io   :as io]
-            [clojure.pprint    :as pp]
-            [clojure.spec.alpha :as s]
+  (:require [clojure.spec.alpha :as s]
             [clj-census.dialect :as dialect]
             [clj-census.schema  :as schema]))
 
@@ -158,30 +155,20 @@
     (validate! surface)
     surface))
 
-;; ===== IO ==========================================================
+;; ===== canonicalization ============================================
 
-(defn read-file
-  "Read EDN at `path`, validate as a Surface."
-  [path]
-  (let [s (edn/read-string {:default tagged-literal} (slurp path))]
-    (validate! s)
-    s))
+(defn canonicalize
+  "Sort namespace keys, and the var keys within each namespace, so
+  the EDN representation is byte-stable across runs that produce the
+  same logical surface. Important for git diffs of the vendored
+  surface files."
+  [surface]
+  (let [sorted (into (sorted-map)
+                     (for [[ns-sym ns-data] (:namespaces surface)]
+                       [ns-sym (update ns-data :vars #(into (sorted-map) %))]))]
+    (assoc surface :namespaces sorted)))
 
-(defn write-file!
-  "Write `surface` as canonical EDN to `path`. Sorts namespace keys
-  (and var keys within each namespace) so the file is byte-stable
-  given the same inputs -- important for git diffs."
-  [path surface]
-  (validate! surface)
-  (let [sorted-namespaces
-        (into (sorted-map)
-              (for [[ns-sym ns-data] (:namespaces surface)]
-                [ns-sym (update ns-data :vars #(into (sorted-map) %))]))
-        stable (assoc surface :namespaces sorted-namespaces)]
-    (io/make-parents path)
-    (binding [*print-namespace-maps* false]
-      (spit path (with-out-str (pp/pprint stable))))
-    path))
+;; ===== capture (subprocess IO) =====================================
 
 (defn capture!
   "Invoke `cfg`'s surface dump script, wrap the resulting raw data

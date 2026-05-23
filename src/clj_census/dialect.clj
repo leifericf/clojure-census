@@ -15,7 +15,6 @@
   Pure operations are separated from IO so the orchestration layer
   can be tested with literal EDN."
   (:require [clojure.edn       :as edn]
-            [clojure.java.io   :as io]
             [clojure.java.shell :as sh]
             [clojure.string    :as str]
             [clojure.spec.alpha :as s]
@@ -151,9 +150,3 @@
                          :elapsed elapsed}
                         e))))))
 
-(defn read-file
-  "Read EDN at `path` and validate as a DialectConfig."
-  [path]
-  (let [cfg (-> path slurp edn/read-string)]
-    (validate! cfg)
-    cfg))

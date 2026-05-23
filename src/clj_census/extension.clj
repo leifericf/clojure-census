@@ -8,8 +8,7 @@
   The dashboard cross-references each entry in the comparison's
   `:dialect-only` set against this registry to distinguish
   intentional extensions from accidental drift."
-  (:require [clojure.edn :as edn]
-            [clojure.spec.alpha :as s]
+  (:require [clojure.spec.alpha :as s]
             [clj-census.category :as category]
             [clj-census.schema   :as schema]))
 
@@ -86,12 +85,3 @@
   [extensions category-id]
   (vec (filter #(= category-id (:category-id %)) extensions)))
 
-;; ===== IO ==========================================================
-
-(defn read-file
-  "Read EDN at `path`, validate against `categories`, return the
-  validated collection."
-  [path categories]
-  (let [data (edn/read-string (slurp path))]
-    (validate! data categories)
-    data))
