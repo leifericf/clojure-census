@@ -54,7 +54,7 @@ jobs:
           else
             pip install "basilisp==${{ github.event.inputs.basilisp_version }}"
           fi
-          basilisp --version
+          basilisp version
 
       - name: Capture basilisp surface
         run: clojure -M:run dump basilisp
@@ -72,7 +72,12 @@ jobs:
           else
             DATE=$(date -u +%Y-%m-%d)
             git commit -m "nightly: basilisp parity dashboard ${DATE}"
-            git push
+            # Concurrent nightly runs all push to main; rebase + retry to avoid losing the race.
+            for attempt in 1 2 3 4 5; do
+              git pull --rebase origin main && git push && break
+              echo "push attempt $attempt failed, retrying..."
+              sleep $((RANDOM % 10 + 5))
+            done
           fi
 
       - name: Upload dashboard as workflow artifact

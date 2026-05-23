@@ -73,7 +73,14 @@ jobs:
           else
             DATE=$(date -u +%Y-%m-%d)
             git commit -m "nightly: clr parity dashboard ${DATE}"
-            git push
+            # setup-dotnet@v4 sometimes loses the http.extraheader credential set by actions/checkout, so re-add it.
+            git config http.https://github.com/.extraheader "AUTHORIZATION: bearer ${{ secrets.GITHUB_TOKEN }}"
+            # Concurrent nightly runs all push to main; rebase + retry to avoid losing the race.
+            for attempt in 1 2 3 4 5; do
+              git pull --rebase origin main && git push && break
+              echo "push attempt $attempt failed, retrying..."
+              sleep $((RANDOM % 10 + 5))
+            done
           fi
 
       - name: Upload dashboard as workflow artifact
