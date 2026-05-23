@@ -6,60 +6,63 @@ Live site: <https://clojure-census.leifericf.com/>
 
 ## What this is
 
-A tool that **mechanically discovers** Clojure (JVM)'s surface
-— vars, arglists, metadata, special forms, spec registry — and
-compares it against each dialect's surface. The output is rendered
-into a static site as a per-dialect dashboard plus a shields.io
-badge.
+A tool that mechanically captures Clojure (JVM)'s surface — vars,
+arglists, metadata, special forms, spec registry — and compares it
+against each dialect's surface. For dialects whose runtime accepts
+EDN on stdin (Babashka, mino, ClojureCLR), it also evaluates a
+hand-curated behavior catalog in the oracle (Clojure JVM) and the
+dialect and reports per-case verdicts.
 
-Nine dialects participate today: Babashka, ClojureScript (planck),
+Output renders into a static site as a per-dialect dashboard plus a
+shields.io badge.
+
+Nine dialects participate: Babashka, ClojureScript (planck),
 ClojureCLR, jank, mino, Basilisp, Joker, Clojerl, and ClojureDart.
-New dialects can plug in via configuration alone when their runtime
-is compatible with the default portable surface-dump script;
-dialects whose host blocks runtime introspection (ClojureDart, which
-compiles ahead-of-time to Dart) participate via a dialect-specific
-static-analysis script.
+New dialects plug in via configuration when their runtime supports
+the portable introspection script; dialects whose host blocks
+runtime introspection (ClojureDart, compiled ahead-of-time to Dart)
+participate via a dialect-specific static-analysis script.
 
-## Scope and limitations
+## What the numbers mean
 
-**v1 catches (surface only):**
+Surface diff:
 
-- Does the dialect implement var `clojure.core/foo`?
+- Does the dialect implement `clojure.core/foo`?
 - Do its `:arglists`, `:macro`, and `:dynamic` flags match?
 - What does the dialect add on top?
-- What drifts between Clojure (JVM) releases?
+- What drifted between Clojure (JVM) releases?
 
-**v1 does NOT catch behavior parity.** A var that exists with the
-right arity may still misbehave at runtime. Behavior parity is v2+
-work via property-based oracle testing.
+Behavior parity (eval-capable dialects only):
 
-**No version will catch, by design** — these resist mechanical
-introspection and stay hand-written tests:
+- Does the dialect produce the same value as the oracle?
+- If a divergence declares an executable expectation, does the
+  dialect deviate the way the registry says it should?
+
+Out of scope by design — these resist mechanical introspection and
+remain hand-written tests:
 
 - Lazy realization timing (chunk size, side-effect order)
-- Dynamic-var interactions (combinatorial across `*print-*` etc.)
+- Dynamic-var interactions
 - Concurrency semantics (`swap!` retry behavior, ref consistency)
-- Stack and recursion limits (implementation-bound)
-- Performance characteristics (measurement, not equality)
-- Error message text (often deliberately different)
-- Reader fine-grained corners (no public grammar introspection)
+- Stack and recursion limits
+- Performance characteristics
+- Error message text
+- Reader fine-grained corners
 
-**The number reported is honest, but limited.** "X% of vars
-implemented" answers "how many vars exist with matching shape", not
-"does my Clojure code work on this dialect?" The latter depends on
-behavior, which v1 doesn't measure. The persistent banner on the
-site spells this out.
+Dialects target different platforms with different goals, so a
+lower implementation percentage reflects scope, not maturity,
+quality, or usefulness.
 
 ## Layout
 
 ```
 src/         engine: pure transformations + IO
-test/        engine tests (one file per source file)
-scripts/     portable introspection that runs IN each dialect
+test/        engine tests
+scripts/     portable scripts run IN each dialect
 clojure/     reference Clojure (JVM) surface dump + spec
 dialects/    per-dialect invocation config
-data/        enumerations + per-dialect curated registries
-output/      generated per-dialect dashboards (EDN), badges, history
+data/        categories, per-dialect divergences/extensions, behavior catalog
+output/      per-dialect dashboards, badges, history, behavior reports
 site/        Stasis + Hiccup + Garden static site
 ```
 
@@ -83,11 +86,14 @@ DOTNET_ROOT=/path/to/dotnet9 clojure -M:run dump clr    # Clojure.Main on PATH
 MINO_BIN=/path/to/mino       clojure -M:run dump mino
 CLJD_CHECKOUT=/path/to/ClojureDart clojure -M:run dump cljd  # static analysis
 
-# Diff captured surface and write dashboard
+# Diff captured surface and write the dashboard
 clojure -M:run diff <dialect>
 
 # Re-render from saved surface (no new capture)
 clojure -M:run render <dialect>
+
+# Evaluate the behavior catalog (eval-capable dialects)
+clojure -M:run behavior <dialect>
 ```
 
 ## Site
@@ -96,13 +102,7 @@ The static site under `site/` reads `output/<dialect>/dashboard.edn`.
 Stasis + Hiccup + Garden, no JavaScript. Auto-deploys to
 <https://clojure-census.leifericf.com/> on every push to `main`.
 
-From the repo root:
-
 ```sh
 clojure -M:dev     # serve on http://localhost:8000 with hot reload
 clojure -M:build   # write site/public/
 ```
-
-## Status
-
-v1 — surface diff. Work in progress.
