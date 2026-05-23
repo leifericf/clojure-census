@@ -1,5 +1,5 @@
 {:dialect-tag "joker",
- :clojure-version "1.7.2-joker",
+ :clojure-version "1.7.1-joker",
  :namespaces
  {clojure.core
   {:vars
@@ -3527,4 +3527,4 @@
      :line 36}}}},
  :special-forms #{try finally do if recur var quote catch throw def},
  :spec-keys #{},
- :captured-at "2026-05-22T21:25:38Z"}
+ :captured-at "2026-05-23T16:04:38Z"}
