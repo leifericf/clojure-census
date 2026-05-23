@@ -2,7 +2,7 @@
  {:dialect-tag "basilisp",
   :dialect-name "Basilisp",
   :clojure-version "1.12.4",
-  :compared-at "2026-05-23T16:44:50Z"},
+  :compared-at "2026-05-23T17:36:45Z"},
  :divergences
  [{:id :python-host,
    :title "Host runtime is Python 3, not the JVM",
@@ -47,7 +47,10 @@
    :doc-link
    "https://basilisp.readthedocs.io/en/latest/concepts.html#reader-conditionals"}],
  :coverage
- {:headline {:in-both-count 0, :clojure-total 995, :percent 0.0},
+ {:headline
+  {:in-both-count 610,
+   :clojure-total 995,
+   :percent 0.6130653266331658},
   :per-namespace
   {clojure.spec.alpha
    {:in-both-count 0, :clojure-total 87, :percent 0.0},
@@ -55,20 +58,26 @@
    clojure.zip {:in-both-count 0, :clojure-total 28, :percent 0.0},
    clojure.core.reducers
    {:in-both-count 0, :clojure-total 21, :percent 0.0},
-   clojure.test {:in-both-count 0, :clojure-total 39, :percent 0.0},
+   clojure.test
+   {:in-both-count 7, :clojure-total 39, :percent 0.1794871794871795},
    clojure.core.protocols
-   {:in-both-count 0, :clojure-total 11, :percent 0.0},
-   clojure.core {:in-both-count 0, :clojure-total 679, :percent 0.0},
-   clojure.set {:in-both-count 0, :clojure-total 12, :percent 0.0},
-   clojure.pprint {:in-both-count 0, :clojure-total 26, :percent 0.0},
+   {:in-both-count 3, :clojure-total 11, :percent 0.2727272727272727},
+   clojure.core
+   {:in-both-count 536,
+    :clojure-total 679,
+    :percent 0.7893961708394698},
+   clojure.set {:in-both-count 12, :clojure-total 12, :percent 1.0},
+   clojure.pprint
+   {:in-both-count 20, :clojure-total 26, :percent 0.7692307692307693},
    clojure.math {:in-both-count 0, :clojure-total 45, :percent 0.0},
-   clojure.edn {:in-both-count 0, :clojure-total 2, :percent 0.0},
+   clojure.edn {:in-both-count 2, :clojure-total 2, :percent 1.0},
    clojure.instant {:in-both-count 0, :clojure-total 5, :percent 0.0},
-   clojure.string {:in-both-count 0, :clojure-total 21, :percent 0.0},
-   clojure.data {:in-both-count 0, :clojure-total 5, :percent 0.0},
-   clojure.walk {:in-both-count 0, :clojure-total 10, :percent 0.0},
+   clojure.string
+   {:in-both-count 17, :clojure-total 21, :percent 0.8095238095238095},
+   clojure.data {:in-both-count 1, :clojure-total 5, :percent 0.2},
+   clojure.walk {:in-both-count 10, :clojure-total 10, :percent 1.0},
    clojure.template
-   {:in-both-count 0, :clojure-total 2, :percent 0.0}}},
+   {:in-both-count 2, :clojure-total 2, :percent 1.0}}},
  :history
  [{:date "2026-05-23",
    :dialect-tag "basilisp",
@@ -94,8 +103,1352 @@
     clojure.data {:in-both-count 0, :clojure-total 5, :percent 0.0},
     clojure.walk {:in-both-count 0, :clojure-total 10, :percent 0.0},
     clojure.template
-    {:in-both-count 0, :clojure-total 2, :percent 0.0}}}],
- :mismatches [],
+    {:in-both-count 0, :clojure-total 2, :percent 0.0}}}
+  {:date "2026-05-23",
+   :dialect-tag "basilisp",
+   :clojure-version "unknown",
+   :headline
+   {:in-both-count 610,
+    :clojure-total 995,
+    :percent 0.6130653266331658},
+   :per-namespace
+   {clojure.spec.alpha
+    {:in-both-count 0, :clojure-total 87, :percent 0.0},
+    clojure.datafy {:in-both-count 0, :clojure-total 2, :percent 0.0},
+    clojure.zip {:in-both-count 0, :clojure-total 28, :percent 0.0},
+    clojure.core.reducers
+    {:in-both-count 0, :clojure-total 21, :percent 0.0},
+    clojure.test
+    {:in-both-count 7, :clojure-total 39, :percent 0.1794871794871795},
+    clojure.core.protocols
+    {:in-both-count 3, :clojure-total 11, :percent 0.2727272727272727},
+    clojure.core
+    {:in-both-count 536,
+     :clojure-total 679,
+     :percent 0.7893961708394698},
+    clojure.set {:in-both-count 12, :clojure-total 12, :percent 1.0},
+    clojure.pprint
+    {:in-both-count 20,
+     :clojure-total 26,
+     :percent 0.7692307692307693},
+    clojure.math {:in-both-count 0, :clojure-total 45, :percent 0.0},
+    clojure.edn {:in-both-count 2, :clojure-total 2, :percent 1.0},
+    clojure.instant {:in-both-count 0, :clojure-total 5, :percent 0.0},
+    clojure.string
+    {:in-both-count 17,
+     :clojure-total 21,
+     :percent 0.8095238095238095},
+    clojure.data {:in-both-count 1, :clojure-total 5, :percent 0.2},
+    clojure.walk {:in-both-count 10, :clojure-total 10, :percent 1.0},
+    clojure.template
+    {:in-both-count 2, :clojure-total 2, :percent 1.0}}}],
+ :mismatches
+ [{:arglists-clojure ([] [x] [x y] [x y & more]),
+   :arglists-dialect ([] [x] [x y] [x y & args]),
+   :namespace clojure.core,
+   :var *}
+  {:dynamic-clojure false,
+   :dynamic-dialect true,
+   :namespace clojure.core,
+   :var *assert*}
+  {:dynamic-clojure false,
+   :dynamic-dialect true,
+   :namespace clojure.core,
+   :var *command-line-args*}
+  {:dynamic-clojure false,
+   :dynamic-dialect true,
+   :namespace clojure.core,
+   :var *compiler-options*}
+  {:dynamic-clojure false,
+   :dynamic-dialect true,
+   :namespace clojure.core,
+   :var *err*}
+  {:dynamic-clojure false,
+   :dynamic-dialect true,
+   :namespace clojure.core,
+   :var *flush-on-newline*}
+  {:dynamic-clojure false,
+   :dynamic-dialect true,
+   :namespace clojure.core,
+   :var *in*}
+  {:dynamic-clojure false,
+   :dynamic-dialect true,
+   :namespace clojure.core,
+   :var *ns*}
+  {:dynamic-clojure false,
+   :dynamic-dialect true,
+   :namespace clojure.core,
+   :var *out*}
+  {:dynamic-clojure false,
+   :dynamic-dialect true,
+   :namespace clojure.core,
+   :var *print-dup*}
+  {:dynamic-clojure false,
+   :dynamic-dialect true,
+   :namespace clojure.core,
+   :var *print-meta*}
+  {:dynamic-clojure false,
+   :dynamic-dialect true,
+   :namespace clojure.core,
+   :var *print-readably*}
+  {:arglists-clojure ([] [x] [x y] [x y & more]),
+   :arglists-dialect ([] [x] [x y] [x y & args]),
+   :namespace clojure.core,
+   :var +}
+  {:arglists-clojure ([x] [x y] [x y & more]),
+   :arglists-dialect ([x] [x y] [x y & args]),
+   :namespace clojure.core,
+   :var -}
+  {:arglists-clojure ([x & forms]),
+   :arglists-dialect ([&env &form x & forms]),
+   :namespace clojure.core,
+   :var ->}
+  {:arglists-clojure ([x & forms]),
+   :arglists-dialect ([&env &form x & forms]),
+   :namespace clojure.core,
+   :var ->>}
+  {:arglists-clojure ([x form] [x form & more]),
+   :arglists-dialect ([&env &form x & method-calls]),
+   :namespace clojure.core,
+   :var ..}
+  {:arglists-clojure ([x] [x y] [x y & more]),
+   :arglists-dialect ([x] [x y] [x y & args]),
+   :namespace clojure.core,
+   :var /}
+  {:arglists-clojure ([x] [x y] [x y & more]),
+   :arglists-dialect ([_] [x & args]),
+   :namespace clojure.core,
+   :var <}
+  {:arglists-clojure ([x] [x y] [x y & more]),
+   :arglists-dialect ([_] [x & args]),
+   :namespace clojure.core,
+   :var <=}
+  {:arglists-clojure ([x] [x y] [x y & more]),
+   :arglists-dialect ([_] [x & args]),
+   :namespace clojure.core,
+   :var =}
+  {:arglists-clojure ([x] [x y] [x y & more]),
+   :arglists-dialect ([& args]),
+   :namespace clojure.core,
+   :var ==}
+  {:arglists-clojure ([x] [x y] [x y & more]),
+   :arglists-dialect ([_] [x & args]),
+   :namespace clojure.core,
+   :var >}
+  {:arglists-clojure ([x] [x y] [x y & more]),
+   :arglists-dialect ([_] [x & args]),
+   :namespace clojure.core,
+   :var >=}
+  {:arglists-clojure ([num]),
+   :arglists-dialect ([x]),
+   :namespace clojure.core,
+   :var NaN?}
+  {:arglists-clojure ([a]),
+   :arglists-dialect ([x]),
+   :namespace clojure.core,
+   :var abs}
+  {:arglists-clojure ([f]),
+   :arglists-dialect ([tf] [topic tf]),
+   :namespace clojure.core,
+   :var add-tap}
+  {:arglists-clojure ([reference key fn]),
+   :arglists-dialect ([ref k wf]),
+   :namespace clojure.core,
+   :var add-watch}
+  {:arglists-clojure ([iref f & args]),
+   :arglists-dialect ([o f & args]),
+   :namespace clojure.core,
+   :var alter-meta!}
+  {:arglists-clojure ([a idx ret expr]),
+   :arglists-dialect ([&env &form array idx ret expr]),
+   :namespace clojure.core,
+   :var amap}
+  {:arglists-clojure ([] [x] [x & next]),
+   :arglists-dialect ([&env &form] [&env &form & args]),
+   :namespace clojure.core,
+   :var and}
+  {:arglists-clojure ([x]),
+   :arglists-dialect ([_]),
+   :namespace clojure.core,
+   :var any?}
+  {:arglists-clojure
+   ([f args]
+    [f x args]
+    [f x y args]
+    [f x y z args]
+    [f a b c d & args]),
+   :arglists-dialect ([f & args]),
+   :namespace clojure.core,
+   :var apply}
+  {:arglists-clojure ([a idx ret init expr]),
+   :arglists-dialect ([&env &form array idx ret init expr]),
+   :namespace clojure.core,
+   :var areduce}
+  {:arglists-clojure ([expr name & forms]),
+   :arglists-dialect ([&env &form x name & forms]),
+   :namespace clojure.core,
+   :var as->}
+  {:arglists-clojure ([array idx val] [array idx idx2 & idxv]),
+   :arglists-dialect ([array idx val] [array idx idx2 & idxs]),
+   :namespace clojure.core,
+   :var aset}
+  {:arglists-clojure ([x] [x message]),
+   :arglists-dialect ([&env &form expr] [&env &form expr message]),
+   :namespace clojure.core,
+   :var assert}
+  {:arglists-clojure ([map key val] [map key val & kvs]),
+   :arglists-dialect ([m k v] [m k v & kvs]),
+   :namespace clojure.core,
+   :var assoc}
+  {:arglists-clojure ([coll key val] [coll key val & kvs]),
+   :arglists-dialect ([m k v] [m k v & kvs]),
+   :namespace clojure.core,
+   :var assoc!}
+  {:arglists-clojure ([m [k & ks] v]),
+   :arglists-dialect ([m ks v]),
+   :namespace clojure.core,
+   :var assoc-in}
+  {:arglists-clojure ([coll]),
+   :arglists-dialect ([x]),
+   :namespace clojure.core,
+   :var associative?}
+  {:arglists-clojure ([x] [x & options]),
+   :arglists-dialect ([v] [v & kwargs]),
+   :namespace clojure.core,
+   :var atom}
+  {:arglists-clojure ([c]),
+   :arglists-dialect ([cls]),
+   :namespace clojure.core,
+   :var bases}
+  {:arglists-clojure ([bindings & body]),
+   :arglists-dialect ([&env &form bindings & body]),
+   :namespace clojure.core,
+   :var binding}
+  {:arglists-clojure ([x y] [x y & more]),
+   :arglists-dialect ([x & args]),
+   :namespace clojure.core,
+   :var bit-and}
+  {:arglists-clojure ([x y] [x y & more]),
+   :arglists-dialect ([x & args]),
+   :namespace clojure.core,
+   :var bit-and-not}
+  {:arglists-clojure ([x y] [x y & more]),
+   :arglists-dialect ([x & args]),
+   :namespace clojure.core,
+   :var bit-or}
+  {:arglists-clojure ([x y] [x y & more]),
+   :arglists-dialect ([x & args]),
+   :namespace clojure.core,
+   :var bit-xor}
+  {:arglists-clojure ([x]),
+   :arglists-dialect ([o]),
+   :namespace clojure.core,
+   :var boolean?}
+  {:arglists-clojure ([xs]),
+   :arglists-dialect ([x]),
+   :namespace clojure.core,
+   :var booleans}
+  {:arglists-clojure ([& fntail]),
+   :arglists-dialect ([&env &form & fn-tail]),
+   :namespace clojure.core,
+   :var bound-fn}
+  {:arglists-clojure ([xs]),
+   :arglists-dialect ([x]),
+   :namespace clojure.core,
+   :var bytes}
+  {:arglists-clojure ([e & clauses]),
+   :arglists-dialect ([&env &form expr & clauses]),
+   :namespace clojure.core,
+   :var case}
+  {:arglists-clojure ([c x]),
+   :arglists-dialect ([cls x]),
+   :namespace clojure.core,
+   :var cast}
+  {:arglists-clojure ([xs]),
+   :arglists-dialect ([x]),
+   :namespace clojure.core,
+   :var chars}
+  {:arglists-clojure ([& body]),
+   :arglists-dialect ([&env &form & forms]),
+   :namespace clojure.core,
+   :var comment}
+  {:arglists-clojure ([] [f] [f g] [f g & fs]),
+   :arglists-dialect ([] [f] [f g] [f g & args]),
+   :namespace clojure.core,
+   :var comp}
+  {:arglists-clojure ([atom oldval newval]),
+   :arglists-dialect ([atom old-val new-val]),
+   :namespace clojure.core,
+   :var compare-and-set!}
+  {:arglists-clojure ([] [x] [x y] [x y & zs]),
+   :arglists-dialect ([& seqs]),
+   :namespace clojure.core,
+   :var concat}
+  {:arglists-clojure ([& clauses]),
+   :arglists-dialect ([&env &form & clauses]),
+   :namespace clojure.core,
+   :var cond}
+  {:arglists-clojure ([expr & clauses]),
+   :arglists-dialect ([&env &form x & clauses]),
+   :namespace clojure.core,
+   :var cond->}
+  {:arglists-clojure ([expr & clauses]),
+   :arglists-dialect ([&env &form x & clauses]),
+   :namespace clojure.core,
+   :var cond->>}
+  {:arglists-clojure ([pred expr & clauses]),
+   :arglists-dialect ([&env &form pred expr & clauses]),
+   :namespace clojure.core,
+   :var condp}
+  {:arglists-clojure ([] [coll] [coll x]),
+   :arglists-dialect ([] [coll] [coll & xs]),
+   :namespace clojure.core,
+   :var conj!}
+  {:arglists-clojure ([x seq]),
+   :arglists-dialect ([o seq]),
+   :namespace clojure.core,
+   :var cons}
+  {:arglists-clojure ([coll key]),
+   :arglists-dialect ([coll k]),
+   :namespace clojure.core,
+   :var contains?}
+  {:arglists-clojure ([coll]),
+   :arglists-dialect ([x]),
+   :namespace clojure.core,
+   :var counted?}
+  {:arglists-clojure ([sym]),
+   :arglists-dialect ([ns-sym]),
+   :namespace clojure.core,
+   :var create-ns}
+  {:arglists-clojure ([n]),
+   :arglists-dialect ([x]),
+   :namespace clojure.core,
+   :var decimal?}
+  {:arglists-clojure ([& names]),
+   :arglists-dialect ([&env &form & names]),
+   :namespace clojure.core,
+   :var declare}
+  {:arglists-clojure ([name & sigs]),
+   :arglists-dialect ([&env &form interface-name & methods]),
+   :namespace clojure.core,
+   :var definterface}
+  {:arglists-clojure
+   ([name doc-string? attr-map? [params*] body]
+    [name doc-string? attr-map? ([params*] body) + attr-map?]),
+   :arglists-dialect
+   ([name & body] [name doc? & body] [name doc? attr-map? & body]),
+   :namespace clojure.core,
+   :var defmacro}
+  {:arglists-clojure ([multifn dispatch-val & fn-tail]),
+   :arglists-dialect ([&env &form multifn dispatch-val & fn-tail]),
+   :namespace clojure.core,
+   :var defmethod}
+  {:arglists-clojure
+   ([name docstring? attr-map? dispatch-fn & options]),
+   :arglists-dialect ([&env &form name & body]),
+   :namespace clojure.core,
+   :var defmulti}
+  {:arglists-clojure
+   ([name doc-string? attr-map? [params*] prepost-map? body]
+    [name
+     doc-string?
+     attr-map?
+     ([params*] prepost-map? body)
+     +
+     attr-map?]),
+   :arglists-dialect
+   ([name & body] [name doc? & body] [name doc? attr-map? & body]),
+   :namespace clojure.core,
+   :var defn}
+  {:arglists-clojure ([name & decls]),
+   :arglists-dialect ([&env &form name & body]),
+   :namespace clojure.core,
+   :var defn-}
+  {:arglists-clojure ([name expr]),
+   :arglists-dialect ([&env &form name expr]),
+   :namespace clojure.core,
+   :var defonce}
+  {:arglists-clojure ([name & opts+sigs]),
+   :arglists-dialect ([&env &form protocol-name & methods]),
+   :namespace clojure.core,
+   :var defprotocol}
+  {:arglists-clojure ([name [& fields] & opts+specs]),
+   :arglists-dialect ([&env &form type-name fields & method-impls]),
+   :namespace clojure.core,
+   :var defrecord}
+  {:arglists-clojure ([name [& fields] & opts+specs]),
+   :arglists-dialect ([&env &form type-name fields & method-impls]),
+   :namespace clojure.core,
+   :var deftype}
+  {:arglists-clojure ([& body]),
+   :arglists-dialect ([&env &form & body]),
+   :namespace clojure.core,
+   :var delay}
+  {:arglists-clojure ([promise val]),
+   :arglists-dialect ([p v]),
+   :namespace clojure.core,
+   :var deliver}
+  {:arglists-clojure ([r]),
+   :arglists-dialect ([frac]),
+   :namespace clojure.core,
+   :var denominator}
+  {:arglists-clojure ([ref] [ref timeout-ms timeout-val]),
+   :arglists-dialect ([o] [o timeout-ms timeout-val]),
+   :namespace clojure.core,
+   :var deref}
+  {:arglists-clojure ([bindings]),
+   :arglists-dialect ([[binding expr]]),
+   :namespace clojure.core,
+   :var destructure}
+  {:arglists-clojure ([set] [set key] [set key & ks]),
+   :arglists-dialect ([s] [s elem] [s elem & elems]),
+   :namespace clojure.core,
+   :var disj}
+  {:arglists-clojure ([set] [set key] [set key & ks]),
+   :arglists-dialect ([s] [s elem] [s elem & elems]),
+   :namespace clojure.core,
+   :var disj!}
+  {:arglists-clojure ([map] [map key] [map key & ks]),
+   :arglists-dialect ([m] [m k] [m k & ks]),
+   :namespace clojure.core,
+   :var dissoc}
+  {:arglists-clojure ([map key] [map key & ks]),
+   :arglists-dialect ([m k] [m k & ks]),
+   :namespace clojure.core,
+   :var dissoc!}
+  {:arglists-clojure ([x] [x y] [x y & more]),
+   :arglists-dialect ([& args]),
+   :namespace clojure.core,
+   :var distinct?}
+  {:arglists-clojure ([seq-exprs & body]),
+   :arglists-dialect ([&env &form bindings & body]),
+   :namespace clojure.core,
+   :var doseq}
+  {:arglists-clojure ([bindings & body]),
+   :arglists-dialect ([&env &form binding & body]),
+   :namespace clojure.core,
+   :var dotimes}
+  {:arglists-clojure ([x & forms]),
+   :arglists-dialect ([&env &form x & forms]),
+   :namespace clojure.core,
+   :var doto}
+  {:arglists-clojure ([xs]),
+   :arglists-dialect ([x]),
+   :namespace clojure.core,
+   :var doubles}
+  {:arglists-clojure ([xform* coll]),
+   :arglists-dialect ([& args]),
+   :namespace clojure.core,
+   :var eduction}
+  {:arglists-clojure ([form]),
+   :arglists-dialect ([form] [form namespace]),
+   :namespace clojure.core,
+   :var eval}
+  {:arglists-clojure ([n]),
+   :arglists-dialect ([x]),
+   :namespace clojure.core,
+   :var even?}
+  {:arglists-clojure ([p] [p1 p2] [p1 p2 p3] [p1 p2 p3 & ps]),
+   :arglists-dialect ([pred] [pred & preds]),
+   :namespace clojure.core,
+   :var every-pred}
+  {:arglists-clojure ([msg map] [msg map cause]),
+   :arglists-dialect ([msg data]),
+   :namespace clojure.core,
+   :var ex-info}
+  {:arglists-clojure ([atype & proto+mmaps]),
+   :arglists-dialect ([target-type & proto+methods]),
+   :namespace clojure.core,
+   :var extend}
+  {:arglists-clojure ([p & specs]),
+   :arglists-dialect ([&env &form proto & specs]),
+   :namespace clojure.core,
+   :var extend-protocol}
+  {:arglists-clojure ([t & specs]),
+   :arglists-dialect ([&env &form target-type & specs]),
+   :namespace clojure.core,
+   :var extend-type}
+  {:arglists-clojure ([protocol]),
+   :arglists-dialect ([{:keys [impls], :as proto}]),
+   :namespace clojure.core,
+   :var extenders}
+  {:arglists-clojure ([protocol atype]),
+   :arglists-dialect ([{:keys [interface impls], :as proto} type]),
+   :namespace clojure.core,
+   :var extends?}
+  {:arglists-clojure ([x]),
+   :arglists-dialect ([seq]),
+   :namespace clojure.core,
+   :var ffirst}
+  {:arglists-clojure ([map key]),
+   :arglists-dialect ([m k]),
+   :namespace clojure.core,
+   :var find}
+  {:arglists-clojure ([coll]),
+   :arglists-dialect ([seq]),
+   :namespace clojure.core,
+   :var first}
+  {:arglists-clojure ([x]),
+   :arglists-dialect ([v]),
+   :namespace clojure.core,
+   :var flatten}
+  {:arglists-clojure ([n]),
+   :arglists-dialect ([o]),
+   :namespace clojure.core,
+   :var float?}
+  {:arglists-clojure ([xs]),
+   :arglists-dialect ([x]),
+   :namespace clojure.core,
+   :var floats}
+  {:arglists-clojure ([& sigs]),
+   :arglists-dialect ([&env &form & body]),
+   :namespace clojure.core,
+   :var fn}
+  {:arglists-clojure ([x]),
+   :arglists-dialect ([v]),
+   :namespace clojure.core,
+   :var fnext}
+  {:arglists-clojure ([seq-exprs body-expr]),
+   :arglists-dialect ([&env &form bindings & body]),
+   :namespace clojure.core,
+   :var for}
+  {:arglists-clojure ([fmt & args]),
+   :arglists-dialect ([fmt] [fmt & args]),
+   :namespace clojure.core,
+   :var format}
+  {:arglists-clojure ([& body]),
+   :arglists-dialect ([&env &form & body]),
+   :namespace clojure.core,
+   :var future}
+  {:arglists-clojure ([f]),
+   :arglists-dialect ([f] [f pool]),
+   :namespace clojure.core,
+   :var future-call}
+  {:arglists-clojure ([f]),
+   :arglists-dialect ([fut]),
+   :namespace clojure.core,
+   :var future-cancel}
+  {:arglists-clojure ([f]),
+   :arglists-dialect ([fut]),
+   :namespace clojure.core,
+   :var future-cancelled?}
+  {:arglists-clojure ([f]),
+   :arglists-dialect ([fut]),
+   :namespace clojure.core,
+   :var future-done?}
+  {:arglists-clojure ([& options]),
+   :arglists-dialect ([& opts]),
+   :macro-clojure true,
+   :macro-dialect false,
+   :namespace clojure.core,
+   :var gen-interface}
+  {:arglists-clojure ([] [prefix-string]),
+   :arglists-dialect ([] [prefix]),
+   :namespace clojure.core,
+   :var gensym}
+  {:arglists-clojure ([map key] [map key not-found]),
+   :arglists-dialect ([m k] [m k default]),
+   :namespace clojure.core,
+   :var get}
+  {:arglists-clojure ([m ks] [m ks not-found]),
+   :arglists-dialect ([m ks] [m ks default]),
+   :namespace clojure.core,
+   :var get-in}
+  {:arglists-clojure ([iref]),
+   :arglists-dialect ([ref]),
+   :namespace clojure.core,
+   :var get-validator}
+  {:arglists-clojure ([] [& keyvals]),
+   :arglists-dialect ([& kvs]),
+   :namespace clojure.core,
+   :var hash-map}
+  {:arglists-clojure ([] [& keys]),
+   :arglists-dialect ([& members]),
+   :namespace clojure.core,
+   :var hash-set}
+  {:arglists-clojure ([x]),
+   :arglists-dialect ([v]),
+   :namespace clojure.core,
+   :var identity}
+  {:arglists-clojure ([bindings then] [bindings then else & oldform]),
+   :arglists-dialect ([&env &form binding true-cond false-cond]),
+   :namespace clojure.core,
+   :var if-let}
+  {:arglists-clojure ([test then] [test then else]),
+   :arglists-dialect ([&env &form cond true-cond false-cond]),
+   :namespace clojure.core,
+   :var if-not}
+  {:arglists-clojure ([bindings then] [bindings then else & oldform]),
+   :arglists-dialect ([&env &form binding true-cond false-cond]),
+   :namespace clojure.core,
+   :var if-some}
+  {:arglists-clojure ([& import-symbols-or-lists]),
+   :arglists-dialect ([&env &form & modules]),
+   :namespace clojure.core,
+   :var import}
+  {:arglists-clojure ([coll]),
+   :arglists-dialect ([x]),
+   :namespace clojure.core,
+   :var indexed?}
+  {:arglists-clojure ([num]),
+   :arglists-dialect ([x]),
+   :namespace clojure.core,
+   :var infinite?}
+  {:arglists-clojure ([c x]),
+   :arglists-dialect ([class obj]),
+   :namespace clojure.core,
+   :var instance?}
+  {:arglists-clojure ([n]),
+   :arglists-dialect ([o]),
+   :namespace clojure.core,
+   :var integer?}
+  {:arglists-clojure ([] [c1] [c1 c2] [c1 c2 & colls]),
+   :arglists-dialect ([] [coll] [coll & colls]),
+   :namespace clojure.core,
+   :var interleave}
+  {:arglists-clojure ([xs]),
+   :arglists-dialect ([x]),
+   :namespace clojure.core,
+   :var ints}
+  {:arglists-clojure ([child parent] [h child parent]),
+   :arglists-dialect ([tag parent] [h tag parent]),
+   :namespace clojure.core,
+   :var isa?}
+  {:arglists-clojure ([iter]),
+   :arglists-dialect ([it]),
+   :namespace clojure.core,
+   :var iterator-seq}
+  {:arglists-clojure ([f] [f g] [f g h] [f g h & fs]),
+   :arglists-dialect ([& args]),
+   :namespace clojure.core,
+   :var juxt}
+  {:arglists-clojure ([e]),
+   :arglists-dialect ([entry]),
+   :namespace clojure.core,
+   :var key}
+  {:arglists-clojure ([map]),
+   :arglists-dialect ([m]),
+   :namespace clojure.core,
+   :var keys}
+  {:arglists-clojure ([x]),
+   :arglists-dialect ([o]),
+   :namespace clojure.core,
+   :var keyword?}
+  {:arglists-clojure ([coll]),
+   :arglists-dialect ([s]),
+   :namespace clojure.core,
+   :var last}
+  {:arglists-clojure ([& colls]),
+   :arglists-dialect ([&env &form & colls]),
+   :namespace clojure.core,
+   :var lazy-cat}
+  {:arglists-clojure ([& body]),
+   :arglists-dialect ([&env &form & body]),
+   :namespace clojure.core,
+   :var lazy-seq}
+  {:arglists-clojure ([bindings & body]),
+   :arglists-dialect ([&env &form bindings & body]),
+   :namespace clojure.core,
+   :var let}
+  {:arglists-clojure ([fnspecs & body]),
+   :arglists-dialect ([&env &form bindings & body]),
+   :namespace clojure.core,
+   :var letfn}
+  {:arglists-clojure ([& items]),
+   :arglists-dialect ([& args]),
+   :namespace clojure.core,
+   :var list}
+  {:arglists-clojure ([x]),
+   :arglists-dialect ([o]),
+   :namespace clojure.core,
+   :var list?}
+  {:arglists-clojure ([name]),
+   :arglists-dialect ([path]),
+   :namespace clojure.core,
+   :var load-file}
+  {:arglists-clojure ([rdr]),
+   :arglists-dialect ([reader]),
+   :namespace clojure.core,
+   :var load-reader}
+  {:arglists-clojure ([xs]),
+   :arglists-dialect ([x]),
+   :namespace clojure.core,
+   :var longs}
+  {:arglists-clojure ([bindings & body]),
+   :arglists-dialect ([&env &form bindings & body]),
+   :namespace clojure.core,
+   :var loop}
+  {:arglists-clojure ([type len] [type dim & more-dims]),
+   :arglists-dialect ([size] [type size] [type size & more-sizes]),
+   :namespace clojure.core,
+   :var make-array}
+  {:arglists-clojure
+   ([f] [f coll] [f c1 c2] [f c1 c2 c3] [f c1 c2 c3 & colls]),
+   :arglists-dialect ([f] [f coll] [f coll & colls]),
+   :namespace clojure.core,
+   :var map}
+  {:arglists-clojure ([x]),
+   :arglists-dialect ([o]),
+   :namespace clojure.core,
+   :var map?}
+  {:arglists-clojure ([x] [x y] [x y & more]),
+   :arglists-dialect ([& args]),
+   :namespace clojure.core,
+   :var max}
+  {:arglists-clojure ([k x] [k x y] [k x y & more]),
+   :arglists-dialect ([k & args]),
+   :namespace clojure.core,
+   :var max-key}
+  {:arglists-clojure ([name & args]),
+   :arglists-dialect ([&env &form name & args]),
+   :namespace clojure.core,
+   :var memfn}
+  {:arglists-clojure ([obj]),
+   :arglists-dialect ([o]),
+   :namespace clojure.core,
+   :var meta}
+  {:arglists-clojure ([x] [x y] [x y & more]),
+   :arglists-dialect ([& args]),
+   :namespace clojure.core,
+   :var min}
+  {:arglists-clojure ([k x] [k x y] [k x y & more]),
+   :arglists-dialect ([k & args]),
+   :namespace clojure.core,
+   :var min-key}
+  {:arglists-clojure ([x]),
+   :arglists-dialect ([v]),
+   :namespace clojure.core,
+   :var name}
+  {:arglists-clojure ([x]),
+   :arglists-dialect ([v]),
+   :namespace clojure.core,
+   :var namespace}
+  {:arglists-clojure ([num]),
+   :arglists-dialect ([x]),
+   :namespace clojure.core,
+   :var neg?}
+  {:arglists-clojure ([coll]),
+   :arglists-dialect ([seq]),
+   :namespace clojure.core,
+   :var next}
+  {:arglists-clojure ([x]),
+   :arglists-dialect ([v]),
+   :namespace clojure.core,
+   :var nfirst}
+  {:arglists-clojure ([x]),
+   :arglists-dialect ([v]),
+   :namespace clojure.core,
+   :var nnext}
+  {:arglists-clojure ([x]),
+   :arglists-dialect ([expr]),
+   :namespace clojure.core,
+   :var not}
+  {:arglists-clojure ([x] [x y] [x y & more]),
+   :arglists-dialect ([& args]),
+   :namespace clojure.core,
+   :var not=}
+  {:arglists-clojure ([name docstring? attr-map? references*]),
+   :arglists-dialect ([&env &form name & opts]),
+   :namespace clojure.core,
+   :var ns}
+  {:arglists-clojure ([ns]),
+   :arglists-dialect ([] [ns]),
+   :namespace clojure.core,
+   :var ns-map}
+  {:arglists-clojure ([ns sym] [ns env sym]),
+   :arglists-dialect ([ns sym]),
+   :namespace clojure.core,
+   :var ns-resolve}
+  {:arglists-clojure ([coll index] [coll index not-found]),
+   :arglists-dialect ([coll i] [coll i notfound]),
+   :namespace clojure.core,
+   :var nth}
+  {:arglists-clojure ([coll n]),
+   :arglists-dialect ([coll i]),
+   :namespace clojure.core,
+   :var nthnext}
+  {:arglists-clojure ([coll n]),
+   :arglists-dialect ([coll i]),
+   :namespace clojure.core,
+   :var nthrest}
+  {:arglists-clojure ([r]),
+   :arglists-dialect ([frac]),
+   :namespace clojure.core,
+   :var numerator}
+  {:arglists-clojure ([size-or-seq]),
+   :arglists-dialect ([size-or-seq] [size init-val-or-seq]),
+   :namespace clojure.core,
+   :var object-array}
+  {:arglists-clojure ([n]),
+   :arglists-dialect ([x]),
+   :namespace clojure.core,
+   :var odd?}
+  {:arglists-clojure ([] [x] [x & next]),
+   :arglists-dialect ([&env &form] [&env &form & args]),
+   :namespace clojure.core,
+   :var or}
+  {:arglists-clojure
+   ([f]
+    [f arg1]
+    [f arg1 arg2]
+    [f arg1 arg2 arg3]
+    [f arg1 arg2 arg3 & more]),
+   :arglists-dialect ([f] [f & args]),
+   :namespace clojure.core,
+   :var partial}
+  {:arglists-clojure ([num]),
+   :arglists-dialect ([x]),
+   :namespace clojure.core,
+   :var pos?}
+  {:arglists-clojure ([] [x] [x & more]),
+   :arglists-dialect ([] [x] [x & args]),
+   :namespace clojure.core,
+   :var pr}
+  {:arglists-clojure ([& xs]),
+   :arglists-dialect ([& args]),
+   :namespace clojure.core,
+   :var pr-str}
+  {:arglists-clojure ([& more]),
+   :arglists-dialect ([] [x] [x & args]),
+   :namespace clojure.core,
+   :var print}
+  {:arglists-clojure ([& xs]),
+   :arglists-dialect ([& args]),
+   :namespace clojure.core,
+   :var print-str}
+  {:arglists-clojure ([& more]),
+   :arglists-dialect ([] [x] [x & args]),
+   :namespace clojure.core,
+   :var println}
+  {:arglists-clojure ([& xs]),
+   :arglists-dialect ([& args]),
+   :namespace clojure.core,
+   :var println-str}
+  {:arglists-clojure ([& more]),
+   :arglists-dialect ([] [x] [x & args]),
+   :namespace clojure.core,
+   :var prn}
+  {:arglists-clojure ([& xs]),
+   :arglists-dialect ([& args]),
+   :namespace clojure.core,
+   :var prn-str}
+  {:arglists-clojure ([class-and-interfaces args & fs]),
+   :arglists-dialect ([&env &form class-and-interfaces args & fs]),
+   :namespace clojure.core,
+   :var proxy}
+  {:arglists-clojure ([meth & args]),
+   :arglists-dialect ([&env &form meth & args]),
+   :namespace clojure.core,
+   :var proxy-super}
+  {:arglists-clojure ([& exprs]),
+   :arglists-dialect ([&env &form & exprs]),
+   :namespace clojure.core,
+   :var pvalues}
+  {:arglists-clojure ([] [n]),
+   :arglists-dialect ([] [upper] [lower upper]),
+   :namespace clojure.core,
+   :var rand}
+  {:arglists-clojure ([n]),
+   :arglists-dialect ([upper] [lower upper]),
+   :namespace clojure.core,
+   :var rand-int}
+  {:arglists-clojure ([n]),
+   :arglists-dialect ([x]),
+   :namespace clojure.core,
+   :var ratio?}
+  {:arglists-clojure ([n]),
+   :arglists-dialect ([x]),
+   :namespace clojure.core,
+   :var rational?}
+  {:arglists-clojure ([num]),
+   :arglists-dialect ([num] [num max-denominator]),
+   :namespace clojure.core,
+   :var rationalize}
+  {:arglists-clojure ([m] [re s]),
+   :arglists-dialect ([pattern s]),
+   :namespace clojure.core,
+   :var re-find}
+  {:arglists-clojure ([re s]),
+   :arglists-dialect ([pattern s]),
+   :namespace clojure.core,
+   :var re-matches}
+  {:arglists-clojure ([re s]),
+   :arglists-dialect ([pattern s]),
+   :namespace clojure.core,
+   :var re-seq}
+  {:arglists-clojure
+   ([]
+    [stream]
+    [stream eof-error? eof-value]
+    [stream eof-error? eof-value recursive?]
+    [opts stream]),
+   :arglists-dialect
+   ([] [stream] [opts stream] [stream eof-error? eof-value]),
+   :namespace clojure.core,
+   :var read}
+  {:arglists-clojure ([form splicing?]),
+   :arglists-dialect ([form is-splicing?]),
+   :namespace clojure.core,
+   :var reader-conditional}
+  {:arglists-clojure ([value]),
+   :arglists-dialect ([o]),
+   :namespace clojure.core,
+   :var reader-conditional?}
+  {:arglists-clojure ([x]),
+   :arglists-dialect ([o]),
+   :namespace clojure.core,
+   :var realized?}
+  {:arglists-clojure ([x]),
+   :arglists-dialect ([v]),
+   :namespace clojure.core,
+   :var record?}
+  {:macro-clojure true,
+   :macro-dialect false,
+   :namespace clojure.core,
+   :var refer-clojure}
+  {:arglists-clojure ([& opts+specs]),
+   :arglists-dialect ([&env &form & method-impls]),
+   :namespace clojure.core,
+   :var reify}
+  {:arglists-clojure ([sym]),
+   :arglists-dialect ([ns-sym]),
+   :namespace clojure.core,
+   :var remove-ns}
+  {:arglists-clojure ([f]),
+   :arglists-dialect ([tf] [topic tf]),
+   :namespace clojure.core,
+   :var remove-tap}
+  {:arglists-clojure ([reference key]),
+   :arglists-dialect ([ref k]),
+   :namespace clojure.core,
+   :var remove-watch}
+  {:arglists-clojure ([atom newval]),
+   :arglists-dialect ([atom v]),
+   :namespace clojure.core,
+   :var reset!}
+  {:arglists-clojure ([iref metadata-map]),
+   :arglists-dialect ([o meta]),
+   :namespace clojure.core,
+   :var reset-meta!}
+  {:arglists-clojure ([atom newval]),
+   :arglists-dialect ([atom v]),
+   :namespace clojure.core,
+   :var reset-vals!}
+  {:arglists-clojure ([sym] [env sym]),
+   :arglists-dialect ([sym]),
+   :namespace clojure.core,
+   :var resolve}
+  {:arglists-clojure ([coll]),
+   :arglists-dialect ([seq]),
+   :namespace clojure.core,
+   :var rest}
+  {:arglists-clojure ([coll]),
+   :arglists-dialect ([x]),
+   :namespace clojure.core,
+   :var reversible?}
+  {:arglists-clojure ([rev]),
+   :arglists-dialect ([coll]),
+   :namespace clojure.core,
+   :var rseq}
+  {:arglists-clojure ([protocol x]),
+   :arglists-dialect ([{:keys [interface impls], :as proto} x]),
+   :namespace clojure.core,
+   :var satisfies?}
+  {:arglists-clojure ([x]),
+   :arglists-dialect ([seq]),
+   :namespace clojure.core,
+   :var second}
+  {:arglists-clojure ([map keyseq]),
+   :arglists-dialect ([m ks]),
+   :namespace clojure.core,
+   :var select-keys}
+  {:arglists-clojure ([coll]),
+   :arglists-dialect ([o]),
+   :namespace clojure.core,
+   :var seq}
+  {:arglists-clojure ([x]),
+   :arglists-dialect ([o]),
+   :namespace clojure.core,
+   :var seq?}
+  {:arglists-clojure ([coll]),
+   :arglists-dialect ([x]),
+   :namespace clojure.core,
+   :var sequential?}
+  {:arglists-clojure ([iref validator-fn]),
+   :arglists-dialect ([ref vf]),
+   :namespace clojure.core,
+   :var set-validator!}
+  {:arglists-clojure ([x]),
+   :arglists-dialect ([o]),
+   :namespace clojure.core,
+   :var set?}
+  {:arglists-clojure ([xs]),
+   :arglists-dialect ([x]),
+   :namespace clojure.core,
+   :var shorts}
+  {:arglists-clojure ([expr & forms]),
+   :arglists-dialect ([&env &form x & forms]),
+   :namespace clojure.core,
+   :var some->}
+  {:arglists-clojure ([expr & forms]),
+   :arglists-dialect ([&env &form x & forms]),
+   :namespace clojure.core,
+   :var some->>}
+  {:arglists-clojure ([p] [p1 p2] [p1 p2 p3] [p1 p2 p3 & ps]),
+   :arglists-dialect ([f] [f & fs]),
+   :namespace clojure.core,
+   :var some-fn}
+  {:arglists-clojure ([coll] [comp coll]),
+   :arglists-dialect ([coll] [cmp coll]),
+   :namespace clojure.core,
+   :var sort}
+  {:arglists-clojure ([keyfn coll] [keyfn comp coll]),
+   :arglists-dialect ([keyfn coll] [keyfn cmp coll]),
+   :namespace clojure.core,
+   :var sort-by}
+  {:arglists-clojure ([s]),
+   :arglists-dialect ([x]),
+   :namespace clojure.core,
+   :var special-symbol?}
+  {:arglists-clojure ([f content & options]),
+   :arglists-dialect ([f content & opts]),
+   :namespace clojure.core,
+   :var spit}
+  {:arglists-clojure ([] [x] [x & ys]),
+   :arglists-dialect ([] [o] [o & args]),
+   :namespace clojure.core,
+   :var str}
+  {:arglists-clojure ([x]),
+   :arglists-dialect ([o]),
+   :namespace clojure.core,
+   :var string?}
+  {:arglists-clojure ([class]),
+   :arglists-dialect ([cls]),
+   :namespace clojure.core,
+   :var supers}
+  {:arglists-clojure
+   ([atom f] [atom f x] [atom f x y] [atom f x y & args]),
+   :arglists-dialect ([atom f & args]),
+   :namespace clojure.core,
+   :var swap!}
+  {:arglists-clojure
+   ([atom f] [atom f x] [atom f x y] [atom f x y & args]),
+   :arglists-dialect ([atom f & args]),
+   :namespace clojure.core,
+   :var swap-vals!}
+  {:arglists-clojure ([x]),
+   :arglists-dialect ([o]),
+   :namespace clojure.core,
+   :var symbol?}
+  {:arglists-clojure ([value]),
+   :arglists-dialect ([o]),
+   :namespace clojure.core,
+   :var tagged-literal?}
+  {:arglists-clojure ([x]),
+   :arglists-dialect ([val] [topic val]),
+   :namespace clojure.core,
+   :var tap>}
+  {:arglists-clojure ([x]),
+   :arglists-dialect ([v]),
+   :namespace clojure.core,
+   :var the-ns}
+  {:arglists-clojure ([expr]),
+   :arglists-dialect ([&env &form expr]),
+   :namespace clojure.core,
+   :var time}
+  {:arglists-clojure ([f] [f & args]),
+   :arglists-dialect ([f & args]),
+   :namespace clojure.core,
+   :var trampoline}
+  {:arglists-clojure ([x y]),
+   :arglists-dialect ([] [x] [x y] [x y & args]),
+   :namespace clojure.core,
+   :var unchecked-add}
+  {:arglists-clojure ([x y]),
+   :arglists-dialect ([] [x] [x y] [x y & args]),
+   :namespace clojure.core,
+   :var unchecked-add-int}
+  {:arglists-clojure ([x y]),
+   :arglists-dialect ([x] [x y] [x y & args]),
+   :namespace clojure.core,
+   :var unchecked-divide-int}
+  {:arglists-clojure ([x y]),
+   :arglists-dialect ([] [x] [x y] [x y & args]),
+   :namespace clojure.core,
+   :var unchecked-multiply}
+  {:arglists-clojure ([x y]),
+   :arglists-dialect ([] [x] [x y] [x y & args]),
+   :namespace clojure.core,
+   :var unchecked-multiply-int}
+  {:arglists-clojure ([x y]),
+   :arglists-dialect ([x] [x y] [x y & args]),
+   :namespace clojure.core,
+   :var unchecked-subtract}
+  {:arglists-clojure ([x y]),
+   :arglists-dialect ([x] [x y] [x y & args]),
+   :namespace clojure.core,
+   :var unchecked-subtract-int}
+  {:arglists-clojure
+   ([m k f] [m k f x] [m k f x y] [m k f x y z] [m k f x y z & more]),
+   :arglists-dialect ([m k f & args]),
+   :namespace clojure.core,
+   :var update}
+  {:arglists-clojure ([e]),
+   :arglists-dialect ([entry]),
+   :namespace clojure.core,
+   :var val}
+  {:arglists-clojure ([map]),
+   :arglists-dialect ([m]),
+   :namespace clojure.core,
+   :var vals}
+  {:arglists-clojure ([x]),
+   :arglists-dialect ([v]),
+   :namespace clojure.core,
+   :var var-get}
+  {:arglists-clojure ([x val]),
+   :arglists-dialect ([v val]),
+   :namespace clojure.core,
+   :var var-set}
+  {:arglists-clojure ([v]),
+   :arglists-dialect ([x]),
+   :namespace clojure.core,
+   :var var?}
+  {:arglists-clojure ([obj f & args]),
+   :arglists-dialect ([o f & args]),
+   :namespace clojure.core,
+   :var vary-meta}
+  {:arglists-clojure
+   ([]
+    [a]
+    [a b]
+    [a b c]
+    [a b c d]
+    [a b c d e]
+    [a b c d e f]
+    [a b c d e f & args]),
+   :arglists-dialect ([& elems]),
+   :namespace clojure.core,
+   :var vector}
+  {:arglists-clojure ([x]),
+   :arglists-dialect ([o]),
+   :namespace clojure.core,
+   :var vector?}
+  {:arglists-clojure ([val]),
+   :arglists-dialect ([v]),
+   :namespace clojure.core,
+   :var volatile!}
+  {:arglists-clojure ([vol newval]),
+   :arglists-dialect ([v new-val]),
+   :namespace clojure.core,
+   :var vreset!}
+  {:arglists-clojure ([vol f & args]),
+   :arglists-dialect ([v f & args]),
+   :macro-clojure true,
+   :macro-dialect false,
+   :namespace clojure.core,
+   :var vswap!}
+  {:arglists-clojure ([test & body]),
+   :arglists-dialect ([&env &form cond & body]),
+   :namespace clojure.core,
+   :var when}
+  {:arglists-clojure ([bindings & body]),
+   :arglists-dialect ([&env &form binding & body]),
+   :namespace clojure.core,
+   :var when-first}
+  {:arglists-clojure ([bindings & body]),
+   :arglists-dialect ([&env &form binding & body]),
+   :namespace clojure.core,
+   :var when-let}
+  {:arglists-clojure ([test & body]),
+   :arglists-dialect ([&env &form cond & body]),
+   :namespace clojure.core,
+   :var when-not}
+  {:arglists-clojure ([bindings & body]),
+   :arglists-dialect ([&env &form binding & body]),
+   :namespace clojure.core,
+   :var when-some}
+  {:arglists-clojure ([test & body]),
+   :arglists-dialect ([&env &form cond & body]),
+   :namespace clojure.core,
+   :var while}
+  {:arglists-clojure ([binding-map & body]),
+   :arglists-dialect ([&env &form bindings-map & body]),
+   :namespace clojure.core,
+   :var with-bindings}
+  {:arglists-clojure ([binding-map f & args]),
+   :arglists-dialect ([bindings-map f & args]),
+   :namespace clojure.core,
+   :var with-bindings*}
+  {:arglists-clojure ([s & body]),
+   :arglists-dialect ([&env &form s & body]),
+   :namespace clojure.core,
+   :var with-in-str}
+  {:arglists-clojure ([obj m]),
+   :arglists-dialect ([o meta]),
+   :namespace clojure.core,
+   :var with-meta}
+  {:arglists-clojure ([& body]),
+   :arglists-dialect ([&env &form & body]),
+   :namespace clojure.core,
+   :var with-out-str}
+  {:arglists-clojure ([precision & exprs]),
+   :arglists-dialect ([&env &form precision & exprs]),
+   :namespace clojure.core,
+   :var with-precision}
+  {:arglists-clojure ([bindings & body]),
+   :arglists-dialect ([&env &form bindings & body]),
+   :namespace clojure.core,
+   :var with-redefs}
+  {:arglists-clojure ([binding-map func]),
+   :arglists-dialect ([bindings-map f]),
+   :namespace clojure.core,
+   :var with-redefs-fn}
+  {:arglists-clojure ([num]),
+   :arglists-dialect ([x]),
+   :namespace clojure.core,
+   :var zero?}
+  {:arglists-clojure ([coll f] [coll f val]),
+   :arglists-dialect ([s f] [s f init]),
+   :namespace clojure.core.protocols,
+   :var coll-reduce}
+  {:arglists-clojure ([amap f init]),
+   :arglists-dialect ([s f init]),
+   :namespace clojure.core.protocols,
+   :var kv-reduce}
+  {:arglists-clojure ([] [stream] [opts stream]),
+   :arglists-dialect ([] [stream] [stream opts]),
+   :namespace clojure.edn,
+   :var read}
+  {:arglists-clojure ([s] [opts s]),
+   :arglists-dialect ([s] [s opts]),
+   :namespace clojure.edn,
+   :var read-string}
+  {:arglists-clojure ([writer]),
+   :arglists-dialect ([writer] [writer max-columns]),
+   :namespace clojure.pprint,
+   :var get-pretty-writer}
+  {:macro-clojure true,
+   :macro-dialect false,
+   :namespace clojure.pprint,
+   :var pp}
+  {:arglists-clojure ([relative-to n]),
+   :arglists-dialect ([relative-to offset]),
+   :namespace clojure.pprint,
+   :var pprint-indent}
+  {:arglists-clojure [[options* body]],
+   :arglists-dialect ([&env &form & body]),
+   :namespace clojure.pprint,
+   :var pprint-logical-block}
+  {:arglists-clojure ([bindings & body]),
+   :arglists-dialect ([&env &form bindings & body]),
+   :namespace clojure.pprint,
+   :var print-length-loop}
+  {:arglists-clojure ([ks rows] [rows]),
+   :arglists-dialect ([rows] [ks rows]),
+   :namespace clojure.pprint,
+   :var print-table}
+  {:arglists-clojure ([function & body]),
+   :arglists-dialect ([&env &form function & body]),
+   :namespace clojure.pprint,
+   :var with-pprint-dispatch}
+  {:arglists-clojure ([object & kw-args]),
+   :arglists-dialect ([object & {:as opts}]),
+   :namespace clojure.pprint,
+   :var write}
+  {:arglists-clojure ([s1] [s1 s2] [s1 s2 & sets]),
+   :arglists-dialect ([s] [s & others]),
+   :namespace clojure.set,
+   :var difference}
+  {:arglists-clojure ([xrel ks]),
+   :arglists-dialect ([rel ks]),
+   :namespace clojure.set,
+   :var index}
+  {:arglists-clojure ([s1] [s1 s2] [s1 s2 & sets]),
+   :arglists-dialect ([s] [s & others]),
+   :namespace clojure.set,
+   :var intersection}
+  {:arglists-clojure ([xrel yrel] [xrel yrel km]),
+   :arglists-dialect ([lrel rrel] [lrel rrel keymap]),
+   :namespace clojure.set,
+   :var join}
+  {:arglists-clojure ([xrel ks]),
+   :arglists-dialect ([rel ks]),
+   :namespace clojure.set,
+   :var project}
+  {:arglists-clojure ([xrel kmap]),
+   :arglists-dialect ([rel kmap]),
+   :namespace clojure.set,
+   :var rename}
+  {:arglists-clojure ([map kmap]),
+   :arglists-dialect ([m kmap]),
+   :namespace clojure.set,
+   :var rename-keys}
+  {:arglists-clojure ([set1 set2]),
+   :arglists-dialect ([s1 s2]),
+   :namespace clojure.set,
+   :var subset?}
+  {:arglists-clojure ([set1 set2]),
+   :arglists-dialect ([s1 s2]),
+   :namespace clojure.set,
+   :var superset?}
+  {:arglists-clojure ([] [s1] [s1 s2] [s1 s2 & sets]),
+   :arglists-dialect ([s] [s & others]),
+   :namespace clojure.set,
+   :var union}
+  {:arglists-clojure ([s substr]),
+   :arglists-dialect ([s suffix]),
+   :namespace clojure.string,
+   :var ends-with?}
+  {:arglists-clojure ([s re] [s re limit]),
+   :arglists-dialect ([s pattern] [s pattern limit]),
+   :namespace clojure.string,
+   :var split}
+  {:arglists-clojure ([s substr]),
+   :arglists-dialect ([s prefix]),
+   :namespace clojure.string,
+   :var starts-with?}
+  {:arglists-clojure ([argv expr & values]),
+   :arglists-dialect ([&env &form argv expr & args]),
+   :namespace clojure.template,
+   :var do-template}
+  {:arglists-clojure ([argv expr & args]),
+   :arglists-dialect ([&env &form argv expr & args]),
+   :namespace clojure.test,
+   :var are}
+  {:arglists-clojure ([f1 f2]),
+   :arglists-dialect ([&env &form & fixtures]),
+   :macro-clojure false,
+   :macro-dialect true,
+   :namespace clojure.test,
+   :var compose-fixtures}
+  {:arglists-clojure ([name & body]),
+   :arglists-dialect ([&env &form name-sym & body]),
+   :namespace clojure.test,
+   :var deftest}
+  {:arglists-clojure ([form] [form msg]),
+   :arglists-dialect ([&env &form expr] [&env &form expr msg]),
+   :namespace clojure.test,
+   :var is}
+  {:arglists-clojure ([string & body]),
+   :arglists-dialect ([&env &form msg & body]),
+   :namespace clojure.test,
+   :var testing}
+  {:arglists-clojure ([m]),
+   :arglists-dialect ([form]),
+   :namespace clojure.walk,
+   :var keywordize-keys}
+  {:arglists-clojure ([smap form]),
+   :arglists-dialect ([replacements form]),
+   :namespace clojure.walk,
+   :var postwalk-replace}
+  {:arglists-clojure ([smap form]),
+   :arglists-dialect ([replacements form]),
+   :namespace clojure.walk,
+   :var prewalk-replace}
+  {:arglists-clojure ([m]),
+   :arglists-dialect ([form]),
+   :namespace clojure.walk,
+   :var stringify-keys}],
  :categories
  [{:id :ordering,
    :title "Ordering & comparison",
@@ -137,39 +1490,119 @@
    :title "Metadata propagation",
    :description
    "Where reader attaches meta and which ops preserve it."}],
+ :drift
+ {:from-date "2026-05-23",
+  :to-date "2026-05-23",
+  :added-vars #{},
+  :removed-vars #{},
+  :changed [],
+  :coverage-delta 0.6130653266331658},
  :extensions [],
- :dialect-only [],
+ :dialect-only
+ [clojure.core/*basilisp-version*
+  clojure.core/*default-reader-features*
+  clojure.core/*executor-pool*
+  clojure.core/*import-module*
+  clojure.core/*loaded-libs*
+  clojure.core/*main-ns*
+  clojure.core/*pmap-cpu-count*
+  clojure.core/*print-sep*
+  clojure.core/*python-version*
+  clojure.core/*resolver*
+  clojure.core/->EductionSeq
+  clojure.core/-collect-keyword-args
+  clojure.core/-mangle-py-field
+  clojure.core/Eduction
+  clojure.core/EductionSeq
+  clojure.core/apply-kw
+  clojure.core/apply-method
+  clojure.core/apply-method-kw
+  clojure.core/aslice
+  clojure.core/bool-array
+  clojure.core/byte-string
+  clojure.core/byte-string?
+  clojure.core/complex?
+  clojure.core/defasync
+  clojure.core/demunge
+  clojure.core/evolve
+  clojure.core/for-async
+  clojure.core/importing-resolve
+  clojure.core/lisp->py
+  clojure.core/local-decimal-context
+  clojure.core/map-entry
+  clojure.core/new
+  clojure.core/non-neg?
+  clojure.core/ns-import-refers
+  clojure.core/partial-kw
+  clojure.core/perf-counter
+  clojure.core/promise?
+  clojure.core/protocol?
+  clojure.core/py->lisp
+  clojure.core/py-dict?
+  clojure.core/py-frozenset?
+  clojure.core/py-list?
+  clojure.core/py-set?
+  clojure.core/py-tuple?
+  clojure.core/queue
+  clojure.core/queue?
+  clojure.core/read-seq
+  clojure.core/real-number?
+  clojure.core/refer-basilisp
+  clojure.core/repr
+  clojure.core/subclasses
+  clojure.core/uuid-like?
+  clojure.core/with
+  clojure.core/with-async
+  clojure.core.protocols/KVReduce
+  clojure.data/IDiffable
+  clojure.data/diff*
+  clojure.edn/EDNEncodeable
+  clojure.edn/write
+  clojure.edn/write*
+  clojure.edn/write-string
+  clojure.pprint/*current-length*
+  clojure.pprint/*current-level*
+  clojure.pprint/*print-sort-keys*
+  clojure.pprint/Blob
+  clojure.pprint/EndBlock
+  clojure.pprint/Indent
+  clojure.pprint/LogicalBlock
+  clojure.pprint/Newline
+  clojure.pprint/PrettyWriter
+  clojure.pprint/StartBlock
+  clojure.pprint/end-block
+  clojure.pprint/pp-indent
+  clojure.pprint/pp-newline
+  clojure.pprint/start-block
+  clojure.set/disjoint?
+  clojure.set/symmetric-difference
+  clojure.string/alpha?
+  clojure.string/alphanumeric?
+  clojure.string/digits?
+  clojure.string/lpad
+  clojure.string/ltrim
+  clojure.string/rpad
+  clojure.string/rtrim
+  clojure.string/title-case
+  clojure.string/trim-newlines
+  clojure.test/*test-failures*
+  clojure.test/*test-name*
+  clojure.test/*test-section*
+  clojure.test/gen-assert
+  clojure.test/generator?
+  clojure.test/with-fixtures
+  clojure.walk/IWalkable
+  clojure.walk/walk*],
  :missing
- [{:namespace clojure.core, :var *}
-  {:namespace clojure.core, :var *'}
-  {:namespace clojure.core, :var *1}
-  {:namespace clojure.core, :var *2}
-  {:namespace clojure.core, :var *3}
+ [{:namespace clojure.core, :var *'}
   {:namespace clojure.core, :var *agent*}
   {:namespace clojure.core, :var *allow-unresolved-vars*}
-  {:namespace clojure.core, :var *assert*}
   {:namespace clojure.core, :var *clojure-version*}
-  {:namespace clojure.core, :var *command-line-args*}
   {:namespace clojure.core, :var *compile-files*}
   {:namespace clojure.core, :var *compile-path*}
-  {:namespace clojure.core, :var *compiler-options*}
-  {:namespace clojure.core, :var *data-readers*}
-  {:namespace clojure.core, :var *default-data-reader-fn*}
-  {:namespace clojure.core, :var *e}
-  {:namespace clojure.core, :var *err*}
   {:namespace clojure.core, :var *file*}
-  {:namespace clojure.core, :var *flush-on-newline*}
   {:namespace clojure.core, :var *fn-loader*}
-  {:namespace clojure.core, :var *in*}
   {:namespace clojure.core, :var *math-context*}
-  {:namespace clojure.core, :var *ns*}
-  {:namespace clojure.core, :var *out*}
-  {:namespace clojure.core, :var *print-dup*}
-  {:namespace clojure.core, :var *print-length*}
-  {:namespace clojure.core, :var *print-level*}
-  {:namespace clojure.core, :var *print-meta*}
-  {:namespace clojure.core, :var *print-namespace-maps*}
-  {:namespace clojure.core, :var *print-readably*}
   {:namespace clojure.core, :var *read-eval*}
   {:namespace clojure.core, :var *reader-resolver*}
   {:namespace clojure.core, :var *repl*}
@@ -179,58 +1612,26 @@
   {:namespace clojure.core, :var *use-context-classloader*}
   {:namespace clojure.core, :var *verbose-defrecords*}
   {:namespace clojure.core, :var *warn-on-reflection*}
-  {:namespace clojure.core, :var +}
   {:namespace clojure.core, :var +'}
-  {:namespace clojure.core, :var -}
   {:namespace clojure.core, :var -'}
-  {:namespace clojure.core, :var ->}
-  {:namespace clojure.core, :var ->>}
   {:namespace clojure.core, :var ->ArrayChunk}
-  {:namespace clojure.core, :var ->Eduction}
   {:namespace clojure.core, :var ->Vec}
   {:namespace clojure.core, :var ->VecNode}
   {:namespace clojure.core, :var ->VecSeq}
   {:namespace clojure.core, :var -cache-protocol-fn}
   {:namespace clojure.core, :var -reset-methods}
-  {:namespace clojure.core, :var ..}
-  {:namespace clojure.core, :var /}
-  {:namespace clojure.core, :var <}
-  {:namespace clojure.core, :var <=}
-  {:namespace clojure.core, :var =}
-  {:namespace clojure.core, :var ==}
-  {:namespace clojure.core, :var >}
-  {:namespace clojure.core, :var >=}
   {:namespace clojure.core, :var EMPTY-NODE}
-  {:namespace clojure.core, :var Inst}
-  {:namespace clojure.core, :var NaN?}
   {:namespace clojure.core, :var PrintWriter-on}
   {:namespace clojure.core, :var StackTraceElement->vec}
   {:namespace clojure.core, :var Throwable->map}
-  {:namespace clojure.core, :var abs}
   {:namespace clojure.core, :var accessor}
-  {:namespace clojure.core, :var aclone}
   {:namespace clojure.core, :var add-classpath}
-  {:namespace clojure.core, :var add-tap}
-  {:namespace clojure.core, :var add-watch}
   {:namespace clojure.core, :var agent}
   {:namespace clojure.core, :var agent-error}
   {:namespace clojure.core, :var agent-errors}
-  {:namespace clojure.core, :var aget}
-  {:namespace clojure.core, :var alength}
   {:namespace clojure.core, :var alias}
-  {:namespace clojure.core, :var all-ns}
   {:namespace clojure.core, :var alter}
-  {:namespace clojure.core, :var alter-meta!}
-  {:namespace clojure.core, :var alter-var-root}
-  {:namespace clojure.core, :var amap}
-  {:namespace clojure.core, :var ancestors}
-  {:namespace clojure.core, :var and}
-  {:namespace clojure.core, :var any?}
-  {:namespace clojure.core, :var apply}
-  {:namespace clojure.core, :var areduce}
   {:namespace clojure.core, :var array-map}
-  {:namespace clojure.core, :var as->}
-  {:namespace clojure.core, :var aset}
   {:namespace clojure.core, :var aset-boolean}
   {:namespace clojure.core, :var aset-byte}
   {:namespace clojure.core, :var aset-char}
@@ -239,54 +1640,14 @@
   {:namespace clojure.core, :var aset-int}
   {:namespace clojure.core, :var aset-long}
   {:namespace clojure.core, :var aset-short}
-  {:namespace clojure.core, :var assert}
-  {:namespace clojure.core, :var assoc}
-  {:namespace clojure.core, :var assoc!}
-  {:namespace clojure.core, :var assoc-in}
-  {:namespace clojure.core, :var associative?}
-  {:namespace clojure.core, :var atom}
   {:namespace clojure.core, :var await}
   {:namespace clojure.core, :var await-for}
   {:namespace clojure.core, :var await1}
-  {:namespace clojure.core, :var bases}
   {:namespace clojure.core, :var bean}
-  {:namespace clojure.core, :var bigdec}
-  {:namespace clojure.core, :var bigint}
-  {:namespace clojure.core, :var biginteger}
-  {:namespace clojure.core, :var binding}
-  {:namespace clojure.core, :var bit-and}
-  {:namespace clojure.core, :var bit-and-not}
-  {:namespace clojure.core, :var bit-clear}
-  {:namespace clojure.core, :var bit-flip}
-  {:namespace clojure.core, :var bit-not}
-  {:namespace clojure.core, :var bit-or}
-  {:namespace clojure.core, :var bit-set}
-  {:namespace clojure.core, :var bit-shift-left}
-  {:namespace clojure.core, :var bit-shift-right}
-  {:namespace clojure.core, :var bit-test}
-  {:namespace clojure.core, :var bit-xor}
-  {:namespace clojure.core, :var boolean}
   {:namespace clojure.core, :var boolean-array}
-  {:namespace clojure.core, :var boolean?}
-  {:namespace clojure.core, :var booleans}
-  {:namespace clojure.core, :var bound-fn}
-  {:namespace clojure.core, :var bound-fn*}
   {:namespace clojure.core, :var bound?}
-  {:namespace clojure.core, :var bounded-count}
-  {:namespace clojure.core, :var butlast}
-  {:namespace clojure.core, :var byte}
   {:namespace clojure.core, :var byte-array}
-  {:namespace clojure.core, :var bytes}
-  {:namespace clojure.core, :var bytes?}
-  {:namespace clojure.core, :var case}
-  {:namespace clojure.core, :var cast}
-  {:namespace clojure.core, :var cat}
-  {:namespace clojure.core, :var char}
   {:namespace clojure.core, :var char-array}
-  {:namespace clojure.core, :var char-escape-string}
-  {:namespace clojure.core, :var char-name-string}
-  {:namespace clojure.core, :var char?}
-  {:namespace clojure.core, :var chars}
   {:namespace clojure.core, :var chunk}
   {:namespace clojure.core, :var chunk-append}
   {:namespace clojure.core, :var chunk-buffer}
@@ -295,540 +1656,94 @@
   {:namespace clojure.core, :var chunk-next}
   {:namespace clojure.core, :var chunk-rest}
   {:namespace clojure.core, :var chunked-seq?}
-  {:namespace clojure.core, :var class}
-  {:namespace clojure.core, :var class?}
   {:namespace clojure.core, :var clear-agent-errors}
   {:namespace clojure.core, :var clojure-version}
-  {:namespace clojure.core, :var coll?}
-  {:namespace clojure.core, :var comment}
   {:namespace clojure.core, :var commute}
-  {:namespace clojure.core, :var comp}
   {:namespace clojure.core, :var comparator}
-  {:namespace clojure.core, :var compare}
-  {:namespace clojure.core, :var compare-and-set!}
   {:namespace clojure.core, :var compile}
-  {:namespace clojure.core, :var complement}
-  {:namespace clojure.core, :var completing}
-  {:namespace clojure.core, :var concat}
-  {:namespace clojure.core, :var cond}
-  {:namespace clojure.core, :var cond->}
-  {:namespace clojure.core, :var cond->>}
-  {:namespace clojure.core, :var condp}
-  {:namespace clojure.core, :var conj}
-  {:namespace clojure.core, :var conj!}
-  {:namespace clojure.core, :var cons}
-  {:namespace clojure.core, :var constantly}
-  {:namespace clojure.core, :var construct-proxy}
-  {:namespace clojure.core, :var contains?}
-  {:namespace clojure.core, :var count}
-  {:namespace clojure.core, :var counted?}
-  {:namespace clojure.core, :var create-ns}
   {:namespace clojure.core, :var create-struct}
-  {:namespace clojure.core, :var cycle}
-  {:namespace clojure.core, :var dec}
-  {:namespace clojure.core, :var dec'}
-  {:namespace clojure.core, :var decimal?}
-  {:namespace clojure.core, :var declare}
-  {:namespace clojure.core, :var dedupe}
-  {:namespace clojure.core, :var default-data-readers}
   {:namespace clojure.core, :var definline}
-  {:namespace clojure.core, :var definterface}
-  {:namespace clojure.core, :var defmacro}
-  {:namespace clojure.core, :var defmethod}
-  {:namespace clojure.core, :var defmulti}
-  {:namespace clojure.core, :var defn}
-  {:namespace clojure.core, :var defn-}
-  {:namespace clojure.core, :var defonce}
-  {:namespace clojure.core, :var defprotocol}
-  {:namespace clojure.core, :var defrecord}
   {:namespace clojure.core, :var defstruct}
-  {:namespace clojure.core, :var deftype}
-  {:namespace clojure.core, :var delay}
-  {:namespace clojure.core, :var delay?}
-  {:namespace clojure.core, :var deliver}
-  {:namespace clojure.core, :var denominator}
-  {:namespace clojure.core, :var deref}
-  {:namespace clojure.core, :var derive}
-  {:namespace clojure.core, :var descendants}
-  {:namespace clojure.core, :var destructure}
-  {:namespace clojure.core, :var disj}
-  {:namespace clojure.core, :var disj!}
-  {:namespace clojure.core, :var dissoc}
-  {:namespace clojure.core, :var dissoc!}
-  {:namespace clojure.core, :var distinct}
-  {:namespace clojure.core, :var distinct?}
-  {:namespace clojure.core, :var doall}
-  {:namespace clojure.core, :var dorun}
-  {:namespace clojure.core, :var doseq}
   {:namespace clojure.core, :var dosync}
-  {:namespace clojure.core, :var dotimes}
-  {:namespace clojure.core, :var doto}
-  {:namespace clojure.core, :var double}
-  {:namespace clojure.core, :var double-array}
-  {:namespace clojure.core, :var double?}
-  {:namespace clojure.core, :var doubles}
-  {:namespace clojure.core, :var drop}
-  {:namespace clojure.core, :var drop-last}
-  {:namespace clojure.core, :var drop-while}
-  {:namespace clojure.core, :var eduction}
-  {:namespace clojure.core, :var empty}
-  {:namespace clojure.core, :var empty?}
   {:namespace clojure.core, :var ensure}
-  {:namespace clojure.core, :var ensure-reduced}
   {:namespace clojure.core, :var enumeration-seq}
   {:namespace clojure.core, :var error-handler}
   {:namespace clojure.core, :var error-mode}
-  {:namespace clojure.core, :var eval}
-  {:namespace clojure.core, :var even?}
-  {:namespace clojure.core, :var every-pred}
-  {:namespace clojure.core, :var every?}
-  {:namespace clojure.core, :var ex-cause}
-  {:namespace clojure.core, :var ex-data}
-  {:namespace clojure.core, :var ex-info}
-  {:namespace clojure.core, :var ex-message}
-  {:namespace clojure.core, :var extend}
-  {:namespace clojure.core, :var extend-protocol}
-  {:namespace clojure.core, :var extend-type}
-  {:namespace clojure.core, :var extenders}
-  {:namespace clojure.core, :var extends?}
-  {:namespace clojure.core, :var false?}
-  {:namespace clojure.core, :var ffirst}
-  {:namespace clojure.core, :var file-seq}
-  {:namespace clojure.core, :var filter}
-  {:namespace clojure.core, :var filterv}
-  {:namespace clojure.core, :var find}
-  {:namespace clojure.core, :var find-keyword}
-  {:namespace clojure.core, :var find-ns}
   {:namespace clojure.core, :var find-protocol-impl}
   {:namespace clojure.core, :var find-protocol-method}
-  {:namespace clojure.core, :var find-var}
-  {:namespace clojure.core, :var first}
-  {:namespace clojure.core, :var flatten}
-  {:namespace clojure.core, :var float}
-  {:namespace clojure.core, :var float-array}
-  {:namespace clojure.core, :var float?}
-  {:namespace clojure.core, :var floats}
-  {:namespace clojure.core, :var flush}
-  {:namespace clojure.core, :var fn}
-  {:namespace clojure.core, :var fn?}
-  {:namespace clojure.core, :var fnext}
-  {:namespace clojure.core, :var fnil}
-  {:namespace clojure.core, :var for}
-  {:namespace clojure.core, :var force}
-  {:namespace clojure.core, :var format}
-  {:namespace clojure.core, :var frequencies}
-  {:namespace clojure.core, :var future}
-  {:namespace clojure.core, :var future-call}
-  {:namespace clojure.core, :var future-cancel}
-  {:namespace clojure.core, :var future-cancelled?}
-  {:namespace clojure.core, :var future-done?}
-  {:namespace clojure.core, :var future?}
   {:namespace clojure.core, :var gen-class}
-  {:namespace clojure.core, :var gen-interface}
-  {:namespace clojure.core, :var gensym}
-  {:namespace clojure.core, :var get}
-  {:namespace clojure.core, :var get-in}
-  {:namespace clojure.core, :var get-method}
-  {:namespace clojure.core, :var get-proxy-class}
-  {:namespace clojure.core, :var get-thread-bindings}
-  {:namespace clojure.core, :var get-validator}
-  {:namespace clojure.core, :var group-by}
-  {:namespace clojure.core, :var halt-when}
-  {:namespace clojure.core, :var hash}
   {:namespace clojure.core, :var hash-combine}
-  {:namespace clojure.core, :var hash-map}
   {:namespace clojure.core, :var hash-ordered-coll}
-  {:namespace clojure.core, :var hash-set}
   {:namespace clojure.core, :var hash-unordered-coll}
-  {:namespace clojure.core, :var ident?}
-  {:namespace clojure.core, :var identical?}
-  {:namespace clojure.core, :var identity}
-  {:namespace clojure.core, :var if-let}
-  {:namespace clojure.core, :var if-not}
-  {:namespace clojure.core, :var if-some}
-  {:namespace clojure.core, :var ifn?}
-  {:namespace clojure.core, :var import}
-  {:namespace clojure.core, :var in-ns}
-  {:namespace clojure.core, :var inc}
-  {:namespace clojure.core, :var inc'}
-  {:namespace clojure.core, :var indexed?}
-  {:namespace clojure.core, :var infinite?}
-  {:namespace clojure.core, :var init-proxy}
-  {:namespace clojure.core, :var inst-ms}
-  {:namespace clojure.core, :var inst-ms*}
-  {:namespace clojure.core, :var inst?}
-  {:namespace clojure.core, :var instance?}
-  {:namespace clojure.core, :var int}
-  {:namespace clojure.core, :var int-array}
-  {:namespace clojure.core, :var int?}
-  {:namespace clojure.core, :var integer?}
-  {:namespace clojure.core, :var interleave}
-  {:namespace clojure.core, :var intern}
-  {:namespace clojure.core, :var interpose}
-  {:namespace clojure.core, :var into}
-  {:namespace clojure.core, :var into-array}
-  {:namespace clojure.core, :var ints}
   {:namespace clojure.core, :var io!}
-  {:namespace clojure.core, :var isa?}
-  {:namespace clojure.core, :var iterate}
-  {:namespace clojure.core, :var iteration}
-  {:namespace clojure.core, :var iterator-seq}
-  {:namespace clojure.core, :var juxt}
-  {:namespace clojure.core, :var keep}
-  {:namespace clojure.core, :var keep-indexed}
-  {:namespace clojure.core, :var key}
-  {:namespace clojure.core, :var keys}
-  {:namespace clojure.core, :var keyword}
-  {:namespace clojure.core, :var keyword?}
-  {:namespace clojure.core, :var last}
-  {:namespace clojure.core, :var lazy-cat}
-  {:namespace clojure.core, :var lazy-seq}
-  {:namespace clojure.core, :var let}
-  {:namespace clojure.core, :var letfn}
   {:namespace clojure.core, :var line-seq}
-  {:namespace clojure.core, :var list}
   {:namespace clojure.core, :var list*}
-  {:namespace clojure.core, :var list?}
-  {:namespace clojure.core, :var load}
-  {:namespace clojure.core, :var load-file}
-  {:namespace clojure.core, :var load-reader}
-  {:namespace clojure.core, :var load-string}
-  {:namespace clojure.core, :var loaded-libs}
   {:namespace clojure.core, :var locking}
-  {:namespace clojure.core, :var long}
-  {:namespace clojure.core, :var long-array}
-  {:namespace clojure.core, :var longs}
-  {:namespace clojure.core, :var loop}
-  {:namespace clojure.core, :var macroexpand}
-  {:namespace clojure.core, :var macroexpand-1}
-  {:namespace clojure.core, :var make-array}
-  {:namespace clojure.core, :var make-hierarchy}
-  {:namespace clojure.core, :var map}
-  {:namespace clojure.core, :var map-entry?}
-  {:namespace clojure.core, :var map-indexed}
-  {:namespace clojure.core, :var map?}
-  {:namespace clojure.core, :var mapcat}
-  {:namespace clojure.core, :var mapv}
-  {:namespace clojure.core, :var max}
-  {:namespace clojure.core, :var max-key}
-  {:namespace clojure.core, :var memfn}
-  {:namespace clojure.core, :var memoize}
-  {:namespace clojure.core, :var merge}
-  {:namespace clojure.core, :var merge-with}
-  {:namespace clojure.core, :var meta}
   {:namespace clojure.core, :var method-sig}
-  {:namespace clojure.core, :var methods}
-  {:namespace clojure.core, :var min}
-  {:namespace clojure.core, :var min-key}
   {:namespace clojure.core, :var mix-collection-hash}
-  {:namespace clojure.core, :var mod}
-  {:namespace clojure.core, :var munge}
-  {:namespace clojure.core, :var name}
-  {:namespace clojure.core, :var namespace}
-  {:namespace clojure.core, :var namespace-munge}
-  {:namespace clojure.core, :var nat-int?}
-  {:namespace clojure.core, :var neg-int?}
-  {:namespace clojure.core, :var neg?}
-  {:namespace clojure.core, :var newline}
-  {:namespace clojure.core, :var next}
-  {:namespace clojure.core, :var nfirst}
-  {:namespace clojure.core, :var nil?}
-  {:namespace clojure.core, :var nnext}
-  {:namespace clojure.core, :var not}
-  {:namespace clojure.core, :var not-any?}
-  {:namespace clojure.core, :var not-empty}
-  {:namespace clojure.core, :var not-every?}
-  {:namespace clojure.core, :var not=}
-  {:namespace clojure.core, :var ns}
-  {:namespace clojure.core, :var ns-aliases}
-  {:namespace clojure.core, :var ns-imports}
-  {:namespace clojure.core, :var ns-interns}
-  {:namespace clojure.core, :var ns-map}
-  {:namespace clojure.core, :var ns-name}
-  {:namespace clojure.core, :var ns-publics}
-  {:namespace clojure.core, :var ns-refers}
-  {:namespace clojure.core, :var ns-resolve}
-  {:namespace clojure.core, :var ns-unalias}
-  {:namespace clojure.core, :var ns-unmap}
-  {:namespace clojure.core, :var nth}
-  {:namespace clojure.core, :var nthnext}
-  {:namespace clojure.core, :var nthrest}
   {:namespace clojure.core, :var num}
-  {:namespace clojure.core, :var number?}
-  {:namespace clojure.core, :var numerator}
-  {:namespace clojure.core, :var object-array}
-  {:namespace clojure.core, :var odd?}
-  {:namespace clojure.core, :var or}
-  {:namespace clojure.core, :var parents}
-  {:namespace clojure.core, :var parse-boolean}
-  {:namespace clojure.core, :var parse-double}
-  {:namespace clojure.core, :var parse-long}
-  {:namespace clojure.core, :var parse-uuid}
-  {:namespace clojure.core, :var partial}
-  {:namespace clojure.core, :var partition}
-  {:namespace clojure.core, :var partition-all}
-  {:namespace clojure.core, :var partition-by}
   {:namespace clojure.core, :var partitionv}
   {:namespace clojure.core, :var partitionv-all}
-  {:namespace clojure.core, :var pcalls}
-  {:namespace clojure.core, :var peek}
-  {:namespace clojure.core, :var persistent!}
-  {:namespace clojure.core, :var pmap}
-  {:namespace clojure.core, :var pop}
-  {:namespace clojure.core, :var pop!}
-  {:namespace clojure.core, :var pop-thread-bindings}
-  {:namespace clojure.core, :var pos-int?}
-  {:namespace clojure.core, :var pos?}
-  {:namespace clojure.core, :var pr}
-  {:namespace clojure.core, :var pr-str}
-  {:namespace clojure.core, :var prefer-method}
-  {:namespace clojure.core, :var prefers}
   {:namespace clojure.core, :var primitives-classnames}
-  {:namespace clojure.core, :var print}
   {:namespace clojure.core, :var print-ctor}
   {:namespace clojure.core, :var print-dup}
   {:namespace clojure.core, :var print-method}
   {:namespace clojure.core, :var print-simple}
-  {:namespace clojure.core, :var print-str}
-  {:namespace clojure.core, :var printf}
-  {:namespace clojure.core, :var println}
-  {:namespace clojure.core, :var println-str}
-  {:namespace clojure.core, :var prn}
-  {:namespace clojure.core, :var prn-str}
-  {:namespace clojure.core, :var promise}
-  {:namespace clojure.core, :var proxy}
   {:namespace clojure.core, :var proxy-call-with-super}
-  {:namespace clojure.core, :var proxy-mappings}
   {:namespace clojure.core, :var proxy-name}
-  {:namespace clojure.core, :var proxy-super}
-  {:namespace clojure.core, :var push-thread-bindings}
-  {:namespace clojure.core, :var pvalues}
-  {:namespace clojure.core, :var qualified-ident?}
-  {:namespace clojure.core, :var qualified-keyword?}
-  {:namespace clojure.core, :var qualified-symbol?}
-  {:namespace clojure.core, :var quot}
-  {:namespace clojure.core, :var rand}
-  {:namespace clojure.core, :var rand-int}
-  {:namespace clojure.core, :var rand-nth}
-  {:namespace clojure.core, :var random-sample}
-  {:namespace clojure.core, :var random-uuid}
-  {:namespace clojure.core, :var range}
-  {:namespace clojure.core, :var ratio?}
-  {:namespace clojure.core, :var rational?}
-  {:namespace clojure.core, :var rationalize}
-  {:namespace clojure.core, :var re-find}
   {:namespace clojure.core, :var re-groups}
   {:namespace clojure.core, :var re-matcher}
-  {:namespace clojure.core, :var re-matches}
-  {:namespace clojure.core, :var re-pattern}
-  {:namespace clojure.core, :var re-seq}
-  {:namespace clojure.core, :var read}
   {:namespace clojure.core, :var read+string}
-  {:namespace clojure.core, :var read-line}
-  {:namespace clojure.core, :var read-string}
-  {:namespace clojure.core, :var reader-conditional}
-  {:namespace clojure.core, :var reader-conditional?}
-  {:namespace clojure.core, :var realized?}
-  {:namespace clojure.core, :var record?}
-  {:namespace clojure.core, :var reduce}
-  {:namespace clojure.core, :var reduce-kv}
-  {:namespace clojure.core, :var reduced}
-  {:namespace clojure.core, :var reduced?}
   {:namespace clojure.core, :var reductions}
   {:namespace clojure.core, :var ref}
   {:namespace clojure.core, :var ref-history-count}
   {:namespace clojure.core, :var ref-max-history}
   {:namespace clojure.core, :var ref-min-history}
   {:namespace clojure.core, :var ref-set}
-  {:namespace clojure.core, :var refer}
-  {:namespace clojure.core, :var refer-clojure}
-  {:namespace clojure.core, :var reify}
   {:namespace clojure.core, :var release-pending-sends}
-  {:namespace clojure.core, :var rem}
-  {:namespace clojure.core, :var remove}
-  {:namespace clojure.core, :var remove-all-methods}
-  {:namespace clojure.core, :var remove-method}
-  {:namespace clojure.core, :var remove-ns}
-  {:namespace clojure.core, :var remove-tap}
-  {:namespace clojure.core, :var remove-watch}
-  {:namespace clojure.core, :var repeat}
-  {:namespace clojure.core, :var repeatedly}
-  {:namespace clojure.core, :var replace}
   {:namespace clojure.core, :var replicate}
-  {:namespace clojure.core, :var require}
-  {:namespace clojure.core, :var requiring-resolve}
-  {:namespace clojure.core, :var reset!}
-  {:namespace clojure.core, :var reset-meta!}
-  {:namespace clojure.core, :var reset-vals!}
-  {:namespace clojure.core, :var resolve}
-  {:namespace clojure.core, :var rest}
   {:namespace clojure.core, :var restart-agent}
   {:namespace clojure.core, :var resultset-seq}
-  {:namespace clojure.core, :var reverse}
-  {:namespace clojure.core, :var reversible?}
-  {:namespace clojure.core, :var rseq}
   {:namespace clojure.core, :var rsubseq}
-  {:namespace clojure.core, :var run!}
-  {:namespace clojure.core, :var satisfies?}
-  {:namespace clojure.core, :var second}
-  {:namespace clojure.core, :var select-keys}
   {:namespace clojure.core, :var send}
   {:namespace clojure.core, :var send-off}
   {:namespace clojure.core, :var send-via}
-  {:namespace clojure.core, :var seq}
   {:namespace clojure.core, :var seq-to-map-for-destructuring}
-  {:namespace clojure.core, :var seq?}
-  {:namespace clojure.core, :var seqable?}
   {:namespace clojure.core, :var seque}
-  {:namespace clojure.core, :var sequence}
-  {:namespace clojure.core, :var sequential?}
-  {:namespace clojure.core, :var set}
   {:namespace clojure.core, :var set-agent-send-executor!}
   {:namespace clojure.core, :var set-agent-send-off-executor!}
   {:namespace clojure.core, :var set-error-handler!}
   {:namespace clojure.core, :var set-error-mode!}
-  {:namespace clojure.core, :var set-validator!}
-  {:namespace clojure.core, :var set?}
-  {:namespace clojure.core, :var short}
-  {:namespace clojure.core, :var short-array}
-  {:namespace clojure.core, :var shorts}
-  {:namespace clojure.core, :var shuffle}
   {:namespace clojure.core, :var shutdown-agents}
-  {:namespace clojure.core, :var simple-ident?}
-  {:namespace clojure.core, :var simple-keyword?}
-  {:namespace clojure.core, :var simple-symbol?}
-  {:namespace clojure.core, :var slurp}
-  {:namespace clojure.core, :var some}
-  {:namespace clojure.core, :var some->}
-  {:namespace clojure.core, :var some->>}
-  {:namespace clojure.core, :var some-fn}
-  {:namespace clojure.core, :var some?}
-  {:namespace clojure.core, :var sort}
-  {:namespace clojure.core, :var sort-by}
   {:namespace clojure.core, :var sorted-map}
   {:namespace clojure.core, :var sorted-map-by}
   {:namespace clojure.core, :var sorted-set}
   {:namespace clojure.core, :var sorted-set-by}
   {:namespace clojure.core, :var sorted?}
-  {:namespace clojure.core, :var special-symbol?}
-  {:namespace clojure.core, :var spit}
-  {:namespace clojure.core, :var split-at}
-  {:namespace clojure.core, :var split-with}
   {:namespace clojure.core, :var splitv-at}
-  {:namespace clojure.core, :var str}
   {:namespace clojure.core, :var stream-into!}
   {:namespace clojure.core, :var stream-reduce!}
   {:namespace clojure.core, :var stream-seq!}
   {:namespace clojure.core, :var stream-transduce!}
-  {:namespace clojure.core, :var string?}
   {:namespace clojure.core, :var struct}
   {:namespace clojure.core, :var struct-map}
-  {:namespace clojure.core, :var subs}
   {:namespace clojure.core, :var subseq}
-  {:namespace clojure.core, :var subvec}
-  {:namespace clojure.core, :var supers}
-  {:namespace clojure.core, :var swap!}
-  {:namespace clojure.core, :var swap-vals!}
-  {:namespace clojure.core, :var symbol}
-  {:namespace clojure.core, :var symbol?}
   {:namespace clojure.core, :var sync}
-  {:namespace clojure.core, :var tagged-literal}
-  {:namespace clojure.core, :var tagged-literal?}
-  {:namespace clojure.core, :var take}
-  {:namespace clojure.core, :var take-last}
-  {:namespace clojure.core, :var take-nth}
-  {:namespace clojure.core, :var take-while}
-  {:namespace clojure.core, :var tap>}
   {:namespace clojure.core, :var test}
-  {:namespace clojure.core, :var the-ns}
-  {:namespace clojure.core, :var thread-bound?}
-  {:namespace clojure.core, :var time}
-  {:namespace clojure.core, :var to-array}
-  {:namespace clojure.core, :var to-array-2d}
-  {:namespace clojure.core, :var trampoline}
-  {:namespace clojure.core, :var transduce}
-  {:namespace clojure.core, :var transient}
-  {:namespace clojure.core, :var tree-seq}
-  {:namespace clojure.core, :var true?}
-  {:namespace clojure.core, :var type}
-  {:namespace clojure.core, :var unchecked-add}
-  {:namespace clojure.core, :var unchecked-add-int}
-  {:namespace clojure.core, :var unchecked-byte}
-  {:namespace clojure.core, :var unchecked-char}
-  {:namespace clojure.core, :var unchecked-dec}
-  {:namespace clojure.core, :var unchecked-dec-int}
-  {:namespace clojure.core, :var unchecked-divide-int}
-  {:namespace clojure.core, :var unchecked-double}
-  {:namespace clojure.core, :var unchecked-float}
-  {:namespace clojure.core, :var unchecked-inc}
-  {:namespace clojure.core, :var unchecked-inc-int}
-  {:namespace clojure.core, :var unchecked-int}
-  {:namespace clojure.core, :var unchecked-long}
-  {:namespace clojure.core, :var unchecked-multiply}
-  {:namespace clojure.core, :var unchecked-multiply-int}
-  {:namespace clojure.core, :var unchecked-negate}
-  {:namespace clojure.core, :var unchecked-negate-int}
   {:namespace clojure.core, :var unchecked-remainder-int}
-  {:namespace clojure.core, :var unchecked-short}
-  {:namespace clojure.core, :var unchecked-subtract}
-  {:namespace clojure.core, :var unchecked-subtract-int}
-  {:namespace clojure.core, :var underive}
-  {:namespace clojure.core, :var unquote}
-  {:namespace clojure.core, :var unquote-splicing}
-  {:namespace clojure.core, :var unreduced}
   {:namespace clojure.core, :var unsigned-bit-shift-right}
-  {:namespace clojure.core, :var update}
-  {:namespace clojure.core, :var update-in}
-  {:namespace clojure.core, :var update-keys}
-  {:namespace clojure.core, :var update-proxy}
-  {:namespace clojure.core, :var update-vals}
   {:namespace clojure.core, :var uri?}
-  {:namespace clojure.core, :var use}
-  {:namespace clojure.core, :var uuid?}
-  {:namespace clojure.core, :var val}
-  {:namespace clojure.core, :var vals}
-  {:namespace clojure.core, :var var-get}
-  {:namespace clojure.core, :var var-set}
-  {:namespace clojure.core, :var var?}
-  {:namespace clojure.core, :var vary-meta}
-  {:namespace clojure.core, :var vec}
-  {:namespace clojure.core, :var vector}
   {:namespace clojure.core, :var vector-of}
-  {:namespace clojure.core, :var vector?}
-  {:namespace clojure.core, :var volatile!}
-  {:namespace clojure.core, :var volatile?}
-  {:namespace clojure.core, :var vreset!}
-  {:namespace clojure.core, :var vswap!}
-  {:namespace clojure.core, :var when}
-  {:namespace clojure.core, :var when-first}
-  {:namespace clojure.core, :var when-let}
-  {:namespace clojure.core, :var when-not}
-  {:namespace clojure.core, :var when-some}
-  {:namespace clojure.core, :var while}
-  {:namespace clojure.core, :var with-bindings}
-  {:namespace clojure.core, :var with-bindings*}
-  {:namespace clojure.core, :var with-in-str}
   {:namespace clojure.core, :var with-loading-context}
   {:namespace clojure.core, :var with-local-vars}
-  {:namespace clojure.core, :var with-meta}
-  {:namespace clojure.core, :var with-open}
-  {:namespace clojure.core, :var with-out-str}
-  {:namespace clojure.core, :var with-precision}
-  {:namespace clojure.core, :var with-redefs}
-  {:namespace clojure.core, :var with-redefs-fn}
   {:namespace clojure.core, :var xml-seq}
-  {:namespace clojure.core, :var zero?}
-  {:namespace clojure.core, :var zipmap}
-  {:namespace clojure.core.protocols, :var CollReduce}
   {:namespace clojure.core.protocols, :var Datafiable}
   {:namespace clojure.core.protocols, :var IKVReduce}
   {:namespace clojure.core.protocols, :var InternalReduce}
   {:namespace clojure.core.protocols, :var Navigable}
-  {:namespace clojure.core.protocols, :var coll-reduce}
   {:namespace clojure.core.protocols, :var datafy}
   {:namespace clojure.core.protocols, :var internal-reduce}
   {:namespace clojure.core.protocols, :var iterator-reduce!}
-  {:namespace clojure.core.protocols, :var kv-reduce}
   {:namespace clojure.core.protocols, :var nav}
   {:namespace clojure.core.reducers, :var ->Cat}
   {:namespace clojure.core.reducers, :var CollFold}
@@ -853,13 +1768,10 @@
   {:namespace clojure.core.reducers, :var take-while}
   {:namespace clojure.data, :var Diff}
   {:namespace clojure.data, :var EqualityPartition}
-  {:namespace clojure.data, :var diff}
   {:namespace clojure.data, :var diff-similar}
   {:namespace clojure.data, :var equality-partition}
   {:namespace clojure.datafy, :var datafy}
   {:namespace clojure.datafy, :var nav}
-  {:namespace clojure.edn, :var read}
-  {:namespace clojure.edn, :var read-string}
   {:namespace clojure.instant, :var parse-timestamp}
   {:namespace clojure.instant, :var read-instant-calendar}
   {:namespace clojure.instant, :var read-instant-date}
@@ -910,44 +1822,12 @@
   {:namespace clojure.math, :var to-degrees}
   {:namespace clojure.math, :var to-radians}
   {:namespace clojure.math, :var ulp}
-  {:namespace clojure.pprint, :var *print-base*}
-  {:namespace clojure.pprint, :var *print-miser-width*}
-  {:namespace clojure.pprint, :var *print-pprint-dispatch*}
-  {:namespace clojure.pprint, :var *print-pretty*}
-  {:namespace clojure.pprint, :var *print-radix*}
-  {:namespace clojure.pprint, :var *print-right-margin*}
-  {:namespace clojure.pprint, :var *print-suppress-namespaces*}
   {:namespace clojure.pprint, :var cl-format}
   {:namespace clojure.pprint, :var code-dispatch}
   {:namespace clojure.pprint, :var formatter}
   {:namespace clojure.pprint, :var formatter-out}
   {:namespace clojure.pprint, :var fresh-line}
-  {:namespace clojure.pprint, :var get-pretty-writer}
-  {:namespace clojure.pprint, :var pp}
-  {:namespace clojure.pprint, :var pprint}
-  {:namespace clojure.pprint, :var pprint-indent}
-  {:namespace clojure.pprint, :var pprint-logical-block}
-  {:namespace clojure.pprint, :var pprint-newline}
   {:namespace clojure.pprint, :var pprint-tab}
-  {:namespace clojure.pprint, :var print-length-loop}
-  {:namespace clojure.pprint, :var print-table}
-  {:namespace clojure.pprint, :var set-pprint-dispatch}
-  {:namespace clojure.pprint, :var simple-dispatch}
-  {:namespace clojure.pprint, :var with-pprint-dispatch}
-  {:namespace clojure.pprint, :var write}
-  {:namespace clojure.pprint, :var write-out}
-  {:namespace clojure.set, :var difference}
-  {:namespace clojure.set, :var index}
-  {:namespace clojure.set, :var intersection}
-  {:namespace clojure.set, :var join}
-  {:namespace clojure.set, :var map-invert}
-  {:namespace clojure.set, :var project}
-  {:namespace clojure.set, :var rename}
-  {:namespace clojure.set, :var rename-keys}
-  {:namespace clojure.set, :var select}
-  {:namespace clojure.set, :var subset?}
-  {:namespace clojure.set, :var superset?}
-  {:namespace clojure.set, :var union}
   {:namespace clojure.spec.alpha, :var &}
   {:namespace clojure.spec.alpha, :var *}
   {:namespace clojure.spec.alpha, :var *coll-check-limit*}
@@ -1035,29 +1915,10 @@
   {:namespace clojure.spec.alpha, :var valid?}
   {:namespace clojure.spec.alpha, :var with-gen}
   {:namespace clojure.spec.alpha, :var with-gen*}
-  {:namespace clojure.string, :var blank?}
-  {:namespace clojure.string, :var capitalize}
-  {:namespace clojure.string, :var ends-with?}
   {:namespace clojure.string, :var escape}
-  {:namespace clojure.string, :var includes?}
-  {:namespace clojure.string, :var index-of}
-  {:namespace clojure.string, :var join}
-  {:namespace clojure.string, :var last-index-of}
-  {:namespace clojure.string, :var lower-case}
-  {:namespace clojure.string, :var re-quote-replacement}
-  {:namespace clojure.string, :var replace}
-  {:namespace clojure.string, :var replace-first}
-  {:namespace clojure.string, :var reverse}
-  {:namespace clojure.string, :var split}
-  {:namespace clojure.string, :var split-lines}
-  {:namespace clojure.string, :var starts-with?}
-  {:namespace clojure.string, :var trim}
   {:namespace clojure.string, :var trim-newline}
   {:namespace clojure.string, :var triml}
   {:namespace clojure.string, :var trimr}
-  {:namespace clojure.string, :var upper-case}
-  {:namespace clojure.template, :var apply-template}
-  {:namespace clojure.template, :var do-template}
   {:namespace clojure.test, :var *initial-report-counters*}
   {:namespace clojure.test, :var *load-tests*}
   {:namespace clojure.test, :var *report-counters*}
@@ -1065,20 +1926,15 @@
   {:namespace clojure.test, :var *test-out*}
   {:namespace clojure.test, :var *testing-contexts*}
   {:namespace clojure.test, :var *testing-vars*}
-  {:namespace clojure.test, :var are}
   {:namespace clojure.test, :var assert-any}
   {:namespace clojure.test, :var assert-expr}
   {:namespace clojure.test, :var assert-predicate}
-  {:namespace clojure.test, :var compose-fixtures}
-  {:namespace clojure.test, :var deftest}
   {:namespace clojure.test, :var deftest-}
   {:namespace clojure.test, :var do-report}
   {:namespace clojure.test, :var file-position}
   {:namespace clojure.test, :var function?}
   {:namespace clojure.test, :var get-possibly-unbound-var}
   {:namespace clojure.test, :var inc-report-counter}
-  {:namespace clojure.test, :var is}
-  {:namespace clojure.test, :var join-fixtures}
   {:namespace clojure.test, :var report}
   {:namespace clojure.test, :var run-all-tests}
   {:namespace clojure.test, :var run-test}
@@ -1090,23 +1946,11 @@
   {:namespace clojure.test, :var test-ns}
   {:namespace clojure.test, :var test-var}
   {:namespace clojure.test, :var test-vars}
-  {:namespace clojure.test, :var testing}
   {:namespace clojure.test, :var testing-contexts-str}
   {:namespace clojure.test, :var testing-vars-str}
   {:namespace clojure.test, :var try-expr}
-  {:namespace clojure.test, :var use-fixtures}
   {:namespace clojure.test, :var with-test}
   {:namespace clojure.test, :var with-test-out}
-  {:namespace clojure.walk, :var keywordize-keys}
-  {:namespace clojure.walk, :var macroexpand-all}
-  {:namespace clojure.walk, :var postwalk}
-  {:namespace clojure.walk, :var postwalk-demo}
-  {:namespace clojure.walk, :var postwalk-replace}
-  {:namespace clojure.walk, :var prewalk}
-  {:namespace clojure.walk, :var prewalk-demo}
-  {:namespace clojure.walk, :var prewalk-replace}
-  {:namespace clojure.walk, :var stringify-keys}
-  {:namespace clojure.walk, :var walk}
   {:namespace clojure.zip, :var append-child}
   {:namespace clojure.zip, :var branch?}
   {:namespace clojure.zip, :var children}
