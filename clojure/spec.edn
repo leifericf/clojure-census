@@ -6,6 +6,21 @@
 ;; :target-namespaces -- what we compare against
 ;; :excluded-namespaces -- what we explicitly do NOT compare against,
 ;;   with a reason that makes the exclusion auditable.
+;;
+;; ---- regenerating the vendored surface ----
+;; The reference surface (1.12.4-surface.edn) is hand-vendored. To
+;; refresh it for a new Clojure version:
+;;
+;;   1. Update :version and :surface-file above to the new release.
+;;   2. Run the portable surface-dump under JVM Clojure 1.X.Y:
+;;
+;;        CLOJURE_SPEC_PATH=clojure/spec.edn DIALECT_TAG=clojure \
+;;          clojure -M scripts/surface_dump.cljc > clojure/<new>-surface.edn
+;;
+;;   3. Audit the diff between the old and new surface files, then
+;;      commit both in one PR. There is no nightly automation for
+;;      the reference -- the namespace list and exclusions need
+;;      human review when a new Clojure release lands.
 {:version           "1.12.4"
  :surface-file      "1.12.4-surface.edn"
  :captured-at       "2026-05-22T00:00:00Z"
