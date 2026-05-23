@@ -22,6 +22,10 @@
   :dialect-example "(compare \"z\" \"a\") ;=> 1"
   :clojure-example   "(compare \"z\" \"a\") ;=> 25"
   :affected        [clojure.core/compare]
+  :behavior        {:expectation :diverges
+                    :predicate   :sign-normalized
+                    :note        "Same sign as JVM compare; magnitude
+                                  collapsed to -1/0/1."}
   :doc-link        "/coming-from-clojure#ordering"}
 
  {:id              :one-integer-tier
@@ -53,6 +57,10 @@
   :dialect-example "(type [1 2 3]) ;=> :vector"
   :clojure-example   "(type [1 2 3]) ;=> clojure.lang.PersistentVector"
   :affected        [clojure.core/type clojure.core/class]
+  :behavior        {:expectation :diverges
+                    :predicate   :keyword-vs-class
+                    :note        "Oracle returns a Class object; mino
+                                  returns the analogous keyword tag."}
   :doc-link        "/coming-from-clojure#types"}
 
  {:id              :class-of-non-jvm
@@ -62,7 +70,11 @@
                     Clojure-shaped alias rather than a separate
                     abstraction."
   :since           "v0.1.0"
-  :affected        [clojure.core/class clojure.core/class? clojure.core/instance?]}
+  :affected        [clojure.core/class clojure.core/class? clojure.core/instance?]
+  :behavior        {:expectation :diverges
+                    :predicate   :keyword-vs-class
+                    :note        "Same shape as :type-as-keyword for
+                                  the class accessor."}}
 
  {:id              :ex-info-no-jvm-throwable-hierarchy
   :title           "ex-info / throw use mino-native exception type"
@@ -74,6 +86,10 @@
   :since           "v0.1.0"
   :affected        [clojure.core/ex-info clojure.core/ex-data
                     clojure.core/ex-message clojure.core/ex-cause]
+  :behavior        {:expectation :skip
+                    :note        "Exception type/message comparison is
+                                  out of scope per the README's
+                                  error-message exclusion."}
   :doc-link        "/coming-from-clojure#exceptions"}
 
  {:id              :no-jvm-class-statics
