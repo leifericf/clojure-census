@@ -7,7 +7,23 @@
   clojure-only). Mismatches are still surfaced in the dashboard, but
   they don't reduce the headline number -- that's a behavior-parity
   question, not a coverage question."
-  (:require [clj-census.schema :as schema]))
+  (:require [clojure.spec.alpha :as s]
+            [clj-census.schema :as schema]))
+
+;; ===== specs =======================================================
+
+(s/def ::in-both-count nat-int?)
+(s/def ::clojure-total nat-int?)
+(s/def ::percent       (s/and number? #(<= 0 % 1)))
+
+(s/def ::coverage-stat
+  (s/keys :req-un [::in-both-count ::clojure-total ::percent]))
+
+(s/def ::headline      ::coverage-stat)
+(s/def ::per-namespace (s/map-of simple-symbol? ::coverage-stat))
+
+(s/def ::coverage
+  (s/keys :req-un [::headline ::per-namespace]))
 
 (defn- safe-ratio
   "Return `(/ n d)` but yield `0.0` when `d` is zero."
@@ -40,7 +56,7 @@
                              :clojure-total   headline-tot
                              :percent       (safe-ratio headline-in headline-tot)}
              :per-namespace per-ns}]
-    (schema/assert-conforms! ::schema/coverage out "coverage")
+    (schema/assert-conforms! ::coverage out "coverage")
     out))
 
 (defn percent-as-pct-string

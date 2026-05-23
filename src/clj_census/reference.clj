@@ -7,14 +7,44 @@
   The spec is hand-curated in `clojure/spec.edn` and bumped via a
   small PR when a new Clojure release is adopted."
   (:require [clojure.edn :as edn]
-            [clj-census.schema :as schema]))
+            [clojure.spec.alpha :as s]
+            [clj-census.schema  :as schema]
+            [clj-census.surface :as surface]))
 
 (def reference-dir "clojure")
+
+;; ===== specs =======================================================
+
+(s/def ::version       ::schema/non-blank-string)
+(s/def ::surface-file  ::schema/non-blank-string)
+(s/def ::captured-at   ::schema/iso-timestamp)
+(s/def ::ns            simple-symbol?)
+(s/def ::priority      #{:critical :high :medium :low})
+(s/def ::since         ::schema/non-blank-string)
+(s/def ::reason        ::schema/non-blank-string)
+
+(s/def ::target-ns
+  (s/keys :req-un [::ns ::priority]
+          :opt-un [::since]))
+
+(s/def ::excluded-ns
+  (s/keys :req-un [::ns ::reason]))
+
+(s/def ::target-namespaces
+  (s/coll-of ::target-ns :kind sequential? :min-count 1))
+(s/def ::excluded-namespaces
+  (s/coll-of ::excluded-ns :kind sequential?))
+
+(s/def ::clojure-spec
+  (s/keys :req-un [::version ::surface-file ::captured-at ::target-namespaces]
+          :opt-un [::excluded-namespaces]))
+
+;; ===== operations ==================================================
 
 (defn validate!
   "Schema-validate `spec` and return `true` on success."
   [spec]
-  (schema/assert-conforms! ::schema/clojure-spec spec "clojure-spec")
+  (schema/assert-conforms! ::clojure-spec spec "clojure-spec")
   true)
 
 (defn target-namespaces
@@ -66,8 +96,8 @@
   `spec`."
   [spec & {:keys [base-dir]
            :or   {base-dir "."}}]
-  (let [path    (str base-dir "/" (surface-path spec))
-        surface (-> path slurp edn/read-string)]
-    (schema/assert-conforms! ::schema/surface surface
+  (let [path (str base-dir "/" (surface-path spec))
+        s    (-> path slurp edn/read-string)]
+    (schema/assert-conforms! ::surface/surface s
                              (str "Clojure (JVM) surface at " path))
-    surface))
+    s))

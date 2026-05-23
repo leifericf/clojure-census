@@ -1,26 +1,38 @@
 (ns clj-census.schema-test
-  "Spec definitions are the contract between every namespace. These
-  tests pin the shape of each data structure that flows through the
-  pipeline."
+  "Cross-domain spec contract tests. The per-domain specs themselves
+  live in their entity namespaces (clj-census.surface, .comparison,
+  etc.); this file pins the shape of each data structure that flows
+  through the pipeline as a single browse-able overview, and exercises
+  the cross-cutting validator helpers in clj-census.schema."
   (:require [clojure.test :refer [deftest is testing]]
             [clojure.spec.alpha :as s]
             [clojure.test.check.clojure-test :refer [defspec]]
             [clojure.test.check.generators :as gen]
             [clojure.test.check.properties :as prop]
-            [clj-census.schema :as schema]))
+            [clj-census.category   :as category]
+            [clj-census.comparison :as comparison]
+            [clj-census.coverage   :as coverage]
+            [clj-census.dialect    :as dialect]
+            [clj-census.divergence :as divergence]
+            [clj-census.drift      :as drift]
+            [clj-census.extension  :as extension]
+            [clj-census.history    :as history]
+            [clj-census.reference  :as reference]
+            [clj-census.schema     :as schema]
+            [clj-census.surface    :as surface]))
 
 ;; ----- var-entry ---------------------------------------------------
 
 (deftest var-entry-minimal
-  (is (s/valid? ::schema/var-entry {:arglists '([x] [x y])}))
-  (is (s/valid? ::schema/var-entry {:arglists '([])}))
+  (is (s/valid? ::surface/var-entry {:arglists '([x] [x y])}))
+  (is (s/valid? ::surface/var-entry {:arglists '([])}))
   (testing "empty map is legal -- some vars have no metadata"
-    (is (s/valid? ::schema/var-entry {})))
+    (is (s/valid? ::surface/var-entry {})))
   (testing "vars with only :dynamic (like *ns*) are legal"
-    (is (s/valid? ::schema/var-entry {:dynamic true}))))
+    (is (s/valid? ::surface/var-entry {:dynamic true}))))
 
 (deftest var-entry-rich
-  (is (s/valid? ::schema/var-entry
+  (is (s/valid? ::surface/var-entry
                 {:arglists '([f coll])
                  :doc      "returns a lazy seq..."
                  :added    "1.0"
@@ -30,26 +42,26 @@
                  :line     2680})))
 
 (deftest var-entry-rejects-wrong-arglists-shape
-  (is (not (s/valid? ::schema/var-entry {:arglists "x"})))
-  (is (not (s/valid? ::schema/var-entry {:arglists 5}))))
+  (is (not (s/valid? ::surface/var-entry {:arglists "x"})))
+  (is (not (s/valid? ::surface/var-entry {:arglists 5}))))
 
 (deftest var-entry-accepts-destructuring-arglists
   (testing "real-world :arglists carry map and vector destructure forms"
-    (is (s/valid? ::schema/var-entry
+    (is (s/valid? ::surface/var-entry
                   {:arglists '([{:keys [a b]} c])}))
-    (is (s/valid? ::schema/var-entry
+    (is (s/valid? ::surface/var-entry
                   {:arglists '([& {:as opts}])}))
-    (is (s/valid? ::schema/var-entry
+    (is (s/valid? ::surface/var-entry
                   {:arglists '([[x y] z])}))))
 
 (deftest var-entry-rejects-non-boolean-flags
-  (is (not (s/valid? ::schema/var-entry {:macro "true"})))
-  (is (not (s/valid? ::schema/var-entry {:dynamic 1}))))
+  (is (not (s/valid? ::surface/var-entry {:macro "true"})))
+  (is (not (s/valid? ::surface/var-entry {:dynamic 1}))))
 
 ;; ----- surface -----------------------------------------------------
 
 (deftest surface-minimal
-  (is (s/valid? ::schema/surface
+  (is (s/valid? ::surface/surface
                 {:dialect-tag     "mino"
                  :clojure-version "1.12.4"
                  :captured-at     "2026-05-22T10:30:00Z"
@@ -57,30 +69,30 @@
                                    {:vars {'map {:arglists '([f coll])}}}}})))
 
 (deftest surface-rejects-bad-timestamp
-  (is (not (s/valid? ::schema/surface
+  (is (not (s/valid? ::surface/surface
                      {:dialect-tag     "mino"
                       :clojure-version "1.12.4"
                       :captured-at     "yesterday"
                       :namespaces      {}}))))
 
 (deftest surface-rejects-non-symbol-namespace-keys
-  (is (not (s/valid? ::schema/surface
+  (is (not (s/valid? ::surface/surface
                      {:dialect-tag     "mino"
                       :clojure-version "1.12.4"
                       :captured-at     "2026-05-22T10:30:00Z"
                       :namespaces      {"clojure.core" {:vars {}}}}))))
 
-;; ----- clojure-spec --------------------------------------------------
+;; ----- reference (clojure-spec) ------------------------------------
 
 (deftest clojure-spec-minimal
-  (is (s/valid? ::schema/clojure-spec
+  (is (s/valid? ::reference/clojure-spec
                 {:version           "1.12.4"
                  :surface-file      "clojure-1.12.4-surface.edn"
                  :captured-at       "2026-05-22T10:30:00Z"
                  :target-namespaces [{:ns 'clojure.core :priority :critical}]})))
 
 (deftest clojure-spec-rejects-invalid-priority
-  (is (not (s/valid? ::schema/clojure-spec
+  (is (not (s/valid? ::reference/clojure-spec
                      {:version           "1.12.4"
                       :surface-file      "x"
                       :captured-at       "2026-05-22T10:30:00Z"
@@ -90,7 +102,7 @@
 ;; ----- dialect-config ----------------------------------------------
 
 (deftest dialect-config-minimal
-  (is (s/valid? ::schema/dialect-config
+  (is (s/valid? ::dialect/dialect-config
                 {:name             "mino"
                  :tag              "mino"
                  :role             :sut
@@ -101,7 +113,7 @@
                  :output-dir       "output/mino"})))
 
 (deftest dialect-config-with-normalization
-  (is (s/valid? ::schema/dialect-config
+  (is (s/valid? ::dialect/dialect-config
                 {:name             "ClojureScript"
                  :tag              "cljs"
                  :role             :sut
@@ -114,7 +126,7 @@
                  {:namespace-renames {'cljs.core 'clojure.core}}})))
 
 (deftest dialect-config-rejects-empty-cmd
-  (is (not (s/valid? ::schema/dialect-config
+  (is (not (s/valid? ::dialect/dialect-config
                      {:name             "x"
                       :tag              "x"
                       :role             :sut
@@ -126,13 +138,13 @@
 ;; ----- category ----------------------------------------------------
 
 (deftest category-minimal
-  (is (s/valid? ::schema/category
+  (is (s/valid? ::category/category
                 {:id          :ordering
                  :title       "Ordering & comparison"
                  :description "How sort, compare, and ordered iteration work."})))
 
 (deftest categories-coll
-  (is (s/valid? ::schema/categories
+  (is (s/valid? ::category/categories
                 [{:id          :ordering
                   :title       "Ordering"
                   :description "x"}
@@ -141,13 +153,13 @@
                   :description "y"}])))
 
 (deftest category-rejects-empty-title
-  (is (not (s/valid? ::schema/category
+  (is (not (s/valid? ::category/category
                      {:id :x :title "" :description "y"}))))
 
 ;; ----- divergence --------------------------------------------------
 
 (deftest divergence-minimal
-  (is (s/valid? ::schema/divergence
+  (is (s/valid? ::divergence/divergence
                 {:id          :compare-sign-normalized
                  :title       "compare returns sign-only"
                  :category-id :ordering
@@ -155,7 +167,7 @@
                  :since       "v0.1.0"})))
 
 (deftest divergence-with-examples
-  (is (s/valid? ::schema/divergence
+  (is (s/valid? ::divergence/divergence
                 {:id              :compare-sign-normalized
                  :title           "compare returns sign-only"
                  :category-id     :ordering
@@ -169,7 +181,7 @@
 ;; ----- extension ---------------------------------------------------
 
 (deftest extension-minimal
-  (is (s/valid? ::schema/extension
+  (is (s/valid? ::extension/extension
                 {:id             :integer-radix-strings
                  :title          "JVM static method mirrors for integer radix"
                  :affected-names ["clojure.core/Integer/toBinaryString"
@@ -181,7 +193,7 @@
 ;; ----- comparison --------------------------------------------------
 
 (deftest comparison-minimal
-  (is (s/valid? ::schema/comparison
+  (is (s/valid? ::comparison/comparison
                 {:clojure-tag           "clojure"
                  :dialect-tag         "mino"
                  :compared-at         "2026-05-22T10:30:00Z"
@@ -193,7 +205,7 @@
                    :mismatches    []}}})))
 
 (deftest comparison-with-mismatch
-  (is (s/valid? ::schema/comparison
+  (is (s/valid? ::comparison/comparison
                 {:clojure-tag           "clojure"
                  :dialect-tag         "mino"
                  :compared-at         "2026-05-22T10:30:00Z"
@@ -209,15 +221,15 @@
 ;; ----- coverage ----------------------------------------------------
 
 (deftest coverage-stat
-  (is (s/valid? ::schema/coverage-stat
+  (is (s/valid? ::coverage/coverage-stat
                 {:in-both-count 100 :clojure-total 120 :percent 0.833})))
 
 (deftest coverage-stat-rejects-percent-out-of-range
-  (is (not (s/valid? ::schema/coverage-stat
+  (is (not (s/valid? ::coverage/coverage-stat
                      {:in-both-count 1 :clojure-total 1 :percent 2.5}))))
 
 (deftest coverage-shape
-  (is (s/valid? ::schema/coverage
+  (is (s/valid? ::coverage/coverage
                 {:headline      {:in-both-count 100 :clojure-total 120 :percent 0.833}
                  :per-namespace {'clojure.core
                                  {:in-both-count 80 :clojure-total 100 :percent 0.8}}})))
@@ -225,7 +237,7 @@
 ;; ----- drift -------------------------------------------------------
 
 (deftest drift-minimal
-  (is (s/valid? ::schema/drift
+  (is (s/valid? ::drift/drift
                 {:from-date       "2026-05-20"
                  :to-date         "2026-05-22"
                  :added-vars      #{'clojure.core/new-fn}
@@ -236,7 +248,7 @@
 ;; ----- history snapshot --------------------------------------------
 
 (deftest history-snapshot
-  (is (s/valid? ::schema/history-snapshot
+  (is (s/valid? ::history/history-snapshot
                 {:date            "2026-05-22"
                  :dialect-tag     "mino"
                  :clojure-version "1.12.4"
@@ -245,22 +257,22 @@
 ;; ----- explain/assert helpers -------------------------------------
 
 (deftest explain-str-conforming
-  (is (nil? (schema/explain-str ::schema/var-entry {:arglists '([x])}))))
+  (is (nil? (schema/explain-str ::surface/var-entry {:arglists '([x])}))))
 
 (deftest explain-str-non-conforming
-  (let [msg (schema/explain-str ::schema/var-entry {:arglists 5})]
+  (let [msg (schema/explain-str ::surface/var-entry {:arglists 5})]
     (is (string? msg))
     (is (pos? (count msg)))))
 
 (deftest assert-conforms-passes
-  (is (nil? (schema/assert-conforms! ::schema/var-entry {:arglists '([x])} "test"))))
+  (is (nil? (schema/assert-conforms! ::surface/var-entry {:arglists '([x])} "test"))))
 
 (deftest assert-conforms-throws
   (is (thrown? clojure.lang.ExceptionInfo
-               (schema/assert-conforms! ::schema/var-entry
+               (schema/assert-conforms! ::surface/var-entry
                                         {:arglists "not-a-list"} "test")))
   (try
-    (schema/assert-conforms! ::schema/var-entry
+    (schema/assert-conforms! ::surface/var-entry
                              {:arglists "not-a-list"} "in test")
     (catch clojure.lang.ExceptionInfo e
       (is (re-find #"in test" (.getMessage e)))
@@ -292,5 +304,5 @@
                 (let [printed  (binding [*print-namespace-maps* false]
                                  (pr-str entry))
                       readback (read-string printed)]
-                  (and (s/valid? ::schema/var-entry entry)
+                  (and (s/valid? ::surface/var-entry entry)
                        (= entry readback)))))

@@ -9,8 +9,32 @@
   `:dialect-only` set against this registry to distinguish
   intentional extensions from accidental drift."
   (:require [clojure.edn :as edn]
+            [clojure.spec.alpha :as s]
             [clj-census.category :as category]
             [clj-census.schema   :as schema]))
+
+;; ===== specs =======================================================
+;;
+;; `:affected-names` (string vector) carries the names exposed by the
+;; extension. Strings (not symbols) because JVM-static-style names like
+;; `Integer/toBinaryString` are not valid Clojure symbols -- the name
+;; part cannot contain `/`.
+
+(s/def ::id              keyword?)
+(s/def ::title           ::schema/non-blank-string)
+(s/def ::category-id     keyword?)
+(s/def ::rationale       ::schema/non-blank-string)
+(s/def ::since           ::schema/non-blank-string)
+(s/def ::doc-link        ::schema/non-blank-string)
+(s/def ::affected-names
+  (s/coll-of ::schema/non-blank-string :kind sequential? :min-count 1))
+
+(s/def ::extension
+  (s/keys :req-un [::id ::title ::category-id ::rationale ::since
+                   ::affected-names]
+          :opt-un [::doc-link]))
+
+(s/def ::extensions (s/coll-of ::extension :kind sequential?))
 
 ;; ===== pure operations =============================================
 
@@ -27,7 +51,7 @@
   "Schema-validate `extensions` and enforce referential integrity
   against `categories`. Returns `true` on success."
   [extensions categories]
-  (schema/assert-conforms! ::schema/extensions extensions "extensions")
+  (schema/assert-conforms! ::extensions extensions "extensions")
   (let [known (category/known-ids categories)
         dups  (duplicate-ids extensions)]
     (when (seq dups)

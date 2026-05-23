@@ -6,7 +6,17 @@
   Pure data + pure operations. The on-disk file `data/categories.edn`
   is parsed by `read-file` (IO) into this namespace's domain."
   (:require [clojure.edn :as edn]
+            [clojure.spec.alpha :as s]
             [clj-census.schema :as schema]))
+
+;; ===== specs =======================================================
+
+(s/def ::id          keyword?)
+(s/def ::title       ::schema/non-blank-string)
+(s/def ::description ::schema/non-blank-string)
+
+(s/def ::category    (s/keys :req-un [::id ::title ::description]))
+(s/def ::categories  (s/coll-of ::category :kind sequential? :min-count 1))
 
 ;; ===== pure operations =============================================
 
@@ -38,7 +48,7 @@
   "Schema-validate `categories` and reject duplicate `:id`s. Return
   `true` on success; throw `ex-info` on failure with rich context."
   [categories]
-  (schema/assert-conforms! ::schema/categories categories "categories")
+  (schema/assert-conforms! ::categories categories "categories")
   (let [dups (duplicate-ids categories)]
     (when (seq dups)
       (throw (ex-info (str "categories: duplicate :id "

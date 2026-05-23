@@ -3,7 +3,7 @@
   both for daily delta on a single dialect (yesterday vs. today)
   and for clojure-version bumps (Clojure 1.12 vs. 1.13).
 
-  Output shape (see ::schema/drift):
+  Output shape (see ::drift):
 
       {:from-date \"YYYY-MM-DD\"
        :to-date   \"YYYY-MM-DD\"
@@ -14,7 +14,34 @@
 
   Pure transformation."
   (:require [clojure.set :as cset]
+            [clojure.spec.alpha :as s]
             [clj-census.schema :as schema]))
+
+;; ===== specs =======================================================
+;;
+;; Drift uses `:added-vars` / `:removed-vars` (not the unqualified
+;; `:added` / `:removed` keys) so the var-entry's `:added` (Clojure
+;; version-since string) and the drift's "newly-added vars" set don't
+;; collide on the same unqualified spec key.
+
+(s/def ::from-date      ::schema/iso-date)
+(s/def ::to-date        ::schema/iso-date)
+(s/def ::added-vars     (s/coll-of qualified-symbol? :kind set?))
+(s/def ::removed-vars   (s/coll-of qualified-symbol? :kind set?))
+(s/def ::var            qualified-symbol?)
+(s/def ::before         map?)
+(s/def ::after          map?)
+(s/def ::coverage-delta number?)
+
+(s/def ::changed-entry
+  (s/keys :req-un [::var]
+          :opt-un [::before ::after]))
+
+(s/def ::changed (s/coll-of ::changed-entry :kind sequential?))
+
+(s/def ::drift
+  (s/keys :req-un [::from-date ::to-date ::added-vars ::removed-vars
+                   ::changed ::coverage-delta]))
 
 (defn- date-prefix
   "Extract the `YYYY-MM-DD` portion of an ISO timestamp."
@@ -61,5 +88,5 @@
                      :removed-vars   (cset/difference before-vars after-vars)
                      :changed        changed
                      :coverage-delta (double coverage-delta)}]
-    (schema/assert-conforms! ::schema/drift out "drift")
+    (schema/assert-conforms! ::drift out "drift")
     out))

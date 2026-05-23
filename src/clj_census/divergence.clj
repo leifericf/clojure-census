@@ -7,8 +7,27 @@
   Loading validates both the schema shape and referential integrity
   (`:category-id` must exist in the supplied categories collection)."
   (:require [clojure.edn :as edn]
+            [clojure.spec.alpha :as s]
             [clj-census.category :as category]
             [clj-census.schema   :as schema]))
+
+;; ===== specs =======================================================
+
+(s/def ::id              keyword?)
+(s/def ::title           ::schema/non-blank-string)
+(s/def ::category-id     keyword?)
+(s/def ::rationale       ::schema/non-blank-string)
+(s/def ::since           ::schema/non-blank-string)
+(s/def ::dialect-example ::schema/non-blank-string)
+(s/def ::clojure-example ::schema/non-blank-string)
+(s/def ::affected        (s/coll-of qualified-symbol? :kind sequential? :min-count 1))
+(s/def ::doc-link        ::schema/non-blank-string)
+
+(s/def ::divergence
+  (s/keys :req-un [::id ::title ::category-id ::rationale ::since]
+          :opt-un [::dialect-example ::clojure-example ::affected ::doc-link]))
+
+(s/def ::divergences (s/coll-of ::divergence :kind sequential?))
 
 ;; ===== pure operations =============================================
 
@@ -25,7 +44,7 @@
   "Schema-validate `divergences` and enforce referential integrity
   against `categories`. Returns `true` on success."
   [divergences categories]
-  (schema/assert-conforms! ::schema/divergences divergences "divergences")
+  (schema/assert-conforms! ::divergences divergences "divergences")
   (let [known (category/known-ids categories)
         dups  (duplicate-ids divergences)]
     (when (seq dups)

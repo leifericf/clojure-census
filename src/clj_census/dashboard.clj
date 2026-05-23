@@ -14,7 +14,31 @@
   the output. Iteration order over namespaces is stable
   (`clojure-spec` declaration order)."
   (:require [clojure.java.io :as io]
-            [clojure.pprint  :as pprint]))
+            [clojure.pprint  :as pprint]
+            [clojure.spec.alpha   :as s]
+            [clj-census.category   :as category]
+            [clj-census.comparison :as comparison]
+            [clj-census.coverage   :as coverage]
+            [clj-census.divergence :as divergence]
+            [clj-census.drift      :as drift]
+            [clj-census.extension  :as extension]
+            [clj-census.history    :as history]))
+
+;; ===== specs =======================================================
+
+(s/def ::comparison  ::comparison/comparison)
+(s/def ::coverage    ::coverage/coverage)
+(s/def ::divergences ::divergence/divergences)
+(s/def ::extensions  ::extension/extensions)
+(s/def ::categories  ::category/categories)
+(s/def ::drift       ::drift/drift)
+(s/def ::history     ::history/history)
+(s/def ::badge-info  map?)
+
+(s/def ::dashboard-input
+  (s/keys :req-un [::comparison ::coverage ::divergences ::extensions
+                   ::categories]
+          :opt-un [::drift ::history ::badge-info]))
 
 ;; ===== EDN ========================================================
 

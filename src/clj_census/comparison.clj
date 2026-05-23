@@ -18,7 +18,46 @@
 
   Pure data transformation: same inputs always produce the same output."
   (:require [clojure.set :as cset]
-            [clj-census.schema :as schema]))
+            [clojure.spec.alpha :as s]
+            [clj-census.schema  :as schema]
+            [clj-census.surface :as surface]))
+
+;; ===== specs =======================================================
+
+(s/def ::clojure-tag       ::schema/non-blank-string)
+(s/def ::dialect-tag       ::schema/non-blank-string)
+(s/def ::compared-at       ::schema/iso-timestamp)
+
+;; var-name within a namespace's comparison: usually simple
+;; (`map`, `filter`) but mino allows qualified-style (`Math/min`).
+(s/def ::var-name          symbol?)
+(s/def ::arglists-clojure  ::surface/arglists)
+(s/def ::arglists-dialect  ::surface/arglists)
+(s/def ::macro-clojure     boolean?)
+(s/def ::macro-dialect     boolean?)
+(s/def ::dynamic-clojure   boolean?)
+(s/def ::dynamic-dialect   boolean?)
+
+(s/def ::mismatch
+  (s/keys :req-un [::var-name]
+          :opt-un [::arglists-clojure ::arglists-dialect
+                   ::macro-clojure ::macro-dialect
+                   ::dynamic-clojure ::dynamic-dialect]))
+
+(s/def ::in-both      (s/coll-of symbol? :kind set?))
+(s/def ::clojure-only (s/coll-of symbol? :kind set?))
+(s/def ::dialect-only (s/coll-of symbol? :kind set?))
+(s/def ::mismatches   (s/coll-of ::mismatch :kind sequential?))
+
+(s/def ::ns-comparison
+  (s/keys :req-un [::in-both ::clojure-only ::dialect-only ::mismatches]))
+
+(s/def ::namespaces-compared
+  (s/map-of simple-symbol? ::ns-comparison))
+
+(s/def ::comparison
+  (s/keys :req-un [::clojure-tag ::dialect-tag ::compared-at
+                   ::namespaces-compared]))
 
 (defn- iso-utc-now []
   (let [fmt (java.text.SimpleDateFormat. "yyyy-MM-dd'T'HH:mm:ss'Z'")]
@@ -105,5 +144,5 @@
              :dialect-tag         (:dialect-tag dialect-surface)
              :compared-at         (iso-utc-now)
              :namespaces-compared namespaces-compared}]
-    (schema/assert-conforms! ::schema/comparison out "comparison")
+    (schema/assert-conforms! ::comparison out "comparison")
     out))

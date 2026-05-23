@@ -18,7 +18,40 @@
             [clojure.java.io   :as io]
             [clojure.java.shell :as sh]
             [clojure.string    :as str]
+            [clojure.spec.alpha :as s]
             [clj-census.schema :as schema]))
+
+;; ===== specs =======================================================
+
+(s/def ::name             ::schema/non-blank-string)
+(s/def ::tag              ::schema/non-blank-string)
+(s/def ::role             #{:clojure :sut})
+(s/def ::enabled          boolean?)
+(s/def ::version-cmd      (s/coll-of string? :kind sequential? :min-count 1))
+(s/def ::type             #{:subprocess})
+(s/def ::cmd              (s/coll-of string? :kind sequential? :min-count 1))
+(s/def ::invocation       (s/keys :req-un [::type ::cmd]))
+(s/def ::participates-in  (s/coll-of simple-symbol? :kind sequential? :min-count 1))
+(s/def ::data-dir         ::schema/non-blank-string)
+(s/def ::output-dir       ::schema/non-blank-string)
+
+(s/def ::namespace-renames       (s/map-of simple-symbol? simple-symbol?))
+(s/def ::strip-keys              (s/coll-of keyword? :kind sequential?))
+(s/def ::wrap-arglists           #{:sci :default})
+(s/def ::include-only-namespaces (s/coll-of simple-symbol? :kind set?))
+
+(s/def ::norm-transforms
+  (s/keys :opt-un [::namespace-renames ::strip-keys
+                   ::wrap-arglists ::include-only-namespaces]))
+
+(s/def ::surface-normalization
+  (s/or :default    #{:default}
+        :transforms ::norm-transforms))
+
+(s/def ::dialect-config
+  (s/keys :req-un [::name ::tag ::role ::invocation
+                   ::participates-in ::data-dir ::output-dir]
+          :opt-un [::enabled ::version-cmd ::surface-normalization]))
 
 ;; ===== pure operations =============================================
 
@@ -26,7 +59,7 @@
   "Schema-validate `cfg`. Returns `true` on success; throws ex-info
   with `:explain` on failure."
   [cfg]
-  (schema/assert-conforms! ::schema/dialect-config cfg "dialect-config")
+  (schema/assert-conforms! ::dialect-config cfg "dialect-config")
   true)
 
 (defn enabled?

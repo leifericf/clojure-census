@@ -10,7 +10,23 @@
   (:require [clojure.data.json :as json]
             [clojure.java.io :as io]
             [clojure.string  :as str]
-            [clj-census.schema :as schema]))
+            [clojure.spec.alpha :as s]
+            [clj-census.coverage :as coverage]
+            [clj-census.schema   :as schema]))
+
+;; ===== specs =======================================================
+
+(s/def ::date            ::schema/iso-date)
+(s/def ::dialect-tag     ::schema/non-blank-string)
+(s/def ::clojure-version ::schema/non-blank-string)
+(s/def ::headline        ::coverage/coverage-stat)
+(s/def ::per-namespace   ::coverage/per-namespace)
+
+(s/def ::history-snapshot
+  (s/keys :req-un [::date ::dialect-tag ::clojure-version ::headline]
+          :opt-un [::per-namespace]))
+
+(s/def ::history (s/coll-of ::history-snapshot :kind sequential?))
 
 ;; ===== pure operations =============================================
 
@@ -23,7 +39,7 @@
              :clojure-version clojure-version
              :headline        (:headline coverage)
              :per-namespace   (:per-namespace coverage)}]
-    (schema/assert-conforms! ::schema/history-snapshot out "history-snapshot")
+    (schema/assert-conforms! ::history-snapshot out "history-snapshot")
     out))
 
 (defn latest
@@ -65,7 +81,7 @@
   "Write `snapshot` to `dir/YYYY-MM-DD.json`. Returns the written path.
   Creates parent dirs as needed."
   [dir snapshot]
-  (schema/assert-conforms! ::schema/history-snapshot snapshot
+  (schema/assert-conforms! ::history-snapshot snapshot
                            "history-snapshot")
   (let [path (str dir "/" (:date snapshot) ".json")]
     (io/make-parents path)

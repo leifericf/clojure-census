@@ -14,16 +14,75 @@
   (:require [clojure.edn       :as edn]
             [clojure.java.io   :as io]
             [clojure.pprint    :as pp]
+            [clojure.spec.alpha :as s]
             [clj-census.dialect :as dialect]
             [clj-census.schema  :as schema]))
+
+;; ===== specs =======================================================
+;;
+;; var-entry shape mirrors what `(:arglists (meta v))` etc. produce on
+;; JVM Clojure, plus a few advisory keys. Arglist elements are
+;; Clojure forms: a plain symbol, a `&` marker, a map or vector
+;; destructure, or a tagged form. Validating beyond "sequential of
+;; arbitrary forms" requires re-implementing Clojure's binding-form
+;; parser; not v1's job.
+
+(s/def ::arglist  (s/coll-of any? :kind sequential?))
+(s/def ::arglists
+  (s/and sequential?
+         (s/coll-of ::arglist :kind sequential?)))
+
+(s/def ::doc     ::schema/non-blank-string)
+(s/def ::added   ::schema/non-blank-string)
+(s/def ::macro   boolean?)
+(s/def ::dynamic boolean?)
+(s/def ::tag     (s/or :sym symbol? :str string?))
+(s/def ::file    ::schema/non-blank-string)
+(s/def ::line    pos-int?)
+
+;; A captured Var. All keys are optional: some Vars carry no arglists
+;; (`*ns*`, namespace-aliased vars), and `:macro` / `:dynamic` are only
+;; surfaced when truthy. Empty map is a degenerate but legal value.
+(s/def ::var-entry
+  (s/keys :opt-un [::arglists ::doc ::added ::macro ::dynamic
+                   ::tag ::file ::line]))
+
+(s/def ::dialect-tag      ::schema/non-blank-string)
+(s/def ::dialect-version  ::schema/non-blank-string)
+(s/def ::clojure-version  ::schema/non-blank-string)
+(s/def ::captured-at      ::schema/iso-timestamp)
+
+;; Var-name keys are usually simple-symbol? (`map`, `filter`) but
+;; mino exposes JVM-static-name mirrors (`Math/min`, `Long/parseLong`)
+;; as qualified-style symbols in the `clojure.core` namespace. Allow
+;; either form.
+(s/def ::vars (s/map-of symbol? ::var-entry))
+
+(s/def ::ns-meta map?)
+
+(s/def ::ns-entry
+  (s/keys :req-un [::vars]
+          :opt-un [::ns-meta]))
+
+(s/def ::namespaces
+  (s/map-of simple-symbol? ::ns-entry))
+
+(s/def ::special-forms (s/coll-of simple-symbol? :kind set?))
+(s/def ::spec-keys
+  (s/coll-of (s/or :k keyword? :s qualified-symbol?) :kind set?))
+
+(s/def ::surface
+  (s/keys :req-un [::dialect-tag ::clojure-version ::captured-at
+                   ::namespaces]
+          :opt-un [::dialect-version ::special-forms ::spec-keys]))
 
 ;; ===== validation ==================================================
 
 (defn validate!
-  "Throw if `surface` does not conform to ::schema/surface; otherwise
+  "Throw if `surface` does not conform to ::surface; otherwise
   return `true`."
   [surface]
-  (schema/assert-conforms! ::schema/surface surface "surface")
+  (schema/assert-conforms! ::surface surface "surface")
   true)
 
 ;; ===== normalization DSL ===========================================
