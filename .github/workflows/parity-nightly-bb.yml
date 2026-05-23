@@ -49,6 +49,11 @@ jobs:
       - name: Capture bb surface
         run: clojure -M:run dump bb
 
+      - name: Evaluate behavior catalog
+        # Writes output/bb/behavior.edn. Diff folds it into the
+        # dashboard opportunistically on the next step.
+        run: clojure -M:run behavior bb
+
       - name: Produce dashboard
         run: clojure -M:run diff bb
 
@@ -79,4 +84,5 @@ jobs:
             output/bb/dashboard.edn
             output/bb/badge.json
             output/bb/surface.edn
+            output/bb/behavior.edn
             output/bb/history/

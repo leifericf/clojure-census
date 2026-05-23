@@ -60,6 +60,11 @@ jobs:
       - name: Capture clr surface
         run: clojure -M:run dump clr
 
+      - name: Evaluate behavior catalog
+        # Writes output/clr/behavior.edn. Diff folds it into the
+        # dashboard opportunistically on the next step.
+        run: clojure -M:run behavior clr
+
       - name: Produce dashboard
         run: clojure -M:run diff clr
 
@@ -92,4 +97,5 @@ jobs:
             output/clr/dashboard.edn
             output/clr/badge.json
             output/clr/surface.edn
+            output/clr/behavior.edn
             output/clr/history/
