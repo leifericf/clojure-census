@@ -68,24 +68,22 @@
 (defn- compare-ns
   "Compare Clojure-(JVM)-side and dialect-side var-maps for one namespace."
   [clojure-vars dialect-vars]
-  (let [clojure-keys   (set (keys clojure-vars))
+  (let [clojure-keys (set (keys clojure-vars))
         dialect-keys (set (keys dialect-vars))
         common       (cset/intersection clojure-keys dialect-keys)
-        in-both-set  (atom #{})
-        mismatches   (vec
-                       (reduce
-                         (fn [acc var-name]
-                           (if-let [mm (mismatch-entry
-                                         var-name
-                                         (get clojure-vars var-name)
-                                         (get dialect-vars var-name))]
-                             (conj acc mm)
-                             (do (swap! in-both-set conj var-name)
-                                 acc)))
-                         []
-                         (sort common)))]
-    {:in-both      @in-both-set
-     :clojure-only   (cset/difference clojure-keys dialect-keys)
+        {:keys [in-both mismatches]}
+        (reduce
+          (fn [acc var-name]
+            (if-let [mm (mismatch-entry
+                          var-name
+                          (get clojure-vars var-name)
+                          (get dialect-vars var-name))]
+              (update acc :mismatches conj mm)
+              (update acc :in-both conj var-name)))
+          {:in-both #{} :mismatches []}
+          (sort common))]
+    {:in-both      in-both
+     :clojure-only (cset/difference clojure-keys dialect-keys)
      :dialect-only (cset/difference dialect-keys clojure-keys)
      :mismatches   mismatches}))
 
