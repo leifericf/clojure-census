@@ -223,6 +223,79 @@
   (let [page (c/dialect-detail foo-dialect ctx)]
     (is (tree-contains-string? page "History (2 Snapshots)"))))
 
+;; ===== behavior parity section ====================================
+
+(def behavior-report-fixture
+  {:dialect-tag "foo"
+   :run-at      "2026-05-23T00:00:00Z"
+   :totals      {:match 12 :mismatch 1 :divergent-as-expected 3 :skipped 0}
+   :parities
+   [{:case-id :compare/positive
+     :var     'clojure.core/compare
+     :oracle  {:status :value :value 25}
+     :dialect {:status :value :value 1}
+     :verdict :divergent-as-expected
+     :reason  "predicate :sign-normalized matched"
+     :divergence-id :compare-sign-normalized}
+    {:case-id :+/two
+     :var     'clojure.core/+
+     :oracle  {:status :value :value 3}
+     :dialect {:status :value :value 4}
+     :verdict :mismatch
+     :reason  "values differ"}
+    {:case-id :compare/strings-equal
+     :var     'clojure.core/compare
+     :oracle  {:status :value :value 0}
+     :dialect {:status :value :value 0}
+     :verdict :match
+     :reason  "values equivalent"}]})
+
+(deftest detail-renders-behavior-section-when-present
+  (let [d    (assoc-in foo-dialect [:dashboard :behavior]
+                       behavior-report-fixture)
+        page (c/dialect-detail d ctx)]
+    (testing "title-case header"
+      (is (tree-contains-string? page "Behavior Parity")))
+    (testing "totals shown as cold facts"
+      (is (tree-contains-string? page "12"))   ; match
+      (is (tree-contains-string? page "1"))    ; mismatch
+      (is (tree-contains-string? page "3")))   ; divergent-as-expected
+    (testing "mismatches table shows one row per mismatch parity"
+      (is (tree-contains-string? page "+"))
+      (is (tree-contains-string? page "values differ")))
+    (testing "divergent-as-expected row references the divergence"
+      (is (tree-contains-string? page "compare-sign-normalized")))))
+
+(deftest detail-behavior-section-absent-when-no-block
+  (let [page (c/dialect-detail foo-dialect ctx)]
+    (testing "no behavior block in fixture -> no section, but page still renders"
+      (is (vector? page))
+      (is (not (tree-contains-string? page "Behavior Parity"))))))
+
+(deftest detail-behavior-section-neutral-when-all-match
+  (let [report (assoc behavior-report-fixture
+                      :totals {:match 12 :mismatch 0
+                               :divergent-as-expected 0 :skipped 0}
+                      :parities (filter #(= :match (:verdict %))
+                                        (:parities behavior-report-fixture)))
+        d      (assoc-in foo-dialect [:dashboard :behavior] report)
+        page   (c/dialect-detail d ctx)
+        text   (pr-str page)]
+    (is (tree-contains-string? page "Behavior Parity"))
+    (testing "no rank-implying language"
+      (doseq [forbidden ["passing" "failing" "winning" "best" "worst"]]
+        (is (not (.contains text forbidden))
+            (str "must not contain " forbidden))))))
+
+(deftest behavior-section-no-emoji
+  (let [d    (assoc-in foo-dialect [:dashboard :behavior]
+                       behavior-report-fixture)
+        page (c/dialect-detail d ctx)
+        text (pr-str page)]
+    (doseq [emoji ["✅" "❌" "✔" "✗" "⚠" "🎯"]]
+      (is (not (.contains text emoji))
+          (str "must not contain emoji " emoji)))))
+
 ;; ===== per-namespace deep dive ====================================
 
 (deftest deep-dive-renders-mismatches-missing-and-dialect-only-for-this-ns

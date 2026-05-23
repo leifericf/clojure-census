@@ -56,7 +56,8 @@
 (defn warning-banner []
   [:div.banner
    [:strong "Early Experiment / Work in Progress."]
-   " Numbers are mechanically derived from surface introspection."
+   " Numbers are mechanically derived from surface introspection and,"
+   " for eval-capable dialects, behavior parity against Clojure (JVM)."
    " They are not formal parity claims for any dialect."])
 
 ;; ===== landing: dialect cards =====================================
@@ -253,6 +254,66 @@
             (for [e entries] (entry-li e kind))]]])
        [:p.empty "None."])]))
 
+;; ===== dialect overview: behavior parity ==========================
+
+(defn- observation-cell
+  "Compact rendering of an observation for the parity table. Shows
+  the value verbatim for :value, the exception type for :exception,
+  or the bare status keyword otherwise."
+  [obs]
+  (case (:status obs)
+    :value     [:code (pr-str (:value obs))]
+    :exception [:code (get-in obs [:ex :type])]
+    [:code (str (:status obs))]))
+
+(defn- behavior-parity-row [p]
+  (let [verdict (:verdict p)]
+    [:tr
+     {:class (str "verdict-" (name verdict))}
+     [:td [:code (:case-id p)]]
+     [:td [:code (str (:var p))]]
+     [:td (observation-cell (:oracle p))]
+     [:td (observation-cell (:dialect p))]
+     [:td (name verdict)]
+     [:td
+      (when-let [d-id (:divergence-id p)]
+        [:code (name d-id)])]
+     [:td (:reason p)]]))
+
+(defn- behavior-section
+  "Optional dashboard section. Renders the totals plus a row-per-parity
+  table when the dashboard carries a :behavior block. Title Case
+  header; no emoji; cold facts only."
+  [dashboard]
+  (when-let [report (:behavior dashboard)]
+    (let [totals   (:totals report)
+          parities (:parities report)
+          non-match (remove #(= :match (:verdict %)) parities)]
+      [:section.behavior
+       [:h2 "Behavior Parity"]
+       [:p.section-note
+        "Each case is evaluated in Clojure (JVM) (the oracle) and in"
+        " this dialect; the observations are compared. Cases backed"
+        " by a divergence with an executable expectation are verdict"
+        [:code " :divergent-as-expected"]
+        " when the predicate matches."]
+       [:dl.behavior-totals
+        [:div.stat [:dt "Match"]                 [:dd (:match totals)]]
+        [:div.stat [:dt "Mismatch"]              [:dd (:mismatch totals)]]
+        [:div.stat [:dt "Divergent as Expected"] [:dd (:divergent-as-expected totals)]]
+        [:div.stat [:dt "Skipped"]               [:dd (:skipped totals)]]]
+       (if (seq non-match)
+         [:table.behavior-table
+          [:thead
+           [:tr
+            [:th "Case"] [:th "Var"]
+            [:th "Oracle"] [:th "Dialect"]
+            [:th "Verdict"] [:th "Divergence"]
+            [:th "Reason"]]]
+          [:tbody
+           (for [p non-match] (behavior-parity-row p))]]
+         [:p.empty "All evaluated cases matched the oracle."])])))
+
 ;; ===== dialect overview: drift + history (carried over) ===========
 
 (defn- count-of [coll] (count (or coll [])))
@@ -302,6 +363,7 @@
      (per-namespace-summary dialect link)
      (category-collapsibles dashboard :extensions  "Documented Extensions")
      (category-collapsibles dashboard :divergences "Documented Intentional Divergences")
+     (behavior-section dashboard)
      (drift-section dashboard)
      (history-table dashboard)]))
 
