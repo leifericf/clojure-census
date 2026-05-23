@@ -13,12 +13,23 @@
 (require '[clojure.edn :as edn]
          '[clojure.string :as str])
 
+;; Clojerl strings are Erlang binaries, but os:getenv/1 expects a
+;; charlist. Convert on the way in, convert the result back to a
+;; binary so the caller sees a Clojure-shaped string. Returns nil on
+;; :badarg or when the var is unset (Erlang returns the atom `false`).
+(defn- get-env [k]
+  (try
+    (let [v (os/getenv (erlang/binary_to_list k))]
+      (when (and v (not (false? v)))
+        (erlang/list_to_binary v)))
+    (catch _ _ nil)))
+
 (def ^:private clojure-spec-path
-  (or (os/getenv "CLOJURE_SPEC_PATH")
+  (or (get-env "CLOJURE_SPEC_PATH")
       "clojure/spec.edn"))
 
 (def ^:private dialect-tag
-  (or (os/getenv "DIALECT_TAG") "clojerl"))
+  (or (get-env "DIALECT_TAG") "clojerl"))
 
 (defn- read-target-namespaces []
   (try
