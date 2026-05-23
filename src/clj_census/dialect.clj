@@ -97,10 +97,15 @@
         elapsed (- (System/currentTimeMillis) start)
         cleaned (strip-non-edn-prefix out)]
     (when-not (zero? exit)
+      ;; Some dialects (e.g. Clojerl) print diagnostics to stdout, not stderr,
+      ;; so include both streams in the exception message to keep the surfaced
+      ;; failure self-describing.
       (throw (ex-info (str "subprocess exited " exit
-                           (when (seq err) (str "\n--- stderr ---\n" err)))
+                           (when (seq err) (str "\n--- stderr ---\n" err))
+                           (when (seq out) (str "\n--- stdout ---\n" out)))
                       {:cmd     cmd
                        :exit    exit
+                       :stdout  out
                        :stderr  err
                        :elapsed elapsed})))
     (try

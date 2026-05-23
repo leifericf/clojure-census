@@ -92,7 +92,14 @@
     (catch Exception _ #{})))
 
 (defn- dialect-clojure-version []
-  (try (clojure-version) (catch Exception _ "unknown")))
+  ;; Basilisp doesn't expose `clojure-version` as a function (it tracks
+  ;; *basilisp-version* instead). Guard with `resolve` so the script
+  ;; degrades gracefully on any dialect that's missing the symbol.
+  (try
+    (if-let [v (resolve 'clojure-version)]
+      (@v)
+      "unknown")
+    (catch Exception _ "unknown")))
 
 (defn -main [& _]
   (let [targets    (read-target-namespaces)
