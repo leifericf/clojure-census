@@ -17,25 +17,29 @@
             [clj-census.category   :as category]
             [clj-census.comparison :as comparison]
             [clj-census.coverage   :as coverage]
+            [clj-census.dialect    :as dialect]
             [clj-census.divergence :as divergence]
             [clj-census.drift      :as drift]
             [clj-census.extension  :as extension]
-            [clj-census.history    :as history]))
+            [clj-census.history    :as history]
+            [clj-census.reference  :as reference]))
 
 ;; ===== specs =======================================================
 
-(s/def ::comparison  ::comparison/comparison)
-(s/def ::coverage    ::coverage/coverage)
-(s/def ::divergences ::divergence/divergences)
-(s/def ::extensions  ::extension/extensions)
-(s/def ::categories  ::category/categories)
-(s/def ::drift       ::drift/drift)
-(s/def ::history     ::history/history)
-(s/def ::badge-info  map?)
+(s/def ::comparison     ::comparison/comparison)
+(s/def ::coverage       ::coverage/coverage)
+(s/def ::divergences    ::divergence/divergences)
+(s/def ::extensions     ::extension/extensions)
+(s/def ::categories     ::category/categories)
+(s/def ::clojure-spec   ::reference/clojure-spec)
+(s/def ::dialect-config ::dialect/dialect-config)
+(s/def ::drift          ::drift/drift)
+(s/def ::history        ::history/history)
+(s/def ::badge-info     map?)
 
 (s/def ::dashboard-input
   (s/keys :req-un [::comparison ::coverage ::divergences ::extensions
-                   ::categories]
+                   ::categories ::clojure-spec ::dialect-config]
           :opt-un [::drift ::history ::badge-info]))
 
 ;; ===== EDN ========================================================

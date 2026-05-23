@@ -18,6 +18,7 @@
   (:require [clojure.java.io   :as io]
             [clojure.string    :as str]
             [clj-census.badge      :as badge]
+            [clj-census.bundle     :as bundle]
             [clj-census.reference  :as reference]
             [clj-census.category   :as category]
             [clj-census.comparison :as comparison]
@@ -196,6 +197,27 @@
     (println "  namespaces:" (count (:namespaces surface)))
     0))
 
+(defn- compare-loaded
+  "Pure: build a Comparison + Coverage from already-loaded reference
+  and dialect surfaces."
+  [spec reference-s dialect-s]
+  (let [cmp (comparison/compare-surfaces
+              reference-s dialect-s (reference/target-namespaces spec))]
+    {:comparison cmp
+     :coverage   (coverage/from-comparison cmp)}))
+
+(defn- stub-drift
+  "Build a stub Drift from yesterday's snapshot and the new snapshot,
+  carrying only the coverage delta. T4 will replace this with a real
+  drift computed via clj-census.drift/between over the full surfaces."
+  [yesterday snap cov-delta]
+  {:from-date      (:date yesterday)
+   :to-date        (:date snap)
+   :added-vars     #{}
+   :removed-vars   #{}
+   :changed        []
+   :coverage-delta cov-delta})
+
 (defn- subcmd-diff
   [_ctx [tag :as _args]]
   (let [cfg          (load-dialect tag)
@@ -205,47 +227,41 @@
         dialect-s    (load-surface (surface-output-path tag))
         divs         (load-divergences cfg cats)
         exts         (load-extensions  cfg cats)
-        cmp          (comparison/compare-surfaces
-                       reference-s dialect-s (reference/target-namespaces spec))
-        cov          (coverage/from-comparison cmp)
+        {:keys [comparison coverage]}
+        (compare-loaded spec reference-s dialect-s)
         prior        (load-history (history-dir-path tag))
         prev-percent (some-> prior history/latest :headline :percent)
         cov-delta    (if prev-percent
-                       (double (- (get-in cov [:headline :percent])
+                       (double (- (get-in coverage [:headline :percent])
                                   prev-percent))
                        0.0)
         snap         (history/snapshot-from
                        {:dialect-tag     tag
                         :clojure-version (:clojure-version dialect-s)
                         :date            (iso-date-now)}
-                       cov)
+                       coverage)
         all-history  (history/last-n (conj prior snap) 14)
-        bundle       {:comparison      cmp
-                      :coverage        cov
-                      :divergences     divs
-                      :extensions      exts
-                      :categories      cats
-                      :clojure-spec    spec
-                      :dialect-config  cfg
-                      :history         all-history}
-        bundle       (if-let [yesterday (history/latest prior)]
-                       (assoc bundle :drift
-                              {:from-date     (:date yesterday)
-                               :to-date       (:date snap)
-                               :added-vars    #{}
-                               :removed-vars  #{}
-                               :changed       []
-                               :coverage-delta cov-delta})
-                       bundle)]
+        drift        (when-let [yesterday (history/latest prior)]
+                       (stub-drift yesterday snap cov-delta))
+        bundle       (bundle/build
+                       {:comparison     comparison
+                        :coverage       coverage
+                        :divergences    divs
+                        :extensions     exts
+                        :categories     cats
+                        :clojure-spec   spec
+                        :dialect-config cfg
+                        :history        all-history
+                        :drift          drift})]
     (write-dashboard! (dashboard-edn-path tag) bundle)
     (write-badge!     (badge-json-path tag)
                       (badge/endpoint
                         {:dialect-tag tag
-                         :headline    (:headline cov)}))
+                         :headline    (:headline coverage)}))
     (write-history-snapshot! (history-dir-path tag) snap)
     (println "diff:" tag "→"
              (coverage/percent-as-pct-string
-               (get-in cov [:headline :percent])))
+               (get-in coverage [:headline :percent])))
     (println "  dashboard:" (dashboard-edn-path tag))
     (println "  badge:    " (badge-json-path tag))
     (println "  history:  " (history-dir-path tag) "/" (:date snap) ".json")
@@ -262,25 +278,25 @@
         dialect-s   (load-surface (surface-output-path tag))
         divs        (load-divergences cfg cats)
         exts        (load-extensions  cfg cats)
-        cmp         (comparison/compare-surfaces
-                      reference-s dialect-s (reference/target-namespaces spec))
-        cov         (coverage/from-comparison cmp)
-        bundle      {:comparison      cmp
-                     :coverage        cov
-                     :divergences     divs
-                     :extensions      exts
-                     :categories      cats
-                     :clojure-spec    spec
-                     :dialect-config  cfg
-                     :history         (load-history (history-dir-path tag))}]
+        {:keys [comparison coverage]}
+        (compare-loaded spec reference-s dialect-s)
+        bundle      (bundle/build
+                      {:comparison     comparison
+                       :coverage       coverage
+                       :divergences    divs
+                       :extensions     exts
+                       :categories     cats
+                       :clojure-spec   spec
+                       :dialect-config cfg
+                       :history        (load-history (history-dir-path tag))})]
     (write-dashboard! (dashboard-edn-path tag) bundle)
     (write-badge!     (badge-json-path tag)
                       (badge/endpoint
                         {:dialect-tag tag
-                         :headline    (:headline cov)}))
+                         :headline    (:headline coverage)}))
     (println "render:" tag "→"
              (coverage/percent-as-pct-string
-               (get-in cov [:headline :percent])))
+               (get-in coverage [:headline :percent])))
     0))
 
 (defn- subcmd-all
