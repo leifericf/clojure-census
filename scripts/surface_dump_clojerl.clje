@@ -70,8 +70,10 @@
 (defn- capture-namespace [ns-sym]
   (when-let [n (find-ns ns-sym)]
     (try
+      ;; Clojerl's ns-publics returns var names as binaries (strings),
+      ;; but the schema expects symbols. Coerce on the way out.
       {:vars (reduce-kv (fn [acc var-name v]
-                          (assoc acc var-name (capture-var-meta v)))
+                          (assoc acc (symbol (str var-name)) (capture-var-meta v)))
                         {}
                         (ns-publics n))}
       (catch _ e
