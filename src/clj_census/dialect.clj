@@ -97,7 +97,8 @@
         elapsed (- (System/currentTimeMillis) start)
         cleaned (strip-non-edn-prefix out)]
     (when-not (zero? exit)
-      (throw (ex-info (str "subprocess exited " exit)
+      (throw (ex-info (str "subprocess exited " exit
+                           (when (seq err) (str "\n--- stderr ---\n" err)))
                       {:cmd     cmd
                        :exit    exit
                        :stderr  err
