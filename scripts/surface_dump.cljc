@@ -6,11 +6,18 @@
 ;; parallel `.cljs` script because its `ns-publics` is a compile-
 ;; time macro requiring a literal symbol; see surface_dump.cljs.
 ;;
-;; Reader conditionals (`#?(:cljr ...)`) carry the one host-specific
-;; difference: CLR's environment-variable access uses
+;; Reader-conditional feature keys this script targets:
+;;   :cljr    -- ClojureCLR (`System.*` interop, `(catch Exception e)`).
+;;   :mino    -- mino (single-symbol catch, exceptions are EDN maps
+;;               with :mino/code and :mino/message keys).
+;;   :default -- JVM Clojure / Babashka. Babashka also matches `:bb`
+;;               and `:clj`; we use `:default` to keep one branch
+;;               for both.
+;;
+;; CLR's environment-variable access uses
 ;; `System.Environment/GetEnvironmentVariable` instead of JVM-style
-;; `System/getenv`. All other operations are portable across the
-;; four supported runtimes.
+;; `System/getenv`. mino's catch binds a single symbol (no type) and
+;; its exceptions are maps. All other operations are portable.
 ;;
 ;; Reads the target namespace list from clojure/spec.edn at the
 ;; current working directory (override with CLOJURE_SPEC_PATH).
@@ -37,30 +44,61 @@
   (or (get-env "DIALECT_TAG") "unknown"))
 
 (defn- error-message [e]
-  #?(:cljr   (.Message e)
+  #?(:mino    (get e :mino/message)
+     :cljr    (.Message e)
      :default (.getMessage e)))
 
 (defn- read-target-namespaces []
-  (try
-    (let [data (clojure.edn/read-string (slurp clojure-spec-path))]
-      (mapv :ns (:target-namespaces data)))
-    (catch #?(:cljr Exception :default Exception) e
-      (binding [*out* *err*]
-        (println "; could not read clojure-spec at" clojure-spec-path
-                 "--" (error-message e)))
-      [])))
+  #?(:mino
+     (try (let [data (clojure.edn/read-string (slurp clojure-spec-path))]
+            (mapv :ns (:target-namespaces data)))
+          (catch err
+            (binding [*out* *err*]
+              (println "; could not read clojure-spec at" clojure-spec-path
+                       "--" (error-message err)))
+            []))
+     :cljr
+     (try (let [data (clojure.edn/read-string (slurp clojure-spec-path))]
+            (mapv :ns (:target-namespaces data)))
+          (catch Exception err
+            (binding [*out* *err*]
+              (println "; could not read clojure-spec at" clojure-spec-path
+                       "--" (error-message err)))
+            []))
+     :default
+     (try (let [data (clojure.edn/read-string (slurp clojure-spec-path))]
+            (mapv :ns (:target-namespaces data)))
+          (catch Throwable err
+            (binding [*out* *err*]
+              (println "; could not read clojure-spec at" clojure-spec-path
+                       "--" (error-message err)))
+            []))))
 
 (defn- try-require
   "Best-effort require. Returns true on success, false on failure;
   logs the reason to stderr."
   [ns-sym]
-  (try
-    (require ns-sym)
-    true
-    (catch #?(:cljr Exception :default Throwable) e
-      (binding [*out* *err*]
-        (println "; could not require" ns-sym "--" (error-message e)))
-      false)))
+  #?(:mino
+     (try (require ns-sym)
+          true
+          (catch err
+            (binding [*out* *err*]
+              (println "; could not require" ns-sym "--" (error-message err)))
+            false))
+     :cljr
+     (try (require ns-sym)
+          true
+          (catch Exception err
+            (binding [*out* *err*]
+              (println "; could not require" ns-sym "--" (error-message err)))
+            false))
+     :default
+     (try (require ns-sym)
+          true
+          (catch Throwable err
+            (binding [*out* *err*]
+              (println "; could not require" ns-sym "--" (error-message err)))
+            false))))
 
 (defn- safe-tag
   "Tag values are heterogeneous across dialects (Class, symbol,
@@ -68,61 +106,113 @@
   fails on a host-specific class literal."
   [t]
   (when t
-    (try (str t) (catch #?(:cljr Exception :default Throwable) _ nil))))
+    #?(:mino    (try (str t) (catch _ nil))
+       :cljr    (try (str t) (catch Exception _ nil))
+       :default (try (str t) (catch Throwable _ nil)))))
 
 (defn- capture-var-meta [v]
-  (try
-    (let [m (meta v)]
-      (cond-> {}
-        (:arglists m) (assoc :arglists (:arglists m))
-        (string? (:doc m))
-                      (assoc :doc      (:doc m))
-        (string? (:added m))
-                      (assoc :added    (:added m))
-        (:macro m)    (assoc :macro    true)
-        (:dynamic m)  (assoc :dynamic  true)
-        (:tag m)      (assoc :tag      (safe-tag (:tag m)))
-        (string? (:file m))
-                      (assoc :file     (:file m))
-        (integer? (:line m))
-                      (assoc :line     (:line m))))
-    (catch #?(:cljr Exception :default Throwable) _
-      {})))
+  #?(:mino
+     (try (let [m (meta v)]
+            (cond-> {}
+              (:arglists m) (assoc :arglists (:arglists m))
+              (string? (:doc m))   (assoc :doc      (:doc m))
+              (string? (:added m)) (assoc :added    (:added m))
+              (:macro m)           (assoc :macro    true)
+              (:dynamic m)         (assoc :dynamic  true)
+              (:tag m)             (assoc :tag      (safe-tag (:tag m)))
+              (string? (:file m))  (assoc :file     (:file m))
+              (integer? (:line m)) (assoc :line     (:line m))))
+          (catch _ {}))
+     :cljr
+     (try (let [m (meta v)]
+            (cond-> {}
+              (:arglists m) (assoc :arglists (:arglists m))
+              (string? (:doc m))   (assoc :doc      (:doc m))
+              (string? (:added m)) (assoc :added    (:added m))
+              (:macro m)           (assoc :macro    true)
+              (:dynamic m)         (assoc :dynamic  true)
+              (:tag m)             (assoc :tag      (safe-tag (:tag m)))
+              (string? (:file m))  (assoc :file     (:file m))
+              (integer? (:line m)) (assoc :line     (:line m))))
+          (catch Exception _ {}))
+     :default
+     (try (let [m (meta v)]
+            (cond-> {}
+              (:arglists m) (assoc :arglists (:arglists m))
+              (string? (:doc m))   (assoc :doc      (:doc m))
+              (string? (:added m)) (assoc :added    (:added m))
+              (:macro m)           (assoc :macro    true)
+              (:dynamic m)         (assoc :dynamic  true)
+              (:tag m)             (assoc :tag      (safe-tag (:tag m)))
+              (string? (:file m))  (assoc :file     (:file m))
+              (integer? (:line m)) (assoc :line     (:line m))))
+          (catch Throwable _ {}))))
 
 (defn- capture-namespace [ns-sym]
   (when-let [n (find-ns ns-sym)]
-    (try
-      {:vars (into {}
-                   (map (fn [[var-name v]] [var-name (capture-var-meta v)]))
-                   (ns-publics n))}
-      (catch #?(:cljr Exception :default Throwable) e
-        (binding [*out* *err*]
-          (println "; could not capture" ns-sym "--" (error-message e)))
-        {:vars {}}))))
+    #?(:mino
+       (try {:vars (into {}
+                         (map (fn [[var-name v]] [var-name (capture-var-meta v)]))
+                         (ns-publics n))}
+            (catch err
+              (binding [*out* *err*]
+                (println "; could not capture" ns-sym "--" (error-message err)))
+              {:vars {}}))
+       :cljr
+       (try {:vars (into {}
+                         (map (fn [[var-name v]] [var-name (capture-var-meta v)]))
+                         (ns-publics n))}
+            (catch Exception err
+              (binding [*out* *err*]
+                (println "; could not capture" ns-sym "--" (error-message err)))
+              {:vars {}}))
+       :default
+       (try {:vars (into {}
+                         (map (fn [[var-name v]] [var-name (capture-var-meta v)]))
+                         (ns-publics n))}
+            (catch Throwable err
+              (binding [*out* *err*]
+                (println "; could not capture" ns-sym "--" (error-message err)))
+              {:vars {}})))))
 
 (def ^:private candidate-special-forms
   '[def if do let fn quote var loop recur try throw new . set!
     monitor-enter monitor-exit catch finally])
 
+(defn- special-form? [s]
+  #?(:mino    (try (special-symbol? s) (catch _ false))
+     :cljr    (try (special-symbol? s) (catch Exception _ false))
+     :default (try (special-symbol? s) (catch Throwable _ false))))
+
 (defn- capture-special-forms []
-  (try
-    (set (filter (fn [s]
-                   (try (special-symbol? s)
-                        (catch #?(:cljr Exception :default Throwable) _ false)))
-                 candidate-special-forms))
-    (catch #?(:cljr Exception :default Throwable) _ #{})))
+  #?(:mino    (try (set (filter special-form? candidate-special-forms))
+                   (catch _ #{}))
+     :cljr    (try (set (filter special-form? candidate-special-forms))
+                   (catch Exception _ #{}))
+     :default (try (set (filter special-form? candidate-special-forms))
+                   (catch Throwable _ #{}))))
 
 (defn- capture-spec-keys []
-  (try
-    (when (find-ns 'clojure.spec.alpha)
-      (when-let [reg (resolve 'clojure.spec.alpha/registry)]
-        (try (set (keys (@reg))) (catch #?(:cljr Exception :default Throwable) _ #{}))))
-    (catch #?(:cljr Exception :default Throwable) _ #{})))
+  #?(:mino
+     (try (when (find-ns 'clojure.spec.alpha)
+            (when-let [reg (resolve 'clojure.spec.alpha/registry)]
+              (try (set (keys (@reg))) (catch _ #{}))))
+          (catch _ #{}))
+     :cljr
+     (try (when (find-ns 'clojure.spec.alpha)
+            (when-let [reg (resolve 'clojure.spec.alpha/registry)]
+              (try (set (keys (@reg))) (catch Exception _ #{}))))
+          (catch Exception _ #{}))
+     :default
+     (try (when (find-ns 'clojure.spec.alpha)
+            (when-let [reg (resolve 'clojure.spec.alpha/registry)]
+              (try (set (keys (@reg))) (catch Throwable _ #{}))))
+          (catch Throwable _ #{}))))
 
 (defn- dialect-clojure-version []
-  (try
-    (clojure-version)
-    (catch #?(:cljr Exception :default Throwable) _ "unknown")))
+  #?(:mino    (try (clojure-version) (catch _ "unknown"))
+     :cljr    (try (clojure-version) (catch Exception _ "unknown"))
+     :default (try (clojure-version) (catch Throwable _ "unknown"))))
 
 (defn -main [& _]
   (let [targets    (read-target-namespaces)
