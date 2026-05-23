@@ -19,7 +19,7 @@
             [clojure.java.io   :as io]
             [clojure.string    :as str]
             [clj-census.badge      :as badge]
-            [clj-census.clojure      :as clojure-spec]
+            [clj-census.reference  :as reference]
             [clj-census.category   :as category]
             [clj-census.comparison :as comparison]
             [clj-census.coverage   :as coverage]
@@ -81,8 +81,8 @@
 (defn- load-categories []
   (category/read-file (p "data" "categories.edn")))
 
-(defn- load-clojure-spec []
-  (clojure-spec/read-file (p "clojure" "spec.edn")))
+(defn- load-reference []
+  (reference/read-file (p "clojure" "spec.edn")))
 
 (defn- load-dialect [tag]
   (dialect/read-file (dialect-config-path tag)))
@@ -106,7 +106,7 @@
 (defn- subcmd-validate-data
   [_ctx _args]
   (let [cats  (load-categories)
-        _spec (load-clojure-spec)]
+        _spec (load-reference)]
     (println "categories.edn:" (count cats) "entries")
     (doseq [df (sort (.list (io/file "dialects")))
             :when (str/ends-with? df ".edn")]
@@ -151,14 +151,14 @@
   [_ctx [tag :as _args]]
   (let [cfg          (load-dialect tag)
         cats         (load-categories)
-        spec         (load-clojure-spec)
-        clojure-s      (clojure-spec/read-surface spec)
+        spec         (load-reference)
+        reference-s  (reference/read-surface spec)
         dialect-path (surface-output-path tag)
         dialect-s    (surface/read-file dialect-path)
         divs         (load-divergences cfg cats)
         exts         (load-extensions  cfg cats)
         cmp          (comparison/compare-surfaces
-                       clojure-s dialect-s (clojure-spec/target-namespaces spec))
+                       reference-s dialect-s (reference/target-namespaces spec))
         cov          (coverage/from-comparison cmp)
         prior        (history/read-history (history-dir-path tag))
         prev-percent (some-> prior history/latest :headline :percent)
@@ -207,15 +207,15 @@
   [_ctx [tag :as _args]]
   ;; Render with no new capture: re-read whatever surfaces are
   ;; already on disk and re-render.
-  (let [cfg      (load-dialect tag)
-        cats     (load-categories)
-        spec     (load-clojure-spec)
-        clojure-s  (clojure-spec/read-surface spec)
+  (let [cfg       (load-dialect tag)
+        cats      (load-categories)
+        spec      (load-reference)
+        reference-s (reference/read-surface spec)
         dialect-s (surface/read-file (surface-output-path tag))
-        divs     (load-divergences cfg cats)
-        exts     (load-extensions  cfg cats)
-        cmp      (comparison/compare-surfaces
-                   clojure-s dialect-s (clojure-spec/target-namespaces spec))
+        divs      (load-divergences cfg cats)
+        exts      (load-extensions  cfg cats)
+        cmp       (comparison/compare-surfaces
+                    reference-s dialect-s (reference/target-namespaces spec))
         cov      (coverage/from-comparison cmp)
         bundle   {:comparison      cmp
                   :coverage        cov

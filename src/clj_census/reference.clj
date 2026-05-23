@@ -1,16 +1,15 @@
-(ns clj-census.clojure
-  "ClojureSpec models the Clojure (JVM) side of a parity comparison: which
-  Clojure version is the reference, which namespaces participate, which are
-  excluded with reasons, and where the vendored Clojure (JVM) surface dump
-  lives.
+(ns clj-census.reference
+  "Reference specification: the Clojure (JVM) side of every parity
+  comparison. Which Clojure version is the reference, which namespaces
+  participate, which are excluded (and why), and where the vendored
+  reference surface dump lives.
 
   The spec is hand-curated in `clojure/spec.edn` and bumped via a
   small PR when a new Clojure release is adopted."
   (:require [clojure.edn :as edn]
-            [clojure.java.io :as io]
             [clj-census.schema :as schema]))
 
-(def clojure-dir "clojure")
+(def reference-dir "clojure")
 
 (defn validate!
   "Schema-validate `spec` and return `true` on success."
@@ -51,7 +50,7 @@
 (defn surface-path
   "Repo-relative path to the vendored Clojure (JVM) surface dump."
   [spec]
-  (str clojure-dir "/" (:surface-file spec)))
+  (str reference-dir "/" (:surface-file spec)))
 
 ;; ===== IO ==========================================================
 
