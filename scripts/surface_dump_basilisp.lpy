@@ -29,7 +29,7 @@
   (try
     (let [data (edn/read-string (slurp clojure-spec-path))]
       (mapv :ns (:target-namespaces data)))
-    (catch python/Exception e
+    (catch Exception e
       (binding [*out* *err*]
         (println "; could not read clojure-spec at" clojure-spec-path "--" (str e)))
       [])))
@@ -38,14 +38,14 @@
   (try
     (require ns-sym)
     true
-    (catch python/Exception e
+    (catch Exception e
       (binding [*out* *err*]
         (println "; could not require" ns-sym "--" (str e)))
       false)))
 
 (defn- safe-tag [t]
   (when t
-    (try (str t) (catch python/Exception _ nil))))
+    (try (str t) (catch Exception _ nil))))
 
 (defn- capture-var-meta [v]
   (try
@@ -59,7 +59,7 @@
         (:tag m)             (assoc :tag      (safe-tag (:tag m)))
         (string? (:file m))  (assoc :file     (:file m))
         (integer? (:line m)) (assoc :line     (:line m))))
-    (catch python/Exception _ {})))
+    (catch Exception _ {})))
 
 (defn- capture-namespace [ns-sym]
   (when-let [n (find-ns ns-sym)]
@@ -67,7 +67,7 @@
       {:vars (into {}
                    (map (fn [[var-name v]] [var-name (capture-var-meta v)]))
                    (ns-publics n))}
-      (catch python/Exception e
+      (catch Exception e
         (binding [*out* *err*]
           (println "; could not capture" ns-sym "--" (str e)))
         {:vars {}}))))
@@ -80,19 +80,19 @@
   (try
     (set (filter (fn [s]
                    (try (special-symbol? s)
-                        (catch python/Exception _ false)))
+                        (catch Exception _ false)))
                  candidate-special-forms))
-    (catch python/Exception _ #{})))
+    (catch Exception _ #{})))
 
 (defn- capture-spec-keys []
   (try
     (when (find-ns 'clojure.spec.alpha)
       (when-let [reg (resolve 'clojure.spec.alpha/registry)]
-        (try (set (keys (@reg))) (catch python/Exception _ #{}))))
-    (catch python/Exception _ #{})))
+        (try (set (keys (@reg))) (catch Exception _ #{}))))
+    (catch Exception _ #{})))
 
 (defn- dialect-clojure-version []
-  (try (clojure-version) (catch python/Exception _ "unknown")))
+  (try (clojure-version) (catch Exception _ "unknown")))
 
 (defn -main [& _]
   (let [targets    (read-target-namespaces)

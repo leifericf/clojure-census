@@ -14,11 +14,11 @@
          '[clojure.string :as str])
 
 (def ^:private clojure-spec-path
-  (or (erlang/os.getenv "CLOJURE_SPEC_PATH")
+  (or (os/getenv "CLOJURE_SPEC_PATH")
       "clojure/spec.edn"))
 
 (def ^:private dialect-tag
-  (or (erlang/os.getenv "DIALECT_TAG") "clojerl"))
+  (or (os/getenv "DIALECT_TAG") "clojerl"))
 
 (defn- read-target-namespaces []
   (try
