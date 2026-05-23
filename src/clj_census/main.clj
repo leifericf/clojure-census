@@ -18,6 +18,7 @@
   (:require [clojure.java.io   :as io]
             [clojure.string    :as str]
             [clj-census.badge      :as badge]
+            [clj-census.behavior   :as behavior]
             [clj-census.bundle     :as bundle]
             [clj-census.case       :as case-ns]
             [clj-census.reference  :as reference]
@@ -30,6 +31,7 @@
             [clj-census.drift      :as drift]
             [clj-census.extension  :as extension]
             [clj-census.history    :as history]
+            [clj-census.parity     :as parity]
             [clj-census.store      :as store]
             [clj-census.surface    :as surface]))
 
@@ -45,6 +47,7 @@
 (defn prev-surface-path    [tag] (p "output" tag "surface.prev.edn"))
 (defn dashboard-edn-path   [tag] (p "output" tag "dashboard.edn"))
 (defn badge-json-path      [tag] (p "output" tag "badge.json"))
+(defn behavior-output-path [tag] (p "output" tag "behavior.edn"))
 (defn history-dir-path     [tag] (p "output" tag "history"))
 
 (defn reference-surface-path
@@ -96,6 +99,11 @@
     (.setTimeZone fmt (java.util.TimeZone/getTimeZone "UTC"))
     (.format fmt (java.util.Date.))))
 
+(defn- iso-timestamp-now []
+  (let [fmt (java.text.SimpleDateFormat. "yyyy-MM-dd'T'HH:mm:ss'Z'")]
+    (.setTimeZone fmt (java.util.TimeZone/getTimeZone "UTC"))
+    (.format fmt (java.util.Date.))))
+
 ;; ===== loaders =====================================================
 
 (defn- load-edn-validated
@@ -129,6 +137,17 @@
   (let [p (prev-surface-path tag)]
     (when (.exists (io/file p))
       (load-surface p))))
+
+(defn- load-behavior
+  "Read the most-recent behavior report for `tag` if one exists.
+  Used by subcmd-diff/subcmd-render to opportunistically include
+  behavior parity in the dashboard without re-evaluating cases."
+  [tag]
+  (let [p (behavior-output-path tag)]
+    (when (.exists (io/file p))
+      (let [r (store/slurp-edn p)]
+        (parity/validate-report! r)
+        r))))
 
 (defn- load-divergences [cfg cats]
   (let [path (str (:data-dir cfg) "/divergences.edn")]
@@ -458,6 +477,55 @@
                (get-in coverage [:headline :percent])))
     0))
 
+(defn- behavior-report-for
+  "Pure: build a parity report by mapping `cases` through `eval-fn`
+  and the comparator. `eval-fn` is a 2-arity function called as
+  `(eval-fn role probe-case)` where `role` is `:oracle` or `:dialect`
+  and the return is a `clj-census.observation` map. Factoring this
+  out from `subcmd-behavior` lets the orchestration be tested with
+  literal observations."
+  [{:keys [dialect-tag run-at cases divergences eval-fn]}]
+  (let [parities (mapv (fn [c]
+                         (let [oracle  (eval-fn :oracle c)
+                               dialect (eval-fn :dialect c)]
+                           (behavior/compare-one c oracle dialect divergences)))
+                       cases)]
+    (parity/build-report
+      {:dialect-tag dialect-tag
+       :run-at      run-at
+       :parities    parities})))
+
+(defn- subcmd-behavior
+  [ctx [tag :as _args]]
+  (let [cfg        (load-dialect tag)
+        oracle-cfg (load-dialect "clojure")
+        cats       (load-categories)
+        divs       (load-divergences cfg cats)
+        cases      (load-behavior-catalog cats)
+        ctx'       (assoc ctx :script behavior-eval-script)
+        inv-dialect (dialect/prepare-invocation cfg        ctx')
+        inv-oracle  (dialect/prepare-invocation oracle-cfg ctx')
+        env'        (into {} (System/getenv))
+        eval-fn    (fn [role probe-case]
+                     (let [inv (if (= role :oracle) inv-oracle inv-dialect)
+                           stdin (binding [*print-namespace-maps* false
+                                           *print-length*         nil
+                                           *print-level*          nil]
+                                   (pr-str {:form    (:form probe-case)
+                                            :require []}))]
+                       (dialect/capture-stdout inv :stdin stdin :env env')))
+        report     (behavior-report-for
+                     {:dialect-tag tag
+                      :run-at      (iso-timestamp-now)
+                      :cases       cases
+                      :divergences divs
+                      :eval-fn     eval-fn})]
+    (parity/validate-report! report)
+    (store/spit-edn! (behavior-output-path tag) report)
+    (println "behavior:" tag "→" (pr-str (:totals report)))
+    (println "  output:" (behavior-output-path tag))
+    0))
+
 (defn- subcmd-all
   [ctx args]
   (let [_ (subcmd-dump ctx args)]
@@ -472,6 +540,7 @@
   (println "  dump <dialect>        capture a dialect's surface")
   (println "  diff <dialect>        produce the dashboard for a dialect")
   (println "  render <dialect>      re-render from saved surfaces")
+  (println "  behavior <dialect>    evaluate the behavior catalog")
   (println "  all <dialect>         dump + diff combined")
   (println "  help                  this message")
   0)
@@ -481,6 +550,7 @@
    "dump"          {:fn subcmd-dump}
    "diff"          {:fn subcmd-diff}
    "render"        {:fn subcmd-render}
+   "behavior"      {:fn subcmd-behavior}
    "all"           {:fn subcmd-all}
    "help"          {:fn subcmd-help}})
 

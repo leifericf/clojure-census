@@ -5,7 +5,8 @@
   validate-data subcommand."
   (:require [clojure.test    :refer [deftest is testing]]
             [clojure.java.io :as io]
-            [clj-census.main :as main]))
+            [clj-census.main :as main]
+            [clj-census.parity :as parity]))
 
 (deftest build-ctx-from-env
   (testing "MINO_BIN env var maps to {:mino-bin}"
@@ -40,7 +41,7 @@
       (is (= "/tmp/home" (:home ctx))))))
 
 (deftest known-subcommands
-  (is (= #{"validate-data" "dump" "diff" "render" "all" "help"}
+  (is (= #{"validate-data" "dump" "diff" "render" "behavior" "all" "help"}
          (set (keys main/dispatch-table)))))
 
 (deftest help-prints-usage
@@ -50,7 +51,8 @@
     (is (re-find #"Usage" out))
     (is (re-find #"validate-data" out))
     (is (re-find #"dump" out))
-    (is (re-find #"diff" out))))
+    (is (re-find #"diff" out))
+    (is (re-find #"behavior" out))))
 
 ;; ===== referential-integrity audits ===============================
 
@@ -104,6 +106,64 @@
     (is (= :stale (:extension (first orphans))))
     (is (= ["clojure.core/Integer/toBinaryString"]
            (:missing (first orphans))))))
+
+;; ===== behavior-report-for ========================================
+
+(def ^:private one-compare-case
+  [{:id          :compare/strings-positive
+    :var         'clojure.core/compare
+    :category-id :ordering
+    :form        '(compare "z" "a")}])
+
+(deftest behavior-report-for-match-when-stubbed-eval-matches
+  (let [eval-fn (constantly {:status :value :value 3 :elapsed-ms 0})
+        report  (#'main/behavior-report-for
+                  {:dialect-tag "stub"
+                   :run-at      "2026-05-23T00:00:00Z"
+                   :cases       one-compare-case
+                   :divergences []
+                   :eval-fn     eval-fn})]
+    (is (= 1 (get-in report [:totals :match])))
+    (is (= 0 (get-in report [:totals :mismatch])))
+    (is (parity/validate-report! report))))
+
+(deftest behavior-report-for-mismatch-when-no-divergence-and-values-differ
+  (let [eval-fn (fn [role _c]
+                  (if (= role :oracle)
+                    {:status :value :value 25 :elapsed-ms 0}
+                    {:status :value :value 1  :elapsed-ms 0}))
+        report  (#'main/behavior-report-for
+                  {:dialect-tag "stub"
+                   :run-at      "2026-05-23T00:00:00Z"
+                   :cases       one-compare-case
+                   :divergences []
+                   :eval-fn     eval-fn})]
+    (is (= 1 (get-in report [:totals :mismatch])))
+    (is (= 0 (get-in report [:totals :match])))))
+
+(deftest behavior-report-for-divergent-as-expected-when-predicate-passes
+  (let [eval-fn (fn [role _c]
+                  (if (= role :oracle)
+                    {:status :value :value 25 :elapsed-ms 0}
+                    {:status :value :value 1  :elapsed-ms 0}))
+        divs    [{:id          :compare-sign-normalized
+                  :title       "compare returns sign-only"
+                  :category-id :ordering
+                  :rationale   "x"
+                  :since       "v0.1.0"
+                  :affected    ['clojure.core/compare]
+                  :behavior    {:expectation :diverges
+                                :predicate   :sign-normalized}}]
+        report  (#'main/behavior-report-for
+                  {:dialect-tag "stub"
+                   :run-at      "2026-05-23T00:00:00Z"
+                   :cases       one-compare-case
+                   :divergences divs
+                   :eval-fn     eval-fn})]
+    (is (= 1 (get-in report [:totals :divergent-as-expected])))
+    (is (= 0 (get-in report [:totals :mismatch])))))
+
+;; ===== referential-integrity audits ================================
 
 (deftest extension-orphans-skips-uncaptured-namespaces
   (testing "extension names in a namespace the surface does not
