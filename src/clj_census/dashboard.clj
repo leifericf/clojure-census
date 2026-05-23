@@ -22,6 +22,7 @@
             [clj-census.drift      :as drift]
             [clj-census.extension  :as extension]
             [clj-census.history    :as history]
+            [clj-census.parity     :as parity]
             [clj-census.reference  :as reference]))
 
 ;; ===== specs =======================================================
@@ -36,11 +37,12 @@
 (s/def ::drift          ::drift/drift)
 (s/def ::history        ::history/history)
 (s/def ::badge-info     map?)
+(s/def ::behavior       ::parity/report)
 
 (s/def ::dashboard-input
   (s/keys :req-un [::comparison ::coverage ::divergences ::extensions
                    ::categories ::clojure-spec ::dialect-config]
-          :opt-un [::drift ::history ::badge-info]))
+          :opt-un [::drift ::history ::badge-info ::behavior]))
 
 ;; ===== contract version ============================================
 ;;
@@ -51,8 +53,11 @@
 (def schema-version
   "Current version of the rendered Dashboard EDN contract. Bump
   whenever the on-disk shape of `output/<dialect>/dashboard.edn`
-  changes."
-  1)
+  changes.
+
+  Version 2 adds an optional `:behavior` block carrying a
+  ::parity/report (per-case verdicts plus totals)."
+  2)
 
 ;; ===== EDN ========================================================
 
@@ -60,7 +65,7 @@
   "Pure: produce the EDN-friendly data for the bundle. The static
   site at `site/` consumes this shape directly via `edn/read-string`."
   [{:keys [comparison coverage divergences extensions categories
-           clojure-spec dialect-config drift history]}]
+           clojure-spec dialect-config drift history behavior]}]
   (let [missing
         (vec
           (for [[ns-sym ns-cmp] (sort-by key
@@ -93,6 +98,7 @@
              :divergences    (vec divergences)
              :extensions     (vec extensions)
              :categories     (vec categories)}
-      drift   (assoc :drift drift)
-      history (assoc :history (vec history)))))
+      drift    (assoc :drift drift)
+      history  (assoc :history (vec history))
+      behavior (assoc :behavior behavior))))
 

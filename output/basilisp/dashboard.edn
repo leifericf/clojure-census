@@ -2,7 +2,7 @@
  {:dialect-tag "basilisp",
   :dialect-name "Basilisp",
   :clojure-version "1.12.4",
-  :compared-at "2026-05-23T19:12:22Z"},
+  :compared-at "2026-05-23T20:41:13Z"},
  :divergences
  [{:id :python-host,
    :title "Host runtime is Python 3, not the JVM",
@@ -46,7 +46,7 @@
    :since "basilisp-0.1",
    :doc-link
    "https://basilisp.readthedocs.io/en/latest/concepts.html#reader-conditionals"}],
- :schema-version 1,
+ :schema-version 2,
  :coverage
  {:headline
   {:in-both-count 610,

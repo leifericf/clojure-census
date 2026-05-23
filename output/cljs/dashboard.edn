@@ -2,7 +2,7 @@
  {:dialect-tag "cljs",
   :dialect-name "ClojureScript (planck)",
   :clojure-version "1.12.4",
-  :compared-at "2026-05-23T19:12:25Z"},
+  :compared-at "2026-05-23T20:41:16Z"},
  :divergences
  [{:id :no-jvm-class-system,
    :title "No JVM class hierarchy",
@@ -76,7 +76,7 @@
    :rationale
    "JS exposes Math/ statics directly; CLJS code uses\n                    js/Math.sin etc. or wraps them per-codebase rather\n                    than via a clojure.math namespace.",
    :since "cljs-0.1"}],
- :schema-version 1,
+ :schema-version 2,
  :coverage
  {:headline
   {:in-both-count 532,

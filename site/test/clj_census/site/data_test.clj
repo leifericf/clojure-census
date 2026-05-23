@@ -121,6 +121,34 @@
       (is (some? e) "unsupported schema-version should throw")
       (is (re-find #"schema-version" (.getMessage e))))))
 
+(deftest load-all-accepts-schema-version-2
+  (testing "v2 dashboards (with behavior block) load without rejection"
+    (let [root (str (.toFile (java.nio.file.Files/createTempDirectory
+                               "clojure-census-site-v2-"
+                               (into-array java.nio.file.attribute.FileAttribute []))))]
+      (write-edn! (io/file root "dialects" "foo.edn")
+                  {:name "Foo" :tag "foo" :role :sut})
+      (write-edn! (io/file root "output" "foo" "dashboard.edn")
+                  {:schema-version 2
+                   :meta {:dialect-tag "foo" :dialect-name "Foo"
+                          :clojure-version "1.12.4" :compared-at "x"}
+                   :coverage {:headline {:percent 0.5 :in-both-count 1
+                                         :clojure-total 2}
+                              :per-namespace {}}
+                   :missing [] :mismatches [] :dialect-only []
+                   :divergences [] :extensions [] :categories []
+                   :behavior {:dialect-tag "foo"
+                              :run-at "2026-05-23T00:00:00Z"
+                              :totals {:match 1 :mismatch 0
+                                       :divergent-as-expected 0 :skipped 0}
+                              :parities []}})
+      (let [out (data/load-all {:dialects-dir (str root "/dialects")
+                                :output-root  (str root "/output")})
+            foo (first (filter #(= "foo" (:tag %)) (:dialects out)))]
+        (is (some? (:dashboard foo)))
+        (is (= 2 (get-in foo [:dashboard :schema-version])))
+        (is (some? (get-in foo [:dashboard :behavior])))))))
+
 (deftest load-all-rejects-missing-dashboard-version
   (let [root (str (.toFile (java.nio.file.Files/createTempDirectory
                              "clojure-census-site-noversion-"

@@ -26,9 +26,10 @@
   Optional:
     :drift       Drift value
     :history     coll of HistorySnapshot
-    :badge-info  free-form map"
+    :badge-info  free-form map
+    :behavior    parity Report (oracle vs. dialect per-case verdicts)"
   [{:keys [comparison coverage divergences extensions categories
-           clojure-spec dialect-config drift history badge-info]}]
+           clojure-spec dialect-config drift history badge-info behavior]}]
   (let [bundle (cond-> {:comparison     comparison
                         :coverage       coverage
                         :divergences    (vec divergences)
@@ -38,7 +39,8 @@
                         :dialect-config dialect-config}
                  drift      (assoc :drift drift)
                  history    (assoc :history (vec history))
-                 badge-info (assoc :badge-info badge-info))]
+                 badge-info (assoc :badge-info badge-info)
+                 behavior   (assoc :behavior behavior))]
     (schema/assert-conforms! ::dashboard/dashboard-input bundle
                              "dashboard-input")
     bundle))

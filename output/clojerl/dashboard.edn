@@ -2,7 +2,7 @@
  {:dialect-tag "clojerl",
   :dialect-name "Clojerl",
   :clojure-version "1.12.4",
-  :compared-at "2026-05-23T19:12:26Z"},
+  :compared-at "2026-05-23T20:41:17Z"},
  :divergences
  [{:id :beam-host,
    :title "Host runtime is the BEAM, not the JVM",
@@ -55,7 +55,7 @@
    :rationale
    "Clojerl is pre-1.0. The current snapshot reflects\n                    what is implemented today; the divergence list\n                    will continue to evolve.",
    :since "clojerl-0.1"}],
- :schema-version 1,
+ :schema-version 2,
  :coverage
  {:headline
   {:in-both-count 739, :clojure-total 995, :percent 0.742713567839196},

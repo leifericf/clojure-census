@@ -2,7 +2,7 @@
  {:dialect-tag "clr",
   :dialect-name "ClojureCLR",
   :clojure-version "1.12.4",
-  :compared-at "2026-05-23T19:12:27Z"},
+  :compared-at "2026-05-23T20:41:18Z"},
  :divergences
  [{:id :host-class-system-clr,
    :title "Host classes are CLR System.*, not JVM java.*",
@@ -58,7 +58,7 @@
    :rationale
    "Atom / future / agent are implemented on top of\n                    System.Threading, not java.util.concurrent. The\n                    semantics match Clojure (JVM); the underlying threads\n                    differ if interop'd with.",
    :since "clr-1.0"}],
- :schema-version 1,
+ :schema-version 2,
  :coverage
  {:headline
   {:in-both-count 962,

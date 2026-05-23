@@ -19,8 +19,10 @@
 (def supported-schema-versions
   "Dashboard EDN versions this site knows how to render. The engine's
   `clj-census.dashboard/schema-version` constant is the source of
-  truth; bump the set here in lockstep when the engine bumps."
-  #{1})
+  truth; bump the set here in lockstep when the engine bumps. Both
+  prior and current versions stay in the set so a partial rollout
+  -- some dashboards regenerated, some not -- still renders."
+  #{1 2})
 
 (defn- read-edn-file [f] (edn/read-string (slurp f)))
 

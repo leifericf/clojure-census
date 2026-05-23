@@ -421,16 +421,18 @@
         drift        (when prev-s
                        (drift/between prev-s dialect-s
                                       :coverage-delta cov-delta))
+        behavior-r   (load-behavior tag)
         bundle       (bundle/build
-                       {:comparison     comparison
-                        :coverage       coverage
-                        :divergences    divs
-                        :extensions     exts
-                        :categories     cats
-                        :clojure-spec   spec
-                        :dialect-config cfg
-                        :history        all-history
-                        :drift          drift})]
+                       (cond-> {:comparison     comparison
+                                :coverage       coverage
+                                :divergences    divs
+                                :extensions     exts
+                                :categories     cats
+                                :clojure-spec   spec
+                                :dialect-config cfg
+                                :history        all-history
+                                :drift          drift}
+                         behavior-r (assoc :behavior behavior-r)))]
     (write-dashboard! (dashboard-edn-path tag) bundle)
     (write-badge!     (badge-json-path tag)
                       (badge/endpoint
@@ -458,15 +460,17 @@
         exts        (load-extensions  cfg cats)
         {:keys [comparison coverage]}
         (compare-loaded spec reference-s dialect-s)
+        behavior-r  (load-behavior tag)
         bundle      (bundle/build
-                      {:comparison     comparison
-                       :coverage       coverage
-                       :divergences    divs
-                       :extensions     exts
-                       :categories     cats
-                       :clojure-spec   spec
-                       :dialect-config cfg
-                       :history        (load-history (history-dir-path tag))})]
+                      (cond-> {:comparison     comparison
+                               :coverage       coverage
+                               :divergences    divs
+                               :extensions     exts
+                               :categories     cats
+                               :clojure-spec   spec
+                               :dialect-config cfg
+                               :history        (load-history (history-dir-path tag))}
+                        behavior-r (assoc :behavior behavior-r)))]
     (write-dashboard! (dashboard-edn-path tag) bundle)
     (write-badge!     (badge-json-path tag)
                       (badge/endpoint

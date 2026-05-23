@@ -79,3 +79,22 @@
   (testing "missing :clojure-spec fails schema validation"
     (is (thrown? clojure.lang.ExceptionInfo
                  (bundle/build (dissoc minimal-inputs :clojure-spec))))))
+
+(def behavior-report
+  {:dialect-tag "mino"
+   :run-at      "2026-05-23T00:00:00Z"
+   :totals      {:match 1 :mismatch 0 :divergent-as-expected 0 :skipped 0}
+   :parities    [{:case-id :a
+                  :var     'clojure.core/+
+                  :oracle  {:status :value :value 3}
+                  :dialect {:status :value :value 3}
+                  :verdict :match
+                  :reason  "values equivalent"}]})
+
+(deftest build-accepts-optional-behavior
+  (let [b (bundle/build (assoc minimal-inputs :behavior behavior-report))]
+    (is (= behavior-report (:behavior b)))))
+
+(deftest build-elides-behavior-when-absent
+  (let [b (bundle/build minimal-inputs)]
+    (is (not (contains? b :behavior)))))

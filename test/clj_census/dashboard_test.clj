@@ -134,3 +134,32 @@
         e (dashboard/render-edn b)]
     (is (contains? e :drift))
     (is (= [{:date "2026-05-22"}] (:history e)))))
+
+;; ===== behavior parity (optional bundle key) =======================
+
+(def behavior-report
+  {:dialect-tag "mino"
+   :run-at      "2026-05-23T00:00:00Z"
+   :totals      {:match 5 :mismatch 1 :divergent-as-expected 3 :skipped 0}
+   :parities    [{:case-id :compare/positive
+                  :var     'clojure.core/compare
+                  :oracle  {:status :value :value 25}
+                  :dialect {:status :value :value 1}
+                  :verdict :divergent-as-expected
+                  :reason  "predicate :sign-normalized matched"
+                  :divergence-id :compare-sign-normalized}]})
+
+(deftest schema-version-is-two
+  (testing "the rendered EDN contract version bumped to 2 with behavior parity"
+    (is (= 2 dashboard/schema-version))))
+
+(deftest behavior-block-included-when-present
+  (let [b (assoc bundle :behavior behavior-report)
+        e (dashboard/render-edn b)]
+    (is (contains? e :behavior))
+    (is (= 5 (get-in e [:behavior :totals :match])))
+    (is (= 3 (get-in e [:behavior :totals :divergent-as-expected])))))
+
+(deftest behavior-omitted-when-absent
+  (let [e (dashboard/render-edn bundle)]
+    (is (not (contains? e :behavior)))))

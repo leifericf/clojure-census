@@ -2,7 +2,7 @@
  {:dialect-tag "jank",
   :dialect-name "jank",
   :clojure-version "1.12.4",
-  :compared-at "2026-05-23T19:12:28Z"},
+  :compared-at "2026-05-23T20:41:19Z"},
  :divergences
  [{:id :stdlib-incomplete-alpha,
    :title
@@ -63,7 +63,7 @@
    :rationale
    "jank is pre-1.0. The current snapshot reflects what\n                    is implemented today; behavior, var availability, and\n                    error shapes will continue to evolve. Hand-curated\n                    divergences here are starting points, not the final\n                    contract.",
    :since "jank-0.1"}],
- :schema-version 1,
+ :schema-version 2,
  :coverage
  {:headline
   {:in-both-count 687,

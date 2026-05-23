@@ -2,7 +2,7 @@
  {:dialect-tag "cljd",
   :dialect-name "ClojureDart",
   :clojure-version "1.12.4",
-  :compared-at "2026-05-23T19:12:24Z"},
+  :compared-at "2026-05-23T20:41:15Z"},
  :divergences
  [{:id :dart-host,
    :title "Host runtime is Dart, not the JVM",
@@ -52,7 +52,7 @@
    :rationale
    "The census reads .cljd source forms directly\n                    rather than calling ns-publics at runtime. Some\n                    metadata that requires evaluation (computed\n                    `:arglists`, runtime-attached docs) is not\n                    captured. The captured surface is the set of\n                    `def` / `defn` / `defmacro` / `definline` forms\n                    visible to the reader; matches `(meta var)` for\n                    plain definitions.",
    :since "cljd-0.1"}],
- :schema-version 1,
+ :schema-version 2,
  :coverage
  {:headline
   {:in-both-count 519, :clojure-total 995, :percent 0.521608040201005},

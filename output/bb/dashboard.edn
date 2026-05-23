@@ -2,7 +2,7 @@
  {:dialect-tag "bb",
   :dialect-name "Babashka",
   :clojure-version "1.12.4",
-  :compared-at "2026-05-23T19:12:23Z"},
+  :compared-at "2026-05-23T20:41:14Z"},
  :divergences
  [{:id :reducers-absent,
    :title "clojure.core.reducers is not bundled",
@@ -48,7 +48,7 @@
    :rationale
    "bb is a self-contained binary; the JVM\n                    classloader / classpath model that Clojure (JVM) code can\n                    poke at (clojure.lang.RT/baseLoader, etc.) is\n                    not exposed.",
    :since "bb-1.0"}],
- :schema-version 1,
+ :schema-version 2,
  :coverage
  {:headline
   {:in-both-count 898,
@@ -161,6 +161,192 @@
     clojure.walk {:in-both-count 10, :clojure-total 10, :percent 1.0},
     clojure.template
     {:in-both-count 2, :clojure-total 2, :percent 1.0}}}],
+ :behavior
+ {:dialect-tag "bb",
+  :run-at "2026-05-23T20:38:04Z",
+  :totals
+  {:match 22, :mismatch 0, :divergent-as-expected 0, :skipped 0},
+  :parities
+  [{:case-id :class/string,
+    :var clojure.core/class,
+    :oracle
+    {:status :value,
+     :value {:clj-census/opaque "class java.lang.String"},
+     :elapsed-ms 1},
+    :dialect
+    {:status :value,
+     :value {:clj-census/opaque "class java.lang.String"},
+     :elapsed-ms 0},
+    :verdict :match,
+    :reason "values equivalent"}
+   {:case-id :class/long,
+    :var clojure.core/class,
+    :oracle
+    {:status :value,
+     :value {:clj-census/opaque "class java.lang.Long"},
+     :elapsed-ms 0},
+    :dialect
+    {:status :value,
+     :value {:clj-census/opaque "class java.lang.Long"},
+     :elapsed-ms 0},
+    :verdict :match,
+    :reason "values equivalent"}
+   {:case-id :class/keyword,
+    :var clojure.core/class,
+    :oracle
+    {:status :value,
+     :value {:clj-census/opaque "class clojure.lang.Keyword"},
+     :elapsed-ms 0},
+    :dialect
+    {:status :value,
+     :value {:clj-census/opaque "class clojure.lang.Keyword"},
+     :elapsed-ms 0},
+    :verdict :match,
+    :reason "values equivalent"}
+   {:case-id :class/nil,
+    :var clojure.core/class,
+    :oracle {:status :value, :value nil, :elapsed-ms 0},
+    :dialect {:status :value, :value nil, :elapsed-ms 0},
+    :verdict :match,
+    :reason "values equivalent"}
+   {:case-id :compare/strings-positive,
+    :var clojure.core/compare,
+    :oracle {:status :value, :value 25, :elapsed-ms 0},
+    :dialect {:status :value, :value 25, :elapsed-ms 0},
+    :verdict :match,
+    :reason "values equivalent"}
+   {:case-id :compare/strings-negative,
+    :var clojure.core/compare,
+    :oracle {:status :value, :value -25, :elapsed-ms 0},
+    :dialect {:status :value, :value -25, :elapsed-ms 0},
+    :verdict :match,
+    :reason "values equivalent"}
+   {:case-id :compare/strings-equal,
+    :var clojure.core/compare,
+    :oracle {:status :value, :value 0, :elapsed-ms 0},
+    :dialect {:status :value, :value 0, :elapsed-ms 0},
+    :verdict :match,
+    :reason "values equivalent"}
+   {:case-id :compare/numbers-ascending,
+    :var clojure.core/compare,
+    :oracle {:status :value, :value -1, :elapsed-ms 1},
+    :dialect {:status :value, :value -1, :elapsed-ms 0},
+    :verdict :match,
+    :reason "values equivalent"}
+   {:case-id :compare/numbers-equal,
+    :var clojure.core/compare,
+    :oracle {:status :value, :value 0, :elapsed-ms 0},
+    :dialect {:status :value, :value 0, :elapsed-ms 0},
+    :verdict :match,
+    :reason "values equivalent"}
+   {:case-id :plus/identity,
+    :var clojure.core/+,
+    :oracle {:status :value, :value 0, :elapsed-ms 1},
+    :dialect {:status :value, :value 0, :elapsed-ms 0},
+    :verdict :match,
+    :reason "values equivalent"}
+   {:case-id :plus/single-positive,
+    :var clojure.core/+,
+    :oracle {:status :value, :value 5, :elapsed-ms 0},
+    :dialect {:status :value, :value 5, :elapsed-ms 0},
+    :verdict :match,
+    :reason "values equivalent"}
+   {:case-id :plus/two-positive,
+    :var clojure.core/+,
+    :oracle {:status :value, :value 3, :elapsed-ms 0},
+    :dialect {:status :value, :value 3, :elapsed-ms 0},
+    :verdict :match,
+    :reason "values equivalent"}
+   {:case-id :plus/with-negative,
+    :var clojure.core/+,
+    :oracle {:status :value, :value 3, :elapsed-ms 0},
+    :dialect {:status :value, :value 3, :elapsed-ms 0},
+    :verdict :match,
+    :reason "values equivalent"}
+   {:case-id :plus/varargs,
+    :var clojure.core/+,
+    :oracle {:status :value, :value 15, :elapsed-ms 1},
+    :dialect {:status :value, :value 15, :elapsed-ms 0},
+    :verdict :match,
+    :reason "values equivalent"}
+   {:case-id :sort/numbers-ascending,
+    :var clojure.core/sort,
+    :oracle {:status :value, :value [1 1 2 3 4 5 6 9], :elapsed-ms 1},
+    :dialect {:status :value, :value [1 1 2 3 4 5 6 9], :elapsed-ms 0},
+    :verdict :match,
+    :reason "values equivalent"}
+   {:case-id :sort/strings,
+    :var clojure.core/sort,
+    :oracle
+    {:status :value,
+     :value ["apple" "banana" "cherry"],
+     :elapsed-ms 0},
+    :dialect
+    {:status :value,
+     :value ["apple" "banana" "cherry"],
+     :elapsed-ms 0},
+    :verdict :match,
+    :reason "values equivalent"}
+   {:case-id :sort/with-comparator-descending,
+    :var clojure.core/sort,
+    :oracle {:status :value, :value [4 3 2 1], :elapsed-ms 1},
+    :dialect {:status :value, :value [4 3 2 1], :elapsed-ms 0},
+    :verdict :match,
+    :reason "values equivalent"}
+   {:case-id :sort/empty,
+    :var clojure.core/sort,
+    :oracle {:status :value, :value [], :elapsed-ms 0},
+    :dialect {:status :value, :value [], :elapsed-ms 0},
+    :verdict :match,
+    :reason "values equivalent"}
+   {:case-id :type/string,
+    :var clojure.core/type,
+    :oracle
+    {:status :value,
+     :value {:clj-census/opaque "class java.lang.String"},
+     :elapsed-ms 0},
+    :dialect
+    {:status :value,
+     :value {:clj-census/opaque "class java.lang.String"},
+     :elapsed-ms 0},
+    :verdict :match,
+    :reason "values equivalent"}
+   {:case-id :type/long,
+    :var clojure.core/type,
+    :oracle
+    {:status :value,
+     :value {:clj-census/opaque "class java.lang.Long"},
+     :elapsed-ms 1},
+    :dialect
+    {:status :value,
+     :value {:clj-census/opaque "class java.lang.Long"},
+     :elapsed-ms 0},
+    :verdict :match,
+    :reason "values equivalent"}
+   {:case-id :type/keyword,
+    :var clojure.core/type,
+    :oracle
+    {:status :value,
+     :value {:clj-census/opaque "class clojure.lang.Keyword"},
+     :elapsed-ms 0},
+    :dialect
+    {:status :value,
+     :value {:clj-census/opaque "class clojure.lang.Keyword"},
+     :elapsed-ms 0},
+    :verdict :match,
+    :reason "values equivalent"}
+   {:case-id :type/vector,
+    :var clojure.core/type,
+    :oracle
+    {:status :value,
+     :value {:clj-census/opaque "class clojure.lang.PersistentVector"},
+     :elapsed-ms 0},
+    :dialect
+    {:status :value,
+     :value {:clj-census/opaque "class clojure.lang.PersistentVector"},
+     :elapsed-ms 0},
+    :verdict :match,
+    :reason "values equivalent"}]},
  :mismatches
  [{:dynamic-clojure false,
    :dynamic-dialect true,
