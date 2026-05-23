@@ -60,13 +60,6 @@ jobs:
           MINO_BIN: ${{ github.workspace }}/mino/mino
         run: clojure -M:run dump mino
 
-      - name: Evaluate behavior catalog
-        # Writes output/mino/behavior.edn. Diff folds it into the
-        # dashboard opportunistically on the next step.
-        env:
-          MINO_BIN: ${{ github.workspace }}/mino/mino
-        run: clojure -M:run behavior mino
-
       - name: Produce dashboard
         env:
           MINO_BIN: ${{ github.workspace }}/mino/mino
@@ -99,5 +92,4 @@ jobs:
             output/mino/dashboard.edn
             output/mino/badge.json
             output/mino/surface.edn
-            output/mino/behavior.edn
             output/mino/history/

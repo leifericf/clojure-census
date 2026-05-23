@@ -78,8 +78,11 @@ jobs:
           else
             DATE=$(date -u +%Y-%m-%d)
             git commit -m "nightly: clr parity dashboard ${DATE}"
-            # setup-dotnet@v4 sometimes loses the http.extraheader credential set by actions/checkout, so re-add it.
-            git config http.https://github.com/.extraheader "AUTHORIZATION: bearer ${{ secrets.GITHUB_TOKEN }}"
+            # setup-dotnet@v4 sometimes drops the credential helper set by
+            # actions/checkout. Re-embed the token directly in the remote
+            # URL so neither fetch nor push needs to read a username.
+            git remote set-url origin \
+              "https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git"
             # Concurrent nightly runs all push to main; rebase + retry to avoid losing the race.
             for attempt in 1 2 3 4 5; do
               git pull --rebase origin main && git push && break
