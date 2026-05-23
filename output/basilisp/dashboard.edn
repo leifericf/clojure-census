@@ -1,0 +1,1137 @@
+{:meta
+ {:dialect-tag "basilisp",
+  :dialect-name "Basilisp",
+  :clojure-version "1.12.4",
+  :compared-at "2026-05-23T16:44:50Z"},
+ :divergences
+ [{:id :python-host,
+   :title "Host runtime is Python 3, not the JVM",
+   :category-id :jvm-statics,
+   :rationale
+   "Interop targets Python objects, not java.lang.*.\n                    JVM-static names (System/getenv, Math/PI,\n                    Integer/parseInt) do not resolve; equivalents\n                    are reached via Python interop (operator,\n                    os.environ, math).",
+   :since "basilisp-0.1",
+   :doc-link "https://basilisp.readthedocs.io/"}
+  {:id :concurrency-gil,
+   :title "Python's GIL constrains threaded concurrency",
+   :category-id :concurrency,
+   :rationale
+   "Atoms, refs, and agents work, but CPython's\n                    Global Interpreter Lock serializes bytecode\n                    execution. Threaded throughput differs from\n                    JVM Clojure in both absolute speed and the\n                    granularity of fairness.",
+   :since "basilisp-0.1"}
+  {:id :numeric-model,
+   :title "Numeric tower follows Python, not JVM Clojure",
+   :category-id :numeric-tower,
+   :rationale
+   "Integers are arbitrary-precision by default\n                    (Python's int). Float is IEEE-754 double, as on\n                    the JVM. Ratio is implemented as\n                    fractions.Fraction. Overflow semantics on auto-\n                    promoted ops match Python's rules, not the\n                    JVM's Long boxing model.",
+   :since "basilisp-0.1"}
+  {:id :exception-types,
+   :title "Exceptions are Python exceptions",
+   :category-id :error-messages,
+   :rationale
+   "(catch Exception e ...) catches a Python\n                    Exception, not a java.lang.Exception. Code that\n                    catches specific JVM exception classes (e.g.\n                    java.io.IOException) must use Python-host\n                    equivalents (OSError) under a :lpy reader\n                    conditional.",
+   :since "basilisp-0.1"}
+  {:id :stdlib-partial,
+   :title
+   "Several Clojure (JVM) stdlib namespaces are not implemented",
+   :category-id :namespaces,
+   :rationale
+   "Basilisp ships clojure.core, .string, .set, .walk,\n                    .test, .template; coverage of .edn, .pprint, .data,\n                    .zip, .math, .datafy, .instant, .core.protocols,\n                    .core.reducers, and .spec.alpha varies by release.\n                    Refer to upstream release notes for the current\n                    state.",
+   :since "basilisp-0.1",
+   :doc-link
+   "https://basilisp.readthedocs.io/en/latest/differencesfromclojure.html"}
+  {:id :reader-conditional-lpy,
+   :title "Reader conditional :clj does not fire under Basilisp",
+   :category-id :reader,
+   :rationale
+   "Basilisp uses the :lpy feature for its own\n                    branches. Code under :clj is not evaluated by\n                    Basilisp's reader.",
+   :since "basilisp-0.1",
+   :doc-link
+   "https://basilisp.readthedocs.io/en/latest/concepts.html#reader-conditionals"}],
+ :coverage
+ {:headline {:in-both-count 0, :clojure-total 995, :percent 0.0},
+  :per-namespace
+  {clojure.spec.alpha
+   {:in-both-count 0, :clojure-total 87, :percent 0.0},
+   clojure.datafy {:in-both-count 0, :clojure-total 2, :percent 0.0},
+   clojure.zip {:in-both-count 0, :clojure-total 28, :percent 0.0},
+   clojure.core.reducers
+   {:in-both-count 0, :clojure-total 21, :percent 0.0},
+   clojure.test {:in-both-count 0, :clojure-total 39, :percent 0.0},
+   clojure.core.protocols
+   {:in-both-count 0, :clojure-total 11, :percent 0.0},
+   clojure.core {:in-both-count 0, :clojure-total 679, :percent 0.0},
+   clojure.set {:in-both-count 0, :clojure-total 12, :percent 0.0},
+   clojure.pprint {:in-both-count 0, :clojure-total 26, :percent 0.0},
+   clojure.math {:in-both-count 0, :clojure-total 45, :percent 0.0},
+   clojure.edn {:in-both-count 0, :clojure-total 2, :percent 0.0},
+   clojure.instant {:in-both-count 0, :clojure-total 5, :percent 0.0},
+   clojure.string {:in-both-count 0, :clojure-total 21, :percent 0.0},
+   clojure.data {:in-both-count 0, :clojure-total 5, :percent 0.0},
+   clojure.walk {:in-both-count 0, :clojure-total 10, :percent 0.0},
+   clojure.template
+   {:in-both-count 0, :clojure-total 2, :percent 0.0}}},
+ :history
+ [{:date "2026-05-23",
+   :dialect-tag "basilisp",
+   :clojure-version "unknown",
+   :headline {:in-both-count 0, :clojure-total 995, :percent 0.0},
+   :per-namespace
+   {clojure.spec.alpha
+    {:in-both-count 0, :clojure-total 87, :percent 0.0},
+    clojure.datafy {:in-both-count 0, :clojure-total 2, :percent 0.0},
+    clojure.zip {:in-both-count 0, :clojure-total 28, :percent 0.0},
+    clojure.core.reducers
+    {:in-both-count 0, :clojure-total 21, :percent 0.0},
+    clojure.test {:in-both-count 0, :clojure-total 39, :percent 0.0},
+    clojure.core.protocols
+    {:in-both-count 0, :clojure-total 11, :percent 0.0},
+    clojure.core {:in-both-count 0, :clojure-total 679, :percent 0.0},
+    clojure.set {:in-both-count 0, :clojure-total 12, :percent 0.0},
+    clojure.pprint {:in-both-count 0, :clojure-total 26, :percent 0.0},
+    clojure.math {:in-both-count 0, :clojure-total 45, :percent 0.0},
+    clojure.edn {:in-both-count 0, :clojure-total 2, :percent 0.0},
+    clojure.instant {:in-both-count 0, :clojure-total 5, :percent 0.0},
+    clojure.string {:in-both-count 0, :clojure-total 21, :percent 0.0},
+    clojure.data {:in-both-count 0, :clojure-total 5, :percent 0.0},
+    clojure.walk {:in-both-count 0, :clojure-total 10, :percent 0.0},
+    clojure.template
+    {:in-both-count 0, :clojure-total 2, :percent 0.0}}}],
+ :mismatches [],
+ :categories
+ [{:id :ordering,
+   :title "Ordering & comparison",
+   :description "How sort, compare, and ordered iteration work."}
+  {:id :type-system,
+   :title "Type-system representation",
+   :description "How type, class, and dispatch report a value's kind."}
+  {:id :numeric-tower,
+   :title "Numeric tower",
+   :description "Integer tiers, ratio promotion, float precision."}
+  {:id :reader,
+   :title "Reader behavior",
+   :description
+   "Reader macros, literal forms, source-meta attachment."}
+  {:id :printer,
+   :title "Printer behavior",
+   :description
+   "pr-str output for various values and dynamic-var states."}
+  {:id :collections,
+   :title "Collection semantics",
+   :description "Iteration order, equality, hash, structural sharing."}
+  {:id :concurrency,
+   :title "Concurrency primitives",
+   :description "Atoms, refs, agents, futures, core.async behavior."}
+  {:id :error-messages,
+   :title "Error message shapes",
+   :description "Exception types, ex-data shapes, message phrasing."}
+  {:id :jvm-statics,
+   :title "JVM-static value remap",
+   :description
+   "JVM-only statics remapped to dialect-native equivalents."}
+  {:id :namespaces,
+   :title "Namespace mechanics",
+   :description "ns, require, refer, alias, var resolution semantics."}
+  {:id :macros,
+   :title "Macro semantics",
+   :description "Syntax-quote, macroexpansion order, hygiene."}
+  {:id :metadata,
+   :title "Metadata propagation",
+   :description
+   "Where reader attaches meta and which ops preserve it."}],
+ :extensions [],
+ :dialect-only [],
+ :missing
+ [{:namespace clojure.core, :var *}
+  {:namespace clojure.core, :var *'}
+  {:namespace clojure.core, :var *1}
+  {:namespace clojure.core, :var *2}
+  {:namespace clojure.core, :var *3}
+  {:namespace clojure.core, :var *agent*}
+  {:namespace clojure.core, :var *allow-unresolved-vars*}
+  {:namespace clojure.core, :var *assert*}
+  {:namespace clojure.core, :var *clojure-version*}
+  {:namespace clojure.core, :var *command-line-args*}
+  {:namespace clojure.core, :var *compile-files*}
+  {:namespace clojure.core, :var *compile-path*}
+  {:namespace clojure.core, :var *compiler-options*}
+  {:namespace clojure.core, :var *data-readers*}
+  {:namespace clojure.core, :var *default-data-reader-fn*}
+  {:namespace clojure.core, :var *e}
+  {:namespace clojure.core, :var *err*}
+  {:namespace clojure.core, :var *file*}
+  {:namespace clojure.core, :var *flush-on-newline*}
+  {:namespace clojure.core, :var *fn-loader*}
+  {:namespace clojure.core, :var *in*}
+  {:namespace clojure.core, :var *math-context*}
+  {:namespace clojure.core, :var *ns*}
+  {:namespace clojure.core, :var *out*}
+  {:namespace clojure.core, :var *print-dup*}
+  {:namespace clojure.core, :var *print-length*}
+  {:namespace clojure.core, :var *print-level*}
+  {:namespace clojure.core, :var *print-meta*}
+  {:namespace clojure.core, :var *print-namespace-maps*}
+  {:namespace clojure.core, :var *print-readably*}
+  {:namespace clojure.core, :var *read-eval*}
+  {:namespace clojure.core, :var *reader-resolver*}
+  {:namespace clojure.core, :var *repl*}
+  {:namespace clojure.core, :var *source-path*}
+  {:namespace clojure.core, :var *suppress-read*}
+  {:namespace clojure.core, :var *unchecked-math*}
+  {:namespace clojure.core, :var *use-context-classloader*}
+  {:namespace clojure.core, :var *verbose-defrecords*}
+  {:namespace clojure.core, :var *warn-on-reflection*}
+  {:namespace clojure.core, :var +}
+  {:namespace clojure.core, :var +'}
+  {:namespace clojure.core, :var -}
+  {:namespace clojure.core, :var -'}
+  {:namespace clojure.core, :var ->}
+  {:namespace clojure.core, :var ->>}
+  {:namespace clojure.core, :var ->ArrayChunk}
+  {:namespace clojure.core, :var ->Eduction}
+  {:namespace clojure.core, :var ->Vec}
+  {:namespace clojure.core, :var ->VecNode}
+  {:namespace clojure.core, :var ->VecSeq}
+  {:namespace clojure.core, :var -cache-protocol-fn}
+  {:namespace clojure.core, :var -reset-methods}
+  {:namespace clojure.core, :var ..}
+  {:namespace clojure.core, :var /}
+  {:namespace clojure.core, :var <}
+  {:namespace clojure.core, :var <=}
+  {:namespace clojure.core, :var =}
+  {:namespace clojure.core, :var ==}
+  {:namespace clojure.core, :var >}
+  {:namespace clojure.core, :var >=}
+  {:namespace clojure.core, :var EMPTY-NODE}
+  {:namespace clojure.core, :var Inst}
+  {:namespace clojure.core, :var NaN?}
+  {:namespace clojure.core, :var PrintWriter-on}
+  {:namespace clojure.core, :var StackTraceElement->vec}
+  {:namespace clojure.core, :var Throwable->map}
+  {:namespace clojure.core, :var abs}
+  {:namespace clojure.core, :var accessor}
+  {:namespace clojure.core, :var aclone}
+  {:namespace clojure.core, :var add-classpath}
+  {:namespace clojure.core, :var add-tap}
+  {:namespace clojure.core, :var add-watch}
+  {:namespace clojure.core, :var agent}
+  {:namespace clojure.core, :var agent-error}
+  {:namespace clojure.core, :var agent-errors}
+  {:namespace clojure.core, :var aget}
+  {:namespace clojure.core, :var alength}
+  {:namespace clojure.core, :var alias}
+  {:namespace clojure.core, :var all-ns}
+  {:namespace clojure.core, :var alter}
+  {:namespace clojure.core, :var alter-meta!}
+  {:namespace clojure.core, :var alter-var-root}
+  {:namespace clojure.core, :var amap}
+  {:namespace clojure.core, :var ancestors}
+  {:namespace clojure.core, :var and}
+  {:namespace clojure.core, :var any?}
+  {:namespace clojure.core, :var apply}
+  {:namespace clojure.core, :var areduce}
+  {:namespace clojure.core, :var array-map}
+  {:namespace clojure.core, :var as->}
+  {:namespace clojure.core, :var aset}
+  {:namespace clojure.core, :var aset-boolean}
+  {:namespace clojure.core, :var aset-byte}
+  {:namespace clojure.core, :var aset-char}
+  {:namespace clojure.core, :var aset-double}
+  {:namespace clojure.core, :var aset-float}
+  {:namespace clojure.core, :var aset-int}
+  {:namespace clojure.core, :var aset-long}
+  {:namespace clojure.core, :var aset-short}
+  {:namespace clojure.core, :var assert}
+  {:namespace clojure.core, :var assoc}
+  {:namespace clojure.core, :var assoc!}
+  {:namespace clojure.core, :var assoc-in}
+  {:namespace clojure.core, :var associative?}
+  {:namespace clojure.core, :var atom}
+  {:namespace clojure.core, :var await}
+  {:namespace clojure.core, :var await-for}
+  {:namespace clojure.core, :var await1}
+  {:namespace clojure.core, :var bases}
+  {:namespace clojure.core, :var bean}
+  {:namespace clojure.core, :var bigdec}
+  {:namespace clojure.core, :var bigint}
+  {:namespace clojure.core, :var biginteger}
+  {:namespace clojure.core, :var binding}
+  {:namespace clojure.core, :var bit-and}
+  {:namespace clojure.core, :var bit-and-not}
+  {:namespace clojure.core, :var bit-clear}
+  {:namespace clojure.core, :var bit-flip}
+  {:namespace clojure.core, :var bit-not}
+  {:namespace clojure.core, :var bit-or}
+  {:namespace clojure.core, :var bit-set}
+  {:namespace clojure.core, :var bit-shift-left}
+  {:namespace clojure.core, :var bit-shift-right}
+  {:namespace clojure.core, :var bit-test}
+  {:namespace clojure.core, :var bit-xor}
+  {:namespace clojure.core, :var boolean}
+  {:namespace clojure.core, :var boolean-array}
+  {:namespace clojure.core, :var boolean?}
+  {:namespace clojure.core, :var booleans}
+  {:namespace clojure.core, :var bound-fn}
+  {:namespace clojure.core, :var bound-fn*}
+  {:namespace clojure.core, :var bound?}
+  {:namespace clojure.core, :var bounded-count}
+  {:namespace clojure.core, :var butlast}
+  {:namespace clojure.core, :var byte}
+  {:namespace clojure.core, :var byte-array}
+  {:namespace clojure.core, :var bytes}
+  {:namespace clojure.core, :var bytes?}
+  {:namespace clojure.core, :var case}
+  {:namespace clojure.core, :var cast}
+  {:namespace clojure.core, :var cat}
+  {:namespace clojure.core, :var char}
+  {:namespace clojure.core, :var char-array}
+  {:namespace clojure.core, :var char-escape-string}
+  {:namespace clojure.core, :var char-name-string}
+  {:namespace clojure.core, :var char?}
+  {:namespace clojure.core, :var chars}
+  {:namespace clojure.core, :var chunk}
+  {:namespace clojure.core, :var chunk-append}
+  {:namespace clojure.core, :var chunk-buffer}
+  {:namespace clojure.core, :var chunk-cons}
+  {:namespace clojure.core, :var chunk-first}
+  {:namespace clojure.core, :var chunk-next}
+  {:namespace clojure.core, :var chunk-rest}
+  {:namespace clojure.core, :var chunked-seq?}
+  {:namespace clojure.core, :var class}
+  {:namespace clojure.core, :var class?}
+  {:namespace clojure.core, :var clear-agent-errors}
+  {:namespace clojure.core, :var clojure-version}
+  {:namespace clojure.core, :var coll?}
+  {:namespace clojure.core, :var comment}
+  {:namespace clojure.core, :var commute}
+  {:namespace clojure.core, :var comp}
+  {:namespace clojure.core, :var comparator}
+  {:namespace clojure.core, :var compare}
+  {:namespace clojure.core, :var compare-and-set!}
+  {:namespace clojure.core, :var compile}
+  {:namespace clojure.core, :var complement}
+  {:namespace clojure.core, :var completing}
+  {:namespace clojure.core, :var concat}
+  {:namespace clojure.core, :var cond}
+  {:namespace clojure.core, :var cond->}
+  {:namespace clojure.core, :var cond->>}
+  {:namespace clojure.core, :var condp}
+  {:namespace clojure.core, :var conj}
+  {:namespace clojure.core, :var conj!}
+  {:namespace clojure.core, :var cons}
+  {:namespace clojure.core, :var constantly}
+  {:namespace clojure.core, :var construct-proxy}
+  {:namespace clojure.core, :var contains?}
+  {:namespace clojure.core, :var count}
+  {:namespace clojure.core, :var counted?}
+  {:namespace clojure.core, :var create-ns}
+  {:namespace clojure.core, :var create-struct}
+  {:namespace clojure.core, :var cycle}
+  {:namespace clojure.core, :var dec}
+  {:namespace clojure.core, :var dec'}
+  {:namespace clojure.core, :var decimal?}
+  {:namespace clojure.core, :var declare}
+  {:namespace clojure.core, :var dedupe}
+  {:namespace clojure.core, :var default-data-readers}
+  {:namespace clojure.core, :var definline}
+  {:namespace clojure.core, :var definterface}
+  {:namespace clojure.core, :var defmacro}
+  {:namespace clojure.core, :var defmethod}
+  {:namespace clojure.core, :var defmulti}
+  {:namespace clojure.core, :var defn}
+  {:namespace clojure.core, :var defn-}
+  {:namespace clojure.core, :var defonce}
+  {:namespace clojure.core, :var defprotocol}
+  {:namespace clojure.core, :var defrecord}
+  {:namespace clojure.core, :var defstruct}
+  {:namespace clojure.core, :var deftype}
+  {:namespace clojure.core, :var delay}
+  {:namespace clojure.core, :var delay?}
+  {:namespace clojure.core, :var deliver}
+  {:namespace clojure.core, :var denominator}
+  {:namespace clojure.core, :var deref}
+  {:namespace clojure.core, :var derive}
+  {:namespace clojure.core, :var descendants}
+  {:namespace clojure.core, :var destructure}
+  {:namespace clojure.core, :var disj}
+  {:namespace clojure.core, :var disj!}
+  {:namespace clojure.core, :var dissoc}
+  {:namespace clojure.core, :var dissoc!}
+  {:namespace clojure.core, :var distinct}
+  {:namespace clojure.core, :var distinct?}
+  {:namespace clojure.core, :var doall}
+  {:namespace clojure.core, :var dorun}
+  {:namespace clojure.core, :var doseq}
+  {:namespace clojure.core, :var dosync}
+  {:namespace clojure.core, :var dotimes}
+  {:namespace clojure.core, :var doto}
+  {:namespace clojure.core, :var double}
+  {:namespace clojure.core, :var double-array}
+  {:namespace clojure.core, :var double?}
+  {:namespace clojure.core, :var doubles}
+  {:namespace clojure.core, :var drop}
+  {:namespace clojure.core, :var drop-last}
+  {:namespace clojure.core, :var drop-while}
+  {:namespace clojure.core, :var eduction}
+  {:namespace clojure.core, :var empty}
+  {:namespace clojure.core, :var empty?}
+  {:namespace clojure.core, :var ensure}
+  {:namespace clojure.core, :var ensure-reduced}
+  {:namespace clojure.core, :var enumeration-seq}
+  {:namespace clojure.core, :var error-handler}
+  {:namespace clojure.core, :var error-mode}
+  {:namespace clojure.core, :var eval}
+  {:namespace clojure.core, :var even?}
+  {:namespace clojure.core, :var every-pred}
+  {:namespace clojure.core, :var every?}
+  {:namespace clojure.core, :var ex-cause}
+  {:namespace clojure.core, :var ex-data}
+  {:namespace clojure.core, :var ex-info}
+  {:namespace clojure.core, :var ex-message}
+  {:namespace clojure.core, :var extend}
+  {:namespace clojure.core, :var extend-protocol}
+  {:namespace clojure.core, :var extend-type}
+  {:namespace clojure.core, :var extenders}
+  {:namespace clojure.core, :var extends?}
+  {:namespace clojure.core, :var false?}
+  {:namespace clojure.core, :var ffirst}
+  {:namespace clojure.core, :var file-seq}
+  {:namespace clojure.core, :var filter}
+  {:namespace clojure.core, :var filterv}
+  {:namespace clojure.core, :var find}
+  {:namespace clojure.core, :var find-keyword}
+  {:namespace clojure.core, :var find-ns}
+  {:namespace clojure.core, :var find-protocol-impl}
+  {:namespace clojure.core, :var find-protocol-method}
+  {:namespace clojure.core, :var find-var}
+  {:namespace clojure.core, :var first}
+  {:namespace clojure.core, :var flatten}
+  {:namespace clojure.core, :var float}
+  {:namespace clojure.core, :var float-array}
+  {:namespace clojure.core, :var float?}
+  {:namespace clojure.core, :var floats}
+  {:namespace clojure.core, :var flush}
+  {:namespace clojure.core, :var fn}
+  {:namespace clojure.core, :var fn?}
+  {:namespace clojure.core, :var fnext}
+  {:namespace clojure.core, :var fnil}
+  {:namespace clojure.core, :var for}
+  {:namespace clojure.core, :var force}
+  {:namespace clojure.core, :var format}
+  {:namespace clojure.core, :var frequencies}
+  {:namespace clojure.core, :var future}
+  {:namespace clojure.core, :var future-call}
+  {:namespace clojure.core, :var future-cancel}
+  {:namespace clojure.core, :var future-cancelled?}
+  {:namespace clojure.core, :var future-done?}
+  {:namespace clojure.core, :var future?}
+  {:namespace clojure.core, :var gen-class}
+  {:namespace clojure.core, :var gen-interface}
+  {:namespace clojure.core, :var gensym}
+  {:namespace clojure.core, :var get}
+  {:namespace clojure.core, :var get-in}
+  {:namespace clojure.core, :var get-method}
+  {:namespace clojure.core, :var get-proxy-class}
+  {:namespace clojure.core, :var get-thread-bindings}
+  {:namespace clojure.core, :var get-validator}
+  {:namespace clojure.core, :var group-by}
+  {:namespace clojure.core, :var halt-when}
+  {:namespace clojure.core, :var hash}
+  {:namespace clojure.core, :var hash-combine}
+  {:namespace clojure.core, :var hash-map}
+  {:namespace clojure.core, :var hash-ordered-coll}
+  {:namespace clojure.core, :var hash-set}
+  {:namespace clojure.core, :var hash-unordered-coll}
+  {:namespace clojure.core, :var ident?}
+  {:namespace clojure.core, :var identical?}
+  {:namespace clojure.core, :var identity}
+  {:namespace clojure.core, :var if-let}
+  {:namespace clojure.core, :var if-not}
+  {:namespace clojure.core, :var if-some}
+  {:namespace clojure.core, :var ifn?}
+  {:namespace clojure.core, :var import}
+  {:namespace clojure.core, :var in-ns}
+  {:namespace clojure.core, :var inc}
+  {:namespace clojure.core, :var inc'}
+  {:namespace clojure.core, :var indexed?}
+  {:namespace clojure.core, :var infinite?}
+  {:namespace clojure.core, :var init-proxy}
+  {:namespace clojure.core, :var inst-ms}
+  {:namespace clojure.core, :var inst-ms*}
+  {:namespace clojure.core, :var inst?}
+  {:namespace clojure.core, :var instance?}
+  {:namespace clojure.core, :var int}
+  {:namespace clojure.core, :var int-array}
+  {:namespace clojure.core, :var int?}
+  {:namespace clojure.core, :var integer?}
+  {:namespace clojure.core, :var interleave}
+  {:namespace clojure.core, :var intern}
+  {:namespace clojure.core, :var interpose}
+  {:namespace clojure.core, :var into}
+  {:namespace clojure.core, :var into-array}
+  {:namespace clojure.core, :var ints}
+  {:namespace clojure.core, :var io!}
+  {:namespace clojure.core, :var isa?}
+  {:namespace clojure.core, :var iterate}
+  {:namespace clojure.core, :var iteration}
+  {:namespace clojure.core, :var iterator-seq}
+  {:namespace clojure.core, :var juxt}
+  {:namespace clojure.core, :var keep}
+  {:namespace clojure.core, :var keep-indexed}
+  {:namespace clojure.core, :var key}
+  {:namespace clojure.core, :var keys}
+  {:namespace clojure.core, :var keyword}
+  {:namespace clojure.core, :var keyword?}
+  {:namespace clojure.core, :var last}
+  {:namespace clojure.core, :var lazy-cat}
+  {:namespace clojure.core, :var lazy-seq}
+  {:namespace clojure.core, :var let}
+  {:namespace clojure.core, :var letfn}
+  {:namespace clojure.core, :var line-seq}
+  {:namespace clojure.core, :var list}
+  {:namespace clojure.core, :var list*}
+  {:namespace clojure.core, :var list?}
+  {:namespace clojure.core, :var load}
+  {:namespace clojure.core, :var load-file}
+  {:namespace clojure.core, :var load-reader}
+  {:namespace clojure.core, :var load-string}
+  {:namespace clojure.core, :var loaded-libs}
+  {:namespace clojure.core, :var locking}
+  {:namespace clojure.core, :var long}
+  {:namespace clojure.core, :var long-array}
+  {:namespace clojure.core, :var longs}
+  {:namespace clojure.core, :var loop}
+  {:namespace clojure.core, :var macroexpand}
+  {:namespace clojure.core, :var macroexpand-1}
+  {:namespace clojure.core, :var make-array}
+  {:namespace clojure.core, :var make-hierarchy}
+  {:namespace clojure.core, :var map}
+  {:namespace clojure.core, :var map-entry?}
+  {:namespace clojure.core, :var map-indexed}
+  {:namespace clojure.core, :var map?}
+  {:namespace clojure.core, :var mapcat}
+  {:namespace clojure.core, :var mapv}
+  {:namespace clojure.core, :var max}
+  {:namespace clojure.core, :var max-key}
+  {:namespace clojure.core, :var memfn}
+  {:namespace clojure.core, :var memoize}
+  {:namespace clojure.core, :var merge}
+  {:namespace clojure.core, :var merge-with}
+  {:namespace clojure.core, :var meta}
+  {:namespace clojure.core, :var method-sig}
+  {:namespace clojure.core, :var methods}
+  {:namespace clojure.core, :var min}
+  {:namespace clojure.core, :var min-key}
+  {:namespace clojure.core, :var mix-collection-hash}
+  {:namespace clojure.core, :var mod}
+  {:namespace clojure.core, :var munge}
+  {:namespace clojure.core, :var name}
+  {:namespace clojure.core, :var namespace}
+  {:namespace clojure.core, :var namespace-munge}
+  {:namespace clojure.core, :var nat-int?}
+  {:namespace clojure.core, :var neg-int?}
+  {:namespace clojure.core, :var neg?}
+  {:namespace clojure.core, :var newline}
+  {:namespace clojure.core, :var next}
+  {:namespace clojure.core, :var nfirst}
+  {:namespace clojure.core, :var nil?}
+  {:namespace clojure.core, :var nnext}
+  {:namespace clojure.core, :var not}
+  {:namespace clojure.core, :var not-any?}
+  {:namespace clojure.core, :var not-empty}
+  {:namespace clojure.core, :var not-every?}
+  {:namespace clojure.core, :var not=}
+  {:namespace clojure.core, :var ns}
+  {:namespace clojure.core, :var ns-aliases}
+  {:namespace clojure.core, :var ns-imports}
+  {:namespace clojure.core, :var ns-interns}
+  {:namespace clojure.core, :var ns-map}
+  {:namespace clojure.core, :var ns-name}
+  {:namespace clojure.core, :var ns-publics}
+  {:namespace clojure.core, :var ns-refers}
+  {:namespace clojure.core, :var ns-resolve}
+  {:namespace clojure.core, :var ns-unalias}
+  {:namespace clojure.core, :var ns-unmap}
+  {:namespace clojure.core, :var nth}
+  {:namespace clojure.core, :var nthnext}
+  {:namespace clojure.core, :var nthrest}
+  {:namespace clojure.core, :var num}
+  {:namespace clojure.core, :var number?}
+  {:namespace clojure.core, :var numerator}
+  {:namespace clojure.core, :var object-array}
+  {:namespace clojure.core, :var odd?}
+  {:namespace clojure.core, :var or}
+  {:namespace clojure.core, :var parents}
+  {:namespace clojure.core, :var parse-boolean}
+  {:namespace clojure.core, :var parse-double}
+  {:namespace clojure.core, :var parse-long}
+  {:namespace clojure.core, :var parse-uuid}
+  {:namespace clojure.core, :var partial}
+  {:namespace clojure.core, :var partition}
+  {:namespace clojure.core, :var partition-all}
+  {:namespace clojure.core, :var partition-by}
+  {:namespace clojure.core, :var partitionv}
+  {:namespace clojure.core, :var partitionv-all}
+  {:namespace clojure.core, :var pcalls}
+  {:namespace clojure.core, :var peek}
+  {:namespace clojure.core, :var persistent!}
+  {:namespace clojure.core, :var pmap}
+  {:namespace clojure.core, :var pop}
+  {:namespace clojure.core, :var pop!}
+  {:namespace clojure.core, :var pop-thread-bindings}
+  {:namespace clojure.core, :var pos-int?}
+  {:namespace clojure.core, :var pos?}
+  {:namespace clojure.core, :var pr}
+  {:namespace clojure.core, :var pr-str}
+  {:namespace clojure.core, :var prefer-method}
+  {:namespace clojure.core, :var prefers}
+  {:namespace clojure.core, :var primitives-classnames}
+  {:namespace clojure.core, :var print}
+  {:namespace clojure.core, :var print-ctor}
+  {:namespace clojure.core, :var print-dup}
+  {:namespace clojure.core, :var print-method}
+  {:namespace clojure.core, :var print-simple}
+  {:namespace clojure.core, :var print-str}
+  {:namespace clojure.core, :var printf}
+  {:namespace clojure.core, :var println}
+  {:namespace clojure.core, :var println-str}
+  {:namespace clojure.core, :var prn}
+  {:namespace clojure.core, :var prn-str}
+  {:namespace clojure.core, :var promise}
+  {:namespace clojure.core, :var proxy}
+  {:namespace clojure.core, :var proxy-call-with-super}
+  {:namespace clojure.core, :var proxy-mappings}
+  {:namespace clojure.core, :var proxy-name}
+  {:namespace clojure.core, :var proxy-super}
+  {:namespace clojure.core, :var push-thread-bindings}
+  {:namespace clojure.core, :var pvalues}
+  {:namespace clojure.core, :var qualified-ident?}
+  {:namespace clojure.core, :var qualified-keyword?}
+  {:namespace clojure.core, :var qualified-symbol?}
+  {:namespace clojure.core, :var quot}
+  {:namespace clojure.core, :var rand}
+  {:namespace clojure.core, :var rand-int}
+  {:namespace clojure.core, :var rand-nth}
+  {:namespace clojure.core, :var random-sample}
+  {:namespace clojure.core, :var random-uuid}
+  {:namespace clojure.core, :var range}
+  {:namespace clojure.core, :var ratio?}
+  {:namespace clojure.core, :var rational?}
+  {:namespace clojure.core, :var rationalize}
+  {:namespace clojure.core, :var re-find}
+  {:namespace clojure.core, :var re-groups}
+  {:namespace clojure.core, :var re-matcher}
+  {:namespace clojure.core, :var re-matches}
+  {:namespace clojure.core, :var re-pattern}
+  {:namespace clojure.core, :var re-seq}
+  {:namespace clojure.core, :var read}
+  {:namespace clojure.core, :var read+string}
+  {:namespace clojure.core, :var read-line}
+  {:namespace clojure.core, :var read-string}
+  {:namespace clojure.core, :var reader-conditional}
+  {:namespace clojure.core, :var reader-conditional?}
+  {:namespace clojure.core, :var realized?}
+  {:namespace clojure.core, :var record?}
+  {:namespace clojure.core, :var reduce}
+  {:namespace clojure.core, :var reduce-kv}
+  {:namespace clojure.core, :var reduced}
+  {:namespace clojure.core, :var reduced?}
+  {:namespace clojure.core, :var reductions}
+  {:namespace clojure.core, :var ref}
+  {:namespace clojure.core, :var ref-history-count}
+  {:namespace clojure.core, :var ref-max-history}
+  {:namespace clojure.core, :var ref-min-history}
+  {:namespace clojure.core, :var ref-set}
+  {:namespace clojure.core, :var refer}
+  {:namespace clojure.core, :var refer-clojure}
+  {:namespace clojure.core, :var reify}
+  {:namespace clojure.core, :var release-pending-sends}
+  {:namespace clojure.core, :var rem}
+  {:namespace clojure.core, :var remove}
+  {:namespace clojure.core, :var remove-all-methods}
+  {:namespace clojure.core, :var remove-method}
+  {:namespace clojure.core, :var remove-ns}
+  {:namespace clojure.core, :var remove-tap}
+  {:namespace clojure.core, :var remove-watch}
+  {:namespace clojure.core, :var repeat}
+  {:namespace clojure.core, :var repeatedly}
+  {:namespace clojure.core, :var replace}
+  {:namespace clojure.core, :var replicate}
+  {:namespace clojure.core, :var require}
+  {:namespace clojure.core, :var requiring-resolve}
+  {:namespace clojure.core, :var reset!}
+  {:namespace clojure.core, :var reset-meta!}
+  {:namespace clojure.core, :var reset-vals!}
+  {:namespace clojure.core, :var resolve}
+  {:namespace clojure.core, :var rest}
+  {:namespace clojure.core, :var restart-agent}
+  {:namespace clojure.core, :var resultset-seq}
+  {:namespace clojure.core, :var reverse}
+  {:namespace clojure.core, :var reversible?}
+  {:namespace clojure.core, :var rseq}
+  {:namespace clojure.core, :var rsubseq}
+  {:namespace clojure.core, :var run!}
+  {:namespace clojure.core, :var satisfies?}
+  {:namespace clojure.core, :var second}
+  {:namespace clojure.core, :var select-keys}
+  {:namespace clojure.core, :var send}
+  {:namespace clojure.core, :var send-off}
+  {:namespace clojure.core, :var send-via}
+  {:namespace clojure.core, :var seq}
+  {:namespace clojure.core, :var seq-to-map-for-destructuring}
+  {:namespace clojure.core, :var seq?}
+  {:namespace clojure.core, :var seqable?}
+  {:namespace clojure.core, :var seque}
+  {:namespace clojure.core, :var sequence}
+  {:namespace clojure.core, :var sequential?}
+  {:namespace clojure.core, :var set}
+  {:namespace clojure.core, :var set-agent-send-executor!}
+  {:namespace clojure.core, :var set-agent-send-off-executor!}
+  {:namespace clojure.core, :var set-error-handler!}
+  {:namespace clojure.core, :var set-error-mode!}
+  {:namespace clojure.core, :var set-validator!}
+  {:namespace clojure.core, :var set?}
+  {:namespace clojure.core, :var short}
+  {:namespace clojure.core, :var short-array}
+  {:namespace clojure.core, :var shorts}
+  {:namespace clojure.core, :var shuffle}
+  {:namespace clojure.core, :var shutdown-agents}
+  {:namespace clojure.core, :var simple-ident?}
+  {:namespace clojure.core, :var simple-keyword?}
+  {:namespace clojure.core, :var simple-symbol?}
+  {:namespace clojure.core, :var slurp}
+  {:namespace clojure.core, :var some}
+  {:namespace clojure.core, :var some->}
+  {:namespace clojure.core, :var some->>}
+  {:namespace clojure.core, :var some-fn}
+  {:namespace clojure.core, :var some?}
+  {:namespace clojure.core, :var sort}
+  {:namespace clojure.core, :var sort-by}
+  {:namespace clojure.core, :var sorted-map}
+  {:namespace clojure.core, :var sorted-map-by}
+  {:namespace clojure.core, :var sorted-set}
+  {:namespace clojure.core, :var sorted-set-by}
+  {:namespace clojure.core, :var sorted?}
+  {:namespace clojure.core, :var special-symbol?}
+  {:namespace clojure.core, :var spit}
+  {:namespace clojure.core, :var split-at}
+  {:namespace clojure.core, :var split-with}
+  {:namespace clojure.core, :var splitv-at}
+  {:namespace clojure.core, :var str}
+  {:namespace clojure.core, :var stream-into!}
+  {:namespace clojure.core, :var stream-reduce!}
+  {:namespace clojure.core, :var stream-seq!}
+  {:namespace clojure.core, :var stream-transduce!}
+  {:namespace clojure.core, :var string?}
+  {:namespace clojure.core, :var struct}
+  {:namespace clojure.core, :var struct-map}
+  {:namespace clojure.core, :var subs}
+  {:namespace clojure.core, :var subseq}
+  {:namespace clojure.core, :var subvec}
+  {:namespace clojure.core, :var supers}
+  {:namespace clojure.core, :var swap!}
+  {:namespace clojure.core, :var swap-vals!}
+  {:namespace clojure.core, :var symbol}
+  {:namespace clojure.core, :var symbol?}
+  {:namespace clojure.core, :var sync}
+  {:namespace clojure.core, :var tagged-literal}
+  {:namespace clojure.core, :var tagged-literal?}
+  {:namespace clojure.core, :var take}
+  {:namespace clojure.core, :var take-last}
+  {:namespace clojure.core, :var take-nth}
+  {:namespace clojure.core, :var take-while}
+  {:namespace clojure.core, :var tap>}
+  {:namespace clojure.core, :var test}
+  {:namespace clojure.core, :var the-ns}
+  {:namespace clojure.core, :var thread-bound?}
+  {:namespace clojure.core, :var time}
+  {:namespace clojure.core, :var to-array}
+  {:namespace clojure.core, :var to-array-2d}
+  {:namespace clojure.core, :var trampoline}
+  {:namespace clojure.core, :var transduce}
+  {:namespace clojure.core, :var transient}
+  {:namespace clojure.core, :var tree-seq}
+  {:namespace clojure.core, :var true?}
+  {:namespace clojure.core, :var type}
+  {:namespace clojure.core, :var unchecked-add}
+  {:namespace clojure.core, :var unchecked-add-int}
+  {:namespace clojure.core, :var unchecked-byte}
+  {:namespace clojure.core, :var unchecked-char}
+  {:namespace clojure.core, :var unchecked-dec}
+  {:namespace clojure.core, :var unchecked-dec-int}
+  {:namespace clojure.core, :var unchecked-divide-int}
+  {:namespace clojure.core, :var unchecked-double}
+  {:namespace clojure.core, :var unchecked-float}
+  {:namespace clojure.core, :var unchecked-inc}
+  {:namespace clojure.core, :var unchecked-inc-int}
+  {:namespace clojure.core, :var unchecked-int}
+  {:namespace clojure.core, :var unchecked-long}
+  {:namespace clojure.core, :var unchecked-multiply}
+  {:namespace clojure.core, :var unchecked-multiply-int}
+  {:namespace clojure.core, :var unchecked-negate}
+  {:namespace clojure.core, :var unchecked-negate-int}
+  {:namespace clojure.core, :var unchecked-remainder-int}
+  {:namespace clojure.core, :var unchecked-short}
+  {:namespace clojure.core, :var unchecked-subtract}
+  {:namespace clojure.core, :var unchecked-subtract-int}
+  {:namespace clojure.core, :var underive}
+  {:namespace clojure.core, :var unquote}
+  {:namespace clojure.core, :var unquote-splicing}
+  {:namespace clojure.core, :var unreduced}
+  {:namespace clojure.core, :var unsigned-bit-shift-right}
+  {:namespace clojure.core, :var update}
+  {:namespace clojure.core, :var update-in}
+  {:namespace clojure.core, :var update-keys}
+  {:namespace clojure.core, :var update-proxy}
+  {:namespace clojure.core, :var update-vals}
+  {:namespace clojure.core, :var uri?}
+  {:namespace clojure.core, :var use}
+  {:namespace clojure.core, :var uuid?}
+  {:namespace clojure.core, :var val}
+  {:namespace clojure.core, :var vals}
+  {:namespace clojure.core, :var var-get}
+  {:namespace clojure.core, :var var-set}
+  {:namespace clojure.core, :var var?}
+  {:namespace clojure.core, :var vary-meta}
+  {:namespace clojure.core, :var vec}
+  {:namespace clojure.core, :var vector}
+  {:namespace clojure.core, :var vector-of}
+  {:namespace clojure.core, :var vector?}
+  {:namespace clojure.core, :var volatile!}
+  {:namespace clojure.core, :var volatile?}
+  {:namespace clojure.core, :var vreset!}
+  {:namespace clojure.core, :var vswap!}
+  {:namespace clojure.core, :var when}
+  {:namespace clojure.core, :var when-first}
+  {:namespace clojure.core, :var when-let}
+  {:namespace clojure.core, :var when-not}
+  {:namespace clojure.core, :var when-some}
+  {:namespace clojure.core, :var while}
+  {:namespace clojure.core, :var with-bindings}
+  {:namespace clojure.core, :var with-bindings*}
+  {:namespace clojure.core, :var with-in-str}
+  {:namespace clojure.core, :var with-loading-context}
+  {:namespace clojure.core, :var with-local-vars}
+  {:namespace clojure.core, :var with-meta}
+  {:namespace clojure.core, :var with-open}
+  {:namespace clojure.core, :var with-out-str}
+  {:namespace clojure.core, :var with-precision}
+  {:namespace clojure.core, :var with-redefs}
+  {:namespace clojure.core, :var with-redefs-fn}
+  {:namespace clojure.core, :var xml-seq}
+  {:namespace clojure.core, :var zero?}
+  {:namespace clojure.core, :var zipmap}
+  {:namespace clojure.core.protocols, :var CollReduce}
+  {:namespace clojure.core.protocols, :var Datafiable}
+  {:namespace clojure.core.protocols, :var IKVReduce}
+  {:namespace clojure.core.protocols, :var InternalReduce}
+  {:namespace clojure.core.protocols, :var Navigable}
+  {:namespace clojure.core.protocols, :var coll-reduce}
+  {:namespace clojure.core.protocols, :var datafy}
+  {:namespace clojure.core.protocols, :var internal-reduce}
+  {:namespace clojure.core.protocols, :var iterator-reduce!}
+  {:namespace clojure.core.protocols, :var kv-reduce}
+  {:namespace clojure.core.protocols, :var nav}
+  {:namespace clojure.core.reducers, :var ->Cat}
+  {:namespace clojure.core.reducers, :var CollFold}
+  {:namespace clojure.core.reducers, :var append!}
+  {:namespace clojure.core.reducers, :var cat}
+  {:namespace clojure.core.reducers, :var coll-fold}
+  {:namespace clojure.core.reducers, :var drop}
+  {:namespace clojure.core.reducers, :var filter}
+  {:namespace clojure.core.reducers, :var fjtask}
+  {:namespace clojure.core.reducers, :var flatten}
+  {:namespace clojure.core.reducers, :var fold}
+  {:namespace clojure.core.reducers, :var foldcat}
+  {:namespace clojure.core.reducers, :var folder}
+  {:namespace clojure.core.reducers, :var map}
+  {:namespace clojure.core.reducers, :var mapcat}
+  {:namespace clojure.core.reducers, :var monoid}
+  {:namespace clojure.core.reducers, :var pool}
+  {:namespace clojure.core.reducers, :var reduce}
+  {:namespace clojure.core.reducers, :var reducer}
+  {:namespace clojure.core.reducers, :var remove}
+  {:namespace clojure.core.reducers, :var take}
+  {:namespace clojure.core.reducers, :var take-while}
+  {:namespace clojure.data, :var Diff}
+  {:namespace clojure.data, :var EqualityPartition}
+  {:namespace clojure.data, :var diff}
+  {:namespace clojure.data, :var diff-similar}
+  {:namespace clojure.data, :var equality-partition}
+  {:namespace clojure.datafy, :var datafy}
+  {:namespace clojure.datafy, :var nav}
+  {:namespace clojure.edn, :var read}
+  {:namespace clojure.edn, :var read-string}
+  {:namespace clojure.instant, :var parse-timestamp}
+  {:namespace clojure.instant, :var read-instant-calendar}
+  {:namespace clojure.instant, :var read-instant-date}
+  {:namespace clojure.instant, :var read-instant-timestamp}
+  {:namespace clojure.instant, :var validated}
+  {:namespace clojure.math, :var E}
+  {:namespace clojure.math, :var IEEE-remainder}
+  {:namespace clojure.math, :var PI}
+  {:namespace clojure.math, :var acos}
+  {:namespace clojure.math, :var add-exact}
+  {:namespace clojure.math, :var asin}
+  {:namespace clojure.math, :var atan}
+  {:namespace clojure.math, :var atan2}
+  {:namespace clojure.math, :var cbrt}
+  {:namespace clojure.math, :var ceil}
+  {:namespace clojure.math, :var copy-sign}
+  {:namespace clojure.math, :var cos}
+  {:namespace clojure.math, :var cosh}
+  {:namespace clojure.math, :var decrement-exact}
+  {:namespace clojure.math, :var exp}
+  {:namespace clojure.math, :var expm1}
+  {:namespace clojure.math, :var floor}
+  {:namespace clojure.math, :var floor-div}
+  {:namespace clojure.math, :var floor-mod}
+  {:namespace clojure.math, :var get-exponent}
+  {:namespace clojure.math, :var hypot}
+  {:namespace clojure.math, :var increment-exact}
+  {:namespace clojure.math, :var log}
+  {:namespace clojure.math, :var log10}
+  {:namespace clojure.math, :var log1p}
+  {:namespace clojure.math, :var multiply-exact}
+  {:namespace clojure.math, :var negate-exact}
+  {:namespace clojure.math, :var next-after}
+  {:namespace clojure.math, :var next-down}
+  {:namespace clojure.math, :var next-up}
+  {:namespace clojure.math, :var pow}
+  {:namespace clojure.math, :var random}
+  {:namespace clojure.math, :var rint}
+  {:namespace clojure.math, :var round}
+  {:namespace clojure.math, :var scalb}
+  {:namespace clojure.math, :var signum}
+  {:namespace clojure.math, :var sin}
+  {:namespace clojure.math, :var sinh}
+  {:namespace clojure.math, :var sqrt}
+  {:namespace clojure.math, :var subtract-exact}
+  {:namespace clojure.math, :var tan}
+  {:namespace clojure.math, :var tanh}
+  {:namespace clojure.math, :var to-degrees}
+  {:namespace clojure.math, :var to-radians}
+  {:namespace clojure.math, :var ulp}
+  {:namespace clojure.pprint, :var *print-base*}
+  {:namespace clojure.pprint, :var *print-miser-width*}
+  {:namespace clojure.pprint, :var *print-pprint-dispatch*}
+  {:namespace clojure.pprint, :var *print-pretty*}
+  {:namespace clojure.pprint, :var *print-radix*}
+  {:namespace clojure.pprint, :var *print-right-margin*}
+  {:namespace clojure.pprint, :var *print-suppress-namespaces*}
+  {:namespace clojure.pprint, :var cl-format}
+  {:namespace clojure.pprint, :var code-dispatch}
+  {:namespace clojure.pprint, :var formatter}
+  {:namespace clojure.pprint, :var formatter-out}
+  {:namespace clojure.pprint, :var fresh-line}
+  {:namespace clojure.pprint, :var get-pretty-writer}
+  {:namespace clojure.pprint, :var pp}
+  {:namespace clojure.pprint, :var pprint}
+  {:namespace clojure.pprint, :var pprint-indent}
+  {:namespace clojure.pprint, :var pprint-logical-block}
+  {:namespace clojure.pprint, :var pprint-newline}
+  {:namespace clojure.pprint, :var pprint-tab}
+  {:namespace clojure.pprint, :var print-length-loop}
+  {:namespace clojure.pprint, :var print-table}
+  {:namespace clojure.pprint, :var set-pprint-dispatch}
+  {:namespace clojure.pprint, :var simple-dispatch}
+  {:namespace clojure.pprint, :var with-pprint-dispatch}
+  {:namespace clojure.pprint, :var write}
+  {:namespace clojure.pprint, :var write-out}
+  {:namespace clojure.set, :var difference}
+  {:namespace clojure.set, :var index}
+  {:namespace clojure.set, :var intersection}
+  {:namespace clojure.set, :var join}
+  {:namespace clojure.set, :var map-invert}
+  {:namespace clojure.set, :var project}
+  {:namespace clojure.set, :var rename}
+  {:namespace clojure.set, :var rename-keys}
+  {:namespace clojure.set, :var select}
+  {:namespace clojure.set, :var subset?}
+  {:namespace clojure.set, :var superset?}
+  {:namespace clojure.set, :var union}
+  {:namespace clojure.spec.alpha, :var &}
+  {:namespace clojure.spec.alpha, :var *}
+  {:namespace clojure.spec.alpha, :var *coll-check-limit*}
+  {:namespace clojure.spec.alpha, :var *coll-error-limit*}
+  {:namespace clojure.spec.alpha, :var *compile-asserts*}
+  {:namespace clojure.spec.alpha, :var *explain-out*}
+  {:namespace clojure.spec.alpha, :var *fspec-iterations*}
+  {:namespace clojure.spec.alpha, :var *recursion-limit*}
+  {:namespace clojure.spec.alpha, :var +}
+  {:namespace clojure.spec.alpha, :var ?}
+  {:namespace clojure.spec.alpha, :var Spec}
+  {:namespace clojure.spec.alpha, :var Specize}
+  {:namespace clojure.spec.alpha, :var abbrev}
+  {:namespace clojure.spec.alpha, :var alt}
+  {:namespace clojure.spec.alpha, :var alt-impl}
+  {:namespace clojure.spec.alpha, :var amp-impl}
+  {:namespace clojure.spec.alpha, :var and}
+  {:namespace clojure.spec.alpha, :var and-spec-impl}
+  {:namespace clojure.spec.alpha, :var assert}
+  {:namespace clojure.spec.alpha, :var assert*}
+  {:namespace clojure.spec.alpha, :var cat}
+  {:namespace clojure.spec.alpha, :var cat-impl}
+  {:namespace clojure.spec.alpha, :var check-asserts}
+  {:namespace clojure.spec.alpha, :var check-asserts?}
+  {:namespace clojure.spec.alpha, :var coll-of}
+  {:namespace clojure.spec.alpha, :var conform}
+  {:namespace clojure.spec.alpha, :var conform*}
+  {:namespace clojure.spec.alpha, :var conformer}
+  {:namespace clojure.spec.alpha, :var def}
+  {:namespace clojure.spec.alpha, :var def-impl}
+  {:namespace clojure.spec.alpha, :var describe}
+  {:namespace clojure.spec.alpha, :var describe*}
+  {:namespace clojure.spec.alpha, :var double-in}
+  {:namespace clojure.spec.alpha, :var every}
+  {:namespace clojure.spec.alpha, :var every-impl}
+  {:namespace clojure.spec.alpha, :var every-kv}
+  {:namespace clojure.spec.alpha, :var exercise}
+  {:namespace clojure.spec.alpha, :var exercise-fn}
+  {:namespace clojure.spec.alpha, :var explain}
+  {:namespace clojure.spec.alpha, :var explain*}
+  {:namespace clojure.spec.alpha, :var explain-data}
+  {:namespace clojure.spec.alpha, :var explain-data*}
+  {:namespace clojure.spec.alpha, :var explain-out}
+  {:namespace clojure.spec.alpha, :var explain-printer}
+  {:namespace clojure.spec.alpha, :var explain-str}
+  {:namespace clojure.spec.alpha, :var fdef}
+  {:namespace clojure.spec.alpha, :var form}
+  {:namespace clojure.spec.alpha, :var fspec}
+  {:namespace clojure.spec.alpha, :var fspec-impl}
+  {:namespace clojure.spec.alpha, :var gen}
+  {:namespace clojure.spec.alpha, :var gen*}
+  {:namespace clojure.spec.alpha, :var get-spec}
+  {:namespace clojure.spec.alpha, :var inst-in}
+  {:namespace clojure.spec.alpha, :var inst-in-range?}
+  {:namespace clojure.spec.alpha, :var int-in}
+  {:namespace clojure.spec.alpha, :var int-in-range?}
+  {:namespace clojure.spec.alpha, :var invalid?}
+  {:namespace clojure.spec.alpha, :var keys}
+  {:namespace clojure.spec.alpha, :var keys*}
+  {:namespace clojure.spec.alpha, :var map-of}
+  {:namespace clojure.spec.alpha, :var map-spec-impl}
+  {:namespace clojure.spec.alpha, :var maybe-impl}
+  {:namespace clojure.spec.alpha, :var merge}
+  {:namespace clojure.spec.alpha, :var merge-spec-impl}
+  {:namespace clojure.spec.alpha, :var multi-spec}
+  {:namespace clojure.spec.alpha, :var multi-spec-impl}
+  {:namespace clojure.spec.alpha, :var nilable}
+  {:namespace clojure.spec.alpha, :var nilable-impl}
+  {:namespace clojure.spec.alpha, :var nonconforming}
+  {:namespace clojure.spec.alpha, :var or}
+  {:namespace clojure.spec.alpha, :var or-spec-impl}
+  {:namespace clojure.spec.alpha, :var regex-spec-impl}
+  {:namespace clojure.spec.alpha, :var regex?}
+  {:namespace clojure.spec.alpha, :var registry}
+  {:namespace clojure.spec.alpha, :var rep+impl}
+  {:namespace clojure.spec.alpha, :var rep-impl}
+  {:namespace clojure.spec.alpha, :var spec}
+  {:namespace clojure.spec.alpha, :var spec-impl}
+  {:namespace clojure.spec.alpha, :var spec?}
+  {:namespace clojure.spec.alpha, :var specize*}
+  {:namespace clojure.spec.alpha, :var tuple}
+  {:namespace clojure.spec.alpha, :var tuple-impl}
+  {:namespace clojure.spec.alpha, :var unform}
+  {:namespace clojure.spec.alpha, :var unform*}
+  {:namespace clojure.spec.alpha, :var valid?}
+  {:namespace clojure.spec.alpha, :var with-gen}
+  {:namespace clojure.spec.alpha, :var with-gen*}
+  {:namespace clojure.string, :var blank?}
+  {:namespace clojure.string, :var capitalize}
+  {:namespace clojure.string, :var ends-with?}
+  {:namespace clojure.string, :var escape}
+  {:namespace clojure.string, :var includes?}
+  {:namespace clojure.string, :var index-of}
+  {:namespace clojure.string, :var join}
+  {:namespace clojure.string, :var last-index-of}
+  {:namespace clojure.string, :var lower-case}
+  {:namespace clojure.string, :var re-quote-replacement}
+  {:namespace clojure.string, :var replace}
+  {:namespace clojure.string, :var replace-first}
+  {:namespace clojure.string, :var reverse}
+  {:namespace clojure.string, :var split}
+  {:namespace clojure.string, :var split-lines}
+  {:namespace clojure.string, :var starts-with?}
+  {:namespace clojure.string, :var trim}
+  {:namespace clojure.string, :var trim-newline}
+  {:namespace clojure.string, :var triml}
+  {:namespace clojure.string, :var trimr}
+  {:namespace clojure.string, :var upper-case}
+  {:namespace clojure.template, :var apply-template}
+  {:namespace clojure.template, :var do-template}
+  {:namespace clojure.test, :var *initial-report-counters*}
+  {:namespace clojure.test, :var *load-tests*}
+  {:namespace clojure.test, :var *report-counters*}
+  {:namespace clojure.test, :var *stack-trace-depth*}
+  {:namespace clojure.test, :var *test-out*}
+  {:namespace clojure.test, :var *testing-contexts*}
+  {:namespace clojure.test, :var *testing-vars*}
+  {:namespace clojure.test, :var are}
+  {:namespace clojure.test, :var assert-any}
+  {:namespace clojure.test, :var assert-expr}
+  {:namespace clojure.test, :var assert-predicate}
+  {:namespace clojure.test, :var compose-fixtures}
+  {:namespace clojure.test, :var deftest}
+  {:namespace clojure.test, :var deftest-}
+  {:namespace clojure.test, :var do-report}
+  {:namespace clojure.test, :var file-position}
+  {:namespace clojure.test, :var function?}
+  {:namespace clojure.test, :var get-possibly-unbound-var}
+  {:namespace clojure.test, :var inc-report-counter}
+  {:namespace clojure.test, :var is}
+  {:namespace clojure.test, :var join-fixtures}
+  {:namespace clojure.test, :var report}
+  {:namespace clojure.test, :var run-all-tests}
+  {:namespace clojure.test, :var run-test}
+  {:namespace clojure.test, :var run-test-var}
+  {:namespace clojure.test, :var run-tests}
+  {:namespace clojure.test, :var set-test}
+  {:namespace clojure.test, :var successful?}
+  {:namespace clojure.test, :var test-all-vars}
+  {:namespace clojure.test, :var test-ns}
+  {:namespace clojure.test, :var test-var}
+  {:namespace clojure.test, :var test-vars}
+  {:namespace clojure.test, :var testing}
+  {:namespace clojure.test, :var testing-contexts-str}
+  {:namespace clojure.test, :var testing-vars-str}
+  {:namespace clojure.test, :var try-expr}
+  {:namespace clojure.test, :var use-fixtures}
+  {:namespace clojure.test, :var with-test}
+  {:namespace clojure.test, :var with-test-out}
+  {:namespace clojure.walk, :var keywordize-keys}
+  {:namespace clojure.walk, :var macroexpand-all}
+  {:namespace clojure.walk, :var postwalk}
+  {:namespace clojure.walk, :var postwalk-demo}
+  {:namespace clojure.walk, :var postwalk-replace}
+  {:namespace clojure.walk, :var prewalk}
+  {:namespace clojure.walk, :var prewalk-demo}
+  {:namespace clojure.walk, :var prewalk-replace}
+  {:namespace clojure.walk, :var stringify-keys}
+  {:namespace clojure.walk, :var walk}
+  {:namespace clojure.zip, :var append-child}
+  {:namespace clojure.zip, :var branch?}
+  {:namespace clojure.zip, :var children}
+  {:namespace clojure.zip, :var down}
+  {:namespace clojure.zip, :var edit}
+  {:namespace clojure.zip, :var end?}
+  {:namespace clojure.zip, :var insert-child}
+  {:namespace clojure.zip, :var insert-left}
+  {:namespace clojure.zip, :var insert-right}
+  {:namespace clojure.zip, :var left}
+  {:namespace clojure.zip, :var leftmost}
+  {:namespace clojure.zip, :var lefts}
+  {:namespace clojure.zip, :var make-node}
+  {:namespace clojure.zip, :var next}
+  {:namespace clojure.zip, :var node}
+  {:namespace clojure.zip, :var path}
+  {:namespace clojure.zip, :var prev}
+  {:namespace clojure.zip, :var remove}
+  {:namespace clojure.zip, :var replace}
+  {:namespace clojure.zip, :var right}
+  {:namespace clojure.zip, :var rightmost}
+  {:namespace clojure.zip, :var rights}
+  {:namespace clojure.zip, :var root}
+  {:namespace clojure.zip, :var seq-zip}
+  {:namespace clojure.zip, :var up}
+  {:namespace clojure.zip, :var vector-zip}
+  {:namespace clojure.zip, :var xml-zip}
+  {:namespace clojure.zip, :var zipper}]}

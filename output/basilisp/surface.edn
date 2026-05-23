@@ -1,0 +1,7 @@
+{:spec-keys #{},
+ :special-forms
+ #{try finally do if recur set! . var quote catch throw def},
+ :namespaces {},
+ :dialect-tag "basilisp",
+ :clojure-version "unknown",
+ :captured-at "2026-05-23T16:44:48Z"}
