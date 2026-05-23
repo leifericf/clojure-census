@@ -47,10 +47,24 @@
   (s/or :default    #{:default}
         :transforms ::norm-transforms))
 
+;; ----- per-dialect behavior toggle ---------------------------------
+;; Lets a dialect declare itself out of scope for the behavior-parity
+;; harness (e.g. compile-time-only ClojureScript variants) without
+;; removing it from the surface diff pipeline.
+(s/def :clj-census.dialect.behavior/enabled boolean?)
+(s/def ::behavior
+  (s/keys :opt-un [:clj-census.dialect.behavior/enabled]))
+
 (s/def ::dialect-config
   (s/keys :req-un [::name ::tag ::role ::invocation
                    ::participates-in ::data-dir ::output-dir]
-          :opt-un [::enabled ::version-cmd ::surface-normalization]))
+          :opt-un [::enabled ::version-cmd ::surface-normalization
+                   ::behavior]))
+
+(defn behavior-enabled?
+  "Defaults to enabled; explicit `:behavior {:enabled false}` opts out."
+  [cfg]
+  (not (false? (get-in cfg [:behavior :enabled]))))
 
 ;; ===== pure operations =============================================
 

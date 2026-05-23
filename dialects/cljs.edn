@@ -45,4 +45,8 @@
   :include-only-namespaces
   #{cljs.core
     cljs.spec.alpha cljs.test cljs.pprint cljs.reader
-    clojure.string clojure.set clojure.walk}}}
+    clojure.string clojure.set clojure.walk}}
+
+ ;; ClojureScript is compile-time-only here; behavior parity needs a
+ ;; full eval loop, which planck-CLJS doesn't expose for stdin EDN.
+ :behavior {:enabled false}}

@@ -2,12 +2,17 @@
  {:dialect-tag "mino",
   :dialect-name "mino",
   :clojure-version "1.12.4",
-  :compared-at "2026-05-23T20:41:21Z"},
+  :compared-at "2026-05-23T20:49:20Z"},
  :divergences
  [{:dialect-example "(compare \"z\" \"a\") ;=> 1",
    :since "v0.1.0",
    :affected [clojure.core/compare],
    :clojure-example "(compare \"z\" \"a\") ;=> 25",
+   :behavior
+   {:expectation :diverges,
+    :predicate :sign-normalized,
+    :note
+    "Same sign as JVM compare; magnitude\n                                  collapsed to -1/0/1."},
    :category-id :ordering,
    :title "compare returns sign-only (-1, 0, 1)",
    :doc-link "/coming-from-clojure#ordering",
@@ -33,6 +38,11 @@
    :since "v0.1.0",
    :affected [clojure.core/type clojure.core/class],
    :clojure-example "(type [1 2 3]) ;=> clojure.lang.PersistentVector",
+   :behavior
+   {:expectation :diverges,
+    :predicate :keyword-vs-class,
+    :note
+    "Oracle returns a Class object; mino\n                                  returns the analogous keyword tag."},
    :category-id :type-system,
    :title "type returns a keyword, not a Java class",
    :doc-link "/coming-from-clojure#types",
@@ -46,7 +56,12 @@
    "There are no classes; class is provided as a\n                    Clojure-shaped alias rather than a separate\n                    abstraction.",
    :since "v0.1.0",
    :affected
-   [clojure.core/class clojure.core/class? clojure.core/instance?]}
+   [clojure.core/class clojure.core/class? clojure.core/instance?],
+   :behavior
+   {:expectation :diverges,
+    :predicate :keyword-vs-class,
+    :note
+    "Same shape as :type-as-keyword for\n                                  the class accessor."}}
   {:id :ex-info-no-jvm-throwable-hierarchy,
    :title "ex-info / throw use mino-native exception type",
    :category-id :error-messages,
@@ -58,6 +73,10 @@
     clojure.core/ex-data
     clojure.core/ex-message
     clojure.core/ex-cause],
+   :behavior
+   {:expectation :skip,
+    :note
+    "Exception type/message comparison is\n                                  out of scope per the README's\n                                  error-message exclusion."},
    :doc-link "/coming-from-clojure#exceptions"}
   {:id :no-jvm-class-statics,
    :title "Integer/MAX_VALUE etc. remapped or absent",

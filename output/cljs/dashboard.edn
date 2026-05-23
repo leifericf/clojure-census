@@ -2,7 +2,7 @@
  {:dialect-tag "cljs",
   :dialect-name "ClojureScript (planck)",
   :clojure-version "1.12.4",
-  :compared-at "2026-05-23T20:41:16Z"},
+  :compared-at "2026-05-23T20:49:14Z"},
  :divergences
  [{:id :no-jvm-class-system,
    :title "No JVM class hierarchy",

@@ -2,7 +2,7 @@
  {:dialect-tag "cljd",
   :dialect-name "ClojureDart",
   :clojure-version "1.12.4",
-  :compared-at "2026-05-23T20:41:15Z"},
+  :compared-at "2026-05-23T20:49:13Z"},
  :divergences
  [{:id :dart-host,
    :title "Host runtime is Dart, not the JVM",

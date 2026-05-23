@@ -2,7 +2,7 @@
  {:dialect-tag "basilisp",
   :dialect-name "Basilisp",
   :clojure-version "1.12.4",
-  :compared-at "2026-05-23T20:41:13Z"},
+  :compared-at "2026-05-23T20:49:11Z"},
  :divergences
  [{:id :python-host,
    :title "Host runtime is Python 3, not the JVM",

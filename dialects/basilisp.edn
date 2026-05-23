@@ -30,4 +30,10 @@
                     clojure.data]
  :data-dir         "data/basilisp"
  :output-dir       "output/basilisp"
- :surface-normalization :default}
+ :surface-normalization :default
+
+ ;; Basilisp's eval is Python-hosted; the portable behavior_eval
+ ;; script relies on JVM-shaped interop (System/currentTimeMillis,
+ ;; java.lang.Class). A Basilisp-specific evaluator can replace this
+ ;; flag once authored.
+ :behavior {:enabled false}}

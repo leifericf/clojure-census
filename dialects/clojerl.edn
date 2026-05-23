@@ -33,4 +33,9 @@
                     clojure.template]
  :data-dir         "data/clojerl"
  :output-dir       "output/clojerl"
- :surface-normalization :default}
+ :surface-normalization :default
+
+ ;; Clojerl runs on the BEAM; the portable behavior_eval script's
+ ;; JVM interop and exception model do not translate. Awaiting a
+ ;; Clojerl-specific evaluator.
+ :behavior {:enabled false}}

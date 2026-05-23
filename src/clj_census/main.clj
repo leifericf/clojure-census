@@ -501,34 +501,38 @@
 
 (defn- subcmd-behavior
   [ctx [tag :as _args]]
-  (let [cfg        (load-dialect tag)
-        oracle-cfg (load-dialect "clojure")
-        cats       (load-categories)
-        divs       (load-divergences cfg cats)
-        cases      (load-behavior-catalog cats)
-        ctx'       (assoc ctx :script behavior-eval-script)
-        inv-dialect (dialect/prepare-invocation cfg        ctx')
-        inv-oracle  (dialect/prepare-invocation oracle-cfg ctx')
-        env'        (into {} (System/getenv))
-        eval-fn    (fn [role probe-case]
-                     (let [inv (if (= role :oracle) inv-oracle inv-dialect)
-                           stdin (binding [*print-namespace-maps* false
-                                           *print-length*         nil
-                                           *print-level*          nil]
-                                   (pr-str {:form    (:form probe-case)
-                                            :require []}))]
-                       (dialect/capture-stdout inv :stdin stdin :env env')))
-        report     (behavior-report-for
-                     {:dialect-tag tag
-                      :run-at      (iso-timestamp-now)
-                      :cases       cases
-                      :divergences divs
-                      :eval-fn     eval-fn})]
-    (parity/validate-report! report)
-    (store/spit-edn! (behavior-output-path tag) report)
-    (println "behavior:" tag "→" (pr-str (:totals report)))
-    (println "  output:" (behavior-output-path tag))
-    0))
+  (let [cfg (load-dialect tag)]
+    (if-not (dialect/behavior-enabled? cfg)
+      (do (println "behavior:" tag
+                    "→ disabled (:behavior {:enabled false})")
+          0)
+      (let [oracle-cfg (load-dialect "clojure")
+            cats       (load-categories)
+            divs       (load-divergences cfg cats)
+            cases      (load-behavior-catalog cats)
+            ctx'       (assoc ctx :script behavior-eval-script)
+            inv-dialect (dialect/prepare-invocation cfg        ctx')
+            inv-oracle  (dialect/prepare-invocation oracle-cfg ctx')
+            env'       (into {} (System/getenv))
+            eval-fn    (fn [role probe-case]
+                         (let [inv (if (= role :oracle) inv-oracle inv-dialect)
+                               stdin (binding [*print-namespace-maps* false
+                                               *print-length*         nil
+                                               *print-level*          nil]
+                                       (pr-str {:form    (:form probe-case)
+                                                :require []}))]
+                           (dialect/capture-stdout inv :stdin stdin :env env')))
+            report     (behavior-report-for
+                         {:dialect-tag tag
+                          :run-at      (iso-timestamp-now)
+                          :cases       cases
+                          :divergences divs
+                          :eval-fn     eval-fn})]
+        (parity/validate-report! report)
+        (store/spit-edn! (behavior-output-path tag) report)
+        (println "behavior:" tag "→" (pr-str (:totals report)))
+        (println "  output:" (behavior-output-path tag))
+        0))))
 
 (defn- subcmd-all
   [ctx args]

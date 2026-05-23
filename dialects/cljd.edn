@@ -64,4 +64,9 @@
   ;; out at the cljd.* layer so they don't surface as :dialect-only.
   :include-only-namespaces
   #{cljd.core cljd.string cljd.set cljd.walk cljd.test
-    cljd.template cljd.math cljd.data cljd.edn cljd.zip}}}
+    cljd.template cljd.math cljd.data cljd.edn cljd.zip}}
+
+ ;; ClojureDart targets Dart and is AOT-compiled; there is no JVM
+ ;; eval available for behavior parity, only static analysis of the
+ ;; source tree.
+ :behavior {:enabled false}}

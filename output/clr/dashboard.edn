@@ -2,7 +2,7 @@
  {:dialect-tag "clr",
   :dialect-name "ClojureCLR",
   :clojure-version "1.12.4",
-  :compared-at "2026-05-23T20:41:18Z"},
+  :compared-at "2026-05-23T20:49:16Z"},
  :divergences
  [{:id :host-class-system-clr,
    :title "Host classes are CLR System.*, not JVM java.*",

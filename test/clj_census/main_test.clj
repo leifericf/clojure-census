@@ -5,6 +5,7 @@
   validate-data subcommand."
   (:require [clojure.test    :refer [deftest is testing]]
             [clojure.java.io :as io]
+            [clj-census.dialect :as dialect]
             [clj-census.main :as main]
             [clj-census.parity :as parity]))
 
@@ -141,6 +142,17 @@
     (is (= 1 (get-in report [:totals :mismatch])))
     (is (= 0 (get-in report [:totals :match])))))
 
+(deftest behavior-enabled?-defaults-true-and-respects-opt-out
+  (testing "missing :behavior key -> enabled"
+    (is (true? (dialect/behavior-enabled?
+                 {:name "x" :tag "x" :role :sut}))))
+  (testing "explicit :behavior {:enabled true}"
+    (is (true? (dialect/behavior-enabled?
+                 {:behavior {:enabled true}}))))
+  (testing "explicit :behavior {:enabled false}"
+    (is (false? (dialect/behavior-enabled?
+                  {:behavior {:enabled false}})))))
+
 (deftest behavior-report-for-divergent-as-expected-when-predicate-passes
   (let [eval-fn (fn [role _c]
                   (if (= role :oracle)
@@ -162,6 +174,31 @@
                    :eval-fn     eval-fn})]
     (is (= 1 (get-in report [:totals :divergent-as-expected])))
     (is (= 0 (get-in report [:totals :mismatch])))))
+
+(deftest subcmd-behavior-skips-disabled-dialect-without-subprocess
+  (testing "a config with :behavior {:enabled false} returns 0 and never
+            calls capture-stdout"
+    (let [seen-cmd? (atom false)
+          tag       "foo-disabled"]
+      (with-redefs [main/load-dialect (fn [_t]
+                                        {:name "Foo"
+                                         :tag tag
+                                         :role :sut
+                                         :invocation {:type :subprocess
+                                                      :cmd ["foo" "{script}"]}
+                                         :participates-in ['clojure.core]
+                                         :data-dir   "data/foo"
+                                         :output-dir "output/foo"
+                                         :behavior   {:enabled false}})
+                    dialect/capture-stdout (fn [& _]
+                                             (reset! seen-cmd? true)
+                                             (throw (ex-info "should not run" {})))]
+        (let [out (with-out-str
+                    (let [rc ((:fn (get main/dispatch-table "behavior"))
+                              {} [tag])]
+                      (is (= 0 rc))))]
+          (is (false? @seen-cmd?))
+          (is (re-find #"disabled" out)))))))
 
 ;; ===== referential-integrity audits ================================
 

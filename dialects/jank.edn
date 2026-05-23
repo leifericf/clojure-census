@@ -37,4 +37,9 @@
                     clojure.template]
  :data-dir         "data/jank"
  :output-dir       "output/jank"
- :surface-normalization :default}
+ :surface-normalization :default
+
+ ;; jank-0.1-alpha lacks the JVM-shaped vars and exception model the
+ ;; portable behavior_eval script depends on. Revisit once jank's
+ ;; runtime stabilizes.
+ :behavior {:enabled false}}

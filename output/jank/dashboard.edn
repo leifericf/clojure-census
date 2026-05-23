@@ -2,7 +2,7 @@
  {:dialect-tag "jank",
   :dialect-name "jank",
   :clojure-version "1.12.4",
-  :compared-at "2026-05-23T20:41:19Z"},
+  :compared-at "2026-05-23T20:49:17Z"},
  :divergences
  [{:id :stdlib-incomplete-alpha,
    :title

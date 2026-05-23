@@ -2,7 +2,7 @@
  {:dialect-tag "joker",
   :dialect-name "Joker",
   :clojure-version "1.12.4",
-  :compared-at "2026-05-23T20:41:20Z"},
+  :compared-at "2026-05-23T20:49:18Z"},
  :divergences
  [{:id :go-host,
    :title "Host runtime is Go, not the JVM",

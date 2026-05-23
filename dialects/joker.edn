@@ -53,4 +53,9 @@
                       joker.test      clojure.test
                       joker.template  clojure.template
                       joker.pprint    clojure.pprint
-                      joker.math      clojure.math}}}
+                      joker.math      clojure.math}}
+
+ ;; Joker omits clojure.spec.alpha and several runtime hooks the
+ ;; portable behavior_eval script depends on -- skip behavior parity
+ ;; until a Joker-specific eval script exists.
+ :behavior {:enabled false}}
