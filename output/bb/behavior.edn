@@ -1,5 +1,5 @@
 {:dialect-tag "bb",
- :run-at "2026-05-23T21:15:47Z",
+ :run-at "2026-05-23T22:22:16Z",
  :totals
  {:match 22, :mismatch 0, :divergent-as-expected 0, :skipped 0},
  :parities
@@ -47,7 +47,7 @@
    :reason "values equivalent"}
   {:case-id :compare/strings-positive,
    :var clojure.core/compare,
-   :oracle {:status :value, :value 25, :elapsed-ms 1},
+   :oracle {:status :value, :value 25, :elapsed-ms 0},
    :dialect {:status :value, :value 25, :elapsed-ms 0},
    :verdict :match,
    :reason "values equivalent"}
@@ -59,7 +59,7 @@
    :reason "values equivalent"}
   {:case-id :compare/strings-equal,
    :var clojure.core/compare,
-   :oracle {:status :value, :value 0, :elapsed-ms 2},
+   :oracle {:status :value, :value 0, :elapsed-ms 1},
    :dialect {:status :value, :value 0, :elapsed-ms 0},
    :verdict :match,
    :reason "values equivalent"}
@@ -71,7 +71,7 @@
    :reason "values equivalent"}
   {:case-id :compare/numbers-equal,
    :var clojure.core/compare,
-   :oracle {:status :value, :value 0, :elapsed-ms 2},
+   :oracle {:status :value, :value 0, :elapsed-ms 1},
    :dialect {:status :value, :value 0, :elapsed-ms 0},
    :verdict :match,
    :reason "values equivalent"}
@@ -89,7 +89,7 @@
    :reason "values equivalent"}
   {:case-id :plus/two-positive,
    :var clojure.core/+,
-   :oracle {:status :value, :value 3, :elapsed-ms 2},
+   :oracle {:status :value, :value 3, :elapsed-ms 3},
    :dialect {:status :value, :value 3, :elapsed-ms 0},
    :verdict :match,
    :reason "values equivalent"}
@@ -101,8 +101,8 @@
    :reason "values equivalent"}
   {:case-id :plus/varargs,
    :var clojure.core/+,
-   :oracle {:status :value, :value 15, :elapsed-ms 2},
-   :dialect {:status :value, :value 15, :elapsed-ms 1},
+   :oracle {:status :value, :value 15, :elapsed-ms 3},
+   :dialect {:status :value, :value 15, :elapsed-ms 0},
    :verdict :match,
    :reason "values equivalent"}
   {:case-id :sort/numbers-ascending,
@@ -114,7 +114,7 @@
   {:case-id :sort/strings,
    :var clojure.core/sort,
    :oracle
-   {:status :value, :value ["apple" "banana" "cherry"], :elapsed-ms 1},
+   {:status :value, :value ["apple" "banana" "cherry"], :elapsed-ms 3},
    :dialect
    {:status :value, :value ["apple" "banana" "cherry"], :elapsed-ms 0},
    :verdict :match,
@@ -122,12 +122,12 @@
   {:case-id :sort/with-comparator-descending,
    :var clojure.core/sort,
    :oracle {:status :value, :value [4 3 2 1], :elapsed-ms 2},
-   :dialect {:status :value, :value [4 3 2 1], :elapsed-ms 0},
+   :dialect {:status :value, :value [4 3 2 1], :elapsed-ms 1},
    :verdict :match,
    :reason "values equivalent"}
   {:case-id :sort/empty,
    :var clojure.core/sort,
-   :oracle {:status :value, :value [], :elapsed-ms 1},
+   :oracle {:status :value, :value [], :elapsed-ms 2},
    :dialect {:status :value, :value [], :elapsed-ms 0},
    :verdict :match,
    :reason "values equivalent"}
@@ -136,7 +136,7 @@
    :oracle
    {:status :value,
     :value {:clj-census/opaque "class java.lang.String"},
-    :elapsed-ms 0},
+    :elapsed-ms 1},
    :dialect
    {:status :value,
     :value {:clj-census/opaque "class java.lang.String"},
