@@ -1,8 +1,8 @@
 (ns clj-census.main-test
   "Main orchestrates the pipeline. Most logic is delegated to the
   named entity namespaces; tests here exercise dispatch, ctx
-  building, and end-to-end pipeline composition with a stubbed
-  surface capture."
+  building, and the referential-integrity audits exposed via the
+  validate-data subcommand."
   (:require [clojure.test    :refer [deftest is testing]]
             [clojure.java.io :as io]
             [clj-census.main :as main]))
@@ -45,3 +45,66 @@
     (is (re-find #"validate-data" out))
     (is (re-find #"dump" out))
     (is (re-find #"diff" out))))
+
+;; ===== referential-integrity audits ===============================
+
+(def ^:private ref-surface
+  {:dialect-tag     "clojure"
+   :clojure-version "1.12.4"
+   :captured-at     "2026-05-22T00:00:00Z"
+   :namespaces      {'clojure.core   {:vars {'map  {} 'reduce {}}}
+                     'clojure.string {:vars {'join {}}}}})
+
+(deftest divergence-orphans-empty-when-all-resolve
+  (let [divs [{:id :a :title "a" :category-id :ordering
+               :rationale "r" :since "v1"
+               :affected ['clojure.core/map 'clojure.string/join]}]]
+    (is (empty? (#'main/divergence-orphans divs ref-surface)))))
+
+(deftest divergence-orphans-flags-unknown
+  (let [divs [{:id :a :title "a" :category-id :ordering
+               :rationale "r" :since "v1"
+               :affected ['clojure.core/map 'clojure.core/nonexistent]}]
+        orphans (#'main/divergence-orphans divs ref-surface)]
+    (is (= 1 (count orphans)))
+    (is (= :a (:divergence (first orphans))))
+    (is (= ['clojure.core/nonexistent] (:missing (first orphans))))))
+
+(def ^:private dialect-surface-with-extras
+  {:dialect-tag     "mino"
+   :clojure-version "1.12.4"
+   :captured-at     "2026-05-22T00:00:00Z"
+   :namespaces      {'clojure.core
+                     {:vars {'map {}
+                             'Integer/parseInt {}
+                             'Long/parseLong {}}}}})
+
+(deftest extension-orphans-resolves-jvm-static-style-names
+  (let [exts [{:id :ok :title "x" :category-id :jvm-statics
+               :rationale "r" :since "v1"
+               :affected-names ["clojure.core/Integer/parseInt"
+                                "clojure.core/Long/parseLong"]}]]
+    (is (empty? (#'main/extension-orphans
+                  exts dialect-surface-with-extras)))))
+
+(deftest extension-orphans-flags-missing-var-in-captured-namespace
+  (let [exts [{:id :stale :title "x" :category-id :jvm-statics
+               :rationale "r" :since "v1"
+               :affected-names ["clojure.core/Integer/parseInt"
+                                "clojure.core/Integer/toBinaryString"]}]
+        orphans (#'main/extension-orphans
+                  exts dialect-surface-with-extras)]
+    (is (= 1 (count orphans)))
+    (is (= :stale (:extension (first orphans))))
+    (is (= ["clojure.core/Integer/toBinaryString"]
+           (:missing (first orphans))))))
+
+(deftest extension-orphans-skips-uncaptured-namespaces
+  (testing "extension names in a namespace the surface does not
+  cover (e.g. babashka.fs when bb's surface targets only clojure.*)
+  cannot be audited and are silently passed."
+    (let [exts [{:id :bb-fs :title "x" :category-id :jvm-statics
+                 :rationale "r" :since "v1"
+                 :affected-names ["babashka.fs/exists?"]}]]
+      (is (empty? (#'main/extension-orphans
+                    exts dialect-surface-with-extras))))))

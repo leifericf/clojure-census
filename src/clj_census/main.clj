@@ -172,31 +172,123 @@
 
 ;; ===== subcommands =================================================
 
+;; ===== referential-integrity audits ================================
+;;
+;; Schema validation catches malformed entries. These audits catch the
+;; next class of bug: well-formed entries that point at vars or names
+;; that don't exist in the surfaces they claim to describe.
+
+(defn- surface-var-set
+  "Set of fully-qualified var symbols in `surface`."
+  [surface]
+  (set
+    (for [[ns-sym ns-data] (:namespaces surface)
+          var-name         (keys (:vars ns-data))]
+      (symbol (str ns-sym) (str var-name)))))
+
+(defn- divergence-orphans
+  "Return divergences whose `:affected` qualified symbols are not
+  present in the reference surface. Each orphan carries `:divergence`
+  and `:missing` (vector of unknown symbols)."
+  [divergences reference-surface]
+  (let [known (surface-var-set reference-surface)]
+    (for [d divergences
+          :let [missing (vec (remove known (:affected d)))]
+          :when (seq missing)]
+      {:divergence (:id d) :missing missing})))
+
+(defn- parse-affected-name
+  "Split an extension affected-name like \"clojure.core/Integer/toBinaryString\"
+  into [ns-sym var-name-sym] using the FIRST `/` so JVM-static-style
+  names keep their inner slash. Returns nil on names with no `/`."
+  [s]
+  (let [idx (.indexOf ^String s "/")]
+    (when (pos? idx)
+      [(symbol (subs s 0 idx))
+       (symbol (subs s (inc idx)))])))
+
+(defn- extension-orphans
+  "Return extensions whose `:affected-names` claim a var in a
+  namespace that IS captured by `dialect-surface`, but the var
+  itself is not present. Names in namespaces the surface does not
+  capture (e.g. babashka.fs, when bb's surface targets only
+  clojure.*) are unauditable from this data and silently skipped."
+  [extensions dialect-surface]
+  (let [captured-namespaces (set (keys (:namespaces dialect-surface)))
+        present?
+        (fn [name]
+          (if-let [[ns-sym var-name] (parse-affected-name name)]
+            (if (contains? captured-namespaces ns-sym)
+              (some? (get-in dialect-surface
+                             [:namespaces ns-sym :vars var-name]))
+              true)
+            true))]
+    (for [e extensions
+          :let [missing (vec (remove present? (:affected-names e)))]
+          :when (seq missing)]
+      {:extension (:id e) :missing missing})))
+
+(defn- report-orphans!
+  "Print `orphans` (a seq of audit findings) for `kind` under `tag`
+  as warnings. Returns the orphan count so the top-level subcommand
+  can roll up a final summary. Non-fatal: legitimate-but-unauditable
+  cases exist (embedding-only extensions, surface dumps that don't
+  capture every namespace a dialect exposes) and the maintainer
+  decides whether to clean up entries or extend the surface."
+  [tag kind orphans]
+  (doseq [o orphans]
+    (println (format "  ! %s/%s: %s claims var(s) not in surface -> %s"
+                     tag (name kind) (or (:divergence o)
+                                         (:extension o))
+                     (pr-str (:missing o)))))
+  (count orphans))
+
 (defn- subcmd-validate-data
   [_ctx _args]
-  (let [cats  (load-categories)
-        _spec (load-reference)]
+  (let [cats     (load-categories)
+        spec     (load-reference)
+        ref-surf (load-reference-surface spec)
+        warnings (atom 0)]
     (println "categories.edn:" (count cats) "entries")
+    (println "clojure/spec.edn:" (count (:target-namespaces spec))
+             "target namespaces")
+    (println (str "clojure/" (:surface-file spec)) ":"
+             (reduce + (map (comp count :vars val) (:namespaces ref-surf)))
+             "vars across" (count (:namespaces ref-surf)) "namespaces")
     (doseq [df (sort (.list (io/file "dialects")))
             :when (str/ends-with? df ".edn")]
       (let [tag (str/replace df #"\.edn$" "")]
         (println "dialects/" df "=>" (-> (load-dialect tag) :name))))
     (doseq [d-dir (sort (.list (io/file "data")))
             :when (.isDirectory (io/file "data" d-dir))]
-      (let [base (str "data/" d-dir)]
-        (when (.exists (io/file (str base "/divergences.edn")))
-          (println base "/divergences.edn:"
-                   (count (load-edn-validated
-                            (str base "/divergences.edn")
-                            #(divergence/validate! % cats)))
-                   "entries"))
-        (when (.exists (io/file (str base "/extensions.edn")))
-          (println base "/extensions.edn:"
-                   (count (load-edn-validated
-                            (str base "/extensions.edn")
-                            #(extension/validate! % cats)))
-                   "entries"))))
-    (println "validate-data: OK")
+      (let [base       (str "data/" d-dir)
+            divs-path  (str base "/divergences.edn")
+            exts-path  (str base "/extensions.edn")
+            surf-path  (surface-output-path d-dir)
+            surf-file  (io/file surf-path)]
+        (when (.exists (io/file divs-path))
+          (let [divs (load-edn-validated divs-path
+                                          #(divergence/validate! % cats))]
+            (println base "/divergences.edn:" (count divs) "entries")
+            (swap! warnings + (report-orphans! d-dir :divergence
+                                                (divergence-orphans
+                                                  divs ref-surf)))))
+        (when (.exists (io/file exts-path))
+          (let [exts (load-edn-validated exts-path
+                                          #(extension/validate! % cats))]
+            (println base "/extensions.edn:" (count exts) "entries")
+            (if (.exists surf-file)
+              (let [surf (load-surface surf-path)]
+                (swap! warnings + (report-orphans! d-dir :extension
+                                                    (extension-orphans
+                                                      exts surf))))
+              (println "    (skipping extension reference audit: no"
+                       surf-path "yet)"))))))
+    (println)
+    (if (pos? @warnings)
+      (println (format "validate-data: OK (schema), %d reference warning(s)"
+                       @warnings))
+      (println "validate-data: OK"))
     0))
 
 (defn- subcmd-dump
