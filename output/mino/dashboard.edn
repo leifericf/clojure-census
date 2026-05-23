@@ -2,7 +2,7 @@
  {:dialect-tag "mino",
   :dialect-name "mino",
   :clojure-version "1.12.4",
-  :compared-at "2026-05-22T20:14:08Z"},
+  :compared-at "2026-05-23T16:05:04Z"},
  :divergences
  [{:dialect-example "(compare \"z\" \"a\") ;=> 1",
    :since "v0.1.0",
@@ -249,6 +249,51 @@
    {:in-both-count 2, :clojure-total 2, :percent 1.0}}},
  :history
  [{:date "2026-05-22",
+   :dialect-tag "mino",
+   :clojure-version "1.11.0",
+   :headline
+   {:in-both-count 751,
+    :clojure-total 995,
+    :percent 0.7547738693467336},
+   :per-namespace
+   {clojure.spec.alpha
+    {:in-both-count 49,
+     :clojure-total 87,
+     :percent 0.5632183908045977},
+    clojure.datafy {:in-both-count 2, :clojure-total 2, :percent 1.0},
+    clojure.zip {:in-both-count 28, :clojure-total 28, :percent 1.0},
+    clojure.core.reducers
+    {:in-both-count 13,
+     :clojure-total 21,
+     :percent 0.6190476190476191},
+    clojure.test
+    {:in-both-count 8,
+     :clojure-total 39,
+     :percent 0.20512820512820512},
+    clojure.core.protocols
+    {:in-both-count 8, :clojure-total 11, :percent 0.7272727272727273},
+    clojure.core
+    {:in-both-count 560,
+     :clojure-total 679,
+     :percent 0.8247422680412371},
+    clojure.set {:in-both-count 12, :clojure-total 12, :percent 1.0},
+    clojure.pprint
+    {:in-both-count 3,
+     :clojure-total 26,
+     :percent 0.11538461538461539},
+    clojure.math
+    {:in-both-count 31,
+     :clojure-total 45,
+     :percent 0.6888888888888889},
+    clojure.edn {:in-both-count 2, :clojure-total 2, :percent 1.0},
+    clojure.instant {:in-both-count 3, :clojure-total 5, :percent 0.6},
+    clojure.string
+    {:in-both-count 21, :clojure-total 21, :percent 1.0},
+    clojure.data {:in-both-count 1, :clojure-total 5, :percent 0.2},
+    clojure.walk {:in-both-count 8, :clojure-total 10, :percent 0.8},
+    clojure.template
+    {:in-both-count 2, :clojure-total 2, :percent 1.0}}}
+  {:date "2026-05-23",
    :dialect-tag "mino",
    :clojure-version "1.11.0",
    :headline
@@ -739,6 +784,13 @@
    :title "Metadata propagation",
    :description
    "Where reader attaches meta and which ops preserve it."}],
+ :drift
+ {:from-date "2026-05-22",
+  :to-date "2026-05-23",
+  :added-vars #{},
+  :removed-vars #{},
+  :changed [],
+  :coverage-delta 0.0},
  :extensions
  [{:id :integer-radix-strings,
    :title "JVM static method mirrors for integer radix conversion",
@@ -926,13 +978,7 @@
   clojure.core/Double/parseDouble
   clojure.core/Float/parseFloat
   clojure.core/Integer/parseInt
-  clojure.core/Integer/toBinaryString
-  clojure.core/Integer/toHexString
-  clojure.core/Integer/toOctalString
   clojure.core/Long/parseLong
-  clojure.core/Long/toBinaryString
-  clojure.core/Long/toHexString
-  clojure.core/Long/toOctalString
   clojure.core/Math/abs
   clojure.core/Math/atan
   clojure.core/Math/atan2
@@ -981,7 +1027,6 @@
   clojure.spec.alpha/re-consume
   clojure.spec.alpha/unstrument
   clojure.test/*current-test*
-  clojure.test/assert-error!
   clojure.test/assert-fail!
   clojure.test/assert-pass!
   clojure.test/exception-message-for-match

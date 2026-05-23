@@ -714,13 +714,7 @@
     Double/parseDouble {},
     Float/parseFloat {},
     Integer/parseInt {},
-    Integer/toBinaryString {},
-    Integer/toHexString {},
-    Integer/toOctalString {},
     Long/parseLong {},
-    Long/toBinaryString {},
-    Long/toHexString {},
-    Long/toOctalString {},
     Math/abs {},
     Math/atan {},
     Math/atan2 {},
@@ -930,7 +924,6 @@
     *report-counters* {:dynamic true},
     *testing-contexts* {:dynamic true},
     are {},
-    assert-error! {},
     assert-fail! {},
     assert-pass! {},
     deftest {},
@@ -1005,4 +998,4 @@
    throw
    def},
  :spec-keys #{},
- :captured-at "2026-05-22T10:27:49Z"}
+ :captured-at "2026-05-23T16:05:01Z"}
