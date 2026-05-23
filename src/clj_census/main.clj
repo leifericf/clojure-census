@@ -26,6 +26,7 @@
             [clj-census.dashboard  :as dashboard]
             [clj-census.dialect    :as dialect]
             [clj-census.divergence :as divergence]
+            [clj-census.drift      :as drift]
             [clj-census.extension  :as extension]
             [clj-census.history    :as history]
             [clj-census.store      :as store]
@@ -38,8 +39,9 @@
 (defn- p [& parts]
   (str/join "/" (cons repo-root parts)))
 
-(defn dialect-config-path [tag] (p "dialects" (str tag ".edn")))
+(defn dialect-config-path  [tag] (p "dialects" (str tag ".edn")))
 (defn surface-output-path  [tag] (p "output" tag "surface.edn"))
+(defn prev-surface-path    [tag] (p "output" tag "surface.prev.edn"))
 (defn dashboard-edn-path   [tag] (p "output" tag "dashboard.edn"))
 (defn badge-json-path      [tag] (p "output" tag "badge.json"))
 (defn history-dir-path     [tag] (p "output" tag "history"))
@@ -108,6 +110,14 @@
 (defn- load-surface [path]
   (load-edn-validated path surface/validate!))
 
+(defn- load-prev-surface
+  "Load the previous-dump surface for `tag` if it exists, else nil.
+  Set aside by `subcmd-dump` before each write."
+  [tag]
+  (let [p (prev-surface-path tag)]
+    (when (.exists (io/file p))
+      (load-surface p))))
+
 (defn- load-divergences [cfg cats]
   (let [path (str (:data-dir cfg) "/divergences.edn")]
     (if (.exists (io/file path))
@@ -137,6 +147,17 @@
 (defn- write-surface! [path surface]
   (surface/validate! surface)
   (store/spit-edn! path (surface/canonicalize surface)))
+
+(defn- rotate-prev-surface!
+  "Move the existing surface.edn to surface.prev.edn so the next
+  dump's diff has a known prior state to compute drift against.
+  No-op if no current surface exists."
+  [tag]
+  (let [cur  (io/file (surface-output-path tag))
+        prev (io/file (prev-surface-path tag))]
+    (when (.exists cur)
+      (when (.exists prev) (.delete prev))
+      (.renameTo cur prev))))
 
 (defn- write-dashboard! [path bundle]
   (store/spit-edn! path (dashboard/render-edn bundle)))
@@ -190,6 +211,12 @@
         env'    (into {} (System/getenv))
         env''   (merge env' env)
         surface (surface/capture! cfg ctx :env env'')]
+    ;; Rotate the canonical surface before overwriting it so the next
+    ;; diff can compute drift. Skip when redirected via env (the env
+    ;; output is for test/dev only and the canonical file shouldn't
+    ;; be touched).
+    (when (nil? env-out)
+      (rotate-prev-surface! tag))
     (write-surface! path surface)
     (println "dump:" path)
     (println "  vars:" (reduce + (map (comp count :vars val)
@@ -206,18 +233,6 @@
     {:comparison cmp
      :coverage   (coverage/from-comparison cmp)}))
 
-(defn- stub-drift
-  "Build a stub Drift from yesterday's snapshot and the new snapshot,
-  carrying only the coverage delta. T4 will replace this with a real
-  drift computed via clj-census.drift/between over the full surfaces."
-  [yesterday snap cov-delta]
-  {:from-date      (:date yesterday)
-   :to-date        (:date snap)
-   :added-vars     #{}
-   :removed-vars   #{}
-   :changed        []
-   :coverage-delta cov-delta})
-
 (defn- subcmd-diff
   [_ctx [tag :as _args]]
   (let [cfg          (load-dialect tag)
@@ -225,6 +240,7 @@
         spec         (load-reference)
         reference-s  (load-reference-surface spec)
         dialect-s    (load-surface (surface-output-path tag))
+        prev-s       (load-prev-surface tag)
         divs         (load-divergences cfg cats)
         exts         (load-extensions  cfg cats)
         {:keys [comparison coverage]}
@@ -241,8 +257,9 @@
                         :date            (iso-date-now)}
                        coverage)
         all-history  (history/last-n (conj prior snap) 14)
-        drift        (when-let [yesterday (history/latest prior)]
-                       (stub-drift yesterday snap cov-delta))
+        drift        (when prev-s
+                       (drift/between prev-s dialect-s
+                                      :coverage-delta cov-delta))
         bundle       (bundle/build
                        {:comparison     comparison
                         :coverage       coverage
