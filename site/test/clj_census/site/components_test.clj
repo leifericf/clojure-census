@@ -121,6 +121,23 @@
     (is (tree-contains-string? b "Work in Progress"))
     (is (tree-contains-string? b "not formal parity claims"))))
 
+(deftest banner-frames-percentage-as-scope-not-quality
+  (let [b    (c/warning-banner)
+        text (pr-str b)]
+    (testing "explicit reminder that the metric reflects scope"
+      (is (tree-contains-string? b "different platforms"))
+      (is (tree-contains-string? b "reflects scope")))
+    (testing "explicit non-claim about maturity/quality"
+      (is (tree-contains-string? b "not maturity"))
+      (is (tree-contains-string? b "quality"))
+      (is (tree-contains-string? b "usefulness")))
+    (testing "no rank-implying language survives"
+      (doseq [forbidden ["leaderboard" "ranked" "ranking"
+                          "lagging" "behind" "incomplete"
+                          "worst" "best"]]
+        (is (not (.contains text forbidden))
+            (str "must not contain " forbidden))))))
+
 ;; ===== landing ====================================================
 
 (deftest landing-lists-every-dialect-alphabetically

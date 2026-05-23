@@ -58,7 +58,12 @@
    [:strong "Early Experiment / Work in Progress."]
    " Numbers are mechanically derived from surface introspection and,"
    " for eval-capable dialects, behavior parity against Clojure (JVM)."
-   " They are not formal parity claims for any dialect."])
+   " They are not formal parity claims for any dialect."
+   " Dialects target different platforms with different goals, so not"
+   " every part of Clojure's surface is in scope for every dialect."
+   " A lower implementation percentage reflects scope, not maturity,"
+   " quality, or usefulness. The data is intended for dialect"
+   " maintainers and for engineers porting Clojure code across runtimes."])
 
 ;; ===== landing: dialect cards =====================================
 
