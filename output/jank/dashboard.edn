@@ -2,7 +2,7 @@
  {:dialect-tag "jank",
   :dialect-name "jank",
   :clojure-version "1.12.4",
-  :compared-at "2026-05-23T16:05:18Z"},
+  :compared-at "2026-05-23T19:12:28Z"},
  :divergences
  [{:id :stdlib-incomplete-alpha,
    :title
@@ -63,6 +63,7 @@
    :rationale
    "jank is pre-1.0. The current snapshot reflects what\n                    is implemented today; behavior, var availability, and\n                    error shapes will continue to evolve. Hand-curated\n                    divergences here are starting points, not the final\n                    contract.",
    :since "jank-0.1"}],
+ :schema-version 1,
  :coverage
  {:headline
   {:in-both-count 687,
@@ -497,13 +498,6 @@
    :title "Metadata propagation",
    :description
    "Where reader attaches meta and which ops preserve it."}],
- :drift
- {:from-date "2026-05-22",
-  :to-date "2026-05-23",
-  :added-vars #{},
-  :removed-vars #{},
-  :changed [],
-  :coverage-delta 0.0},
  :extensions
  [{:id :cpp-interop-namespace,
    :title "Seamless C++ interop via cpp/ tag",

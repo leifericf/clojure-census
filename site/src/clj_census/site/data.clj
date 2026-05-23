@@ -16,7 +16,24 @@
             [clojure.java.io :as io]
             [clojure.string  :as str]))
 
+(def supported-schema-versions
+  "Dashboard EDN versions this site knows how to render. The engine's
+  `clj-census.dashboard/schema-version` constant is the source of
+  truth; bump the set here in lockstep when the engine bumps."
+  #{1})
+
 (defn- read-edn-file [f] (edn/read-string (slurp f)))
+
+(defn- check-dashboard-version! [dashboard path]
+  (let [v (:schema-version dashboard)]
+    (when-not (contains? supported-schema-versions v)
+      (throw (ex-info
+               (str "dashboard EDN at " path
+                    " has unsupported :schema-version " (pr-str v)
+                    "; site supports " (pr-str supported-schema-versions))
+               {:path path
+                :version v
+                :supported supported-schema-versions})))))
 
 (defn- edn-files [dir]
   (let [d (io/file dir)]
@@ -35,7 +52,9 @@
 (defn- load-dashboard-for [output-root tag]
   (let [dash (io/file output-root tag "dashboard.edn")]
     (when (.exists dash)
-      (read-edn-file dash))))
+      (let [data (read-edn-file dash)]
+        (check-dashboard-version! data (.getPath dash))
+        data))))
 
 (defn load-all
   "Returns {:dialects [{:tag :name :dashboard}, ...]} sorted by :tag.

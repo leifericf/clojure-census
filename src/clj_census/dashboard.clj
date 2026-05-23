@@ -42,6 +42,18 @@
                    ::categories ::clojure-spec ::dialect-config]
           :opt-un [::drift ::history ::badge-info]))
 
+;; ===== contract version ============================================
+;;
+;; Bump `schema-version` when the rendered EDN shape changes in a way
+;; that consumers (site/) need to notice. The site rejects unknown
+;; versions loudly rather than rendering against a drifted shape.
+
+(def schema-version
+  "Current version of the rendered Dashboard EDN contract. Bump
+  whenever the on-disk shape of `output/<dialect>/dashboard.edn`
+  changes."
+  1)
+
 ;; ===== EDN ========================================================
 
 (defn render-edn
@@ -69,17 +81,18 @@
                                           (:namespaces-compared comparison))
                 v (sort (:dialect-only ns-cmp))]
             (symbol (str ns-sym) (str v))))]
-    (cond-> {:meta         {:dialect-tag   (:tag dialect-config)
-                            :dialect-name  (:name dialect-config)
-                            :clojure-version (:version clojure-spec)
-                            :compared-at   (:compared-at comparison)}
-             :coverage     coverage
-             :missing      missing
-             :mismatches   mismatches
-             :dialect-only dialect-only
-             :divergences  (vec divergences)
-             :extensions   (vec extensions)
-             :categories   (vec categories)}
+    (cond-> {:schema-version schema-version
+             :meta           {:dialect-tag     (:tag dialect-config)
+                              :dialect-name    (:name dialect-config)
+                              :clojure-version (:version clojure-spec)
+                              :compared-at     (:compared-at comparison)}
+             :coverage       coverage
+             :missing        missing
+             :mismatches     mismatches
+             :dialect-only   dialect-only
+             :divergences    (vec divergences)
+             :extensions     (vec extensions)
+             :categories     (vec categories)}
       drift   (assoc :drift drift)
       history (assoc :history (vec history)))))
 

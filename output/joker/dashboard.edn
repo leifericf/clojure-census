@@ -2,7 +2,7 @@
  {:dialect-tag "joker",
   :dialect-name "Joker",
   :clojure-version "1.12.4",
-  :compared-at "2026-05-23T16:04:43Z"},
+  :compared-at "2026-05-23T19:12:29Z"},
  :divergences
  [{:id :go-host,
    :title "Host runtime is Go, not the JVM",
@@ -64,6 +64,7 @@
    :rationale
    "Joker uses :joker for its own branches. Code\n                    under :clj is not evaluated by Joker's reader.",
    :since "joker-1.0"}],
+ :schema-version 1,
  :coverage
  {:headline
   {:in-both-count 479,
@@ -553,13 +554,6 @@
    :title "Metadata propagation",
    :description
    "Where reader attaches meta and which ops preserve it."}],
- :drift
- {:from-date "2026-05-22",
-  :to-date "2026-05-23",
-  :added-vars #{},
-  :removed-vars #{},
-  :changed [],
-  :coverage-delta 0.0},
  :extensions
  [{:id :joker-os,
    :title "joker.os -- host process and environment access",

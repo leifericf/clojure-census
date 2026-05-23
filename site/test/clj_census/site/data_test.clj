@@ -31,7 +31,8 @@
                 {:name "Bar Dialect" :tag "bar" :role :sut})
     ;; foo has output; bar does not (simulates a dialect with no snapshot yet)
     (write-edn! (io/file root "output" "foo" "dashboard.edn")
-                {:meta {:dialect-tag "foo"
+                {:schema-version 1
+                 :meta {:dialect-tag "foo"
                         :dialect-name "Foo Dialect"
                         :clojure-version "1.12.4"
                         :compared-at "2026-05-22T00:00:00Z"}
@@ -97,6 +98,48 @@
       (testing "preserves spec declaration order (not alphabetical)"
         (is (= 'clojure.core (:ns (first (:target-namespaces spec)))))))))
 
+(deftest load-all-rejects-unsupported-dashboard-version
+  (let [root (str (.toFile (java.nio.file.Files/createTempDirectory
+                             "clojure-census-site-version-"
+                             (into-array java.nio.file.attribute.FileAttribute []))))]
+    (write-edn! (io/file root "dialects" "foo.edn")
+                {:name "Foo" :tag "foo" :role :sut})
+    (write-edn! (io/file root "output" "foo" "dashboard.edn")
+                {:schema-version 999
+                 :meta {:dialect-tag "foo" :dialect-name "Foo"
+                        :clojure-version "1.12.4" :compared-at "x"}
+                 :coverage {:headline {:percent 0 :in-both-count 0
+                                       :clojure-total 0}
+                            :per-namespace {}}
+                 :missing [] :mismatches [] :dialect-only []
+                 :divergences [] :extensions [] :categories []})
+    (let [e (try
+              (data/load-all {:dialects-dir (str root "/dialects")
+                              :output-root  (str root "/output")})
+              nil
+              (catch clojure.lang.ExceptionInfo ex ex))]
+      (is (some? e) "unsupported schema-version should throw")
+      (is (re-find #"schema-version" (.getMessage e))))))
+
+(deftest load-all-rejects-missing-dashboard-version
+  (let [root (str (.toFile (java.nio.file.Files/createTempDirectory
+                             "clojure-census-site-noversion-"
+                             (into-array java.nio.file.attribute.FileAttribute []))))]
+    (write-edn! (io/file root "dialects" "foo.edn")
+                {:name "Foo" :tag "foo" :role :sut})
+    (write-edn! (io/file root "output" "foo" "dashboard.edn")
+                {:meta {:dialect-tag "foo" :dialect-name "Foo"
+                        :clojure-version "1.12.4" :compared-at "x"}
+                 :coverage {:headline {:percent 0 :in-both-count 0
+                                       :clojure-total 0}
+                            :per-namespace {}}
+                 :missing [] :mismatches [] :dialect-only []
+                 :divergences [] :extensions [] :categories []})
+    (is (thrown-with-msg? clojure.lang.ExceptionInfo
+                          #"schema-version"
+                          (data/load-all {:dialects-dir (str root "/dialects")
+                                          :output-root  (str root "/output")})))))
+
 (deftest load-all-preserves-clojure-types-in-dashboard
   (let [root (str (.toFile (java.nio.file.Files/createTempDirectory
                              "clojure-census-site-types-"
@@ -104,7 +147,8 @@
     (write-edn! (io/file root "dialects" "foo.edn")
                 {:name "Foo" :tag "foo" :role :sut})
     (write-edn! (io/file root "output" "foo" "dashboard.edn")
-                {:meta {:dialect-tag "foo" :dialect-name "Foo"
+                {:schema-version 1
+                 :meta {:dialect-tag "foo" :dialect-name "Foo"
                         :clojure-version "1.12.4" :compared-at "x"}
                  :coverage {:headline {:percent 0.5
                                        :in-both-count 1

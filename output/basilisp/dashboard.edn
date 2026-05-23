@@ -2,7 +2,7 @@
  {:dialect-tag "basilisp",
   :dialect-name "Basilisp",
   :clojure-version "1.12.4",
-  :compared-at "2026-05-23T17:36:45Z"},
+  :compared-at "2026-05-23T19:12:22Z"},
  :divergences
  [{:id :python-host,
    :title "Host runtime is Python 3, not the JVM",
@@ -46,6 +46,7 @@
    :since "basilisp-0.1",
    :doc-link
    "https://basilisp.readthedocs.io/en/latest/concepts.html#reader-conditionals"}],
+ :schema-version 1,
  :coverage
  {:headline
   {:in-both-count 610,
@@ -80,31 +81,6 @@
    {:in-both-count 2, :clojure-total 2, :percent 1.0}}},
  :history
  [{:date "2026-05-23",
-   :dialect-tag "basilisp",
-   :clojure-version "unknown",
-   :headline {:in-both-count 0, :clojure-total 995, :percent 0.0},
-   :per-namespace
-   {clojure.spec.alpha
-    {:in-both-count 0, :clojure-total 87, :percent 0.0},
-    clojure.datafy {:in-both-count 0, :clojure-total 2, :percent 0.0},
-    clojure.zip {:in-both-count 0, :clojure-total 28, :percent 0.0},
-    clojure.core.reducers
-    {:in-both-count 0, :clojure-total 21, :percent 0.0},
-    clojure.test {:in-both-count 0, :clojure-total 39, :percent 0.0},
-    clojure.core.protocols
-    {:in-both-count 0, :clojure-total 11, :percent 0.0},
-    clojure.core {:in-both-count 0, :clojure-total 679, :percent 0.0},
-    clojure.set {:in-both-count 0, :clojure-total 12, :percent 0.0},
-    clojure.pprint {:in-both-count 0, :clojure-total 26, :percent 0.0},
-    clojure.math {:in-both-count 0, :clojure-total 45, :percent 0.0},
-    clojure.edn {:in-both-count 0, :clojure-total 2, :percent 0.0},
-    clojure.instant {:in-both-count 0, :clojure-total 5, :percent 0.0},
-    clojure.string {:in-both-count 0, :clojure-total 21, :percent 0.0},
-    clojure.data {:in-both-count 0, :clojure-total 5, :percent 0.0},
-    clojure.walk {:in-both-count 0, :clojure-total 10, :percent 0.0},
-    clojure.template
-    {:in-both-count 0, :clojure-total 2, :percent 0.0}}}
-  {:date "2026-05-23",
    :dialect-tag "basilisp",
    :clojure-version "unknown",
    :headline
@@ -1490,13 +1466,6 @@
    :title "Metadata propagation",
    :description
    "Where reader attaches meta and which ops preserve it."}],
- :drift
- {:from-date "2026-05-23",
-  :to-date "2026-05-23",
-  :added-vars #{},
-  :removed-vars #{},
-  :changed [],
-  :coverage-delta 0.6130653266331658},
  :extensions [],
  :dialect-only
  [clojure.core/*basilisp-version*

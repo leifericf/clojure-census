@@ -70,6 +70,12 @@
   (let [e (dashboard/render-edn bundle)]
     (is (map? e))))
 
+(deftest carries-schema-version
+  (let [e (dashboard/render-edn bundle)]
+    (is (= dashboard/schema-version (:schema-version e))
+        "every rendered dashboard carries the engine's current
+        contract version so the site can reject unknown shapes")))
+
 (deftest meta-block-carries-dialect-and-clojure-version
   (let [e (dashboard/render-edn bundle)]
     (is (= "mino"   (get-in e [:meta :dialect-tag])))

@@ -2,7 +2,7 @@
  {:dialect-tag "cljs",
   :dialect-name "ClojureScript (planck)",
   :clojure-version "1.12.4",
-  :compared-at "2026-05-23T16:04:31Z"},
+  :compared-at "2026-05-23T19:12:25Z"},
  :divergences
  [{:id :no-jvm-class-system,
    :title "No JVM class hierarchy",
@@ -76,6 +76,7 @@
    :rationale
    "JS exposes Math/ statics directly; CLJS code uses\n                    js/Math.sin etc. or wraps them per-codebase rather\n                    than via a clojure.math namespace.",
    :since "cljs-0.1"}],
+ :schema-version 1,
  :coverage
  {:headline
   {:in-both-count 532,
@@ -753,13 +754,6 @@
    :title "Metadata propagation",
    :description
    "Where reader attaches meta and which ops preserve it."}],
- :drift
- {:from-date "2026-05-22",
-  :to-date "2026-05-23",
-  :added-vars #{},
-  :removed-vars #{},
-  :changed [],
-  :coverage-delta 0.0},
  :extensions
  [{:id :js-interop-syntax,
    :title "JavaScript-host interop sugar",
