@@ -1,0 +1,25 @@
+;; Behavior cases for clojure.core/class. Same Class-vs-keyword
+;; divergence as `type` -- see data/behavior/clojure.core/type.edn.
+[{:id          :class/string
+  :var         clojure.core/class
+  :category-id :type-system
+  :form        (class "abc")
+  :tags        #{:happy-path}}
+
+ {:id          :class/long
+  :var         clojure.core/class
+  :category-id :type-system
+  :form        (class 42)
+  :tags        #{:happy-path}}
+
+ {:id          :class/keyword
+  :var         clojure.core/class
+  :category-id :type-system
+  :form        (class :foo)
+  :tags        #{:happy-path}}
+
+ {:id          :class/nil
+  :var         clojure.core/class
+  :category-id :type-system
+  :form        (class nil)
+  :tags        #{:happy-path}}]

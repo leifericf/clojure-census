@@ -19,6 +19,7 @@
             [clojure.string    :as str]
             [clj-census.badge      :as badge]
             [clj-census.bundle     :as bundle]
+            [clj-census.case       :as case-ns]
             [clj-census.reference  :as reference]
             [clj-census.category   :as category]
             [clj-census.comparison :as comparison]
@@ -130,6 +131,27 @@
       (load-edn-validated path #(extension/validate! % cats))
       [])))
 
+(defn- load-behavior-catalog
+  "Walk `<root>/data/behavior/**/*.edn` and return one validated flat
+  vector of cases. Returns `[]` when the directory does not exist.
+  Each EDN file is expected to contain a vector of case maps.
+
+  Cross-file `:id` collisions and unknown `:category-id` values are
+  caught by `case-ns/load-catalog` (called as the final step), so a
+  malformed catalog throws an `ex-info` with the offending entry."
+  ([categories]
+   (load-behavior-catalog repo-root categories))
+  ([root categories]
+   (let [dir (io/file root "data" "behavior")]
+     (if-not (.exists dir)
+       []
+       (let [files (->> (file-seq dir)
+                        (filter #(and (.isFile %)
+                                      (str/ends-with? (.getName %) ".edn")))
+                        sort)
+             values (mapv #(store/slurp-edn (.getPath %)) files)]
+         (case-ns/load-catalog values categories))))))
+
 (defn- load-history [dir]
   (let [d (io/file dir)]
     (if (and (.exists d) (.isDirectory d))
@@ -228,6 +250,16 @@
           :when (seq missing)]
       {:extension (:id e) :missing missing})))
 
+(defn- case-orphans
+  "Return behavior cases whose `:var` is not present in the reference
+  surface. Each orphan carries `:case` (the case `:id`) and
+  `:missing-var` (the unknown qualified symbol)."
+  [cases reference-surface]
+  (let [known (surface-var-set reference-surface)]
+    (for [c cases
+          :when (not (contains? known (:var c)))]
+      {:case (:id c) :missing-var (:var c)})))
+
 (defn- report-orphans!
   "Print `orphans` (a seq of audit findings) for `kind` under `tag`
   as warnings. Returns the orphan count so the top-level subcommand
@@ -239,8 +271,10 @@
   (doseq [o orphans]
     (println (format "  ! %s/%s: %s claims var(s) not in surface -> %s"
                      tag (name kind) (or (:divergence o)
-                                         (:extension o))
-                     (pr-str (:missing o)))))
+                                         (:extension o)
+                                         (:case o))
+                     (pr-str (or (:missing o)
+                                 [(:missing-var o)])))))
   (count orphans))
 
 (defn- subcmd-validate-data
@@ -248,6 +282,7 @@
   (let [cats     (load-categories)
         spec     (load-reference)
         ref-surf (load-reference-surface spec)
+        cases    (load-behavior-catalog cats)
         warnings (atom 0)]
     (println "categories.edn:" (count cats) "entries")
     (println "clojure/spec.edn:" (count (:target-namespaces spec))
@@ -255,6 +290,9 @@
     (println (str "clojure/" (:surface-file spec)) ":"
              (reduce + (map (comp count :vars val) (:namespaces ref-surf)))
              "vars across" (count (:namespaces ref-surf)) "namespaces")
+    (println "data/behavior/:" (count cases) "case(s)")
+    (swap! warnings + (report-orphans! "clojure" :case
+                                        (case-orphans cases ref-surf)))
     (doseq [df (sort (.list (io/file "dialects")))
             :when (str/ends-with? df ".edn")]
       (let [tag (str/replace df #"\.edn$" "")]

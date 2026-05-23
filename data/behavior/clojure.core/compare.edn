@@ -1,0 +1,37 @@
+;; Behavior cases for clojure.core/compare. Each case evaluates as-is
+;; in the oracle (JVM Clojure) and the dialect; the parity harness
+;; compares the resulting observations.
+;;
+;; Some dialects (e.g. mino) return sign-normalized -1/0/1 rather
+;; than the JVM-style String-length-difference integer. That is
+;; documented as :compare-sign-normalized in their divergences.edn
+;; with :behavior {:expectation :diverges :predicate :sign-normalized}.
+[{:id          :compare/strings-positive
+  :var         clojure.core/compare
+  :category-id :ordering
+  :form        (compare "z" "a")
+  :tags        #{:happy-path}}
+
+ {:id          :compare/strings-negative
+  :var         clojure.core/compare
+  :category-id :ordering
+  :form        (compare "a" "z")
+  :tags        #{:happy-path}}
+
+ {:id          :compare/strings-equal
+  :var         clojure.core/compare
+  :category-id :ordering
+  :form        (compare "abc" "abc")
+  :tags        #{:happy-path}}
+
+ {:id          :compare/numbers-ascending
+  :var         clojure.core/compare
+  :category-id :ordering
+  :form        (compare 1 2)
+  :tags        #{:happy-path}}
+
+ {:id          :compare/numbers-equal
+  :var         clojure.core/compare
+  :category-id :ordering
+  :form        (compare 7 7)
+  :tags        #{:happy-path}}]

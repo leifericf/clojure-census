@@ -1,0 +1,27 @@
+;; Behavior cases for clojure.core/sort. The result is wrapped in
+;; `vec` because the JVM returns ArraySeq whereas other runtimes
+;; return PersistentList or similar; only the ordered contents are
+;; in scope for parity comparison.
+[{:id          :sort/numbers-ascending
+  :var         clojure.core/sort
+  :category-id :ordering
+  :form        (vec (sort [3 1 4 1 5 9 2 6]))
+  :tags        #{:happy-path}}
+
+ {:id          :sort/strings
+  :var         clojure.core/sort
+  :category-id :ordering
+  :form        (vec (sort ["banana" "apple" "cherry"]))
+  :tags        #{:happy-path}}
+
+ {:id          :sort/with-comparator-descending
+  :var         clojure.core/sort
+  :category-id :ordering
+  :form        (vec (sort > [1 3 2 4]))
+  :tags        #{:happy-path}}
+
+ {:id          :sort/empty
+  :var         clojure.core/sort
+  :category-id :ordering
+  :form        (vec (sort []))
+  :tags        #{:happy-path}}]

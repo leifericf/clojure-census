@@ -1,0 +1,27 @@
+;; Behavior cases for clojure.core/type. The eval script normalizes
+;; Class objects across the EDN boundary to {:clj-census/opaque "..."}
+;; so dialects that return keywords (mino) vs Class objects (JVM) can
+;; be compared via the :keyword-vs-class predicate.
+[{:id          :type/string
+  :var         clojure.core/type
+  :category-id :type-system
+  :form        (type "abc")
+  :tags        #{:happy-path}}
+
+ {:id          :type/long
+  :var         clojure.core/type
+  :category-id :type-system
+  :form        (type 42)
+  :tags        #{:happy-path}}
+
+ {:id          :type/keyword
+  :var         clojure.core/type
+  :category-id :type-system
+  :form        (type :foo)
+  :tags        #{:happy-path}}
+
+ {:id          :type/vector
+  :var         clojure.core/type
+  :category-id :type-system
+  :form        (type [1 2 3])
+  :tags        #{:happy-path}}]

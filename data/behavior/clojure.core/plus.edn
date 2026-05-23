@@ -1,0 +1,31 @@
+;; Behavior cases for clojure.core/+. The file is named plus.edn
+;; because `+` is awkward in filesystem paths and tooling.
+[{:id          :plus/identity
+  :var         clojure.core/+
+  :category-id :numeric-tower
+  :form        (+)
+  :tags        #{:happy-path}}
+
+ {:id          :plus/single-positive
+  :var         clojure.core/+
+  :category-id :numeric-tower
+  :form        (+ 5)
+  :tags        #{:happy-path}}
+
+ {:id          :plus/two-positive
+  :var         clojure.core/+
+  :category-id :numeric-tower
+  :form        (+ 1 2)
+  :tags        #{:happy-path}}
+
+ {:id          :plus/with-negative
+  :var         clojure.core/+
+  :category-id :numeric-tower
+  :form        (+ 5 -2)
+  :tags        #{:happy-path}}
+
+ {:id          :plus/varargs
+  :var         clojure.core/+
+  :category-id :numeric-tower
+  :form        (+ 1 2 3 4 5)
+  :tags        #{:happy-path}}]
