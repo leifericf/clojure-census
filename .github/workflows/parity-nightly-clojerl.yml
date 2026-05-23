@@ -64,9 +64,6 @@ jobs:
           # Use GITHUB_WORKSPACE so cwd state inside the if-block can't poison the path.
           echo "${GITHUB_WORKSPACE}/clojerl-build/bin" >> $GITHUB_PATH
 
-      - name: Confirm clojerl install
-        run: clojerl --version
-
       - name: Capture clojerl surface
         run: clojure -M:run dump clojerl
 

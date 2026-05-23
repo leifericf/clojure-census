@@ -1,0 +1,115 @@
+;; Basilisp surface dump.
+;;
+;; Basilisp is a Clojure-shaped Lisp on Python 3. It exposes
+;; ns-publics / find-ns / meta / require like JVM Clojure, but the
+;; host's exception model is Python (no java.lang.Throwable), and
+;; env-var access goes through Python's `os.getenv` rather than
+;; `System/getenv` — both of which the portable surface_dump.cljc
+;; assumes.
+;;
+;; This script mirrors surface_dump_clojerl.clje: same structure,
+;; same EDN output shape, host-specific calls swapped in.
+;;
+;; Diagnostics go to stderr; never stdout (would corrupt EDN).
+
+(import os)
+(require '[clojure.edn :as edn])
+
+(defn- get-env [k]
+  (.getenv os k))
+
+(def ^:private clojure-spec-path
+  (or (get-env "CLOJURE_SPEC_PATH")
+      "clojure/spec.edn"))
+
+(def ^:private dialect-tag
+  (or (get-env "DIALECT_TAG") "basilisp"))
+
+(defn- read-target-namespaces []
+  (try
+    (let [data (edn/read-string (slurp clojure-spec-path))]
+      (mapv :ns (:target-namespaces data)))
+    (catch python/Exception e
+      (binding [*out* *err*]
+        (println "; could not read clojure-spec at" clojure-spec-path "--" (str e)))
+      [])))
+
+(defn- try-require [ns-sym]
+  (try
+    (require ns-sym)
+    true
+    (catch python/Exception e
+      (binding [*out* *err*]
+        (println "; could not require" ns-sym "--" (str e)))
+      false)))
+
+(defn- safe-tag [t]
+  (when t
+    (try (str t) (catch python/Exception _ nil))))
+
+(defn- capture-var-meta [v]
+  (try
+    (let [m (meta v)]
+      (cond-> {}
+        (:arglists m)        (assoc :arglists (:arglists m))
+        (string? (:doc m))   (assoc :doc      (:doc m))
+        (string? (:added m)) (assoc :added    (:added m))
+        (:macro m)           (assoc :macro    true)
+        (:dynamic m)         (assoc :dynamic  true)
+        (:tag m)             (assoc :tag      (safe-tag (:tag m)))
+        (string? (:file m))  (assoc :file     (:file m))
+        (integer? (:line m)) (assoc :line     (:line m))))
+    (catch python/Exception _ {})))
+
+(defn- capture-namespace [ns-sym]
+  (when-let [n (find-ns ns-sym)]
+    (try
+      {:vars (into {}
+                   (map (fn [[var-name v]] [var-name (capture-var-meta v)]))
+                   (ns-publics n))}
+      (catch python/Exception e
+        (binding [*out* *err*]
+          (println "; could not capture" ns-sym "--" (str e)))
+        {:vars {}}))))
+
+(def ^:private candidate-special-forms
+  '[def if do let fn quote var loop recur try throw new . set!
+    monitor-enter monitor-exit catch finally])
+
+(defn- capture-special-forms []
+  (try
+    (set (filter (fn [s]
+                   (try (special-symbol? s)
+                        (catch python/Exception _ false)))
+                 candidate-special-forms))
+    (catch python/Exception _ #{})))
+
+(defn- capture-spec-keys []
+  (try
+    (when (find-ns 'clojure.spec.alpha)
+      (when-let [reg (resolve 'clojure.spec.alpha/registry)]
+        (try (set (keys (@reg))) (catch python/Exception _ #{}))))
+    (catch python/Exception _ #{})))
+
+(defn- dialect-clojure-version []
+  (try (clojure-version) (catch python/Exception _ "unknown")))
+
+(defn -main [& _]
+  (let [targets    (read-target-namespaces)
+        loaded     (filter try-require targets)
+        namespaces (into {}
+                         (keep (fn [ns-sym]
+                                 (when-let [data (capture-namespace ns-sym)]
+                                   [ns-sym data])))
+                         loaded)
+        surface    {:dialect-tag     dialect-tag
+                    :clojure-version (dialect-clojure-version)
+                    :namespaces      namespaces
+                    :special-forms   (capture-special-forms)
+                    :spec-keys       (or (capture-spec-keys) #{})}]
+    (binding [*print-namespace-maps* false
+              *print-length*         nil
+              *print-level*          nil]
+      (println (pr-str surface)))))
+
+(-main)

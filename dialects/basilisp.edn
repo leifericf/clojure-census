@@ -4,15 +4,16 @@
 ;;   pipx install basilisp                  # macOS / Linux
 ;;   pip install --user basilisp            # if pipx unavailable
 ;;
-;; Invocation reads the portable scripts/surface_dump.cljc; basilisp's
-;; reader treats the .cljc suffix as Clojure-with-reader-conditionals,
-;; and any host-specific branches under `:lpy` keep portable code clean.
+;; Requires its own surface_dump_basilisp.lpy because the portable
+;; .cljc script uses `System/getenv` and `(catch Throwable ...)`,
+;; neither of which exists on the Python host. The dedicated script
+;; swaps those for `(.getenv os ...)` and `(catch python/Exception ...)`.
 {:name             "Basilisp"
  :tag              "basilisp"
  :role             :sut
  :invocation       {:type :subprocess
-                    :cmd  ["basilisp" "run" "{script}"]}
- :version-cmd      ["basilisp" "--version"]
+                    :cmd  ["basilisp" "run" "scripts/surface_dump_basilisp.lpy"]}
+ :version-cmd      ["basilisp" "version"]
 
  ;; Initial namespace coverage list. Basilisp ships a Clojure-shaped
  ;; clojure.core plus a partial stdlib; this list will refine after
