@@ -1,0 +1,92 @@
+{
+  "date": "2026-05-26",
+  "dialect-tag": "cljs",
+  "clojure-version": "1.11.132",
+  "headline": {
+    "in-both-count": 532,
+    "clojure-total": 995,
+    "percent": 0.5346733668341709
+  },
+  "per-namespace": {
+    "clojure.zip": {
+      "in-both-count": 0,
+      "clojure-total": 28,
+      "percent": 0.0
+    },
+    "clojure.pprint": {
+      "in-both-count": 20,
+      "clojure-total": 26,
+      "percent": 0.7692307692307693
+    },
+    "clojure.set": {
+      "in-both-count": 12,
+      "clojure-total": 12,
+      "percent": 1.0
+    },
+    "clojure.datafy": {
+      "in-both-count": 0,
+      "clojure-total": 2,
+      "percent": 0.0
+    },
+    "clojure.core": {
+      "in-both-count": 403,
+      "clojure-total": 679,
+      "percent": 0.593519882179676
+    },
+    "clojure.core.protocols": {
+      "in-both-count": 0,
+      "clojure-total": 11,
+      "percent": 0.0
+    },
+    "clojure.walk": {
+      "in-both-count": 7,
+      "clojure-total": 10,
+      "percent": 0.7
+    },
+    "clojure.edn": {
+      "in-both-count": 2,
+      "clojure-total": 2,
+      "percent": 1.0
+    },
+    "clojure.test": {
+      "in-both-count": 9,
+      "clojure-total": 39,
+      "percent": 0.23076923076923078
+    },
+    "clojure.instant": {
+      "in-both-count": 0,
+      "clojure-total": 5,
+      "percent": 0.0
+    },
+    "clojure.string": {
+      "in-both-count": 20,
+      "clojure-total": 21,
+      "percent": 0.9523809523809523
+    },
+    "clojure.spec.alpha": {
+      "in-both-count": 59,
+      "clojure-total": 87,
+      "percent": 0.6781609195402298
+    },
+    "clojure.template": {
+      "in-both-count": 0,
+      "clojure-total": 2,
+      "percent": 0.0
+    },
+    "clojure.math": {
+      "in-both-count": 0,
+      "clojure-total": 45,
+      "percent": 0.0
+    },
+    "clojure.data": {
+      "in-both-count": 0,
+      "clojure-total": 5,
+      "percent": 0.0
+    },
+    "clojure.core.reducers": {
+      "in-both-count": 0,
+      "clojure-total": 21,
+      "percent": 0.0
+    }
+  }
+}
