@@ -1,5 +1,5 @@
 {:dialect-tag "joker",
- :clojure-version "1.7.1-joker",
+ :clojure-version "1.7.2-joker",
  :namespaces
  {clojure.core
   {:vars
@@ -21,17 +21,17 @@
     {:doc "bound in a repl to the most recent value printed",
      :added "1.0",
      :file "<joker.core>",
-     :line 3629},
+     :line 3637},
     *2
     {:doc "bound in a repl to the second most recent value printed",
      :added "1.0",
      :file "<joker.core>",
-     :line 3633},
+     :line 3641},
     *3
     {:doc "bound in a repl to the third most recent value printed",
      :added "1.0",
      :file "<joker.core>",
-     :line 3637},
+     :line 3645},
     *assert*
     {:doc
      "When set to logical false, assert is a noop. Defaults to true.",
@@ -46,7 +46,7 @@
      "bound in a repl to the most recent exception caught by the repl",
      :added "1.0",
      :file "<joker.core>",
-     :line 3641},
+     :line 3649},
     *err*
     {:doc
      "A IOWriter object representing standard error for print operations.\n\n  Defaults to stderr.",
@@ -155,7 +155,7 @@
      "Takes a value from ch.\n  Returns nil if ch is closed and nothing is available on ch.\n  Blocks if nothing is available on ch and ch is not closed.",
      :added "1.0",
      :file "<joker.core>",
-     :line 4499},
+     :line 4507},
     <=
     {:arglists ([x] [x y] [x y & more]),
      :doc
@@ -190,7 +190,7 @@
      "Puts val into ch.\n  Throws an exception if val is nil.\n  Blocks if ch is full (no buffer space is available).\n  Returns true unless ch is already closed.",
      :added "1.0",
      :file "<joker.core>",
-     :line 4507},
+     :line 4515},
     >=
     {:arglists ([x] [x y] [x y & more]),
      :doc
@@ -203,13 +203,13 @@
      :doc "Returns true if num is NaN, else false.",
      :added "1.5",
      :file "<joker.core>",
-     :line 4566},
+     :line 4574},
     abs
     {:arglists ([s]),
      :doc "Returns the absolute value of a.",
      :added "1.5",
      :file "<joker.core>",
-     :line 4572},
+     :line 4580},
     alias
     {:arglists ([alias namespace-sym]),
      :doc
@@ -272,7 +272,7 @@
      :added "1.0",
      :macro true,
      :file "<joker.core>",
-     :line 4218},
+     :line 4226},
     assert
     {:arglists ([x] [x message]),
      :doc
@@ -294,13 +294,13 @@
      "Associates a value in a nested associative structure, where ks is a\n  sequence of keys and v is the new value and returns a new nested structure.\n  If any levels do not exist, hash-maps will be created.",
      :added "1.0",
      :file "<joker.core>",
-     :line 3535},
+     :line 3543},
     associative?
     {:arglists ([coll]),
      :doc "Returns true if coll implements Associative",
      :added "1.0",
      :file "<joker.core>",
-     :line 3604},
+     :line 3612},
     atom
     {:arglists ([x & options]),
      :doc
@@ -426,7 +426,7 @@
      "If coll is counted? returns its count, else will count at most the first n\n  elements of coll using its seq",
      :added "1.0",
      :file "<joker.core>",
-     :line 4062},
+     :line 4070},
     butlast
     {:arglists ([coll]),
      :doc
@@ -440,7 +440,7 @@
      "Returns true if x implements Callable. Note that many data structures\n  (e.g. sets and maps) implement Callable.",
      :added "1.0",
      :file "<joker.core>",
-     :line 3593},
+     :line 3601},
     case
     {:arglists ([expr & clauses]),
      :doc
@@ -448,7 +448,7 @@
      :added "1.0",
      :macro true,
      :file "<joker.core>",
-     :line 3872},
+     :line 3880},
     cast
     {:arglists ([t x]),
      :doc "Throws an error if x is not of a type t, else returns x.",
@@ -460,7 +460,7 @@
      :doc "Returns a new channel with an optional buffer of size n.",
      :added "1.0",
      :file "<joker.core>",
-     :line 4493},
+     :line 4501},
     char
     {:arglists ([x]),
      :doc "Coerce to char",
@@ -492,13 +492,13 @@
      "Closes a channel. The channel will no longer accept any puts (they\n  will be ignored). Data in the channel remains available for taking, until\n  exhausted, after which takes will return nil. If there are any\n  pending takes, they will be dispatched with nil. Closing a closed\n  channel is a no-op. Returns nil.\n\n  Logically closing happens after all puts have been delivered. Therefore, any\n  blocked puts will remain blocked until a taker releases them.",
      :added "1.0",
      :file "<joker.core>",
-     :line 4516},
+     :line 4524},
     coll?
     {:arglists ([x]),
      :doc "Returns true if x implements Collection",
      :added "1.0",
      :file "<joker.core>",
-     :line 3576},
+     :line 3584},
     comment
     {:arglists ([& body]),
      :doc "Ignores body, yields nil",
@@ -549,7 +549,7 @@
      :added "1.0",
      :macro true,
      :file "<joker.core>",
-     :line 4174},
+     :line 4182},
     cond->>
     {:arglists ([expr & clauses]),
      :doc
@@ -557,7 +557,7 @@
      :added "1.0",
      :macro true,
      :file "<joker.core>",
-     :line 4196},
+     :line 4204},
     condp
     {:arglists ([pred expr & clauses]),
      :doc
@@ -565,7 +565,7 @@
      :added "1.0",
      :macro true,
      :file "<joker.core>",
-     :line 3693},
+     :line 3701},
     conj
     {:arglists ([coll x] [coll x & xs]),
      :doc
@@ -607,7 +607,7 @@
      :doc "Returns true if coll implements count in constant time",
      :added "1.0",
      :file "<joker.core>",
-     :line 3614},
+     :line 3622},
     create-ns
     {:arglists ([sym]),
      :doc
@@ -650,13 +650,13 @@
      "Returns a lazy sequence removing consecutive duplicates in coll.",
      :added "1.0",
      :file "<joker.core>",
-     :line 4264},
+     :line 4272},
     default-data-readers
     {:doc
      "Default map of data reader functions provided by Joker. May be\n  overridden by binding *data-readers*.",
      :added "1.0",
      :file "<joker.core>",
-     :line 4288},
+     :line 4296},
     defmacro
     {:arglists
      ([name doc-string? attr-map? [params*] body]
@@ -674,7 +674,7 @@
      :added "1.0",
      :macro true,
      :file "<joker.core>",
-     :line 4413},
+     :line 4421},
     defmulti
     {:arglists ([name docstring? attr-map? dispatch-fn & options]),
      :doc
@@ -682,7 +682,7 @@
      :added "1.0",
      :macro true,
      :file "<joker.core>",
-     :line 4353},
+     :line 4361},
     defn
     {:arglists
      ([name doc-string? attr-map? [params*] prepost-map? body]
@@ -852,7 +852,7 @@
      "Returns true if coll has no items - same as (not (seq coll)).\n  Please use the idiom (seq x) rather than (not (empty? x))",
      :added "1.0",
      :file "<joker.core>",
-     :line 3687},
+     :line 3695},
     eval
     {:arglists ([form]),
      :doc
@@ -873,7 +873,7 @@
      "Takes a set of predicates and returns a function f that returns true if all of its\n  composing predicates return a logical true value against all of its arguments, else it returns\n  false. Note that f is short-circuiting in that it will stop execution on the first\n  argument that triggers a logical false result against the original predicates.",
      :added "1.0",
      :file "<joker.core>",
-     :line 4074},
+     :line 4082},
     every?
     {:arglists ([pred coll]),
      :doc
@@ -916,7 +916,7 @@
      "Causes the current program to exit with the given status code (defaults to 0).",
      :added "1.0",
      :file "<joker.core>",
-     :line 4559},
+     :line 4567},
     false?
     {:arglists ([x]),
      :doc "Returns true if x is the value false, false otherwise.",
@@ -943,7 +943,7 @@
      "Returns a vector of the items in coll for which\n  (pred item) returns true. pred must be free of side-effects.",
      :added "1.0",
      :file "<joker.core>",
-     :line 3924},
+     :line 3932},
     find
     {:arglists ([map key]),
      :doc "Returns the map entry for key, or nil if key not present.",
@@ -977,7 +977,7 @@
      "Takes any nested combination of sequential things (lists, vectors,\n  etc.) and returns their contents as a single, flat sequence.\n  (flatten nil) returns an empty sequence.",
      :added "1.0",
      :file "<joker.core>",
-     :line 3950},
+     :line 3958},
     float?
     {:arglists ([n]),
      :doc "Returns true if n is a floating point number",
@@ -1004,7 +1004,7 @@
      :doc "Returns true if x is Fn, i.e. is an object created via fn.",
      :added "1.0",
      :file "<joker.core>",
-     :line 3599},
+     :line 3607},
     fnext
     {:arglists ([x]),
      :doc "Same as (first (next x))",
@@ -1017,7 +1017,7 @@
      "Takes a function f, and returns a function that calls f, replacing\n  a nil first argument to f with the supplied value x. Higher arity\n  versions can replace arguments in the second and third\n  positions (y, z). Note that the function f can take any number of\n  arguments, not just the one(s) being nil-patched.",
      :added "1.0",
      :file "<joker.core>",
-     :line 3829},
+     :line 3837},
     for
     {:arglists ([seq-exprs body-expr]),
      :doc
@@ -1045,7 +1045,7 @@
      "Returns a map from distinct items in coll to the number of times\n  they appear.",
      :added "1.0",
      :file "<joker.core>",
-     :line 3983},
+     :line 3991},
     gensym
     {:arglists ([] [prefix-string]),
      :doc
@@ -1066,29 +1066,29 @@
      "Returns the value in a nested associative structure,\n  where ks is a sequence of keys. Returns nil if the key\n  is not present, or the not-found value if supplied.",
      :added "1.0",
      :file "<joker.core>",
-     :line 3517},
+     :line 3525},
     get-method
     {:arglists ([multifn dispatch-val]),
      :doc
      "Given a multimethod and a dispatch value, returns the dispatch fn\n  that would apply to that value, or nil if none apply and no default",
      :added "1.0",
      :file "<joker.core>",
-     :line 4451},
+     :line 4459},
     go
     {:arglists ([& body]),
      :doc
-     "Schedules the body to run inside a goroutine.\n  Immediately returns a channel which will receive the result of the body when\n  completed.\n  If exception is thrown inside the body, it will be caught and re-thrown upon\n  reading from the returned channel.\n\n  Joker is single threaded and uses the GIL (Global Interpreter Lock) to make sure\n  only one goroutine (including the root one) executes at the same time.\n  However, channel operations and some I/O functions (joker.http/send, joker.os/sh*, joker.os/exec,\n  and joker.time/sleep) release the GIL and allow other goroutines to run.\n  So using goroutines only makes sense if you do I/O (specifically, calling the above functions)\n  inside them. Also, note that a goroutine may never have a chance to run if the root goroutine\n  (or another goroutine) doesn't do any I/O or channel operations (<! or >!).",
+     "Schedules the body to run inside a goroutine.\n  Immediately returns a channel which will receive the result of the body when\n  completed.\n  If exception is thrown inside the body, it will be caught and re-thrown upon\n  reading from the returned channel.\n\n  Joker is single threaded and uses the GIL (Global Interpreter Lock) to make sure\n  only one goroutine (including the root one) executes at the same time.\n  However, channel operations and some I/O functions (joker.http/send, joker.smtp/send,\n  joker.os/sh*, joker.os/exec, and joker.time/sleep) release the GIL and allow other goroutines to run.\n  So using goroutines only makes sense if you do I/O (specifically, calling the above functions)\n  inside them. Also, note that a goroutine may never have a chance to run if the root goroutine\n  (or another goroutine) doesn't do any I/O or channel operations (<! or >!).",
      :added "1.0",
      :macro true,
      :file "<joker.core>",
-     :line 4475},
+     :line 4483},
     group-by
     {:arglists ([f coll]),
      :doc
      "Returns a map of the elements of coll keyed by the result of\n  f on each element. The value at each key will be a vector of the\n  corresponding elements, in the order they appeared in coll.",
      :added "1.0",
      :file "<joker.core>",
-     :line 3959},
+     :line 3967},
     hash
     {:arglists ([x]),
      :doc "Returns the hash code of its argument.",
@@ -1180,14 +1180,14 @@
      "Return true if coll implements Indexed, indicating efficient lookup by index",
      :added "1.0",
      :file "<joker.core>",
-     :line 3624},
+     :line 3632},
     infinite?
     {:arglists ([s]),
      :doc
      "Returns true if num is negative or positive infinity, else false.",
      :added "1.5",
      :file "<joker.core>",
-     :line 4578},
+     :line 4586},
     instance?
     {:arglists ([c x]),
      :doc
@@ -1242,7 +1242,7 @@
      "Returns a new coll consisting of to-coll with all of the items of\n  from-coll conjoined.",
      :added "1.0",
      :file "<joker.core>",
-     :line 3865},
+     :line 3873},
     iterate
     {:arglists ([f x]),
      :doc
@@ -1255,7 +1255,7 @@
      :doc "Returns joker version as a printable string.",
      :added "1.0",
      :file "<joker.core>",
-     :line 4315},
+     :line 4323},
     juxt
     {:arglists ([f] [f g] [f g h] [f g h & fs]),
      :doc
@@ -1269,14 +1269,14 @@
      "Returns a lazy sequence of the non-nil results of (f item). Note,\n  this means false return values will be included.  f must be free of\n  side-effects.",
      :added "1.0",
      :file "<joker.core>",
-     :line 4034},
+     :line 4042},
     keep-indexed
     {:arglists ([f coll]),
      :doc
      "Returns a lazy sequence of the non-nil results of (f index item). Note,\n  this means false return values will be included.  f must be free of\n  side-effects.",
      :added "1.0",
      :file "<joker.core>",
-     :line 4047},
+     :line 4055},
     key
     {:arglists ([e]),
      :doc "Returns the key of the map entry.",
@@ -1341,7 +1341,7 @@
      :added "1.0",
      :macro true,
      :file "<joker.core>",
-     :line 3815},
+     :line 3823},
     line-seq
     {:arglists ([rdr]),
      :doc
@@ -1369,21 +1369,21 @@
      :doc "Returns true if x is a List",
      :added "1.0",
      :file "<joker.core>",
-     :line 3581},
+     :line 3589},
     load
     {:arglists ([& libs]),
      :doc
      "Loads code from libs, throwing error if cyclic dependency detected,\n  and ignoring libs already being loaded.",
      :added "1.0",
      :file "<joker.core>",
-     :line 3499},
+     :line 3507},
     load-file
     {:arglists ([f]),
      :doc
      "Loads code from file f. Does not protect against recursion.",
      :added "1.0",
      :file "<joker.core>",
-     :line 3493},
+     :line 3501},
     load-string
     {:arglists ([s]),
      :doc
@@ -1397,7 +1397,7 @@
      "Returns an UNSORTED set of symbols naming the currently loaded libs",
      :added "1.0",
      :file "<joker.core>",
-     :line 3487},
+     :line 3495},
     loop
     {:arglists ([bindings & body]),
      :doc
@@ -1433,7 +1433,7 @@
      "Returns a lazy sequence consisting of the result of applying f to 0\n  and the first item of coll, followed by applying f to 1 and the second\n  item in coll, etc, until coll is exhausted. Thus function f should\n  accept 2 arguments, index and item.",
      :added "1.0",
      :file "<joker.core>",
-     :line 4021},
+     :line 4029},
     map?
     {:arglists ([x]),
      :doc "Returns true if x is a map",
@@ -1453,7 +1453,7 @@
      "Returns a vector consisting of the result of applying f to the\n  set of first items of each coll, followed by applying f to the set\n  of second items in each coll, until any one of the colls is\n  exhausted.  Any remaining items in other colls are ignored. Function\n  f should accept number-of-colls arguments.",
      :added "1.0",
      :file "<joker.core>",
-     :line 3908},
+     :line 3916},
     max
     {:arglists ([x] [x y] [x y & more]),
      :doc "Returns the greatest of the nums.",
@@ -1472,7 +1472,7 @@
      "Returns a memoized version of a referentially transparent function. The\n  memoized version of the function keeps a cache of the mapping from arguments\n  to results and, when calls with the same arguments are repeated often, has\n  higher performance at the expense of higher memory use.",
      :added "1.0",
      :file "<joker.core>",
-     :line 3672},
+     :line 3680},
     merge
     {:arglists ([& maps]),
      :doc
@@ -1501,7 +1501,7 @@
      "Given a multimethod, returns a map of dispatch values -> dispatch fns",
      :added "1.0",
      :file "<joker.core>",
-     :line 4443},
+     :line 4451},
     min
     {:arglists ([x] [x y] [x y & more]),
      :doc "Returns the least of the nums.",
@@ -1756,21 +1756,21 @@
      "Parses strings \"true\" or \"false\" and returns a boolean, or nil if invalid",
      :added "1.5",
      :file "<joker.core>",
-     :line 4584},
+     :line 4592},
     parse-double
     {:arglists ([s]),
      :doc
      "Parses string with floating point components and return a Double value, or nil if parse fails.",
      :added "1.5",
      :file "<joker.core>",
-     :line 4595},
+     :line 4603},
     parse-long
     {:arglists ([s]),
      :doc
      "Parses string of decimal digits with optional leading -/+ and return an Int value, or nil if parse fails.",
      :added "1.5",
      :file "<joker.core>",
-     :line 4601},
+     :line 4609},
     partial
     {:arglists
      ([f]
@@ -1796,28 +1796,28 @@
      "Returns a lazy sequence of lists like partition, but may include\n  partitions with fewer than n items at the end.",
      :added "1.0",
      :file "<joker.core>",
-     :line 3853},
+     :line 3861},
     partition-by
     {:arglists ([f coll]),
      :doc
      "Applies f to each value in coll, splitting it each time f returns a\n  new value.  Returns a lazy seq of partitions.",
      :added "1.0",
      :file "<joker.core>",
-     :line 3971},
+     :line 3979},
     partitionv
     {:arglists ([n coll] [n step coll] [n step pad coll]),
      :doc
      "Returns a lazy sequence of vectors of n items each, at offsets step\n  apart. If step is not supplied, defaults to n, i.e. the partitions\n  do not overlap. If a pad collection is supplied, use its elements as\n  necessary to complete last partition upto n items. In case there are\n  not enough padding elements, return a partition with less than n items.",
      :added "1.5",
      :file "<joker.core>",
-     :line 4607},
+     :line 4615},
     partitionv-all
     {:arglists ([n coll] [n step coll]),
      :doc
      "Returns a lazy sequence of vector partitions, but may include\n  partitions with fewer than n items at the end.",
      :added "1.5",
      :file "<joker.core>",
-     :line 4630},
+     :line 4638},
     peek
     {:arglists ([coll]),
      :doc
@@ -1878,14 +1878,14 @@
      "Causes the multimethod to prefer matches of dispatch-val-x over dispatch-val-y\n   when there is a conflict",
      :added "1.0",
      :file "<joker.core>",
-     :line 4436},
+     :line 4444},
     prefers
     {:arglists ([multifn]),
      :doc
      "Given a multimethod, returns a map of preferred value -> set of other values",
      :added "1.0",
      :file "<joker.core>",
-     :line 4463},
+     :line 4471},
     print
     {:arglists ([& more]),
      :doc
@@ -1992,14 +1992,14 @@
      "Return a random element of the (sequential) collection. Will have\n  the same performance characteristics as nth for the given\n  collection.",
      :added "1.0",
      :file "<joker.core>",
-     :line 4007},
+     :line 4015},
     random-sample
     {:arglists ([prob coll]),
      :doc
      "Returns items from coll with random probability of prob (0.0 -\n  1.0).",
      :added "1.0",
      :file "<joker.core>",
-     :line 4273},
+     :line 4281},
     range
     {:arglists ([] [end] [start end] [start end step]),
      :doc
@@ -2071,7 +2071,7 @@
      "Returns true if a value has been produced for a delay or lazy sequence.",
      :added "1.0",
      :file "<joker.core>",
-     :line 4169},
+     :line 4177},
     reduce
     {:arglists ([f coll] [f val coll]),
      :doc
@@ -2092,7 +2092,7 @@
      "Returns a lazy seq of the intermediate values of the reduction (as\n  per reduce) of coll by f, starting with init.",
      :added "1.0",
      :file "<joker.core>",
-     :line 3992},
+     :line 4000},
     refer
     {:arglists ([ns-sym & filters]),
      :doc
@@ -2125,14 +2125,14 @@
      :doc "Removes all of the methods of multimethod.",
      :added "1.0",
      :file "<joker.core>",
-     :line 4421},
+     :line 4429},
     remove-method
     {:arglists ([multifn dispatch-val]),
      :doc
      "Removes the method of multimethod associated with dispatch-value.",
      :added "1.0",
      :file "<joker.core>",
-     :line 4430},
+     :line 4438},
     remove-ns
     {:arglists ([sym]),
      :doc
@@ -2167,14 +2167,14 @@
      "Loads libs, skipping any that are already loaded. Each argument is\n  either a libspec that identifies a lib, a prefix list that\n  identifies multiple libs whose names share a common prefix, or a\n  flag that modifies how all the identified libs are\n  loaded. Use :require in the ns macro in preference to calling this\n  directly.\n\n  Libs\n\n  A 'lib' is a named set of resources in *classpath* whose contents\n  define a library of Clojure code. Lib names are symbols and each lib\n  is associated with a Clojure namespace and a Joker package that\n  share its name. A lib's name also locates its root directory within\n  *classpath* using its package name to classpath-relative path\n  mapping. All resources in a lib should be contained in the directory\n  structure under its root directory.  All definitions a lib makes\n  should be in its associated namespace.\n\n  'require loads a lib by loading its root resource. The root resource\n  path is derived from the lib name in the following manner: Consider\n  a lib named by the symbol 'x.y.z; it has the root directory\n  <*classpath*>/x/y/, and its root resource is\n  <*classpath*>/x/y/z.clj. The root resource should contain code to\n  create the lib's namespace (usually by using the ns macro) and load\n  any additional lib resources.\n\n  Libspecs\n\n  A libspec is a lib name or a vector containing a lib name followed\n  by options expressed as sequential keywords and arguments.\n\n  Recognized options:\n  :as takes a symbol as its argument and makes that symbol an alias to the\n    lib's namespace in the current namespace.\n  :refer takes a list of symbols to refer from the namespace or the :all\n    keyword to bring in all public vars.\n\n  Prefix Lists\n\n  It's common for Clojure code to depend on several libs whose names have\n  the same prefix. When specifying libs, prefix lists can be used to reduce\n  repetition. A prefix list contains the shared prefix followed by libspecs\n  with the shared prefix removed from the lib names. After removing the\n  prefix, the names that remain must not contain any periods.\n\n  Flags\n\n  A flag is a keyword.\n  Recognized flags: :reload, :reload-all, :verbose\n  :reload forces loading of all the identified libs even if they are\n    already loaded\n  :reload-all implies :reload and also forces loading of all libs that the\n    identified libs directly or indirectly load via require or use\n  :verbose triggers printing information about each load, alias, and refer\n\n  Example:\n\n  The following would load the libraries clojure.zip and clojure.set\n  abbreviated as 's'.\n\n  (require '(clojure zip [set :as s]))",
      :added "1.0",
      :file "<joker.core>",
-     :line 3398},
+     :line 3406},
     requiring-resolve
     {:arglists ([sym]),
      :doc
      "Resolves namespace-qualified sym per 'resolve'. If initial resolve\n  fails, attempts to require sym's namespace and retries.",
      :added "1.0",
      :file "<joker.core>",
-     :line 3465},
+     :line 3473},
     reset!
     {:arglists ([atom newval]),
      :doc
@@ -2221,7 +2221,7 @@
      :doc "Returns true if coll implements Reversible",
      :added "1.0",
      :file "<joker.core>",
-     :line 3619},
+     :line 3627},
     rseq
     {:arglists ([rev]),
      :doc
@@ -2235,7 +2235,7 @@
      "Runs the supplied procedure (via reduce), for purposes of side\n  effects, on successive items in the collection. Returns nil.",
      :added "1.0",
      :file "<joker.core>",
-     :line 4280},
+     :line 4288},
     second
     {:arglists ([x]),
      :doc "Same as (first (next x))",
@@ -2268,7 +2268,7 @@
      :doc "Return true if the seq function is supported for x",
      :added "1.0",
      :file "<joker.core>",
-     :line 3586},
+     :line 3594},
     sequence
     {:arglists ([coll]),
      :doc
@@ -2281,7 +2281,7 @@
      :doc "Returns true if coll implements Sequential",
      :added "1.0",
      :file "<joker.core>",
-     :line 3609},
+     :line 3617},
     set
     {:arglists ([coll]),
      :doc "Returns a set of the distinct elements of coll.",
@@ -2299,7 +2299,7 @@
      :doc "Return a random permutation of coll",
      :added "1.0",
      :file "<joker.core>",
-     :line 4015},
+     :line 4023},
     simple-ident?
     {:arglists ([x]),
      :doc
@@ -2325,7 +2325,7 @@
      "Opens file f and reads all its contents, returning a string.\n  f can be a string (filename) or a reader object like *in* or\n  the one returned by joker.os/open.",
      :added "1.0",
      :file "<joker.core>",
-     :line 3933},
+     :line 3941},
     some
     {:arglists ([pred coll]),
      :doc
@@ -2340,7 +2340,7 @@
      :added "1.0",
      :macro true,
      :file "<joker.core>",
-     :line 4232},
+     :line 4240},
     some->>
     {:arglists ([expr & forms]),
      :doc
@@ -2348,14 +2348,14 @@
      :added "1.0",
      :macro true,
      :file "<joker.core>",
-     :line 4248},
+     :line 4256},
     some-fn
     {:arglists ([p] [p1 p2] [p1 p2 p3] [p1 p2 p3 & ps]),
      :doc
      "Takes a set of predicates and returns a function f that returns the first logical true value\n  returned by one of its composing predicates against any of its arguments, else it returns\n  logical false. Note that f is short-circuiting in that it will stop execution on the first\n  argument that triggers a logical true result against the original predicates.",
      :added "1.0",
      :file "<joker.core>",
-     :line 4110},
+     :line 4118},
     some?
     {:arglists ([x]),
      :doc "Returns true if x is not nil, false otherwise.",
@@ -2389,7 +2389,7 @@
      "Opposite of slurp.  Opens file f, writes content, then\n  closes f.\n  f can be a string (filename) or a writer object like *out* or\n  the one returned by joker.os/create.",
      :added "1.0",
      :file "<joker.core>",
-     :line 3941},
+     :line 3949},
     split-at
     {:arglists ([n coll]),
      :doc "Returns a vector of [(take n coll) (drop n coll)]",
@@ -2409,7 +2409,7 @@
      "Returns a vector of [(into [] (take n coll)) (drop n coll)]",
      :added "1.5",
      :file "<joker.core>",
-     :line 4642},
+     :line 4650},
     str
     {:arglists ([& xs]),
      :doc
@@ -2519,7 +2519,7 @@
      "trampoline can be used to convert algorithms requiring mutual\n  recursion without stack consumption. Calls f with supplied args, if\n  any. If f returns a fn, calls that fn with no arguments, and\n  continues to repeat, until the return value is not a fn, then\n  returns that non-fn value. Note that if you want to return a fn as a\n  final value, you must wrap it in some data structure and unpack it\n  after trampoline returns.",
      :added "1.0",
      :file "<joker.core>",
-     :line 3645},
+     :line 3653},
     tree-seq
     {:arglists ([branch? children root]),
      :doc
@@ -2557,35 +2557,35 @@
      "'Updates' a value in an associative structure, where k is a\n  key and f is a function that will take the old value\n  and any supplied args and return the new value, and returns a new\n  structure.  If the key does not exist, nil is passed as the old value.",
      :added "1.0",
      :file "<joker.core>",
-     :line 3559},
+     :line 3567},
     update-in
     {:arglists ([m ks f & args]),
      :doc
      "'Updates' a value in a nested associative structure, where ks is a\n  sequence of keys and f is a function that will take the old value\n  and any supplied args and return the new value, and returns a new\n  nested structure.  If any levels do not exist, hash-maps will be\n  created.",
      :added "1.0",
      :file "<joker.core>",
-     :line 3546},
+     :line 3554},
     update-keys
     {:arglists ([m f]),
      :doc
      "m f => {(f k) v ...}\n  Given a map m and a function f of 1-argument, returns a new map whose\n  keys are the result of applying f to the keys of m, mapped to the\n  corresponding values of m.\n  f must return a unique key for each key of m, else the behavior is undefined.",
      :added "1.1",
      :file "<joker.core>",
-     :line 4293},
+     :line 4301},
     update-vals
     {:arglists ([m f]),
      :doc
      "m f => {k (f v) ...}\n  Given a map m and a function f of 1-argument, returns a new map where the keys of m\n  are mapped to result of applying f to the corresponding values of m.",
      :added "1.1",
      :file "<joker.core>",
-     :line 4305},
+     :line 4313},
     use
     {:arglists ([& args]),
      :doc
      "Like 'require, but also refers to each lib's namespace using\n  joker.core/refer. Use :use in the ns macro in preference to calling\n  this directly.\n\n  'use accepts additional options in libspecs: :exclude, :only, :rename.\n  The arguments and semantics for :exclude, :only, and :rename are the same\n  as those documented for joker.core/refer.",
      :added "1.0",
      :file "<joker.core>",
-     :line 3476},
+     :line 3484},
     val
     {:arglists ([e]),
      :doc "Returns the value in the map entry.",
@@ -2690,7 +2690,7 @@
      :added "1.0",
      :macro true,
      :file "<joker.core>",
-     :line 3662},
+     :line 3670},
     with-bindings
     {:arglists ([binding-map & body]),
      :doc
@@ -2814,7 +2814,7 @@
     floor
     {:arglists ([x]),
      :doc
-     "Returns the greatest integer value greater than or equal to x.",
+     "Returns the greatest integer value less than or equal to x.",
      :added "1.0",
      :tag "Double"},
     hypot
@@ -2956,7 +2956,7 @@
     sqrt-of-pi {:doc "Square root of pi", :added "1.0", :tag "Double"},
     trunc
     {:arglists ([x]),
-     :doc "Returns the integer value of x.",
+     :doc "Returns the integer value of x, rounded toward zero.",
      :added "1.0",
      :tag "Double"}}},
   clojure.pprint
@@ -3082,18 +3082,18 @@
     index-of
     {:arglists ([s value] [s value from]),
      :doc
-     "Return index of value (string or char) in s, optionally searching\n  forward from from or nil if not found.",
+     "Returns the Unicode-character index of value in s, or nil when absent.\n\n  value must be a string or char. The optional from argument is a\n  Unicode-character index from which to begin the forward search.",
      :added "1.0"},
     join
     {:arglists ([coll] [separator coll]),
      :doc
-     "Returns a string of all elements in coll, as returned by (seq coll), separated by an optional separator.",
+     "Returns the elements of coll joined by an optional separator.\n\n  Elements are converted with their ordinary string form before joining.",
      :added "1.0",
      :tag "String"},
     last-index-of
     {:arglists ([s value] [s value from]),
      :doc
-     "Return last index of value (string or char) in s, optionally\n  searching backward from from or nil if not found.",
+     "Returns the last Unicode-character index of value in s, or nil when absent.\n\n  value must be a string or char. With from, only the prefix ending at that\n  Unicode-character index is searched.",
      :added "1.0"},
     lower-case
     {:arglists ([s]),
@@ -3102,18 +3102,20 @@
      :tag "String"},
     pad-left
     {:arglists ([s pad n]),
-     :doc "Returns s padded with pad at the beginning to length n.",
+     :doc
+     "Returns s padded with pad at the beginning to n Unicode characters.\n\n  Returns s unchanged when it is already at least n characters long. pad must\n  be non-empty when padding is required.",
      :added "1.0",
      :tag "String"},
     pad-right
     {:arglists ([s pad n]),
-     :doc "Returns s padded with pad at the end to length n.",
+     :doc
+     "Returns s padded with pad at the end to n Unicode characters.\n\n  Returns s unchanged when it is already at least n characters long. pad must\n  be non-empty when padding is required.",
      :added "1.0",
      :tag "String"},
     re-quote
     {:arglists ([s]),
      :doc
-     "Returns an instance of Regex that matches the string exactly",
+     "Returns a Regex that matches s literally rather than treating it as a pattern.",
      :added "1.0",
      :tag "Regex"},
     replace
@@ -3125,7 +3127,7 @@
     replace-first
     {:arglists ([s match repl]),
      :doc
-     "Replaces the first instance of match (String or Regex) with string repl in string s.\n\n  If match is Regex, $1, $2, etc. in the replacement string repl are\n  substituted with the string that matched the corresponding\n  parenthesized group in the pattern.\n  ",
+     "Replaces the first instance of match (String or Regex) with string repl in string s.\n\n  If match is Regex, $1, $2, etc. in repl are expanded from the corresponding\n  parenthesized groups, as in replace.",
      :added "1.0",
      :tag "String"},
     reverse
@@ -3527,4 +3529,4 @@
      :line 36}}}},
  :special-forms #{try finally do if recur var quote catch throw def},
  :spec-keys #{},
- :captured-at "2026-05-26T07:49:54Z"}
+ :captured-at "2026-05-27T07:53:23Z"}
