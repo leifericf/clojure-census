@@ -1,5 +1,5 @@
 {:dialect-tag "joker",
- :clojure-version "1.7.2-joker",
+ :clojure-version "1.8.0-joker",
  :namespaces
  {clojure.core
   {:vars
@@ -2877,7 +2877,8 @@
     {:arglists ([x]),
      :doc
      "Returns a vector with the integer and fractional floating-point numbers that sum to x.\n\n  Both values have the same sign as x.",
-     :added "1.0"},
+     :added "1.0",
+     :tag "Vec"},
     nan
     {:arglists ([]),
      :doc "Returns an IEEE 754 \"not-a-number\" value.",
@@ -3139,12 +3140,14 @@
     {:arglists ([s sep] [s sep n]),
      :doc
      "Splits string on a string or regular expression. Returns vector of the splits.\n\n  No more than n elements will be returned in the vector; the last element will\n  be the unsplit remainder. If n is <= 0, no limit is in effect (all substrings\n  are returned in the vector).",
-     :added "1.0"},
+     :added "1.0",
+     :tag "Vec"},
     split-lines
     {:arglists ([s]),
      :doc
      "Splits string on \\n or \\r\\n. Returns vector of the splits.",
-     :added "1.0"},
+     :added "1.0",
+     :tag "Vec"},
     starts-with?
     {:arglists ([s substr]),
      :doc "True if s starts with substr.",
@@ -3529,4 +3532,4 @@
      :line 36}}}},
  :special-forms #{try finally do if recur var quote catch throw def},
  :spec-keys #{},
- :captured-at "2026-06-03T08:19:56Z"}
+ :captured-at "2026-06-04T08:05:53Z"}

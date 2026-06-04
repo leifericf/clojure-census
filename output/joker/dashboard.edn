@@ -2,7 +2,7 @@
  {:dialect-tag "joker",
   :dialect-name "Joker",
   :clojure-version "1.12.4",
-  :compared-at "2026-06-03T08:20:01Z"},
+  :compared-at "2026-06-04T08:05:58Z"},
  :divergences
  [{:id :go-host,
    :title "Host runtime is Go, not the JVM",
@@ -661,6 +661,49 @@
     clojure.data {:in-both-count 0, :clojure-total 5, :percent 0.0},
     clojure.walk {:in-both-count 10, :clojure-total 10, :percent 1.0},
     clojure.template
+    {:in-both-count 2, :clojure-total 2, :percent 1.0}}}
+  {:date "2026-06-04",
+   :dialect-tag "joker",
+   :clojure-version "1.8.0-joker",
+   :headline
+   {:in-both-count 479,
+    :clojure-total 995,
+    :percent 0.4814070351758794},
+   :per-namespace
+   {clojure.spec.alpha
+    {:in-both-count 0, :clojure-total 87, :percent 0.0},
+    clojure.datafy {:in-both-count 0, :clojure-total 2, :percent 0.0},
+    clojure.zip {:in-both-count 0, :clojure-total 28, :percent 0.0},
+    clojure.core.reducers
+    {:in-both-count 0, :clojure-total 21, :percent 0.0},
+    clojure.test
+    {:in-both-count 36,
+     :clojure-total 39,
+     :percent 0.9230769230769231},
+    clojure.core.protocols
+    {:in-both-count 0, :clojure-total 11, :percent 0.0},
+    clojure.core
+    {:in-both-count 386,
+     :clojure-total 679,
+     :percent 0.5684830633284241},
+    clojure.set {:in-both-count 12, :clojure-total 12, :percent 1.0},
+    clojure.pprint
+    {:in-both-count 1,
+     :clojure-total 26,
+     :percent 0.038461538461538464},
+    clojure.math
+    {:in-both-count 12,
+     :clojure-total 45,
+     :percent 0.26666666666666666},
+    clojure.edn {:in-both-count 0, :clojure-total 2, :percent 0.0},
+    clojure.instant {:in-both-count 0, :clojure-total 5, :percent 0.0},
+    clojure.string
+    {:in-both-count 20,
+     :clojure-total 21,
+     :percent 0.9523809523809523},
+    clojure.data {:in-both-count 0, :clojure-total 5, :percent 0.0},
+    clojure.walk {:in-both-count 10, :clojure-total 10, :percent 1.0},
+    clojure.template
     {:in-both-count 2, :clojure-total 2, :percent 1.0}}}],
  :mismatches
  [{:dynamic-clojure true,
@@ -1028,11 +1071,47 @@
    :description
    "Where reader attaches meta and which ops preserve it."}],
  :drift
- {:from-date "2026-06-02",
-  :to-date "2026-06-03",
+ {:from-date "2026-06-03",
+  :to-date "2026-06-04",
   :added-vars #{},
   :removed-vars #{},
-  :changed [],
+  :changed
+  [{:var clojure.math/modf,
+    :before
+    {:arglists ([x]),
+     :doc
+     "Returns a vector with the integer and fractional floating-point numbers that sum to x.\n\n  Both values have the same sign as x.",
+     :added "1.0"},
+    :after
+    {:arglists ([x]),
+     :doc
+     "Returns a vector with the integer and fractional floating-point numbers that sum to x.\n\n  Both values have the same sign as x.",
+     :added "1.0",
+     :tag "Vec"}}
+   {:var clojure.string/split,
+    :before
+    {:arglists ([s sep] [s sep n]),
+     :doc
+     "Splits string on a string or regular expression. Returns vector of the splits.\n\n  No more than n elements will be returned in the vector; the last element will\n  be the unsplit remainder. If n is <= 0, no limit is in effect (all substrings\n  are returned in the vector).",
+     :added "1.0"},
+    :after
+    {:arglists ([s sep] [s sep n]),
+     :doc
+     "Splits string on a string or regular expression. Returns vector of the splits.\n\n  No more than n elements will be returned in the vector; the last element will\n  be the unsplit remainder. If n is <= 0, no limit is in effect (all substrings\n  are returned in the vector).",
+     :added "1.0",
+     :tag "Vec"}}
+   {:var clojure.string/split-lines,
+    :before
+    {:arglists ([s]),
+     :doc
+     "Splits string on \\n or \\r\\n. Returns vector of the splits.",
+     :added "1.0"},
+    :after
+    {:arglists ([s]),
+     :doc
+     "Splits string on \\n or \\r\\n. Returns vector of the splits.",
+     :added "1.0",
+     :tag "Vec"}}],
   :coverage-delta 0.0},
  :extensions
  [{:id :joker-os,
