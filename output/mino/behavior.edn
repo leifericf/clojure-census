@@ -1,5 +1,5 @@
 {:dialect-tag "mino",
- :run-at "2026-06-04T06:33:43Z",
+ :run-at "2026-06-05T06:31:41Z",
  :totals {:match 9, :mismatch 4, :divergent-as-expected 9, :skipped 0},
  :parities
  [{:case-id :class/string,
@@ -20,7 +20,7 @@
    :oracle
    {:status :value,
     :value {:clj-census/opaque "class java.lang.Long"},
-    :elapsed-ms 1},
+    :elapsed-ms 2},
    :dialect
    {:status :exception,
     :ex {:type "MNS001", :message "unbound symbol: class"},
@@ -47,7 +47,7 @@
    :dialect
    {:status :exception,
     :ex {:type "MNS001", :message "unbound symbol: class"},
-    :elapsed-ms 0},
+    :elapsed-ms 1},
    :verdict :mismatch,
    :reason
    "divergence declared :keyword-vs-class but predicate did not match"}
@@ -74,14 +74,14 @@
    :divergence-id :compare-sign-normalized}
   {:case-id :compare/numbers-ascending,
    :var clojure.core/compare,
-   :oracle {:status :value, :value -1, :elapsed-ms 2},
+   :oracle {:status :value, :value -1, :elapsed-ms 1},
    :dialect {:status :value, :value -1, :elapsed-ms 0},
    :verdict :divergent-as-expected,
    :reason "predicate :sign-normalized matched",
    :divergence-id :compare-sign-normalized}
   {:case-id :compare/numbers-equal,
    :var clojure.core/compare,
-   :oracle {:status :value, :value 0, :elapsed-ms 0},
+   :oracle {:status :value, :value 0, :elapsed-ms 1},
    :dialect {:status :value, :value 0, :elapsed-ms 0},
    :verdict :divergent-as-expected,
    :reason "predicate :sign-normalized matched",
@@ -112,33 +112,33 @@
    :reason "values equivalent"}
   {:case-id :plus/varargs,
    :var clojure.core/+,
-   :oracle {:status :value, :value 15, :elapsed-ms 2},
+   :oracle {:status :value, :value 15, :elapsed-ms 5},
    :dialect {:status :value, :value 15, :elapsed-ms 0},
    :verdict :match,
    :reason "values equivalent"}
   {:case-id :sort/numbers-ascending,
    :var clojure.core/sort,
-   :oracle {:status :value, :value [1 1 2 3 4 5 6 9], :elapsed-ms 1},
-   :dialect {:status :value, :value [1 1 2 3 4 5 6 9], :elapsed-ms 1},
+   :oracle {:status :value, :value [1 1 2 3 4 5 6 9], :elapsed-ms 2},
+   :dialect {:status :value, :value [1 1 2 3 4 5 6 9], :elapsed-ms 0},
    :verdict :match,
    :reason "values equivalent"}
   {:case-id :sort/strings,
    :var clojure.core/sort,
    :oracle
-   {:status :value, :value ["apple" "banana" "cherry"], :elapsed-ms 1},
+   {:status :value, :value ["apple" "banana" "cherry"], :elapsed-ms 2},
    :dialect
    {:status :value, :value ["apple" "banana" "cherry"], :elapsed-ms 0},
    :verdict :match,
    :reason "values equivalent"}
   {:case-id :sort/with-comparator-descending,
    :var clojure.core/sort,
-   :oracle {:status :value, :value [4 3 2 1], :elapsed-ms 1},
-   :dialect {:status :value, :value [4 3 2 1], :elapsed-ms 1},
+   :oracle {:status :value, :value [4 3 2 1], :elapsed-ms 2},
+   :dialect {:status :value, :value [4 3 2 1], :elapsed-ms 0},
    :verdict :match,
    :reason "values equivalent"}
   {:case-id :sort/empty,
    :var clojure.core/sort,
-   :oracle {:status :value, :value [], :elapsed-ms 1},
+   :oracle {:status :value, :value [], :elapsed-ms 3},
    :dialect {:status :value, :value [], :elapsed-ms 0},
    :verdict :match,
    :reason "values equivalent"}
@@ -147,7 +147,7 @@
    :oracle
    {:status :value,
     :value {:clj-census/opaque "class java.lang.String"},
-    :elapsed-ms 1},
+    :elapsed-ms 2},
    :dialect {:status :value, :value :string, :elapsed-ms 0},
    :verdict :divergent-as-expected,
    :reason "predicate :keyword-vs-class matched",
@@ -157,7 +157,7 @@
    :oracle
    {:status :value,
     :value {:clj-census/opaque "class java.lang.Long"},
-    :elapsed-ms 1},
+    :elapsed-ms 3},
    :dialect {:status :value, :value :int, :elapsed-ms 0},
    :verdict :divergent-as-expected,
    :reason "predicate :keyword-vs-class matched",
@@ -167,7 +167,7 @@
    :oracle
    {:status :value,
     :value {:clj-census/opaque "class clojure.lang.Keyword"},
-    :elapsed-ms 1},
+    :elapsed-ms 2},
    :dialect {:status :value, :value :keyword, :elapsed-ms 0},
    :verdict :divergent-as-expected,
    :reason "predicate :keyword-vs-class matched",
