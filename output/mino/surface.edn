@@ -9,7 +9,10 @@
     *2 {:dynamic true},
     *3 {:dynamic true},
     *agent* {:dynamic true},
-    *assert* {:dynamic true},
+    *assert*
+    {:doc
+     "Controls assertion compilation. When false, `assert` is a no-op.\n   Defaults to true.",
+     :dynamic true},
     *clojure-version* {},
     *command-line-args* {:dynamic true},
     *compile-files* {:dynamic true},
@@ -19,16 +22,40 @@
     *e {:dynamic true},
     *err* {:dynamic true},
     *file* {:dynamic true},
-    *flush-on-newline* {:dynamic true},
+    *flush-on-newline*
+    {:doc
+     "When true (the default), the I/O sink behind `*out*` is flushed\n   automatically after any write that contains a newline. When false,\n   the sink stays buffered so consecutive writes coalesce.",
+     :dynamic true},
     *in* {:dynamic true},
-    *math-context* {:dynamic true},
+    *math-context*
+    {:doc
+     "Precision/rounding-mode for bigdec division. nil means exact-or-\n   throw (mirrors java.math.BigDecimal.divide without MathContext).\n   When set, the value is a map of {:precision N :rounding-mode K}\n   where N is a positive integer and K is one of: :half-up (default),\n   :down, :up, :floor, :ceiling, :half-down, :half-even, :unnecessary.\n   :unnecessary throws when rounding would change the value (mirrors\n   JVM's ArithmeticException). Resolved by mino_bigdec_div on each\n   call.",
+     :dynamic true},
     *out* {:dynamic true},
-    *print-dup* {:dynamic true},
-    *print-length* {:dynamic true},
-    *print-level* {:dynamic true},
-    *print-meta* {:dynamic true},
-    *print-namespace-maps* {:dynamic true},
-    *print-readably* {:dynamic true},
+    *print-dup*
+    {:doc
+     "When true, the printer emits forms a reader can reconstruct\n   exactly. mino's built-in record / collection / scalar prints are\n   already reader-roundtrip-compatible, so the flag is currently an\n   information channel for user-installed print-method implementations\n   that branch on dup vs. non-dup output. Default false.",
+     :dynamic true},
+    *print-length*
+    {:doc
+     "Maximum number of items printed in a single collection (vector,\n   list, map, set, chunk, chunked-cons). nil means no limit (the\n   default). The remainder is replaced with `...`. Resolved once per\n   top-level pr / prn / print / println / pr-str call; nested\n   collections share the same limit.",
+     :dynamic true},
+    *print-level*
+    {:doc
+     "Maximum nesting depth printed. A collection found at depth >= this\n   limit is replaced with `#`. nil means no limit (the default).\n   Resolved once per top-level pr / print call.",
+     :dynamic true},
+    *print-meta*
+    {:doc
+     "When true, every value carrying non-nil metadata is printed with\n   its meta map prefixed as `^{...} `. When false (the default), meta\n   is silent. Resolved once per top-level pr / print call.",
+     :dynamic true},
+    *print-namespace-maps*
+    {:doc
+     "When true, a map whose keys are keywords (or symbols) sharing a\n   common non-empty namespace is printed as `#:ns{:k1 v1, :k2 v2}`\n   instead of `{:ns/k1 v1, :ns/k2 v2}`. Default false.",
+     :dynamic true},
+    *print-readably*
+    {:doc
+     "When true (the default), strings are emitted with their quote\n   characters and characters with their escape form so the printed\n   output round-trips through the reader. When false, strings and\n   characters print their underlying bytes — pr/prn behave like\n   print/println. Resolved once per top-level pr / print call.",
+     :dynamic true},
     *source-path* {:dynamic true},
     *unchecked-math* {:dynamic true},
     *warn-on-reflection* {:dynamic true},
@@ -45,7 +72,9 @@
     < {},
     <= {},
     = {},
-    == {},
+    ==
+    {:doc
+     "Returns true if nums are numerically equal, treating ints and floats\n   uniformly."},
     > {},
     >= {},
     CollReduce {},
@@ -57,9 +86,13 @@
     NaN? {},
     Navigable {},
     Navigable--nav {},
-    abs {},
+    abs
+    {:doc
+     "Returns the absolute value of x. Matches JVM Math/abs 2's-complement\n   semantics: (abs Long/MIN_VALUE) returns Long/MIN_VALUE rather than\n   overflowing, since the true absolute value is unrepresentable in a\n   signed 64-bit int."},
     add-load-path! {},
-    add-tap {},
+    add-tap
+    {:doc
+     "Registers f as a tap target. Each call to tap> invokes every\n   registered tap with the tapped value. Returns nil."},
     add-watch {},
     agent {},
     agent-error {},
@@ -74,18 +107,22 @@
     alter {},
     alter-meta! {},
     alter-var-root {},
-    ancestors {},
+    ancestors {:doc "Returns all ancestors of tag in the hierarchy."},
     and {},
-    any? {},
+    any? {:doc "Returns true for any argument."},
     apply {},
-    array-map {},
+    array-map {:doc "Creates a hash-map."},
     as-> {},
     aset {},
     assert {},
     assoc {},
     assoc! {},
-    assoc-in {},
-    associative? {},
+    assoc-in
+    {:doc
+     "Associates a value in a nested associative structure at the given\n   key path."},
+    associative?
+    {:doc "Returns true if x supports assoc (maps and vectors)."},
+    async-next-timer-ms* {},
     async-sched-enqueue* {},
     async-schedule-timer* {},
     atom {},
@@ -97,33 +134,41 @@
     bigint? {},
     biginteger {},
     bit-and {},
-    bit-and-not {},
-    bit-clear {},
-    bit-flip {},
+    bit-and-not
+    {:doc "Returns the bitwise AND of x and the complement of y."},
+    bit-clear {:doc "Returns x with bit n cleared."},
+    bit-flip {:doc "Returns x with bit n flipped."},
     bit-not {},
     bit-or {},
-    bit-set {},
+    bit-set {:doc "Returns x with bit n set."},
     bit-shift-left {},
     bit-shift-right {},
-    bit-test {},
+    bit-test {:doc "Returns true if bit n of x is set."},
     bit-xor {},
     bits {},
     bits-get {},
     bitstring? {},
-    boolean {},
+    boolean {:doc "Coerces x to a boolean value."},
     boolean-array {},
     boolean? {},
     bound-fn {},
-    bound-fn* {},
-    bound? {},
-    bounded-count {},
-    butlast {},
+    bound-fn*
+    {:doc
+     "Returns a function which installs the same bindings in effect as in\n   the thread at the time bound-fn* was called and then invokes f."},
+    bound?
+    {:doc
+     "Returns true if all of the vars provided as arguments have any\n   bindings — either a root binding or a thread-local binding."},
+    bounded-count
+    {:doc "Returns the count of coll, but stops counting at n."},
+    butlast {:doc "Returns a seq of all but the last item in coll."},
     byte {},
     byte-array {},
     bytes? {},
     car {},
     case {},
-    cat {},
+    cat
+    {:doc
+     "A transducer that concatenates the contents of each input."},
     cdr {},
     chan-buf-add {},
     chan-buf-count {},
@@ -159,16 +204,20 @@
     chunked-seq? {},
     clojure-version {},
     coll-reduce {},
-    coll? {},
+    coll? {:doc "Returns true if x is a collection."},
     comment {},
     commute {},
     comp {},
-    comparator {},
+    comparator
+    {:doc "Returns a comparator function from a two-arg predicate."},
     compare {},
     compare-and-set! {},
     complement {},
-    completing {},
-    concat {},
+    completing
+    {:doc "Returns a reducing function with a completion step."},
+    concat
+    {:doc
+     "Returns a lazy sequence of the concatenation of the given\n   collections."},
     cond {},
     cond-> {},
     cond->> {},
@@ -177,17 +226,23 @@
     conj! {},
     cons {},
     cons? {},
-    constantly {},
+    constantly {:doc "Returns a function that always returns x."},
     contains? {},
     count {},
-    counted? {},
+    counted?
+    {:doc
+     "Returns true if (count x) is a constant-time operation. Per\n   Clojure this is the Counted protocol -- vectors, maps, sets, and\n   sorted variants. Strings are not Counted on the JVM (their count\n   walks java.lang.CharSequence)."},
     create-ns {},
-    cycle {},
+    cycle
+    {:doc
+     "Returns a lazy infinite sequence of repetitions of the items in\n   coll."},
     datafy {},
     dec {},
     dec' {},
     decimal? {},
-    dedupe {},
+    dedupe
+    {:doc
+     "Returns a lazy sequence removing consecutive duplicates. When\n   called with no collection, returns a transducer."},
     definterface {},
     defmethod {},
     defmulti {},
@@ -199,20 +254,26 @@
     defrecord* {},
     deftype {},
     delay {},
-    delay? {},
+    delay? {:doc "Returns true if x is a delay."},
     deliver {},
     denominator {},
     deref {},
-    deref-delay {},
-    derive {},
-    descendants {},
+    deref-delay
+    {:doc "Forces evaluation of a delay and returns its value."},
+    derive
+    {:doc
+     "Establishes a parent/child relationship between child and parent\n   in a hierarchy."},
+    descendants
+    {:doc "Returns all descendants of tag in the hierarchy."},
     destructure {},
     directory? {},
     disj {},
     disj! {},
     dissoc {},
     dissoc! {},
-    distinct {},
+    distinct
+    {:doc
+     "Returns a lazy sequence of the distinct items in coll. When called\n   with no collection, returns a transducer."},
     distinct? {},
     doall {},
     dorun {},
@@ -223,54 +284,94 @@
     doto {},
     double {},
     double-array {},
-    double? {},
+    double?
+    {:doc
+     "Returns true if x is a 64-bit double (mino's `:float` tier).\n   Distinct from `float?`, which also returns true for the 32-bit\n   `:float32` tier produced by `(float x)`. Matches JVM Clojure\n   where `double?` is `(instance? Double x)`."},
     drain! {},
     drain-loop! {},
-    drop {},
-    drop-last {},
+    drop
+    {:doc
+     "Returns a lazy sequence of all but the first n items in coll. When\n   called with no collection, returns a transducer."},
+    drop-last
+    {:doc
+     "Returns a lazy sequence of all but the last n items in coll."},
     drop-seq {},
-    drop-while {},
-    eduction {},
+    drop-while
+    {:doc
+     "Returns a lazy sequence of items from coll after pred returns\n   falsy. When called with no collection, returns a transducer."},
+    eduction
+    {:doc
+     "Returns a lazy sequence of applying the given transducers to coll."},
     empty {},
     empty? {},
     ensure {},
-    ensure-reduced {},
+    ensure-reduced
+    {:doc "Wraps x in reduced if it is not already reduced."},
     error-handler {},
     error-mode {},
     error? {},
     eval {},
     even? {},
-    every-pred {},
+    every-pred
+    {:doc
+     "Returns a function that returns true when all preds are satisfied\n   by all its arguments."},
     every? {},
-    ex-cause {},
-    ex-data {},
-    ex-info {},
-    ex-message {},
+    ex-cause
+    {:doc
+     "Returns the cause attached to the given exception, or nil."},
+    ex-data
+    {:doc
+     "Extract the data map from an exception. Handles diagnostic maps\n  (from catch), ex-info maps, and plain thrown values."},
+    ex-info
+    {:doc
+     "Create an exception map with a message and data map. The 3-arity\n  form additionally attaches a cause; ex-cause walks the chain via\n  metadata so the visible map structure stays the same as the\n  2-arity form. The data argument must be a map (or nil)."},
+    ex-message
+    {:doc
+     "Extract the message from an exception. Handles both diagnostic maps\n  and ex-info maps."},
     exit {},
+    extend
+    {:doc
+     "Registers method implementations for one or more protocols on type\n   t without generating wrapper code: (extend T P {:m (fn [x] ...)}).\n   The fn-map keys are keywordized method names; values are the\n   implementation fns."},
     extend-protocol {},
     extend-type {},
+    extenders
+    {:doc
+     "Returns a seq of the types explicitly extended to proto, or nil\n   when there are none."},
+    extends?
+    {:doc
+     "Returns true if type t has been extended to proto (an explicit\n   registration for at least one method; :default does not count)."},
     false? {},
-    ffirst {},
+    ffirst {:doc "Returns the first item of the first item in coll."},
     file-exists? {},
     file-mtime {},
     file-seq {},
-    filter {},
+    filter
+    {:doc
+     "Returns a lazy sequence of items in coll for which pred returns\n   truthy. When called with no collection, returns a transducer."},
     filterv {},
     find {},
-    find-keyword {},
+    find-keyword
+    {:doc
+     "Returns the keyword for the given string. In mino keywords are\n   always interned, so this is equivalent to keyword for string input\n   and nil for other input."},
     find-ns {},
     find-var {},
     first {},
-    flatten {},
+    flatten
+    {:doc
+     "Returns a lazy sequence of the non-sequential items from a nested\n   structure."},
     float {},
     float-array {},
     float? {},
     flush {},
     fn? {},
-    fnext {},
-    fnil {},
+    fnext {:doc "Same as (first (next coll))."},
+    fnil
+    {:doc
+     "Returns a function like f, but replaces nil arguments with the\n   given defaults."},
     for {},
-    force {},
+    force
+    {:doc
+     "Forces evaluation of a delay. If x is not a delay, returns x."},
     format {},
     frequencies {},
     future {},
@@ -285,62 +386,96 @@
     gen-class {},
     gensym {},
     get {},
-    get-in {},
-    get-method {},
+    get-in
+    {:doc
+     "Returns the value in a nested associative structure at the given\n   key path."},
+    get-method {:doc "Returns the method for dispatch-val, or nil."},
     get-thread-bindings {},
     get-validator {},
     getcwd {},
     getenv {},
     group-by {},
-    halt-when {},
+    halt-when
+    {:doc
+     "Returns a transducer that halts reduction when pred is satisfied."},
     hash {},
-    hash-combine {},
+    hash-combine
+    {:doc
+     "Boost-style hash combiner: mixes seed and hash into a single 32-bit\n  hash. Matches clojure.core/hash-combine bit-for-bit so user code that\n  manually composes hashes via this helper sees the same result on\n  mino as on JVM Clojure.\n\n    seed ^= hash + 0x9e3779b9 + (seed << 6) + (seed >> 2)\n\n  The operation is performed in unchecked 32-bit arithmetic; the result\n  is truncated to the low 32 bits."},
     hash-map {},
-    hash-ordered-coll {},
+    hash-ordered-coll
+    {:doc
+     "Computes a sequence-position-aware hash for an ordered collection."},
     hash-set {},
-    hash-unordered-coll {},
-    ident? {},
+    hash-unordered-coll
+    {:doc
+     "Computes a position-independent hash for an unordered collection."},
+    ident? {:doc "Returns true if x is a symbol or keyword."},
     identical? {},
-    identity {},
+    identity {:doc "Returns its argument."},
     if-let {},
     if-not {},
     if-some {},
-    ifn? {},
+    ifn? {:doc "Returns true if x can be called as a function."},
     import {},
     in-ns {},
     in-transaction? {},
     inc {},
     inc' {},
-    indexed? {},
+    indexed?
+    {:doc
+     "Returns true if x supports nth in constant time (vectors)."},
     infinite? {},
-    inst-ms {},
+    inst-ms
+    {:doc
+     "Returns epoch millis (since 1970-01-01T00:00:00Z) for an inst\n   value as returned by clojure.instant/read-instant-date or the\n   `#inst \"...\"` reader literal. Throws on a non-inst argument."},
     inst? {},
-    instance? {},
+    instance?
+    {:doc
+     "Returns true if x is an instance of t. For record types defined\n   with defrecord, t is the type value and the test is type-pointer\n   identity. For built-in types or ad-hoc :type-tagged values, t may\n   be the keyword (type x) returns and the test is keyword equality."},
     int {},
     int-array {},
     int? {},
-    integer? {},
-    interleave {},
+    integer?
+    {:doc "Returns true if x is an integer (long or bigint)."},
+    interleave
+    {:doc
+     "Returns a lazy sequence of the first item in each collection, then\n   the second, and so on."},
     intern {},
     internal-reduce {},
     internal-reduce-kv {},
-    interpose {},
-    into {},
-    into-array {},
+    interpose
+    {:doc
+     "Returns a lazy sequence of the items in coll separated by sep. When\n   called with no collection, returns a transducer."},
+    into
+    {:doc
+     "Adds all items from from into to. With a transducer, transforms\n   items first."},
+    into-array {:doc "Converts a collection to an Object array."},
     io! {},
     io!-check {},
-    isa? {},
-    iterate {},
-    iteration {},
+    isa?
+    {:doc "Returns true if child is equal to or derives from parent."},
+    iterate
+    {:doc
+     "Returns a lazy sequence of x, (f x), (f (f x)), and so on."},
+    iteration
+    {:doc
+     "Creates a seqable via repeated calls to step, a function of some\n   continuation token 'k'. The first call to step is passed initk,\n   returning 'ret'. If (somef ret) is true, (vf ret) is included in\n   the iteration; else iteration terminates and vf/kf are not called.\n   If (kf ret) is non-nil it is passed to the next step call; else\n   iteration terminates. Used to consume APIs that return paginated\n   or batched data.\n\n   step  - (possibly impure) fn of 'k' -> 'ret'\n   :somef - fn of 'ret' -> truthy/falsy, default some?\n   :vf    - fn of 'ret' -> 'v', default identity\n   :kf    - fn of 'ret' -> 'next-k' or nil, default identity\n   :initk - first value passed to step, default nil\n\n   Step with non-initk is presumed unreproducible. The first step\n   call is deferred until the result is realized."},
     juxt {},
-    keep {},
-    keep-indexed {},
-    key {},
+    keep
+    {:doc
+     "Returns a lazy sequence of non-nil results of (f item). When called\n   with no collection, returns a transducer."},
+    keep-indexed
+    {:doc
+     "Returns a lazy sequence of non-nil results of (f index item).\n   When called with no collection, returns a transducer."},
+    key
+    {:doc
+     "Returns the key of a map entry. Throws on values that are not\n   map entries (a literal 2-vector, for instance)."},
     keys {},
     keyword {},
     keyword? {},
     kv-reduce {},
-    last {},
+    last {:doc "Returns the last item in coll."},
     last-error {},
     lazy-cat {},
     lazy-filter {},
@@ -349,22 +484,33 @@
     let-bits {},
     letfn {},
     list {},
-    list* {},
+    list*
+    {:doc
+     "Creates a new list containing the items prepended to the rest, the\n   last of which will be treated as a sequence."},
     list? {},
     load-file {},
     load-string {},
     loaded-libs {},
+    locking {},
     long {},
     long-array {},
     macroexpand {},
     macroexpand-1 {},
-    make-hierarchy {},
-    map {},
+    make-hierarchy {:doc "Returns an empty hierarchy."},
+    map
+    {:doc
+     "Returns a lazy sequence of applying f to each item in coll. When\n   called with multiple collections, maps f across them in parallel.\n   When called with no collection, returns a transducer."},
     map-entry {},
-    map-entry? {},
-    map-indexed {},
+    map-entry?
+    {:doc
+     "Returns true if x is a map entry (mino represents entries as\n   2-vectors)."},
+    map-indexed
+    {:doc
+     "Returns a lazy sequence of (f index item) for each item in coll.\n   When called with no collection, returns a transducer."},
     map? {},
-    mapcat {},
+    mapcat
+    {:doc
+     "Returns the result of applying concat to the result of mapping f\n   over coll. When called with no collection, returns a transducer."},
     mapv {},
     math-acos {},
     math-asin {},
@@ -378,15 +524,19 @@
     math-exp {},
     math-expm1 {},
     math-floor {},
+    math-get-exponent {},
     math-hypot {},
     math-ieee-remainder {},
     math-log {},
     math-log10 {},
     math-log1p {},
+    math-next-after {},
     math-next-down {},
     math-next-up {},
     math-pow {},
+    math-rint {},
     math-round {},
+    math-scalb {},
     math-signum {},
     math-sin {},
     math-sinh {},
@@ -395,40 +545,59 @@
     math-tanh {},
     math-to-degrees {},
     math-to-radians {},
-    max {},
-    max-key {},
-    memoize {},
-    merge {},
+    math-ulp {},
+    max {:doc "Returns the greatest of the given values."},
+    max-key {:doc "Returns the x for which (k x) is greatest."},
+    memoize
+    {:doc
+     "Returns a memoized version of f that caches return values by\n   arguments."},
+    merge
+    {:doc
+     "Returns a map that is the merge of the maps. If a key occurs in more\n  than one map, the mapping from the latter (left-to-right) will be\n  the mapping in the result. Per Clojure, position-2+ args use `conj`\n  semantics, so MapEntries / 2-element vectors are accepted."},
     merge-with {},
     meta {},
-    methods {},
-    min {},
-    min-key {},
+    methods {:doc "Returns the method table of multimethod mm."},
+    min {:doc "Returns the least of the given values."},
+    min-key {:doc "Returns the x for which (k x) is least."},
     mino-capability {},
     mino-installed? {},
     mino-thread-count {},
+    mino-thread-id* {},
     mino-thread-limit {},
-    mix-collection-hash {},
+    mix-collection-hash
+    {:doc "Combines a hash-basis with the collection's count."},
     mkdir-p {},
     mod {},
+    monitor-exit
+    {:doc
+     "Release one level of x for owner; drops the entry at depth zero."},
+    monitor-registry {},
+    monitor-try-enter
+    {:doc
+     "Claim x for owner, or reenter if owner already holds it. Returns\n  true when the claim succeeded, false when another thread holds x."},
     name {},
     namespace {},
     nano-time {},
-    nat-int? {},
+    nat-int?
+    {:doc "Returns true if x is a non-negative integer (long tier)."},
     nav {},
-    neg-int? {},
+    neg-int?
+    {:doc "Returns true if x is a negative integer (long tier)."},
     neg? {},
     newline {},
-    next {},
-    nfirst {},
+    next
+    {:doc
+     "Returns a seq of the items after the first. Returns nil if no more\n   items."},
+    nfirst {:doc "Same as (next (first coll))."},
     nil? {},
-    nnext {},
+    nnext {:doc "Same as (next (next coll))."},
     not {},
     not-any? {},
-    not-empty {},
+    not-empty {:doc "Returns coll if it has items, nil otherwise."},
     not-every? {},
-    not= {},
+    not= {:doc "Returns true if the arguments are not equal."},
     ns-aliases {},
+    ns-imports {},
     ns-interns {},
     ns-map {},
     ns-name {},
@@ -438,67 +607,115 @@
     ns-unalias {},
     ns-unmap {},
     nth {},
-    nthnext {},
-    nthrest {},
-    num {},
+    nthnext
+    {:doc "Returns the result of calling next n times on coll."},
+    nthrest
+    {:doc "Returns the result of calling rest n times on coll."},
+    num
+    {:doc
+     "Returns x if it is a number, nil if x is nil, otherwise throws.\n   Nil pass-through matches the cross-dialect convention used by the\n   `:default` arm of `clojure.core-test.num` (no-op on numeric inputs\n   plus nil), where JVM Clojure's NPE-on-nil is platform-specific."},
     number? {},
     numerator {},
     object-array {},
     odd? {},
     or {},
-    parents {},
-    parse-boolean {},
+    parents
+    {:doc "Returns the immediate parents of tag in the hierarchy."},
+    parse-boolean
+    {:doc
+     "Parses 'true' or 'false' (case-sensitive) and returns the boolean.\n   Returns nil for strings that don't match. Per Clojure's contract\n   raises an error on non-string input (analogous to JVM's\n   ClassCastException / NullPointerException)."},
     parse-double {},
     parse-long {},
     parse-uuid {},
     partial {},
-    partition {},
-    partition-all {},
-    partition-by {},
-    partitionv {},
-    partitionv-all {},
-    pcalls {},
+    partition
+    {:doc
+     "Returns a lazy sequence of lists of n items each, at offsets step\n   apart. With pad, the final partition is filled from pad to reach\n   n; if pad is shorter than needed, returns a partition with fewer\n   than n items."},
+    partition-all
+    {:doc
+     "Like partition, but includes a final partial group if items remain.\n   The transducer arity emits each group as a vector (matching JVM\n   Clojure's `(vec (.toArray buf))`); the seq arities emit lists per\n   `partition`'s shape."},
+    partition-by
+    {:doc
+     "Splits coll into lazy sequences of consecutive items with the same\n   (f item) value. When called with no collection, returns a\n   transducer."},
+    partitionv
+    {:doc
+     "Like partition but returns a lazy seq of vectors instead of lists."},
+    partitionv-all
+    {:doc
+     "Like partition-all but returns a lazy seq of vectors instead of\n   lists."},
+    pcalls
+    {:doc
+     "Executes the no-arg fns in parallel, returning a lazy sequence of\n   their values. Mirrors clojure.core/pcalls. When host threads aren't\n   granted (mino-thread-limit <= 1), falls back to sequential map so\n   the surface is portable across embedded and CLI runs."},
     peek {},
     persistent! {},
-    pmap {},
+    pmap
+    {:doc
+     "Like map, except f is applied in parallel via futures. Semi-lazy in\n   that the parallel computation stays no more than thread-limit-1\n   items ahead of the consumer. f's invocations across the collection\n   are independent; do not pmap with a side-effectful f if order of\n   effects matters.\n\n   Single-arity collection only: (pmap f coll). When host threads are\n   not granted (mino-thread-limit <= 1), falls back to (map f coll)\n   so callers don't need a conditional."},
     pop {},
     pop! {},
-    pop-thread-bindings {},
+    pop-thread-bindings
+    {:doc
+     "Pop the topmost dynamic-binding frame. Throws when no frame is\n   active. Pair with push-thread-bindings."},
     pop-thread-bindings* {},
-    pos-int? {},
+    pos-int?
+    {:doc "Returns true if x is a positive integer (long tier)."},
     pos? {},
-    postwalk {},
-    postwalk-replace {},
+    postwalk
+    {:doc
+     "Walks form depth-first, applying f to each sub-form after its\n   children."},
+    postwalk-replace
+    {:doc
+     "Replaces items in form that appear as keys in smap, walking\n   bottom-up."},
     pr {},
     pr-builtin {},
     pr-str {},
-    prefer-method {},
-    prefers {},
-    prewalk {},
-    prewalk-replace {},
+    prefer-method
+    {:doc "Prefers dispatch-val x over y in multimethod mm."},
+    prefers {:doc "Returns the prefer-table of multimethod mm."},
+    prewalk
+    {:doc
+     "Walks form depth-first, applying f to each sub-form before its\n   children."},
+    prewalk-replace
+    {:doc
+     "Replaces items in form that appear as keys in smap, walking\n   top-down."},
     print {},
     print-method {},
-    print-str {},
+    print-str
+    {:doc
+     "Returns the print-string of args, space-separated, no trailing newline."},
     printf {},
     println {},
-    println-str {},
+    println-str
+    {:doc "Returns the print-string of args followed by a newline."},
     prn {},
-    prn-str {},
+    prn-str
+    {:doc
+     "Returns the readable-string of args followed by a newline."},
     promise {},
     protocol-dispatch {},
     proxy {},
-    push-thread-bindings {},
+    push-thread-bindings
+    {:doc
+     "Push a fresh dynamic-binding frame whose entries come from the map.\n   Symbols-or-strings are accepted as keys. Must be paired with\n   pop-thread-bindings in a try/finally."},
     push-thread-bindings* {},
     pvalues {},
-    qualified-ident? {},
-    qualified-keyword? {},
-    qualified-symbol? {},
+    qualified-ident?
+    {:doc
+     "Returns true if x is a namespace-qualified symbol or keyword."},
+    qualified-keyword?
+    {:doc "Returns true if x is a namespace-qualified keyword."},
+    qualified-symbol?
+    {:doc "Returns true if x is a namespace-qualified symbol."},
     queue? {},
     quot {},
     rand {},
-    rand-int {},
-    rand-nth {},
-    random-sample {},
+    rand-int
+    {:doc
+     "Returns a random integer between 0 (inclusive) and n (exclusive)."},
+    rand-nth {:doc "Returns a random element from coll."},
+    random-sample
+    {:doc
+     "Returns items from coll with probability prob. When called with no\n   collection, returns a transducer."},
     random-seed! {},
     random-uuid {},
     range {},
@@ -506,29 +723,52 @@
     ratio? {},
     rational? {},
     rationalize {},
-    re-find {},
-    re-groups {},
-    re-matcher {},
-    re-matches {},
+    re-find
+    {:doc
+     "Find the first match. (re-find pattern text) returns a string (no\n   groups) or [whole g1 g2 ...] (groups). (re-find m) advances a matcher."},
+    re-find-from {},
+    re-groups
+    {:doc
+     "Returns the most recent match groups for matcher m: a vector\n   [whole g1 g2 ...] when the pattern has groups, the whole-match string\n   otherwise. Throws when the matcher has no recorded match yet."},
+    re-matcher
+    {:doc
+     "Returns a matcher value for repeated find/match operations on text\n   using pattern. The resulting value is consumed by re-find, re-groups\n   and so on."},
+    re-matches
+    {:doc
+     "Like re-find but anchored to the whole string. Returns a string\n   (no groups) or [whole g1 g2 ...] (groups), or nil."},
     re-pattern {},
-    re-seq {},
+    re-seq
+    {:doc
+     "Returns a lazy sequence of all matches of pattern in string s. Each\n   match is a string when the pattern has no groups, or a vector\n   [whole g1 g2 ...] when it does."},
     read {},
     read* {},
     read-line {},
     read-string {},
-    reader-conditional {},
-    reader-conditional? {},
-    realized? {},
+    reader-conditional
+    {:doc
+     "Builds a reader-conditional record with form and splicing? fields.\n   Predicate reader-conditional? returns true on the result."},
+    reader-conditional?
+    {:doc
+     "Returns true if x is a reader-conditional record produced by\n   reader-conditional."},
+    realized?
+    {:doc
+     "Returns true if a delay, lazy sequence, future, or promise has\n     been realized."},
     record* {},
     record-fields {},
     record-from-map {},
     record-type? {},
     record? {},
-    reduce {},
-    reduce-kv {},
+    reduce
+    {:doc
+     "Reduces coll using f. With 2 args, uses the first element as init.\n  With 3 args, uses init explicitly. Consults CollReduce: a user\n  type or :default override on coll-reduce takes precedence over the\n  built-in seq-driven reduction."},
+    reduce-kv
+    {:doc
+     "Reduces a map (or any associative source) with f taking\n   accumulator, key, and value. Consults IKVReduce; falls back to\n   walking the seq."},
     reduced {},
     reduced? {},
-    reductions {},
+    reductions
+    {:doc
+     "Returns a lazy sequence of the intermediate values of a reduction."},
     ref {},
     ref-history-count {},
     ref-max-history {},
@@ -540,42 +780,71 @@
     reify {},
     release-pending-sends {},
     rem {},
-    remove {},
-    remove-all-methods {},
-    remove-method {},
+    remove
+    {:doc
+     "Returns a lazy sequence of items in coll for which pred returns\n   falsy. When called with no collection, returns a transducer."},
+    remove-all-methods
+    {:doc "Removes all methods from multimethod mm."},
+    remove-method
+    {:doc "Removes the method for dispatch-val from multimethod mm."},
     remove-ns {},
-    remove-tap {},
+    remove-tap
+    {:doc "Unregisters f from the tap registry. Returns nil."},
     remove-watch {},
-    repeat {},
-    repeatedly {},
-    replace {},
-    replicate {},
+    repeat
+    {:doc
+     "Returns a lazy sequence of xs. With two args, returns n repetitions\n   of x. n must be a number; floats and ratios truncate toward zero\n   (so 3.14 and 3.99 both yield three repetitions), matching JVM\n   Clojure's RT/longCast. Booleans, strings, keywords, and other\n   non-numeric counts throw."},
+    repeatedly
+    {:doc
+     "Returns a lazy sequence of calls to f. With two args, returns n\n   calls."},
+    replace
+    {:doc
+     "Returns a collection with items in coll replaced by entries in\n   smap."},
+    replicate
+    {:doc
+     "Returns a lazy seq of n copies of x. Deprecated alias for\n   (take n (repeat x))."},
     require {},
     requiring-resolve {},
     reset! {},
-    reset-meta! {},
+    reset-meta!
+    {:doc
+     "Atomically resets the metadata for a reference type to meta-map.\n   Returns meta-map."},
     reset-vals! {},
     resolve {},
     rest {},
     restart-agent {},
     reverse {},
-    reversible? {},
+    reversible?
+    {:doc
+     "Returns true if x supports rseq (vectors and sorted collections)."},
     rm-rf {},
     rseq {},
     rsubseq {},
-    run! {},
-    satisfies? {},
-    second {},
-    select-keys {},
+    run!
+    {:doc
+     "Applies f to each item in coll for side effects. Returns nil."},
+    satisfies?
+    {:doc
+     "Returns true if x's type has implementations for all methods of\n   proto."},
+    second {:doc "Returns the second item in coll."},
+    select-keys
+    {:doc
+     "Returns a map containing only the entries whose keys are in ks."},
     send {},
     send-off {},
     send-via {},
     seq {},
-    seq-to-map-for-destructuring {},
+    seq-to-map-for-destructuring
+    {:doc
+     "Builds a map from a sequence of keyword/value pairs, possibly with\n   a trailing override map. Used by JVM Clojure's 1.11+ map-destructure\n   over a varargs seq. Public so portable code can call it directly."},
     seq? {},
-    seqable? {},
-    sequence {},
-    sequential? {},
+    seqable? {:doc "Returns true if (seq x) is supported."},
+    sequence
+    {:doc
+     "Coerces coll to a (possibly empty) sequence, if it is not already\n   one. Will not force a lazy seq. (sequence nil) yields ().\n\n   With a transducer xf, returns a lazy sequence of applying xf to\n   coll, or to the pair-wise step of multiple collections. Parallel\n   collections stop at the shortest."},
+    sequential?
+    {:doc
+     "Returns true if x is a sequential collection (list, vector,\n   lazy-seq, or queue)."},
     set {},
     set! {},
     set-dyn-binding! {},
@@ -589,29 +858,44 @@
     sh! {},
     short {},
     short-array {},
-    shuffle {},
+    shuffle
+    {:doc "Returns a randomly shuffled vector of the items in coll."},
     shutdown-agents {},
-    simple-ident? {},
-    simple-keyword? {},
-    simple-symbol? {},
+    simple-ident?
+    {:doc
+     "Returns true if x is a non-namespace-qualified symbol or keyword."},
+    simple-keyword?
+    {:doc "Returns true if x is a keyword with no namespace."},
+    simple-symbol?
+    {:doc "Returns true if x is a symbol with no namespace."},
     slurp {},
     some {},
     some-> {},
     some->> {},
-    some-fn {},
+    some-fn
+    {:doc
+     "Returns a function that returns the first truthy value from any\n   pred applied to any argument."},
     some? {},
     sort {},
-    sort-by {},
+    sort-by
+    {:doc
+     "Returns a sorted sequence of the items in coll, ordered by (keyfn item)."},
     sorted-map {},
     sorted-map-by {},
     sorted-set {},
     sorted-set-by {},
-    sorted? {},
-    special-symbol? {},
+    sorted? {:doc "Returns true if x is a sorted collection."},
+    special-symbol?
+    {:doc "Returns true if x is a symbol that names a special form."},
     spit {},
-    split-at {},
-    split-with {},
-    splitv-at {},
+    split-at
+    {:doc "Returns a vector of [(take n coll) (drop n coll)]."},
+    split-with
+    {:doc
+     "Returns a vector of [(take-while pred coll) (drop-while pred coll)]."},
+    splitv-at
+    {:doc
+     "Returns a vector [(vec (take n coll)) (vec (drop n coll))]."},
     str {},
     string? {},
     subbits {},
@@ -622,26 +906,45 @@
     swap-vals! {},
     symbol {},
     symbol? {},
-    tagged-literal {},
-    tagged-literal? {},
-    take {},
-    take-last {},
-    take-nth {},
-    take-while {},
-    tap> {},
+    tagged-literal
+    {:doc
+     "Builds a tagged-literal record with tag and form fields. Predicate\n   tagged-literal? returns true on the result."},
+    tagged-literal?
+    {:doc
+     "Returns true if x is a tagged-literal record produced by\n   tagged-literal."},
+    take
+    {:doc
+     "Returns a lazy sequence of the first n items in coll. When called\n   with no collection, returns a transducer."},
+    take-last {:doc "Returns a seq of the last n items in coll."},
+    take-nth
+    {:doc
+     "Returns a lazy sequence of every nth item in coll. When called with\n   no collection, returns a transducer."},
+    take-while
+    {:doc
+     "Returns a lazy sequence of items from coll while pred returns\n   truthy. When called with no collection, returns a transducer."},
+    tap>
+    {:doc
+     "Sends x to every registered tap. Tap fns that throw are silently\n   skipped so a misbehaving subscriber does not poison the stream.\n   Returns true."},
     the-ns {},
     thread {},
-    thread-bound? {},
+    thread-bound?
+    {:doc
+     "Returns true if all of the vars provided as arguments have\n   thread-local bindings active on the current dyn-stack."},
     thread-sleep {},
     throw {},
     time {},
     time-ms {},
     to-array {},
-    trampoline {},
-    transduce {},
+    trampoline
+    {:doc
+     "Calls f with args, then repeatedly calls the result if it is a\n   function."},
+    transduce
+    {:doc
+     "Reduces coll using the transducer xf applied to the reducing\n   function f."},
     transient {},
     transient? {},
-    tree-seq {},
+    tree-seq
+    {:doc "Returns a lazy depth-first sequence of nodes in a tree."},
     true? {},
     type {},
     unchecked-add {},
@@ -665,30 +968,43 @@
     unchecked-short {},
     unchecked-subtract {},
     unchecked-subtract-int {},
-    underive {},
-    unreduced {},
+    underive
+    {:doc
+     "Removes a parent/child relationship between child and parent."},
+    unreduced
+    {:doc "Unwraps a reduced value. If not reduced, returns x."},
     unsigned-bit-shift-right {},
-    update {},
-    update-in {},
-    update-keys {},
-    update-vals {},
+    update
+    {:doc
+     "Updates the value at key k in map m by applying f to the old value\n   and any args."},
+    update-in
+    {:doc
+     "Updates a value in a nested associative structure by applying f at\n   the given key path."},
+    update-keys {:doc "Returns a map with f applied to each key."},
+    update-vals {:doc "Returns a map with f applied to each value."},
     uri? {},
     use {},
     uuid? {},
-    val {},
+    val
+    {:doc
+     "Returns the value of a map entry. Throws on values that are not\n   map entries (a literal 2-vector, for instance)."},
     vals {},
     var-get {},
     var-set {},
     var? {},
     vary-meta {},
-    vec {},
+    vec
+    {:doc
+     "Converts coll into a vector. Coll must be nil, a sequential\n   collection, a string, a map, a set, or a host array. Booleans,\n   numbers, keywords, characters, regexes, and transients throw\n   (matching JVM Clojure's `vec` rejecting non-seqable scalars)."},
     vector {},
     vector? {},
     volatile! {},
     volatile? {},
     vreset! {},
     vswap! {},
-    walk {},
+    walk
+    {:doc
+     "Traverses form, applying inner to each element and outer to the\n   result."},
     when {},
     when-first {},
     when-let {},
@@ -704,7 +1020,9 @@
     with-out-str {},
     with-precision {},
     with-redefs {},
-    with-redefs-fn {},
+    with-redefs-fn
+    {:doc
+     "Temporarily rebinds the root values of vars to new-values while\n   thunk runs, restoring originals afterward. bindings-map is a map\n   of var -> new-value."},
     zero? {},
     zipmap {},
     Boolean/parseBoolean {},
@@ -769,63 +1087,143 @@
     nav {}}},
   clojure.core.reducers
   {:vars
-   {cat {},
-    drop {},
-    drop-while {},
-    filter {},
-    flatten {},
-    fold {},
-    foldcat {},
-    map {},
-    mapcat {},
-    monoid {},
-    reduce {},
-    remove {},
-    take {},
-    take-while {}}},
+   {cat
+    {:doc
+     "A reducer that concatenates the output of x-coll and y-coll. Calls\n  reduce on x-coll first then y-coll. Returns a fn so it composes the\n  standard reducer protocol."},
+    drop {:doc "Reducer that drops the first n elements."},
+    drop-while
+    {:doc "Reducer that drops elements while pred is truthy."},
+    filter
+    {:doc "Reducer that keeps elements for which pred is truthy."},
+    flatten
+    {:doc "Reducer that flattens one level of nested collections."},
+    fold
+    {:doc
+     "Reduces coll using reducef. The 3-arity form takes a partition\n  size n (default 512) and a combinef. When the host has granted\n  thread budget (mino-thread-limit > 1) AND coll is a vector larger\n  than n, fold partitions coll into chunks of size n, runs reducef\n  in parallel over each chunk via futures, and combines the partial\n  results with combinef. Smaller vectors and non-vector collections\n  reduce sequentially through (clojure.core/reduce reducef\n  (combinef) coll).\n\n  - (fold reducef coll) -- combinef defaults to reducef (so the\n    no-arg branch must return the reducer's identity).\n  - (fold combinef reducef coll) -- partition size defaults to 512.\n  - (fold n combinef reducef coll) -- explicit partition size.\n\n  Pure semantics: reducef and combinef must be associative; combinef\n  with no args must return the identity element. Without those,\n  parallel and sequential results may differ."},
+    foldcat
+    {:doc
+     "Equivalent to (fold cat append! coll), but reducer-shaped: returns a\n  vector of all elements in coll."},
+    map {:doc "Reducer that applies f to each element."},
+    mapcat
+    {:doc
+     "Reducer that maps f over coll and concatenates the results."},
+    monoid
+    {:doc
+     "Helper for fold: return f if init is provided, else a fn that calls\n  ctor for an init value."},
+    reduce
+    {:doc
+     "Like clojure.core/reduce except sequential by definition (mino has\n  no fork/join). Identical contract: with an init, calls (f init x0),\n  (f acc x1), ...; without an init, uses (f x0) for arity-0 of f."},
+    remove
+    {:doc "Reducer that drops elements for which pred is truthy."},
+    take {:doc "Reducer that yields at most n elements."},
+    take-while
+    {:doc "Reducer that yields elements while pred is truthy."}}},
   clojure.data {:vars {diff {}}},
   clojure.datafy {:vars {datafy {}, nav {}}},
   clojure.edn {:vars {read {}, read-string {}}},
   clojure.instant
   {:vars
-   {inst-ms {},
-    inst? {},
-    parse-timestamp {},
-    read-instant-date {},
-    validated {}}},
+   {inst-ms
+    {:doc
+     "Returns epoch millis (since 1970-01-01T00:00:00Z) for an inst\n   value as returned by `read-instant-date`. Throws on a non-inst\n   value."},
+    inst?
+    {:doc
+     "True when v is a value produced by clojure.instant/read-instant-date\n   (or a map carrying the same `:mino/instant true` metadata marker).\n   Matches JVM Clojure's inst? predicate over the mino representation."},
+    parse-timestamp
+    {:doc
+     "Parses an ISO 8601 timestamp string into a component map. Returns\n   the map; throws ex-info on malformed input.\n\n   Accepted shapes (each later component is optional but, when\n   present, requires its predecessors):\n\n     YYYY\n     YYYY-MM\n     YYYY-MM-DD\n     YYYY-MM-DDTHH:MM\n     YYYY-MM-DDTHH:MM:SS\n     YYYY-MM-DDTHH:MM:SS.fff       (1 to 9 fractional digits)\n\n   Optional zone suffix:\n     Z                              (UTC)\n     +HH:MM | -HH:MM                (numeric offset)"},
+    read-instant-date
+    {:doc
+     "Parses an ISO 8601 timestamp string and returns the validated\n   component map. Named for parity with canonical clojure.instant;\n   on the JVM and JS this returns a host Date instance, but mino\n   has no host date type so the map is the honest representation.\n   The returned map carries `:mino/instant true` in its metadata so\n   `inst?` recognises it; the map content itself stays free of\n   marker keys so equality with user-constructed maps of the same\n   shape isn't accidentally broken."},
+    validated
+    {:doc
+     "Range-checks the components in a parsed timestamp map. Returns\n   the map unchanged on success; throws ex-info on out-of-range\n   values. Mirrors the canonical clojure.instant validation."}}},
   clojure.math
   {:vars
    {E {},
-    IEEE-remainder {},
+    IEEE-remainder {:doc "Returns the IEEE 754 remainder of a/b."},
     PI {},
-    acos {},
-    asin {},
-    atan {},
-    atan2 {},
-    cbrt {},
-    ceil {},
-    copy-sign {},
-    cos {},
-    cosh {},
-    exp {},
-    expm1 {},
-    floor {},
-    hypot {},
-    log {},
-    log10 {},
-    log1p {},
-    next-down {},
-    next-up {},
-    pow {},
-    round {},
-    signum {},
-    sin {},
-    sinh {},
-    sqrt {},
-    tan {},
-    tanh {},
-    to-degrees {},
-    to-radians {}}},
+    acos
+    {:doc
+     "Returns the arc-cosine of n (-1 <= n <= 1); result in [0, PI]."},
+    add-exact
+    {:doc "Returns the sum of x and y; throws on long overflow."},
+    asin
+    {:doc
+     "Returns the arc-sine of n (-1 <= n <= 1); result in [-PI/2, PI/2]."},
+    atan
+    {:doc "Returns the arc-tangent of n; result in [-PI/2, PI/2]."},
+    atan2
+    {:doc
+     "Returns atan2(y, x): the angle in radians between the positive x-axis and (x, y)."},
+    cbrt {:doc "Returns the cube root of n."},
+    ceil
+    {:doc
+     "Returns the smallest double >= n and equal to a mathematical integer."},
+    copy-sign
+    {:doc
+     "Returns a value with the magnitude of mag and the sign of sgn."},
+    cos {:doc "Returns the cosine of n (in radians)."},
+    cosh {:doc "Returns the hyperbolic cosine of n."},
+    decrement-exact
+    {:doc "Returns x decremented by 1; throws on long overflow."},
+    exp {:doc "Returns e^n."},
+    expm1 {:doc "Returns exp(n) - 1, accurate for small n."},
+    floor
+    {:doc
+     "Returns the largest double <= n and equal to a mathematical integer."},
+    floor-div
+    {:doc
+     "Integer division rounding toward negative infinity: the largest\n   integer <= the exact quotient of x and y."},
+    floor-mod
+    {:doc
+     "Floor modulus of x and y: x - (floor-div x y) * y. Has the sign of\n   the divisor y."},
+    get-exponent
+    {:doc
+     "Returns the unbiased binary exponent of n. Zero and subnormals\n   report MIN_EXPONENT - 1 (-1023); NaN and infinities report\n   MAX_EXPONENT + 1 (1024)."},
+    hypot
+    {:doc "Returns sqrt(a^2 + b^2) avoiding intermediate overflow."},
+    increment-exact
+    {:doc "Returns x incremented by 1; throws on long overflow."},
+    log {:doc "Returns the natural logarithm (base e) of n."},
+    log10 {:doc "Returns the base-10 logarithm of n."},
+    log1p {:doc "Returns ln(1 + n), accurate for small n."},
+    multiply-exact
+    {:doc "Returns the product of x and y; throws on long overflow."},
+    negate-exact
+    {:doc "Returns the negation of x; throws on long overflow."},
+    next-after
+    {:doc
+     "Returns the double adjacent to start in the direction\n   of direction."},
+    next-down
+    {:doc "Returns the next representable double less than n."},
+    next-up
+    {:doc "Returns the next representable double greater than n."},
+    pow {:doc "Returns base raised to the power of exp."},
+    rint
+    {:doc
+     "Returns the double closest to n and equal to a mathematical\n   integer, rounding ties to the even integer."},
+    round
+    {:doc
+     "Returns the closest long to n, rounding half-up away from zero."},
+    scalb
+    {:doc
+     "Returns n scaled by 2 to the power of the integer scale-factor:\n   n * 2^scale-factor, computed as a single rounding."},
+    signum
+    {:doc
+     "Returns -1.0, 0.0, or 1.0 depending on the sign of n; preserves -0.0."},
+    sin {:doc "Returns the sine of n (in radians)."},
+    sinh {:doc "Returns the hyperbolic sine of n."},
+    sqrt {:doc "Returns the square root of n."},
+    subtract-exact
+    {:doc
+     "Returns the difference of x and y; throws on long overflow."},
+    tan {:doc "Returns the tangent of n (in radians)."},
+    tanh {:doc "Returns the hyperbolic tangent of n."},
+    to-degrees {:doc "Converts the angle a (in radians) to degrees."},
+    to-radians {:doc "Converts the angle a (in degrees) to radians."},
+    ulp
+    {:doc "Returns the size of an ulp (unit in last place) of n."}}},
   clojure.pprint {:vars {cl-format {}, pprint {}, print-table {}}},
   clojure.set
   {:vars
@@ -847,37 +1245,67 @@
     * {},
     + {},
     ? {},
-    abbrev {},
+    abbrev
+    {:doc
+     "Return an abbreviated description of a spec form. Strips namespace\n  qualifiers from symbols and shortens (fn [%] body) to body."},
     alt {},
     alt-impl {},
-    amp-impl {},
+    amp-impl
+    {:doc
+     "Build an ::amp regex spec: re-spec is consumed normally; preds are\n  applied to the conformed sequence. All preds must return truthy or\n  the consume yields ::invalid."},
     and {},
     and-spec-impl {},
     assert {},
     cat {},
     cat-impl {},
-    check-asserts {},
-    check-asserts? {},
+    check-asserts
+    {:doc
+     "Toggle s/assert checking.  No-op stub; mino asserts always evaluate."},
+    check-asserts?
+    {:doc "Whether s/assert is enabled.  Always true on mino."},
     coll-of {},
     coll-of-impl {},
-    conform {},
-    conform* {},
-    conformer {},
+    conform
+    {:doc
+     "Conform x against spec.  Returns the conformed value or\n  :clojure.spec.alpha/invalid."},
+    conform*
+    {:doc
+     "Internal dispatch for conform.  Public callers use conform."},
+    conformer
+    {:doc
+     "Return a spec that uses cfn as the conform path. cfn takes a value\n  and returns the conformed value or :clojure.spec.alpha/invalid.\n  Optionally takes an unform fn; if omitted, unform is identity."},
     def {},
-    def-impl {},
-    describe {},
+    def-impl
+    {:doc
+     "Register the spec under k.  k must be a namespaced keyword or symbol."},
+    describe
+    {:doc "Return an abbreviated description of the spec as data."},
     every-impl {},
-    exercise {},
-    explain {},
-    explain* {},
-    explain-data {},
-    explain-str {},
+    exercise
+    {:doc
+     "Generate `n` (default 10) sample/conformed pairs for `spec`."},
+    explain {:doc "Print explain-str to *out*."},
+    explain*
+    {:doc
+     "Internal dispatch for explain-data.  Public callers use\n  explain-data / explain / explain-str. When the spec is registered\n  (carries ::name), prepend that name to via so problems list the\n  surrounding spec path the way Clojure's spec.alpha does."},
+    explain-data
+    {:doc
+     "Return a problem map describing why x fails spec, or nil if it\n  passes.  Shape: {::problems [{:path ... :pred ... :val ... :via ...\n  :in ...}] ::spec ... ::value ...}."},
+    explain-str
+    {:doc
+     "Return a string describing why x fails spec, or \"Success!\\n\" if\n  it passes. Format follows clojure.spec.alpha: each problem on its\n  own line terminated with \\n."},
     fdef {},
     fdef-impl {},
-    form {},
-    gen {},
-    get-spec {},
-    instrument {},
+    form
+    {:doc
+     "Return the form of the spec, or :clojure.spec.alpha/unknown if x is\n  not a registered spec."},
+    gen
+    {:doc
+     "Build a clojure.test.check generator for `spec`. `overrides` is a\n  map from spec-key keywords (or predicate symbols) to alternative\n  generators."},
+    get-spec {:doc "Return the spec registered under k, or nil."},
+    instrument
+    {:doc
+     "Wrap the var named by sym so its args are validated against the\n  registered fdef on every call.  Returns sym if instrumented, nil\n  if no fdef is registered."},
     invalid {},
     invalid? {},
     keys {},
@@ -888,18 +1316,28 @@
     nilable-impl {},
     or {},
     or-spec-impl {},
-    re-consume {},
+    re-consume
+    {:doc
+     "Greedy consume from xs against a regex spec.  Returns\n  [conformed-result remaining-xs] or [::invalid xs]."},
     registry {},
     rep-impl {},
     spec {},
-    spec-impl {},
+    spec-impl
+    {:doc
+     "Build a spec value from a form and predicate.  When pred resolves to\n  a regex spec (cat / * / + / ? / alt / a registered regex), the result\n  wraps the regex so it conforms an element value as a whole sequence\n  rather than splicing into the surrounding regex context."},
     tuple {},
     tuple-impl {},
-    unform {},
-    unform* {},
-    unstrument {},
-    valid? {},
-    with-gen {}}},
+    unform
+    {:doc
+     "Return the destructuring inverse of conform.  Given a conformed\n  value y produced by (conform spec x), unform returns a value that\n  conforms to spec and conforms to it back to y.  For specs without\n  an inverse (registered :clojure.spec.alpha/conformer specs without\n  an :unform key), unform returns y unchanged."},
+    unform*
+    {:doc "Internal dispatch for unform.  Public callers use unform."},
+    unstrument
+    {:doc "Restore an instrumented var to its original value."},
+    valid? {:doc "Return true iff x conforms to spec."},
+    with-gen
+    {:doc
+     "Return a copy of spec that uses gen-fn as its generator. spec may\n  be a registered keyword, a spec map, or any predicate-shaped value\n  acceptable to as-spec."}}},
   clojure.string
   {:vars
    {blank? {},
@@ -907,14 +1345,24 @@
     ends-with? {},
     escape {},
     includes? {},
-    index-of {},
+    index-of
+    {:doc
+     "Return index of value (string or char) in s, optionally searching\n   forward from from-index. Returns nil if value not found."},
     join {},
-    last-index-of {},
+    last-index-of
+    {:doc
+     "Return last index of value (string or char) in s, optionally\n   searching backward from from-index. Returns nil if value not found."},
     lower-case {},
-    re-quote-replacement {},
-    replace {},
-    replace-first {},
-    reverse {},
+    re-quote-replacement
+    {:doc
+     "Escapes $ and \\ in replacement so s can be used literally in\n   replacement strings without triggering backreference syntax."},
+    replace
+    {:doc
+     "Replace all matches of `match` in `s` with `replacement`. `match` may\n   be a string, char, or regex. For regex `match`, `replacement` may be\n   a string (with `$N` group backrefs and `\\$` / `\\\\` escapes) or a\n   function called per match with the whole-match string when the\n   pattern has no groups, or `[whole g1 g2 ...]` when it does. Char\n   `match` is coerced to a 1-char string before delegating to the C\n   primitive."},
+    replace-first
+    {:doc
+     "Replaces only the first occurrence of match in s with replacement.\n   match may be a string, char, or regex; for regex match, replacement\n   may be a $N template string or a function, exactly as in replace."},
+    reverse {:doc "Returns s with its characters reversed."},
     split {},
     split-lines {},
     starts-with? {},
@@ -923,7 +1371,12 @@
     triml {},
     trimr {},
     upper-case {}}},
-  clojure.template {:vars {apply-template {}, do-template {}}},
+  clojure.template
+  {:vars
+   {apply-template
+    {:doc
+     "Replaces argv symbols in expr with the corresponding values.\n\n   argv is a binding vector of symbols (no destructuring). expr is\n   the template form. values is a sequence whose elements are\n   substituted positionally.\n\n   (apply-template '[x] '(+ x x) '[2])    ; => (+ 2 2)\n   (apply-template '[a b] '(- a b) '[5 3]) ; => (- 5 3)"},
+    do-template {}}},
   clojure.test
   {:vars
    {*current-test* {:dynamic true},
@@ -941,8 +1394,12 @@
     is-thrown {},
     is-thrown-with-msg {},
     is-truthy {},
-    run-tests {},
-    run-tests-and-exit {},
+    run-tests
+    {:doc
+     "Run registered tests and return a summary map\n  {:test n :pass n :fail n :error n :failures [...]}.\n\n  With no arguments, runs every registered test. Given namespace symbols\n  (or namespace objects), runs only tests registered in those namespaces.\n\n  Prints a summary line and any failure details to stdout."},
+    run-tests-and-exit
+    {:doc
+     "CLI wrapper around run-tests: runs the tests and exits the process\n  with code 0 when there are no failures or errors, 1 otherwise. Used\n  by tests/run.clj and other CLI driver files. A no-op while\n  suite-mode is true so that per-file (run-tests-and-exit) calls do\n  not short-circuit a multi-file driver."},
     suite-mode {},
     testing {},
     tests-registry {},
@@ -969,7 +1426,9 @@
     insert-left {},
     insert-right {},
     left {},
-    leftmost {},
+    leftmost
+    {:doc
+     "Returns the loc of the leftmost sibling, or self if no siblings to\n   the left."},
     lefts {},
     make-node {},
     next {},
@@ -979,7 +1438,9 @@
     remove {},
     replace {},
     right {},
-    rightmost {},
+    rightmost
+    {:doc
+     "Returns the loc of the rightmost sibling, or self if no siblings to\n   the right."},
     rights {},
     root {},
     seq-zip {},
@@ -1005,4 +1466,4 @@
    throw
    def},
  :spec-keys #{},
- :captured-at "2026-06-06T06:13:05Z"}
+ :captured-at "2026-06-07T06:31:13Z"}
