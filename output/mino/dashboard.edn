@@ -2,7 +2,7 @@
  {:dialect-tag "mino",
   :dialect-name "mino",
   :clojure-version "1.12.4",
-  :compared-at "2026-06-07T06:31:49Z"},
+  :compared-at "2026-06-08T06:33:58Z"},
  :divergences
  [{:dialect-example "(compare \"z\" \"a\") ;=> 1",
    :since "v0.1.0",
@@ -268,52 +268,7 @@
    clojure.template
    {:in-both-count 2, :clojure-total 2, :percent 1.0}}},
  :history
- [{:date "2026-05-25",
-   :dialect-tag "mino",
-   :clojure-version "1.11.0",
-   :headline
-   {:in-both-count 751,
-    :clojure-total 995,
-    :percent 0.7547738693467336},
-   :per-namespace
-   {clojure.spec.alpha
-    {:in-both-count 49,
-     :clojure-total 87,
-     :percent 0.5632183908045977},
-    clojure.datafy {:in-both-count 2, :clojure-total 2, :percent 1.0},
-    clojure.zip {:in-both-count 28, :clojure-total 28, :percent 1.0},
-    clojure.core.reducers
-    {:in-both-count 13,
-     :clojure-total 21,
-     :percent 0.6190476190476191},
-    clojure.test
-    {:in-both-count 8,
-     :clojure-total 39,
-     :percent 0.20512820512820512},
-    clojure.core.protocols
-    {:in-both-count 8, :clojure-total 11, :percent 0.7272727272727273},
-    clojure.core
-    {:in-both-count 560,
-     :clojure-total 679,
-     :percent 0.8247422680412371},
-    clojure.set {:in-both-count 12, :clojure-total 12, :percent 1.0},
-    clojure.pprint
-    {:in-both-count 3,
-     :clojure-total 26,
-     :percent 0.11538461538461539},
-    clojure.math
-    {:in-both-count 31,
-     :clojure-total 45,
-     :percent 0.6888888888888889},
-    clojure.edn {:in-both-count 2, :clojure-total 2, :percent 1.0},
-    clojure.instant {:in-both-count 3, :clojure-total 5, :percent 0.6},
-    clojure.string
-    {:in-both-count 21, :clojure-total 21, :percent 1.0},
-    clojure.data {:in-both-count 1, :clojure-total 5, :percent 0.2},
-    clojure.walk {:in-both-count 8, :clojure-total 10, :percent 0.8},
-    clojure.template
-    {:in-both-count 2, :clojure-total 2, :percent 1.0}}}
-  {:date "2026-05-26",
+ [{:date "2026-05-26",
    :dialect-tag "mino",
    :clojure-version "1.11.0",
    :headline
@@ -897,10 +852,55 @@
     clojure.data {:in-both-count 1, :clojure-total 5, :percent 0.2},
     clojure.walk {:in-both-count 8, :clojure-total 10, :percent 0.8},
     clojure.template
+    {:in-both-count 2, :clojure-total 2, :percent 1.0}}}
+  {:date "2026-06-08",
+   :dialect-tag "mino",
+   :clojure-version "1.11.0",
+   :headline
+   {:in-both-count 769,
+    :clojure-total 995,
+    :percent 0.7728643216080402},
+   :per-namespace
+   {clojure.spec.alpha
+    {:in-both-count 49,
+     :clojure-total 87,
+     :percent 0.5632183908045977},
+    clojure.datafy {:in-both-count 2, :clojure-total 2, :percent 1.0},
+    clojure.zip {:in-both-count 28, :clojure-total 28, :percent 1.0},
+    clojure.core.reducers
+    {:in-both-count 13,
+     :clojure-total 21,
+     :percent 0.6190476190476191},
+    clojure.test
+    {:in-both-count 8,
+     :clojure-total 39,
+     :percent 0.20512820512820512},
+    clojure.core.protocols
+    {:in-both-count 8, :clojure-total 11, :percent 0.7272727272727273},
+    clojure.core
+    {:in-both-count 565,
+     :clojure-total 679,
+     :percent 0.8321060382916053},
+    clojure.set {:in-both-count 12, :clojure-total 12, :percent 1.0},
+    clojure.pprint
+    {:in-both-count 3,
+     :clojure-total 26,
+     :percent 0.11538461538461539},
+    clojure.math
+    {:in-both-count 44,
+     :clojure-total 45,
+     :percent 0.9777777777777777},
+    clojure.edn {:in-both-count 2, :clojure-total 2, :percent 1.0},
+    clojure.instant {:in-both-count 3, :clojure-total 5, :percent 0.6},
+    clojure.string
+    {:in-both-count 21, :clojure-total 21, :percent 1.0},
+    clojure.data {:in-both-count 1, :clojure-total 5, :percent 0.2},
+    clojure.walk {:in-both-count 8, :clojure-total 10, :percent 0.8},
+    clojure.template
     {:in-both-count 2, :clojure-total 2, :percent 1.0}}}],
  :behavior
  {:dialect-tag "mino",
-  :run-at "2026-06-07T06:31:17Z",
+  :run-at "2026-06-08T06:33:26Z",
   :totals
   {:match 9, :mismatch 4, :divergent-as-expected 9, :skipped 0},
   :parities
@@ -945,52 +945,52 @@
     "divergence declared :keyword-vs-class but predicate did not match"}
    {:case-id :class/nil,
     :var clojure.core/class,
-    :oracle {:status :value, :value nil, :elapsed-ms 3},
+    :oracle {:status :value, :value nil, :elapsed-ms 1},
     :dialect
     {:status :exception,
      :ex {:type "MNS001", :message "unbound symbol: class"},
-     :elapsed-ms 0},
+     :elapsed-ms 1},
     :verdict :mismatch,
     :reason
     "divergence declared :keyword-vs-class but predicate did not match"}
    {:case-id :compare/strings-positive,
     :var clojure.core/compare,
     :oracle {:status :value, :value 25, :elapsed-ms 1},
-    :dialect {:status :value, :value 1, :elapsed-ms 1},
+    :dialect {:status :value, :value 1, :elapsed-ms 0},
     :verdict :divergent-as-expected,
     :reason "predicate :sign-normalized matched",
     :divergence-id :compare-sign-normalized}
    {:case-id :compare/strings-negative,
     :var clojure.core/compare,
-    :oracle {:status :value, :value -25, :elapsed-ms 1},
+    :oracle {:status :value, :value -25, :elapsed-ms 0},
     :dialect {:status :value, :value -1, :elapsed-ms 0},
     :verdict :divergent-as-expected,
     :reason "predicate :sign-normalized matched",
     :divergence-id :compare-sign-normalized}
    {:case-id :compare/strings-equal,
     :var clojure.core/compare,
-    :oracle {:status :value, :value 0, :elapsed-ms 1},
+    :oracle {:status :value, :value 0, :elapsed-ms 2},
     :dialect {:status :value, :value 0, :elapsed-ms 0},
     :verdict :divergent-as-expected,
     :reason "predicate :sign-normalized matched",
     :divergence-id :compare-sign-normalized}
    {:case-id :compare/numbers-ascending,
     :var clojure.core/compare,
-    :oracle {:status :value, :value -1, :elapsed-ms 1},
+    :oracle {:status :value, :value -1, :elapsed-ms 3},
     :dialect {:status :value, :value -1, :elapsed-ms 0},
     :verdict :divergent-as-expected,
     :reason "predicate :sign-normalized matched",
     :divergence-id :compare-sign-normalized}
    {:case-id :compare/numbers-equal,
     :var clojure.core/compare,
-    :oracle {:status :value, :value 0, :elapsed-ms 2},
-    :dialect {:status :value, :value 0, :elapsed-ms 0},
+    :oracle {:status :value, :value 0, :elapsed-ms 1},
+    :dialect {:status :value, :value 0, :elapsed-ms 1},
     :verdict :divergent-as-expected,
     :reason "predicate :sign-normalized matched",
     :divergence-id :compare-sign-normalized}
    {:case-id :plus/identity,
     :var clojure.core/+,
-    :oracle {:status :value, :value 0, :elapsed-ms 2},
+    :oracle {:status :value, :value 0, :elapsed-ms 1},
     :dialect {:status :value, :value 0, :elapsed-ms 0},
     :verdict :match,
     :reason "values equivalent"}
@@ -1002,13 +1002,13 @@
     :reason "values equivalent"}
    {:case-id :plus/two-positive,
     :var clojure.core/+,
-    :oracle {:status :value, :value 3, :elapsed-ms 2},
+    :oracle {:status :value, :value 3, :elapsed-ms 1},
     :dialect {:status :value, :value 3, :elapsed-ms 0},
     :verdict :match,
     :reason "values equivalent"}
    {:case-id :plus/with-negative,
     :var clojure.core/+,
-    :oracle {:status :value, :value 3, :elapsed-ms 2},
+    :oracle {:status :value, :value 3, :elapsed-ms 3},
     :dialect {:status :value, :value 3, :elapsed-ms 0},
     :verdict :match,
     :reason "values equivalent"}
@@ -1038,14 +1038,14 @@
     :reason "values equivalent"}
    {:case-id :sort/with-comparator-descending,
     :var clojure.core/sort,
-    :oracle {:status :value, :value [4 3 2 1], :elapsed-ms 1},
-    :dialect {:status :value, :value [4 3 2 1], :elapsed-ms 0},
+    :oracle {:status :value, :value [4 3 2 1], :elapsed-ms 2},
+    :dialect {:status :value, :value [4 3 2 1], :elapsed-ms 1},
     :verdict :match,
     :reason "values equivalent"}
    {:case-id :sort/empty,
     :var clojure.core/sort,
     :oracle {:status :value, :value [], :elapsed-ms 1},
-    :dialect {:status :value, :value [], :elapsed-ms 0},
+    :dialect {:status :value, :value [], :elapsed-ms 1},
     :verdict :match,
     :reason "values equivalent"}
    {:case-id :type/string,
@@ -1063,8 +1063,8 @@
     :oracle
     {:status :value,
      :value {:clj-census/opaque "class java.lang.Long"},
-     :elapsed-ms 1},
-    :dialect {:status :value, :value :int, :elapsed-ms 0},
+     :elapsed-ms 0},
+    :dialect {:status :value, :value :int, :elapsed-ms 1},
     :verdict :divergent-as-expected,
     :reason "predicate :keyword-vs-class matched",
     :divergence-id :type-as-keyword}
@@ -1539,1259 +1539,12 @@
    :description
    "Where reader attaches meta and which ops preserve it."}],
  :drift
- {:from-date "2026-06-06",
-  :to-date "2026-06-07",
-  :added-vars
-  #{clojure.core/extenders
-    clojure.math/scalb
-    clojure.core/math-ulp
-    clojure.math/increment-exact
-    clojure.core/ns-imports
-    clojure.core/math-next-after
-    clojure.math/get-exponent
-    clojure.math/subtract-exact
-    clojure.math/ulp
-    clojure.core/math-scalb
-    clojure.math/floor-div
-    clojure.core/mino-thread-id*
-    clojure.core/async-next-timer-ms*
-    clojure.core/re-find-from
-    clojure.core/math-get-exponent
-    clojure.math/floor-mod
-    clojure.math/rint
-    clojure.core/locking
-    clojure.core/extend
-    clojure.math/negate-exact
-    clojure.math/next-after
-    clojure.math/add-exact
-    clojure.math/decrement-exact
-    clojure.core/monitor-exit
-    clojure.core/extends?
-    clojure.core/monitor-registry
-    clojure.core/monitor-try-enter
-    clojure.core/math-rint
-    clojure.math/multiply-exact},
+ {:from-date "2026-06-07",
+  :to-date "2026-06-08",
+  :added-vars #{},
   :removed-vars #{},
-  :changed
-  [{:var clojure.core/*assert*,
-    :before {:dynamic true},
-    :after
-    {:doc
-     "Controls assertion compilation. When false, `assert` is a no-op.\n   Defaults to true.",
-     :dynamic true}}
-   {:var clojure.core/*flush-on-newline*,
-    :before {:dynamic true},
-    :after
-    {:doc
-     "When true (the default), the I/O sink behind `*out*` is flushed\n   automatically after any write that contains a newline. When false,\n   the sink stays buffered so consecutive writes coalesce.",
-     :dynamic true}}
-   {:var clojure.core/*math-context*,
-    :before {:dynamic true},
-    :after
-    {:doc
-     "Precision/rounding-mode for bigdec division. nil means exact-or-\n   throw (mirrors java.math.BigDecimal.divide without MathContext).\n   When set, the value is a map of {:precision N :rounding-mode K}\n   where N is a positive integer and K is one of: :half-up (default),\n   :down, :up, :floor, :ceiling, :half-down, :half-even, :unnecessary.\n   :unnecessary throws when rounding would change the value (mirrors\n   JVM's ArithmeticException). Resolved by mino_bigdec_div on each\n   call.",
-     :dynamic true}}
-   {:var clojure.core/*print-dup*,
-    :before {:dynamic true},
-    :after
-    {:doc
-     "When true, the printer emits forms a reader can reconstruct\n   exactly. mino's built-in record / collection / scalar prints are\n   already reader-roundtrip-compatible, so the flag is currently an\n   information channel for user-installed print-method implementations\n   that branch on dup vs. non-dup output. Default false.",
-     :dynamic true}}
-   {:var clojure.core/*print-length*,
-    :before {:dynamic true},
-    :after
-    {:doc
-     "Maximum number of items printed in a single collection (vector,\n   list, map, set, chunk, chunked-cons). nil means no limit (the\n   default). The remainder is replaced with `...`. Resolved once per\n   top-level pr / prn / print / println / pr-str call; nested\n   collections share the same limit.",
-     :dynamic true}}
-   {:var clojure.core/*print-level*,
-    :before {:dynamic true},
-    :after
-    {:doc
-     "Maximum nesting depth printed. A collection found at depth >= this\n   limit is replaced with `#`. nil means no limit (the default).\n   Resolved once per top-level pr / print call.",
-     :dynamic true}}
-   {:var clojure.core/*print-meta*,
-    :before {:dynamic true},
-    :after
-    {:doc
-     "When true, every value carrying non-nil metadata is printed with\n   its meta map prefixed as `^{...} `. When false (the default), meta\n   is silent. Resolved once per top-level pr / print call.",
-     :dynamic true}}
-   {:var clojure.core/*print-namespace-maps*,
-    :before {:dynamic true},
-    :after
-    {:doc
-     "When true, a map whose keys are keywords (or symbols) sharing a\n   common non-empty namespace is printed as `#:ns{:k1 v1, :k2 v2}`\n   instead of `{:ns/k1 v1, :ns/k2 v2}`. Default false.",
-     :dynamic true}}
-   {:var clojure.core/*print-readably*,
-    :before {:dynamic true},
-    :after
-    {:doc
-     "When true (the default), strings are emitted with their quote\n   characters and characters with their escape form so the printed\n   output round-trips through the reader. When false, strings and\n   characters print their underlying bytes — pr/prn behave like\n   print/println. Resolved once per top-level pr / print call.",
-     :dynamic true}}
-   {:var clojure.core/==,
-    :before {},
-    :after
-    {:doc
-     "Returns true if nums are numerically equal, treating ints and floats\n   uniformly."}}
-   {:var clojure.core/abs,
-    :before {},
-    :after
-    {:doc
-     "Returns the absolute value of x. Matches JVM Math/abs 2's-complement\n   semantics: (abs Long/MIN_VALUE) returns Long/MIN_VALUE rather than\n   overflowing, since the true absolute value is unrepresentable in a\n   signed 64-bit int."}}
-   {:var clojure.core/add-tap,
-    :before {},
-    :after
-    {:doc
-     "Registers f as a tap target. Each call to tap> invokes every\n   registered tap with the tapped value. Returns nil."}}
-   {:var clojure.core/ancestors,
-    :before {},
-    :after {:doc "Returns all ancestors of tag in the hierarchy."}}
-   {:var clojure.core/any?,
-    :before {},
-    :after {:doc "Returns true for any argument."}}
-   {:var clojure.core/array-map,
-    :before {},
-    :after {:doc "Creates a hash-map."}}
-   {:var clojure.core/assoc-in,
-    :before {},
-    :after
-    {:doc
-     "Associates a value in a nested associative structure at the given\n   key path."}}
-   {:var clojure.core/associative?,
-    :before {},
-    :after
-    {:doc "Returns true if x supports assoc (maps and vectors)."}}
-   {:var clojure.core/bit-and-not,
-    :before {},
-    :after
-    {:doc "Returns the bitwise AND of x and the complement of y."}}
-   {:var clojure.core/bit-clear,
-    :before {},
-    :after {:doc "Returns x with bit n cleared."}}
-   {:var clojure.core/bit-flip,
-    :before {},
-    :after {:doc "Returns x with bit n flipped."}}
-   {:var clojure.core/bit-set,
-    :before {},
-    :after {:doc "Returns x with bit n set."}}
-   {:var clojure.core/bit-test,
-    :before {},
-    :after {:doc "Returns true if bit n of x is set."}}
-   {:var clojure.core/boolean,
-    :before {},
-    :after {:doc "Coerces x to a boolean value."}}
-   {:var clojure.core/bound-fn*,
-    :before {},
-    :after
-    {:doc
-     "Returns a function which installs the same bindings in effect as in\n   the thread at the time bound-fn* was called and then invokes f."}}
-   {:var clojure.core/bound?,
-    :before {},
-    :after
-    {:doc
-     "Returns true if all of the vars provided as arguments have any\n   bindings — either a root binding or a thread-local binding."}}
-   {:var clojure.core/bounded-count,
-    :before {},
-    :after
-    {:doc "Returns the count of coll, but stops counting at n."}}
-   {:var clojure.core/butlast,
-    :before {},
-    :after {:doc "Returns a seq of all but the last item in coll."}}
-   {:var clojure.core/cat,
-    :before {},
-    :after
-    {:doc
-     "A transducer that concatenates the contents of each input."}}
-   {:var clojure.core/coll?,
-    :before {},
-    :after {:doc "Returns true if x is a collection."}}
-   {:var clojure.core/comparator,
-    :before {},
-    :after
-    {:doc "Returns a comparator function from a two-arg predicate."}}
-   {:var clojure.core/completing,
-    :before {},
-    :after
-    {:doc "Returns a reducing function with a completion step."}}
-   {:var clojure.core/concat,
-    :before {},
-    :after
-    {:doc
-     "Returns a lazy sequence of the concatenation of the given\n   collections."}}
-   {:var clojure.core/constantly,
-    :before {},
-    :after {:doc "Returns a function that always returns x."}}
-   {:var clojure.core/counted?,
-    :before {},
-    :after
-    {:doc
-     "Returns true if (count x) is a constant-time operation. Per\n   Clojure this is the Counted protocol -- vectors, maps, sets, and\n   sorted variants. Strings are not Counted on the JVM (their count\n   walks java.lang.CharSequence)."}}
-   {:var clojure.core/cycle,
-    :before {},
-    :after
-    {:doc
-     "Returns a lazy infinite sequence of repetitions of the items in\n   coll."}}
-   {:var clojure.core/dedupe,
-    :before {},
-    :after
-    {:doc
-     "Returns a lazy sequence removing consecutive duplicates. When\n   called with no collection, returns a transducer."}}
-   {:var clojure.core/delay?,
-    :before {},
-    :after {:doc "Returns true if x is a delay."}}
-   {:var clojure.core/deref-delay,
-    :before {},
-    :after
-    {:doc "Forces evaluation of a delay and returns its value."}}
-   {:var clojure.core/derive,
-    :before {},
-    :after
-    {:doc
-     "Establishes a parent/child relationship between child and parent\n   in a hierarchy."}}
-   {:var clojure.core/descendants,
-    :before {},
-    :after {:doc "Returns all descendants of tag in the hierarchy."}}
-   {:var clojure.core/distinct,
-    :before {},
-    :after
-    {:doc
-     "Returns a lazy sequence of the distinct items in coll. When called\n   with no collection, returns a transducer."}}
-   {:var clojure.core/double?,
-    :before {},
-    :after
-    {:doc
-     "Returns true if x is a 64-bit double (mino's `:float` tier).\n   Distinct from `float?`, which also returns true for the 32-bit\n   `:float32` tier produced by `(float x)`. Matches JVM Clojure\n   where `double?` is `(instance? Double x)`."}}
-   {:var clojure.core/drop,
-    :before {},
-    :after
-    {:doc
-     "Returns a lazy sequence of all but the first n items in coll. When\n   called with no collection, returns a transducer."}}
-   {:var clojure.core/drop-last,
-    :before {},
-    :after
-    {:doc
-     "Returns a lazy sequence of all but the last n items in coll."}}
-   {:var clojure.core/drop-while,
-    :before {},
-    :after
-    {:doc
-     "Returns a lazy sequence of items from coll after pred returns\n   falsy. When called with no collection, returns a transducer."}}
-   {:var clojure.core/eduction,
-    :before {},
-    :after
-    {:doc
-     "Returns a lazy sequence of applying the given transducers to coll."}}
-   {:var clojure.core/ensure-reduced,
-    :before {},
-    :after {:doc "Wraps x in reduced if it is not already reduced."}}
-   {:var clojure.core/every-pred,
-    :before {},
-    :after
-    {:doc
-     "Returns a function that returns true when all preds are satisfied\n   by all its arguments."}}
-   {:var clojure.core/ex-cause,
-    :before {},
-    :after
-    {:doc
-     "Returns the cause attached to the given exception, or nil."}}
-   {:var clojure.core/ex-data,
-    :before {},
-    :after
-    {:doc
-     "Extract the data map from an exception. Handles diagnostic maps\n  (from catch), ex-info maps, and plain thrown values."}}
-   {:var clojure.core/ex-info,
-    :before {},
-    :after
-    {:doc
-     "Create an exception map with a message and data map. The 3-arity\n  form additionally attaches a cause; ex-cause walks the chain via\n  metadata so the visible map structure stays the same as the\n  2-arity form. The data argument must be a map (or nil)."}}
-   {:var clojure.core/ex-message,
-    :before {},
-    :after
-    {:doc
-     "Extract the message from an exception. Handles both diagnostic maps\n  and ex-info maps."}}
-   {:var clojure.core/ffirst,
-    :before {},
-    :after {:doc "Returns the first item of the first item in coll."}}
-   {:var clojure.core/filter,
-    :before {},
-    :after
-    {:doc
-     "Returns a lazy sequence of items in coll for which pred returns\n   truthy. When called with no collection, returns a transducer."}}
-   {:var clojure.core/find-keyword,
-    :before {},
-    :after
-    {:doc
-     "Returns the keyword for the given string. In mino keywords are\n   always interned, so this is equivalent to keyword for string input\n   and nil for other input."}}
-   {:var clojure.core/flatten,
-    :before {},
-    :after
-    {:doc
-     "Returns a lazy sequence of the non-sequential items from a nested\n   structure."}}
-   {:var clojure.core/fnext,
-    :before {},
-    :after {:doc "Same as (first (next coll))."}}
-   {:var clojure.core/fnil,
-    :before {},
-    :after
-    {:doc
-     "Returns a function like f, but replaces nil arguments with the\n   given defaults."}}
-   {:var clojure.core/force,
-    :before {},
-    :after
-    {:doc
-     "Forces evaluation of a delay. If x is not a delay, returns x."}}
-   {:var clojure.core/get-in,
-    :before {},
-    :after
-    {:doc
-     "Returns the value in a nested associative structure at the given\n   key path."}}
-   {:var clojure.core/get-method,
-    :before {},
-    :after {:doc "Returns the method for dispatch-val, or nil."}}
-   {:var clojure.core/halt-when,
-    :before {},
-    :after
-    {:doc
-     "Returns a transducer that halts reduction when pred is satisfied."}}
-   {:var clojure.core/hash-combine,
-    :before {},
-    :after
-    {:doc
-     "Boost-style hash combiner: mixes seed and hash into a single 32-bit\n  hash. Matches clojure.core/hash-combine bit-for-bit so user code that\n  manually composes hashes via this helper sees the same result on\n  mino as on JVM Clojure.\n\n    seed ^= hash + 0x9e3779b9 + (seed << 6) + (seed >> 2)\n\n  The operation is performed in unchecked 32-bit arithmetic; the result\n  is truncated to the low 32 bits."}}
-   {:var clojure.core/hash-ordered-coll,
-    :before {},
-    :after
-    {:doc
-     "Computes a sequence-position-aware hash for an ordered collection."}}
-   {:var clojure.core/hash-unordered-coll,
-    :before {},
-    :after
-    {:doc
-     "Computes a position-independent hash for an unordered collection."}}
-   {:var clojure.core/ident?,
-    :before {},
-    :after {:doc "Returns true if x is a symbol or keyword."}}
-   {:var clojure.core/identity,
-    :before {},
-    :after {:doc "Returns its argument."}}
-   {:var clojure.core/ifn?,
-    :before {},
-    :after {:doc "Returns true if x can be called as a function."}}
-   {:var clojure.core/indexed?,
-    :before {},
-    :after
-    {:doc
-     "Returns true if x supports nth in constant time (vectors)."}}
-   {:var clojure.core/inst-ms,
-    :before {},
-    :after
-    {:doc
-     "Returns epoch millis (since 1970-01-01T00:00:00Z) for an inst\n   value as returned by clojure.instant/read-instant-date or the\n   `#inst \"...\"` reader literal. Throws on a non-inst argument."}}
-   {:var clojure.core/instance?,
-    :before {},
-    :after
-    {:doc
-     "Returns true if x is an instance of t. For record types defined\n   with defrecord, t is the type value and the test is type-pointer\n   identity. For built-in types or ad-hoc :type-tagged values, t may\n   be the keyword (type x) returns and the test is keyword equality."}}
-   {:var clojure.core/integer?,
-    :before {},
-    :after {:doc "Returns true if x is an integer (long or bigint)."}}
-   {:var clojure.core/interleave,
-    :before {},
-    :after
-    {:doc
-     "Returns a lazy sequence of the first item in each collection, then\n   the second, and so on."}}
-   {:var clojure.core/interpose,
-    :before {},
-    :after
-    {:doc
-     "Returns a lazy sequence of the items in coll separated by sep. When\n   called with no collection, returns a transducer."}}
-   {:var clojure.core/into,
-    :before {},
-    :after
-    {:doc
-     "Adds all items from from into to. With a transducer, transforms\n   items first."}}
-   {:var clojure.core/into-array,
-    :before {},
-    :after {:doc "Converts a collection to an Object array."}}
-   {:var clojure.core/isa?,
-    :before {},
-    :after
-    {:doc "Returns true if child is equal to or derives from parent."}}
-   {:var clojure.core/iterate,
-    :before {},
-    :after
-    {:doc
-     "Returns a lazy sequence of x, (f x), (f (f x)), and so on."}}
-   {:var clojure.core/iteration,
-    :before {},
-    :after
-    {:doc
-     "Creates a seqable via repeated calls to step, a function of some\n   continuation token 'k'. The first call to step is passed initk,\n   returning 'ret'. If (somef ret) is true, (vf ret) is included in\n   the iteration; else iteration terminates and vf/kf are not called.\n   If (kf ret) is non-nil it is passed to the next step call; else\n   iteration terminates. Used to consume APIs that return paginated\n   or batched data.\n\n   step  - (possibly impure) fn of 'k' -> 'ret'\n   :somef - fn of 'ret' -> truthy/falsy, default some?\n   :vf    - fn of 'ret' -> 'v', default identity\n   :kf    - fn of 'ret' -> 'next-k' or nil, default identity\n   :initk - first value passed to step, default nil\n\n   Step with non-initk is presumed unreproducible. The first step\n   call is deferred until the result is realized."}}
-   {:var clojure.core/keep,
-    :before {},
-    :after
-    {:doc
-     "Returns a lazy sequence of non-nil results of (f item). When called\n   with no collection, returns a transducer."}}
-   {:var clojure.core/keep-indexed,
-    :before {},
-    :after
-    {:doc
-     "Returns a lazy sequence of non-nil results of (f index item).\n   When called with no collection, returns a transducer."}}
-   {:var clojure.core/key,
-    :before {},
-    :after
-    {:doc
-     "Returns the key of a map entry. Throws on values that are not\n   map entries (a literal 2-vector, for instance)."}}
-   {:var clojure.core/last,
-    :before {},
-    :after {:doc "Returns the last item in coll."}}
-   {:var clojure.core/list*,
-    :before {},
-    :after
-    {:doc
-     "Creates a new list containing the items prepended to the rest, the\n   last of which will be treated as a sequence."}}
-   {:var clojure.core/make-hierarchy,
-    :before {},
-    :after {:doc "Returns an empty hierarchy."}}
-   {:var clojure.core/map,
-    :before {},
-    :after
-    {:doc
-     "Returns a lazy sequence of applying f to each item in coll. When\n   called with multiple collections, maps f across them in parallel.\n   When called with no collection, returns a transducer."}}
-   {:var clojure.core/map-entry?,
-    :before {},
-    :after
-    {:doc
-     "Returns true if x is a map entry (mino represents entries as\n   2-vectors)."}}
-   {:var clojure.core/map-indexed,
-    :before {},
-    :after
-    {:doc
-     "Returns a lazy sequence of (f index item) for each item in coll.\n   When called with no collection, returns a transducer."}}
-   {:var clojure.core/mapcat,
-    :before {},
-    :after
-    {:doc
-     "Returns the result of applying concat to the result of mapping f\n   over coll. When called with no collection, returns a transducer."}}
-   {:var clojure.core/max,
-    :before {},
-    :after {:doc "Returns the greatest of the given values."}}
-   {:var clojure.core/max-key,
-    :before {},
-    :after {:doc "Returns the x for which (k x) is greatest."}}
-   {:var clojure.core/memoize,
-    :before {},
-    :after
-    {:doc
-     "Returns a memoized version of f that caches return values by\n   arguments."}}
-   {:var clojure.core/merge,
-    :before {},
-    :after
-    {:doc
-     "Returns a map that is the merge of the maps. If a key occurs in more\n  than one map, the mapping from the latter (left-to-right) will be\n  the mapping in the result. Per Clojure, position-2+ args use `conj`\n  semantics, so MapEntries / 2-element vectors are accepted."}}
-   {:var clojure.core/methods,
-    :before {},
-    :after {:doc "Returns the method table of multimethod mm."}}
-   {:var clojure.core/min,
-    :before {},
-    :after {:doc "Returns the least of the given values."}}
-   {:var clojure.core/min-key,
-    :before {},
-    :after {:doc "Returns the x for which (k x) is least."}}
-   {:var clojure.core/mix-collection-hash,
-    :before {},
-    :after {:doc "Combines a hash-basis with the collection's count."}}
-   {:var clojure.core/nat-int?,
-    :before {},
-    :after
-    {:doc "Returns true if x is a non-negative integer (long tier)."}}
-   {:var clojure.core/neg-int?,
-    :before {},
-    :after
-    {:doc "Returns true if x is a negative integer (long tier)."}}
-   {:var clojure.core/next,
-    :before {},
-    :after
-    {:doc
-     "Returns a seq of the items after the first. Returns nil if no more\n   items."}}
-   {:var clojure.core/nfirst,
-    :before {},
-    :after {:doc "Same as (next (first coll))."}}
-   {:var clojure.core/nnext,
-    :before {},
-    :after {:doc "Same as (next (next coll))."}}
-   {:var clojure.core/not-empty,
-    :before {},
-    :after {:doc "Returns coll if it has items, nil otherwise."}}
-   {:var clojure.core/not=,
-    :before {},
-    :after {:doc "Returns true if the arguments are not equal."}}
-   {:var clojure.core/nthnext,
-    :before {},
-    :after
-    {:doc "Returns the result of calling next n times on coll."}}
-   {:var clojure.core/nthrest,
-    :before {},
-    :after
-    {:doc "Returns the result of calling rest n times on coll."}}
-   {:var clojure.core/num,
-    :before {},
-    :after
-    {:doc
-     "Returns x if it is a number, nil if x is nil, otherwise throws.\n   Nil pass-through matches the cross-dialect convention used by the\n   `:default` arm of `clojure.core-test.num` (no-op on numeric inputs\n   plus nil), where JVM Clojure's NPE-on-nil is platform-specific."}}
-   {:var clojure.core/parents,
-    :before {},
-    :after
-    {:doc "Returns the immediate parents of tag in the hierarchy."}}
-   {:var clojure.core/parse-boolean,
-    :before {},
-    :after
-    {:doc
-     "Parses 'true' or 'false' (case-sensitive) and returns the boolean.\n   Returns nil for strings that don't match. Per Clojure's contract\n   raises an error on non-string input (analogous to JVM's\n   ClassCastException / NullPointerException)."}}
-   {:var clojure.core/partition,
-    :before {},
-    :after
-    {:doc
-     "Returns a lazy sequence of lists of n items each, at offsets step\n   apart. With pad, the final partition is filled from pad to reach\n   n; if pad is shorter than needed, returns a partition with fewer\n   than n items."}}
-   {:var clojure.core/partition-all,
-    :before {},
-    :after
-    {:doc
-     "Like partition, but includes a final partial group if items remain.\n   The transducer arity emits each group as a vector (matching JVM\n   Clojure's `(vec (.toArray buf))`); the seq arities emit lists per\n   `partition`'s shape."}}
-   {:var clojure.core/partition-by,
-    :before {},
-    :after
-    {:doc
-     "Splits coll into lazy sequences of consecutive items with the same\n   (f item) value. When called with no collection, returns a\n   transducer."}}
-   {:var clojure.core/partitionv,
-    :before {},
-    :after
-    {:doc
-     "Like partition but returns a lazy seq of vectors instead of lists."}}
-   {:var clojure.core/partitionv-all,
-    :before {},
-    :after
-    {:doc
-     "Like partition-all but returns a lazy seq of vectors instead of\n   lists."}}
-   {:var clojure.core/pcalls,
-    :before {},
-    :after
-    {:doc
-     "Executes the no-arg fns in parallel, returning a lazy sequence of\n   their values. Mirrors clojure.core/pcalls. When host threads aren't\n   granted (mino-thread-limit <= 1), falls back to sequential map so\n   the surface is portable across embedded and CLI runs."}}
-   {:var clojure.core/pmap,
-    :before {},
-    :after
-    {:doc
-     "Like map, except f is applied in parallel via futures. Semi-lazy in\n   that the parallel computation stays no more than thread-limit-1\n   items ahead of the consumer. f's invocations across the collection\n   are independent; do not pmap with a side-effectful f if order of\n   effects matters.\n\n   Single-arity collection only: (pmap f coll). When host threads are\n   not granted (mino-thread-limit <= 1), falls back to (map f coll)\n   so callers don't need a conditional."}}
-   {:var clojure.core/pop-thread-bindings,
-    :before {},
-    :after
-    {:doc
-     "Pop the topmost dynamic-binding frame. Throws when no frame is\n   active. Pair with push-thread-bindings."}}
-   {:var clojure.core/pos-int?,
-    :before {},
-    :after
-    {:doc "Returns true if x is a positive integer (long tier)."}}
-   {:var clojure.core/postwalk,
-    :before {},
-    :after
-    {:doc
-     "Walks form depth-first, applying f to each sub-form after its\n   children."}}
-   {:var clojure.core/postwalk-replace,
-    :before {},
-    :after
-    {:doc
-     "Replaces items in form that appear as keys in smap, walking\n   bottom-up."}}
-   {:var clojure.core/prefer-method,
-    :before {},
-    :after {:doc "Prefers dispatch-val x over y in multimethod mm."}}
-   {:var clojure.core/prefers,
-    :before {},
-    :after {:doc "Returns the prefer-table of multimethod mm."}}
-   {:var clojure.core/prewalk,
-    :before {},
-    :after
-    {:doc
-     "Walks form depth-first, applying f to each sub-form before its\n   children."}}
-   {:var clojure.core/prewalk-replace,
-    :before {},
-    :after
-    {:doc
-     "Replaces items in form that appear as keys in smap, walking\n   top-down."}}
-   {:var clojure.core/print-str,
-    :before {},
-    :after
-    {:doc
-     "Returns the print-string of args, space-separated, no trailing newline."}}
-   {:var clojure.core/println-str,
-    :before {},
-    :after
-    {:doc "Returns the print-string of args followed by a newline."}}
-   {:var clojure.core/prn-str,
-    :before {},
-    :after
-    {:doc
-     "Returns the readable-string of args followed by a newline."}}
-   {:var clojure.core/push-thread-bindings,
-    :before {},
-    :after
-    {:doc
-     "Push a fresh dynamic-binding frame whose entries come from the map.\n   Symbols-or-strings are accepted as keys. Must be paired with\n   pop-thread-bindings in a try/finally."}}
-   {:var clojure.core/qualified-ident?,
-    :before {},
-    :after
-    {:doc
-     "Returns true if x is a namespace-qualified symbol or keyword."}}
-   {:var clojure.core/qualified-keyword?,
-    :before {},
-    :after
-    {:doc "Returns true if x is a namespace-qualified keyword."}}
-   {:var clojure.core/qualified-symbol?,
-    :before {},
-    :after {:doc "Returns true if x is a namespace-qualified symbol."}}
-   {:var clojure.core/rand-int,
-    :before {},
-    :after
-    {:doc
-     "Returns a random integer between 0 (inclusive) and n (exclusive)."}}
-   {:var clojure.core/rand-nth,
-    :before {},
-    :after {:doc "Returns a random element from coll."}}
-   {:var clojure.core/random-sample,
-    :before {},
-    :after
-    {:doc
-     "Returns items from coll with probability prob. When called with no\n   collection, returns a transducer."}}
-   {:var clojure.core/re-find,
-    :before {},
-    :after
-    {:doc
-     "Find the first match. (re-find pattern text) returns a string (no\n   groups) or [whole g1 g2 ...] (groups). (re-find m) advances a matcher."}}
-   {:var clojure.core/re-groups,
-    :before {},
-    :after
-    {:doc
-     "Returns the most recent match groups for matcher m: a vector\n   [whole g1 g2 ...] when the pattern has groups, the whole-match string\n   otherwise. Throws when the matcher has no recorded match yet."}}
-   {:var clojure.core/re-matcher,
-    :before {},
-    :after
-    {:doc
-     "Returns a matcher value for repeated find/match operations on text\n   using pattern. The resulting value is consumed by re-find, re-groups\n   and so on."}}
-   {:var clojure.core/re-matches,
-    :before {},
-    :after
-    {:doc
-     "Like re-find but anchored to the whole string. Returns a string\n   (no groups) or [whole g1 g2 ...] (groups), or nil."}}
-   {:var clojure.core/re-seq,
-    :before {},
-    :after
-    {:doc
-     "Returns a lazy sequence of all matches of pattern in string s. Each\n   match is a string when the pattern has no groups, or a vector\n   [whole g1 g2 ...] when it does."}}
-   {:var clojure.core/reader-conditional,
-    :before {},
-    :after
-    {:doc
-     "Builds a reader-conditional record with form and splicing? fields.\n   Predicate reader-conditional? returns true on the result."}}
-   {:var clojure.core/reader-conditional?,
-    :before {},
-    :after
-    {:doc
-     "Returns true if x is a reader-conditional record produced by\n   reader-conditional."}}
-   {:var clojure.core/realized?,
-    :before {},
-    :after
-    {:doc
-     "Returns true if a delay, lazy sequence, future, or promise has\n     been realized."}}
-   {:var clojure.core/reduce,
-    :before {},
-    :after
-    {:doc
-     "Reduces coll using f. With 2 args, uses the first element as init.\n  With 3 args, uses init explicitly. Consults CollReduce: a user\n  type or :default override on coll-reduce takes precedence over the\n  built-in seq-driven reduction."}}
-   {:var clojure.core/reduce-kv,
-    :before {},
-    :after
-    {:doc
-     "Reduces a map (or any associative source) with f taking\n   accumulator, key, and value. Consults IKVReduce; falls back to\n   walking the seq."}}
-   {:var clojure.core/reductions,
-    :before {},
-    :after
-    {:doc
-     "Returns a lazy sequence of the intermediate values of a reduction."}}
-   {:var clojure.core/remove,
-    :before {},
-    :after
-    {:doc
-     "Returns a lazy sequence of items in coll for which pred returns\n   falsy. When called with no collection, returns a transducer."}}
-   {:var clojure.core/remove-all-methods,
-    :before {},
-    :after {:doc "Removes all methods from multimethod mm."}}
-   {:var clojure.core/remove-method,
-    :before {},
-    :after
-    {:doc "Removes the method for dispatch-val from multimethod mm."}}
-   {:var clojure.core/remove-tap,
-    :before {},
-    :after {:doc "Unregisters f from the tap registry. Returns nil."}}
-   {:var clojure.core/repeat,
-    :before {},
-    :after
-    {:doc
-     "Returns a lazy sequence of xs. With two args, returns n repetitions\n   of x. n must be a number; floats and ratios truncate toward zero\n   (so 3.14 and 3.99 both yield three repetitions), matching JVM\n   Clojure's RT/longCast. Booleans, strings, keywords, and other\n   non-numeric counts throw."}}
-   {:var clojure.core/repeatedly,
-    :before {},
-    :after
-    {:doc
-     "Returns a lazy sequence of calls to f. With two args, returns n\n   calls."}}
-   {:var clojure.core/replace,
-    :before {},
-    :after
-    {:doc
-     "Returns a collection with items in coll replaced by entries in\n   smap."}}
-   {:var clojure.core/replicate,
-    :before {},
-    :after
-    {:doc
-     "Returns a lazy seq of n copies of x. Deprecated alias for\n   (take n (repeat x))."}}
-   {:var clojure.core/reset-meta!,
-    :before {},
-    :after
-    {:doc
-     "Atomically resets the metadata for a reference type to meta-map.\n   Returns meta-map."}}
-   {:var clojure.core/reversible?,
-    :before {},
-    :after
-    {:doc
-     "Returns true if x supports rseq (vectors and sorted collections)."}}
-   {:var clojure.core/run!,
-    :before {},
-    :after
-    {:doc
-     "Applies f to each item in coll for side effects. Returns nil."}}
-   {:var clojure.core/satisfies?,
-    :before {},
-    :after
-    {:doc
-     "Returns true if x's type has implementations for all methods of\n   proto."}}
-   {:var clojure.core/second,
-    :before {},
-    :after {:doc "Returns the second item in coll."}}
-   {:var clojure.core/select-keys,
-    :before {},
-    :after
-    {:doc
-     "Returns a map containing only the entries whose keys are in ks."}}
-   {:var clojure.core/seq-to-map-for-destructuring,
-    :before {},
-    :after
-    {:doc
-     "Builds a map from a sequence of keyword/value pairs, possibly with\n   a trailing override map. Used by JVM Clojure's 1.11+ map-destructure\n   over a varargs seq. Public so portable code can call it directly."}}
-   {:var clojure.core/seqable?,
-    :before {},
-    :after {:doc "Returns true if (seq x) is supported."}}
-   {:var clojure.core/sequence,
-    :before {},
-    :after
-    {:doc
-     "Coerces coll to a (possibly empty) sequence, if it is not already\n   one. Will not force a lazy seq. (sequence nil) yields ().\n\n   With a transducer xf, returns a lazy sequence of applying xf to\n   coll, or to the pair-wise step of multiple collections. Parallel\n   collections stop at the shortest."}}
-   {:var clojure.core/sequential?,
-    :before {},
-    :after
-    {:doc
-     "Returns true if x is a sequential collection (list, vector,\n   lazy-seq, or queue)."}}
-   {:var clojure.core/shuffle,
-    :before {},
-    :after
-    {:doc "Returns a randomly shuffled vector of the items in coll."}}
-   {:var clojure.core/simple-ident?,
-    :before {},
-    :after
-    {:doc
-     "Returns true if x is a non-namespace-qualified symbol or keyword."}}
-   {:var clojure.core/simple-keyword?,
-    :before {},
-    :after {:doc "Returns true if x is a keyword with no namespace."}}
-   {:var clojure.core/simple-symbol?,
-    :before {},
-    :after {:doc "Returns true if x is a symbol with no namespace."}}
-   {:var clojure.core/some-fn,
-    :before {},
-    :after
-    {:doc
-     "Returns a function that returns the first truthy value from any\n   pred applied to any argument."}}
-   {:var clojure.core/sort-by,
-    :before {},
-    :after
-    {:doc
-     "Returns a sorted sequence of the items in coll, ordered by (keyfn item)."}}
-   {:var clojure.core/sorted?,
-    :before {},
-    :after {:doc "Returns true if x is a sorted collection."}}
-   {:var clojure.core/special-symbol?,
-    :before {},
-    :after
-    {:doc "Returns true if x is a symbol that names a special form."}}
-   {:var clojure.core/split-at,
-    :before {},
-    :after {:doc "Returns a vector of [(take n coll) (drop n coll)]."}}
-   {:var clojure.core/split-with,
-    :before {},
-    :after
-    {:doc
-     "Returns a vector of [(take-while pred coll) (drop-while pred coll)]."}}
-   {:var clojure.core/splitv-at,
-    :before {},
-    :after
-    {:doc
-     "Returns a vector [(vec (take n coll)) (vec (drop n coll))]."}}
-   {:var clojure.core/tagged-literal,
-    :before {},
-    :after
-    {:doc
-     "Builds a tagged-literal record with tag and form fields. Predicate\n   tagged-literal? returns true on the result."}}
-   {:var clojure.core/tagged-literal?,
-    :before {},
-    :after
-    {:doc
-     "Returns true if x is a tagged-literal record produced by\n   tagged-literal."}}
-   {:var clojure.core/take,
-    :before {},
-    :after
-    {:doc
-     "Returns a lazy sequence of the first n items in coll. When called\n   with no collection, returns a transducer."}}
-   {:var clojure.core/take-last,
-    :before {},
-    :after {:doc "Returns a seq of the last n items in coll."}}
-   {:var clojure.core/take-nth,
-    :before {},
-    :after
-    {:doc
-     "Returns a lazy sequence of every nth item in coll. When called with\n   no collection, returns a transducer."}}
-   {:var clojure.core/take-while,
-    :before {},
-    :after
-    {:doc
-     "Returns a lazy sequence of items from coll while pred returns\n   truthy. When called with no collection, returns a transducer."}}
-   {:var clojure.core/tap>,
-    :before {},
-    :after
-    {:doc
-     "Sends x to every registered tap. Tap fns that throw are silently\n   skipped so a misbehaving subscriber does not poison the stream.\n   Returns true."}}
-   {:var clojure.core/thread-bound?,
-    :before {},
-    :after
-    {:doc
-     "Returns true if all of the vars provided as arguments have\n   thread-local bindings active on the current dyn-stack."}}
-   {:var clojure.core/trampoline,
-    :before {},
-    :after
-    {:doc
-     "Calls f with args, then repeatedly calls the result if it is a\n   function."}}
-   {:var clojure.core/transduce,
-    :before {},
-    :after
-    {:doc
-     "Reduces coll using the transducer xf applied to the reducing\n   function f."}}
-   {:var clojure.core/tree-seq,
-    :before {},
-    :after
-    {:doc "Returns a lazy depth-first sequence of nodes in a tree."}}
-   {:var clojure.core/underive,
-    :before {},
-    :after
-    {:doc
-     "Removes a parent/child relationship between child and parent."}}
-   {:var clojure.core/unreduced,
-    :before {},
-    :after
-    {:doc "Unwraps a reduced value. If not reduced, returns x."}}
-   {:var clojure.core/update,
-    :before {},
-    :after
-    {:doc
-     "Updates the value at key k in map m by applying f to the old value\n   and any args."}}
-   {:var clojure.core/update-in,
-    :before {},
-    :after
-    {:doc
-     "Updates a value in a nested associative structure by applying f at\n   the given key path."}}
-   {:var clojure.core/update-keys,
-    :before {},
-    :after {:doc "Returns a map with f applied to each key."}}
-   {:var clojure.core/update-vals,
-    :before {},
-    :after {:doc "Returns a map with f applied to each value."}}
-   {:var clojure.core/val,
-    :before {},
-    :after
-    {:doc
-     "Returns the value of a map entry. Throws on values that are not\n   map entries (a literal 2-vector, for instance)."}}
-   {:var clojure.core/vec,
-    :before {},
-    :after
-    {:doc
-     "Converts coll into a vector. Coll must be nil, a sequential\n   collection, a string, a map, a set, or a host array. Booleans,\n   numbers, keywords, characters, regexes, and transients throw\n   (matching JVM Clojure's `vec` rejecting non-seqable scalars)."}}
-   {:var clojure.core/walk,
-    :before {},
-    :after
-    {:doc
-     "Traverses form, applying inner to each element and outer to the\n   result."}}
-   {:var clojure.core/with-redefs-fn,
-    :before {},
-    :after
-    {:doc
-     "Temporarily rebinds the root values of vars to new-values while\n   thunk runs, restoring originals afterward. bindings-map is a map\n   of var -> new-value."}}
-   {:var clojure.core.reducers/cat,
-    :before {},
-    :after
-    {:doc
-     "A reducer that concatenates the output of x-coll and y-coll. Calls\n  reduce on x-coll first then y-coll. Returns a fn so it composes the\n  standard reducer protocol."}}
-   {:var clojure.core.reducers/drop,
-    :before {},
-    :after {:doc "Reducer that drops the first n elements."}}
-   {:var clojure.core.reducers/drop-while,
-    :before {},
-    :after {:doc "Reducer that drops elements while pred is truthy."}}
-   {:var clojure.core.reducers/filter,
-    :before {},
-    :after
-    {:doc "Reducer that keeps elements for which pred is truthy."}}
-   {:var clojure.core.reducers/flatten,
-    :before {},
-    :after
-    {:doc "Reducer that flattens one level of nested collections."}}
-   {:var clojure.core.reducers/fold,
-    :before {},
-    :after
-    {:doc
-     "Reduces coll using reducef. The 3-arity form takes a partition\n  size n (default 512) and a combinef. When the host has granted\n  thread budget (mino-thread-limit > 1) AND coll is a vector larger\n  than n, fold partitions coll into chunks of size n, runs reducef\n  in parallel over each chunk via futures, and combines the partial\n  results with combinef. Smaller vectors and non-vector collections\n  reduce sequentially through (clojure.core/reduce reducef\n  (combinef) coll).\n\n  - (fold reducef coll) -- combinef defaults to reducef (so the\n    no-arg branch must return the reducer's identity).\n  - (fold combinef reducef coll) -- partition size defaults to 512.\n  - (fold n combinef reducef coll) -- explicit partition size.\n\n  Pure semantics: reducef and combinef must be associative; combinef\n  with no args must return the identity element. Without those,\n  parallel and sequential results may differ."}}
-   {:var clojure.core.reducers/foldcat,
-    :before {},
-    :after
-    {:doc
-     "Equivalent to (fold cat append! coll), but reducer-shaped: returns a\n  vector of all elements in coll."}}
-   {:var clojure.core.reducers/map,
-    :before {},
-    :after {:doc "Reducer that applies f to each element."}}
-   {:var clojure.core.reducers/mapcat,
-    :before {},
-    :after
-    {:doc
-     "Reducer that maps f over coll and concatenates the results."}}
-   {:var clojure.core.reducers/monoid,
-    :before {},
-    :after
-    {:doc
-     "Helper for fold: return f if init is provided, else a fn that calls\n  ctor for an init value."}}
-   {:var clojure.core.reducers/reduce,
-    :before {},
-    :after
-    {:doc
-     "Like clojure.core/reduce except sequential by definition (mino has\n  no fork/join). Identical contract: with an init, calls (f init x0),\n  (f acc x1), ...; without an init, uses (f x0) for arity-0 of f."}}
-   {:var clojure.core.reducers/remove,
-    :before {},
-    :after
-    {:doc "Reducer that drops elements for which pred is truthy."}}
-   {:var clojure.core.reducers/take,
-    :before {},
-    :after {:doc "Reducer that yields at most n elements."}}
-   {:var clojure.core.reducers/take-while,
-    :before {},
-    :after {:doc "Reducer that yields elements while pred is truthy."}}
-   {:var clojure.instant/inst-ms,
-    :before {},
-    :after
-    {:doc
-     "Returns epoch millis (since 1970-01-01T00:00:00Z) for an inst\n   value as returned by `read-instant-date`. Throws on a non-inst\n   value."}}
-   {:var clojure.instant/inst?,
-    :before {},
-    :after
-    {:doc
-     "True when v is a value produced by clojure.instant/read-instant-date\n   (or a map carrying the same `:mino/instant true` metadata marker).\n   Matches JVM Clojure's inst? predicate over the mino representation."}}
-   {:var clojure.instant/parse-timestamp,
-    :before {},
-    :after
-    {:doc
-     "Parses an ISO 8601 timestamp string into a component map. Returns\n   the map; throws ex-info on malformed input.\n\n   Accepted shapes (each later component is optional but, when\n   present, requires its predecessors):\n\n     YYYY\n     YYYY-MM\n     YYYY-MM-DD\n     YYYY-MM-DDTHH:MM\n     YYYY-MM-DDTHH:MM:SS\n     YYYY-MM-DDTHH:MM:SS.fff       (1 to 9 fractional digits)\n\n   Optional zone suffix:\n     Z                              (UTC)\n     +HH:MM | -HH:MM                (numeric offset)"}}
-   {:var clojure.instant/read-instant-date,
-    :before {},
-    :after
-    {:doc
-     "Parses an ISO 8601 timestamp string and returns the validated\n   component map. Named for parity with canonical clojure.instant;\n   on the JVM and JS this returns a host Date instance, but mino\n   has no host date type so the map is the honest representation.\n   The returned map carries `:mino/instant true` in its metadata so\n   `inst?` recognises it; the map content itself stays free of\n   marker keys so equality with user-constructed maps of the same\n   shape isn't accidentally broken."}}
-   {:var clojure.instant/validated,
-    :before {},
-    :after
-    {:doc
-     "Range-checks the components in a parsed timestamp map. Returns\n   the map unchanged on success; throws ex-info on out-of-range\n   values. Mirrors the canonical clojure.instant validation."}}
-   {:var clojure.math/IEEE-remainder,
-    :before {},
-    :after {:doc "Returns the IEEE 754 remainder of a/b."}}
-   {:var clojure.math/acos,
-    :before {},
-    :after
-    {:doc
-     "Returns the arc-cosine of n (-1 <= n <= 1); result in [0, PI]."}}
-   {:var clojure.math/asin,
-    :before {},
-    :after
-    {:doc
-     "Returns the arc-sine of n (-1 <= n <= 1); result in [-PI/2, PI/2]."}}
-   {:var clojure.math/atan,
-    :before {},
-    :after
-    {:doc "Returns the arc-tangent of n; result in [-PI/2, PI/2]."}}
-   {:var clojure.math/atan2,
-    :before {},
-    :after
-    {:doc
-     "Returns atan2(y, x): the angle in radians between the positive x-axis and (x, y)."}}
-   {:var clojure.math/cbrt,
-    :before {},
-    :after {:doc "Returns the cube root of n."}}
-   {:var clojure.math/ceil,
-    :before {},
-    :after
-    {:doc
-     "Returns the smallest double >= n and equal to a mathematical integer."}}
-   {:var clojure.math/copy-sign,
-    :before {},
-    :after
-    {:doc
-     "Returns a value with the magnitude of mag and the sign of sgn."}}
-   {:var clojure.math/cos,
-    :before {},
-    :after {:doc "Returns the cosine of n (in radians)."}}
-   {:var clojure.math/cosh,
-    :before {},
-    :after {:doc "Returns the hyperbolic cosine of n."}}
-   {:var clojure.math/exp, :before {}, :after {:doc "Returns e^n."}}
-   {:var clojure.math/expm1,
-    :before {},
-    :after {:doc "Returns exp(n) - 1, accurate for small n."}}
-   {:var clojure.math/floor,
-    :before {},
-    :after
-    {:doc
-     "Returns the largest double <= n and equal to a mathematical integer."}}
-   {:var clojure.math/hypot,
-    :before {},
-    :after
-    {:doc "Returns sqrt(a^2 + b^2) avoiding intermediate overflow."}}
-   {:var clojure.math/log,
-    :before {},
-    :after {:doc "Returns the natural logarithm (base e) of n."}}
-   {:var clojure.math/log10,
-    :before {},
-    :after {:doc "Returns the base-10 logarithm of n."}}
-   {:var clojure.math/log1p,
-    :before {},
-    :after {:doc "Returns ln(1 + n), accurate for small n."}}
-   {:var clojure.math/next-down,
-    :before {},
-    :after {:doc "Returns the next representable double less than n."}}
-   {:var clojure.math/next-up,
-    :before {},
-    :after
-    {:doc "Returns the next representable double greater than n."}}
-   {:var clojure.math/pow,
-    :before {},
-    :after {:doc "Returns base raised to the power of exp."}}
-   {:var clojure.math/round,
-    :before {},
-    :after
-    {:doc
-     "Returns the closest long to n, rounding half-up away from zero."}}
-   {:var clojure.math/signum,
-    :before {},
-    :after
-    {:doc
-     "Returns -1.0, 0.0, or 1.0 depending on the sign of n; preserves -0.0."}}
-   {:var clojure.math/sin,
-    :before {},
-    :after {:doc "Returns the sine of n (in radians)."}}
-   {:var clojure.math/sinh,
-    :before {},
-    :after {:doc "Returns the hyperbolic sine of n."}}
-   {:var clojure.math/sqrt,
-    :before {},
-    :after {:doc "Returns the square root of n."}}
-   {:var clojure.math/tan,
-    :before {},
-    :after {:doc "Returns the tangent of n (in radians)."}}
-   {:var clojure.math/tanh,
-    :before {},
-    :after {:doc "Returns the hyperbolic tangent of n."}}
-   {:var clojure.math/to-degrees,
-    :before {},
-    :after {:doc "Converts the angle a (in radians) to degrees."}}
-   {:var clojure.math/to-radians,
-    :before {},
-    :after {:doc "Converts the angle a (in degrees) to radians."}}
-   {:var clojure.spec.alpha/abbrev,
-    :before {},
-    :after
-    {:doc
-     "Return an abbreviated description of a spec form. Strips namespace\n  qualifiers from symbols and shortens (fn [%] body) to body."}}
-   {:var clojure.spec.alpha/amp-impl,
-    :before {},
-    :after
-    {:doc
-     "Build an ::amp regex spec: re-spec is consumed normally; preds are\n  applied to the conformed sequence. All preds must return truthy or\n  the consume yields ::invalid."}}
-   {:var clojure.spec.alpha/check-asserts,
-    :before {},
-    :after
-    {:doc
-     "Toggle s/assert checking.  No-op stub; mino asserts always evaluate."}}
-   {:var clojure.spec.alpha/check-asserts?,
-    :before {},
-    :after {:doc "Whether s/assert is enabled.  Always true on mino."}}
-   {:var clojure.spec.alpha/conform,
-    :before {},
-    :after
-    {:doc
-     "Conform x against spec.  Returns the conformed value or\n  :clojure.spec.alpha/invalid."}}
-   {:var clojure.spec.alpha/conform*,
-    :before {},
-    :after
-    {:doc
-     "Internal dispatch for conform.  Public callers use conform."}}
-   {:var clojure.spec.alpha/conformer,
-    :before {},
-    :after
-    {:doc
-     "Return a spec that uses cfn as the conform path. cfn takes a value\n  and returns the conformed value or :clojure.spec.alpha/invalid.\n  Optionally takes an unform fn; if omitted, unform is identity."}}
-   {:var clojure.spec.alpha/def-impl,
-    :before {},
-    :after
-    {:doc
-     "Register the spec under k.  k must be a namespaced keyword or symbol."}}
-   {:var clojure.spec.alpha/describe,
-    :before {},
-    :after
-    {:doc "Return an abbreviated description of the spec as data."}}
-   {:var clojure.spec.alpha/exercise,
-    :before {},
-    :after
-    {:doc
-     "Generate `n` (default 10) sample/conformed pairs for `spec`."}}
-   {:var clojure.spec.alpha/explain,
-    :before {},
-    :after {:doc "Print explain-str to *out*."}}
-   {:var clojure.spec.alpha/explain*,
-    :before {},
-    :after
-    {:doc
-     "Internal dispatch for explain-data.  Public callers use\n  explain-data / explain / explain-str. When the spec is registered\n  (carries ::name), prepend that name to via so problems list the\n  surrounding spec path the way Clojure's spec.alpha does."}}
-   {:var clojure.spec.alpha/explain-data,
-    :before {},
-    :after
-    {:doc
-     "Return a problem map describing why x fails spec, or nil if it\n  passes.  Shape: {::problems [{:path ... :pred ... :val ... :via ...\n  :in ...}] ::spec ... ::value ...}."}}
-   {:var clojure.spec.alpha/explain-str,
-    :before {},
-    :after
-    {:doc
-     "Return a string describing why x fails spec, or \"Success!\\n\" if\n  it passes. Format follows clojure.spec.alpha: each problem on its\n  own line terminated with \\n."}}
-   {:var clojure.spec.alpha/form,
-    :before {},
-    :after
-    {:doc
-     "Return the form of the spec, or :clojure.spec.alpha/unknown if x is\n  not a registered spec."}}
-   {:var clojure.spec.alpha/gen,
-    :before {},
-    :after
-    {:doc
-     "Build a clojure.test.check generator for `spec`. `overrides` is a\n  map from spec-key keywords (or predicate symbols) to alternative\n  generators."}}
-   {:var clojure.spec.alpha/get-spec,
-    :before {},
-    :after {:doc "Return the spec registered under k, or nil."}}
-   {:var clojure.spec.alpha/instrument,
-    :before {},
-    :after
-    {:doc
-     "Wrap the var named by sym so its args are validated against the\n  registered fdef on every call.  Returns sym if instrumented, nil\n  if no fdef is registered."}}
-   {:var clojure.spec.alpha/re-consume,
-    :before {},
-    :after
-    {:doc
-     "Greedy consume from xs against a regex spec.  Returns\n  [conformed-result remaining-xs] or [::invalid xs]."}}
-   {:var clojure.spec.alpha/spec-impl,
-    :before {},
-    :after
-    {:doc
-     "Build a spec value from a form and predicate.  When pred resolves to\n  a regex spec (cat / * / + / ? / alt / a registered regex), the result\n  wraps the regex so it conforms an element value as a whole sequence\n  rather than splicing into the surrounding regex context."}}
-   {:var clojure.spec.alpha/unform,
-    :before {},
-    :after
-    {:doc
-     "Return the destructuring inverse of conform.  Given a conformed\n  value y produced by (conform spec x), unform returns a value that\n  conforms to spec and conforms to it back to y.  For specs without\n  an inverse (registered :clojure.spec.alpha/conformer specs without\n  an :unform key), unform returns y unchanged."}}
-   {:var clojure.spec.alpha/unform*,
-    :before {},
-    :after
-    {:doc "Internal dispatch for unform.  Public callers use unform."}}
-   {:var clojure.spec.alpha/unstrument,
-    :before {},
-    :after {:doc "Restore an instrumented var to its original value."}}
-   {:var clojure.spec.alpha/valid?,
-    :before {},
-    :after {:doc "Return true iff x conforms to spec."}}
-   {:var clojure.spec.alpha/with-gen,
-    :before {},
-    :after
-    {:doc
-     "Return a copy of spec that uses gen-fn as its generator. spec may\n  be a registered keyword, a spec map, or any predicate-shaped value\n  acceptable to as-spec."}}
-   {:var clojure.string/index-of,
-    :before {},
-    :after
-    {:doc
-     "Return index of value (string or char) in s, optionally searching\n   forward from from-index. Returns nil if value not found."}}
-   {:var clojure.string/last-index-of,
-    :before {},
-    :after
-    {:doc
-     "Return last index of value (string or char) in s, optionally\n   searching backward from from-index. Returns nil if value not found."}}
-   {:var clojure.string/re-quote-replacement,
-    :before {},
-    :after
-    {:doc
-     "Escapes $ and \\ in replacement so s can be used literally in\n   replacement strings without triggering backreference syntax."}}
-   {:var clojure.string/replace,
-    :before {},
-    :after
-    {:doc
-     "Replace all matches of `match` in `s` with `replacement`. `match` may\n   be a string, char, or regex. For regex `match`, `replacement` may be\n   a string (with `$N` group backrefs and `\\$` / `\\\\` escapes) or a\n   function called per match with the whole-match string when the\n   pattern has no groups, or `[whole g1 g2 ...]` when it does. Char\n   `match` is coerced to a 1-char string before delegating to the C\n   primitive."}}
-   {:var clojure.string/replace-first,
-    :before {},
-    :after
-    {:doc
-     "Replaces only the first occurrence of match in s with replacement.\n   match may be a string, char, or regex; for regex match, replacement\n   may be a $N template string or a function, exactly as in replace."}}
-   {:var clojure.string/reverse,
-    :before {},
-    :after {:doc "Returns s with its characters reversed."}}
-   {:var clojure.template/apply-template,
-    :before {},
-    :after
-    {:doc
-     "Replaces argv symbols in expr with the corresponding values.\n\n   argv is a binding vector of symbols (no destructuring). expr is\n   the template form. values is a sequence whose elements are\n   substituted positionally.\n\n   (apply-template '[x] '(+ x x) '[2])    ; => (+ 2 2)\n   (apply-template '[a b] '(- a b) '[5 3]) ; => (- 5 3)"}}
-   {:var clojure.test/run-tests,
-    :before {},
-    :after
-    {:doc
-     "Run registered tests and return a summary map\n  {:test n :pass n :fail n :error n :failures [...]}.\n\n  With no arguments, runs every registered test. Given namespace symbols\n  (or namespace objects), runs only tests registered in those namespaces.\n\n  Prints a summary line and any failure details to stdout."}}
-   {:var clojure.test/run-tests-and-exit,
-    :before {},
-    :after
-    {:doc
-     "CLI wrapper around run-tests: runs the tests and exits the process\n  with code 0 when there are no failures or errors, 1 otherwise. Used\n  by tests/run.clj and other CLI driver files. A no-op while\n  suite-mode is true so that per-file (run-tests-and-exit) calls do\n  not short-circuit a multi-file driver."}}
-   {:var clojure.zip/leftmost,
-    :before {},
-    :after
-    {:doc
-     "Returns the loc of the leftmost sibling, or self if no siblings to\n   the left."}}
-   {:var clojure.zip/rightmost,
-    :before {},
-    :after
-    {:doc
-     "Returns the loc of the rightmost sibling, or self if no siblings to\n   the right."}}],
-  :coverage-delta 0.018090452261306567},
+  :changed [],
+  :coverage-delta 0.0},
  :extensions
  [{:id :integer-radix-strings,
    :title "JVM static method mirrors for integer radix conversion",
