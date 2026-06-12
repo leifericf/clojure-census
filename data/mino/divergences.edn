@@ -281,16 +281,6 @@
                     ex-data / ex-cause / category keys to dispatch."
   :since           "v0.1.0"}
 
- {:id              :clojure-test-machinery-mino-shape
-  :title           "clojure.test reports via mino's counters, not JVM clojure.test/report"
-  :category-id     :error-messages
-  :rationale       "Per-assertion error isolation matches Clojure (JVM)'s
-                    contract. The underlying report mechanism uses
-                    mino-native counters and prints rather than the
-                    JVM clojure.test/report multimethod."
-  :since           "v0.422.0"
-  :affected        [clojure.test/report clojure.test/run-tests]}
-
  {:id              :no-clojure-repl
   :title           "clojure.repl is intentionally absent"
   :category-id     :jvm-statics
@@ -299,4 +289,44 @@
                     apropos are exposed at the CLI rather than in
                     a namespace."
   :since           "v0.1.0"}
+
+ {:id              :double-in-strict-defaults
+  :title           "s/double-in rejects NaN and infinity unless opted in"
+  :category-id     :numeric-tower
+  :rationale       "A plain range spec admitting NaN and infinity by
+                    default is a silent-surprise trap; mino defaults
+                    :NaN? and :infinite? to false so out-of-range
+                    non-finite doubles fail validation unless the
+                    spec opts in. Canon defaults both to true."
+  :since           "unreleased"
+  :dialect-example "(s/valid? (s/double-in :min 0.0 :max 1.0) ##NaN) ;=> false"
+  :clojure-example "(s/valid? (s/double-in :min 0.0 :max 1.0) ##NaN) ;=> true"
+  :affected        [clojure.spec.alpha/double-in]}
+
+ {:id              :print-vars-not-dynamic
+  :title           "pr and *clojure-version* do not carry :dynamic metadata"
+  :category-id     :metadata
+  :rationale       "On the JVM these two are marked dynamic for
+                    host-historical reasons (pprint-era rebinding and
+                    a version map nobody rebinds). mino does not
+                    inherit the wart; neither var is rebindable and
+                    neither claims to be."
+  :since           "v0.1.0"
+  :dialect-example "(:dynamic (meta (resolve 'pr))) ;=> nil"
+  :clojure-example "(:dynamic (meta (resolve 'pr))) ;=> true"
+  :affected        [clojure.core/pr clojure.core/*clojure-version*]}
+
+ {:id              :throwable-map-empty-trace
+  :title           "Throwable->map returns an empty :trace vector"
+  :category-id     :error-messages
+  :rationale       "mino error values carry no stack frames, so the
+                    canon map shape is preserved (:cause :data :via
+                    :trace) with :trace always []. Code that walks
+                    :via and :cause ports unchanged; frame-inspecting
+                    code finds an empty vector, not a missing key."
+  :since           "unreleased"
+  :dialect-example "(:trace (Throwable->map e)) ;=> []"
+  :clojure-example "(:trace (Throwable->map e)) ;=> [[clazz method file line] ...]"
+  :affected        [clojure.core/Throwable->map]}
+
 ]
