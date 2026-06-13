@@ -340,4 +340,166 @@
   :clojure-example "(:trace (Throwable->map e)) ;=> [[clazz method file line] ...]"
   :affected        [clojure.core/Throwable->map]}
 
+ ;; ===== JVM-bound surface mino intentionally does not implement =====
+ ;;
+ ;; These vars exist on the JVM only because they front Java host
+ ;; machinery -- primitive arrays, proxy/struct class generation, the
+ ;; classloader and compiler, host interop bridges, ForkJoin agent
+ ;; executors, print-dup, host name munging, the read-eval var, and
+ ;; protocol-dispatch internals. mino has no JVM, so they are
+ ;; deliberate omissions rather than coverage gaps. Grouping them here
+ ;; turns each one from a bare missing-var into a documented decision.
+
+ {:id              :no-primitive-arrays
+  :title           "Primitive-array and gvec machinery is absent"
+  :category-id     :jvm-statics
+  :rationale       "mino has no JVM primitive arrays. The array
+                    constructors, mutators, coercions, and the gvec
+                    (vector-of) backing types front java[] storage
+                    that does not exist here; persistent vectors and
+                    maps cover the same use cases host-portably."
+  :since           "v0.1.0"
+  :affected        [clojure.core/aclone clojure.core/amap clojure.core/areduce
+                    clojure.core/aset-boolean clojure.core/aset-byte
+                    clojure.core/aset-char clojure.core/aset-double
+                    clojure.core/aset-float clojure.core/aset-int
+                    clojure.core/aset-long clojure.core/aset-short
+                    clojure.core/booleans clojure.core/bytes clojure.core/chars
+                    clojure.core/shorts clojure.core/ints clojure.core/longs
+                    clojure.core/floats clojure.core/doubles
+                    clojure.core/make-array clojure.core/to-array-2d
+                    clojure.core/vector-of clojure.core/->ArrayChunk
+                    clojure.core/->Vec clojure.core/->VecNode
+                    clojure.core/->VecSeq clojure.core/EMPTY-NODE
+                    clojure.core/primitives-classnames]}
+
+ {:id              :no-proxy-struct-machinery
+  :title           "proxy / struct class-generation helpers are absent"
+  :category-id     :jvm-statics
+  :rationale       "construct-proxy, the proxy-* helpers, gen-interface,
+                    and the struct family all generate or manipulate
+                    JVM classes and struct-maps. mino has no host class
+                    layer; defrecord plus protocols cover the same
+                    ground host-portably."
+  :since           "v0.1.0"
+  :affected        [clojure.core/construct-proxy clojure.core/get-proxy-class
+                    clojure.core/init-proxy clojure.core/update-proxy
+                    clojure.core/proxy-call-with-super clojure.core/proxy-mappings
+                    clojure.core/proxy-name clojure.core/proxy-super
+                    clojure.core/gen-interface clojure.core/create-struct
+                    clojure.core/defstruct clojure.core/struct
+                    clojure.core/struct-map]}
+
+ {:id              :no-classloader-compiler
+  :title           "Classloader and compiler controls are absent"
+  :category-id     :jvm-statics
+  :rationale       "mino has no JVM classloader hierarchy or bytecode
+                    compiler, so the vars and functions that drive
+                    them have nothing to bind or call. Loading is
+                    handled by mino-native primitives instead."
+  :since           "v0.1.0"
+  :affected        [clojure.core/*compiler-options* clojure.core/*fn-loader*
+                    clojure.core/*use-context-classloader*
+                    clojure.core/*reader-resolver*
+                    clojure.core/*allow-unresolved-vars*
+                    clojure.core/*verbose-defrecords* clojure.core/*suppress-read*
+                    clojure.core/add-classpath clojure.core/compile
+                    clojure.core/load clojure.core/load-reader
+                    clojure.core/with-loading-context clojure.core/definline]}
+
+ {:id              :no-host-bridges
+  :title           "Java host-interop bridges are absent"
+  :category-id     :jvm-statics
+  :rationale       "These vars bridge into the Java host -- class
+                    hierarchy queries, bean reflection, the .. and
+                    memfn interop sugar, host iterator/enumeration and
+                    JDK-stream adapters, and the class? predicate.
+                    Without a JVM there is nothing to bridge to."
+  :since           "v0.1.0"
+  :affected        [clojure.core/bases clojure.core/supers clojure.core/cast
+                    clojure.core/class? clojure.core/bean
+                    clojure.core/enumeration-seq clojure.core/iterator-seq
+                    clojure.core/resultset-seq clojure.core/PrintWriter-on
+                    clojure.core/StackTraceElement->vec clojure.core/method-sig
+                    clojure.core/accessor clojure.core/.. clojure.core/memfn
+                    clojure.core/stream-into! clojure.core/stream-reduce!
+                    clojure.core/stream-seq! clojure.core/stream-transduce!]}
+
+ {:id              :no-agent-executors
+  :title           "Agent ForkJoin-executor controls are absent"
+  :category-id     :concurrency
+  :rationale       "mino's agents run on a cooperative single-threaded
+                    model, so the JVM ForkJoin send-executor controls
+                    and agent-error inspection vars have no backing
+                    thread pool to configure."
+  :since           "v0.1.0"
+  :affected        [clojure.core/agent-errors clojure.core/await1
+                    clojure.core/clear-agent-errors
+                    clojure.core/set-agent-send-executor!
+                    clojure.core/set-agent-send-off-executor!]}
+
+ {:id              :no-print-dup-machinery
+  :title           "print-dup / print-ctor are absent"
+  :category-id     :printer
+  :rationale       "print-dup emits host-class-aware, read-eval-able
+                    forms keyed on Java types. mino prints EDN-readable
+                    forms through the ordinary printer; the print-dup
+                    dispatch and its print-ctor helper are not
+                    provided."
+  :since           "v0.1.0"
+  :affected        [clojure.core/print-dup clojure.core/print-ctor]}
+
+ {:id              :no-host-name-munging
+  :title           "Host symbol-name munging is absent"
+  :category-id     :jvm-statics
+  :rationale       "munge and namespace-munge encode Clojure names
+                    into JVM-legal class and member names. mino emits
+                    no host symbols, so the munging step has no
+                    purpose."
+  :since           "v0.1.0"
+  :affected        [clojure.core/munge clojure.core/namespace-munge]}
+
+ {:id              :no-read-eval
+  :title           "*read-eval* is absent"
+  :category-id     :jvm-statics
+  :rationale       "*read-eval* gates the JVM reader's #=() eval-on-read
+                    feature, which mino's reader does not provide; there
+                    is no host eval to guard, so the var is absent."
+  :since           "v0.1.0"
+  :affected        [clojure.core/*read-eval*]}
+
+ {:id              :protocol-impl-internals
+  :title           "Protocol-dispatch implementation internals are absent"
+  :category-id     :type-system
+  :rationale       "These are private-ish JVM dispatch internals: the
+                    protocol-fn cache, method-reset, impl/method lookup
+                    over host classes, and the iterator reduce helper.
+                    mino dispatches protocols through its own
+                    atom-keyed mechanism and does not expose the JVM
+                    internals."
+  :since           "v0.1.0"
+  :affected        [clojure.core/-cache-protocol-fn clojure.core/-reset-methods
+                    clojure.core/find-protocol-impl clojure.core/find-protocol-method
+                    clojure.core.protocols/iterator-reduce!]}
+
+ {:id              :no-reducers-forkjoin-pool
+  :title           "reducers ForkJoin task/pool entry points are absent"
+  :category-id     :concurrency
+  :rationale       "clojure.core.reducers/fjtask and /pool front a JVM
+                    ForkJoinPool for parallel fold. mino has no
+                    ForkJoin runtime, so fold runs sequentially and the
+                    pool entry points are absent."
+  :since           "v0.1.0"
+  :affected        [clojure.core.reducers/fjtask clojure.core.reducers/pool]}
+
+ {:id              :no-instant-host-calendar
+  :title           "read-instant-calendar / -timestamp are absent"
+  :category-id     :jvm-statics
+  :rationale       "These instant readers materialise java.util.Calendar
+                    and java.sql.Timestamp host values. mino has neither
+                    type; read-instant-date covers the portable case."
+  :since           "v0.1.0"
+  :affected        [clojure.instant/read-instant-calendar
+                    clojure.instant/read-instant-timestamp]}
+
 ]
