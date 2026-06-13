@@ -41,12 +41,14 @@
     {:doc
      "The agent currently running an action on this thread, else nil",
      :added "1.0",
+     :dynamic true,
      :tag "clojure.lang.Agent"},
-    *allow-unresolved-vars* {},
+    *allow-unresolved-vars* {:dynamic true},
     *assert*
     {:doc
      "When set to logical false, 'assert' will omit assertion checks in\n  compiled code. Defaults to true.",
-     :added "1.0"},
+     :added "1.0",
+     :dynamic true},
     *clojure-version*
     {:doc
      "The version info for Clojure core, as a map containing :major :minor \n  :incremental and :qualifier keys. Feature releases may increment \n  :minor and/or :major, bugfix releases will increment :incremental. \n  Possible values of :qualifier include \"GA\", \"SNAPSHOT\", \"RC-x\" \"BETA-x\"",
@@ -57,18 +59,22 @@
     *command-line-args*
     {:doc
      "A sequence of the supplied command line arguments, or nil if\n  none were supplied",
-     :added "1.0"},
+     :added "1.0",
+     :dynamic true},
     *compile-files*
     {:doc "Set to true when compiling files, false otherwise.",
-     :added "1.0"},
+     :added "1.0",
+     :dynamic true},
     *compile-path*
     {:doc
      "Specifies the directory where 'compile' will write out .class\n  files. This directory must be in the classpath for 'compile' to\n  work.\n\n  Defaults to \"classes\"",
-     :added "1.0"},
+     :added "1.0",
+     :dynamic true},
     *compiler-options*
     {:doc
      "A map of keys to options.\n  Note, when binding dynamically make sure to merge with previous value.\n  Supported options:\n  :elide-meta - a collection of metadata keys to elide during compilation.\n  :disable-locals-clearing - set to true to disable clearing, useful for using a debugger\n  :direct-linking - set to true to use direct static invocation of functions, rather than vars\n    Note that call sites compiled with direct linking will not be affected by var redefinition.\n    Use ^:redef (or ^:dynamic) on a var to prevent direct linking and allow redefinition.\n  See https://clojure.org/reference/compilation for more information.",
-     :added "1.4"},
+     :added "1.4",
+     :dynamic true},
     *data-readers*
     {:doc
      "Map from reader tag symbols to data reader Vars.\n\n  When Clojure starts, it searches for files named 'data_readers.clj'\n  and 'data_readers.cljc' at the root of the classpath. Each such file\n  must contain a literal map of symbols, like this:\n\n      {foo/bar my.project.foo/bar\n       foo/baz my.project/baz}\n\n  The first symbol in each pair is a tag that will be recognized by\n  the Clojure reader. The second symbol in the pair is the\n  fully-qualified name of a Var which will be invoked by the reader to\n  parse the form following the tag. For example, given the\n  data_readers.clj file above, the Clojure reader would parse this\n  form:\n\n      #foo/bar [1 2 3]\n\n  by invoking the Var #'my.project.foo/bar on the vector [1 2 3]. The\n  data reader function is invoked on the form AFTER it has been read\n  as a normal Clojure data structure by the reader.\n\n  Reader tags without namespace qualifiers are reserved for\n  Clojure. Default reader tags are defined in\n  clojure.core/default-data-readers but may be overridden in\n  data_readers.clj, data_readers.cljc, or by rebinding this Var.",
@@ -93,35 +99,42 @@
     *err*
     {:doc
      "A java.io.Writer object representing standard error for print operations.\n\n  Defaults to System/err, wrapped in a PrintWriter",
-     :added "1.0"},
+     :added "1.0",
+     :dynamic true},
     *file*
     {:doc
      "The path of the file being evaluated, as a String.\n\n  When there is no file, e.g. in the REPL, the value is not defined.",
-     :added "1.0"},
+     :added "1.0",
+     :dynamic true},
     *flush-on-newline*
     {:doc
      "When set to true, output will be flushed whenever a newline is printed.\n\n  Defaults to true.",
-     :added "1.0"},
-    *fn-loader* {},
+     :added "1.0",
+     :dynamic true},
+    *fn-loader* {:dynamic true},
     *in*
     {:doc
      "A java.io.Reader object representing standard input for read operations.\n\n  Defaults to System/in, wrapped in a LineNumberingPushbackReader",
-     :added "1.0"},
-    *math-context* {:tag "java.math.MathContext"},
+     :added "1.0",
+     :dynamic true},
+    *math-context* {:dynamic true, :tag "java.math.MathContext"},
     *ns*
     {:doc
      "A clojure.lang.Namespace object representing the current namespace.",
      :added "1.0",
+     :dynamic true,
      :tag "clojure.lang.Namespace"},
     *out*
     {:doc
      "A java.io.Writer object representing standard output for print operations.\n\n  Defaults to System/out, wrapped in an OutputStreamWriter",
      :added "1.0",
+     :dynamic true,
      :tag "java.io.Writer"},
     *print-dup*
     {:doc
      "When set to logical true, objects will be printed in a way that preserves\n  their type when read in later.\n\n  Defaults to false.",
-     :added "1.0"},
+     :added "1.0",
+     :dynamic true},
     *print-length*
     {:doc
      "*print-length* controls how many items of each collection the\n  printer will print. If it is bound to logical false, there is no\n  limit. Otherwise, it must be bound to an integer indicating the maximum\n  number of items of each collection to print. If a collection contains\n  more items, the printer will print items up to the limit followed by\n  '...' to represent the remaining items. The root binding is nil\n  indicating no limit.",
@@ -139,7 +152,8 @@
     *print-meta*
     {:doc
      "If set to logical true, when printing an object, its metadata will also\n  be printed in a form that can be read back by the reader.\n\n  Defaults to false.",
-     :added "1.0"},
+     :added "1.0",
+     :dynamic true},
     *print-namespace-maps*
     {:doc
      "*print-namespace-maps* controls whether the printer will print\n  namespace map literal syntax. It defaults to false, but the REPL binds\n  to true.",
@@ -150,31 +164,35 @@
     *print-readably*
     {:doc
      "When set to logical false, strings and characters will be printed with\n  non-alphanumeric characters converted to the appropriate escape sequences.\n\n  Defaults to true",
-     :added "1.0"},
+     :added "1.0",
+     :dynamic true},
     *read-eval*
     {:doc
      "Defaults to true (or value specified by system property, see below)\n  ***This setting implies that the full power of the reader is in play,\n  including syntax that can cause code to execute. It should never be\n  used with untrusted sources. See also: clojure.edn/read.***\n\n  When set to logical false in the thread-local binding,\n  the eval reader (#=) and record/type literal syntax are disabled in read/load.\n  Example (will fail): (binding [*read-eval* false] (read-string \"#=(* 2 21)\"))\n\n  The default binding can be controlled by the system property\n  'clojure.read.eval' System properties can be set on the command line\n  like this:\n\n  java -Dclojure.read.eval=false ...\n\n  The system property can also be set to 'unknown' via\n  -Dclojure.read.eval=unknown, in which case the default binding\n  is :unknown and all reads will fail in contexts where *read-eval*\n  has not been explicitly bound to either true or false. This setting\n  can be a useful diagnostic tool to ensure that all of your reads\n  occur in considered contexts. You can also accomplish this in a\n  particular scope by binding *read-eval* to :unknown\n  ",
-     :added "1.0"},
-    *reader-resolver* {},
+     :added "1.0",
+     :dynamic true},
+    *reader-resolver* {:dynamic true},
     *repl*
     {:doc "Bound to true in a repl thread",
      :added "1.12",
      :dynamic true,
      :file "clojure/core.clj",
      :line 6365},
-    *source-path* {},
-    *suppress-read* {},
+    *source-path* {:dynamic true},
+    *suppress-read* {:dynamic true},
     *unchecked-math*
     {:doc
      "While bound to true, compilations of +, -, *, inc, dec and the\n  coercions will be done without overflow checks. While bound\n  to :warn-on-boxed, same behavior as true, and a warning is emitted\n  when compilation uses boxed math. Default: false.",
-     :added "1.3"},
-    *use-context-classloader* {},
+     :added "1.3",
+     :dynamic true},
+    *use-context-classloader* {:dynamic true},
     *verbose-defrecords*
     {:dynamic true, :file "clojure/core_print.clj", :line 39},
     *warn-on-reflection*
     {:doc
      "When set to true, the compiler will emit warnings when reflection is\n  needed to resolve Java method calls or field accesses.\n\n  Defaults to false.",
-     :added "1.0"},
+     :added "1.0",
+     :dynamic true},
     +
     {:arglists ([] [x] [x y] [x y & more]),
      :doc

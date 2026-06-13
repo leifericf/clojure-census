@@ -142,7 +142,7 @@
               (string? (:doc m))   (assoc :doc      (:doc m))
               (string? (:added m)) (assoc :added    (:added m))
               (:macro m)           (assoc :macro    true)
-              (:dynamic m)         (assoc :dynamic  true)
+              (.isDynamic v)       (assoc :dynamic  true)
               (:tag m)             (assoc :tag      (safe-tag (:tag m)))
               (string? (:file m))  (assoc :file     (:file m))
               (integer? (:line m)) (assoc :line     (:line m))))
