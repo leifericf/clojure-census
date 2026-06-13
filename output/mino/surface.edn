@@ -56,6 +56,10 @@
     {:doc
      "When true (the default), strings are emitted with their quote\n   characters and characters with their escape form so the printed\n   output round-trips through the reader. When false, strings and\n   characters print their underlying bytes — pr/prn behave like\n   print/println. Resolved once per top-level pr / print call.",
      :dynamic true},
+    *repl*
+    {:doc
+     "Bound to true in an interactive read-eval-print context, false in\n   script execution. Defaults to false.",
+     :dynamic true},
     *source-path* {:dynamic true},
     *unchecked-math* {:dynamic true},
     *warn-on-reflection* {:dynamic true},
@@ -63,8 +67,11 @@
     +' {},
     - {},
     -' {},
-    -> {},
-    ->> {},
+    -> {:macro true},
+    ->> {:macro true},
+    ->Eduction
+    {:doc
+     "Factory matching the value (eduction xform coll) returns. mino's\n   eduction values are sequences, so the factory applies xform to\n   coll the same way eduction does."},
     -empty-queue {},
     -thread-bound? {},
     -var-root-bound? {},
@@ -83,9 +90,14 @@
     Datafiable--datafy {},
     IKVReduce {},
     IKVReduce--kv-reduce {},
+    Inst {},
+    Inst--inst-ms* {},
     NaN? {},
     Navigable {},
     Navigable--nav {},
+    Throwable->map
+    {:doc
+     "Constructs a data representation of an error value, shaped\n   {:cause m :data d :via [...] :trace []}: :cause is the root\n   cause's message, :data its ex-data (absent when nil), :via a\n   vector of {:type <symbol> :message <str> :at [] :data <optional>}\n   maps from the outermost error to the root, and :trace an empty\n   vector (mino error values do not retain call-stack frames).\n   Works on caught diagnostic maps and on ex-info values alike;\n   the cause chain is walked via ex-cause."},
     abs
     {:doc
      "Returns the absolute value of x. Matches JVM Math/abs 2's-complement\n   semantics: (abs Long/MIN_VALUE) returns Long/MIN_VALUE rather than\n   overflowing, since the true absolute value is unrepresentable in a\n   signed 64-bit int."},
@@ -108,13 +120,13 @@
     alter-meta! {},
     alter-var-root {},
     ancestors {:doc "Returns all ancestors of tag in the hierarchy."},
-    and {},
+    and {:macro true},
     any? {:doc "Returns true for any argument."},
     apply {},
     array-map {:doc "Creates a hash-map."},
-    as-> {},
+    as-> {:macro true},
     aset {},
-    assert {},
+    assert {:macro true},
     assoc {},
     assoc! {},
     assoc-in
@@ -151,7 +163,7 @@
     boolean {:doc "Coerces x to a boolean value."},
     boolean-array {},
     boolean? {},
-    bound-fn {},
+    bound-fn {:macro true},
     bound-fn*
     {:doc
      "Returns a function which installs the same bindings in effect as in\n   the thread at the time bound-fn* was called and then invokes f."},
@@ -165,7 +177,7 @@
     byte-array {},
     bytes? {},
     car {},
-    case {},
+    case {:macro true},
     cat
     {:doc
      "A transducer that concatenates the contents of each input."},
@@ -192,6 +204,10 @@
     char {},
     char-array {},
     char-at {},
+    char-escape-string
+    {:doc "Returns escape string for char or nil if none."},
+    char-name-string
+    {:doc "Returns name string for char or nil if none."},
     char? {},
     chdir {},
     chunk {},
@@ -205,7 +221,7 @@
     clojure-version {},
     coll-reduce {},
     coll? {:doc "Returns true if x is a collection."},
-    comment {},
+    comment {:macro true},
     commute {},
     comp {},
     comparator
@@ -218,10 +234,10 @@
     concat
     {:doc
      "Returns a lazy sequence of the concatenation of the given\n   collections."},
-    cond {},
-    cond-> {},
-    cond->> {},
-    condp {},
+    cond {:macro true},
+    cond-> {:macro true},
+    cond->> {:macro true},
+    condp {:macro true},
     conj {},
     conj! {},
     cons {},
@@ -243,17 +259,20 @@
     dedupe
     {:doc
      "Returns a lazy sequence removing consecutive duplicates. When\n   called with no collection, returns a transducer."},
-    definterface {},
-    defmethod {},
-    defmulti {},
-    defn {},
-    defn- {},
-    defonce {},
-    defprotocol {},
-    defrecord {},
+    default-data-readers
+    {:doc
+     "Default map of data reader functions keyed by tag symbol: 'inst\n     and 'uuid."},
+    definterface {:macro true},
+    defmethod {:macro true},
+    defmulti {:macro true},
+    defn {:macro true},
+    defn- {:macro true},
+    defonce {:macro true},
+    defprotocol {:macro true},
+    defrecord {:macro true},
     defrecord* {},
-    deftype {},
-    delay {},
+    deftype {:macro true},
+    delay {:macro true},
     delay? {:doc "Returns true if x is a delay."},
     deliver {},
     denominator {},
@@ -277,11 +296,11 @@
     distinct? {},
     doall {},
     dorun {},
-    doseq {},
-    dosync {},
+    doseq {:macro true},
+    dosync {:macro true},
     dosync* {},
-    dotimes {},
-    doto {},
+    dotimes {:macro true},
+    doto {:macro true},
     double {},
     double-array {},
     double?
@@ -332,8 +351,8 @@
     extend
     {:doc
      "Registers method implementations for one or more protocols on type\n   t without generating wrapper code: (extend T P {:m (fn [x] ...)}).\n   The fn-map keys are keywordized method names; values are the\n   implementation fns."},
-    extend-protocol {},
-    extend-type {},
+    extend-protocol {:macro true},
+    extend-type {:macro true},
     extenders
     {:doc
      "Returns a seq of the types explicitly extended to proto, or nil\n   when there are none."},
@@ -368,13 +387,13 @@
     fnil
     {:doc
      "Returns a function like f, but replaces nil arguments with the\n   given defaults."},
-    for {},
+    for {:macro true},
     force
     {:doc
      "Forces evaluation of a delay. If x is not a delay, returns x."},
     format {},
     frequencies {},
-    future {},
+    future {:macro true},
     future-call {},
     future-cancel {},
     future-cancelled? {},
@@ -383,7 +402,7 @@
     future? {},
     gc! {},
     gc-stats {},
-    gen-class {},
+    gen-class {:macro true},
     gensym {},
     get {},
     get-in
@@ -413,11 +432,11 @@
     ident? {:doc "Returns true if x is a symbol or keyword."},
     identical? {},
     identity {:doc "Returns its argument."},
-    if-let {},
-    if-not {},
-    if-some {},
+    if-let {:macro true},
+    if-not {:macro true},
+    if-some {:macro true},
     ifn? {:doc "Returns true if x can be called as a function."},
-    import {},
+    import {:macro true},
     in-ns {},
     in-transaction? {},
     inc {},
@@ -429,6 +448,7 @@
     inst-ms
     {:doc
      "Returns epoch millis (since 1970-01-01T00:00:00Z) for an inst\n   value as returned by clojure.instant/read-instant-date or the\n   `#inst \"...\"` reader literal. Throws on a non-inst argument."},
+    inst-ms* {},
     inst? {},
     instance?
     {:doc
@@ -451,7 +471,7 @@
     {:doc
      "Adds all items from from into to. With a transducer, transforms\n   items first."},
     into-array {:doc "Converts a collection to an Object array."},
-    io! {},
+    io! {:macro true},
     io!-check {},
     isa?
     {:doc "Returns true if child is equal to or derives from parent."},
@@ -477,12 +497,15 @@
     kv-reduce {},
     last {:doc "Returns the last item in coll."},
     last-error {},
-    lazy-cat {},
+    lazy-cat {:macro true},
     lazy-filter {},
     lazy-map-1 {},
     lazy-take {},
-    let-bits {},
-    letfn {},
+    let-bits {:macro true},
+    letfn {:macro true},
+    line-seq
+    {:doc
+     "Returns the lines of text from rdr as a lazy sequence of strings.\n   rdr is a string-cursor atom (the *in* model that read-line\n   consumes from): each realized element takes one line off the\n   cursor. Returns nil when the cursor is exhausted."},
     list {},
     list*
     {:doc
@@ -491,7 +514,7 @@
     load-file {},
     load-string {},
     loaded-libs {},
-    locking {},
+    locking {:macro true},
     long {},
     long-array {},
     macroexpand {},
@@ -618,7 +641,7 @@
     numerator {},
     object-array {},
     odd? {},
-    or {},
+    or {:macro true},
     parents
     {:doc "Returns the immediate parents of tag in the hierarchy."},
     parse-boolean
@@ -680,6 +703,9 @@
      "Replaces items in form that appear as keys in smap, walking\n   top-down."},
     print {},
     print-method {},
+    print-simple
+    {:doc
+     "Writes the plain text form of o (its str form, bypassing the\n   print-method dispatch) to w, a string-collecting atom like the one\n   *out* is bound to inside with-out-str. Returns nil."},
     print-str
     {:doc
      "Returns the print-string of args, space-separated, no trailing newline."},
@@ -693,12 +719,12 @@
      "Returns the readable-string of args followed by a newline."},
     promise {},
     protocol-dispatch {},
-    proxy {},
+    proxy {:macro true},
     push-thread-bindings
     {:doc
      "Push a fresh dynamic-binding frame whose entries come from the map.\n   Symbols-or-strings are accepted as keys. Must be paired with\n   pop-thread-bindings in a try/finally."},
     push-thread-bindings* {},
-    pvalues {},
+    pvalues {:macro true},
     qualified-ident?
     {:doc
      "Returns true if x is a namespace-qualified symbol or keyword."},
@@ -742,6 +768,9 @@
      "Returns a lazy sequence of all matches of pattern in string s. Each\n   match is a string when the pattern has no groups, or a vector\n   [whole g1 g2 ...] when it does."},
     read {},
     read* {},
+    read+string
+    {:doc
+     "Like read: consumes one form from the source and returns\n   [form text] where text is the exactly-consumed input, whitespace-\n   trimmed. The source may be a string or a string-cursor atom of the\n   kind *in* / with-in-str use (the cursor advances past the form)."},
     read-line {},
     read-string {},
     reader-conditional
@@ -777,7 +806,7 @@
     ref? {},
     refer {},
     regex? {},
-    reify {},
+    reify {:macro true},
     release-pending-sends {},
     rem {},
     remove
@@ -839,6 +868,9 @@
      "Builds a map from a sequence of keyword/value pairs, possibly with\n   a trailing override map. Used by JVM Clojure's 1.11+ map-destructure\n   over a varargs seq. Public so portable code can call it directly."},
     seq? {},
     seqable? {:doc "Returns true if (seq x) is supported."},
+    seque
+    {:doc
+     "Returns a seq with the same elements and order as s, where a\n   producer running on another thread stays up to n elements (default\n   128) ahead of the consumer. The producer realizes s in n-sized\n   batches, each batch filling while the consumer walks the previous\n   one. When host threads are not granted (mino-thread-limit <= 1),\n   falls back to (seq s) so callers don't need a conditional."},
     sequence
     {:doc
      "Coerces coll to a (possibly empty) sequence, if it is not already\n   one. Will not force a lazy seq. (sequence nil) yields ().\n\n   With a transducer xf, returns a lazy sequence of applying xf to\n   coll, or to the pair-wise step of multiple collections. Parallel\n   collections stop at the shortest."},
@@ -846,7 +878,7 @@
     {:doc
      "Returns true if x is a sequential collection (list, vector,\n   lazy-seq, or queue)."},
     set {},
-    set! {},
+    set! {:macro true},
     set-dyn-binding! {},
     set-error-handler! {},
     set-error-mode! {},
@@ -870,8 +902,8 @@
     {:doc "Returns true if x is a symbol with no namespace."},
     slurp {},
     some {},
-    some-> {},
-    some->> {},
+    some-> {:macro true},
+    some->> {:macro true},
     some-fn
     {:doc
      "Returns a function that returns the first truthy value from any\n   pred applied to any argument."},
@@ -906,6 +938,7 @@
     swap-vals! {},
     symbol {},
     symbol? {},
+    sync {:macro true},
     tagged-literal
     {:doc
      "Builds a tagged-literal record with tag and form fields. Predicate\n   tagged-literal? returns true on the result."},
@@ -925,14 +958,17 @@
     tap>
     {:doc
      "Sends x to every registered tap. Tap fns that throw are silently\n   skipped so a misbehaving subscriber does not poison the stream.\n   Returns true."},
+    test
+    {:doc
+     "Finds fn at key :test in v's metadata, calls it (presumably with\n   no side effects on the wider system), and reports :ok when it\n   returns, :no-test when no :test fn is present. An error thrown by\n   the :test fn flows out unwrapped."},
     the-ns {},
-    thread {},
+    thread {:macro true},
     thread-bound?
     {:doc
      "Returns true if all of the vars provided as arguments have\n   thread-local bindings active on the current dyn-stack."},
     thread-sleep {},
     throw {},
-    time {},
+    time {:macro true},
     time-ms {},
     to-array {},
     trampoline
@@ -971,6 +1007,12 @@
     underive
     {:doc
      "Removes a parent/child relationship between child and parent."},
+    unquote
+    {:doc
+     "Placeholder for the ~ reader form. Only meaningful inside\n   syntax-quote; calling it directly throws."},
+    unquote-splicing
+    {:doc
+     "Placeholder for the ~@ reader form. Only meaningful inside\n   syntax-quote; calling it directly throws."},
     unreduced
     {:doc "Unwraps a reduced value. If not reduced, returns x."},
     unsigned-bit-shift-right {},
@@ -1005,24 +1047,27 @@
     walk
     {:doc
      "Traverses form, applying inner to each element and outer to the\n   result."},
-    when {},
-    when-first {},
-    when-let {},
-    when-not {},
-    when-some {},
-    while {},
-    with-bindings {},
+    when {:macro true},
+    when-first {:macro true},
+    when-let {:macro true},
+    when-not {:macro true},
+    when-some {:macro true},
+    while {:macro true},
+    with-bindings {:macro true},
     with-bindings* {},
-    with-in-str {},
-    with-local-vars {},
+    with-in-str {:macro true},
+    with-local-vars {:macro true},
     with-meta {},
-    with-open {},
-    with-out-str {},
-    with-precision {},
-    with-redefs {},
+    with-open {:macro true},
+    with-out-str {:macro true},
+    with-precision {:macro true},
+    with-redefs {:macro true},
     with-redefs-fn
     {:doc
      "Temporarily rebinds the root values of vars to new-values while\n   thunk runs, restoring originals afterward. bindings-map is a map\n   of var -> new-value."},
+    xml-seq
+    {:doc
+     "A tree seq on the xml elements as per xml/parse: nodes are maps\n   with :tag and :content keys, leaves are strings."},
     zero? {},
     zipmap {},
     Boolean/parseBoolean {},
@@ -1079,17 +1124,34 @@
     Datafiable--datafy {},
     IKVReduce {},
     IKVReduce--kv-reduce {},
+    InternalReduce {},
+    InternalReduce--internal-reduce {},
     Navigable {},
     Navigable--nav {},
     coll-reduce {},
     datafy {},
+    internal-reduce {},
     kv-reduce {},
     nav {}}},
   clojure.core.reducers
   {:vars
-   {cat
+   {->Cat
     {:doc
-     "A reducer that concatenates the output of x-coll and y-coll. Calls\n  reduce on x-coll first then y-coll. Returns a fn so it composes the\n  standard reducer protocol."},
+     "Positional constructor for a catenation value: a count and the left\n  and right halves. mino realizes the halves eagerly, so the resulting\n  count always comes from the data itself; cnt is accepted for\n  signature parity with the canonical constructor."},
+    ->Folder {},
+    ->Reducer {},
+    Cat {},
+    CollFold {},
+    CollFold--coll-fold {},
+    Folder {},
+    Reducer {},
+    append!
+    {:doc
+     "Accumulates x onto acc and returns the updated accumulator. Named\n  with a bang for contract parity: the canonical accumulator mutates\n  in place, while mino's is a persistent vector and a fresh value\n  comes back — fold threads the return value either way."},
+    cat
+    {:doc
+     "Combining fn yielding the catenation of its two reduced arguments.\n  With no arguments, returns the empty accumulator (a vector). With\n  one argument ctor, returns a combining fn whose zero arity calls\n  ctor instead. With two, a side whose count is zero answers the other\n  side unchanged; otherwise the halves become a Cat value — counted,\n  seqable, reducible, and foldable. See also foldcat."},
+    coll-fold {},
     drop {:doc "Reducer that drops the first n elements."},
     drop-while
     {:doc "Reducer that drops elements while pred is truthy."},
@@ -1099,11 +1161,16 @@
     {:doc "Reducer that flattens one level of nested collections."},
     fold
     {:doc
-     "Reduces coll using reducef. The 3-arity form takes a partition\n  size n (default 512) and a combinef. When the host has granted\n  thread budget (mino-thread-limit > 1) AND coll is a vector larger\n  than n, fold partitions coll into chunks of size n, runs reducef\n  in parallel over each chunk via futures, and combines the partial\n  results with combinef. Smaller vectors and non-vector collections\n  reduce sequentially through (clojure.core/reduce reducef\n  (combinef) coll).\n\n  - (fold reducef coll) -- combinef defaults to reducef (so the\n    no-arg branch must return the reducer's identity).\n  - (fold combinef reducef coll) -- partition size defaults to 512.\n  - (fold n combinef reducef coll) -- explicit partition size.\n\n  Pure semantics: reducef and combinef must be associative; combinef\n  with no args must return the identity element. Without those,\n  parallel and sequential results may differ."},
+     "Reduces coll through a seed-and-combine contract: reducef\n  accumulates over the elements starting from (combinef), and combinef\n  (default reducef) must be associative with (combinef) producing its\n  identity element. n is the canonical group-size hint (default 512).\n  mino executes the whole fold as one sequential pass, which yields\n  the same result a grouped execution of associative fns would."},
     foldcat
     {:doc
-     "Equivalent to (fold cat append! coll), but reducer-shaped: returns a\n  vector of all elements in coll."},
+     "Pours coll into a counted, seqable, reducible accumulation of its\n  elements: (fold cat append! coll)."},
+    folder
+    {:doc
+     "Wraps a foldable coll so any reducing fn supplied to reduce or fold\n  is first transformed by xf — a fn from reducing fn to reducing fn.\n  Unlike reducer, the wrapper participates in fold: coll-fold hands\n  (xf reducef) down to the wrapped collection's own strategy."},
     map {:doc "Reducer that applies f to each element."},
+    map->Folder {},
+    map->Reducer {},
     mapcat
     {:doc
      "Reducer that maps f over coll and concatenates the results."},
@@ -1112,13 +1179,26 @@
      "Helper for fold: return f if init is provided, else a fn that calls\n  ctor for an init value."},
     reduce
     {:doc
-     "Like clojure.core/reduce except sequential by definition (mino has\n  no fork/join). Identical contract: with an init, calls (f init x0),\n  (f acc x1), ...; without an init, uses (f x0) for arity-0 of f."},
+     "Like clojure.core/reduce, with two reducer-layer differences: the\n  no-init arity seeds the reduction from (f) rather than the first\n  element, and maps reduce through reduce-kv so f receives the\n  accumulator, key, and value."},
+    reducer
+    {:doc
+     "Wraps a reducible coll so any reducing fn supplied to reduce is\n  first transformed by xf — a fn from reducing fn to reducing fn. The\n  wrapper is reducible only; folding it falls back to the sequential\n  reduce strategy."},
     remove
     {:doc "Reducer that drops elements for which pred is truthy."},
     take {:doc "Reducer that yields at most n elements."},
     take-while
     {:doc "Reducer that yields elements while pred is truthy."}}},
-  clojure.data {:vars {diff {}}},
+  clojure.data
+  {:vars
+   {Diff {},
+    Diff--diff-similar {},
+    EqualityPartition {},
+    EqualityPartition--equality-partition {},
+    diff
+    {:doc
+     "Recursively compares a and b, returning the triple\n  [only-in-a only-in-b in-both]. Equal values yield [nil nil a].\n  Maps recurse into values under shared keys; sequential things\n  diff position by position and report vectors; sets split into\n  difference/difference/intersection without recursing. Anything\n  else, strings included, compares whole as an atom."},
+    diff-similar {},
+    equality-partition {}}},
   clojure.datafy {:vars {datafy {}, nav {}}},
   clojure.edn {:vars {read {}, read-string {}}},
   clojure.instant
@@ -1147,7 +1227,8 @@
     {:doc
      "Returns the arc-cosine of n (-1 <= n <= 1); result in [0, PI]."},
     add-exact
-    {:doc "Returns the sum of x and y; throws on long overflow."},
+    {:doc
+     "Returns the sum of x and y. Note: unlike Clojure on the JVM, does\n   not throw on long overflow -- promotes to bignum instead."},
     asin
     {:doc
      "Returns the arc-sine of n (-1 <= n <= 1); result in [-PI/2, PI/2]."},
@@ -1166,7 +1247,8 @@
     cos {:doc "Returns the cosine of n (in radians)."},
     cosh {:doc "Returns the hyperbolic cosine of n."},
     decrement-exact
-    {:doc "Returns x decremented by 1; throws on long overflow."},
+    {:doc
+     "Returns x decremented by 1. Note: unlike Clojure on the JVM, does\n   not throw on long overflow -- promotes to bignum instead."},
     exp {:doc "Returns e^n."},
     expm1 {:doc "Returns exp(n) - 1, accurate for small n."},
     floor
@@ -1184,14 +1266,17 @@
     hypot
     {:doc "Returns sqrt(a^2 + b^2) avoiding intermediate overflow."},
     increment-exact
-    {:doc "Returns x incremented by 1; throws on long overflow."},
+    {:doc
+     "Returns x incremented by 1. Note: unlike Clojure on the JVM, does\n   not throw on long overflow -- promotes to bignum instead."},
     log {:doc "Returns the natural logarithm (base e) of n."},
     log10 {:doc "Returns the base-10 logarithm of n."},
     log1p {:doc "Returns ln(1 + n), accurate for small n."},
     multiply-exact
-    {:doc "Returns the product of x and y; throws on long overflow."},
+    {:doc
+     "Returns the product of x and y. Note: unlike Clojure on the JVM,\n   does not throw on long overflow -- promotes to bignum instead."},
     negate-exact
-    {:doc "Returns the negation of x; throws on long overflow."},
+    {:doc
+     "Returns the negation of x. Note: unlike Clojure on the JVM, does\n   not throw on long overflow -- promotes to bignum instead."},
     next-after
     {:doc
      "Returns the double adjacent to start in the direction\n   of direction."},
@@ -1200,6 +1285,9 @@
     next-up
     {:doc "Returns the next representable double greater than n."},
     pow {:doc "Returns base raised to the power of exp."},
+    random
+    {:doc
+     "Returns a positive double between 0.0 (inclusive) and 1.0 (exclusive),\n   chosen pseudorandomly with approximately uniform distribution."},
     rint
     {:doc
      "Returns the double closest to n and equal to a mathematical\n   integer, rounding ties to the even integer."},
@@ -1217,14 +1305,91 @@
     sqrt {:doc "Returns the square root of n."},
     subtract-exact
     {:doc
-     "Returns the difference of x and y; throws on long overflow."},
+     "Returns the difference of x and y. Note: unlike Clojure on the JVM,\n   does not throw on long overflow -- promotes to bignum instead."},
     tan {:doc "Returns the tangent of n (in radians)."},
     tanh {:doc "Returns the hyperbolic tangent of n."},
     to-degrees {:doc "Converts the angle a (in radians) to degrees."},
     to-radians {:doc "Converts the angle a (in degrees) to radians."},
     ulp
     {:doc "Returns the size of an ulp (unit in last place) of n."}}},
-  clojure.pprint {:vars {cl-format {}, pprint {}, print-table {}}},
+  clojure.pprint
+  {:vars
+   {*pp-state* {:dynamic true},
+    *print-base*
+    {:doc "The base to use for printing integers.", :dynamic true},
+    *print-miser-width*
+    {:doc
+     "The column at which to enter miser style, adding newlines in more\n  places to keep lines short.",
+     :dynamic true},
+    *print-pprint-dispatch* {:dynamic true},
+    *print-pretty*
+    {:doc "Bind to true if you want write to use pretty printing.",
+     :dynamic true},
+    *print-radix*
+    {:doc
+     "Print a radix specifier in front of integers. If *print-base* is 2, 8\n  or 16, the specifier is #b, #o or #x; otherwise it is #XXr where XX is\n  the decimal value of *print-base*.",
+     :dynamic true},
+    *print-right-margin*
+    {:doc
+     "Pretty printing will try to avoid anything going beyond this column.\n  Set it to nil to let lines be arbitrarily long.",
+     :dynamic true},
+    *print-suppress-namespaces*
+    {:doc
+     "Don't print namespaces with symbols. Useful when pretty printing the\n  results of macro expansions.",
+     :dynamic true},
+    cl-format
+    {:doc
+     "An implementation of a Common-Lisp-compatible format function.\n  cl-format formats its arguments to an output destination or string based\n  on the format control string given.\n\n  writer is true to output to *out*, nil to return the formatted string, or\n  a writer to write to it. format-in is the format control string (or a\n  compiled formatter); the remaining arguments are the data to format.\n\n  If writer is nil, cl-format returns the formatted result string;\n  otherwise it returns nil."},
+    code-dispatch
+    {:doc
+     "A pretty-print dispatch function for Clojure code. Select it with\n  with-pprint-dispatch or set-pprint-dispatch; it registers nothing\n  globally. Lists are laid out as code (recognized special forms indent\n  their body under the head, let-style bindings stay paired); everything\n  else falls back to the simple-dispatch layout."},
+    formatter
+    {:doc
+     "Makes a function which can directly run format-in. The returned function\n  takes a writer (true, nil or a writer) followed by the format arguments,\n  and returns nil or the formatted string the same way cl-format does."},
+    formatter-out
+    {:doc
+     "Makes a function which can directly run format-in, writing to *out*. The\n  returned function takes the format arguments and always writes to *out*,\n  returning nil. Designed for use inside dispatch functions."},
+    fresh-line
+    {:doc
+     "Emit a newline only when output is not already at the start of a line.\n  Inside the engine the column is known exactly; otherwise, when *out* is\n  a string-collecting atom, inspect the buffer; failing that, emit a\n  newline."},
+    get-pretty-writer
+    {:doc
+     "Returns a pretty-printing writer wrapping base-writer, or a default\n  output sink when base-writer is nil. The result is usable as *out* for\n  write-out."},
+    pp {:macro true},
+    pp-write-str
+    {:doc
+     "Write a raw string through the pretty-printing engine, advancing the\n  column. Public so macros expanded in other namespaces (print-length-loop)\n  can reach it."},
+    pprint
+    {:doc
+     "Pretty print object to the optional writer, defaulting to *out*.\n  Always finishes the output with a newline."},
+    pprint-indent
+    {:doc
+     "Set the indentation for following lines of the current logical block.\n  relative-to is :block (offset from the block start) or :current (offset\n  from the current column); n is the offset."},
+    pprint-logical-block {:macro true},
+    pprint-logical-block*
+    {:doc
+     "Functional core of pprint-logical-block. prefix / per-line / suffix may\n  be nil; body-thunk is a zero-argument function performing the block's\n  writes. Decides break vs inline by measuring the body, then renders it\n  for real."},
+    pprint-newline
+    {:doc
+     "Print a conditional newline to the pretty-printing engine. kind is\n  :linear, :miser, :fill or :mandatory. Output goes to *out*, which must\n  be a pretty-printing engine (true within pprint or a dispatch fn)."},
+    pprint-tab
+    {:doc "Tab in the pretty-printing engine. Not yet implemented."},
+    print-length-loop {:macro true},
+    print-table
+    {:doc
+     "Prints a collection of maps as a textual table. Prints the heading row\n  ks, a separator row, and one row per map, each cell drawn from the\n  corresponding key. ks selects and orders the columns; it defaults to\n  the keys of the first row. Columns are padded to the widest cell and\n  delimited with pipes."},
+    set-pprint-dispatch
+    {:doc "Set the global pretty-print dispatch function."},
+    simple-dispatch
+    {:doc
+     "The default pretty-print dispatch function for plain data."},
+    with-pprint-dispatch {:macro true},
+    write
+    {:doc
+     "Write object subject to the current printer control variables. Keyword\n  options override individual variables for this call:\n\n    :stream         writer for output, or nil to return a string\n    :pretty         if true, pretty print\n    :base           base for printing integers\n    :radix          if true, prepend a radix specifier\n    :right-margin   the right-margin column\n    :miser-width    the column to enter miser style\n    :length         maximum elements to show\n    :suppress-namespaces  if true, no namespaces on symbols\n\n  Returns the string result when :stream is nil, otherwise nil."},
+    write-out
+    {:doc
+     "Write an object to *out* subject to the current printer control\n  variables. Intended for use inside pretty-print dispatch functions,\n  which run with the engine already established. Aggregates are handed to\n  the dispatch function (so nested structures honor custom dispatch);\n  atoms are printed directly, so a dispatch function written for a\n  specific aggregate shape need not handle every leaf type."}}},
   clojure.set
   {:vars
    {difference {},
@@ -1241,29 +1406,62 @@
     union {}}},
   clojure.spec.alpha
   {:vars
-   {& {},
-    * {},
-    + {},
-    ? {},
+   {& {:macro true},
+    * {:macro true},
+    *coll-check-limit*
+    {:doc
+     "The number of elements validated in a collection spec'ed with\n  every / every-kv.",
+     :dynamic true},
+    *coll-error-limit*
+    {:doc
+     "The number of errors reported by explain in a collection spec'ed\n  with every / every-kv.",
+     :dynamic true},
+    *compile-asserts*
+    {:doc
+     "When true, s/assert is checked at runtime; when false it returns its\n  value unevaluated.  Defaults to true.",
+     :dynamic true},
+    *explain-out*
+    {:doc
+     "The printer explain-out uses to render explain-data.  Defaults to\n  explain-printer; rebind it to redirect explain output.",
+     :dynamic true},
+    *fspec-iterations*
+    {:doc
+     "The number of times an anonymous fn specified by fspec is\n  generatively sampled during conform.",
+     :dynamic true},
+    *recursion-limit*
+    {:doc
+     "A soft limit on how many times a branching spec (or / alt / * /\n  opt-keys / multi-spec) can be recursed through during generation.\n  After this a non-recursive branch is chosen.",
+     :dynamic true},
+    + {:macro true},
+    ? {:macro true},
+    Spec
+    {:doc
+     "Descriptor for the Spec protocol.  Spec values are ::kind-tagged\n  maps; the protocol's methods are the namespace fns listed under\n  ::methods, dispatching on that tag."},
+    Specize
+    {:doc
+     "Descriptor for the Specize protocol.  Coercion to a spec value is\n  the namespace fn specize*."},
     abbrev
     {:doc
      "Return an abbreviated description of a spec form. Strips namespace\n  qualifiers from symbols and shortens (fn [%] body) to body."},
-    alt {},
+    alt {:macro true},
     alt-impl {},
     amp-impl
     {:doc
-     "Build an ::amp regex spec: re-spec is consumed normally; preds are\n  applied to the conformed sequence. All preds must return truthy or\n  the consume yields ::invalid."},
-    and {},
+     "Build an ::amp regex spec: re-spec is consumed normally; the\n  conformed sequence is then threaded through each pred as a spec\n  (see the ::amp branch of re-consume).  Any ::invalid step yields\n  ::invalid for the whole consume."},
+    and {:macro true},
     and-spec-impl {},
-    assert {},
-    cat {},
+    assert {:macro true},
+    assert*
+    {:doc
+     "Runtime worker behind the assert macro.  Returns x when it conforms\n  to spec, else throws an ex-info carrying explain-data plus\n  ::failure :assertion-failed.  Callers normally use the assert macro."},
+    cat {:macro true},
     cat-impl {},
     check-asserts
     {:doc
-     "Toggle s/assert checking.  No-op stub; mino asserts always evaluate."},
+     "Enable or disable runtime s/assert checking.  Returns the flag."},
     check-asserts?
-    {:doc "Whether s/assert is enabled.  Always true on mino."},
-    coll-of {},
+    {:doc "Return the current runtime s/assert checking flag."},
+    coll-of {:macro true},
     coll-of-impl {},
     conform
     {:doc
@@ -1274,58 +1472,137 @@
     conformer
     {:doc
      "Return a spec that uses cfn as the conform path. cfn takes a value\n  and returns the conformed value or :clojure.spec.alpha/invalid.\n  Optionally takes an unform fn; if omitted, unform is identity."},
-    def {},
+    def {:macro true},
     def-impl
     {:doc
      "Register the spec under k.  k must be a namespaced keyword or symbol."},
     describe
     {:doc "Return an abbreviated description of the spec as data."},
-    every-impl {},
+    describe*
+    {:doc
+     "Protocol-shaped describe: return the raw (unabbreviated) form of a\n  spec.  Public callers usually want describe."},
+    double-in
+    {:doc
+     "Return a spec for a 64-bit floating point number.  Options:\n    :infinite? - whether +/- infinity is allowed (default false)\n    :NaN?      - whether NaN is allowed (default false)\n    :min       - inclusive minimum (default none)\n    :max       - inclusive maximum (default none)\n\n  Divergence: the canonical library defaults :infinite? and :NaN? to\n  true; mino defaults both to false so a plain double-in rejects the\n  non-finite values unless they are explicitly opted in -- the safer\n  default for a range spec."},
+    every {:macro true},
+    every-impl
+    {:doc
+     "Build an ::every spec value.  Recognized opts: :kind, :count,\n  :min-count, :max-count, :distinct, :into, plus ::conform-all\n  (conform each element instead of sampling) and ::kv (elements are\n  [k v] entries; explain reports the key, not the index)."},
+    every-kv {:macro true},
     exercise
     {:doc
      "Generate `n` (default 10) sample/conformed pairs for `spec`."},
-    explain {:doc "Print explain-str to *out*."},
+    exercise-fn
+    {:doc
+     "Exercise the fn named by sym by applying it to n (default 10)\n  generated samples of its registered fdef :args spec.  Returns a\n  sequence of [args ret] tuples.  The three-arity form takes an\n  explicit fspec (or fn): sym-or-f may then be a fn directly."},
+    explain
+    {:doc
+     "Print an explanation of why x fails spec to *out* via *explain-out*."},
     explain*
     {:doc
      "Internal dispatch for explain-data.  Public callers use\n  explain-data / explain / explain-str. When the spec is registered\n  (carries ::name), prepend that name to via so problems list the\n  surrounding spec path the way Clojure's spec.alpha does."},
     explain-data
     {:doc
      "Return a problem map describing why x fails spec, or nil if it\n  passes.  Shape: {::problems [{:path ... :pred ... :val ... :via ...\n  :in ...}] ::spec ... ::value ...}."},
+    explain-data*
+    {:doc
+     "Lower-level explain entry point: run explain* with the given path,\n  via and in seeds and wrap the resulting problems in the canonical\n  {::problems ::spec ::value} map, or return nil when x conforms.\n  Public callers usually want explain-data."},
+    explain-out
+    {:doc
+     "Print explanation data (per explain-data) to *out* using the printer\n  in *explain-out*, by default explain-printer."},
+    explain-printer
+    {:doc
+     "Default printer for explain-data: write a human-readable description\n  of each problem to *out*.  nil indicates a successful validation and\n  prints \"Success!\".  Problems are ordered longest-path first, the\n  way Clojure's explain-printer sorts them, so the deepest failure\n  reads first."},
     explain-str
     {:doc
      "Return a string describing why x fails spec, or \"Success!\\n\" if\n  it passes. Format follows clojure.spec.alpha: each problem on its\n  own line terminated with \\n."},
-    fdef {},
+    fdef {:macro true},
     fdef-impl {},
     form
     {:doc
      "Return the form of the spec, or :clojure.spec.alpha/unknown if x is\n  not a registered spec."},
+    fspec {:macro true},
+    fspec-impl
+    {:doc
+     "Build an fspec value from the :args / :ret / :fn specs and their\n  forms.  conform validates a fn by generatively sampling :args (up to\n  *fspec-iterations*) and checking :ret (and :fn); the conformed value\n  is the fn itself.  Callers normally use the fspec macro or fdef."},
     gen
     {:doc
-     "Build a clojure.test.check generator for `spec`. `overrides` is a\n  map from spec-key keywords (or predicate symbols) to alternative\n  generators."},
+     "Build a clojure.test.check generator for `spec`. `overrides` is a\n  map from spec-key keywords (or predicate symbols) to alternative\n  generators. A generator attached with with-gen wins over the one\n  derived from the spec's form."},
+    gen*
+    {:doc
+     "Protocol-shaped generator hook: return the generator for spec,\n  honoring an attached with-gen generator. path and rmap are accepted\n  for the canonical signature; recursion limiting arrives with the\n  dynamic-var wave."},
     get-spec {:doc "Return the spec registered under k, or nil."},
+    inst-in
+    {:doc
+     "Return a spec validating insts in the range from start (inclusive)\n  to end (exclusive)."},
+    inst-in-range?
+    {:doc
+     "Return true when inst is at or after start and strictly before end."},
     instrument
     {:doc
      "Wrap the var named by sym so its args are validated against the\n  registered fdef on every call.  Returns sym if instrumented, nil\n  if no fdef is registered."},
+    int-in
+    {:doc
+     "Return a spec validating fixed-precision integers in the range from\n  start (inclusive) to end (exclusive)."},
+    int-in-range?
+    {:doc
+     "Return true when val is a fixed-precision integer with\n  start <= val < end."},
     invalid {},
     invalid? {},
-    keys {},
+    keys {:macro true},
+    keys* {:macro true},
+    keys*-impl
+    {:doc
+     "Build the keys* regex op around mspec, a keys spec built from the\n  same arguments.  Callers normally use the keys* macro."},
     keys-impl {},
-    map-of {},
+    map-of {:macro true},
     map-of-impl {},
-    nilable {},
+    map-spec-impl
+    {:doc
+     "Build a map spec from the canonical argument map.  See the comment\n  above; callers normally use the keys macro."},
+    maybe-impl
+    {:doc
+     "Build a ? regex spec: zero or one occurrence of pred.  Callers\n  normally use the ? macro.  Note the canonical argument order: pred\n  first, form second."},
+    merge {:macro true},
+    merge-spec-impl
+    {:doc
+     "Build a merge spec from branch forms and branch specs.  Callers\n  normally use the merge macro."},
+    multi-spec {:macro true},
+    multi-spec-impl
+    {:doc
+     "Build a multi-spec value.  form names the multimethod, mmvar is the\n  var holding it, retag is the tag key.  Callers normally use the\n  multi-spec macro."},
+    nilable {:macro true},
     nilable-impl {},
-    or {},
+    nonconforming
+    {:doc
+     "Return a spec with the same properties as spec, except conform\n  returns the original (not the conformed) value."},
+    or {:macro true},
     or-spec-impl {},
     re-consume
     {:doc
      "Greedy consume from xs against a regex spec.  Returns\n  [conformed-result remaining-xs] or [::invalid xs]."},
+    regex-spec-impl
+    {:doc
+     "Wrap a regex op as a non-regex spec: the result conforms an element\n  value as a whole sequence rather than splicing into the surrounding\n  regex context.  gfn, when given, attaches a generator fn."},
+    regex?
+    {:doc
+     "Return x when x is a spec regex op (cat / * / + / ? / alt / &),\n  else nil.  Specs that merely wrap a regex (see spec / regex-spec-impl)\n  are spec objects, not regex ops."},
     registry {},
+    rep+impl
+    {:doc
+     "Build a + regex spec: one or more occurrences of pred.  Callers\n  normally use the + macro."},
     rep-impl {},
-    spec {},
+    spec {:macro true},
     spec-impl
     {:doc
-     "Build a spec value from a form and predicate.  When pred resolves to\n  a regex spec (cat / * / + / ? / alt / a registered regex), the result\n  wraps the regex so it conforms an element value as a whole sequence\n  rather than splicing into the surrounding regex context."},
-    tuple {},
+     "Build a spec value from a form and predicate.  When pred resolves to\n  a regex spec (cat / * / + / ? / alt / a registered regex), the result\n  wraps the regex (see regex-spec-impl)."},
+    spec?
+    {:doc
+     "Return x when x is a spec object, else nil.  Regex ops are not\n  spec objects (see regex?)."},
+    specize*
+    {:doc
+     "Coerce x to a spec value: spec maps pass through, registered\n  keywords resolve, anything callable as a predicate is promoted to a\n  pred spec.  The binary arity uses form as the promoted description."},
+    tuple {:macro true},
     tuple-impl {},
     unform
     {:doc
@@ -1337,7 +1614,10 @@
     valid? {:doc "Return true iff x conforms to spec."},
     with-gen
     {:doc
-     "Return a copy of spec that uses gen-fn as its generator. spec may\n  be a registered keyword, a spec map, or any predicate-shaped value\n  acceptable to as-spec."}}},
+     "Return a copy of spec that uses gen-fn as its generator. spec may\n  be a registered keyword, a spec map, or any predicate-shaped value\n  acceptable to as-spec."},
+    with-gen*
+    {:doc
+     "Protocol-shaped with-gen: return a copy of the spec value carrying\n  gen-fn as its generator."}}},
   clojure.string
   {:vars
    {blank? {},
@@ -1376,43 +1656,120 @@
    {apply-template
     {:doc
      "Replaces argv symbols in expr with the corresponding values.\n\n   argv is a binding vector of symbols (no destructuring). expr is\n   the template form. values is a sequence whose elements are\n   substituted positionally.\n\n   (apply-template '[x] '(+ x x) '[2])    ; => (+ 2 2)\n   (apply-template '[a b] '(- a b) '[5 3]) ; => (- 5 3)"},
-    do-template {}}},
+    do-template {:macro true}}},
   clojure.test
   {:vars
    {*current-test* {:dynamic true},
+    *initial-report-counters* {:dynamic true},
+    *load-tests* {:dynamic true},
     *report-counters* {:dynamic true},
+    *stack-trace-depth* {:dynamic true},
+    *test-out* {:dynamic true},
     *testing-contexts* {:dynamic true},
-    are {},
+    *testing-vars* {:dynamic true},
+    are {:macro true},
+    assert-any
+    {:doc
+     "Returns generic assertion code for any test, including macros and\n  isolated symbols."},
     assert-error! {},
+    assert-expr {},
     assert-fail! {},
     assert-pass! {},
-    deftest {},
-    exception-message-for-match {},
-    fixtures-registry {},
-    is {},
-    is-eq {},
-    is-thrown {},
-    is-thrown-with-msg {},
-    is-truthy {},
-    run-tests
+    assert-predicate
     {:doc
-     "Run registered tests and return a summary map\n  {:test n :pass n :fail n :error n :failures [...]}.\n\n  With no arguments, runs every registered test. Given namespace symbols\n  (or namespace objects), runs only tests registered in those namespaces.\n\n  Prints a summary line and any failure details to stdout."},
+     "Returns generic assertion code for any functional predicate.\n  The :expected key will contain the original form; :actual will\n  contain the evaluated form.  On failure :actual is wrapped in\n  (not ...)."},
+    compose-fixtures
+    {:doc
+     "Composes two fixture functions into a single fixture function that\n  calls f1 as the outer fixture and f2 as the inner fixture."},
+    deftest {:macro true},
+    deftest- {:macro true},
+    do-report
+    {:doc
+     "Add file and line information to a test result map and call report.\n  When writing a custom assert-expr method, call this to pass results\n  to report."},
+    exception-message-for-match {},
+    file-position
+    {:doc
+     "Returns a vector [filename line-number] for the nth call up the stack.\n  Deprecated in Clojure 1.2; present for compatibility."},
+    fixtures-registry {},
+    function?
+    {:doc
+     "Returns true if argument is a function or a symbol that resolves to\n  a function (not a macro)."},
+    get-possibly-unbound-var
+    {:doc "Like var-get but returns nil when the var is unbound."},
+    inc-report-counter
+    {:doc
+     "Increments the named counter in *report-counters* (an atom).\n  Does nothing when *report-counters* is nil."},
+    is {:macro true},
+    join-fixtures
+    {:doc
+     "Composes a collection of fixtures in order, returning a single\n  fixture function.  Always returns a valid fixture function, even for\n  an empty collection."},
+    report {:dynamic true},
+    run-all-registered-tests
+    {:doc
+     "Runs every test in the registry, regardless of namespace, and returns\n  a summary map.  Used by the suite driver (tests/run.clj) and by\n  run-tests-and-exit."},
+    run-all-tests
+    {:doc
+     "Runs all tests in every namespace whose name matches the optional\n  regex re.  With no argument, runs all tests in all namespaces.\n  Returns a summary map."},
+    run-namespace-tests
+    {:doc
+     "Runs the registered tests for the given namespace names (strings) and\n  returns a summary map.  An empty collection runs nothing."},
+    run-test {:macro true},
+    run-test-var
+    {:doc
+     "Runs the tests for a single var with a fresh counter, and returns a\n  summary map with :type :summary."},
+    run-tests {:macro true},
     run-tests-and-exit
     {:doc
-     "CLI wrapper around run-tests: runs the tests and exits the process\n  with code 0 when there are no failures or errors, 1 otherwise. Used\n  by tests/run.clj and other CLI driver files. A no-op while\n  suite-mode is true so that per-file (run-tests-and-exit) calls do\n  not short-circuit a multi-file driver."},
+     "Runs the whole registry and exits the process with code 0 on no\n  failures or errors, 1 otherwise.  A no-op while suite-mode is true.\n  Used as the bottom-of-file entry point in test files and by the suite\n  driver; it always runs every registered test, independent of the\n  namespace-scoped run-tests."},
+    set-test {:macro true},
+    successful?
+    {:doc
+     "Returns true when the given test summary has no failures or errors."},
     suite-mode {},
-    testing {},
+    test-all-vars
+    {:doc "Calls test-vars on every var interned in the namespace."},
+    test-ns
+    {:doc
+     "Runs tests in the given namespace (symbol or ns object).  Binds\n  *report-counters* to a fresh atom, calls test-all-vars, and returns\n  the final counter map."},
+    test-var
+    {:doc
+     "If v has a function in its :test metadata, calls that function with\n  *testing-vars* bound to (conj *testing-vars* v).  Increments the\n  :test counter in *report-counters*."},
+    test-vars
+    {:doc
+     "Runs test-var on each var in vars that has :test metadata."},
+    testing {:macro true},
+    testing-contexts-str
+    {:doc
+     "Returns a string representation of the current test context.  Joins\n  strings in *testing-contexts* with spaces."},
+    testing-vars-str
+    {:doc
+     "Returns a string representation of the current test.  Renders names\n  in *testing-vars* as a list, then the source file and line of the\n  current assertion."},
     tests-registry {},
-    use-fixtures {}}},
+    try-expr {:macro true},
+    use-fixtures {:macro true},
+    with-test {:macro true},
+    with-test-out {:macro true}}},
   clojure.walk
   {:vars
-   {keywordize-keys {},
-    macroexpand-all {},
+   {keywordize-keys
+    {:doc
+     "Recursively transforms all map keys from strings to keywords."},
+    macroexpand-all
+    {:doc
+     "Recursively performs all possible macroexpansions in form."},
     postwalk {},
+    postwalk-demo
+    {:doc
+     "Demonstrates the behavior of postwalk by printing each form as it is\n  walked. Returns form."},
     postwalk-replace {},
     prewalk {},
+    prewalk-demo
+    {:doc
+     "Demonstrates the behavior of prewalk by printing each form as it is\n  walked. Returns form."},
     prewalk-replace {},
-    stringify-keys {},
+    stringify-keys
+    {:doc
+     "Recursively transforms all map keys from keywords to strings."},
     walk {}}},
   clojure.zip
   {:vars
@@ -1466,4 +1823,4 @@
    throw
    def},
  :spec-keys #{},
- :captured-at "2026-06-12T06:33:30Z"}
+ :captured-at "2026-06-13T06:27:59Z"}

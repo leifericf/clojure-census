@@ -2,7 +2,7 @@
  {:dialect-tag "mino",
   :dialect-name "mino",
   :clojure-version "1.12.4",
-  :compared-at "2026-06-12T06:34:08Z"},
+  :compared-at "2026-06-13T06:28:39Z"},
  :divergences
  [{:dialect-example "(compare \"z\" \"a\") ;=> 1",
    :since "v0.1.0",
@@ -237,83 +237,35 @@
  :schema-version 2,
  :coverage
  {:headline
-  {:in-both-count 769,
+  {:in-both-count 893,
    :clojure-total 995,
-   :percent 0.7728643216080402},
+   :percent 0.8974874371859296},
   :per-namespace
   {clojure.spec.alpha
-   {:in-both-count 49, :clojure-total 87, :percent 0.5632183908045977},
+   {:in-both-count 87, :clojure-total 87, :percent 1.0},
    clojure.datafy {:in-both-count 2, :clojure-total 2, :percent 1.0},
    clojure.zip {:in-both-count 28, :clojure-total 28, :percent 1.0},
    clojure.core.reducers
-   {:in-both-count 13, :clojure-total 21, :percent 0.6190476190476191},
-   clojure.test
-   {:in-both-count 8, :clojure-total 39, :percent 0.20512820512820512},
+   {:in-both-count 19, :clojure-total 21, :percent 0.9047619047619048},
+   clojure.test {:in-both-count 39, :clojure-total 39, :percent 1.0},
    clojure.core.protocols
-   {:in-both-count 8, :clojure-total 11, :percent 0.7272727272727273},
+   {:in-both-count 10, :clojure-total 11, :percent 0.9090909090909091},
    clojure.core
-   {:in-both-count 565,
+   {:in-both-count 582,
     :clojure-total 679,
-    :percent 0.8321060382916053},
+    :percent 0.8571428571428571},
    clojure.set {:in-both-count 12, :clojure-total 12, :percent 1.0},
-   clojure.pprint
-   {:in-both-count 3, :clojure-total 26, :percent 0.11538461538461539},
-   clojure.math
-   {:in-both-count 44, :clojure-total 45, :percent 0.9777777777777777},
+   clojure.pprint {:in-both-count 26, :clojure-total 26, :percent 1.0},
+   clojure.math {:in-both-count 45, :clojure-total 45, :percent 1.0},
    clojure.edn {:in-both-count 2, :clojure-total 2, :percent 1.0},
    clojure.instant {:in-both-count 3, :clojure-total 5, :percent 0.6},
    clojure.string {:in-both-count 21, :clojure-total 21, :percent 1.0},
-   clojure.data {:in-both-count 1, :clojure-total 5, :percent 0.2},
-   clojure.walk {:in-both-count 8, :clojure-total 10, :percent 0.8},
+   clojure.data {:in-both-count 5, :clojure-total 5, :percent 1.0},
+   clojure.walk {:in-both-count 10, :clojure-total 10, :percent 1.0},
    clojure.template
    {:in-both-count 2, :clojure-total 2, :percent 1.0}}},
  :history
- [{:date "2026-05-30",
-   :dialect-tag "mino",
-   :clojure-version "1.11.0",
-   :headline
-   {:in-both-count 751,
-    :clojure-total 995,
-    :percent 0.7547738693467336},
-   :per-namespace
-   {clojure.spec.alpha
-    {:in-both-count 49,
-     :clojure-total 87,
-     :percent 0.5632183908045977},
-    clojure.datafy {:in-both-count 2, :clojure-total 2, :percent 1.0},
-    clojure.zip {:in-both-count 28, :clojure-total 28, :percent 1.0},
-    clojure.core.reducers
-    {:in-both-count 13,
-     :clojure-total 21,
-     :percent 0.6190476190476191},
-    clojure.test
-    {:in-both-count 8,
-     :clojure-total 39,
-     :percent 0.20512820512820512},
-    clojure.core.protocols
-    {:in-both-count 8, :clojure-total 11, :percent 0.7272727272727273},
-    clojure.core
-    {:in-both-count 560,
-     :clojure-total 679,
-     :percent 0.8247422680412371},
-    clojure.set {:in-both-count 12, :clojure-total 12, :percent 1.0},
-    clojure.pprint
-    {:in-both-count 3,
-     :clojure-total 26,
-     :percent 0.11538461538461539},
-    clojure.math
-    {:in-both-count 31,
-     :clojure-total 45,
-     :percent 0.6888888888888889},
-    clojure.edn {:in-both-count 2, :clojure-total 2, :percent 1.0},
-    clojure.instant {:in-both-count 3, :clojure-total 5, :percent 0.6},
-    clojure.string
-    {:in-both-count 21, :clojure-total 21, :percent 1.0},
-    clojure.data {:in-both-count 1, :clojure-total 5, :percent 0.2},
-    clojure.walk {:in-both-count 8, :clojure-total 10, :percent 0.8},
-    clojure.template
-    {:in-both-count 2, :clojure-total 2, :percent 1.0}}}
-  {:date "2026-05-31",
+ [{:date "2026-05-31",
    :dialect-tag "mino",
    :clojure-version "1.11.0",
    :headline
@@ -897,10 +849,47 @@
     clojure.data {:in-both-count 1, :clojure-total 5, :percent 0.2},
     clojure.walk {:in-both-count 8, :clojure-total 10, :percent 0.8},
     clojure.template
+    {:in-both-count 2, :clojure-total 2, :percent 1.0}}}
+  {:date "2026-06-13",
+   :dialect-tag "mino",
+   :clojure-version "1.11.0",
+   :headline
+   {:in-both-count 893,
+    :clojure-total 995,
+    :percent 0.8974874371859296},
+   :per-namespace
+   {clojure.spec.alpha
+    {:in-both-count 87, :clojure-total 87, :percent 1.0},
+    clojure.datafy {:in-both-count 2, :clojure-total 2, :percent 1.0},
+    clojure.zip {:in-both-count 28, :clojure-total 28, :percent 1.0},
+    clojure.core.reducers
+    {:in-both-count 19,
+     :clojure-total 21,
+     :percent 0.9047619047619048},
+    clojure.test {:in-both-count 39, :clojure-total 39, :percent 1.0},
+    clojure.core.protocols
+    {:in-both-count 10,
+     :clojure-total 11,
+     :percent 0.9090909090909091},
+    clojure.core
+    {:in-both-count 582,
+     :clojure-total 679,
+     :percent 0.8571428571428571},
+    clojure.set {:in-both-count 12, :clojure-total 12, :percent 1.0},
+    clojure.pprint
+    {:in-both-count 26, :clojure-total 26, :percent 1.0},
+    clojure.math {:in-both-count 45, :clojure-total 45, :percent 1.0},
+    clojure.edn {:in-both-count 2, :clojure-total 2, :percent 1.0},
+    clojure.instant {:in-both-count 3, :clojure-total 5, :percent 0.6},
+    clojure.string
+    {:in-both-count 21, :clojure-total 21, :percent 1.0},
+    clojure.data {:in-both-count 5, :clojure-total 5, :percent 1.0},
+    clojure.walk {:in-both-count 10, :clojure-total 10, :percent 1.0},
+    clojure.template
     {:in-both-count 2, :clojure-total 2, :percent 1.0}}}],
  :behavior
  {:dialect-tag "mino",
-  :run-at "2026-06-12T06:33:35Z",
+  :run-at "2026-06-13T06:28:04Z",
   :totals
   {:match 9, :mismatch 4, :divergent-as-expected 9, :skipped 0},
   :parities
@@ -909,11 +898,11 @@
     :oracle
     {:status :value,
      :value {:clj-census/opaque "class java.lang.String"},
-     :elapsed-ms 1},
+     :elapsed-ms 0},
     :dialect
     {:status :exception,
      :ex {:type "MNS001", :message "unbound symbol: class"},
-     :elapsed-ms 1},
+     :elapsed-ms 0},
     :verdict :mismatch,
     :reason
     "divergence declared :keyword-vs-class but predicate did not match"}
@@ -935,7 +924,7 @@
     :oracle
     {:status :value,
      :value {:clj-census/opaque "class clojure.lang.Keyword"},
-     :elapsed-ms 1},
+     :elapsed-ms 2},
     :dialect
     {:status :exception,
      :ex {:type "MNS001", :message "unbound symbol: class"},
@@ -945,11 +934,11 @@
     "divergence declared :keyword-vs-class but predicate did not match"}
    {:case-id :class/nil,
     :var clojure.core/class,
-    :oracle {:status :value, :value nil, :elapsed-ms 2},
+    :oracle {:status :value, :value nil, :elapsed-ms 1},
     :dialect
     {:status :exception,
      :ex {:type "MNS001", :message "unbound symbol: class"},
-     :elapsed-ms 1},
+     :elapsed-ms 0},
     :verdict :mismatch,
     :reason
     "divergence declared :keyword-vs-class but predicate did not match"}
@@ -962,14 +951,14 @@
     :divergence-id :compare-sign-normalized}
    {:case-id :compare/strings-negative,
     :var clojure.core/compare,
-    :oracle {:status :value, :value -25, :elapsed-ms 2},
+    :oracle {:status :value, :value -25, :elapsed-ms 0},
     :dialect {:status :value, :value -1, :elapsed-ms 0},
     :verdict :divergent-as-expected,
     :reason "predicate :sign-normalized matched",
     :divergence-id :compare-sign-normalized}
    {:case-id :compare/strings-equal,
     :var clojure.core/compare,
-    :oracle {:status :value, :value 0, :elapsed-ms 2},
+    :oracle {:status :value, :value 0, :elapsed-ms 1},
     :dialect {:status :value, :value 0, :elapsed-ms 0},
     :verdict :divergent-as-expected,
     :reason "predicate :sign-normalized matched",
@@ -977,7 +966,7 @@
    {:case-id :compare/numbers-ascending,
     :var clojure.core/compare,
     :oracle {:status :value, :value -1, :elapsed-ms 1},
-    :dialect {:status :value, :value -1, :elapsed-ms 0},
+    :dialect {:status :value, :value -1, :elapsed-ms 1},
     :verdict :divergent-as-expected,
     :reason "predicate :sign-normalized matched",
     :divergence-id :compare-sign-normalized}
@@ -996,32 +985,32 @@
     :reason "values equivalent"}
    {:case-id :plus/single-positive,
     :var clojure.core/+,
-    :oracle {:status :value, :value 5, :elapsed-ms 1},
+    :oracle {:status :value, :value 5, :elapsed-ms 0},
     :dialect {:status :value, :value 5, :elapsed-ms 0},
     :verdict :match,
     :reason "values equivalent"}
    {:case-id :plus/two-positive,
     :var clojure.core/+,
     :oracle {:status :value, :value 3, :elapsed-ms 2},
-    :dialect {:status :value, :value 3, :elapsed-ms 0},
+    :dialect {:status :value, :value 3, :elapsed-ms 1},
     :verdict :match,
     :reason "values equivalent"}
    {:case-id :plus/with-negative,
     :var clojure.core/+,
-    :oracle {:status :value, :value 3, :elapsed-ms 1},
+    :oracle {:status :value, :value 3, :elapsed-ms 2},
     :dialect {:status :value, :value 3, :elapsed-ms 0},
     :verdict :match,
     :reason "values equivalent"}
    {:case-id :plus/varargs,
     :var clojure.core/+,
-    :oracle {:status :value, :value 15, :elapsed-ms 3},
+    :oracle {:status :value, :value 15, :elapsed-ms 2},
     :dialect {:status :value, :value 15, :elapsed-ms 0},
     :verdict :match,
     :reason "values equivalent"}
    {:case-id :sort/numbers-ascending,
     :var clojure.core/sort,
     :oracle {:status :value, :value [1 1 2 3 4 5 6 9], :elapsed-ms 1},
-    :dialect {:status :value, :value [1 1 2 3 4 5 6 9], :elapsed-ms 0},
+    :dialect {:status :value, :value [1 1 2 3 4 5 6 9], :elapsed-ms 1},
     :verdict :match,
     :reason "values equivalent"}
    {:case-id :sort/strings,
@@ -1029,7 +1018,7 @@
     :oracle
     {:status :value,
      :value ["apple" "banana" "cherry"],
-     :elapsed-ms 3},
+     :elapsed-ms 2},
     :dialect
     {:status :value,
      :value ["apple" "banana" "cherry"],
@@ -1038,13 +1027,13 @@
     :reason "values equivalent"}
    {:case-id :sort/with-comparator-descending,
     :var clojure.core/sort,
-    :oracle {:status :value, :value [4 3 2 1], :elapsed-ms 3},
+    :oracle {:status :value, :value [4 3 2 1], :elapsed-ms 4},
     :dialect {:status :value, :value [4 3 2 1], :elapsed-ms 1},
     :verdict :match,
     :reason "values equivalent"}
    {:case-id :sort/empty,
     :var clojure.core/sort,
-    :oracle {:status :value, :value [], :elapsed-ms 1},
+    :oracle {:status :value, :value [], :elapsed-ms 0},
     :dialect {:status :value, :value [], :elapsed-ms 0},
     :verdict :match,
     :reason "values equivalent"}
@@ -1054,7 +1043,7 @@
     {:status :value,
      :value {:clj-census/opaque "class java.lang.String"},
      :elapsed-ms 1},
-    :dialect {:status :value, :value :string, :elapsed-ms 1},
+    :dialect {:status :value, :value :string, :elapsed-ms 0},
     :verdict :divergent-as-expected,
     :reason "predicate :keyword-vs-class matched",
     :divergence-id :type-as-keyword}
@@ -1073,7 +1062,7 @@
     :oracle
     {:status :value,
      :value {:clj-census/opaque "class clojure.lang.Keyword"},
-     :elapsed-ms 1},
+     :elapsed-ms 2},
     :dialect {:status :value, :value :keyword, :elapsed-ms 0},
     :verdict :divergent-as-expected,
     :reason "predicate :keyword-vs-class matched",
@@ -1083,7 +1072,7 @@
     :oracle
     {:status :value,
      :value {:clj-census/opaque "class clojure.lang.PersistentVector"},
-     :elapsed-ms 1},
+     :elapsed-ms 2},
     :dialect {:status :value, :value :vector, :elapsed-ms 0},
     :verdict :divergent-as-expected,
     :reason "predicate :keyword-vs-class matched",
@@ -1161,166 +1150,6 @@
    :dynamic-dialect true,
    :namespace clojure.core,
    :var *warn-on-reflection*}
-  {:macro-clojure true,
-   :macro-dialect false,
-   :namespace clojure.core,
-   :var ->}
-  {:macro-clojure true,
-   :macro-dialect false,
-   :namespace clojure.core,
-   :var ->>}
-  {:macro-clojure true,
-   :macro-dialect false,
-   :namespace clojure.core,
-   :var and}
-  {:macro-clojure true,
-   :macro-dialect false,
-   :namespace clojure.core,
-   :var as->}
-  {:macro-clojure true,
-   :macro-dialect false,
-   :namespace clojure.core,
-   :var assert}
-  {:macro-clojure true,
-   :macro-dialect false,
-   :namespace clojure.core,
-   :var bound-fn}
-  {:macro-clojure true,
-   :macro-dialect false,
-   :namespace clojure.core,
-   :var case}
-  {:macro-clojure true,
-   :macro-dialect false,
-   :namespace clojure.core,
-   :var comment}
-  {:macro-clojure true,
-   :macro-dialect false,
-   :namespace clojure.core,
-   :var cond}
-  {:macro-clojure true,
-   :macro-dialect false,
-   :namespace clojure.core,
-   :var cond->}
-  {:macro-clojure true,
-   :macro-dialect false,
-   :namespace clojure.core,
-   :var cond->>}
-  {:macro-clojure true,
-   :macro-dialect false,
-   :namespace clojure.core,
-   :var condp}
-  {:macro-clojure true,
-   :macro-dialect false,
-   :namespace clojure.core,
-   :var definterface}
-  {:macro-clojure true,
-   :macro-dialect false,
-   :namespace clojure.core,
-   :var defmethod}
-  {:macro-clojure true,
-   :macro-dialect false,
-   :namespace clojure.core,
-   :var defmulti}
-  {:macro-clojure true,
-   :macro-dialect false,
-   :namespace clojure.core,
-   :var defn}
-  {:macro-clojure true,
-   :macro-dialect false,
-   :namespace clojure.core,
-   :var defn-}
-  {:macro-clojure true,
-   :macro-dialect false,
-   :namespace clojure.core,
-   :var defonce}
-  {:macro-clojure true,
-   :macro-dialect false,
-   :namespace clojure.core,
-   :var defprotocol}
-  {:macro-clojure true,
-   :macro-dialect false,
-   :namespace clojure.core,
-   :var defrecord}
-  {:macro-clojure true,
-   :macro-dialect false,
-   :namespace clojure.core,
-   :var deftype}
-  {:macro-clojure true,
-   :macro-dialect false,
-   :namespace clojure.core,
-   :var delay}
-  {:macro-clojure true,
-   :macro-dialect false,
-   :namespace clojure.core,
-   :var doseq}
-  {:macro-clojure true,
-   :macro-dialect false,
-   :namespace clojure.core,
-   :var dosync}
-  {:macro-clojure true,
-   :macro-dialect false,
-   :namespace clojure.core,
-   :var dotimes}
-  {:macro-clojure true,
-   :macro-dialect false,
-   :namespace clojure.core,
-   :var doto}
-  {:macro-clojure true,
-   :macro-dialect false,
-   :namespace clojure.core,
-   :var extend-protocol}
-  {:macro-clojure true,
-   :macro-dialect false,
-   :namespace clojure.core,
-   :var extend-type}
-  {:macro-clojure true,
-   :macro-dialect false,
-   :namespace clojure.core,
-   :var for}
-  {:macro-clojure true,
-   :macro-dialect false,
-   :namespace clojure.core,
-   :var future}
-  {:macro-clojure true,
-   :macro-dialect false,
-   :namespace clojure.core,
-   :var gen-class}
-  {:macro-clojure true,
-   :macro-dialect false,
-   :namespace clojure.core,
-   :var if-let}
-  {:macro-clojure true,
-   :macro-dialect false,
-   :namespace clojure.core,
-   :var if-not}
-  {:macro-clojure true,
-   :macro-dialect false,
-   :namespace clojure.core,
-   :var if-some}
-  {:macro-clojure true,
-   :macro-dialect false,
-   :namespace clojure.core,
-   :var import}
-  {:macro-clojure true,
-   :macro-dialect false,
-   :namespace clojure.core,
-   :var io!}
-  {:macro-clojure true,
-   :macro-dialect false,
-   :namespace clojure.core,
-   :var lazy-cat}
-  {:macro-clojure true,
-   :macro-dialect false,
-   :namespace clojure.core,
-   :var letfn}
-  {:macro-clojure true,
-   :macro-dialect false,
-   :namespace clojure.core,
-   :var locking}
-  {:macro-clojure true,
-   :macro-dialect false,
-   :namespace clojure.core,
-   :var or}
   {:dynamic-clojure true,
    :dynamic-dialect false,
    :namespace clojure.core,
@@ -1328,119 +1157,15 @@
   {:macro-clojure true,
    :macro-dialect false,
    :namespace clojure.core,
-   :var proxy}
-  {:macro-clojure true,
-   :macro-dialect false,
-   :namespace clojure.core,
-   :var pvalues}
-  {:macro-clojure true,
-   :macro-dialect false,
-   :namespace clojure.core,
-   :var reify}
-  {:macro-clojure true,
-   :macro-dialect false,
-   :namespace clojure.core,
-   :var some->}
-  {:macro-clojure true,
-   :macro-dialect false,
-   :namespace clojure.core,
-   :var some->>}
-  {:macro-clojure true,
-   :macro-dialect false,
-   :namespace clojure.core,
-   :var time}
-  {:macro-clojure true,
-   :macro-dialect false,
-   :namespace clojure.core,
    :var vswap!}
   {:macro-clojure true,
    :macro-dialect false,
-   :namespace clojure.core,
-   :var when}
+   :namespace clojure.pprint,
+   :var formatter}
   {:macro-clojure true,
    :macro-dialect false,
-   :namespace clojure.core,
-   :var when-first}
-  {:macro-clojure true,
-   :macro-dialect false,
-   :namespace clojure.core,
-   :var when-let}
-  {:macro-clojure true,
-   :macro-dialect false,
-   :namespace clojure.core,
-   :var when-not}
-  {:macro-clojure true,
-   :macro-dialect false,
-   :namespace clojure.core,
-   :var when-some}
-  {:macro-clojure true,
-   :macro-dialect false,
-   :namespace clojure.core,
-   :var while}
-  {:macro-clojure true,
-   :macro-dialect false,
-   :namespace clojure.core,
-   :var with-bindings}
-  {:macro-clojure true,
-   :macro-dialect false,
-   :namespace clojure.core,
-   :var with-in-str}
-  {:macro-clojure true,
-   :macro-dialect false,
-   :namespace clojure.core,
-   :var with-local-vars}
-  {:macro-clojure true,
-   :macro-dialect false,
-   :namespace clojure.core,
-   :var with-open}
-  {:macro-clojure true,
-   :macro-dialect false,
-   :namespace clojure.core,
-   :var with-out-str}
-  {:macro-clojure true,
-   :macro-dialect false,
-   :namespace clojure.core,
-   :var with-precision}
-  {:macro-clojure true,
-   :macro-dialect false,
-   :namespace clojure.core,
-   :var with-redefs}
-  {:macro-clojure true,
-   :macro-dialect false,
-   :namespace clojure.spec.alpha,
-   :var &}
-  {:macro-clojure true,
-   :macro-dialect false,
-   :namespace clojure.spec.alpha,
-   :var *}
-  {:macro-clojure true,
-   :macro-dialect false,
-   :namespace clojure.spec.alpha,
-   :var +}
-  {:macro-clojure true,
-   :macro-dialect false,
-   :namespace clojure.spec.alpha,
-   :var ?}
-  {:macro-clojure true,
-   :macro-dialect false,
-   :namespace clojure.spec.alpha,
-   :var alt}
-  {:macro-clojure true,
-   :macro-dialect false,
-   :namespace clojure.spec.alpha,
-   :var and}
-  {:macro-clojure true,
-   :macro-dialect false,
-   :namespace clojure.spec.alpha,
-   :var assert}
-  {:macro-clojure true,
-   :macro-dialect false,
-   :namespace clojure.spec.alpha,
-   :var cat}
-  {:macro-clojure true,
-   :macro-dialect false,
-   :namespace clojure.spec.alpha,
-   :var coll-of}
+   :namespace clojure.pprint,
+   :var formatter-out}
   {:macro-clojure true,
    :macro-dialect false,
    :namespace clojure.spec.alpha,
@@ -1448,55 +1173,27 @@
   {:macro-clojure true,
    :macro-dialect false,
    :namespace clojure.spec.alpha,
-   :var def}
+   :var double-in}
   {:macro-clojure true,
    :macro-dialect false,
    :namespace clojure.spec.alpha,
-   :var fdef}
+   :var inst-in}
   {:macro-clojure true,
    :macro-dialect false,
    :namespace clojure.spec.alpha,
-   :var keys}
-  {:macro-clojure true,
-   :macro-dialect false,
-   :namespace clojure.spec.alpha,
-   :var map-of}
-  {:macro-clojure true,
-   :macro-dialect false,
-   :namespace clojure.spec.alpha,
-   :var nilable}
-  {:macro-clojure true,
-   :macro-dialect false,
-   :namespace clojure.spec.alpha,
-   :var or}
-  {:macro-clojure true,
-   :macro-dialect false,
-   :namespace clojure.spec.alpha,
-   :var spec}
-  {:macro-clojure true,
-   :macro-dialect false,
-   :namespace clojure.spec.alpha,
-   :var tuple}
-  {:macro-clojure true,
-   :macro-dialect false,
-   :namespace clojure.template,
-   :var do-template}
-  {:macro-clojure true,
-   :macro-dialect false,
+   :var int-in}
+  {:macro-clojure false,
+   :macro-dialect true,
    :namespace clojure.test,
-   :var are}
-  {:macro-clojure true,
-   :macro-dialect false,
+   :var run-tests}
+  {:dynamic-clojure true,
+   :dynamic-dialect false,
    :namespace clojure.test,
-   :var deftest}
-  {:macro-clojure true,
-   :macro-dialect false,
+   :var test-var}
+  {:macro-clojure false,
+   :macro-dialect true,
    :namespace clojure.test,
-   :var is}
-  {:macro-clojure true,
-   :macro-dialect false,
-   :namespace clojure.test,
-   :var testing}],
+   :var use-fixtures}],
  :categories
  [{:id :ordering,
    :title "Ordering & comparison",
@@ -1539,12 +1236,403 @@
    :description
    "Where reader attaches meta and which ops preserve it."}],
  :drift
- {:from-date "2026-06-11",
-  :to-date "2026-06-12",
-  :added-vars #{},
-  :removed-vars #{},
-  :changed [],
-  :coverage-delta 0.0},
+ {:from-date "2026-06-12",
+  :to-date "2026-06-13",
+  :added-vars
+  #{clojure.test/*stack-trace-depth*
+    clojure.pprint/write-out
+    clojure.math/random
+    clojure.test/*testing-vars*
+    clojure.core.reducers/CollFold
+    clojure.test/assert-any
+    clojure.core.protocols/internal-reduce
+    clojure.test/*initial-report-counters*
+    clojure.test/join-fixtures
+    clojure.spec.alpha/nonconforming
+    clojure.core/seque
+    clojure.pprint/pprint-logical-block*
+    clojure.core/sync
+    clojure.test/set-test
+    clojure.core.reducers/folder
+    clojure.spec.alpha/merge
+    clojure.pprint/*print-right-margin*
+    clojure.test/assert-expr
+    clojure.data/Diff--diff-similar
+    clojure.spec.alpha/specize*
+    clojure.spec.alpha/multi-spec
+    clojure.test/test-all-vars
+    clojure.data/Diff
+    clojure.core.reducers/->Cat
+    clojure.pprint/fresh-line
+    clojure.test/test-var
+    clojure.walk/prewalk-demo
+    clojure.spec.alpha/inst-in
+    clojure.spec.alpha/double-in
+    clojure.pprint/*pp-state*
+    clojure.spec.alpha/spec?
+    clojure.pprint/print-length-loop
+    clojure.test/do-report
+    clojure.spec.alpha/with-gen*
+    clojure.spec.alpha/explain-out
+    clojure.core/read+string
+    clojure.core.reducers/Folder
+    clojure.core/line-seq
+    clojure.spec.alpha/*explain-out*
+    clojure.core.reducers/map->Folder
+    clojure.walk/postwalk-demo
+    clojure.test/with-test
+    clojure.spec.alpha/keys*
+    clojure.spec.alpha/*coll-check-limit*
+    clojure.spec.alpha/Specize
+    clojure.test/file-position
+    clojure.core.reducers/CollFold--coll-fold
+    clojure.test/inc-report-counter
+    clojure.pprint/pprint-tab
+    clojure.test/testing-contexts-str
+    clojure.spec.alpha/maybe-impl
+    clojure.core.protocols/InternalReduce--internal-reduce
+    clojure.test/assert-predicate
+    clojure.test/*load-tests*
+    clojure.core.reducers/->Reducer
+    clojure.spec.alpha/fspec-impl
+    clojure.pprint/simple-dispatch
+    clojure.test/run-namespace-tests
+    clojure.core/Inst--inst-ms*
+    clojure.test/run-all-registered-tests
+    clojure.test/with-test-out
+    clojure.data/EqualityPartition--equality-partition
+    clojure.core.reducers/append!
+    clojure.pprint/code-dispatch
+    clojure.test/report
+    clojure.pprint/pprint-newline
+    clojure.test/compose-fixtures
+    clojure.core/char-name-string
+    clojure.core.protocols/InternalReduce
+    clojure.spec.alpha/inst-in-range?
+    clojure.test/run-test-var
+    clojure.spec.alpha/assert*
+    clojure.spec.alpha/merge-spec-impl
+    clojure.core.reducers/coll-fold
+    clojure.spec.alpha/regex-spec-impl
+    clojure.core/char-escape-string
+    clojure.core.reducers/map->Reducer
+    clojure.core/unquote-splicing
+    clojure.pprint/pp-write-str
+    clojure.spec.alpha/map-spec-impl
+    clojure.spec.alpha/describe*
+    clojure.core/Throwable->map
+    clojure.test/get-possibly-unbound-var
+    clojure.pprint/pp
+    clojure.core/xml-seq
+    clojure.test/test-ns
+    clojure.core/*repl*
+    clojure.core.reducers/->Folder
+    clojure.core/Inst
+    clojure.test/function?
+    clojure.pprint/pprint-logical-block
+    clojure.spec.alpha/every
+    clojure.pprint/set-pprint-dispatch
+    clojure.core/unquote
+    clojure.spec.alpha/*compile-asserts*
+    clojure.pprint/with-pprint-dispatch
+    clojure.core/default-data-readers
+    clojure.spec.alpha/*recursion-limit*
+    clojure.test/deftest-
+    clojure.spec.alpha/Spec
+    clojure.spec.alpha/*coll-error-limit*
+    clojure.core.reducers/reducer
+    clojure.core/->Eduction
+    clojure.core.reducers/Cat
+    clojure.pprint/*print-miser-width*
+    clojure.test/try-expr
+    clojure.core.reducers/Reducer
+    clojure.test/run-all-tests
+    clojure.spec.alpha/every-kv
+    clojure.spec.alpha/int-in
+    clojure.spec.alpha/keys*-impl
+    clojure.test/*test-out*
+    clojure.data/EqualityPartition
+    clojure.pprint/*print-base*
+    clojure.spec.alpha/*fspec-iterations*
+    clojure.pprint/formatter-out
+    clojure.pprint/formatter
+    clojure.test/successful?
+    clojure.spec.alpha/int-in-range?
+    clojure.pprint/*print-suppress-namespaces*
+    clojure.test/testing-vars-str
+    clojure.core/inst-ms*
+    clojure.spec.alpha/regex?
+    clojure.pprint/pprint-indent
+    clojure.pprint/*print-radix*
+    clojure.data/diff-similar
+    clojure.spec.alpha/explain-data*
+    clojure.spec.alpha/rep+impl
+    clojure.pprint/get-pretty-writer
+    clojure.spec.alpha/explain-printer
+    clojure.core/print-simple
+    clojure.core/test
+    clojure.spec.alpha/fspec
+    clojure.pprint/*print-pprint-dispatch*
+    clojure.pprint/*print-pretty*
+    clojure.spec.alpha/multi-spec-impl
+    clojure.pprint/write
+    clojure.data/equality-partition
+    clojure.test/run-test
+    clojure.spec.alpha/gen*
+    clojure.spec.alpha/exercise-fn
+    clojure.test/test-vars},
+  :removed-vars
+  #{clojure.test/is-thrown
+    clojure.test/is-eq
+    clojure.test/is-thrown-with-msg
+    clojure.test/is-truthy},
+  :changed
+  [{:var clojure.core/->, :before {}, :after {:macro true}}
+   {:var clojure.core/->>, :before {}, :after {:macro true}}
+   {:var clojure.core/and, :before {}, :after {:macro true}}
+   {:var clojure.core/as->, :before {}, :after {:macro true}}
+   {:var clojure.core/assert, :before {}, :after {:macro true}}
+   {:var clojure.core/bound-fn, :before {}, :after {:macro true}}
+   {:var clojure.core/case, :before {}, :after {:macro true}}
+   {:var clojure.core/comment, :before {}, :after {:macro true}}
+   {:var clojure.core/cond, :before {}, :after {:macro true}}
+   {:var clojure.core/cond->, :before {}, :after {:macro true}}
+   {:var clojure.core/cond->>, :before {}, :after {:macro true}}
+   {:var clojure.core/condp, :before {}, :after {:macro true}}
+   {:var clojure.core/definterface, :before {}, :after {:macro true}}
+   {:var clojure.core/defmethod, :before {}, :after {:macro true}}
+   {:var clojure.core/defmulti, :before {}, :after {:macro true}}
+   {:var clojure.core/defn, :before {}, :after {:macro true}}
+   {:var clojure.core/defn-, :before {}, :after {:macro true}}
+   {:var clojure.core/defonce, :before {}, :after {:macro true}}
+   {:var clojure.core/defprotocol, :before {}, :after {:macro true}}
+   {:var clojure.core/defrecord, :before {}, :after {:macro true}}
+   {:var clojure.core/deftype, :before {}, :after {:macro true}}
+   {:var clojure.core/delay, :before {}, :after {:macro true}}
+   {:var clojure.core/doseq, :before {}, :after {:macro true}}
+   {:var clojure.core/dosync, :before {}, :after {:macro true}}
+   {:var clojure.core/dotimes, :before {}, :after {:macro true}}
+   {:var clojure.core/doto, :before {}, :after {:macro true}}
+   {:var clojure.core/extend-protocol,
+    :before {},
+    :after {:macro true}}
+   {:var clojure.core/extend-type, :before {}, :after {:macro true}}
+   {:var clojure.core/for, :before {}, :after {:macro true}}
+   {:var clojure.core/future, :before {}, :after {:macro true}}
+   {:var clojure.core/gen-class, :before {}, :after {:macro true}}
+   {:var clojure.core/if-let, :before {}, :after {:macro true}}
+   {:var clojure.core/if-not, :before {}, :after {:macro true}}
+   {:var clojure.core/if-some, :before {}, :after {:macro true}}
+   {:var clojure.core/import, :before {}, :after {:macro true}}
+   {:var clojure.core/io!, :before {}, :after {:macro true}}
+   {:var clojure.core/lazy-cat, :before {}, :after {:macro true}}
+   {:var clojure.core/let-bits, :before {}, :after {:macro true}}
+   {:var clojure.core/letfn, :before {}, :after {:macro true}}
+   {:var clojure.core/locking, :before {}, :after {:macro true}}
+   {:var clojure.core/or, :before {}, :after {:macro true}}
+   {:var clojure.core/proxy, :before {}, :after {:macro true}}
+   {:var clojure.core/pvalues, :before {}, :after {:macro true}}
+   {:var clojure.core/reify, :before {}, :after {:macro true}}
+   {:var clojure.core/set!, :before {}, :after {:macro true}}
+   {:var clojure.core/some->, :before {}, :after {:macro true}}
+   {:var clojure.core/some->>, :before {}, :after {:macro true}}
+   {:var clojure.core/thread, :before {}, :after {:macro true}}
+   {:var clojure.core/time, :before {}, :after {:macro true}}
+   {:var clojure.core/when, :before {}, :after {:macro true}}
+   {:var clojure.core/when-first, :before {}, :after {:macro true}}
+   {:var clojure.core/when-let, :before {}, :after {:macro true}}
+   {:var clojure.core/when-not, :before {}, :after {:macro true}}
+   {:var clojure.core/when-some, :before {}, :after {:macro true}}
+   {:var clojure.core/while, :before {}, :after {:macro true}}
+   {:var clojure.core/with-bindings, :before {}, :after {:macro true}}
+   {:var clojure.core/with-in-str, :before {}, :after {:macro true}}
+   {:var clojure.core/with-local-vars,
+    :before {},
+    :after {:macro true}}
+   {:var clojure.core/with-open, :before {}, :after {:macro true}}
+   {:var clojure.core/with-out-str, :before {}, :after {:macro true}}
+   {:var clojure.core/with-precision, :before {}, :after {:macro true}}
+   {:var clojure.core/with-redefs, :before {}, :after {:macro true}}
+   {:var clojure.core.reducers/cat,
+    :before
+    {:doc
+     "A reducer that concatenates the output of x-coll and y-coll. Calls\n  reduce on x-coll first then y-coll. Returns a fn so it composes the\n  standard reducer protocol."},
+    :after
+    {:doc
+     "Combining fn yielding the catenation of its two reduced arguments.\n  With no arguments, returns the empty accumulator (a vector). With\n  one argument ctor, returns a combining fn whose zero arity calls\n  ctor instead. With two, a side whose count is zero answers the other\n  side unchanged; otherwise the halves become a Cat value — counted,\n  seqable, reducible, and foldable. See also foldcat."}}
+   {:var clojure.core.reducers/fold,
+    :before
+    {:doc
+     "Reduces coll using reducef. The 3-arity form takes a partition\n  size n (default 512) and a combinef. When the host has granted\n  thread budget (mino-thread-limit > 1) AND coll is a vector larger\n  than n, fold partitions coll into chunks of size n, runs reducef\n  in parallel over each chunk via futures, and combines the partial\n  results with combinef. Smaller vectors and non-vector collections\n  reduce sequentially through (clojure.core/reduce reducef\n  (combinef) coll).\n\n  - (fold reducef coll) -- combinef defaults to reducef (so the\n    no-arg branch must return the reducer's identity).\n  - (fold combinef reducef coll) -- partition size defaults to 512.\n  - (fold n combinef reducef coll) -- explicit partition size.\n\n  Pure semantics: reducef and combinef must be associative; combinef\n  with no args must return the identity element. Without those,\n  parallel and sequential results may differ."},
+    :after
+    {:doc
+     "Reduces coll through a seed-and-combine contract: reducef\n  accumulates over the elements starting from (combinef), and combinef\n  (default reducef) must be associative with (combinef) producing its\n  identity element. n is the canonical group-size hint (default 512).\n  mino executes the whole fold as one sequential pass, which yields\n  the same result a grouped execution of associative fns would."}}
+   {:var clojure.core.reducers/foldcat,
+    :before
+    {:doc
+     "Equivalent to (fold cat append! coll), but reducer-shaped: returns a\n  vector of all elements in coll."},
+    :after
+    {:doc
+     "Pours coll into a counted, seqable, reducible accumulation of its\n  elements: (fold cat append! coll)."}}
+   {:var clojure.core.reducers/reduce,
+    :before
+    {:doc
+     "Like clojure.core/reduce except sequential by definition (mino has\n  no fork/join). Identical contract: with an init, calls (f init x0),\n  (f acc x1), ...; without an init, uses (f x0) for arity-0 of f."},
+    :after
+    {:doc
+     "Like clojure.core/reduce, with two reducer-layer differences: the\n  no-init arity seeds the reduction from (f) rather than the first\n  element, and maps reduce through reduce-kv so f receives the\n  accumulator, key, and value."}}
+   {:var clojure.data/diff,
+    :before {},
+    :after
+    {:doc
+     "Recursively compares a and b, returning the triple\n  [only-in-a only-in-b in-both]. Equal values yield [nil nil a].\n  Maps recurse into values under shared keys; sequential things\n  diff position by position and report vectors; sets split into\n  difference/difference/intersection without recursing. Anything\n  else, strings included, compares whole as an atom."}}
+   {:var clojure.math/add-exact,
+    :before
+    {:doc "Returns the sum of x and y; throws on long overflow."},
+    :after
+    {:doc
+     "Returns the sum of x and y. Note: unlike Clojure on the JVM, does\n   not throw on long overflow -- promotes to bignum instead."}}
+   {:var clojure.math/decrement-exact,
+    :before
+    {:doc "Returns x decremented by 1; throws on long overflow."},
+    :after
+    {:doc
+     "Returns x decremented by 1. Note: unlike Clojure on the JVM, does\n   not throw on long overflow -- promotes to bignum instead."}}
+   {:var clojure.math/increment-exact,
+    :before
+    {:doc "Returns x incremented by 1; throws on long overflow."},
+    :after
+    {:doc
+     "Returns x incremented by 1. Note: unlike Clojure on the JVM, does\n   not throw on long overflow -- promotes to bignum instead."}}
+   {:var clojure.math/multiply-exact,
+    :before
+    {:doc "Returns the product of x and y; throws on long overflow."},
+    :after
+    {:doc
+     "Returns the product of x and y. Note: unlike Clojure on the JVM,\n   does not throw on long overflow -- promotes to bignum instead."}}
+   {:var clojure.math/negate-exact,
+    :before
+    {:doc "Returns the negation of x; throws on long overflow."},
+    :after
+    {:doc
+     "Returns the negation of x. Note: unlike Clojure on the JVM, does\n   not throw on long overflow -- promotes to bignum instead."}}
+   {:var clojure.math/subtract-exact,
+    :before
+    {:doc
+     "Returns the difference of x and y; throws on long overflow."},
+    :after
+    {:doc
+     "Returns the difference of x and y. Note: unlike Clojure on the JVM,\n   does not throw on long overflow -- promotes to bignum instead."}}
+   {:var clojure.pprint/cl-format,
+    :before {},
+    :after
+    {:doc
+     "An implementation of a Common-Lisp-compatible format function.\n  cl-format formats its arguments to an output destination or string based\n  on the format control string given.\n\n  writer is true to output to *out*, nil to return the formatted string, or\n  a writer to write to it. format-in is the format control string (or a\n  compiled formatter); the remaining arguments are the data to format.\n\n  If writer is nil, cl-format returns the formatted result string;\n  otherwise it returns nil."}}
+   {:var clojure.pprint/pprint,
+    :before {},
+    :after
+    {:doc
+     "Pretty print object to the optional writer, defaulting to *out*.\n  Always finishes the output with a newline."}}
+   {:var clojure.pprint/print-table,
+    :before {},
+    :after
+    {:doc
+     "Prints a collection of maps as a textual table. Prints the heading row\n  ks, a separator row, and one row per map, each cell drawn from the\n  corresponding key. ks selects and orders the columns; it defaults to\n  the keys of the first row. Columns are padded to the widest cell and\n  delimited with pipes."}}
+   {:var clojure.spec.alpha/&, :before {}, :after {:macro true}}
+   {:var clojure.spec.alpha/*, :before {}, :after {:macro true}}
+   {:var clojure.spec.alpha/+, :before {}, :after {:macro true}}
+   {:var clojure.spec.alpha/?, :before {}, :after {:macro true}}
+   {:var clojure.spec.alpha/alt, :before {}, :after {:macro true}}
+   {:var clojure.spec.alpha/amp-impl,
+    :before
+    {:doc
+     "Build an ::amp regex spec: re-spec is consumed normally; preds are\n  applied to the conformed sequence. All preds must return truthy or\n  the consume yields ::invalid."},
+    :after
+    {:doc
+     "Build an ::amp regex spec: re-spec is consumed normally; the\n  conformed sequence is then threaded through each pred as a spec\n  (see the ::amp branch of re-consume).  Any ::invalid step yields\n  ::invalid for the whole consume."}}
+   {:var clojure.spec.alpha/and, :before {}, :after {:macro true}}
+   {:var clojure.spec.alpha/assert, :before {}, :after {:macro true}}
+   {:var clojure.spec.alpha/cat, :before {}, :after {:macro true}}
+   {:var clojure.spec.alpha/check-asserts,
+    :before
+    {:doc
+     "Toggle s/assert checking.  No-op stub; mino asserts always evaluate."},
+    :after
+    {:doc
+     "Enable or disable runtime s/assert checking.  Returns the flag."}}
+   {:var clojure.spec.alpha/check-asserts?,
+    :before
+    {:doc "Whether s/assert is enabled.  Always true on mino."},
+    :after {:doc "Return the current runtime s/assert checking flag."}}
+   {:var clojure.spec.alpha/coll-of, :before {}, :after {:macro true}}
+   {:var clojure.spec.alpha/def, :before {}, :after {:macro true}}
+   {:var clojure.spec.alpha/every-impl,
+    :before {},
+    :after
+    {:doc
+     "Build an ::every spec value.  Recognized opts: :kind, :count,\n  :min-count, :max-count, :distinct, :into, plus ::conform-all\n  (conform each element instead of sampling) and ::kv (elements are\n  [k v] entries; explain reports the key, not the index)."}}
+   {:var clojure.spec.alpha/explain,
+    :before {:doc "Print explain-str to *out*."},
+    :after
+    {:doc
+     "Print an explanation of why x fails spec to *out* via *explain-out*."}}
+   {:var clojure.spec.alpha/fdef, :before {}, :after {:macro true}}
+   {:var clojure.spec.alpha/gen,
+    :before
+    {:doc
+     "Build a clojure.test.check generator for `spec`. `overrides` is a\n  map from spec-key keywords (or predicate symbols) to alternative\n  generators."},
+    :after
+    {:doc
+     "Build a clojure.test.check generator for `spec`. `overrides` is a\n  map from spec-key keywords (or predicate symbols) to alternative\n  generators. A generator attached with with-gen wins over the one\n  derived from the spec's form."}}
+   {:var clojure.spec.alpha/keys, :before {}, :after {:macro true}}
+   {:var clojure.spec.alpha/map-of, :before {}, :after {:macro true}}
+   {:var clojure.spec.alpha/nilable, :before {}, :after {:macro true}}
+   {:var clojure.spec.alpha/or, :before {}, :after {:macro true}}
+   {:var clojure.spec.alpha/spec, :before {}, :after {:macro true}}
+   {:var clojure.spec.alpha/spec-impl,
+    :before
+    {:doc
+     "Build a spec value from a form and predicate.  When pred resolves to\n  a regex spec (cat / * / + / ? / alt / a registered regex), the result\n  wraps the regex so it conforms an element value as a whole sequence\n  rather than splicing into the surrounding regex context."},
+    :after
+    {:doc
+     "Build a spec value from a form and predicate.  When pred resolves to\n  a regex spec (cat / * / + / ? / alt / a registered regex), the result\n  wraps the regex (see regex-spec-impl)."}}
+   {:var clojure.spec.alpha/tuple, :before {}, :after {:macro true}}
+   {:var clojure.template/do-template,
+    :before {},
+    :after {:macro true}}
+   {:var clojure.test/are, :before {}, :after {:macro true}}
+   {:var clojure.test/deftest, :before {}, :after {:macro true}}
+   {:var clojure.test/is, :before {}, :after {:macro true}}
+   {:var clojure.test/run-tests,
+    :before
+    {:doc
+     "Run registered tests and return a summary map\n  {:test n :pass n :fail n :error n :failures [...]}.\n\n  With no arguments, runs every registered test. Given namespace symbols\n  (or namespace objects), runs only tests registered in those namespaces.\n\n  Prints a summary line and any failure details to stdout."},
+    :after {:macro true}}
+   {:var clojure.test/run-tests-and-exit,
+    :before
+    {:doc
+     "CLI wrapper around run-tests: runs the tests and exits the process\n  with code 0 when there are no failures or errors, 1 otherwise. Used\n  by tests/run.clj and other CLI driver files. A no-op while\n  suite-mode is true so that per-file (run-tests-and-exit) calls do\n  not short-circuit a multi-file driver."},
+    :after
+    {:doc
+     "Runs the whole registry and exits the process with code 0 on no\n  failures or errors, 1 otherwise.  A no-op while suite-mode is true.\n  Used as the bottom-of-file entry point in test files and by the suite\n  driver; it always runs every registered test, independent of the\n  namespace-scoped run-tests."}}
+   {:var clojure.test/testing, :before {}, :after {:macro true}}
+   {:var clojure.test/use-fixtures, :before {}, :after {:macro true}}
+   {:var clojure.walk/keywordize-keys,
+    :before {},
+    :after
+    {:doc
+     "Recursively transforms all map keys from strings to keywords."}}
+   {:var clojure.walk/macroexpand-all,
+    :before {},
+    :after
+    {:doc
+     "Recursively performs all possible macroexpansions in form."}}
+   {:var clojure.walk/stringify-keys,
+    :before {},
+    :after
+    {:doc
+     "Recursively transforms all map keys from keywords to strings."}}],
+  :coverage-delta 0.12462311557788941},
  :extensions
  [{:id :integer-radix-strings,
    :title "JVM static method mirrors for integer radix conversion",
@@ -1590,6 +1678,7 @@
   clojure.core/Datafiable--datafy
   clojure.core/IKVReduce
   clojure.core/IKVReduce--kv-reduce
+  clojure.core/Inst--inst-ms*
   clojure.core/Navigable
   clojure.core/Navigable--nav
   clojure.core/add-load-path!
@@ -1785,14 +1874,29 @@
   clojure.core.protocols/CollReduce--coll-reduce
   clojure.core.protocols/Datafiable--datafy
   clojure.core.protocols/IKVReduce--kv-reduce
+  clojure.core.protocols/InternalReduce--internal-reduce
   clojure.core.protocols/Navigable--nav
+  clojure.core.reducers/->Folder
+  clojure.core.reducers/->Reducer
+  clojure.core.reducers/Cat
+  clojure.core.reducers/CollFold--coll-fold
+  clojure.core.reducers/Folder
+  clojure.core.reducers/Reducer
   clojure.core.reducers/drop-while
+  clojure.core.reducers/map->Folder
+  clojure.core.reducers/map->Reducer
+  clojure.data/Diff--diff-similar
+  clojure.data/EqualityPartition--equality-partition
   clojure.instant/inst-ms
   clojure.instant/inst?
+  clojure.pprint/*pp-state*
+  clojure.pprint/pp-write-str
+  clojure.pprint/pprint-logical-block*
   clojure.spec.alpha/coll-of-impl
   clojure.spec.alpha/fdef-impl
   clojure.spec.alpha/instrument
   clojure.spec.alpha/invalid
+  clojure.spec.alpha/keys*-impl
   clojure.spec.alpha/keys-impl
   clojure.spec.alpha/map-of-impl
   clojure.spec.alpha/re-consume
@@ -1803,10 +1907,8 @@
   clojure.test/assert-pass!
   clojure.test/exception-message-for-match
   clojure.test/fixtures-registry
-  clojure.test/is-eq
-  clojure.test/is-thrown
-  clojure.test/is-thrown-with-msg
-  clojure.test/is-truthy
+  clojure.test/run-all-registered-tests
+  clojure.test/run-namespace-tests
   clojure.test/run-tests-and-exit
   clojure.test/suite-mode
   clojure.test/tests-registry],
@@ -1817,12 +1919,10 @@
   {:namespace clojure.core, :var *ns*}
   {:namespace clojure.core, :var *read-eval*}
   {:namespace clojure.core, :var *reader-resolver*}
-  {:namespace clojure.core, :var *repl*}
   {:namespace clojure.core, :var *suppress-read*}
   {:namespace clojure.core, :var *use-context-classloader*}
   {:namespace clojure.core, :var *verbose-defrecords*}
   {:namespace clojure.core, :var ->ArrayChunk}
-  {:namespace clojure.core, :var ->Eduction}
   {:namespace clojure.core, :var ->Vec}
   {:namespace clojure.core, :var ->VecNode}
   {:namespace clojure.core, :var ->VecSeq}
@@ -1830,10 +1930,8 @@
   {:namespace clojure.core, :var -reset-methods}
   {:namespace clojure.core, :var ..}
   {:namespace clojure.core, :var EMPTY-NODE}
-  {:namespace clojure.core, :var Inst}
   {:namespace clojure.core, :var PrintWriter-on}
   {:namespace clojure.core, :var StackTraceElement->vec}
-  {:namespace clojure.core, :var Throwable->map}
   {:namespace clojure.core, :var accessor}
   {:namespace clojure.core, :var aclone}
   {:namespace clojure.core, :var add-classpath}
@@ -1855,8 +1953,6 @@
   {:namespace clojure.core, :var booleans}
   {:namespace clojure.core, :var bytes}
   {:namespace clojure.core, :var cast}
-  {:namespace clojure.core, :var char-escape-string}
-  {:namespace clojure.core, :var char-name-string}
   {:namespace clojure.core, :var chars}
   {:namespace clojure.core, :var class}
   {:namespace clojure.core, :var class?}
@@ -1865,7 +1961,6 @@
   {:namespace clojure.core, :var construct-proxy}
   {:namespace clojure.core, :var create-struct}
   {:namespace clojure.core, :var declare}
-  {:namespace clojure.core, :var default-data-readers}
   {:namespace clojure.core, :var definline}
   {:namespace clojure.core, :var defmacro}
   {:namespace clojure.core, :var defstruct}
@@ -1878,12 +1973,10 @@
   {:namespace clojure.core, :var gen-interface}
   {:namespace clojure.core, :var get-proxy-class}
   {:namespace clojure.core, :var init-proxy}
-  {:namespace clojure.core, :var inst-ms*}
   {:namespace clojure.core, :var ints}
   {:namespace clojure.core, :var iterator-seq}
   {:namespace clojure.core, :var lazy-seq}
   {:namespace clojure.core, :var let}
-  {:namespace clojure.core, :var line-seq}
   {:namespace clojure.core, :var load}
   {:namespace clojure.core, :var load-reader}
   {:namespace clojure.core, :var longs}
@@ -1897,15 +1990,12 @@
   {:namespace clojure.core, :var primitives-classnames}
   {:namespace clojure.core, :var print-ctor}
   {:namespace clojure.core, :var print-dup}
-  {:namespace clojure.core, :var print-simple}
   {:namespace clojure.core, :var proxy-call-with-super}
   {:namespace clojure.core, :var proxy-mappings}
   {:namespace clojure.core, :var proxy-name}
   {:namespace clojure.core, :var proxy-super}
-  {:namespace clojure.core, :var read+string}
   {:namespace clojure.core, :var refer-clojure}
   {:namespace clojure.core, :var resultset-seq}
-  {:namespace clojure.core, :var seque}
   {:namespace clojure.core, :var set-agent-send-executor!}
   {:namespace clojure.core, :var set-agent-send-off-executor!}
   {:namespace clojure.core, :var shorts}
@@ -1916,124 +2006,12 @@
   {:namespace clojure.core, :var struct}
   {:namespace clojure.core, :var struct-map}
   {:namespace clojure.core, :var supers}
-  {:namespace clojure.core, :var sync}
-  {:namespace clojure.core, :var test}
   {:namespace clojure.core, :var to-array-2d}
-  {:namespace clojure.core, :var unquote}
-  {:namespace clojure.core, :var unquote-splicing}
   {:namespace clojure.core, :var update-proxy}
   {:namespace clojure.core, :var vector-of}
   {:namespace clojure.core, :var with-loading-context}
-  {:namespace clojure.core, :var xml-seq}
-  {:namespace clojure.core.protocols, :var InternalReduce}
-  {:namespace clojure.core.protocols, :var internal-reduce}
   {:namespace clojure.core.protocols, :var iterator-reduce!}
-  {:namespace clojure.core.reducers, :var ->Cat}
-  {:namespace clojure.core.reducers, :var CollFold}
-  {:namespace clojure.core.reducers, :var append!}
-  {:namespace clojure.core.reducers, :var coll-fold}
   {:namespace clojure.core.reducers, :var fjtask}
-  {:namespace clojure.core.reducers, :var folder}
   {:namespace clojure.core.reducers, :var pool}
-  {:namespace clojure.core.reducers, :var reducer}
-  {:namespace clojure.data, :var Diff}
-  {:namespace clojure.data, :var EqualityPartition}
-  {:namespace clojure.data, :var diff-similar}
-  {:namespace clojure.data, :var equality-partition}
   {:namespace clojure.instant, :var read-instant-calendar}
-  {:namespace clojure.instant, :var read-instant-timestamp}
-  {:namespace clojure.math, :var random}
-  {:namespace clojure.pprint, :var *print-base*}
-  {:namespace clojure.pprint, :var *print-miser-width*}
-  {:namespace clojure.pprint, :var *print-pprint-dispatch*}
-  {:namespace clojure.pprint, :var *print-pretty*}
-  {:namespace clojure.pprint, :var *print-radix*}
-  {:namespace clojure.pprint, :var *print-right-margin*}
-  {:namespace clojure.pprint, :var *print-suppress-namespaces*}
-  {:namespace clojure.pprint, :var code-dispatch}
-  {:namespace clojure.pprint, :var formatter}
-  {:namespace clojure.pprint, :var formatter-out}
-  {:namespace clojure.pprint, :var fresh-line}
-  {:namespace clojure.pprint, :var get-pretty-writer}
-  {:namespace clojure.pprint, :var pp}
-  {:namespace clojure.pprint, :var pprint-indent}
-  {:namespace clojure.pprint, :var pprint-logical-block}
-  {:namespace clojure.pprint, :var pprint-newline}
-  {:namespace clojure.pprint, :var pprint-tab}
-  {:namespace clojure.pprint, :var print-length-loop}
-  {:namespace clojure.pprint, :var set-pprint-dispatch}
-  {:namespace clojure.pprint, :var simple-dispatch}
-  {:namespace clojure.pprint, :var with-pprint-dispatch}
-  {:namespace clojure.pprint, :var write}
-  {:namespace clojure.pprint, :var write-out}
-  {:namespace clojure.spec.alpha, :var *coll-check-limit*}
-  {:namespace clojure.spec.alpha, :var *coll-error-limit*}
-  {:namespace clojure.spec.alpha, :var *compile-asserts*}
-  {:namespace clojure.spec.alpha, :var *explain-out*}
-  {:namespace clojure.spec.alpha, :var *fspec-iterations*}
-  {:namespace clojure.spec.alpha, :var *recursion-limit*}
-  {:namespace clojure.spec.alpha, :var Spec}
-  {:namespace clojure.spec.alpha, :var Specize}
-  {:namespace clojure.spec.alpha, :var assert*}
-  {:namespace clojure.spec.alpha, :var describe*}
-  {:namespace clojure.spec.alpha, :var double-in}
-  {:namespace clojure.spec.alpha, :var every}
-  {:namespace clojure.spec.alpha, :var every-kv}
-  {:namespace clojure.spec.alpha, :var exercise-fn}
-  {:namespace clojure.spec.alpha, :var explain-data*}
-  {:namespace clojure.spec.alpha, :var explain-out}
-  {:namespace clojure.spec.alpha, :var explain-printer}
-  {:namespace clojure.spec.alpha, :var fspec}
-  {:namespace clojure.spec.alpha, :var fspec-impl}
-  {:namespace clojure.spec.alpha, :var gen*}
-  {:namespace clojure.spec.alpha, :var inst-in}
-  {:namespace clojure.spec.alpha, :var inst-in-range?}
-  {:namespace clojure.spec.alpha, :var int-in}
-  {:namespace clojure.spec.alpha, :var int-in-range?}
-  {:namespace clojure.spec.alpha, :var keys*}
-  {:namespace clojure.spec.alpha, :var map-spec-impl}
-  {:namespace clojure.spec.alpha, :var maybe-impl}
-  {:namespace clojure.spec.alpha, :var merge}
-  {:namespace clojure.spec.alpha, :var merge-spec-impl}
-  {:namespace clojure.spec.alpha, :var multi-spec}
-  {:namespace clojure.spec.alpha, :var multi-spec-impl}
-  {:namespace clojure.spec.alpha, :var nonconforming}
-  {:namespace clojure.spec.alpha, :var regex-spec-impl}
-  {:namespace clojure.spec.alpha, :var regex?}
-  {:namespace clojure.spec.alpha, :var rep+impl}
-  {:namespace clojure.spec.alpha, :var spec?}
-  {:namespace clojure.spec.alpha, :var specize*}
-  {:namespace clojure.spec.alpha, :var with-gen*}
-  {:namespace clojure.test, :var *initial-report-counters*}
-  {:namespace clojure.test, :var *load-tests*}
-  {:namespace clojure.test, :var *stack-trace-depth*}
-  {:namespace clojure.test, :var *test-out*}
-  {:namespace clojure.test, :var *testing-vars*}
-  {:namespace clojure.test, :var assert-any}
-  {:namespace clojure.test, :var assert-expr}
-  {:namespace clojure.test, :var assert-predicate}
-  {:namespace clojure.test, :var compose-fixtures}
-  {:namespace clojure.test, :var deftest-}
-  {:namespace clojure.test, :var do-report}
-  {:namespace clojure.test, :var file-position}
-  {:namespace clojure.test, :var function?}
-  {:namespace clojure.test, :var get-possibly-unbound-var}
-  {:namespace clojure.test, :var inc-report-counter}
-  {:namespace clojure.test, :var join-fixtures}
-  {:namespace clojure.test, :var report}
-  {:namespace clojure.test, :var run-all-tests}
-  {:namespace clojure.test, :var run-test}
-  {:namespace clojure.test, :var run-test-var}
-  {:namespace clojure.test, :var set-test}
-  {:namespace clojure.test, :var successful?}
-  {:namespace clojure.test, :var test-all-vars}
-  {:namespace clojure.test, :var test-ns}
-  {:namespace clojure.test, :var test-var}
-  {:namespace clojure.test, :var test-vars}
-  {:namespace clojure.test, :var testing-contexts-str}
-  {:namespace clojure.test, :var testing-vars-str}
-  {:namespace clojure.test, :var try-expr}
-  {:namespace clojure.test, :var with-test}
-  {:namespace clojure.test, :var with-test-out}
-  {:namespace clojure.walk, :var postwalk-demo}
-  {:namespace clojure.walk, :var prewalk-demo}]}
+  {:namespace clojure.instant, :var read-instant-timestamp}]}
