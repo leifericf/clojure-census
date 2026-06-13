@@ -51,8 +51,10 @@
   :category-id     :type-system
   :rationale       "No JVM classes. mino's type system is keyword-
                     tagged (:vector, :map, :list, :symbol, ...).
-                    Dispatch logic that pattern-matches on classes
-                    must use the keyword tags instead."
+                    type reports the concrete tag and, unlike class,
+                    honours :type metadata when present. Dispatch
+                    logic that pattern-matches on classes must use
+                    the keyword tags instead."
   :since           "v0.1.0"
   :dialect-example "(type [1 2 3]) ;=> :vector"
   :clojure-example   "(type [1 2 3]) ;=> clojure.lang.PersistentVector"
@@ -64,17 +66,26 @@
   :doc-link        "/coming-from-clojure#types"}
 
  {:id              :class-of-non-jvm
-  :title           "class behaves like type -- no JVM-class semantics"
+  :title           "class is a concrete-tag function, not a JVM class"
   :category-id     :type-system
-  :rationale       "There are no classes; class is provided as a
-                    Clojure-shaped alias rather than a separate
-                    abstraction."
+  :rationale       "There are no JVM classes, so class is a real
+                    concrete-tag function rather than an alias of
+                    type: nil yields nil, a record yields the
+                    record's type symbol, and every other value
+                    yields its type keyword. class ignores :type
+                    metadata, which is what distinguishes it from
+                    type. Code that branches on a host Class must use
+                    the keyword/symbol tags instead."
   :since           "v0.1.0"
-  :affected        [clojure.core/class clojure.core/class? clojure.core/instance?]
+  :dialect-example "(class nil) ;=> nil, (class [1 2 3]) ;=> :vector"
+  :clojure-example   "(class nil) ;=> nil, (class [1 2 3]) ;=> clojure.lang.PersistentVector"
+  :affected        [clojure.core/class]
   :behavior        {:expectation :diverges
                     :predicate   :keyword-vs-class
-                    :note        "Same shape as :type-as-keyword for
-                                  the class accessor."}}
+                    :note        "nil yields nil (a true match); other
+                                  values yield the analogous keyword
+                                  or record-type symbol where the
+                                  oracle returns a Class object."}}
 
  {:id              :ex-info-no-jvm-throwable-hierarchy
   :title           "ex-info / throw use mino-native exception type"
