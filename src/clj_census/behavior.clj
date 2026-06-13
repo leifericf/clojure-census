@@ -68,12 +68,15 @@
    :keyword-vs-class
    (fn keyword-vs-class [oracle dialect]
      ;; Oracle returns a Class object (postwalk-wrapped as
-     ;; {:clj-census/opaque "..."}); dialect returns a keyword.
+     ;; {:clj-census/opaque "..."}); dialect returns a keyword. The
+     ;; nil/nil case (class is a real concrete-tag function: nil -> nil)
+     ;; is a true match, so straight value equality also passes.
      (and (= :value (:status oracle))
           (= :value (:status dialect))
-          (map? (:value oracle))
-          (contains? (:value oracle) :clj-census/opaque)
-          (keyword? (:value dialect))))})
+          (or (= (:value oracle) (:value dialect))
+              (and (map? (:value oracle))
+                   (contains? (:value oracle) :clj-census/opaque)
+                   (keyword? (:value dialect))))))})
 
 ;; ===== verdict =====================================================
 
