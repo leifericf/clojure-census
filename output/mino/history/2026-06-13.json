@@ -3,9 +3,9 @@
   "dialect-tag": "mino",
   "clojure-version": "1.11.0",
   "headline": {
-    "in-both-count": 893,
+    "in-both-count": 904,
     "clojure-total": 995,
-    "percent": 0.8974874371859296
+    "percent": 0.9085427135678392
   },
   "per-namespace": {
     "clojure.zip": {
@@ -29,9 +29,9 @@
       "percent": 1.0
     },
     "clojure.core": {
-      "in-both-count": 582,
+      "in-both-count": 593,
       "clojure-total": 679,
-      "percent": 0.8571428571428571
+      "percent": 0.8733431516936672
     },
     "clojure.core.protocols": {
       "in-both-count": 10,

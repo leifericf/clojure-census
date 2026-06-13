@@ -633,7 +633,6 @@
      "Creates a new list containing the items prepended to the rest, the\n   last of which will be treated as a sequence."},
     list? {},
     load-file {},
-    load-image-into {},
     load-string {},
     loaded-libs {},
     locking
@@ -921,7 +920,6 @@
     realized?
     {:doc
      "Returns true if a delay, lazy sequence, future, or promise has\n     been realized."},
-    realpath {},
     record* {},
     record-fields {},
     record-from-map {},
@@ -996,14 +994,12 @@
     rm-rf {},
     rseq {},
     rsubseq {},
-    run {},
     run!
     {:doc
      "Applies f to each item in coll for side effects. Returns nil."},
     satisfies?
     {:doc
      "Returns true if x's type has implementations for all methods of\n   proto."},
-    save-image {},
     second {:doc "Returns the second item in coll."},
     select-keys
     {:doc
@@ -1040,7 +1036,6 @@
     set? {},
     sh {},
     sh! {},
-    sha256 {},
     short {},
     short-array {},
     shuffle
@@ -1085,14 +1080,6 @@
     splitv-at
     {:doc
      "Returns a vector [(vec (take n coll)) (vec (drop n coll))]."},
-    store-checkpoint* {},
-    store-clock* {},
-    store-close* {},
-    store-commit* {},
-    store-open* {},
-    store-read-snapshot* {},
-    store-read-wal* {},
-    store? {},
     str {},
     string? {},
     subbits {},
@@ -1238,7 +1225,6 @@
     when-some
     {:doc "Binds the result of expr, evaluates body if non-nil.",
      :macro true},
-    which {},
     while
     {:doc "Repeatedly evaluates body while test is truthy.",
      :macro true},
@@ -1805,6 +1791,9 @@
     inst-in-range?
     {:doc
      "Return true when inst is at or after start and strictly before end."},
+    instrument
+    {:doc
+     "Wrap the var named by sym so its args are validated against the\n  registered fdef on every call.  Returns sym if instrumented, nil\n  if no fdef is registered."},
     int-in
     {:doc
      "Return a spec validating fixed-precision integers in the range from\n  start (inclusive) to end (exclusive).",
@@ -1897,6 +1886,8 @@
      "Return the destructuring inverse of conform.  Given a conformed\n  value y produced by (conform spec x), unform returns a value that\n  conforms to spec and conforms to it back to y.  For specs without\n  an inverse (registered :clojure.spec.alpha/conformer specs without\n  an :unform key), unform returns y unchanged."},
     unform*
     {:doc "Internal dispatch for unform.  Public callers use unform."},
+    unstrument
+    {:doc "Restore an instrumented var to its original value."},
     valid? {:doc "Return true iff x conforms to spec."},
     with-gen
     {:doc
@@ -2122,4 +2113,4 @@
    throw
    def},
  :spec-keys #{},
- :captured-at "2026-08-13T06:12:59Z"}
+ :captured-at "2026-06-13T07:48:20Z"}
