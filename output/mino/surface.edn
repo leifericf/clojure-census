@@ -13,7 +13,10 @@
     {:doc
      "Controls assertion compilation. When false, `assert` is a no-op.\n   Defaults to true.",
      :dynamic true},
-    *clojure-version* {},
+    *clojure-version*
+    {:doc
+     "The Clojure compatibility version for this runtime, as a map with :major :minor :incremental and :qualifier keys.",
+     :dynamic true},
     *command-line-args* {:dynamic true},
     *compile-files* {:dynamic true},
     *compile-path* {:dynamic true},
@@ -31,6 +34,7 @@
     {:doc
      "Precision/rounding-mode for bigdec division. nil means exact-or-\n   throw (mirrors java.math.BigDecimal.divide without MathContext).\n   When set, the value is a map of {:precision N :rounding-mode K}\n   where N is a positive integer and K is one of: :half-up (default),\n   :down, :up, :floor, :ceiling, :half-down, :half-even, :unnecessary.\n   :unnecessary throws when rounding would change the value (mirrors\n   JVM's ArithmeticException). Resolved by mino_bigdec_div on each\n   call.",
      :dynamic true},
+    *ns* {:dynamic true},
     *out* {:dynamic true},
     *print-dup*
     {:doc
@@ -67,8 +71,14 @@
     +' {},
     - {},
     -' {},
-    -> {:macro true},
-    ->> {:macro true},
+    ->
+    {:doc
+     "Thread-first. Inserts x as the second item in the first form, then\n  inserts the result as the second item in the next form, and so on.",
+     :macro true},
+    ->>
+    {:doc
+     "Thread-last. Inserts x as the last item in the first form, then\n  inserts the result as the last item in the next form, and so on.",
+     :macro true},
     ->Eduction
     {:doc
      "Factory matching the value (eduction xform coll) returns. mino's\n   eduction values are sequences, so the factory applies xform to\n   coll the same way eduction does."},
@@ -120,11 +130,17 @@
     alter-meta! {},
     alter-var-root {},
     ancestors {:doc "Returns all ancestors of tag in the hierarchy."},
-    and {:macro true},
+    and
+    {:doc
+     "Returns the first falsy value, or the last value if all are truthy.",
+     :macro true},
     any? {:doc "Returns true for any argument."},
     apply {},
     array-map {:doc "Creates a hash-map."},
-    as-> {:macro true},
+    as->
+    {:doc
+     "Binds expr to sym, then threads it through each form where sym can\n   appear anywhere.",
+     :macro true},
     aset {},
     assert {:macro true},
     assoc {},
@@ -145,6 +161,10 @@
     bigint {},
     bigint? {},
     biginteger {},
+    binding
+    {:doc
+     "Establishes thread-local bindings for dynamic vars over the extent of the body, restoring the prior roots when the body returns or unwinds.",
+     :macro true},
     bit-and {},
     bit-and-not
     {:doc "Returns the bitwise AND of x and the complement of y."},
@@ -163,7 +183,10 @@
     boolean {:doc "Coerces x to a boolean value."},
     boolean-array {},
     boolean? {},
-    bound-fn {:macro true},
+    bound-fn
+    {:doc
+     "Returns a function defined by the given fntail, which will install\n   the same bindings in effect as in the thread at the time bound-fn\n   was called.",
+     :macro true},
     bound-fn*
     {:doc
      "Returns a function which installs the same bindings in effect as in\n   the thread at the time bound-fn* was called and then invokes f."},
@@ -177,7 +200,10 @@
     byte-array {},
     bytes? {},
     car {},
-    case {:macro true},
+    case
+    {:doc
+     "Dispatches on the value of expr. Matches constants in pairs, with\n   an optional default.",
+     :macro true},
     cat
     {:doc
      "A transducer that concatenates the contents of each input."},
@@ -218,10 +244,13 @@
     chunk-next {},
     chunk-rest {},
     chunked-seq? {},
-    clojure-version {},
+    class {},
+    clojure-version
+    {:doc
+     "Returns the Clojure compatibility version as a printable string."},
     coll-reduce {},
     coll? {:doc "Returns true if x is a collection."},
-    comment {:macro true},
+    comment {:doc "Ignores body, returns nil.", :macro true},
     commute {},
     comp {},
     comparator
@@ -234,10 +263,20 @@
     concat
     {:doc
      "Returns a lazy sequence of the concatenation of the given\n   collections."},
-    cond {:macro true},
-    cond-> {:macro true},
-    cond->> {:macro true},
-    condp {:macro true},
+    cond
+    {:doc
+     "Takes pairs of test/expr. Returns the expr for the first truthy test.",
+     :macro true},
+    cond->
+    {:doc "Thread-first through forms whose tests are truthy.",
+     :macro true},
+    cond->>
+    {:doc "Thread-last through forms whose tests are truthy.",
+     :macro true},
+    condp
+    {:doc
+     "Takes a binary predicate, an expression, and clauses. Returns the\n   first clause value where (pred test-val expr) is truthy. The\n   special clause shape `test :>> result-fn` calls `(result-fn p)`\n   on the truthy pred-result whenever `(pred test expr)` is truthy.",
+     :macro true},
     conj {},
     conj! {},
     cons {},
@@ -256,6 +295,10 @@
     dec {},
     dec' {},
     decimal? {},
+    declare
+    {:doc
+     "Interns one or more names as unbound vars so they can be referred to before their defining form appears.",
+     :macro true},
     dedupe
     {:doc
      "Returns a lazy sequence removing consecutive duplicates. When\n   called with no collection, returns a transducer."},
@@ -263,16 +306,39 @@
     {:doc
      "Default map of data reader functions keyed by tag symbol: 'inst\n     and 'uuid."},
     definterface {:macro true},
-    defmethod {:macro true},
-    defmulti {:macro true},
-    defn {:macro true},
-    defn- {:macro true},
-    defonce {:macro true},
-    defprotocol {:macro true},
-    defrecord {:macro true},
+    defmacro
+    {:doc
+     "Defines a macro: a named function, invoked at expansion time, whose return value replaces the calling form before it is evaluated.",
+     :macro true},
+    defmethod
+    {:doc "Defines a method for a multimethod.", :macro true},
+    defmulti
+    {:doc "Defines a multimethod with the given dispatch function.",
+     :macro true},
+    defn
+    {:doc
+     "Defines a named function. Supports docstrings, multi-arity, and\n   :pre/:post conditions.",
+     :macro true},
+    defn-
+    {:doc "Same as defn, yielding a non-public def.", :macro true},
+    defonce
+    {:doc "Defines name only if it has no root binding.", :macro true},
+    defprotocol
+    {:doc "Defines a protocol with the given method signatures.",
+     :macro true},
+    defrecord
+    {:doc
+     "Defines a record type Name with the given fields and optional\n   inline protocol specs. Establishes:\n     Name       — the MINO_TYPE value (used by extend-type and\n                  instance? as the dispatch key)\n     ->Name     — positional constructor: (->Name f1 f2 ...) returns\n                  a record value\n     map->Name  — map constructor: (map->Name {:f1 v1 :f2 v2}) reads\n                  declared fields from the map; non-field keys land\n                  in ext.\n\n   Fields must be a vector of symbols; they are stored as keywords\n   on the type. Specs follow the same shape as extend-type:\n   protocol-name followed by one or more (method [args] body) forms.\n\n   Inside an inline protocol method body, field names resolve as\n   locals bound to (get this :field) -- matches Clojure's defrecord\n   contract so (defrecord R [a b] IFoo (bar [this] (+ a b))) works\n   without writing (:a this) / (:b this) by hand.",
+     :macro true},
     defrecord* {},
-    deftype {:macro true},
-    delay {:macro true},
+    deftype
+    {:doc
+     "Alias for defrecord. mino has no separate JVM-class layer to\n   expose, so the deftype/defrecord distinction collapses; values\n   created either way are real types with map-isomorphic behaviour.",
+     :macro true},
+    delay
+    {:doc
+     "Creates a delay that evaluates body on first deref. The body runs\n  at most once: a failure is recorded and rethrown on every later\n  force.",
+     :macro true},
     delay? {:doc "Returns true if x is a delay."},
     deliver {},
     denominator {},
@@ -296,11 +362,22 @@
     distinct? {},
     doall {},
     dorun {},
-    doseq {:macro true},
-    dosync {:macro true},
+    doseq
+    {:doc
+     "Iterates over collections for side effects, evaluating body once\n   per binding combination, and returns nil. Supports nested\n   bindings and the modifier clauses :let, :when, and :while -- the\n   same surface clojure.core/doseq exposes:\n     :let [name expr ...]  introduces locals visible to inner clauses\n     :when expr            skips this iteration when expr is falsy\n     :while expr           halts all iteration when expr is falsy\n\n  Implementation note: :while needs to stop the outer loop too, not\n  just the inner one. We encode that with a shared 'stop' atom that\n  the outer driver inspects each iteration. Without it, an outer\n  infinite seq paired with a later :while would never terminate.",
+     :macro true},
+    dosync
+    {:doc
+     "Runs body in an STM transaction. Refs may be altered, set, ensured,\n  or commuted within. The transaction retries on write conflicts in\n  multi-threaded mode. Side effects via (io! ...) inside the body\n  throw. Requires STM to be installed (mino_install_stm).",
+     :macro true},
     dosync* {},
-    dotimes {:macro true},
-    doto {:macro true},
+    dotimes
+    {:doc "Evaluates body n times with sym bound to 0 through n-1.",
+     :macro true},
+    doto
+    {:doc
+     "Evaluates x, then calls each form with x as the first argument.\n   Returns x.",
+     :macro true},
     double {},
     double-array {},
     double?
@@ -351,8 +428,14 @@
     extend
     {:doc
      "Registers method implementations for one or more protocols on type\n   t without generating wrapper code: (extend T P {:m (fn [x] ...)}).\n   The fn-map keys are keywordized method names; values are the\n   implementation fns."},
-    extend-protocol {:macro true},
-    extend-type {:macro true},
+    extend-protocol
+    {:doc
+     "Extends a protocol with implementations for multiple types.",
+     :macro true},
+    extend-type
+    {:doc
+     "Extends a protocol with method implementations for the given type.",
+     :macro true},
     extenders
     {:doc
      "Returns a seq of the types explicitly extended to proto, or nil\n   when there are none."},
@@ -382,18 +465,28 @@
     float-array {},
     float? {},
     flush {},
+    fn
+    {:doc
+     "Defines an anonymous function. Takes an optional name, a vector of parameters, and a body; supports multiple arities and a variadic & rest parameter.",
+     :macro true},
     fn? {},
     fnext {:doc "Same as (first (next coll))."},
     fnil
     {:doc
      "Returns a function like f, but replaces nil arguments with the\n   given defaults."},
-    for {:macro true},
+    for
+    {:doc
+     "List comprehension. Takes binding vectors and body, returns a lazy\n   sequence.",
+     :macro true},
     force
     {:doc
      "Forces evaluation of a delay. If x is not a delay, returns x."},
     format {},
     frequencies {},
-    future {:macro true},
+    future
+    {:doc
+     "Takes a body of expressions and yields a future object that will\n  evaluate the body in another thread, blocking on deref until the\n  value is available. Throws :mino/unsupported when host threads are\n  not granted; see mino-thread-limit.",
+     :macro true},
     future-call {},
     future-cancel {},
     future-cancelled? {},
@@ -432,9 +525,17 @@
     ident? {:doc "Returns true if x is a symbol or keyword."},
     identical? {},
     identity {:doc "Returns its argument."},
-    if-let {:macro true},
-    if-not {:macro true},
-    if-some {:macro true},
+    if-let
+    {:doc
+     "Binds the result of expr, evaluates then if truthy, else otherwise.",
+     :macro true},
+    if-not
+    {:doc "Evaluates then when test is falsy, else otherwise.",
+     :macro true},
+    if-some
+    {:doc
+     "Binds the result of expr, evaluates then if non-nil, else\n   otherwise.",
+     :macro true},
     ifn? {:doc "Returns true if x can be called as a function."},
     import {:macro true},
     in-ns {},
@@ -471,7 +572,10 @@
     {:doc
      "Adds all items from from into to. With a transducer, transforms\n   items first."},
     into-array {:doc "Converts a collection to an Object array."},
-    io! {:macro true},
+    io!
+    {:doc
+     "If invoked within an STM transaction, throws an\n  IllegalStateException-equivalent before evaluating body. Marks a\n  body as having unsafe side effects so dosync can refuse it.",
+     :macro true},
     io!-check {},
     isa?
     {:doc "Returns true if child is equal to or derives from parent."},
@@ -497,12 +601,29 @@
     kv-reduce {},
     last {:doc "Returns the last item in coll."},
     last-error {},
-    lazy-cat {:macro true},
+    lazy-cat
+    {:doc
+     "Expands to code that yields a lazy concatenation of the given\n   collections.",
+     :macro true},
     lazy-filter {},
     lazy-map-1 {},
+    lazy-seq
+    {:doc
+     "Returns a sequence whose body is not evaluated until the first element is requested, then caches the realized sequence for later traversals.",
+     :macro true},
     lazy-take {},
-    let-bits {:macro true},
-    letfn {:macro true},
+    let
+    {:doc
+     "Evaluates the body with a sequence of local bindings established left to right from the binding vector; later bindings may refer to earlier ones.",
+     :macro true},
+    let-bits
+    {:doc
+     "Destructure-shaped binding over a bytes value.\n   (let-bits [bytes-val [sym & opts] ...] body...)\n   See documentation in core.clj just above this definition.",
+     :macro true},
+    letfn
+    {:doc
+     "Binds local functions. Each binding is (name [params] body...).\n   Expands to the `letfn*` special form so the bound fns can refer\n   to each other (mutual recursion) — every name is placeholder-\n   bound before any fn body is evaluated, so each fn's closure\n   captures the shared scope.",
+     :macro true},
     line-seq
     {:doc
      "Returns the lines of text from rdr as a lazy sequence of strings.\n   rdr is a string-cursor atom (the *in* model that read-line\n   consumes from): each realized element takes one line off the\n   cursor. Returns nil when the cursor is exhausted."},
@@ -514,9 +635,16 @@
     load-file {},
     load-string {},
     loaded-libs {},
-    locking {:macro true},
+    locking
+    {:doc
+     "Executes body while holding a monitor of x. Reentrant per thread;\n  released on normal exit and on throw. Exclusion is cooperative:\n  contending threads wait for the holder to release across yield\n  points.",
+     :macro true},
     long {},
     long-array {},
+    loop
+    {:doc
+     "Like let, but establishes a recursion point: a recur in tail position rebinds the loop locals and jumps back to the top without growing the stack.",
+     :macro true},
     macroexpand {},
     macroexpand-1 {},
     make-hierarchy {:doc "Returns an empty hierarchy."},
@@ -619,6 +747,10 @@
     not-empty {:doc "Returns coll if it has items, nil otherwise."},
     not-every? {},
     not= {:doc "Returns true if the arguments are not equal."},
+    ns
+    {:doc
+     "Selects or creates a namespace and applies its require / refer / import clauses, becoming the current namespace for the forms that follow.",
+     :macro true},
     ns-aliases {},
     ns-imports {},
     ns-interns {},
@@ -641,7 +773,10 @@
     numerator {},
     object-array {},
     odd? {},
-    or {:macro true},
+    or
+    {:doc
+     "Returns the first truthy value, or the last value if none are truthy.",
+     :macro true},
     parents
     {:doc "Returns the immediate parents of tag in the hierarchy."},
     parse-boolean
@@ -689,7 +824,7 @@
     postwalk-replace
     {:doc
      "Replaces items in form that appear as keys in smap, walking\n   bottom-up."},
-    pr {},
+    pr {:dynamic true},
     pr-builtin {},
     pr-str {},
     prefer-method
@@ -724,7 +859,10 @@
     {:doc
      "Push a fresh dynamic-binding frame whose entries come from the map.\n   Symbols-or-strings are accepted as keys. Must be paired with\n   pop-thread-bindings in a try/finally."},
     push-thread-bindings* {},
-    pvalues {:macro true},
+    pvalues
+    {:doc
+     "Returns a lazy sequence of the values of the exprs, which are\n   evaluated in parallel via pcalls. Mirrors clojure.core/pvalues.",
+     :macro true},
     qualified-ident?
     {:doc
      "Returns true if x is a namespace-qualified symbol or keyword."},
@@ -805,8 +943,15 @@
     ref-set {},
     ref? {},
     refer {},
+    refer-clojure
+    {:doc
+     "Refers public vars from clojure.core into the current namespace,\n   accepting the same filter options as the ns :refer-clojure clause:\n   :exclude, :only, :rename.  Exclusions and :only limits are honored\n   by re-applying the ns form on the current namespace, which cuts the\n   clojure.core parent chain and rebuilds the filtered mapping — the\n   same path the (ns ...) special form takes.",
+     :macro true},
     regex? {},
-    reify {:macro true},
+    reify
+    {:doc
+     "Returns an instance of a fresh anonymous record type that\n   satisfies the named protocols. Each reify form generates one\n   type at expansion time; repeated invocations of the form share\n   that type, so (= (type r1) (type r2)) is true for two values\n   produced by the same reify form.",
+     :macro true},
     release-pending-sends {},
     rem {},
     remove
@@ -878,7 +1023,10 @@
     {:doc
      "Returns true if x is a sequential collection (list, vector,\n   lazy-seq, or queue)."},
     set {},
-    set! {:macro true},
+    set!
+    {:doc
+     "Mutates a thread-local dynamic-var binding to the given value.\n   The target must be a dynamic var with an enclosing (binding ...)\n   form on the call stack; without one, throws \"Can't\n   change/establish root binding\". Matches Clojure JVM's contract\n   for set! on Vars. Returns the new value.\n\n   The JVM-only field-mutation shape (set! (.-field obj) val) is not\n   supported -- mino has no JVM fields.",
+     :macro true},
     set-dyn-binding! {},
     set-error-handler! {},
     set-error-mode! {},
@@ -902,8 +1050,12 @@
     {:doc "Returns true if x is a symbol with no namespace."},
     slurp {},
     some {},
-    some-> {:macro true},
-    some->> {:macro true},
+    some->
+    {:doc "Thread-first through forms, short-circuiting on nil.",
+     :macro true},
+    some->>
+    {:doc "Thread-last through forms, short-circuiting on nil.",
+     :macro true},
     some-fn
     {:doc
      "Returns a function that returns the first truthy value from any\n   pred applied to any argument."},
@@ -938,7 +1090,10 @@
     swap-vals! {},
     symbol {},
     symbol? {},
-    sync {:macro true},
+    sync
+    {:doc
+     "Like dosync: runs the exprs (which may be nil) in an STM\n  transaction. flags-ignored is accepted for arglist parity and\n  currently ignored.",
+     :macro true},
     tagged-literal
     {:doc
      "Builds a tagged-literal record with tag and form fields. Predicate\n   tagged-literal? returns true on the result."},
@@ -962,13 +1117,19 @@
     {:doc
      "Finds fn at key :test in v's metadata, calls it (presumably with\n   no side effects on the wider system), and reports :ok when it\n   returns, :no-test when no :test fn is present. An error thrown by\n   the :test fn flows out unwrapped."},
     the-ns {},
-    thread {:macro true},
+    thread
+    {:doc
+     "Executes the body in another thread, returning a future-like value\n  that can be deref'd. Shares the same worker pool as future. Throws\n  :mino/unsupported when host threads are not granted.",
+     :macro true},
     thread-bound?
     {:doc
      "Returns true if all of the vars provided as arguments have\n   thread-local bindings active on the current dyn-stack."},
     thread-sleep {},
     throw {},
-    time {:macro true},
+    time
+    {:doc
+     "Evaluates body, prints elapsed time, and returns the result.",
+     :macro true},
     time-ms {},
     to-array {},
     trampoline
@@ -1043,25 +1204,60 @@
     volatile! {},
     volatile? {},
     vreset! {},
-    vswap! {},
+    vswap!
+    {:doc
+     "Non-atomically swaps the value of the volatile to be:\n   (apply f current-value-of-vol args). Returns the new value.",
+     :macro true},
     walk
     {:doc
      "Traverses form, applying inner to each element and outer to the\n   result."},
-    when {:macro true},
-    when-first {:macro true},
-    when-let {:macro true},
-    when-not {:macro true},
-    when-some {:macro true},
-    while {:macro true},
-    with-bindings {:macro true},
+    when
+    {:doc "Evaluates body when test is truthy. Returns nil otherwise.",
+     :macro true},
+    when-first
+    {:doc
+     "Binds the first element of a collection, evaluates body if the\n   collection is non-empty.",
+     :macro true},
+    when-let
+    {:doc "Binds the result of expr, evaluates body if truthy.",
+     :macro true},
+    when-not {:doc "Evaluates body when test is falsy.", :macro true},
+    when-some
+    {:doc "Binds the result of expr, evaluates body if non-nil.",
+     :macro true},
+    while
+    {:doc "Repeatedly evaluates body while test is truthy.",
+     :macro true},
+    with-bindings
+    {:doc
+     "Takes a map of var->value pairs. Installs the bindings, executes\n   body, and pops the bindings in a finally clause.",
+     :macro true},
     with-bindings* {},
-    with-in-str {:macro true},
-    with-local-vars {:macro true},
+    with-in-str
+    {:doc
+     "Evaluates body with *in* bound to a string-cursor atom holding\n  s. read and read-line consume from the cursor as forms or lines\n  are taken; the body's value is returned.",
+     :macro true},
+    with-local-vars
+    {:doc
+     "Binds names to fresh, lexically-scoped vars holding init values.\n   Within body the names refer to vars: read with @name, mutate with\n   (var-set name val). The vars are interned in the current namespace\n   under gensym'd suffixes so they don't collide with named defs.",
+     :macro true},
     with-meta {},
-    with-open {:macro true},
-    with-out-str {:macro true},
-    with-precision {:macro true},
-    with-redefs {:macro true},
+    with-open
+    {:doc
+     "Binds resources, evaluates body, then closes each resource.",
+     :macro true},
+    with-out-str
+    {:doc
+     "Evaluates body with *out* bound to a fresh string-collecting atom,\n  and returns the accumulated string.",
+     :macro true},
+    with-precision
+    {:doc
+     "Sets *math-context* to {:precision precision :rounding-mode mode}\n  around body. The keyword :rounding takes the next form as a\n  rounding-mode keyword (e.g. (with-precision 5 :rounding :half-up\n  (/ 1M 3M))) or as a JVM RoundingMode enum symbol (e.g. HALF_UP,\n  CEILING). Without :rounding, the mode defaults to :half-up.",
+     :macro true},
+    with-redefs
+    {:doc
+     "Temporarily rebinds the root bindings of vars while body executes, restoring\n   them in a finally clause. Bindings is a vector of var-name/value pairs.\n\n   The temp-value exprs are evaluated in parallel BEFORE any rebind fires, so a\n   later binding-value that names an earlier-listed var sees that var's\n   pre-redef value (matching Clojure JVM).",
+     :macro true},
     with-redefs-fn
     {:doc
      "Temporarily rebinds the root values of vars to new-values while\n   thunk runs, restoring originals afterward. bindings-map is a map\n   of var -> new-value."},
@@ -1345,17 +1541,25 @@
      "A pretty-print dispatch function for Clojure code. Select it with\n  with-pprint-dispatch or set-pprint-dispatch; it registers nothing\n  globally. Lists are laid out as code (recognized special forms indent\n  their body under the head, let-style bindings stay paired); everything\n  else falls back to the simple-dispatch layout."},
     formatter
     {:doc
-     "Makes a function which can directly run format-in. The returned function\n  takes a writer (true, nil or a writer) followed by the format arguments,\n  and returns nil or the formatted string the same way cl-format does."},
+     "Makes a function which can directly run format-in. The returned function\n  takes a writer (true, nil or a writer) followed by the format arguments,\n  and returns nil or the formatted string the same way cl-format does.",
+     :macro true},
+    formatter-impl
+    {:doc
+     "Implementation backing the formatter macro; not part of the public API."},
     formatter-out
     {:doc
-     "Makes a function which can directly run format-in, writing to *out*. The\n  returned function takes the format arguments and always writes to *out*,\n  returning nil. Designed for use inside dispatch functions."},
+     "Makes a function which can directly run format-in, writing to *out*. The\n  returned function takes the format arguments and always writes to *out*,\n  returning nil. Designed for use inside dispatch functions.",
+     :macro true},
+    formatter-out-impl
+    {:doc
+     "Implementation backing the formatter-out macro; not part of the public API."},
     fresh-line
     {:doc
      "Emit a newline only when output is not already at the start of a line.\n  Inside the engine the column is known exactly; otherwise, when *out* is\n  a string-collecting atom, inspect the buffer; failing that, emit a\n  newline."},
     get-pretty-writer
     {:doc
      "Returns a pretty-printing writer wrapping base-writer, or a default\n  output sink when base-writer is nil. The result is usable as *out* for\n  write-out."},
-    pp {:macro true},
+    pp {:doc "Pretty print the last REPL result (*1).", :macro true},
     pp-write-str
     {:doc
      "Write a raw string through the pretty-printing engine, advancing the\n  column. Public so macros expanded in other namespaces (print-length-loop)\n  can reach it."},
@@ -1365,7 +1569,10 @@
     pprint-indent
     {:doc
      "Set the indentation for following lines of the current logical block.\n  relative-to is :block (offset from the block start) or :current (offset\n  from the current column); n is the offset."},
-    pprint-logical-block {:macro true},
+    pprint-logical-block
+    {:doc
+     "Execute the body as a pretty-printing logical block on *out*, which\n  must be a pretty-printing engine (true within pprint or a dispatch fn).\n  Optional leading options: :prefix, :per-line-prefix, :suffix.",
+     :macro true},
     pprint-logical-block*
     {:doc
      "Functional core of pprint-logical-block. prefix / per-line / suffix may\n  be nil; body-thunk is a zero-argument function performing the block's\n  writes. Decides break vs inline by measuring the body, then renders it\n  for real."},
@@ -1374,7 +1581,10 @@
      "Print a conditional newline to the pretty-printing engine. kind is\n  :linear, :miser, :fill or :mandatory. Output goes to *out*, which must\n  be a pretty-printing engine (true within pprint or a dispatch fn)."},
     pprint-tab
     {:doc "Tab in the pretty-printing engine. Not yet implemented."},
-    print-length-loop {:macro true},
+    print-length-loop
+    {:doc
+     "A loop that iterates at most *print-length* times, emitting \"...\"\n  when the limit is reached. For use in dispatch functions.",
+     :macro true},
     print-table
     {:doc
      "Prints a collection of maps as a textual table. Prints the heading row\n  ks, a separator row, and one row per map, each cell drawn from the\n  corresponding key. ks selects and orders the columns; it defaults to\n  the keys of the first row. Columns are padded to the widest cell and\n  delimited with pipes."},
@@ -1383,7 +1593,10 @@
     simple-dispatch
     {:doc
      "The default pretty-print dispatch function for plain data."},
-    with-pprint-dispatch {:macro true},
+    with-pprint-dispatch
+    {:doc
+     "Execute body with the pretty-print dispatch function bound to function.",
+     :macro true},
     write
     {:doc
      "Write object subject to the current printer control variables. Keyword\n  options override individual variables for this call:\n\n    :stream         writer for output, or nil to return a string\n    :pretty         if true, pretty print\n    :base           base for printing integers\n    :radix          if true, prepend a radix specifier\n    :right-margin   the right-margin column\n    :miser-width    the column to enter miser style\n    :length         maximum elements to show\n    :suppress-namespaces  if true, no namespaces on symbols\n\n  Returns the string result when :stream is nil, otherwise nil."},
@@ -1406,8 +1619,11 @@
     union {}}},
   clojure.spec.alpha
   {:vars
-   {& {:macro true},
-    * {:macro true},
+   {&
+    {:doc
+     "Wrap a regex spec with additional predicates applied to the\n  conformed sequence value. Each pred must return truthy.",
+     :macro true},
+    * {:doc "Zero or more occurrences of pred.", :macro true},
     *coll-check-limit*
     {:doc
      "The number of elements validated in a collection spec'ed with\n  every / every-kv.",
@@ -1432,8 +1648,8 @@
     {:doc
      "A soft limit on how many times a branching spec (or / alt / * /\n  opt-keys / multi-spec) can be recursed through during generation.\n  After this a non-recursive branch is chosen.",
      :dynamic true},
-    + {:macro true},
-    ? {:macro true},
+    + {:doc "One or more occurrences of pred.", :macro true},
+    ? {:doc "Zero or one occurrence of pred.", :macro true},
     Spec
     {:doc
      "Descriptor for the Spec protocol.  Spec values are ::kind-tagged\n  maps; the protocol's methods are the namespace fns listed under\n  ::methods, dispatching on that tag."},
@@ -1443,25 +1659,36 @@
     abbrev
     {:doc
      "Return an abbreviated description of a spec form. Strips namespace\n  qualifiers from symbols and shortens (fn [%] body) to body."},
-    alt {:macro true},
+    alt
+    {:doc "Alternation: branches with named tags, single-element.",
+     :macro true},
     alt-impl {},
     amp-impl
     {:doc
      "Build an ::amp regex spec: re-spec is consumed normally; the\n  conformed sequence is then threaded through each pred as a spec\n  (see the ::amp branch of re-consume).  Any ::invalid step yields\n  ::invalid for the whole consume."},
-    and {:macro true},
+    and
+    {:doc
+     "Compose specs left to right; each receives the conformed value of\n  the previous.",
+     :macro true},
     and-spec-impl {},
-    assert {:macro true},
+    assert
+    {:doc
+     "Spec-checking assert.  Returns x when it conforms to spec, else\n  throws an ex-info carrying explain-data plus ::failure of\n  :assertion-failed.  When *compile-asserts* is false at expansion the\n  check compiles away to x; at runtime (check-asserts?) gates whether\n  the compiled check evaluates.",
+     :macro true},
     assert*
     {:doc
      "Runtime worker behind the assert macro.  Returns x when it conforms\n  to spec, else throws an ex-info carrying explain-data plus\n  ::failure :assertion-failed.  Callers normally use the assert macro."},
-    cat {:macro true},
+    cat {:doc "Sequence of named tagged elements.", :macro true},
     cat-impl {},
     check-asserts
     {:doc
      "Enable or disable runtime s/assert checking.  Returns the flag."},
     check-asserts?
     {:doc "Return the current runtime s/assert checking flag."},
-    coll-of {:macro true},
+    coll-of
+    {:doc
+     "Validate that x is a collection whose elements all conform to spec.",
+     :macro true},
     coll-of-impl {},
     conform
     {:doc
@@ -1471,8 +1698,14 @@
      "Internal dispatch for conform.  Public callers use conform."},
     conformer
     {:doc
+     "Return a spec that uses cfn as the conform path. cfn takes a value\n  and returns the conformed value or :clojure.spec.alpha/invalid.\n  Optionally takes an unform fn; if omitted, unform is identity.",
+     :macro true},
+    conformer-impl
+    {:doc
      "Return a spec that uses cfn as the conform path. cfn takes a value\n  and returns the conformed value or :clojure.spec.alpha/invalid.\n  Optionally takes an unform fn; if omitted, unform is identity."},
-    def {:macro true},
+    def
+    {:doc "Register a spec under k.  k is a namespaced keyword.",
+     :macro true},
     def-impl
     {:doc
      "Register the spec under k.  k must be a namespaced keyword or symbol."},
@@ -1483,12 +1716,22 @@
      "Protocol-shaped describe: return the raw (unabbreviated) form of a\n  spec.  Public callers usually want describe."},
     double-in
     {:doc
+     "Return a spec for a 64-bit floating point number.  Options:\n    :infinite? - whether +/- infinity is allowed (default false)\n    :NaN?      - whether NaN is allowed (default false)\n    :min       - inclusive minimum (default none)\n    :max       - inclusive maximum (default none)\n\n  Divergence: the canonical library defaults :infinite? and :NaN? to\n  true; mino defaults both to false so a plain double-in rejects the\n  non-finite values unless they are explicitly opted in -- the safer\n  default for a range spec.",
+     :macro true},
+    double-in-impl
+    {:doc
      "Return a spec for a 64-bit floating point number.  Options:\n    :infinite? - whether +/- infinity is allowed (default false)\n    :NaN?      - whether NaN is allowed (default false)\n    :min       - inclusive minimum (default none)\n    :max       - inclusive maximum (default none)\n\n  Divergence: the canonical library defaults :infinite? and :NaN? to\n  true; mino defaults both to false so a plain double-in rejects the\n  non-finite values unless they are explicitly opted in -- the safer\n  default for a range spec."},
-    every {:macro true},
+    every
+    {:doc
+     "Validate that every element of a collection satisfies pred.  Samples\n  up to coll-check-limit (101) elements; does not conform elements; the\n  input collection is returned unchanged on success.\n\n  Opts: :kind pred, :count n, :min-count n, :max-count n, :distinct bool.",
+     :macro true},
     every-impl
     {:doc
      "Build an ::every spec value.  Recognized opts: :kind, :count,\n  :min-count, :max-count, :distinct, :into, plus ::conform-all\n  (conform each element instead of sampling) and ::kv (elements are\n  [k v] entries; explain reports the key, not the index)."},
-    every-kv {:macro true},
+    every-kv
+    {:doc
+     "Like every but validates associative entries as [kpred vpred] pairs.\n  Works on maps and sequences of pairs.",
+     :macro true},
     exercise
     {:doc
      "Generate `n` (default 10) sample/conformed pairs for `spec`."},
@@ -1516,12 +1759,18 @@
     explain-str
     {:doc
      "Return a string describing why x fails spec, or \"Success!\\n\" if\n  it passes. Format follows clojure.spec.alpha: each problem on its\n  own line terminated with \\n."},
-    fdef {:macro true},
+    fdef
+    {:doc
+     "Register a function spec under the qualified symbol of fn-sym.\n  Options: :args, :ret, :fn (each a spec form).",
+     :macro true},
     fdef-impl {},
     form
     {:doc
      "Return the form of the spec, or :clojure.spec.alpha/unknown if x is\n  not a registered spec."},
-    fspec {:macro true},
+    fspec
+    {:doc
+     "Build a function spec from :args :ret and (optional) :fn preds.\n  conform / explain take a fn and validate it via generative testing;\n  the conformed value is always the fn itself.  :ret defaults to any?.",
+     :macro true},
     fspec-impl
     {:doc
      "Build an fspec value from the :args / :ret / :fn specs and their\n  forms.  conform validates a fn by generatively sampling :args (up to\n  *fspec-iterations*) and checking :ret (and :fn); the conformed value\n  is the fn itself.  Callers normally use the fspec macro or fdef."},
@@ -1534,14 +1783,19 @@
     get-spec {:doc "Return the spec registered under k, or nil."},
     inst-in
     {:doc
+     "Return a spec validating insts in the range from start (inclusive)\n  to end (exclusive).",
+     :macro true},
+    inst-in-impl
+    {:doc
      "Return a spec validating insts in the range from start (inclusive)\n  to end (exclusive)."},
     inst-in-range?
     {:doc
      "Return true when inst is at or after start and strictly before end."},
-    instrument
-    {:doc
-     "Wrap the var named by sym so its args are validated against the\n  registered fdef on every call.  Returns sym if instrumented, nil\n  if no fdef is registered."},
     int-in
+    {:doc
+     "Return a spec validating fixed-precision integers in the range from\n  start (inclusive) to end (exclusive).",
+     :macro true},
+    int-in-impl
     {:doc
      "Return a spec validating fixed-precision integers in the range from\n  start (inclusive) to end (exclusive)."},
     int-in-range?
@@ -1549,13 +1803,20 @@
      "Return true when val is a fixed-precision integer with\n  start <= val < end."},
     invalid {},
     invalid? {},
-    keys {:macro true},
-    keys* {:macro true},
+    keys
+    {:doc
+     "Validate a map shape.  Required-key presence is enforced; per-key\n  values are conformed against specs registered under the qualified\n  key.",
+     :macro true},
+    keys*
+    {:doc
+     "Like keys but produces a regex spec that matches inline key/value\n  pairs in a sequence.  Conforms to a map.",
+     :macro true},
     keys*-impl
     {:doc
      "Build the keys* regex op around mspec, a keys spec built from the\n  same arguments.  Callers normally use the keys* macro."},
     keys-impl {},
-    map-of {:macro true},
+    map-of
+    {:doc "Validate a map of key-spec to val-spec.", :macro true},
     map-of-impl {},
     map-spec-impl
     {:doc
@@ -1563,20 +1824,30 @@
     maybe-impl
     {:doc
      "Build a ? regex spec: zero or one occurrence of pred.  Callers\n  normally use the ? macro.  Note the canonical argument order: pred\n  first, form second."},
-    merge {:macro true},
+    merge
+    {:doc
+     "Conjunction of map specs.  x must conform to every branch; the\n  conformed maps are merged left to right.",
+     :macro true},
     merge-spec-impl
     {:doc
      "Build a merge spec from branch forms and branch specs.  Callers\n  normally use the merge macro."},
-    multi-spec {:macro true},
+    multi-spec
+    {:doc
+     "Dispatch a spec through a multimethod.  mm is the multimethod\n  symbol; retag is the keyword used to extract the dispatch value.",
+     :macro true},
     multi-spec-impl
     {:doc
      "Build a multi-spec value.  form names the multimethod, mmvar is the\n  var holding it, retag is the tag key.  Callers normally use the\n  multi-spec macro."},
-    nilable {:macro true},
+    nilable
+    {:doc "Spec that allows nil OR a value matching pred.",
+     :macro true},
     nilable-impl {},
     nonconforming
     {:doc
      "Return a spec with the same properties as spec, except conform\n  returns the original (not the conformed) value."},
-    or {:macro true},
+    or
+    {:doc "Branches with named tags; the first match wins.",
+     :macro true},
     or-spec-impl {},
     re-consume
     {:doc
@@ -1592,7 +1863,8 @@
     {:doc
      "Build a + regex spec: one or more occurrences of pred.  Callers\n  normally use the + macro."},
     rep-impl {},
-    spec {:macro true},
+    spec
+    {:doc "Promote a predicate form to a spec value.", :macro true},
     spec-impl
     {:doc
      "Build a spec value from a form and predicate.  When pred resolves to\n  a regex spec (cat / * / + / ? / alt / a registered regex), the result\n  wraps the regex (see regex-spec-impl)."},
@@ -1602,15 +1874,15 @@
     specize*
     {:doc
      "Coerce x to a spec value: spec maps pass through, registered\n  keywords resolve, anything callable as a predicate is promoted to a\n  pred spec.  The binary arity uses form as the promoted description."},
-    tuple {:macro true},
+    tuple
+    {:doc "Validate a fixed-length, position-indexed vector.",
+     :macro true},
     tuple-impl {},
     unform
     {:doc
      "Return the destructuring inverse of conform.  Given a conformed\n  value y produced by (conform spec x), unform returns a value that\n  conforms to spec and conforms to it back to y.  For specs without\n  an inverse (registered :clojure.spec.alpha/conformer specs without\n  an :unform key), unform returns y unchanged."},
     unform*
     {:doc "Internal dispatch for unform.  Public callers use unform."},
-    unstrument
-    {:doc "Restore an instrumented var to its original value."},
     valid? {:doc "Return true iff x conforms to spec."},
     with-gen
     {:doc
@@ -1656,7 +1928,10 @@
    {apply-template
     {:doc
      "Replaces argv symbols in expr with the corresponding values.\n\n   argv is a binding vector of symbols (no destructuring). expr is\n   the template form. values is a sequence whose elements are\n   substituted positionally.\n\n   (apply-template '[x] '(+ x x) '[2])    ; => (+ 2 2)\n   (apply-template '[a b] '(- a b) '[5 3]) ; => (- 5 3)"},
-    do-template {:macro true}}},
+    do-template
+    {:doc
+     "Repeatedly copies expr (wrapped in a do) for each group of values.\n\n   values are partitioned by (count argv); each group binds argv\n   in expr and the resulting form joins the do.\n\n   (do-template [x y] (+ y x) 2 4 3 5)\n   ; => (do (+ 4 2) (+ 5 3))",
+     :macro true}}},
   clojure.test
   {:vars
    {*current-test* {:dynamic true},
@@ -1713,11 +1988,16 @@
     run-namespace-tests
     {:doc
      "Runs the registered tests for the given namespace names (strings) and\n  returns a summary map.  An empty collection runs nothing."},
-    run-test {:macro true},
+    run-test
+    {:doc
+     "Runs a single test identified by its symbol in the current namespace.\n  Returns a summary map.",
+     :macro true},
     run-test-var
     {:doc
      "Runs the tests for a single var with a fresh counter, and returns a\n  summary map with :type :summary."},
-    run-tests {:macro true},
+    run-tests
+    {:doc
+     "Run registered tests and return a summary map.\n\n  With no arguments, runs the tests registered in the namespace that is\n  current when run-tests is called (reads *ns* at call time, per JVM\n  canon).  Given namespace symbols or objects, runs tests registered in\n  those namespaces.\n\n  Prints a summary line and any failure details to stdout."},
     run-tests-and-exit
     {:doc
      "Runs the whole registry and exits the process with code 0 on no\n  failures or errors, 1 otherwise.  A no-op while suite-mode is true.\n  Used as the bottom-of-file entry point in test files and by the suite\n  driver; it always runs every registered test, independent of the\n  namespace-scoped run-tests."},
@@ -1733,7 +2013,8 @@
      "Runs tests in the given namespace (symbol or ns object).  Binds\n  *report-counters* to a fresh atom, calls test-all-vars, and returns\n  the final counter map."},
     test-var
     {:doc
-     "If v has a function in its :test metadata, calls that function with\n  *testing-vars* bound to (conj *testing-vars* v).  Increments the\n  :test counter in *report-counters*."},
+     "If v has a function in its :test metadata, calls that function with\n  *testing-vars* bound to (conj *testing-vars* v).  Increments the\n  :test counter in *report-counters*.  Dynamic so that binding can\n  replace the implementation for custom runners (JVM canon parity).",
+     :dynamic true},
     test-vars
     {:doc
      "Runs test-var on each var in vars that has :test metadata."},
@@ -1745,8 +2026,12 @@
     {:doc
      "Returns a string representation of the current test.  Renders names\n  in *testing-vars* as a list, then the source file and line of the\n  current assertion."},
     tests-registry {},
-    try-expr {:macro true},
-    use-fixtures {:macro true},
+    try-expr
+    {:doc "Used by the is macro to catch unexpected exceptions.",
+     :macro true},
+    use-fixtures
+    {:doc
+     "Register fixture functions for the current namespace.\n\n  kind is :once (run around the entire batch of tests in this ns) or\n  :each (run around each individual test).  Multiple fixtures of the\n  same kind compose left-to-right (the first fixture is outermost).\n\n  Reads *ns* at call time so the fixture is registered under the\n  namespace that is current when use-fixtures is called (JVM canon\n  parity)."},
     with-test {:macro true},
     with-test-out {:macro true}}},
   clojure.walk
@@ -1823,4 +2108,4 @@
    throw
    def},
  :spec-keys #{},
- :captured-at "2026-06-13T06:27:59Z"}
+ :captured-at "2026-06-14T06:33:02Z"}
