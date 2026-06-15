@@ -2,7 +2,7 @@
  {:dialect-tag "mino",
   :dialect-name "mino",
   :clojure-version "1.12.4",
-  :compared-at "2026-06-14T06:33:38Z"},
+  :compared-at "2026-06-15T06:49:14Z"},
  :divergences
  [{:dialect-example "(compare \"z\" \"a\") ;=> 1",
    :since "v0.1.0",
@@ -265,52 +265,7 @@
    clojure.template
    {:in-both-count 2, :clojure-total 2, :percent 1.0}}},
  :history
- [{:date "2026-06-01",
-   :dialect-tag "mino",
-   :clojure-version "1.11.0",
-   :headline
-   {:in-both-count 751,
-    :clojure-total 995,
-    :percent 0.7547738693467336},
-   :per-namespace
-   {clojure.spec.alpha
-    {:in-both-count 49,
-     :clojure-total 87,
-     :percent 0.5632183908045977},
-    clojure.datafy {:in-both-count 2, :clojure-total 2, :percent 1.0},
-    clojure.zip {:in-both-count 28, :clojure-total 28, :percent 1.0},
-    clojure.core.reducers
-    {:in-both-count 13,
-     :clojure-total 21,
-     :percent 0.6190476190476191},
-    clojure.test
-    {:in-both-count 8,
-     :clojure-total 39,
-     :percent 0.20512820512820512},
-    clojure.core.protocols
-    {:in-both-count 8, :clojure-total 11, :percent 0.7272727272727273},
-    clojure.core
-    {:in-both-count 560,
-     :clojure-total 679,
-     :percent 0.8247422680412371},
-    clojure.set {:in-both-count 12, :clojure-total 12, :percent 1.0},
-    clojure.pprint
-    {:in-both-count 3,
-     :clojure-total 26,
-     :percent 0.11538461538461539},
-    clojure.math
-    {:in-both-count 31,
-     :clojure-total 45,
-     :percent 0.6888888888888889},
-    clojure.edn {:in-both-count 2, :clojure-total 2, :percent 1.0},
-    clojure.instant {:in-both-count 3, :clojure-total 5, :percent 0.6},
-    clojure.string
-    {:in-both-count 21, :clojure-total 21, :percent 1.0},
-    clojure.data {:in-both-count 1, :clojure-total 5, :percent 0.2},
-    clojure.walk {:in-both-count 8, :clojure-total 10, :percent 0.8},
-    clojure.template
-    {:in-both-count 2, :clojure-total 2, :percent 1.0}}}
-  {:date "2026-06-02",
+ [{:date "2026-06-02",
    :dialect-tag "mino",
    :clojure-version "1.11.0",
    :headline
@@ -878,10 +833,47 @@
     clojure.data {:in-both-count 5, :clojure-total 5, :percent 1.0},
     clojure.walk {:in-both-count 10, :clojure-total 10, :percent 1.0},
     clojure.template
+    {:in-both-count 2, :clojure-total 2, :percent 1.0}}}
+  {:date "2026-06-15",
+   :dialect-tag "mino",
+   :clojure-version "1.11.0",
+   :headline
+   {:in-both-count 904,
+    :clojure-total 995,
+    :percent 0.9085427135678392},
+   :per-namespace
+   {clojure.spec.alpha
+    {:in-both-count 87, :clojure-total 87, :percent 1.0},
+    clojure.datafy {:in-both-count 2, :clojure-total 2, :percent 1.0},
+    clojure.zip {:in-both-count 28, :clojure-total 28, :percent 1.0},
+    clojure.core.reducers
+    {:in-both-count 19,
+     :clojure-total 21,
+     :percent 0.9047619047619048},
+    clojure.test {:in-both-count 39, :clojure-total 39, :percent 1.0},
+    clojure.core.protocols
+    {:in-both-count 10,
+     :clojure-total 11,
+     :percent 0.9090909090909091},
+    clojure.core
+    {:in-both-count 593,
+     :clojure-total 679,
+     :percent 0.8733431516936672},
+    clojure.set {:in-both-count 12, :clojure-total 12, :percent 1.0},
+    clojure.pprint
+    {:in-both-count 26, :clojure-total 26, :percent 1.0},
+    clojure.math {:in-both-count 45, :clojure-total 45, :percent 1.0},
+    clojure.edn {:in-both-count 2, :clojure-total 2, :percent 1.0},
+    clojure.instant {:in-both-count 3, :clojure-total 5, :percent 0.6},
+    clojure.string
+    {:in-both-count 21, :clojure-total 21, :percent 1.0},
+    clojure.data {:in-both-count 5, :clojure-total 5, :percent 1.0},
+    clojure.walk {:in-both-count 10, :clojure-total 10, :percent 1.0},
+    clojure.template
     {:in-both-count 2, :clojure-total 2, :percent 1.0}}}],
  :behavior
  {:dialect-tag "mino",
-  :run-at "2026-06-14T06:33:06Z",
+  :run-at "2026-06-15T06:48:42Z",
   :totals
   {:match 9, :mismatch 1, :divergent-as-expected 12, :skipped 0},
   :parities
@@ -891,7 +883,7 @@
     {:status :value,
      :value {:clj-census/opaque "class java.lang.String"},
      :elapsed-ms 1},
-    :dialect {:status :value, :value :string, :elapsed-ms 1},
+    :dialect {:status :value, :value :string, :elapsed-ms 0},
     :verdict :divergent-as-expected,
     :reason "predicate :keyword-vs-class matched",
     :divergence-id :type-as-keyword}
@@ -900,7 +892,7 @@
     :oracle
     {:status :value,
      :value {:clj-census/opaque "class java.lang.Long"},
-     :elapsed-ms 3},
+     :elapsed-ms 1},
     :dialect {:status :value, :value :int, :elapsed-ms 0},
     :verdict :divergent-as-expected,
     :reason "predicate :keyword-vs-class matched",
@@ -911,21 +903,21 @@
     {:status :value,
      :value {:clj-census/opaque "class clojure.lang.Keyword"},
      :elapsed-ms 1},
-    :dialect {:status :value, :value :keyword, :elapsed-ms 1},
+    :dialect {:status :value, :value :keyword, :elapsed-ms 0},
     :verdict :divergent-as-expected,
     :reason "predicate :keyword-vs-class matched",
     :divergence-id :type-as-keyword}
    {:case-id :class/nil,
     :var clojure.core/class,
     :oracle {:status :value, :value nil, :elapsed-ms 1},
-    :dialect {:status :value, :value nil, :elapsed-ms 1},
+    :dialect {:status :value, :value nil, :elapsed-ms 0},
     :verdict :mismatch,
     :reason
     "divergence declared :keyword-vs-class but predicate did not match"}
    {:case-id :compare/strings-positive,
     :var clojure.core/compare,
-    :oracle {:status :value, :value 25, :elapsed-ms 2},
-    :dialect {:status :value, :value 1, :elapsed-ms 1},
+    :oracle {:status :value, :value 25, :elapsed-ms 1},
+    :dialect {:status :value, :value 1, :elapsed-ms 0},
     :verdict :divergent-as-expected,
     :reason "predicate :sign-normalized matched",
     :divergence-id :compare-sign-normalized}
@@ -945,14 +937,14 @@
     :divergence-id :compare-sign-normalized}
    {:case-id :compare/numbers-ascending,
     :var clojure.core/compare,
-    :oracle {:status :value, :value -1, :elapsed-ms 2},
+    :oracle {:status :value, :value -1, :elapsed-ms 1},
     :dialect {:status :value, :value -1, :elapsed-ms 0},
     :verdict :divergent-as-expected,
     :reason "predicate :sign-normalized matched",
     :divergence-id :compare-sign-normalized}
    {:case-id :compare/numbers-equal,
     :var clojure.core/compare,
-    :oracle {:status :value, :value 0, :elapsed-ms 1},
+    :oracle {:status :value, :value 0, :elapsed-ms 2},
     :dialect {:status :value, :value 0, :elapsed-ms 0},
     :verdict :divergent-as-expected,
     :reason "predicate :sign-normalized matched",
@@ -965,8 +957,8 @@
     :reason "values equivalent"}
    {:case-id :plus/single-positive,
     :var clojure.core/+,
-    :oracle {:status :value, :value 5, :elapsed-ms 3},
-    :dialect {:status :value, :value 5, :elapsed-ms 0},
+    :oracle {:status :value, :value 5, :elapsed-ms 1},
+    :dialect {:status :value, :value 5, :elapsed-ms 1},
     :verdict :match,
     :reason "values equivalent"}
    {:case-id :plus/two-positive,
@@ -977,7 +969,7 @@
     :reason "values equivalent"}
    {:case-id :plus/with-negative,
     :var clojure.core/+,
-    :oracle {:status :value, :value 3, :elapsed-ms 4},
+    :oracle {:status :value, :value 3, :elapsed-ms 1},
     :dialect {:status :value, :value 3, :elapsed-ms 0},
     :verdict :match,
     :reason "values equivalent"}
@@ -998,11 +990,11 @@
     :oracle
     {:status :value,
      :value ["apple" "banana" "cherry"],
-     :elapsed-ms 2},
+     :elapsed-ms 1},
     :dialect
     {:status :value,
      :value ["apple" "banana" "cherry"],
-     :elapsed-ms 1},
+     :elapsed-ms 0},
     :verdict :match,
     :reason "values equivalent"}
    {:case-id :sort/with-comparator-descending,
@@ -1013,7 +1005,7 @@
     :reason "values equivalent"}
    {:case-id :sort/empty,
     :var clojure.core/sort,
-    :oracle {:status :value, :value [], :elapsed-ms 2},
+    :oracle {:status :value, :value [], :elapsed-ms 1},
     :dialect {:status :value, :value [], :elapsed-ms 0},
     :verdict :match,
     :reason "values equivalent"}
@@ -1032,7 +1024,7 @@
     :oracle
     {:status :value,
      :value {:clj-census/opaque "class java.lang.Long"},
-     :elapsed-ms 2},
+     :elapsed-ms 1},
     :dialect {:status :value, :value :int, :elapsed-ms 0},
     :verdict :divergent-as-expected,
     :reason "predicate :keyword-vs-class matched",
@@ -1053,7 +1045,7 @@
     {:status :value,
      :value {:clj-census/opaque "class clojure.lang.PersistentVector"},
      :elapsed-ms 1},
-    :dialect {:status :value, :value :vector, :elapsed-ms 1},
+    :dialect {:status :value, :value :vector, :elapsed-ms 0},
     :verdict :divergent-as-expected,
     :reason "predicate :keyword-vs-class matched",
     :divergence-id :type-as-keyword}]},
@@ -1172,593 +1164,12 @@
    :description
    "Where reader attaches meta and which ops preserve it."}],
  :drift
- {:from-date "2026-06-13",
-  :to-date "2026-06-14",
-  :added-vars
-  #{clojure.pprint/formatter-impl
-    clojure.spec.alpha/conformer-impl
-    clojure.core/defmacro
-    clojure.core/class
-    clojure.core/lazy-seq
-    clojure.core/*ns*
-    clojure.core/let
-    clojure.core/fn
-    clojure.core/declare
-    clojure.core/refer-clojure
-    clojure.pprint/formatter-out-impl
-    clojure.spec.alpha/int-in-impl
-    clojure.core/binding
-    clojure.core/ns
-    clojure.spec.alpha/double-in-impl
-    clojure.spec.alpha/inst-in-impl
-    clojure.core/loop},
-  :removed-vars
-  #{clojure.spec.alpha/instrument clojure.spec.alpha/unstrument},
-  :changed
-  [{:var clojure.core/*clojure-version*,
-    :before {},
-    :after
-    {:doc
-     "The Clojure compatibility version for this runtime, as a map with :major :minor :incremental and :qualifier keys.",
-     :dynamic true}}
-   {:var clojure.core/->,
-    :before {:macro true},
-    :after
-    {:doc
-     "Thread-first. Inserts x as the second item in the first form, then\n  inserts the result as the second item in the next form, and so on.",
-     :macro true}}
-   {:var clojure.core/->>,
-    :before {:macro true},
-    :after
-    {:doc
-     "Thread-last. Inserts x as the last item in the first form, then\n  inserts the result as the last item in the next form, and so on.",
-     :macro true}}
-   {:var clojure.core/and,
-    :before {:macro true},
-    :after
-    {:doc
-     "Returns the first falsy value, or the last value if all are truthy.",
-     :macro true}}
-   {:var clojure.core/as->,
-    :before {:macro true},
-    :after
-    {:doc
-     "Binds expr to sym, then threads it through each form where sym can\n   appear anywhere.",
-     :macro true}}
-   {:var clojure.core/bound-fn,
-    :before {:macro true},
-    :after
-    {:doc
-     "Returns a function defined by the given fntail, which will install\n   the same bindings in effect as in the thread at the time bound-fn\n   was called.",
-     :macro true}}
-   {:var clojure.core/case,
-    :before {:macro true},
-    :after
-    {:doc
-     "Dispatches on the value of expr. Matches constants in pairs, with\n   an optional default.",
-     :macro true}}
-   {:var clojure.core/clojure-version,
-    :before {},
-    :after
-    {:doc
-     "Returns the Clojure compatibility version as a printable string."}}
-   {:var clojure.core/comment,
-    :before {:macro true},
-    :after {:doc "Ignores body, returns nil.", :macro true}}
-   {:var clojure.core/cond,
-    :before {:macro true},
-    :after
-    {:doc
-     "Takes pairs of test/expr. Returns the expr for the first truthy test.",
-     :macro true}}
-   {:var clojure.core/cond->,
-    :before {:macro true},
-    :after
-    {:doc "Thread-first through forms whose tests are truthy.",
-     :macro true}}
-   {:var clojure.core/cond->>,
-    :before {:macro true},
-    :after
-    {:doc "Thread-last through forms whose tests are truthy.",
-     :macro true}}
-   {:var clojure.core/condp,
-    :before {:macro true},
-    :after
-    {:doc
-     "Takes a binary predicate, an expression, and clauses. Returns the\n   first clause value where (pred test-val expr) is truthy. The\n   special clause shape `test :>> result-fn` calls `(result-fn p)`\n   on the truthy pred-result whenever `(pred test expr)` is truthy.",
-     :macro true}}
-   {:var clojure.core/defmethod,
-    :before {:macro true},
-    :after {:doc "Defines a method for a multimethod.", :macro true}}
-   {:var clojure.core/defmulti,
-    :before {:macro true},
-    :after
-    {:doc "Defines a multimethod with the given dispatch function.",
-     :macro true}}
-   {:var clojure.core/defn,
-    :before {:macro true},
-    :after
-    {:doc
-     "Defines a named function. Supports docstrings, multi-arity, and\n   :pre/:post conditions.",
-     :macro true}}
-   {:var clojure.core/defn-,
-    :before {:macro true},
-    :after
-    {:doc "Same as defn, yielding a non-public def.", :macro true}}
-   {:var clojure.core/defonce,
-    :before {:macro true},
-    :after
-    {:doc "Defines name only if it has no root binding.", :macro true}}
-   {:var clojure.core/defprotocol,
-    :before {:macro true},
-    :after
-    {:doc "Defines a protocol with the given method signatures.",
-     :macro true}}
-   {:var clojure.core/defrecord,
-    :before {:macro true},
-    :after
-    {:doc
-     "Defines a record type Name with the given fields and optional\n   inline protocol specs. Establishes:\n     Name       — the MINO_TYPE value (used by extend-type and\n                  instance? as the dispatch key)\n     ->Name     — positional constructor: (->Name f1 f2 ...) returns\n                  a record value\n     map->Name  — map constructor: (map->Name {:f1 v1 :f2 v2}) reads\n                  declared fields from the map; non-field keys land\n                  in ext.\n\n   Fields must be a vector of symbols; they are stored as keywords\n   on the type. Specs follow the same shape as extend-type:\n   protocol-name followed by one or more (method [args] body) forms.\n\n   Inside an inline protocol method body, field names resolve as\n   locals bound to (get this :field) -- matches Clojure's defrecord\n   contract so (defrecord R [a b] IFoo (bar [this] (+ a b))) works\n   without writing (:a this) / (:b this) by hand.",
-     :macro true}}
-   {:var clojure.core/deftype,
-    :before {:macro true},
-    :after
-    {:doc
-     "Alias for defrecord. mino has no separate JVM-class layer to\n   expose, so the deftype/defrecord distinction collapses; values\n   created either way are real types with map-isomorphic behaviour.",
-     :macro true}}
-   {:var clojure.core/delay,
-    :before {:macro true},
-    :after
-    {:doc
-     "Creates a delay that evaluates body on first deref. The body runs\n  at most once: a failure is recorded and rethrown on every later\n  force.",
-     :macro true}}
-   {:var clojure.core/doseq,
-    :before {:macro true},
-    :after
-    {:doc
-     "Iterates over collections for side effects, evaluating body once\n   per binding combination, and returns nil. Supports nested\n   bindings and the modifier clauses :let, :when, and :while -- the\n   same surface clojure.core/doseq exposes:\n     :let [name expr ...]  introduces locals visible to inner clauses\n     :when expr            skips this iteration when expr is falsy\n     :while expr           halts all iteration when expr is falsy\n\n  Implementation note: :while needs to stop the outer loop too, not\n  just the inner one. We encode that with a shared 'stop' atom that\n  the outer driver inspects each iteration. Without it, an outer\n  infinite seq paired with a later :while would never terminate.",
-     :macro true}}
-   {:var clojure.core/dosync,
-    :before {:macro true},
-    :after
-    {:doc
-     "Runs body in an STM transaction. Refs may be altered, set, ensured,\n  or commuted within. The transaction retries on write conflicts in\n  multi-threaded mode. Side effects via (io! ...) inside the body\n  throw. Requires STM to be installed (mino_install_stm).",
-     :macro true}}
-   {:var clojure.core/dotimes,
-    :before {:macro true},
-    :after
-    {:doc "Evaluates body n times with sym bound to 0 through n-1.",
-     :macro true}}
-   {:var clojure.core/doto,
-    :before {:macro true},
-    :after
-    {:doc
-     "Evaluates x, then calls each form with x as the first argument.\n   Returns x.",
-     :macro true}}
-   {:var clojure.core/extend-protocol,
-    :before {:macro true},
-    :after
-    {:doc
-     "Extends a protocol with implementations for multiple types.",
-     :macro true}}
-   {:var clojure.core/extend-type,
-    :before {:macro true},
-    :after
-    {:doc
-     "Extends a protocol with method implementations for the given type.",
-     :macro true}}
-   {:var clojure.core/for,
-    :before {:macro true},
-    :after
-    {:doc
-     "List comprehension. Takes binding vectors and body, returns a lazy\n   sequence.",
-     :macro true}}
-   {:var clojure.core/future,
-    :before {:macro true},
-    :after
-    {:doc
-     "Takes a body of expressions and yields a future object that will\n  evaluate the body in another thread, blocking on deref until the\n  value is available. Throws :mino/unsupported when host threads are\n  not granted; see mino-thread-limit.",
-     :macro true}}
-   {:var clojure.core/if-let,
-    :before {:macro true},
-    :after
-    {:doc
-     "Binds the result of expr, evaluates then if truthy, else otherwise.",
-     :macro true}}
-   {:var clojure.core/if-not,
-    :before {:macro true},
-    :after
-    {:doc "Evaluates then when test is falsy, else otherwise.",
-     :macro true}}
-   {:var clojure.core/if-some,
-    :before {:macro true},
-    :after
-    {:doc
-     "Binds the result of expr, evaluates then if non-nil, else\n   otherwise.",
-     :macro true}}
-   {:var clojure.core/io!,
-    :before {:macro true},
-    :after
-    {:doc
-     "If invoked within an STM transaction, throws an\n  IllegalStateException-equivalent before evaluating body. Marks a\n  body as having unsafe side effects so dosync can refuse it.",
-     :macro true}}
-   {:var clojure.core/lazy-cat,
-    :before {:macro true},
-    :after
-    {:doc
-     "Expands to code that yields a lazy concatenation of the given\n   collections.",
-     :macro true}}
-   {:var clojure.core/let-bits,
-    :before {:macro true},
-    :after
-    {:doc
-     "Destructure-shaped binding over a bytes value.\n   (let-bits [bytes-val [sym & opts] ...] body...)\n   See documentation in core.clj just above this definition.",
-     :macro true}}
-   {:var clojure.core/letfn,
-    :before {:macro true},
-    :after
-    {:doc
-     "Binds local functions. Each binding is (name [params] body...).\n   Expands to the `letfn*` special form so the bound fns can refer\n   to each other (mutual recursion) — every name is placeholder-\n   bound before any fn body is evaluated, so each fn's closure\n   captures the shared scope.",
-     :macro true}}
-   {:var clojure.core/locking,
-    :before {:macro true},
-    :after
-    {:doc
-     "Executes body while holding a monitor of x. Reentrant per thread;\n  released on normal exit and on throw. Exclusion is cooperative:\n  contending threads wait for the holder to release across yield\n  points.",
-     :macro true}}
-   {:var clojure.core/or,
-    :before {:macro true},
-    :after
-    {:doc
-     "Returns the first truthy value, or the last value if none are truthy.",
-     :macro true}}
-   {:var clojure.core/pr, :before {}, :after {:dynamic true}}
-   {:var clojure.core/pvalues,
-    :before {:macro true},
-    :after
-    {:doc
-     "Returns a lazy sequence of the values of the exprs, which are\n   evaluated in parallel via pcalls. Mirrors clojure.core/pvalues.",
-     :macro true}}
-   {:var clojure.core/reify,
-    :before {:macro true},
-    :after
-    {:doc
-     "Returns an instance of a fresh anonymous record type that\n   satisfies the named protocols. Each reify form generates one\n   type at expansion time; repeated invocations of the form share\n   that type, so (= (type r1) (type r2)) is true for two values\n   produced by the same reify form.",
-     :macro true}}
-   {:var clojure.core/set!,
-    :before {:macro true},
-    :after
-    {:doc
-     "Mutates a thread-local dynamic-var binding to the given value.\n   The target must be a dynamic var with an enclosing (binding ...)\n   form on the call stack; without one, throws \"Can't\n   change/establish root binding\". Matches Clojure JVM's contract\n   for set! on Vars. Returns the new value.\n\n   The JVM-only field-mutation shape (set! (.-field obj) val) is not\n   supported -- mino has no JVM fields.",
-     :macro true}}
-   {:var clojure.core/some->,
-    :before {:macro true},
-    :after
-    {:doc "Thread-first through forms, short-circuiting on nil.",
-     :macro true}}
-   {:var clojure.core/some->>,
-    :before {:macro true},
-    :after
-    {:doc "Thread-last through forms, short-circuiting on nil.",
-     :macro true}}
-   {:var clojure.core/sync,
-    :before {:macro true},
-    :after
-    {:doc
-     "Like dosync: runs the exprs (which may be nil) in an STM\n  transaction. flags-ignored is accepted for arglist parity and\n  currently ignored.",
-     :macro true}}
-   {:var clojure.core/thread,
-    :before {:macro true},
-    :after
-    {:doc
-     "Executes the body in another thread, returning a future-like value\n  that can be deref'd. Shares the same worker pool as future. Throws\n  :mino/unsupported when host threads are not granted.",
-     :macro true}}
-   {:var clojure.core/time,
-    :before {:macro true},
-    :after
-    {:doc
-     "Evaluates body, prints elapsed time, and returns the result.",
-     :macro true}}
-   {:var clojure.core/vswap!,
-    :before {},
-    :after
-    {:doc
-     "Non-atomically swaps the value of the volatile to be:\n   (apply f current-value-of-vol args). Returns the new value.",
-     :macro true}}
-   {:var clojure.core/when,
-    :before {:macro true},
-    :after
-    {:doc "Evaluates body when test is truthy. Returns nil otherwise.",
-     :macro true}}
-   {:var clojure.core/when-first,
-    :before {:macro true},
-    :after
-    {:doc
-     "Binds the first element of a collection, evaluates body if the\n   collection is non-empty.",
-     :macro true}}
-   {:var clojure.core/when-let,
-    :before {:macro true},
-    :after
-    {:doc "Binds the result of expr, evaluates body if truthy.",
-     :macro true}}
-   {:var clojure.core/when-not,
-    :before {:macro true},
-    :after {:doc "Evaluates body when test is falsy.", :macro true}}
-   {:var clojure.core/when-some,
-    :before {:macro true},
-    :after
-    {:doc "Binds the result of expr, evaluates body if non-nil.",
-     :macro true}}
-   {:var clojure.core/while,
-    :before {:macro true},
-    :after
-    {:doc "Repeatedly evaluates body while test is truthy.",
-     :macro true}}
-   {:var clojure.core/with-bindings,
-    :before {:macro true},
-    :after
-    {:doc
-     "Takes a map of var->value pairs. Installs the bindings, executes\n   body, and pops the bindings in a finally clause.",
-     :macro true}}
-   {:var clojure.core/with-in-str,
-    :before {:macro true},
-    :after
-    {:doc
-     "Evaluates body with *in* bound to a string-cursor atom holding\n  s. read and read-line consume from the cursor as forms or lines\n  are taken; the body's value is returned.",
-     :macro true}}
-   {:var clojure.core/with-local-vars,
-    :before {:macro true},
-    :after
-    {:doc
-     "Binds names to fresh, lexically-scoped vars holding init values.\n   Within body the names refer to vars: read with @name, mutate with\n   (var-set name val). The vars are interned in the current namespace\n   under gensym'd suffixes so they don't collide with named defs.",
-     :macro true}}
-   {:var clojure.core/with-open,
-    :before {:macro true},
-    :after
-    {:doc
-     "Binds resources, evaluates body, then closes each resource.",
-     :macro true}}
-   {:var clojure.core/with-out-str,
-    :before {:macro true},
-    :after
-    {:doc
-     "Evaluates body with *out* bound to a fresh string-collecting atom,\n  and returns the accumulated string.",
-     :macro true}}
-   {:var clojure.core/with-precision,
-    :before {:macro true},
-    :after
-    {:doc
-     "Sets *math-context* to {:precision precision :rounding-mode mode}\n  around body. The keyword :rounding takes the next form as a\n  rounding-mode keyword (e.g. (with-precision 5 :rounding :half-up\n  (/ 1M 3M))) or as a JVM RoundingMode enum symbol (e.g. HALF_UP,\n  CEILING). Without :rounding, the mode defaults to :half-up.",
-     :macro true}}
-   {:var clojure.core/with-redefs,
-    :before {:macro true},
-    :after
-    {:doc
-     "Temporarily rebinds the root bindings of vars while body executes, restoring\n   them in a finally clause. Bindings is a vector of var-name/value pairs.\n\n   The temp-value exprs are evaluated in parallel BEFORE any rebind fires, so a\n   later binding-value that names an earlier-listed var sees that var's\n   pre-redef value (matching Clojure JVM).",
-     :macro true}}
-   {:var clojure.pprint/formatter,
-    :before
-    {:doc
-     "Makes a function which can directly run format-in. The returned function\n  takes a writer (true, nil or a writer) followed by the format arguments,\n  and returns nil or the formatted string the same way cl-format does."},
-    :after
-    {:doc
-     "Makes a function which can directly run format-in. The returned function\n  takes a writer (true, nil or a writer) followed by the format arguments,\n  and returns nil or the formatted string the same way cl-format does.",
-     :macro true}}
-   {:var clojure.pprint/formatter-out,
-    :before
-    {:doc
-     "Makes a function which can directly run format-in, writing to *out*. The\n  returned function takes the format arguments and always writes to *out*,\n  returning nil. Designed for use inside dispatch functions."},
-    :after
-    {:doc
-     "Makes a function which can directly run format-in, writing to *out*. The\n  returned function takes the format arguments and always writes to *out*,\n  returning nil. Designed for use inside dispatch functions.",
-     :macro true}}
-   {:var clojure.pprint/pp,
-    :before {:macro true},
-    :after
-    {:doc "Pretty print the last REPL result (*1).", :macro true}}
-   {:var clojure.pprint/pprint-logical-block,
-    :before {:macro true},
-    :after
-    {:doc
-     "Execute the body as a pretty-printing logical block on *out*, which\n  must be a pretty-printing engine (true within pprint or a dispatch fn).\n  Optional leading options: :prefix, :per-line-prefix, :suffix.",
-     :macro true}}
-   {:var clojure.pprint/print-length-loop,
-    :before {:macro true},
-    :after
-    {:doc
-     "A loop that iterates at most *print-length* times, emitting \"...\"\n  when the limit is reached. For use in dispatch functions.",
-     :macro true}}
-   {:var clojure.pprint/with-pprint-dispatch,
-    :before {:macro true},
-    :after
-    {:doc
-     "Execute body with the pretty-print dispatch function bound to function.",
-     :macro true}}
-   {:var clojure.spec.alpha/&,
-    :before {:macro true},
-    :after
-    {:doc
-     "Wrap a regex spec with additional predicates applied to the\n  conformed sequence value. Each pred must return truthy.",
-     :macro true}}
-   {:var clojure.spec.alpha/*,
-    :before {:macro true},
-    :after {:doc "Zero or more occurrences of pred.", :macro true}}
-   {:var clojure.spec.alpha/+,
-    :before {:macro true},
-    :after {:doc "One or more occurrences of pred.", :macro true}}
-   {:var clojure.spec.alpha/?,
-    :before {:macro true},
-    :after {:doc "Zero or one occurrence of pred.", :macro true}}
-   {:var clojure.spec.alpha/alt,
-    :before {:macro true},
-    :after
-    {:doc "Alternation: branches with named tags, single-element.",
-     :macro true}}
-   {:var clojure.spec.alpha/and,
-    :before {:macro true},
-    :after
-    {:doc
-     "Compose specs left to right; each receives the conformed value of\n  the previous.",
-     :macro true}}
-   {:var clojure.spec.alpha/assert,
-    :before {:macro true},
-    :after
-    {:doc
-     "Spec-checking assert.  Returns x when it conforms to spec, else\n  throws an ex-info carrying explain-data plus ::failure of\n  :assertion-failed.  When *compile-asserts* is false at expansion the\n  check compiles away to x; at runtime (check-asserts?) gates whether\n  the compiled check evaluates.",
-     :macro true}}
-   {:var clojure.spec.alpha/cat,
-    :before {:macro true},
-    :after {:doc "Sequence of named tagged elements.", :macro true}}
-   {:var clojure.spec.alpha/coll-of,
-    :before {:macro true},
-    :after
-    {:doc
-     "Validate that x is a collection whose elements all conform to spec.",
-     :macro true}}
-   {:var clojure.spec.alpha/conformer,
-    :before
-    {:doc
-     "Return a spec that uses cfn as the conform path. cfn takes a value\n  and returns the conformed value or :clojure.spec.alpha/invalid.\n  Optionally takes an unform fn; if omitted, unform is identity."},
-    :after
-    {:doc
-     "Return a spec that uses cfn as the conform path. cfn takes a value\n  and returns the conformed value or :clojure.spec.alpha/invalid.\n  Optionally takes an unform fn; if omitted, unform is identity.",
-     :macro true}}
-   {:var clojure.spec.alpha/def,
-    :before {:macro true},
-    :after
-    {:doc "Register a spec under k.  k is a namespaced keyword.",
-     :macro true}}
-   {:var clojure.spec.alpha/double-in,
-    :before
-    {:doc
-     "Return a spec for a 64-bit floating point number.  Options:\n    :infinite? - whether +/- infinity is allowed (default false)\n    :NaN?      - whether NaN is allowed (default false)\n    :min       - inclusive minimum (default none)\n    :max       - inclusive maximum (default none)\n\n  Divergence: the canonical library defaults :infinite? and :NaN? to\n  true; mino defaults both to false so a plain double-in rejects the\n  non-finite values unless they are explicitly opted in -- the safer\n  default for a range spec."},
-    :after
-    {:doc
-     "Return a spec for a 64-bit floating point number.  Options:\n    :infinite? - whether +/- infinity is allowed (default false)\n    :NaN?      - whether NaN is allowed (default false)\n    :min       - inclusive minimum (default none)\n    :max       - inclusive maximum (default none)\n\n  Divergence: the canonical library defaults :infinite? and :NaN? to\n  true; mino defaults both to false so a plain double-in rejects the\n  non-finite values unless they are explicitly opted in -- the safer\n  default for a range spec.",
-     :macro true}}
-   {:var clojure.spec.alpha/every,
-    :before {:macro true},
-    :after
-    {:doc
-     "Validate that every element of a collection satisfies pred.  Samples\n  up to coll-check-limit (101) elements; does not conform elements; the\n  input collection is returned unchanged on success.\n\n  Opts: :kind pred, :count n, :min-count n, :max-count n, :distinct bool.",
-     :macro true}}
-   {:var clojure.spec.alpha/every-kv,
-    :before {:macro true},
-    :after
-    {:doc
-     "Like every but validates associative entries as [kpred vpred] pairs.\n  Works on maps and sequences of pairs.",
-     :macro true}}
-   {:var clojure.spec.alpha/fdef,
-    :before {:macro true},
-    :after
-    {:doc
-     "Register a function spec under the qualified symbol of fn-sym.\n  Options: :args, :ret, :fn (each a spec form).",
-     :macro true}}
-   {:var clojure.spec.alpha/fspec,
-    :before {:macro true},
-    :after
-    {:doc
-     "Build a function spec from :args :ret and (optional) :fn preds.\n  conform / explain take a fn and validate it via generative testing;\n  the conformed value is always the fn itself.  :ret defaults to any?.",
-     :macro true}}
-   {:var clojure.spec.alpha/inst-in,
-    :before
-    {:doc
-     "Return a spec validating insts in the range from start (inclusive)\n  to end (exclusive)."},
-    :after
-    {:doc
-     "Return a spec validating insts in the range from start (inclusive)\n  to end (exclusive).",
-     :macro true}}
-   {:var clojure.spec.alpha/int-in,
-    :before
-    {:doc
-     "Return a spec validating fixed-precision integers in the range from\n  start (inclusive) to end (exclusive)."},
-    :after
-    {:doc
-     "Return a spec validating fixed-precision integers in the range from\n  start (inclusive) to end (exclusive).",
-     :macro true}}
-   {:var clojure.spec.alpha/keys,
-    :before {:macro true},
-    :after
-    {:doc
-     "Validate a map shape.  Required-key presence is enforced; per-key\n  values are conformed against specs registered under the qualified\n  key.",
-     :macro true}}
-   {:var clojure.spec.alpha/keys*,
-    :before {:macro true},
-    :after
-    {:doc
-     "Like keys but produces a regex spec that matches inline key/value\n  pairs in a sequence.  Conforms to a map.",
-     :macro true}}
-   {:var clojure.spec.alpha/map-of,
-    :before {:macro true},
-    :after
-    {:doc "Validate a map of key-spec to val-spec.", :macro true}}
-   {:var clojure.spec.alpha/merge,
-    :before {:macro true},
-    :after
-    {:doc
-     "Conjunction of map specs.  x must conform to every branch; the\n  conformed maps are merged left to right.",
-     :macro true}}
-   {:var clojure.spec.alpha/multi-spec,
-    :before {:macro true},
-    :after
-    {:doc
-     "Dispatch a spec through a multimethod.  mm is the multimethod\n  symbol; retag is the keyword used to extract the dispatch value.",
-     :macro true}}
-   {:var clojure.spec.alpha/nilable,
-    :before {:macro true},
-    :after
-    {:doc "Spec that allows nil OR a value matching pred.",
-     :macro true}}
-   {:var clojure.spec.alpha/or,
-    :before {:macro true},
-    :after
-    {:doc "Branches with named tags; the first match wins.",
-     :macro true}}
-   {:var clojure.spec.alpha/spec,
-    :before {:macro true},
-    :after
-    {:doc "Promote a predicate form to a spec value.", :macro true}}
-   {:var clojure.spec.alpha/tuple,
-    :before {:macro true},
-    :after
-    {:doc "Validate a fixed-length, position-indexed vector.",
-     :macro true}}
-   {:var clojure.template/do-template,
-    :before {:macro true},
-    :after
-    {:doc
-     "Repeatedly copies expr (wrapped in a do) for each group of values.\n\n   values are partitioned by (count argv); each group binds argv\n   in expr and the resulting form joins the do.\n\n   (do-template [x y] (+ y x) 2 4 3 5)\n   ; => (do (+ 4 2) (+ 5 3))",
-     :macro true}}
-   {:var clojure.test/run-test,
-    :before {:macro true},
-    :after
-    {:doc
-     "Runs a single test identified by its symbol in the current namespace.\n  Returns a summary map.",
-     :macro true}}
-   {:var clojure.test/run-tests,
-    :before {:macro true},
-    :after
-    {:doc
-     "Run registered tests and return a summary map.\n\n  With no arguments, runs the tests registered in the namespace that is\n  current when run-tests is called (reads *ns* at call time, per JVM\n  canon).  Given namespace symbols or objects, runs tests registered in\n  those namespaces.\n\n  Prints a summary line and any failure details to stdout."}}
-   {:var clojure.test/test-var,
-    :before
-    {:doc
-     "If v has a function in its :test metadata, calls that function with\n  *testing-vars* bound to (conj *testing-vars* v).  Increments the\n  :test counter in *report-counters*."},
-    :after
-    {:doc
-     "If v has a function in its :test metadata, calls that function with\n  *testing-vars* bound to (conj *testing-vars* v).  Increments the\n  :test counter in *report-counters*.  Dynamic so that binding can\n  replace the implementation for custom runners (JVM canon parity).",
-     :dynamic true}}
-   {:var clojure.test/try-expr,
-    :before {:macro true},
-    :after
-    {:doc "Used by the is macro to catch unexpected exceptions.",
-     :macro true}}
-   {:var clojure.test/use-fixtures,
-    :before {:macro true},
-    :after
-    {:doc
-     "Register fixture functions for the current namespace.\n\n  kind is :once (run around the entire batch of tests in this ns) or\n  :each (run around each individual test).  Multiple fixtures of the\n  same kind compose left-to-right (the first fixture is outermost).\n\n  Reads *ns* at call time so the fixture is registered under the\n  namespace that is current when use-fixtures is called (JVM canon\n  parity)."}}],
-  :coverage-delta 0.011055276381909618},
+ {:from-date "2026-06-14",
+  :to-date "2026-06-15",
+  :added-vars #{},
+  :removed-vars #{},
+  :changed [],
+  :coverage-delta 0.0},
  :extensions
  [{:id :integer-radix-strings,
    :title "JVM static method mirrors for integer radix conversion",
