@@ -2376,14 +2376,11 @@
     *report-counters* {:dynamic true},
     *stack-trace-depth*
     {:doc
-     "The maximum depth of stack traces to print when an Exception\n  is thrown during a test.  Defaults to nil, which means print the \n  complete stack trace.",
+     "The maximum depth of stack traces to print when an Exception\n  is thrown during a test.  Defaults to nil, which means print the\n  complete stack trace.",
      :dynamic true},
     *test-out* {:dynamic true},
     *testing-contexts* {:dynamic true},
     *testing-vars* {:dynamic true},
-    -workaround-get-test {:arglists ([v])},
-    -workaround-set-test {:arglists ([v f])},
-    -workaround-test-mappings {},
     -workaround-var->ns {:arglists ([v])},
     add-ns-meta
     {:arglists ([key coll]),
@@ -2392,7 +2389,7 @@
     are
     {:arglists ([argv expr & args]),
      :doc
-     "Checks multiple assertions with a template expression.\n  See clojure.template/do-template for an explanation of\n  templates.\n\n  Example: (are [x y] (= x y)  \n                2 (+ 1 1)\n                4 (* 2 2))\n  Expands to: \n           (do (is (= 2 (+ 1 1)))\n               (is (= 4 (* 2 2))))\n\n  Note: This breaks some reporting features, such as line numbers.",
+     "Checks multiple assertions with a template expression.\n  See clojure.template/do-template for an explanation of\n  templates.\n\n  Example: (are [x y] (= x y)\n                2 (+ 1 1)\n                4 (* 2 2))\n  Expands to:\n           (do (is (= 2 (+ 1 1)))\n               (is (= 4 (* 2 2))))\n\n  Note: This breaks some reporting features, such as line numbers.",
      :macro true},
     assert-any
     {:arglists ([msg form]),
@@ -2438,7 +2435,7 @@
     is
     {:arglists ([form] [form msg]),
      :doc
-     "Generic assertion macro.  'form' is any predicate test.\n  'msg' is an optional message to attach to the assertion.\n  \n  Example: (is (= 4 (+ 2 2)) \"Two plus two should be 4\")\n\n  Special forms:\n\n  (is (thrown? c body)) checks that an instance of c is thrown from\n  body, fails if not; then returns the thing thrown.\n\n  (is (thrown-with-msg? c re body)) checks that an instance of c is\n  thrown AND that the message on the exception matches (with\n  re-find) the regular expression re.",
+     "Generic assertion macro.  'form' is any predicate test.\n  'msg' is an optional message to attach to the assertion.\n\n  Example: (is (= 4 (+ 2 2)) \"Two plus two should be 4\")\n\n  Special forms:\n\n  (is (thrown? c body)) checks that an instance of c is thrown from\n  body, fails if not; then returns the thing thrown.\n\n  (is (thrown-with-msg? c re body)) checks that an instance of c is\n  thrown AND that the message on the exception matches (with\n  re-find) the regular expression re.",
      :macro true},
     join-fixtures
     {:arglists ([fixtures]),
@@ -2564,4 +2561,4 @@
      "Traverses form, an arbitrary data structure.  inner and outer are\n  functions.  Applies inner to each element of form, building up a\n  data structure of the same type, then applies outer to the result.\n  Recognizes all Clojure data structures. Consumes seqs as with doall."}}}},
  :special-forms #{},
  :spec-keys #{},
- :captured-at "2026-06-04T07:36:03Z"}
+ :captured-at "2026-06-19T07:49:08Z"}
