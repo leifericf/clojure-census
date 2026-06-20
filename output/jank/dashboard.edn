@@ -2,7 +2,7 @@
  {:dialect-tag "jank",
   :dialect-name "jank",
   :clojure-version "1.12.4",
-  :compared-at "2026-06-19T07:49:13Z"},
+  :compared-at "2026-06-20T07:18:57Z"},
  :divergences
  [{:id :stdlib-incomplete-alpha,
    :title
@@ -95,42 +95,7 @@
    clojure.template
    {:in-both-count 2, :clojure-total 2, :percent 1.0}}},
  :history
- [{:date "2026-05-23",
-   :dialect-tag "jank",
-   :clojure-version "jank-alpha",
-   :headline
-   {:in-both-count 687,
-    :clojure-total 995,
-    :percent 0.6904522613065327},
-   :per-namespace
-   {clojure.spec.alpha
-    {:in-both-count 0, :clojure-total 87, :percent 0.0},
-    clojure.datafy {:in-both-count 0, :clojure-total 2, :percent 0.0},
-    clojure.zip {:in-both-count 0, :clojure-total 28, :percent 0.0},
-    clojure.core.reducers
-    {:in-both-count 0, :clojure-total 21, :percent 0.0},
-    clojure.test
-    {:in-both-count 38,
-     :clojure-total 39,
-     :percent 0.9743589743589743},
-    clojure.core.protocols
-    {:in-both-count 0, :clojure-total 11, :percent 0.0},
-    clojure.core
-    {:in-both-count 604,
-     :clojure-total 679,
-     :percent 0.8895434462444771},
-    clojure.set {:in-both-count 12, :clojure-total 12, :percent 1.0},
-    clojure.pprint {:in-both-count 0, :clojure-total 26, :percent 0.0},
-    clojure.math {:in-both-count 0, :clojure-total 45, :percent 0.0},
-    clojure.edn {:in-both-count 0, :clojure-total 2, :percent 0.0},
-    clojure.instant {:in-both-count 0, :clojure-total 5, :percent 0.0},
-    clojure.string
-    {:in-both-count 21, :clojure-total 21, :percent 1.0},
-    clojure.data {:in-both-count 0, :clojure-total 5, :percent 0.0},
-    clojure.walk {:in-both-count 10, :clojure-total 10, :percent 1.0},
-    clojure.template
-    {:in-both-count 2, :clojure-total 2, :percent 1.0}}}
-  {:date "2026-05-24",
+ [{:date "2026-05-24",
    :dialect-tag "jank",
    :clojure-version "jank-alpha",
    :headline
@@ -584,6 +549,41 @@
     clojure.data {:in-both-count 0, :clojure-total 5, :percent 0.0},
     clojure.walk {:in-both-count 10, :clojure-total 10, :percent 1.0},
     clojure.template
+    {:in-both-count 2, :clojure-total 2, :percent 1.0}}}
+  {:date "2026-06-20",
+   :dialect-tag "jank",
+   :clojure-version "jank-alpha",
+   :headline
+   {:in-both-count 687,
+    :clojure-total 995,
+    :percent 0.6904522613065327},
+   :per-namespace
+   {clojure.spec.alpha
+    {:in-both-count 0, :clojure-total 87, :percent 0.0},
+    clojure.datafy {:in-both-count 0, :clojure-total 2, :percent 0.0},
+    clojure.zip {:in-both-count 0, :clojure-total 28, :percent 0.0},
+    clojure.core.reducers
+    {:in-both-count 0, :clojure-total 21, :percent 0.0},
+    clojure.test
+    {:in-both-count 38,
+     :clojure-total 39,
+     :percent 0.9743589743589743},
+    clojure.core.protocols
+    {:in-both-count 0, :clojure-total 11, :percent 0.0},
+    clojure.core
+    {:in-both-count 604,
+     :clojure-total 679,
+     :percent 0.8895434462444771},
+    clojure.set {:in-both-count 12, :clojure-total 12, :percent 1.0},
+    clojure.pprint {:in-both-count 0, :clojure-total 26, :percent 0.0},
+    clojure.math {:in-both-count 0, :clojure-total 45, :percent 0.0},
+    clojure.edn {:in-both-count 0, :clojure-total 2, :percent 0.0},
+    clojure.instant {:in-both-count 0, :clojure-total 5, :percent 0.0},
+    clojure.string
+    {:in-both-count 21, :clojure-total 21, :percent 1.0},
+    clojure.data {:in-both-count 0, :clojure-total 5, :percent 0.0},
+    clojure.walk {:in-both-count 10, :clojure-total 10, :percent 1.0},
+    clojure.template
     {:in-both-count 2, :clojure-total 2, :percent 1.0}}}],
  :mismatches
  [{:arglists-clojure ([] [x] [x y] [x y & more]),
@@ -919,45 +919,11 @@
    :description
    "Where reader attaches meta and which ops preserve it."}],
  :drift
- {:from-date "2026-06-04",
-  :to-date "2026-06-19",
+ {:from-date "2026-06-19",
+  :to-date "2026-06-20",
   :added-vars #{},
-  :removed-vars
-  #{clojure.test/-workaround-get-test
-    clojure.test/-workaround-test-mappings
-    clojure.test/-workaround-set-test},
-  :changed
-  [{:var clojure.test/*stack-trace-depth*,
-    :before
-    {:doc
-     "The maximum depth of stack traces to print when an Exception\n  is thrown during a test.  Defaults to nil, which means print the \n  complete stack trace.",
-     :dynamic true},
-    :after
-    {:doc
-     "The maximum depth of stack traces to print when an Exception\n  is thrown during a test.  Defaults to nil, which means print the\n  complete stack trace.",
-     :dynamic true}}
-   {:var clojure.test/are,
-    :before
-    {:arglists ([argv expr & args]),
-     :doc
-     "Checks multiple assertions with a template expression.\n  See clojure.template/do-template for an explanation of\n  templates.\n\n  Example: (are [x y] (= x y)  \n                2 (+ 1 1)\n                4 (* 2 2))\n  Expands to: \n           (do (is (= 2 (+ 1 1)))\n               (is (= 4 (* 2 2))))\n\n  Note: This breaks some reporting features, such as line numbers.",
-     :macro true},
-    :after
-    {:arglists ([argv expr & args]),
-     :doc
-     "Checks multiple assertions with a template expression.\n  See clojure.template/do-template for an explanation of\n  templates.\n\n  Example: (are [x y] (= x y)\n                2 (+ 1 1)\n                4 (* 2 2))\n  Expands to:\n           (do (is (= 2 (+ 1 1)))\n               (is (= 4 (* 2 2))))\n\n  Note: This breaks some reporting features, such as line numbers.",
-     :macro true}}
-   {:var clojure.test/is,
-    :before
-    {:arglists ([form] [form msg]),
-     :doc
-     "Generic assertion macro.  'form' is any predicate test.\n  'msg' is an optional message to attach to the assertion.\n  \n  Example: (is (= 4 (+ 2 2)) \"Two plus two should be 4\")\n\n  Special forms:\n\n  (is (thrown? c body)) checks that an instance of c is thrown from\n  body, fails if not; then returns the thing thrown.\n\n  (is (thrown-with-msg? c re body)) checks that an instance of c is\n  thrown AND that the message on the exception matches (with\n  re-find) the regular expression re.",
-     :macro true},
-    :after
-    {:arglists ([form] [form msg]),
-     :doc
-     "Generic assertion macro.  'form' is any predicate test.\n  'msg' is an optional message to attach to the assertion.\n\n  Example: (is (= 4 (+ 2 2)) \"Two plus two should be 4\")\n\n  Special forms:\n\n  (is (thrown? c body)) checks that an instance of c is thrown from\n  body, fails if not; then returns the thing thrown.\n\n  (is (thrown-with-msg? c re body)) checks that an instance of c is\n  thrown AND that the message on the exception matches (with\n  re-find) the regular expression re.",
-     :macro true}}],
+  :removed-vars #{},
+  :changed [],
   :coverage-delta 0.0},
  :extensions
  [{:id :cpp-interop-namespace,
