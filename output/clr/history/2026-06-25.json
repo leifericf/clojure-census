@@ -1,0 +1,92 @@
+{
+  "date": "2026-06-25",
+  "dialect-tag": "clr",
+  "clojure-version": "1.12.2",
+  "headline": {
+    "in-both-count": 962,
+    "clojure-total": 995,
+    "percent": 0.9668341708542714
+  },
+  "per-namespace": {
+    "clojure.zip": {
+      "in-both-count": 28,
+      "clojure-total": 28,
+      "percent": 1.0
+    },
+    "clojure.pprint": {
+      "in-both-count": 26,
+      "clojure-total": 26,
+      "percent": 1.0
+    },
+    "clojure.set": {
+      "in-both-count": 12,
+      "clojure-total": 12,
+      "percent": 1.0
+    },
+    "clojure.datafy": {
+      "in-both-count": 2,
+      "clojure-total": 2,
+      "percent": 1.0
+    },
+    "clojure.core": {
+      "in-both-count": 674,
+      "clojure-total": 679,
+      "percent": 0.9926362297496318
+    },
+    "clojure.core.protocols": {
+      "in-both-count": 11,
+      "clojure-total": 11,
+      "percent": 1.0
+    },
+    "clojure.walk": {
+      "in-both-count": 10,
+      "clojure-total": 10,
+      "percent": 1.0
+    },
+    "clojure.edn": {
+      "in-both-count": 2,
+      "clojure-total": 2,
+      "percent": 1.0
+    },
+    "clojure.test": {
+      "in-both-count": 39,
+      "clojure-total": 39,
+      "percent": 1.0
+    },
+    "clojure.instant": {
+      "in-both-count": 2,
+      "clojure-total": 5,
+      "percent": 0.4
+    },
+    "clojure.string": {
+      "in-both-count": 21,
+      "clojure-total": 21,
+      "percent": 1.0
+    },
+    "clojure.spec.alpha": {
+      "in-both-count": 87,
+      "clojure-total": 87,
+      "percent": 1.0
+    },
+    "clojure.template": {
+      "in-both-count": 2,
+      "clojure-total": 2,
+      "percent": 1.0
+    },
+    "clojure.math": {
+      "in-both-count": 22,
+      "clojure-total": 45,
+      "percent": 0.4888888888888889
+    },
+    "clojure.data": {
+      "in-both-count": 5,
+      "clojure-total": 5,
+      "percent": 1.0
+    },
+    "clojure.core.reducers": {
+      "in-both-count": 19,
+      "clojure-total": 21,
+      "percent": 0.9047619047619048
+    }
+  }
+}
