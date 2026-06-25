@@ -793,8 +793,7 @@
      "If x is a Delay, returns the (possibly cached) value of its expression, else returns x"},
     format
     {:arglists ([fmt & args]),
-     :doc
-     "Formats a string using java.lang.String.format, see java.util.Formatter for format\n  string syntax"},
+     :doc "Formats a string using std::format."},
     frequencies
     {:arglists ([coll]),
      :doc
@@ -2561,4 +2560,4 @@
      "Traverses form, an arbitrary data structure.  inner and outer are\n  functions.  Applies inner to each element of form, building up a\n  data structure of the same type, then applies outer to the result.\n  Recognizes all Clojure data structures. Consumes seqs as with doall."}}}},
  :special-forms #{},
  :spec-keys #{},
- :captured-at "2026-06-24T07:09:34Z"}
+ :captured-at "2026-06-25T07:09:23Z"}
