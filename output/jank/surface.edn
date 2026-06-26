@@ -2560,4 +2560,4 @@
      "Traverses form, an arbitrary data structure.  inner and outer are\n  functions.  Applies inner to each element of form, building up a\n  data structure of the same type, then applies outer to the result.\n  Recognizes all Clojure data structures. Consumes seqs as with doall."}}}},
  :special-forms #{},
  :spec-keys #{},
- :captured-at "2026-06-25T07:09:23Z"}
+ :captured-at "2026-06-26T07:16:18Z"}
