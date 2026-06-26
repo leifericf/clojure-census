@@ -1,5 +1,5 @@
 {:dialect-tag "clr",
- :run-at "2026-06-25T06:58:45Z",
+ :run-at "2026-06-26T07:02:40Z",
  :totals
  {:match 12, :mismatch 10, :divergent-as-expected 0, :skipped 0},
  :parities
@@ -36,7 +36,7 @@
    :dialect
    {:status :value,
     :value {:clj-census/opaque "clojure.lang.Keyword"},
-    :elapsed-ms 2},
+    :elapsed-ms 3},
    :verdict :mismatch,
    :reason "values differ"}
   {:case-id :class/nil,
@@ -72,7 +72,7 @@
   {:case-id :compare/numbers-equal,
    :var clojure.core/compare,
    :oracle {:status :value, :value 0, :elapsed-ms 1},
-   :dialect {:status :value, :value 0, :elapsed-ms 3},
+   :dialect {:status :value, :value 0, :elapsed-ms 4},
    :verdict :match,
    :reason "values equivalent"}
   {:case-id :plus/identity,
@@ -95,7 +95,7 @@
    :reason "values equivalent"}
   {:case-id :plus/with-negative,
    :var clojure.core/+,
-   :oracle {:status :value, :value 3, :elapsed-ms 1},
+   :oracle {:status :value, :value 3, :elapsed-ms 4},
    :dialect {:status :value, :value 3, :elapsed-ms 3},
    :verdict :match,
    :reason "values equivalent"}
@@ -107,8 +107,8 @@
    :reason "values equivalent"}
   {:case-id :sort/numbers-ascending,
    :var clojure.core/sort,
-   :oracle {:status :value, :value [1 1 2 3 4 5 6 9], :elapsed-ms 2},
-   :dialect {:status :value, :value [1 1 2 3 4 5 6 9], :elapsed-ms 3},
+   :oracle {:status :value, :value [1 1 2 3 4 5 6 9], :elapsed-ms 1},
+   :dialect {:status :value, :value [1 1 2 3 4 5 6 9], :elapsed-ms 4},
    :verdict :match,
    :reason "values equivalent"}
   {:case-id :sort/strings,
@@ -136,7 +136,7 @@
    :oracle
    {:status :value,
     :value {:clj-census/opaque "class java.lang.String"},
-    :elapsed-ms 2},
+    :elapsed-ms 1},
    :dialect
    {:status :value,
     :value {:clj-census/opaque "System.String"},
