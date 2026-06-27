@@ -1846,6 +1846,9 @@
     {:arglists ([] [x] [x & ys]),
      :doc
      "With no args, returns the empty string. With one arg x, returns\n       x.toString().  (str nil) returns the empty string. With more than\n       one arg, returns the concatenation of the str values of the args."},
+    stream*
+    {:doc
+     "A static box to a FILE* to get the platform specific canonical-type."},
     stream-into!
     {:arglists ([to stream] [to xform stream]),
      :doc
@@ -2560,4 +2563,4 @@
      "Traverses form, an arbitrary data structure.  inner and outer are\n  functions.  Applies inner to each element of form, building up a\n  data structure of the same type, then applies outer to the result.\n  Recognizes all Clojure data structures. Consumes seqs as with doall."}}}},
  :special-forms #{},
  :spec-keys #{},
- :captured-at "2026-06-26T07:16:18Z"}
+ :captured-at "2026-06-27T07:02:54Z"}
