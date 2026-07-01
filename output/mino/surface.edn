@@ -633,6 +633,7 @@
      "Creates a new list containing the items prepended to the rest, the\n   last of which will be treated as a sequence."},
     list? {},
     load-file {},
+    load-image-into {},
     load-string {},
     loaded-libs {},
     locking
@@ -920,6 +921,7 @@
     realized?
     {:doc
      "Returns true if a delay, lazy sequence, future, or promise has\n     been realized."},
+    realpath {},
     record* {},
     record-fields {},
     record-from-map {},
@@ -994,12 +996,14 @@
     rm-rf {},
     rseq {},
     rsubseq {},
+    run {},
     run!
     {:doc
      "Applies f to each item in coll for side effects. Returns nil."},
     satisfies?
     {:doc
      "Returns true if x's type has implementations for all methods of\n   proto."},
+    save-image {},
     second {:doc "Returns the second item in coll."},
     select-keys
     {:doc
@@ -1036,6 +1040,7 @@
     set? {},
     sh {},
     sh! {},
+    sha256 {},
     short {},
     short-array {},
     shuffle
@@ -1080,6 +1085,14 @@
     splitv-at
     {:doc
      "Returns a vector [(vec (take n coll)) (vec (drop n coll))]."},
+    store-checkpoint* {},
+    store-clock* {},
+    store-close* {},
+    store-commit* {},
+    store-open* {},
+    store-read-snapshot* {},
+    store-read-wal* {},
+    store? {},
     str {},
     string? {},
     subbits {},
@@ -1225,6 +1238,7 @@
     when-some
     {:doc "Binds the result of expr, evaluates body if non-nil.",
      :macro true},
+    which {},
     while
     {:doc "Repeatedly evaluates body while test is truthy.",
      :macro true},
@@ -2108,4 +2122,4 @@
    throw
    def},
  :spec-keys #{},
- :captured-at "2026-06-30T06:27:45Z"}
+ :captured-at "2026-07-01T06:31:52Z"}
