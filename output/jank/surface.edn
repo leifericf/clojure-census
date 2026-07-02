@@ -1798,7 +1798,7 @@
     {:arglists ([x]),
      :doc "Returns true if x is not nil, false otherwise."},
     sort
-    {:arglists ([coll]),
+    {:arglists ([coll] [comp coll]),
      :doc
      "Returns a sorted sequence of the items in coll. If no comparator is\n  supplied, uses compare.  comparator must implement\n  java.util.Comparator.  Guaranteed to be stable: equal elements will\n  not be reordered.  If coll is a Java array, it will be modified.  To\n  avoid this, sort a copy of the array."},
     sort-by
@@ -2563,4 +2563,4 @@
      "Traverses form, an arbitrary data structure.  inner and outer are\n  functions.  Applies inner to each element of form, building up a\n  data structure of the same type, then applies outer to the result.\n  Recognizes all Clojure data structures. Consumes seqs as with doall."}}}},
  :special-forms #{},
  :spec-keys #{},
- :captured-at "2026-07-01T07:27:50Z"}
+ :captured-at "2026-07-02T07:05:54Z"}
