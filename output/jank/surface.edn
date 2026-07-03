@@ -261,7 +261,7 @@
     {:arglists ([coll]),
      :doc "Returns true if coll implements Associative"},
     atom
-    {:arglists ([x]),
+    {:arglists ([x] [x & options]),
      :doc
      "Creates and returns an Atom with an initial value of x and zero or\n   more options (in any order):\n\n   :meta metadata-map\n\n   :validator validate-fn\n\n   If metadata-map is supplied, it will become the metadata on the\n   atom. validate-fn must be nil or a side-effect-free fn of one\n   argument, which will be passed the intended new state on any state\n   change. If the new state is unacceptable, the validate-fn should\n   return false or throw an exception."},
     await
@@ -2563,4 +2563,4 @@
      "Traverses form, an arbitrary data structure.  inner and outer are\n  functions.  Applies inner to each element of form, building up a\n  data structure of the same type, then applies outer to the result.\n  Recognizes all Clojure data structures. Consumes seqs as with doall."}}}},
  :special-forms #{},
  :spec-keys #{},
- :captured-at "2026-07-02T07:05:54Z"}
+ :captured-at "2026-07-03T07:04:04Z"}
