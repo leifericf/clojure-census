@@ -1,4 +1,8 @@
-{:spec-keys #{},
+{:dialect-tag "basilisp",
+ :special-forms
+ #{try finally do if recur set! . var quote catch throw def},
+ :spec-keys #{},
+ :clojure-version "unknown",
  :namespaces
  {clojure.core
   {:vars
@@ -167,18 +171,18 @@
      "/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/basilisp/core.lpy",
      :arglists ([x] [x y] [x y & args])},
     ->
-    {:macro true,
-     :doc
+    {:doc
      "Thread ``x`` through the ``forms``\\. Places x in the second position of the first\n  form, and then the resulting expression into the second position of the second form,\n  etc. Forms which are not lists will be made into lists.",
      :line 4261,
+     :macro true,
      :file
      "/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/basilisp/core.lpy",
      :arglists ([&env &form x & forms])},
     ->>
-    {:macro true,
-     :doc
+    {:doc
      "Thread ``x`` through the ``forms``\\. Places ``x`` in the last position of the first\n  form, and then the resulting expression into the last position of the second form,\n  etc. Forms which are not lists will be made into lists.",
      :line 4275,
+     :macro true,
      :file
      "/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/basilisp/core.lpy",
      :arglists ([&env &form x & forms])},
@@ -205,10 +209,10 @@
      "/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/basilisp/core.lpy",
      :arglists ([type-sym field-name])},
     ..
-    {:macro true,
-     :doc
+    {:doc
      "Expand into nested method calls on the returned objects from previous method calls.\n\n  Successive method invocations are represented as successive lists::\n\n    (.. \"abc\" (lower))              ;=> (. \"abc\" lower)\n    (.. \"abc\" lower (split \",\"))  ;=> (. (. \"abc\" lower) split \",\")\n\n  Methods invoked without arguments may be supplied as bare symbols.",
      :line 3857,
+     :macro true,
      :file
      "/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/basilisp/core.lpy",
      :arglists ([&env &form x & method-calls])},
@@ -332,10 +336,10 @@
      "/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/basilisp/core.lpy",
      :arglists ([v f & args])},
     amap
-    {:macro true,
-     :doc
+    {:doc
      "Map ``expr`` over the Python list ``array``, returning a new Python list with the\n  result.\n\n  This macro initially binds the symbol named by ``ret`` to a clone of ``array``\\. On\n  each iteration, the index (named by ``idx``\\) of ``ret`` is set to the return value\n  of ``expr``\\.",
      :line 2005,
+     :macro true,
      :file
      "/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/basilisp/core.lpy",
      :arglists ([&env &form array idx ret expr])},
@@ -347,10 +351,10 @@
      "/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/basilisp/core.lpy",
      :arglists ([tag] [h tag])},
     and
-    {:macro true,
-     :doc
+    {:doc
      "Evaluate the expressions from left to right. If all expressions are truthy, return\n  the result of the final expression. Otherwise, returns the first falsey expression.\n  Calling ``and`` with no arguments returns ``true``\\.",
      :line 791,
+     :macro true,
      :file
      "/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/basilisp/core.lpy",
      :arglists ([&env &form] [&env &form & args])},
@@ -375,34 +379,34 @@
      "/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/basilisp/core.lpy",
      :arglists ([f & args])},
     apply-method
-    {:macro true,
-     :doc
+    {:doc
      "Apply arguments to a method call. Equivalent to ``(apply (.-method o) args)``\\.",
      :line 3606,
+     :macro true,
      :file
      "/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/basilisp/core.lpy",
      :arglists ([&env &form o method & args])},
     apply-method-kw
-    {:macro true,
-     :doc
+    {:doc
      "Apply keyword arguments to a method call. Equivalent to ``(apply-kw (.-method o) ... args)``\\.",
      :line 3611,
+     :macro true,
      :file
      "/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/basilisp/core.lpy",
      :arglists ([&env &form o method & args])},
     areduce
-    {:macro true,
-     :doc
+    {:doc
      "Reduce the Python list ``array`` by ``expr``\\, returning the reduced expression.\n\n  This macro initially binds the symbol named by ``ret`` to ``init``\\. On each\n  iteration, ``ret`` is rebound to the return value of ``expr``\\.",
      :line 2021,
+     :macro true,
      :file
      "/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/basilisp/core.lpy",
      :arglists ([&env &form array idx ret init expr])},
     as->
-    {:macro true,
-     :doc
+    {:doc
      "Bind ``x`` to name and thread it through the ``forms``\\, replacing instances of\n  ``name`` in forms with the threaded expression.",
      :line 4335,
+     :macro true,
      :file
      "/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/basilisp/core.lpy",
      :arglists ([&env &form x name & forms])},
@@ -414,18 +418,18 @@
      "/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/basilisp/core.lpy",
      :arglists ([array idx val] [array idx idx2 & idxs])},
     aslice
-    {:macro true,
-     :doc
+    {:doc
      "Get a portion of the Python list ``array`` using a\n  Python :external:py:obj:`slice` instance with a single ``stop``\n  value, or a combination of ``start`` and ``stop`` and optional\n  ``step`` values.\n\n  Equivalent to Python's ``array[start:stop:step]`` extended indexing\n  syntax. Use ``nil`` when omitting any of these fields.",
      :line 2034,
+     :macro true,
      :file
      "/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/basilisp/core.lpy",
      :arglists ([&env &form array & stop-or-start-stop-step])},
     assert
-    {:macro true,
-     :doc
+    {:doc
      "Evaluate ``expr`` and if it returns logical false, throw an ``AssertionError``\\.\n\n  This macro does not emit an assertion if the dynamic Var :lpy:var:`*assert*` is set\n  to a logical false value.",
      :line 3594,
+     :macro true,
      :file
      "/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/basilisp/core.lpy",
      :arglists ([&env &form expr] [&env &form expr message])},
@@ -493,10 +497,10 @@
      "/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/basilisp/core.lpy",
      :arglists ([x])},
     binding
-    {:macro true,
-     :doc
+    {:doc
      "Establish thread-local bindings for the vars given. The bindings are guaranteed to\n  clear once execution passes outside the scope of this block.",
      :line 4041,
+     :macro true,
      :file
      "/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/basilisp/core.lpy",
      :arglists ([&env &form bindings & body])},
@@ -591,10 +595,10 @@
      "/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/basilisp/core.lpy",
      :arglists ([x])},
     bound-fn
-    {:macro true,
-     :doc
+    {:doc
      "Return a function with the same function tail (everything after ``fn`` when defining\n  a function) which will be executed with the same thread-local Var bindings as were\n  in effect when ``bound-fn`` was called.\n\n  Returns the return value of the defined function.\n\n  This is primarily useful for creating functions which might need to run on a different\n  thread, but which should have the same Var bindings in place as when it was defined.",
      :line 4104,
+     :macro true,
      :file
      "/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/basilisp/core.lpy",
      :arglists ([&env &form & fn-tail])},
@@ -654,10 +658,10 @@
      "/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/basilisp/core.lpy",
      :arglists ([x])},
     case
-    {:macro true,
-     :doc
+    {:doc
      "Switch on ``expr`` to return a matching clause from the set of input clauses.\n\n  The input expression may be any valid Basilisp expression. A single default expression\n  can follow the clauses, and its value will be returned if no clause matches.\n\n  The clauses are pairs of a matching value and a return value. The matching values are\n  not evaluated and must be compile-time constants. Symbols will not be resolved. Lists\n  may be passed to match multiple compile time values to a single return value. The\n  dispatch is done in constant time.",
      :line 3621,
+     :macro true,
      :file
      "/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/basilisp/core.lpy",
      :arglists ([&env &form expr & clauses])},
@@ -727,9 +731,9 @@
      "/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/basilisp/core.lpy",
      :arglists ([x])},
     comment
-    {:macro true,
-     :doc "Ignore all the forms passed, returning ``nil``\\.",
+    {:doc "Ignore all the forms passed, returning ``nil``\\.",
      :line 3616,
+     :macro true,
      :file
      "/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/basilisp/core.lpy",
      :arglists ([&env &form & forms])},
@@ -782,34 +786,34 @@
      "/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/basilisp/core.lpy",
      :arglists ([& seqs])},
     cond
-    {:macro true,
-     :doc
+    {:doc
      "Given groups of test/expression pairs, evaluate each test and, if ``true``\\, return\n  the expression. Otherwise, continue through until reaching the final expression.",
      :line 817,
+     :macro true,
      :file
      "/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/basilisp/core.lpy",
      :arglists ([&env &form & clauses])},
     cond->
-    {:macro true,
-     :doc
+    {:doc
      "Takes a test and form pair, threading ``x`` (as by :lpy:fn:`->`) through each form\n  for which the corresponding test evaluates as ``true``\\. ``cond->`` does not short\n  circuit evaluation in any case.",
      :line 4309,
+     :macro true,
      :file
      "/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/basilisp/core.lpy",
      :arglists ([&env &form x & clauses])},
     cond->>
-    {:macro true,
-     :doc
+    {:doc
      "Takes a test and form pair, threading ``x`` (as by :lpy:fn:`->>`) through each form\n  for which the corresponding test evaluates as ``true``\\. ``cond->>`` does not short\n  circuit evaluation in any case.",
      :line 4322,
+     :macro true,
      :file
      "/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/basilisp/core.lpy",
      :arglists ([&env &form x & clauses])},
     condp
-    {:macro true,
-     :doc
+    {:doc
      "Take a predicate and an expression and a series of clauses, call ``(pred test expr)``\n  on the first expression for each clause. The result expression from first the set of\n  clauses for which this expression returns a truthy value will be returned from the\n  ``condp`` expression.\n\n  Clauses can take two forms:\n\n  - ``test-expr result-expr``\n  - ``test-expr :>> result-fn`` where :>> is a keyword literal\n\n  For the ternary expression clause, the unary ``result-fn`` will be called with the\n  result of the predicate.\n\n  A single final expression can be included at the end with no test expression which\n  will be returned if no other clause matches the predicate. If no default is provided\n  and no clause matches the predicate, a ``ValueError`` will be thrown.",
      :line 3655,
+     :macro true,
      :file
      "/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/basilisp/core.lpy",
      :arglists ([&env &form pred expr & clauses])},
@@ -902,10 +906,10 @@
      "/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/basilisp/core.lpy",
      :arglists ([x])},
     declare
-    {:macro true,
-     :doc
+    {:doc
      "Declare the given ``names`` as Vars with no bindings, as a forward declaration.",
      :line 3698,
+     :macro true,
      :file
      "/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/basilisp/core.lpy",
      :arglists ([&env &form & names])},
@@ -917,10 +921,10 @@
      "/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/basilisp/core.lpy",
      :arglists ([] [coll])},
     defasync
-    {:macro true,
-     :doc
+    {:doc
      "Define a new asynchronous function as by ``defn``.\n\n  Asynchronous functions are compiled as Python ``async def`` s.",
      :line 669,
+     :macro true,
      :file
      "/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/basilisp/core.lpy",
      :arglists ([&env &form name & body])},
@@ -931,92 +935,92 @@
      :file
      "/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/basilisp/core.lpy"},
     definterface
-    {:macro true,
-     :doc
+    {:doc
      "Define a new Python interface (abstract base clase) with the given name and method\n  signatures.\n\n  Method signatures are in the form ``(method-name [arg1 arg2 ...])``\\. ``self`` or\n  ``this`` arguments must be omitted from all interfaces.\n\n  Interface objects cannot be directly instantiated. Instead, you must create a concrete\n  implementation of an interface (perhaps via :lpy:fn:`deftype`) and supply\n  implementations for all of the abstract methods.\n\n  The generated interface derives from Python's :external:py:class:`abc.ABC` and all\n  method definitions are declared as :external:py:func:`abc.abstractmethod` s and thus\n  must be implemented by a concrete type.\n\n  Interfaces created by ``definterface`` cannot be declared as properties, class\n  methods, or static methods, as with :lpy:fn:`deftype`.",
      :line 6559,
+     :macro true,
      :file
      "/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/basilisp/core.lpy",
      :arglists ([&env &form interface-name & methods])},
     defmacro
-    {:macro true,
-     :doc
+    {:doc
      "Define a new macro function. The arguments and syntax of ``defmacro``\n               are identical to that of :lpy:fn:`defn`.\n\n               When the compiler encounters a new macro function invocation, it\n               immediately invokes that function during compilation and substitutes\n               the function invocation with the return value of the called macro.\n               Macros must return valid syntax at the point they are invoked,\n               otherwise the compiler will throw an exception and compilation\n               will halt.\n\n               Macros created by ``defmacro`` have access to two implicit arguments\n               whose names must not appear in your argument list:\n\n                - ``&env`` is a map of all symbol bindings available to the compiler\n                  at the point the macro is invoked.\n                - ``&form`` is the original form invoking the macro. This is often\n                  useful for reading and copying metadata attached to the original\n                  form.",
      :line 595,
+     :macro true,
      :file
      "/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/basilisp/core.lpy",
      :arglists
      ([name & body] [name doc? & body] [name doc? attr-map? & body])},
     defmethod
-    {:macro true,
-     :doc
+    {:doc
      "Add a new method to the multimethod ``multifn`` which responds to ``dispatch-val``\\.\n\n  ``fn-tail`` is the trailing part of a function definition after ``fn`` including any\n  relevant argument vectors.\n\n  Methods added to a multimethod can be removed using :lpy:fn:`remove-method`. All\n  methods may be removed using :lpy:fn:`remove-all-methods`.\n\n  See :lpy:fn:`defmulti` for more information about multimethods.",
      :line 5886,
+     :macro true,
      :file
      "/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/basilisp/core.lpy",
      :arglists ([&env &form multifn dispatch-val & fn-tail])},
     defmulti
-    {:macro true,
-     :doc
+    {:doc
      "Define a new multimethod with the given ``name`` and a ``body`` consisting of an\n  optional docstring, optional metadata map, a dispatch function and options of key/value\n  pairs.\n\n  Multimethod dispatch functions should be defined with the same arity or arities as\n  the registered methods. The provided dispatch function will be called first on all\n  calls to the multimethod and should return a dispatch value which will be used to\n  identify a registered method. If the value returned by the dispatch function does\n  not correspond to a registered method, the method registered with the default\n  dispatch value, if one is registered, will be called instead. Methods can be\n  registered with the ``defmethod`` macro.\n\n  Multimethods select a dispatch method by using :lpy:fn:`isa?` on all available\n  dispatch values. Callers can provide a hierarchy to use for ``isa?`` resolution. For\n  cases where multiple dispatch values are registered which may return `true` for a call\n  to ``isa?`` callers must select preferred values using :lpy:fn:`prefer-method` or a\n  ``RuntimeException`` will be thrown when a unique method cannot be selected. Callers\n  can view multimethod preferences by calling :lpy:fn:`prefers`.\n\n  Callers may specify options as key/value pairs after the dispatch function. Options\n  include:\n\n    :keyword ``:default``: the default value to use if no matching method is found for\n        the selected dispatch value; the default value is ``:default``\n    :keyword ``:hierarchy``: the default hierarchy to use for resolving ``isa?``\n        relationships; the default value is the global hierarchy; hierarchies should be\n        passed as reference types (e.g. as a ``Var``\\)\n\n  Multimethods are useful for defining polymorphic functions based on characteristics\n  of their arguments. This behavior is often called multiple dispatch. Unlike typical\n  multiple dispatch implementations, however, it is possible to define multimethods\n  which dispatch on characteristics other than the types of input values (though you\n  may define multimethods which dispatch solely on the types of arguments).\n\n  For cases where you might want to define a polymorphic function or functions based\n  solely on the type of the first argument, you should consider defining a protocol\n  (via :lpy:fn:`defprotocol`) instead. Protocols should generally perform better in\n  cases where the primary goal is dispatching on the type of the first argument.",
      :line 5825,
+     :macro true,
      :file
      "/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/basilisp/core.lpy",
      :arglists ([&env &form name & body])},
     defn
-    {:macro true,
-     :doc
+    {:doc
      "Define a new function with an optional docstring.\n\n               The function will be interned in the current Namespace as a Var using\n               the given ``name``\\.\n\n               After the name, an optional mapping of meta attributes may be provided.\n               Any metadata values given will be attached to the metadata of the\n               interned Var, overriding any existing metadata associated with the\n               ``name``.\n\n               A few special meta keys change how ``defn`` emits the final Var and\n               function. The processing is handled by :lpy:fn:`fn`:\n\n                - ``:decorators`` is an optional vector of functions which will wrap\n                  the final function emitted by ``defn``. Like standard Python\n                  decorators and the ``comp`` function, decorators are applied to the\n                  generated function from right to left.\n\n               Specify an optional docstring after the metadata map to provide callers\n               with additional details about your function, its arguments, and its\n               return value. If a docstring is provided, it will be attached to the\n               interned Var metadata under the `:doc` key.\n\n               Functions may be defined with 1 or more arities. Functions of a single\n               arity may be defined with a single vector of 0 or more arguments after\n               the optional metadata map. Any forms appearing after the argument\n               vector will be part of the function body. It is legal to define a\n               function with no body. In this case, your function will always return\n               ``nil``\\.\n\n               Functions with multiple arities are defined as a series of lists after\n               the optional metadata map. Each list must contain an argument vector\n               and 0 or more body forms. No arity may share the same number of fixed\n               (non-variadic) arguments. There may be at most one variadic arity\n               defined per function and the number of fixed arguments to that arity\n               must be greater than or equal than the number of fixed arguments of all\n               other arities.",
      :line 351,
+     :macro true,
      :file
      "/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/basilisp/core.lpy",
      :arglists
      ([name & body] [name doc? & body] [name doc? attr-map? & body])},
     defn-
-    {:macro true,
-     :doc
+    {:doc
      "Define a new private function as by ``defn``\\.\n\n  Private functions are ``def`` 'ed with the ``:private`` metadata, which makes them\n  ineligible for access outside the namespace using ``require`` or ``refer``\\.",
      :line 677,
+     :macro true,
      :file
      "/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/basilisp/core.lpy",
      :arglists ([&env &form name & body])},
     defonce
-    {:macro true,
-     :doc
+    {:doc
      "Define the Var named by ``name`` with root binding set to ``expr`` if and only if a\n  ``name`` is not already defined as a Var in this namespace. ``expr`` will not be\n  evaluated if the Var already exists.",
      :line 3706,
+     :macro true,
      :file
      "/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/basilisp/core.lpy",
      :arglists ([&env &form name expr])},
     defprotocol
-    {:macro true,
-     :doc
+    {:doc
      "Define a new protocol.\n\n  Protocols are similar to classical programming interfaces. Rather than defining an\n  interface and implementing that interface on different objects, protocols generate\n  a set of functions which dispatch to the correct implementation on the type of their\n  first argument (which is similar to the Python ``self`` argument).\n\n  Also like interfaces, Protocols do not include implementations for any of their\n  member methods. Instead, implementations can be provided using :lpy:fn:`deftype`,\n  :lpy:fn:`defrecord`, :lpy:fn:`reify`, or :lpy:fn:`extend` (or any of the ``extend-*``\n  macros).\n\n  Despite their differences from interfaces, Protocols do also generate a standard\n  Python interface type (deriving from :external:py:class:`abc.ABC`) which is used for\n  efficient dispatch for implementing types.\n\n  Method signatures are in the form::\n\n    (method-name [self arg1] [self arg1 arg2] \"This method foos the bars.\")\n\n  Callers must provide the ``self`` or ``this`` arguments for each method.",
      :line 6644,
+     :macro true,
      :file
      "/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/basilisp/core.lpy",
      :arglists ([&env &form protocol-name & methods])},
     defrecord
-    {:macro true,
-     :doc
+    {:doc
      "Define a new Basilisp record.\n\n  The new record will have fields matching the names in ``fields``\\. Fields may be\n  referred to unqualified in the bodies of implemented methods.\n\n  Interface or protocol implementations are declared as the name of the interface or\n  protocol as a symbol, followed by 1 or more method definitions for that interface.\n  Types are not required to declare any interface implementations. Types which do\n  declare interface implementations are required to implement all interface methods.\n  Failing to implement all interface methods is a compile time error. Types\n  implementing ``object`` are not required to implement all ``object`` methods.\n\n  Method declarations should appear as::\n\n    (method-name [arg1] & body)\n    (method-name [arg1 arg2 ...] & body)\n\n  Records objects are created with sensible ``object`` defaults as by ``attrs``\\. New\n  records may override ``object`` defaults. An ``__init__`` function is automatically\n  created which takes positional arguments matching the order of definition in\n  ``fields``. Additionally, given a name ``NewRecord``\\, a factory function will be\n  created ``->NewRecord`` which can be used to generate new instances of the record.\n\n  Methods must supply a ``this`` or ``self`` parameter. ``recur`` special forms used\n  in the body of a method should not include that parameter, as it will be supplied\n  automatically.",
      :line 7406,
+     :macro true,
      :file
      "/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/basilisp/core.lpy",
      :arglists ([&env &form type-name fields & method-impls])},
     deftype
-    {:macro true,
-     :doc
+    {:doc
      "Define a new Python concrete type which can implement 0 or more Python interfaces\n  or Basilisp protocols.\n\n  The new type will have fields matching the names in ``fields``. Fields may be\n  referred to unqualified in the bodies of implemented methods. By default the fields\n  of this type are immutable. Attempting to set non-mutable fields from a method body\n  will result in a compiler error.\n\n  Fields may be made mutable by annotating their definition with ``:mutable`` metadata.\n  Mutable fields may be set within method bodies using the ``set!`` special form. It is\n  not advised to use mutable fields unless you are sure you know what you are doing. As\n  a consequence of Python's lax policy towards immutability, types with even one\n  mutable field may be mutated by outside callers using ``set!``\\, so bear that in mind\n  when choosing mutability.\n\n  Interface or protocol implementations are declared as the name of the interface or\n  protocol as a symbol, followed by 1 or more method definitions for that interface.\n  Types are not required to declare any interface implementations. Types which do\n  declare interface implementations are required to implement all interface methods.\n  Failing to implement all interface methods is a compile time error. Types\n  implementing ``object`` are not required to implement all ``object`` methods.\n\n  Method declarations should appear as::\n\n    (method-name [arg1] & body)\n    (method-name [arg1 arg2 ...] & body)\n\n  Unlike in Clojure, interface and protocol methods are permitted to include variadic\n  arguments. Single-arity methods may also declare support for keyword arguments using\n  either the ``:apply`` or ``:collect`` strategy on the ``:kwargs`` metadata on the\n  method name. Methods may be declared as static (using the ``:staticmethod`` meta key)\n  or class methods (using the ``:classmethod`` meta key). Both static methods and class\n  methods can be declared with multiple arities or may be defined with a single arity\n  and keyword arguments. Finally, single-arity methods may be declared as Python\n  properties using the ``:property`` metadata on the method name. These facilities are\n  provided as a means to interoperate with Python code and their use is discouraged in\n  pure Basilisp code.\n\n  Type objects are created with sensible ``object`` defaults as by ``attrs``\\. New\n  types may override ``object`` defaults. An ``__init__`` function is automatically\n  created which takes positional arguments matching the  order of definition in\n  ``fields``. Additionally, given a name ``NewType``\\, a factory function will be\n  created ``->NewType`` which can be used to generate new instances of the type.\n\n  Methods must supply a ``this`` or ``self`` parameter. ``recur`` special forms used in\n  the body of a method should not include that parameter, as it will be supplied\n  automatically.\n\n  .. note::\n\n     ``deftype`` creates new types with ``__slots__`` by default. To disable usage\n     of ``__slots__``, provide the ``^{:slots false}`` meta key on the type name.\n\n     .. code-block::\n\n        (deftype ^{:slots false} Point [x y z])",
      :line 6969,
+     :macro true,
      :file
      "/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/basilisp/core.lpy",
      :arglists ([&env &form type-name fields & method-impls])},
     delay
-    {:macro true,
-     :doc
+    {:doc
      "Takes a body of expressions producing any value. Will not produce a value until\n  :lpy:fn:`deref` ed. The result is cached and returned in future ``derefs``\\.",
      :line 1032,
+     :macro true,
      :file
      "/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/basilisp/core.lpy",
      :arglists ([&env &form & body])},
@@ -1130,26 +1134,26 @@
      "/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/basilisp/core.lpy",
      :arglists ([coll] [n coll])},
     doseq
-    {:macro true,
-     :doc
+    {:doc
      "Repeatedly run the body (likely for side effects) with bindings as described in the\n  :lpy:fn:`for` macro. Returns ``nil``\\.",
      :line 3851,
+     :macro true,
      :file
      "/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/basilisp/core.lpy",
      :arglists ([&env &form bindings & body])},
     dotimes
-    {:macro true,
-     :doc
+    {:doc
      "Repeatedly execute ``body`` (likely for side effects) while the binding name is\n  repeatedly rebound from 0 to the binding value, ``n``\\, minus 1. Returns ``nil``\\.",
      :line 830,
+     :macro true,
      :file
      "/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/basilisp/core.lpy",
      :arglists ([&env &form binding & body])},
     doto
-    {:macro true,
-     :doc
+    {:doc
      "Evaluate ``x`` and thread it as the first argument in all of the given ``forms``\\.\n  Returns ``x``\\.\n\n  Useful for creating a Python class and calling methods on it for initialization\n  before returning the class.",
      :line 4347,
+     :macro true,
      :file
      "/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/basilisp/core.lpy",
      :arglists ([&env &form x & forms])},
@@ -1294,18 +1298,18 @@
      "/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/basilisp/core.lpy",
      :arglists ([target-type & proto+methods])},
     extend-protocol
-    {:macro true,
-     :doc
+    {:doc
      "Extend a Protocol with implementations for multiple types.\n\n  This convenience macro is useful for extending multiple different types with a single\n  Protocol definition in one call. Note that this macro only supports new function\n  declarations. If you intend to reference an existing function, call :lpy:fn:`extend`\n  directly.\n\n  For example, this call::\n\n    (extend-protocol SomeProto\n      FirstType\n      (spam\n        ([this] ...)\n        ([this arg] ...))\n      (eggs [this arg1 arg2] ...)\n      OtherType\n      (spam\n        ([this] ...)\n        ([this arg] ...))\n      (eggs [this arg1 arg2] ...))\n\n  Would be turned into the following ``extend`` calls::\n\n    (do\n      (extend FirstType\n        SomeProto\n        {:spam (fn spam\n                 ([this] ...)\n                 ([this arg] ...))\n         :eggs (fn [this arg1 arg2] ...)})\n      (extend OtherType\n        SomeProto\n        {:spam (fn spam\n                 ([this] ...)\n                 ([this arg] ...))\n         :eggs (fn [this arg1 arg2] ...)}))",
      :line 6852,
+     :macro true,
      :file
      "/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/basilisp/core.lpy",
      :arglists ([&env &form proto & specs])},
     extend-type
-    {:macro true,
-     :doc
+    {:doc
      "Extend a type with multiple Protocol implementations.\n\n  This convenience macro is useful for extending a single type with multiple different\n  Protocol definitions in one call. Note that this macro only supports new function\n  declarations. If you intend to reference an existing function, call :lpy:fn:`extend`\n  directly.\n\n  For example, this call::\n\n    (extend-type SomeType\n      FirstProto\n      (spam\n        ([this] ...)\n        ([this arg] ...))\n      (eggs [this arg1 arg2] ...)\n      SecondProto\n      (ham [this & args] ...))\n\n  Would be turned into the following ``extend`` call::\n\n    (extend SomeType\n      FirstProto\n      {:spam (fn spam\n               ([this] ...)\n               ([this arg] ...))\n       :eggs (fn eggs [this arg1 arg2] ...)}\n      SecondProto\n      {:ham (fn ham [this & args] ...)})",
      :line 6896,
+     :macro true,
      :file
      "/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/basilisp/core.lpy",
      :arglists ([&env &form target-type & specs])},
@@ -1315,13 +1319,13 @@
      :line 6931,
      :file
      "/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/basilisp/core.lpy",
-     :arglists ([{:keys [impls], :as proto}])},
+     :arglists ([{:as proto, :keys [impls]}])},
     extends?
     {:doc "Return ``true`` ``if`` type extends protocol ``proto``\\.",
      :line 6940,
      :file
      "/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/basilisp/core.lpy",
-     :arglists ([{:keys [interface impls], :as proto} type])},
+     :arglists ([{:as proto, :keys [interface impls]} type])},
     false?
     {:doc
      "Return ``true`` if ``x`` is ``false``\\, otherwise ``false``\\.",
@@ -1428,10 +1432,10 @@
      "/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/basilisp/core.lpy",
      :arglists ([])},
     fn
-    {:macro true,
-     :doc
+    {:doc
      "Return an anonymous (but possibly named) function.\n\n   A few special metadata keys change how ``fn`` emits the final function:\n\n    - ``:decorators`` is an optional vector of functions which will wrap\n      the final function emitted by ``fn``. Like standard Python\n      decorators and the ``comp`` function, decorators are applied to the\n      generated function from right to left.\n\n   .. note::\n\n      The ``name`` metadata (i.e., ``(fn ^{...} <name>  ...)``) takes\n      precedence over  the ``form`` metadata (i.e., ``^{...} (fn <name?> ...)``)\n      when both specify the same key.\n\n  Function argument vectors support sequential and associative :ref:`destructuring` .\n\n  See :lpy:form:`fn` for more details.",
      :line 6229,
+     :macro true,
      :file
      "/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/basilisp/core.lpy",
      :arglists ([&env &form & body])},
@@ -1456,18 +1460,18 @@
      "/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/basilisp/core.lpy",
      :arglists ([f x] [f x y] [f x y z])},
     for
-    {:macro true,
-     :doc
+    {:doc
      "Produce a list comprehension from 1 or more input sequences, subject to optional\n  modifiers.\n\n  For comprehensions consist of a vector of bindings, with optional modifiers, and a\n  user specified body in an implicit ``do`` block.\n\n  Symbol bindings look like standard ``let`` bindings. Values bound to symbols should be\n  sequences or otherwise seqable. The body of the ``for`` comprehension will be executed\n  with the given symbol bound to successive values of the sequence. If multiple sequences\n  are bound to symbols, iteration will proceed in a nested fashion with latest sequences\n  iterated first and earlier sequences iterated later (as nested ``for`` loops in\n  procedural languages).\n\n  For example, a simple non-nested for comprehension will yield::\n\n    (for [x [1 2 3 4]] x) ;;=> [1 2 3 4]\n\n  However, a nested comprehension will yield a longer sequence::\n\n    (for [x (range 3)\n          y [:a :b :c]]\n      [x y])\n    ;;=> ([0 :a] [0 :b] [0 :c]\n          [1 :a] [1 :b] [1 :c]\n          [2 :a] [2 :b] [2 :c])\n\n  Each set of symbol bindings may be modified by applying trailing bindings denoted with\n  keywords. The keyword modifiers are:\n\n    :keyword ``:let [sym val]``: ``:let`` bindings work like any standard let bindings;\n        destructuring is permitted; may refer to any previous bindings in other ``:let``\n        modifiers or normal symbol bindings. Multiple pairs of bindings may appear in\n        ``:let`` bindings.\n    :keyword ``:when expr``: ``:when`` bindings are applied to the sequence roughly like\n        in the core :lpy:fn:`filter` function; the expression is evaluated and if it is\n        not falsey, yield the next value. As with ``:let`` bindings, the expression may\n        refer to any previously bound names.\n    :keyword ``:while expr``: ``:while`` bindings terminate the current sequence at the\n        first point when ``expr`` returns a falsey value. ``:while`` bindings may refer\n        to any previous bound names.\n\n  Multiple keyword modifiers may be applied to the previous binding. Their effects will\n  be applied at the point they appear in the bindings vector.",
      :line 3715,
+     :macro true,
      :file
      "/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/basilisp/core.lpy",
      :arglists ([&env &form bindings & body])},
     for-async
-    {:macro true,
-     :doc
+    {:doc
      "Repeatedly execute ``body`` while the binding name is repeatedly rebound to\n  successive values from the asynchronous iterable.\n\n  .. warning::\n\n     The ``for-async`` macro may only be used in an asynchronous function context.",
      :line 4204,
+     :macro true,
      :file
      "/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/basilisp/core.lpy",
      :arglists ([&env &form binding & body])},
@@ -1492,10 +1496,10 @@
      "/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/basilisp/core.lpy",
      :arglists ([coll])},
     future
-    {:macro true,
-     :doc
+    {:doc
      "Execute the expressions of ``body`` in another thread. Returns a Future object.\n  The value returned by the body can be fetched using :lpy:fn:`deref` or ``@``\\, though\n  doing so may block unless the ``deref`` with a timeout argument is used.",
      :line 1089,
+     :macro true,
      :file
      "/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/basilisp/core.lpy",
      :arglists ([&env &form & body])},
@@ -1641,26 +1645,26 @@
      "/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/basilisp/core.lpy",
      :arglists ([v])},
     if-let
-    {:macro true,
-     :doc
+    {:doc
      "Evaluate the binding as with ``let``, binding the given name for use in the ``true``\n  expression iff the binding expression is truthy . Otherwise, return the ``false``\n  expression without binding the name.",
      :line 710,
+     :macro true,
      :file
      "/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/basilisp/core.lpy",
      :arglists ([&env &form binding true-cond false-cond])},
     if-not
-    {:macro true,
-     :doc
+    {:doc
      "Evaluate ``cond`` and if it is ``true``\\, return ``false-cond``. Otherwise return\n  ``true-cond``\\.",
      :line 702,
+     :macro true,
      :file
      "/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/basilisp/core.lpy",
      :arglists ([&env &form cond true-cond false-cond])},
     if-some
-    {:macro true,
-     :doc
+    {:doc
      "Evaluate the binding as with ``let``, binding the given name for use in the ``true``\n  expression iff the binding expression is not ``nil``\\. Otherwise, return the\n  ``false`` expression without binding the name.",
      :line 727,
+     :macro true,
      :file
      "/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/basilisp/core.lpy",
      :arglists ([&env &form binding true-cond false-cond])},
@@ -1672,10 +1676,10 @@
      "/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/basilisp/core.lpy",
      :arglists ([x])},
     import
-    {:macro true,
-     :doc
+    {:doc
      "Import Python modules by name.\n\n  Modules may be specified either as symbols naming the full module path or as a\n  vector taking the form ``[full.module.path & opts]``\\. The ``opts`` should be\n  pairs of a keyword and a value from below, similar to :lpy:fn:`import`:\n\n  - ``:as name`` which will alias the imported module to the symbol name\n  - ``:refer [& syms]`` which will refer module members in the local namespace\n    directly\n  - ``:refer :all`` which will refer all module members from the namespace directly\n\n  Note that unlike in Python, ``import`` ed Python module names are always hoisted to\n  the current Namespace, so imported names will be available within a Namespace even\n  if the ``import`` itself occurs within a function or method.\n\n  Use of ``import`` directly is discouraged in favor of the ``:import`` directive in\n  the :lpy:fn:`ns` macro.\n\n  Importing and attempting to reference an import within a top level form other than\n  a :lpy:form:`do` is a compile-time error because the compiler cannot verify that\n  the imported name exists. In cases where you may need to import and reference an\n  imported symbol within a single top-level form, you can use\n  :lpy:fn:`importing-resolve`.",
      :line 5098,
+     :macro true,
      :file
      "/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/basilisp/core.lpy",
      :arglists ([&env &form & modules])},
@@ -1836,8 +1840,8 @@
      :arglists
      ([step
        &
-       {:or {somef some?, kf identity, vf identity, initk nil},
-        :keys [somef vf kf initk]}])},
+       {:keys [somef vf kf initk],
+        :or {initk nil, vf identity, kf identity, somef some?}}])},
     iterator-seq
     {:doc
      "Coerce the python Iterable ``it`` to a Seq. Supports both re-iterable\n                  (as with ``seq``) as well as single-use iterables that always return\n                  the same iterator.",
@@ -1900,34 +1904,34 @@
      "/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/basilisp/core.lpy",
      :arglists ([s])},
     lazy-cat
-    {:macro true,
-     :doc
+    {:doc
      "Return a lazy sequence of the concatenation of ``colls``\\. None of the input\n  collections will be evaluated until it is needed.",
      :line 2604,
+     :macro true,
      :file
      "/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/basilisp/core.lpy",
      :arglists ([&env &form & colls])},
     lazy-seq
-    {:macro true,
-     :doc
+    {:doc
      "Takes a body of expressions which will produce a seq or ``nil``\\. When ``seq`` is\n  first called on the resulting ``lazy-seq``\\, the sequence will be realized.",
      :line 2597,
+     :macro true,
      :file
      "/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/basilisp/core.lpy",
      :arglists ([&env &form & body])},
     let
-    {:macro true,
-     :doc
+    {:doc
      ":lpy:form:`let` bindings with :ref:`destructuring` support.",
      :line 6301,
+     :macro true,
      :file
      "/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/basilisp/core.lpy",
      :arglists ([&env &form bindings & body])},
     letfn
-    {:macro true,
-     :doc
+    {:doc
      "Let form specifically for local function definitions.\n\n  Functions are defined as bindings::\n\n    (letfn [(plus-two [x] (+ (plus-one x) 1))\n            (plus-one [x] (+ x 1))]\n      (plus-two 3))\n\n  Functions defined in ``letfn`` bindings may refer to each other regardless of their\n  order of definition.\n\n  See :lpy:form:`letfn` for more details.",
      :line 6308,
+     :macro true,
      :file
      "/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/basilisp/core.lpy",
      :arglists ([&env &form bindings & body])},
@@ -1938,7 +1942,7 @@
      :file
      "/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/basilisp/core.lpy",
      :arglists
-     ([o] [o & {:or {keyword-fn name}, :keys [keyword-fn]}])},
+     ([o] [o & {:keys [keyword-fn], :or {keyword-fn name}}])},
     list
     {:doc "Create a list from the arguments.",
      :line 23,
@@ -2012,10 +2016,10 @@
      "/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/basilisp/core.lpy",
      :arglists ([x])},
     loop
-    {:macro true,
-     :doc
+    {:doc
      ":lpy:form:`loop` bindings with :ref:`destructuring` support.",
      :line 6347,
+     :macro true,
      :file
      "/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/basilisp/core.lpy",
      :arglists ([&env &form bindings & body])},
@@ -2108,10 +2112,10 @@
      "/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/basilisp/core.lpy",
      :arglists ([k & args])},
     memfn
-    {:macro true,
-     :doc
+    {:doc
      "Expands into a function that calls the method ``name`` on the first argument of the\n  resulting function. If ``args`` are provided, the resulting function will have\n  arguments of these names.\n\n  This is a convenient way of producing a first-class function for a Python method.",
      :line 3876,
+     :macro true,
      :file
      "/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/basilisp/core.lpy",
      :arglists ([&env &form name & args])},
@@ -2213,10 +2217,10 @@
      "/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/basilisp/core.lpy",
      :arglists ([x])},
     new
-    {:macro true,
-     :doc
+    {:doc
      "Create a new instance of ``class`` with ``args``\\.\n\n  New objects may be created as any of::\n\n    (new python/str *args)\n    (new python.str *args)\n    (new python.str. *args)\n\n  This is compatibility syntax for Clojure, since Python (and therefore Basilisp) do not\n  require the ``new`` keyword for object instantiation.",
      :line 3886,
+     :macro true,
      :file
      "/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/basilisp/core.lpy",
      :arglists ([&env &form class & args])},
@@ -2291,10 +2295,10 @@
      "/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/basilisp/core.lpy",
      :arglists ([& args])},
     ns
-    {:macro true,
-     :doc
+    {:doc
      "Use this namespace pre-amble at the top of every namespace to declare the namespace\n  name and import necessary Python modules and require Basilisp namespaces.\n\n  You may include an optional docstring for the namespace to describe its purpose. The\n  docstring will be applied as the ``:doc`` key on the namespace metadata map.\n\n  An optional map of metadata can be given after the docstring. If provided, this\n  metadata will be merged into the metadata for the resulting namespace.\n\n  Example::\n\n    (ns my.namespace\n       \"My namespace with code\"\n       {:meta-key 1}\n       (:refer-basilisp :exclude [get])\n       (:require\n         [basilisp.string :as str])\n       (:use\n         [basilisp.set :only [intersection]])\n       (:import inspect))\n\n  Flags and contents of each of the various sections are detailed further at each of\n  their respective function definitions.\n\n   - ``:refer-basilisp`` (``:refer-clojure`` is also accepted) controls how names from\n     :lpy:ns:`basilisp.core` are exposed in the namespace. Refer to :lpy:fn:`refer` for\n     usage.\n   - ``:require`` imports other Basilisp namespaces. Refer to :lpy:fn:`require` for\n     usage.\n   - ``:use`` is a variant of ``:require``, although ``:require`` is preferred in most\n     cases. See :lpy:fn:`use` for usage.\n   - ``:import`` imports Python modules and packages. Refer to :lpy:fn:`import` for\n     usage.\n\n  Use of the ``ns`` macro to control requires and imports is recommended in all cases.\n  The various functions that ``ns`` delegates to and whose documentation are referred\n  to above are generally useful for interactive usage at the REPL but not appropriate\n  for usage in a larger application.",
      :line 5438,
+     :macro true,
      :file
      "/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/basilisp/core.lpy",
      :arglists ([&env &form name & opts])},
@@ -2423,10 +2427,10 @@
      "/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/basilisp/core.lpy",
      :arglists ([x])},
     or
-    {:macro true,
-     :doc
+    {:doc
      "Evaluate the expressions from left to right. Returns the first truthy expression.\n  Otherwise, returns the final falsey expression. Calling ``or`` with no arguments\n  returns ``nil``\\.",
      :line 804,
+     :macro true,
      :file
      "/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/basilisp/core.lpy",
      :arglists ([&env &form] [&env &form & args])},
@@ -2665,10 +2669,10 @@
      "/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/basilisp/core.lpy",
      :arglists ([x])},
     proxy
-    {:macro true,
-     :doc
+    {:doc
      "Create a new proxy class instance.\n\n  The proxy class may implement 0 or more interface (or subclass 0 or more classes),\n  which are given as the vector ``class-and-interfaces``. If 0 such supertypes are\n  provided, Python's ``object`` type will be used.\n\n  If the supertype constructors take arguments, those arguments are given in the\n  potentially empty vector ``args``.\n\n  The remaining forms (if any) should be method overrides for any methods of the\n  declared classes and interfaces. Not every method needs to be overridden. Override\n  declarations may be multi-arity to simulate multi-arity methods. Overrides need\n  not include ``this``, as it will be automatically added and is available within\n  all proxy methods. Proxy methods may access the proxy superclass using the\n  :lpy:fn:`proxy-super` macro.\n\n  Overrides take the following form::\n\n     (single-arity []\n       ...)\n\n     (multi-arity\n       ([] ...)\n       ([arg1] ...)\n       ([arg1 & others] ...))\n\n  .. note::\n\n     Proxy override methods can be defined with Python keyword argument support since\n     they are just standard Basilisp functions. See :ref:`basilisp_functions_with_kwargs`\n     for more information.\n\n  .. warning::\n\n     The ``proxy`` macro does not verify that the provided override implementations\n     arities match those of the method being overridden.\n\n  .. warning::\n\n     Attempting to create a proxy with multiple superclasses defined with ``__slots__``\n     may fail with a ``TypeError``. If you control any of the designated superclasses,\n     removing conflicting ``__slots__`` should enable creation of the proxy type.",
      :line 7254,
+     :macro true,
      :file
      "/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/basilisp/core.lpy",
      :arglists ([&env &form class-and-interfaces args & fs])},
@@ -2680,10 +2684,10 @@
      "/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/basilisp/core.lpy",
      :arglists ([proxy])},
     proxy-super
-    {:macro true,
-     :doc
+    {:doc
      "Macro which expands to a call to the method named ``meth`` on the superclass\n  with the provided ``args``.\n\n  Note this macro explicitly captures the implicit ``this`` parameter added to proxy\n  methods.",
      :line 7332,
+     :macro true,
      :file
      "/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/basilisp/core.lpy",
      :arglists ([&env &form meth & args])},
@@ -2695,10 +2699,10 @@
      "/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/basilisp/core.lpy",
      :arglists ([bindings])},
     pvalues
-    {:macro true,
-     :doc
+    {:doc
      "Returns a lazy seq of the result of ``exprs``\\, which will be evaluated in\n  parallel.",
      :line 3513,
+     :macro true,
      :file
      "/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/basilisp/core.lpy",
      :arglists ([&env &form & exprs])},
@@ -2710,7 +2714,7 @@
      "/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/basilisp/core.lpy",
      :arglists
      ([o]
-      [o & {:or {keywordize-keys true}, :keys [keywordize-keys]}])},
+      [o & {:keys [keywordize-keys], :or {keywordize-keys true}}])},
     py-dict?
     {:doc
      "Return ``true`` if ``x`` is a Python :external:py:class:`dict`\\.",
@@ -2980,10 +2984,10 @@
      :file
      "/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/basilisp/core.lpy"},
     reify
-    {:macro true,
-     :doc
+    {:doc
      "Create a new Python object of an anonymous type which implements 0 or more\n  Python interfaces or Basilisp protocols.\n\n  Unlike types created via :lpy:fn:`deftype`, ``reify`` returns an object which\n  implements the named interfaces using the implementations provided. You may not\n  provide fields as such to ``reify``\\, though ``reify`` closes over any local names\n  defined in the same lexical context. These fields may serve as private fields of the\n  created object.\n\n  Interface or protocol implementations are declared as the name of the interface or\n  protocol as a symbol, followed by 1 or more method definitions for that interface.\n  Types are not required to declare any interface implementations. Types which do\n  declare interface implementations are required to implement all interface methods.\n  Failing to implement all interface methods is a compile time error. Types\n  implementing ``object`` are not required to implement all ``object`` methods.\n\n  Method declarations should appear as::\n\n    (method-name [arg1] & body)\n    (method-name [arg1 arg2 ...] & body)\n\n  Unlike in Clojure, interface and protocol methods are permitted to include variadic\n  arguments. Single-arity methods may also declare support for keyword arguments using\n  either the ``:apply`` or ``:collect`` strategy on the ``:kwargs`` metadata on the\n  method name. Finally, single-arity methods may be declared as Python properties\n  using the ``:property`` metadata on the method name. These facilities are provided\n  as a means to interoperate with Python code and their use is discouraged in pure\n  Basilisp code.\n\n  ``reify`` does not support class method or static method members and attempting to\n  declare ``reify`` members as class or static members will result in a compile time\n  error.\n\n  Type objects are created with sensible ``object`` defaults as by ``attrs``\\. New\n  types may override ``object`` defaults.\n\n  Reified objects always implement ``basilisp.lang.interfaces/IWithMeta`` and transfer\n  the metadata from the form to the created object.\n\n  Methods must supply a ``this`` or ``self`` parameter. ``recur`` special forms used in\n  the body of a method should not include that parameter, as it will be supplied\n  automatically.",
      :line 7042,
+     :macro true,
      :file
      "/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/basilisp/core.lpy",
      :arglists ([&env &form & method-impls])},
@@ -3143,7 +3147,7 @@
      :line 6946,
      :file
      "/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/basilisp/core.lpy",
-     :arglists ([{:keys [interface impls], :as proto} x])},
+     :arglists ([{:as proto, :keys [interface impls]} x])},
     second
     {:doc "Returns the second element in a Seq.",
      :line 52,
@@ -3267,18 +3271,18 @@
      "/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/basilisp/core.lpy",
      :arglists ([pred coll])},
     some->
-    {:macro true,
-     :doc
+    {:doc
      "Thread ``x`` through the forms (as by :lpy:fn:`->`) until the resulting expression\n  is ``nil`` or there are no more forms.",
      :line 4289,
+     :macro true,
      :file
      "/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/basilisp/core.lpy",
      :arglists ([&env &form x & forms])},
     some->>
-    {:macro true,
-     :doc
+    {:doc
      "Thread ``x`` through the forms (as by :lpy:fn:`->>`) until the resulting expression\n  is ``nil`` or there are no more forms.",
      :line 4299,
+     :macro true,
      :file
      "/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/basilisp/core.lpy",
      :arglists ([&env &form x & forms])},
@@ -3467,10 +3471,10 @@
      "/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/basilisp/core.lpy",
      :arglists ([& vars])},
     time
-    {:macro true,
-     :doc
+    {:doc
      "Time the execution of ``expr``\\. Return the result of ``expr`` and print the time\n  execution took in milliseconds.",
      :line 4190,
+     :macro true,
      :file
      "/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/basilisp/core.lpy",
      :arglists ([&env &form expr])},
@@ -3828,74 +3832,74 @@
      "/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/basilisp/core.lpy",
      :arglists ([v f & args])},
     when
-    {:macro true,
-     :doc
+    {:doc
      "Evaluate ``cond`` and if it is truthy, execute body in an implicit ``do`` block.",
      :line 744,
+     :macro true,
      :file
      "/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/basilisp/core.lpy",
      :arglists ([&env &form cond & body])},
     when-first
-    {:macro true,
-     :doc
+    {:doc
      "Evaluate the binding as with ``let``\\, binding the given name to the first value\n  (as by :lpy:fn:`first`) in the binding expression iff the first value in the binding\n  expression is not ``nil``\\. Return ``nil`` otherwise.",
      :line 759,
+     :macro true,
      :file
      "/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/basilisp/core.lpy",
      :arglists ([&env &form binding & body])},
     when-let
-    {:macro true,
-     :doc
+    {:doc
      "Evaluate the binding as with ``let``\\, binding the given name for use in the\n  ``true`` expression iff the binding expression is truthy. Return ``nil`` otherwise.",
      :line 751,
+     :macro true,
      :file
      "/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/basilisp/core.lpy",
      :arglists ([&env &form binding & body])},
     when-not
-    {:macro true,
-     :doc
+    {:doc
      "Evaluate ``cond`` and if it is falsey, execute body in an implicit ``do`` block.",
      :line 784,
+     :macro true,
      :file
      "/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/basilisp/core.lpy",
      :arglists ([&env &form cond & body])},
     when-some
-    {:macro true,
-     :doc
+    {:doc
      "Evaluate the binding as with ``let``\\, binding the given name for use in the\n  true expression iff the binding expression is not ``nil``\\. Return ``nil``\n  otherwise.",
      :line 775,
+     :macro true,
      :file
      "/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/basilisp/core.lpy",
      :arglists ([&env &form binding & body])},
     while
-    {:macro true,
-     :doc
+    {:doc
      "Execute ``body`` repeatedly (likely for side effects) until ``cond`` returns\n  ``false``\\. Return ``nil``\\.",
      :line 845,
+     :macro true,
      :file
      "/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/basilisp/core.lpy",
      :arglists ([&env &form cond & body])},
     with
-    {:macro true,
-     :doc
+    {:doc
      "Evaluate ``body`` within a ``try`` / ``except`` expression, binding the named\n  expressions as per Python's context manager protocol spec (Python's ``with`` blocks).",
      :line 3920,
+     :macro true,
      :file
      "/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/basilisp/core.lpy",
      :arglists ([&env &form bindings & body])},
     with-async
-    {:macro true,
-     :doc
+    {:doc
      "Evaluate ``body`` within a ``try`` / ``except`` expression, binding the named\n  expressions as per Python's async context manager protocol spec (Python's\n  ``async with`` blocks).\n\n  .. warning::\n\n     The ``with-async`` macro may only be used in an asynchronous function context.",
      :line 4228,
+     :macro true,
      :file
      "/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/basilisp/core.lpy",
      :arglists ([&env &form bindings & body])},
     with-bindings
-    {:macro true,
-     :doc
+    {:doc
      "Execute the expressions given in the ``body`` with the thread-local Var bindings\n  specified in the Var/value map ``bindings-map`` installed.\n\n  The thread-local Var bindings will be popped after executing the body in all cases.\n\n  Returns the value of ``body``\\.",
      :line 4079,
+     :macro true,
      :file
      "/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/basilisp/core.lpy",
      :arglists ([&env &form bindings-map & body])},
@@ -3907,10 +3911,10 @@
      "/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/basilisp/core.lpy",
      :arglists ([bindings-map f & args])},
     with-in-str
-    {:macro true,
-     :doc
+    {:doc
      "Evaluate body with :lpy:var:`*in*` bound to a :external:py:class:`io.StringIO`\n  instance containing the string ``s``\\.",
      :line 4476,
+     :macro true,
      :file
      "/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/basilisp/core.lpy",
      :arglists ([&env &form s & body])},
@@ -3922,33 +3926,33 @@
      "/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/basilisp/core.lpy",
      :arglists ([o meta])},
     with-open
-    {:macro true,
-     :doc
+    {:doc
      "Evaluate ``body`` within a ``try`` / ``except`` expression, binding the\n               named expressions as per Python's context manager protocol spec (Python's\n               ``with`` blocks).",
      :line 3944,
+     :macro true,
      :file
      "/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/basilisp/core.lpy"},
     with-out-str
-    {:macro true,
-     :doc
+    {:doc
      "Capture the contents of text sent to :lpy:var:`*out*` and return the contents as a\n  string.",
      :line 4483,
+     :macro true,
      :file
      "/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/basilisp/core.lpy",
      :arglists ([&env &form & body])},
     with-precision
-    {:macro true,
-     :doc
+    {:doc
      "Set the current precision and (optionally) rounding behavior of\n  :external:py:class:`decimal.Decimal` instances in the current thread while executing\n  ``exprs``\\.\n\n  Rounding should be a symbol and may be one of:\n  - ``CEILING``\n  - ``FLOOR``\n  - ``UP``\n  - ``DOWN``\n  - ``HALF_UP``\n  - ``HALF_EVEN``\n  - ``HALF_DOWN``\n  - ``ZERO_FIVE_UP`` (corresponding with Python's :external:py:obj:`decimal.ROUND_05UP`)",
      :line 3994,
+     :macro true,
      :file
      "/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/basilisp/core.lpy",
      :arglists ([&env &form precision & exprs])},
     with-redefs
-    {:macro true,
-     :doc
+    {:doc
      "Temporarily re-bind the given Var roots to the given values while executing the\n  body, binding back to the original value afterwards.\n\n  Changes to the Var roots will be visible in all threads.\n\n  Note that Basilisp directly links Var references in compiled code by default for\n  performance reasons. Direct linking can be disabled for all Vars during compilation\n  by setting the ``--use-var-indirection`` compiler flag at startup. Direct linking\n  can be disabled for individual Vars by setting the ``^:redef`` meta flag where the\n  Var is ``def`` 'ed.\n\n  ``with-redefs`` will throw an Exception if directly linked Vars are given in the\n  bindings.",
      :line 4153,
+     :macro true,
      :file
      "/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/basilisp/core.lpy",
      :arglists ([&env &form bindings & body])},
@@ -4180,10 +4184,10 @@
      "/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/basilisp/pprint.lpy",
      :arglists ([relative-to offset])},
     pprint-logical-block
-    {:macro true,
-     :doc
+    {:doc
      "Macro for grouping logical elements together in ``pprint`` outputs.",
      :line 453,
+     :macro true,
      :file
      "/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/basilisp/pprint.lpy",
      :arglists ([&env &form & body])},
@@ -4195,10 +4199,10 @@
      "/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/basilisp/pprint.lpy",
      :arglists ([kind])},
     print-length-loop
-    {:macro true,
-     :doc
+    {:doc
      ":lpy:fn:`loop` -like macro which loops at most :lpy:fn:`basilisp.core/*print-length*`\n  times, which is often useful when defining custom pretty-printing functions.",
      :line 472,
+     :macro true,
      :file
      "/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/basilisp/pprint.lpy",
      :arglists ([&env &form bindings & body])},
@@ -4226,10 +4230,10 @@
      "/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/basilisp/pprint.lpy",
      :arglists ([this prefix per-line-prefix suffix])},
     with-pprint-dispatch
-    {:macro true,
-     :doc
+    {:doc
      "Convenience macro for setting the :lpy:var:`*print-pprint-dispatch*` while executing\n  the body.",
      :line 757,
+     :macro true,
      :file
      "/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/basilisp/pprint.lpy",
      :arglists ([&env &form function & body])},
@@ -4533,10 +4537,10 @@
      "/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/basilisp/template.lpy",
      :arglists ([argv expr values])},
     do-template
-    {:macro true,
-     :doc
+    {:doc
      "Given a template expression ``expr`` and bindings, produce a ``do`` expression with\n  the repeated templated expressions replacing names in ``argv`` with elements from\n  ``args``.\n\n  For example::\n\n    (macroexpand '(do-template [x y] (= x y)\n                    1 (dec 2)\n                    2 (inc 1)))\n\n  produces::\n\n    (do\n      (= 1 (dec 2))\n      (= 2 (inc 1)))",
      :line 27,
+     :macro true,
      :file
      "/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/basilisp/template.lpy",
      :arglists ([&env &form argv expr & args])}}},
@@ -4558,26 +4562,26 @@
      :file
      "/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/basilisp/test.lpy"},
     are
-    {:macro true,
-     :doc
+    {:doc
      "Generate assertions using the template expression ``expr``. Template expressions\n  should be defined in terms of the symbols in the argument vector ``argv``.\n\n  Arguments will be partitioned into groups of as many arguments are in ``argv``\n  and applied to the template expression.\n\n  As an example::\n\n    (are [res x y] (= res (+ x y))\n      3  1 2\n      4  2 2\n      0 -1 1)\n\n  This would macroexpand to create a group of assertions like this::\n\n    (do\n      (is (= 3 (+ 1 2)))\n      (is (= 4 (+ 2 2)))\n      (is (= 0 (+ -1 1))))\n\n  This may be convenient for generating large numbers of identically formed assertions\n  with different arguments.\n\n  Note that assertions generated with ``are`` typically lose line numbers in test\n  failure reports, due to the nature of the macro generation.\n\n  ``are`` assertions must appear inside of a :lpy:fn:`deftest` form.",
      :line 275,
+     :macro true,
      :file
      "/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/basilisp/test.lpy",
      :arglists ([&env &form argv expr & args])},
     compose-fixtures
-    {:macro true,
-     :doc
+    {:doc
      "Compose any number of ``fixtures``, in order, creating a new fixture\n  that combines their behavior. Always returns a valid fixture\n  function, even if no fixtures are given.",
      :line 96,
+     :macro true,
      :file
      "/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/basilisp/test.lpy",
      :arglists ([&env &form & fixtures])},
     deftest
-    {:macro true,
-     :doc
+    {:doc
      "Define a new test.\n\n  Assertions can be made with the :lpy:fn:`is` and :lpy:fn:`are` macros. Group tests\n  with the :lpy:fn:`testing` macro.\n\n  Tests defined by `deftest` will be run by default by the PyTest test runner using\n  Basilisp's builtin PyTest hook.",
      :line 321,
+     :macro true,
      :file
      "/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/basilisp/test.lpy",
      :arglists ([&env &form name-sym & body])},
@@ -4595,10 +4599,10 @@
      "/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/basilisp/test.lpy",
      :arglists ([x])},
     is
-    {:macro true,
-     :doc
+    {:doc
      "Assert that a test condition, ``expr``, is true. :lpy:fn:`is` assertion failures are\n  recorded and reported as test failures, causing the entire containing ``deftest`` to\n  be marked as failed.\n\n  ``expr`` can take multiple forms:\n\n  - ``(is (= expected actual))`` generates a basic assertion that ``expected`` and\n    ``actual`` are equal by ``=``; error messaging will reflect that the first element\n    is the expected value and the second element is the actual value\n  - ``(is (thrown? ExceptionType expr))`` generates a basic assertion that ``expr``\n    does generate an exception of the type ``ExceptionType``\n  - ``(is (thrown-with-msg? ExceptionType pattern expr))`` generates a basic assertion\n    that ``expr`` does generate an exception of the type ``ExceptionType`` and that\n    the stringified exception (as by ``python/str``) matches the regular expression\n    ``pattern`` using :lpy:fn:`re-find`\n  - ``(is expr)`` is the most basic assertion type that just asserts that ``expr`` is\n    truthy\n\n  ``is`` assertions must appear inside of a :lpy:fn:`deftest` form.",
      :line 233,
+     :macro true,
      :file
      "/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/basilisp/test.lpy",
      :arglists ([&env &form expr] [&env &form expr msg])},
@@ -4610,10 +4614,10 @@
      "/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/basilisp/test.lpy",
      :arglists ([fixtures])},
     testing
-    {:macro true,
-     :doc
+    {:doc
      "Wrapper for test cases to provide additional messaging and context around the test\n  or group of tests contained inside. The value of ``msg`` will be shown in the report\n  with any test failures that occur inside this block.\n\n  ``testing`` macros may be nested. Each nested block message will be appended to the\n  message from the previous block.\n\n  ``testing`` forms must appear inside of a :lpy:fn:`deftest` form.",
      :line 306,
+     :macro true,
      :file
      "/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/basilisp/test.lpy",
      :arglists ([&env &form msg & body])},
@@ -4625,10 +4629,10 @@
      "/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/basilisp/test.lpy",
      :arglists ([fixture-type & fixtures])},
     with-fixtures
-    {:macro true,
-     :doc
+    {:doc
      "Wrap the ``body`` in the ``fixtures`` in the given order. Handle\n  setup and teardown for each of the ``fixtures``.",
      :line 76,
+     :macro true,
      :file
      "/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/basilisp/test.lpy",
      :arglists ([&env &form fixtures & body])}}},
@@ -4715,8 +4719,4 @@
      :file
      "/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/basilisp/walk.lpy",
      :arglists ([this inner outer])}}}},
- :clojure-version "unknown",
- :special-forms
- #{try finally do if recur set! . var quote catch throw def},
- :dialect-tag "basilisp",
- :captured-at "2026-07-03T07:26:46Z"}
+ :captured-at "2026-07-04T07:17:54Z"}
