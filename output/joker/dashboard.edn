@@ -2,7 +2,7 @@
  {:dialect-tag "joker",
   :dialect-name "Joker",
   :clojure-version "1.12.4",
-  :compared-at "2026-07-04T07:28:32Z"},
+  :compared-at "2026-07-05T07:39:58Z"},
  :divergences
  [{:id :go-host,
    :title "Host runtime is Go, not the JVM",
@@ -103,50 +103,7 @@
    clojure.template
    {:in-both-count 2, :clojure-total 2, :percent 1.0}}},
  :history
- [{:date "2026-06-21",
-   :dialect-tag "joker",
-   :clojure-version "1.8.1-joker",
-   :headline
-   {:in-both-count 479,
-    :clojure-total 995,
-    :percent 0.4814070351758794},
-   :per-namespace
-   {clojure.spec.alpha
-    {:in-both-count 0, :clojure-total 87, :percent 0.0},
-    clojure.datafy {:in-both-count 0, :clojure-total 2, :percent 0.0},
-    clojure.zip {:in-both-count 0, :clojure-total 28, :percent 0.0},
-    clojure.core.reducers
-    {:in-both-count 0, :clojure-total 21, :percent 0.0},
-    clojure.test
-    {:in-both-count 36,
-     :clojure-total 39,
-     :percent 0.9230769230769231},
-    clojure.core.protocols
-    {:in-both-count 0, :clojure-total 11, :percent 0.0},
-    clojure.core
-    {:in-both-count 386,
-     :clojure-total 679,
-     :percent 0.5684830633284241},
-    clojure.set {:in-both-count 12, :clojure-total 12, :percent 1.0},
-    clojure.pprint
-    {:in-both-count 1,
-     :clojure-total 26,
-     :percent 0.038461538461538464},
-    clojure.math
-    {:in-both-count 12,
-     :clojure-total 45,
-     :percent 0.26666666666666666},
-    clojure.edn {:in-both-count 0, :clojure-total 2, :percent 0.0},
-    clojure.instant {:in-both-count 0, :clojure-total 5, :percent 0.0},
-    clojure.string
-    {:in-both-count 20,
-     :clojure-total 21,
-     :percent 0.9523809523809523},
-    clojure.data {:in-both-count 0, :clojure-total 5, :percent 0.0},
-    clojure.walk {:in-both-count 10, :clojure-total 10, :percent 1.0},
-    clojure.template
-    {:in-both-count 2, :clojure-total 2, :percent 1.0}}}
-  {:date "2026-06-22",
+ [{:date "2026-06-22",
    :dialect-tag "joker",
    :clojure-version "1.8.2-joker",
    :headline
@@ -704,6 +661,49 @@
     clojure.data {:in-both-count 0, :clojure-total 5, :percent 0.0},
     clojure.walk {:in-both-count 10, :clojure-total 10, :percent 1.0},
     clojure.template
+    {:in-both-count 2, :clojure-total 2, :percent 1.0}}}
+  {:date "2026-07-05",
+   :dialect-tag "joker",
+   :clojure-version "1.8.3-joker",
+   :headline
+   {:in-both-count 479,
+    :clojure-total 995,
+    :percent 0.4814070351758794},
+   :per-namespace
+   {clojure.spec.alpha
+    {:in-both-count 0, :clojure-total 87, :percent 0.0},
+    clojure.datafy {:in-both-count 0, :clojure-total 2, :percent 0.0},
+    clojure.zip {:in-both-count 0, :clojure-total 28, :percent 0.0},
+    clojure.core.reducers
+    {:in-both-count 0, :clojure-total 21, :percent 0.0},
+    clojure.test
+    {:in-both-count 36,
+     :clojure-total 39,
+     :percent 0.9230769230769231},
+    clojure.core.protocols
+    {:in-both-count 0, :clojure-total 11, :percent 0.0},
+    clojure.core
+    {:in-both-count 386,
+     :clojure-total 679,
+     :percent 0.5684830633284241},
+    clojure.set {:in-both-count 12, :clojure-total 12, :percent 1.0},
+    clojure.pprint
+    {:in-both-count 1,
+     :clojure-total 26,
+     :percent 0.038461538461538464},
+    clojure.math
+    {:in-both-count 12,
+     :clojure-total 45,
+     :percent 0.26666666666666666},
+    clojure.edn {:in-both-count 0, :clojure-total 2, :percent 0.0},
+    clojure.instant {:in-both-count 0, :clojure-total 5, :percent 0.0},
+    clojure.string
+    {:in-both-count 20,
+     :clojure-total 21,
+     :percent 0.9523809523809523},
+    clojure.data {:in-both-count 0, :clojure-total 5, :percent 0.0},
+    clojure.walk {:in-both-count 10, :clojure-total 10, :percent 1.0},
+    clojure.template
     {:in-both-count 2, :clojure-total 2, :percent 1.0}}}],
  :mismatches
  [{:dynamic-clojure true,
@@ -1071,8 +1071,8 @@
    :description
    "Where reader attaches meta and which ops preserve it."}],
  :drift
- {:from-date "2026-07-03",
-  :to-date "2026-07-04",
+ {:from-date "2026-07-04",
+  :to-date "2026-07-05",
   :added-vars #{},
   :removed-vars #{},
   :changed [],
