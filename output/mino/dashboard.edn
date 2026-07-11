@@ -2,7 +2,7 @@
  {:dialect-tag "mino",
   :dialect-name "mino",
   :clojure-version "1.12.4",
-  :compared-at "2026-07-10T06:20:31Z"},
+  :compared-at "2026-07-11T05:53:13Z"},
  :divergences
  [{:dialect-example "(compare \"z\" \"a\") ;=> 1",
    :since "v0.1.0",
@@ -265,44 +265,7 @@
    clojure.template
    {:in-both-count 2, :clojure-total 2, :percent 1.0}}},
  :history
- [{:date "2026-06-27",
-   :dialect-tag "mino",
-   :clojure-version "1.11.0",
-   :headline
-   {:in-both-count 904,
-    :clojure-total 995,
-    :percent 0.9085427135678392},
-   :per-namespace
-   {clojure.spec.alpha
-    {:in-both-count 87, :clojure-total 87, :percent 1.0},
-    clojure.datafy {:in-both-count 2, :clojure-total 2, :percent 1.0},
-    clojure.zip {:in-both-count 28, :clojure-total 28, :percent 1.0},
-    clojure.core.reducers
-    {:in-both-count 19,
-     :clojure-total 21,
-     :percent 0.9047619047619048},
-    clojure.test {:in-both-count 39, :clojure-total 39, :percent 1.0},
-    clojure.core.protocols
-    {:in-both-count 10,
-     :clojure-total 11,
-     :percent 0.9090909090909091},
-    clojure.core
-    {:in-both-count 593,
-     :clojure-total 679,
-     :percent 0.8733431516936672},
-    clojure.set {:in-both-count 12, :clojure-total 12, :percent 1.0},
-    clojure.pprint
-    {:in-both-count 26, :clojure-total 26, :percent 1.0},
-    clojure.math {:in-both-count 45, :clojure-total 45, :percent 1.0},
-    clojure.edn {:in-both-count 2, :clojure-total 2, :percent 1.0},
-    clojure.instant {:in-both-count 3, :clojure-total 5, :percent 0.6},
-    clojure.string
-    {:in-both-count 21, :clojure-total 21, :percent 1.0},
-    clojure.data {:in-both-count 5, :clojure-total 5, :percent 1.0},
-    clojure.walk {:in-both-count 10, :clojure-total 10, :percent 1.0},
-    clojure.template
-    {:in-both-count 2, :clojure-total 2, :percent 1.0}}}
-  {:date "2026-06-28",
+ [{:date "2026-06-28",
    :dialect-tag "mino",
    :clojure-version "1.11.0",
    :headline
@@ -782,10 +745,47 @@
     clojure.data {:in-both-count 5, :clojure-total 5, :percent 1.0},
     clojure.walk {:in-both-count 10, :clojure-total 10, :percent 1.0},
     clojure.template
+    {:in-both-count 2, :clojure-total 2, :percent 1.0}}}
+  {:date "2026-07-11",
+   :dialect-tag "mino",
+   :clojure-version "1.11.0",
+   :headline
+   {:in-both-count 904,
+    :clojure-total 995,
+    :percent 0.9085427135678392},
+   :per-namespace
+   {clojure.spec.alpha
+    {:in-both-count 87, :clojure-total 87, :percent 1.0},
+    clojure.datafy {:in-both-count 2, :clojure-total 2, :percent 1.0},
+    clojure.zip {:in-both-count 28, :clojure-total 28, :percent 1.0},
+    clojure.core.reducers
+    {:in-both-count 19,
+     :clojure-total 21,
+     :percent 0.9047619047619048},
+    clojure.test {:in-both-count 39, :clojure-total 39, :percent 1.0},
+    clojure.core.protocols
+    {:in-both-count 10,
+     :clojure-total 11,
+     :percent 0.9090909090909091},
+    clojure.core
+    {:in-both-count 593,
+     :clojure-total 679,
+     :percent 0.8733431516936672},
+    clojure.set {:in-both-count 12, :clojure-total 12, :percent 1.0},
+    clojure.pprint
+    {:in-both-count 26, :clojure-total 26, :percent 1.0},
+    clojure.math {:in-both-count 45, :clojure-total 45, :percent 1.0},
+    clojure.edn {:in-both-count 2, :clojure-total 2, :percent 1.0},
+    clojure.instant {:in-both-count 3, :clojure-total 5, :percent 0.6},
+    clojure.string
+    {:in-both-count 21, :clojure-total 21, :percent 1.0},
+    clojure.data {:in-both-count 5, :clojure-total 5, :percent 1.0},
+    clojure.walk {:in-both-count 10, :clojure-total 10, :percent 1.0},
+    clojure.template
     {:in-both-count 2, :clojure-total 2, :percent 1.0}}}],
  :behavior
  {:dialect-tag "mino",
-  :run-at "2026-07-10T06:20:06Z",
+  :run-at "2026-07-11T05:52:42Z",
   :totals
   {:match 9, :mismatch 1, :divergent-as-expected 12, :skipped 0},
   :parities
@@ -821,7 +821,7 @@
     :divergence-id :type-as-keyword}
    {:case-id :class/nil,
     :var clojure.core/class,
-    :oracle {:status :value, :value nil, :elapsed-ms 2},
+    :oracle {:status :value, :value nil, :elapsed-ms 1},
     :dialect {:status :value, :value nil, :elapsed-ms 0},
     :verdict :mismatch,
     :reason
@@ -849,7 +849,7 @@
     :divergence-id :compare-sign-normalized}
    {:case-id :compare/numbers-ascending,
     :var clojure.core/compare,
-    :oracle {:status :value, :value -1, :elapsed-ms 1},
+    :oracle {:status :value, :value -1, :elapsed-ms 2},
     :dialect {:status :value, :value -1, :elapsed-ms 0},
     :verdict :divergent-as-expected,
     :reason "predicate :sign-normalized matched",
@@ -869,7 +869,7 @@
     :reason "values equivalent"}
    {:case-id :plus/single-positive,
     :var clojure.core/+,
-    :oracle {:status :value, :value 5, :elapsed-ms 1},
+    :oracle {:status :value, :value 5, :elapsed-ms 2},
     :dialect {:status :value, :value 5, :elapsed-ms 0},
     :verdict :match,
     :reason "values equivalent"}
@@ -881,20 +881,20 @@
     :reason "values equivalent"}
    {:case-id :plus/with-negative,
     :var clojure.core/+,
-    :oracle {:status :value, :value 3, :elapsed-ms 3},
+    :oracle {:status :value, :value 3, :elapsed-ms 1},
     :dialect {:status :value, :value 3, :elapsed-ms 0},
     :verdict :match,
     :reason "values equivalent"}
    {:case-id :plus/varargs,
     :var clojure.core/+,
-    :oracle {:status :value, :value 15, :elapsed-ms 1},
+    :oracle {:status :value, :value 15, :elapsed-ms 2},
     :dialect {:status :value, :value 15, :elapsed-ms 0},
     :verdict :match,
     :reason "values equivalent"}
    {:case-id :sort/numbers-ascending,
     :var clojure.core/sort,
-    :oracle {:status :value, :value [1 1 2 3 4 5 6 9], :elapsed-ms 3},
-    :dialect {:status :value, :value [1 1 2 3 4 5 6 9], :elapsed-ms 1},
+    :oracle {:status :value, :value [1 1 2 3 4 5 6 9], :elapsed-ms 1},
+    :dialect {:status :value, :value [1 1 2 3 4 5 6 9], :elapsed-ms 0},
     :verdict :match,
     :reason "values equivalent"}
    {:case-id :sort/strings,
@@ -902,7 +902,7 @@
     :oracle
     {:status :value,
      :value ["apple" "banana" "cherry"],
-     :elapsed-ms 3},
+     :elapsed-ms 2},
     :dialect
     {:status :value,
      :value ["apple" "banana" "cherry"],
@@ -911,13 +911,13 @@
     :reason "values equivalent"}
    {:case-id :sort/with-comparator-descending,
     :var clojure.core/sort,
-    :oracle {:status :value, :value [4 3 2 1], :elapsed-ms 2},
-    :dialect {:status :value, :value [4 3 2 1], :elapsed-ms 0},
+    :oracle {:status :value, :value [4 3 2 1], :elapsed-ms 4},
+    :dialect {:status :value, :value [4 3 2 1], :elapsed-ms 1},
     :verdict :match,
     :reason "values equivalent"}
    {:case-id :sort/empty,
     :var clojure.core/sort,
-    :oracle {:status :value, :value [], :elapsed-ms 0},
+    :oracle {:status :value, :value [], :elapsed-ms 1},
     :dialect {:status :value, :value [], :elapsed-ms 0},
     :verdict :match,
     :reason "values equivalent"}
@@ -926,7 +926,7 @@
     :oracle
     {:status :value,
      :value {:clj-census/opaque "class java.lang.String"},
-     :elapsed-ms 0},
+     :elapsed-ms 2},
     :dialect {:status :value, :value :string, :elapsed-ms 0},
     :verdict :divergent-as-expected,
     :reason "predicate :keyword-vs-class matched",
@@ -936,7 +936,7 @@
     :oracle
     {:status :value,
      :value {:clj-census/opaque "class java.lang.Long"},
-     :elapsed-ms 1},
+     :elapsed-ms 2},
     :dialect {:status :value, :value :int, :elapsed-ms 0},
     :verdict :divergent-as-expected,
     :reason "predicate :keyword-vs-class matched",
@@ -956,7 +956,7 @@
     :oracle
     {:status :value,
      :value {:clj-census/opaque "class clojure.lang.PersistentVector"},
-     :elapsed-ms 1},
+     :elapsed-ms 2},
     :dialect {:status :value, :value :vector, :elapsed-ms 0},
     :verdict :divergent-as-expected,
     :reason "predicate :keyword-vs-class matched",
@@ -1076,8 +1076,8 @@
    :description
    "Where reader attaches meta and which ops preserve it."}],
  :drift
- {:from-date "2026-07-09",
-  :to-date "2026-07-10",
+ {:from-date "2026-07-10",
+  :to-date "2026-07-11",
   :added-vars #{},
   :removed-vars #{},
   :changed [],
