@@ -2,7 +2,7 @@
  {:dialect-tag "cljd",
   :dialect-name "ClojureDart",
   :clojure-version "1.12.4",
-  :compared-at "2026-07-19T07:33:04Z"},
+  :compared-at "2026-07-20T07:44:51Z"},
  :divergences
  [{:id :dart-host,
    :title "Host runtime is Dart, not the JVM",
@@ -82,42 +82,7 @@
    clojure.template
    {:in-both-count 2, :clojure-total 2, :percent 1.0}}},
  :history
- [{:date "2026-07-06",
-   :dialect-tag "cljd",
-   :clojure-version "7975955-cljd",
-   :headline
-   {:in-both-count 519,
-    :clojure-total 995,
-    :percent 0.521608040201005},
-   :per-namespace
-   {clojure.spec.alpha
-    {:in-both-count 0, :clojure-total 87, :percent 0.0},
-    clojure.datafy {:in-both-count 0, :clojure-total 2, :percent 0.0},
-    clojure.zip {:in-both-count 28, :clojure-total 28, :percent 1.0},
-    clojure.core.reducers
-    {:in-both-count 0, :clojure-total 21, :percent 0.0},
-    clojure.test
-    {:in-both-count 10,
-     :clojure-total 39,
-     :percent 0.2564102564102564},
-    clojure.core.protocols
-    {:in-both-count 0, :clojure-total 11, :percent 0.0},
-    clojure.core
-    {:in-both-count 390,
-     :clojure-total 679,
-     :percent 0.5743740795287187},
-    clojure.set {:in-both-count 12, :clojure-total 12, :percent 1.0},
-    clojure.pprint {:in-both-count 0, :clojure-total 26, :percent 0.0},
-    clojure.math {:in-both-count 45, :clojure-total 45, :percent 1.0},
-    clojure.edn {:in-both-count 1, :clojure-total 2, :percent 0.5},
-    clojure.instant {:in-both-count 0, :clojure-total 5, :percent 0.0},
-    clojure.string
-    {:in-both-count 21, :clojure-total 21, :percent 1.0},
-    clojure.data {:in-both-count 1, :clojure-total 5, :percent 0.2},
-    clojure.walk {:in-both-count 9, :clojure-total 10, :percent 0.9},
-    clojure.template
-    {:in-both-count 2, :clojure-total 2, :percent 1.0}}}
-  {:date "2026-07-07",
+ [{:date "2026-07-07",
    :dialect-tag "cljd",
    :clojure-version "7975955-cljd",
    :headline
@@ -571,6 +536,41 @@
     clojure.data {:in-both-count 1, :clojure-total 5, :percent 0.2},
     clojure.walk {:in-both-count 9, :clojure-total 10, :percent 0.9},
     clojure.template
+    {:in-both-count 2, :clojure-total 2, :percent 1.0}}}
+  {:date "2026-07-20",
+   :dialect-tag "cljd",
+   :clojure-version "7975955-cljd",
+   :headline
+   {:in-both-count 519,
+    :clojure-total 995,
+    :percent 0.521608040201005},
+   :per-namespace
+   {clojure.spec.alpha
+    {:in-both-count 0, :clojure-total 87, :percent 0.0},
+    clojure.datafy {:in-both-count 0, :clojure-total 2, :percent 0.0},
+    clojure.zip {:in-both-count 28, :clojure-total 28, :percent 1.0},
+    clojure.core.reducers
+    {:in-both-count 0, :clojure-total 21, :percent 0.0},
+    clojure.test
+    {:in-both-count 10,
+     :clojure-total 39,
+     :percent 0.2564102564102564},
+    clojure.core.protocols
+    {:in-both-count 0, :clojure-total 11, :percent 0.0},
+    clojure.core
+    {:in-both-count 390,
+     :clojure-total 679,
+     :percent 0.5743740795287187},
+    clojure.set {:in-both-count 12, :clojure-total 12, :percent 1.0},
+    clojure.pprint {:in-both-count 0, :clojure-total 26, :percent 0.0},
+    clojure.math {:in-both-count 45, :clojure-total 45, :percent 1.0},
+    clojure.edn {:in-both-count 1, :clojure-total 2, :percent 0.5},
+    clojure.instant {:in-both-count 0, :clojure-total 5, :percent 0.0},
+    clojure.string
+    {:in-both-count 21, :clojure-total 21, :percent 1.0},
+    clojure.data {:in-both-count 1, :clojure-total 5, :percent 0.2},
+    clojure.walk {:in-both-count 9, :clojure-total 10, :percent 0.9},
+    clojure.template
     {:in-both-count 2, :clojure-total 2, :percent 1.0}}}],
  :mismatches
  [{:dynamic-clojure false,
@@ -903,8 +903,8 @@
    :description
    "Where reader attaches meta and which ops preserve it."}],
  :drift
- {:from-date "2026-07-18",
-  :to-date "2026-07-19",
+ {:from-date "2026-07-19",
+  :to-date "2026-07-20",
   :added-vars #{},
   :removed-vars #{},
   :changed [],
