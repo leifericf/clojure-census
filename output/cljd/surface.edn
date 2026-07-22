@@ -1,5 +1,5 @@
 {:dialect-tag "cljd",
- :clojure-version "7975955-cljd",
+ :clojure-version "721e927-cljd",
  :namespaces
  {clojure.core
   {:vars
@@ -833,6 +833,10 @@
     {:doc
      "Parse a string containing an RFC3339-like like timestamp.\n\nGrammar (of s):\n\n  date-fullyear   = 4DIGIT\n  date-month      = 2DIGIT  ; 01-12\n  date-mday       = 2DIGIT  ; 01-28, 01-29, 01-30, 01-31 based on\n                            ; month/year\n  time-hour       = 2DIGIT  ; 00-23\n  time-minute     = 2DIGIT  ; 00-59\n  time-second     = 2DIGIT  ; 00-58, 00-59, 00-60 based on leap second\n                            ; rules\n  time-secfrac    = '.' 1*DIGIT\n  time-numoffset  = ('+' / '-') time-hour ':' time-minute\n  time-offset     = 'Z' / time-numoffset\n\n  time-part       = time-hour [ ':' time-minute [ ':' time-second\n                    [time-secfrac] [time-offset] ] ]\n\n  timestamp       = date-year [ '-' date-month [ '-' date-mday\n                    [ 'T' time-part ] ] ]\n\nUnlike RFC3339:\n\n  - we only parse the timestamp format\n  - timestamp can elide trailing components\n  - time-offset is optional (defaults to +00:00)\n\nThough time-offset is syntactically optional, a missing time-offset\nwill be treated as if the time-offset zero (+00:00) had been\nspecified.\n",
      :arglists ([s])},
+    parse-uuid
+    {:doc
+     "Parse a string representing a UUID and return a UUID instance,\n  or nil if parse fails.\n\n  Grammar: https://docs.oracle.com/javase/8/docs/api/java/util/UUID.html#toString--",
+     :arglists ([s])},
     parsing-err
     {:doc "Construct message for parsing for non-string parsing error",
      :arglists ([val])},
@@ -1024,6 +1028,9 @@
     {:doc
      "Returns a seq of the items in coll in reverse order. Not lazy.",
      :arglists ([coll])},
+    reversible?
+    {:doc "Returns true if coll satisfies? IReversible",
+     :arglists ([coll])},
     roll-leading-opts {:macro true, :arglists ([body])},
     rseq
     {:doc
@@ -1131,6 +1138,11 @@
     {:doc
      "Returns a new sorted set with supplied keys, using the supplied\n  comparator.  Any equal keys are handled as if by repeated uses of\n  conj.",
      :arglists ([comparator & keys])},
+    sorted?
+    {:doc "Returns true if coll satisfies ISorted",
+     :arglists ([coll])},
+    special-symbol?
+    {:doc "Returns true if x names a special form", :arglists ([x])},
     split-at
     {:doc "Returns a vector of [(take n coll) (drop n coll)]",
      :arglists ([n coll])},
@@ -1281,6 +1293,7 @@
     uuid
     {:doc "Returns a UUID consistent with the string s.",
      :arglists ([s])},
+    uuid-regex {},
     uuid? {:doc "Return true if x is a UUID.", :arglists ([x])},
     val {:doc "Returns the key of the map entry.", :arglists ([e])},
     validate-atom-state {:arglists ([validator new-state])},
@@ -1973,4 +1986,4 @@
    throw
    def},
  :spec-keys #{},
- :captured-at "2026-07-21T07:35:27Z"}
+ :captured-at "2026-07-22T07:35:54Z"}

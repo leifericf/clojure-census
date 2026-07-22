@@ -2,7 +2,7 @@
  {:dialect-tag "cljd",
   :dialect-name "ClojureDart",
   :clojure-version "1.12.4",
-  :compared-at "2026-07-21T07:35:32Z"},
+  :compared-at "2026-07-22T07:35:58Z"},
  :divergences
  [{:id :dart-host,
    :title "Host runtime is Dart, not the JVM",
@@ -55,7 +55,9 @@
  :schema-version 2,
  :coverage
  {:headline
-  {:in-both-count 519, :clojure-total 995, :percent 0.521608040201005},
+  {:in-both-count 523,
+   :clojure-total 995,
+   :percent 0.5256281407035176},
   :per-namespace
   {clojure.spec.alpha
    {:in-both-count 0, :clojure-total 87, :percent 0.0},
@@ -68,9 +70,9 @@
    clojure.core.protocols
    {:in-both-count 0, :clojure-total 11, :percent 0.0},
    clojure.core
-   {:in-both-count 390,
+   {:in-both-count 394,
     :clojure-total 679,
-    :percent 0.5743740795287187},
+    :percent 0.5802650957290133},
    clojure.set {:in-both-count 12, :clojure-total 12, :percent 1.0},
    clojure.pprint {:in-both-count 0, :clojure-total 26, :percent 0.0},
    clojure.math {:in-both-count 45, :clojure-total 45, :percent 1.0},
@@ -82,42 +84,7 @@
    clojure.template
    {:in-both-count 2, :clojure-total 2, :percent 1.0}}},
  :history
- [{:date "2026-07-08",
-   :dialect-tag "cljd",
-   :clojure-version "7975955-cljd",
-   :headline
-   {:in-both-count 519,
-    :clojure-total 995,
-    :percent 0.521608040201005},
-   :per-namespace
-   {clojure.spec.alpha
-    {:in-both-count 0, :clojure-total 87, :percent 0.0},
-    clojure.datafy {:in-both-count 0, :clojure-total 2, :percent 0.0},
-    clojure.zip {:in-both-count 28, :clojure-total 28, :percent 1.0},
-    clojure.core.reducers
-    {:in-both-count 0, :clojure-total 21, :percent 0.0},
-    clojure.test
-    {:in-both-count 10,
-     :clojure-total 39,
-     :percent 0.2564102564102564},
-    clojure.core.protocols
-    {:in-both-count 0, :clojure-total 11, :percent 0.0},
-    clojure.core
-    {:in-both-count 390,
-     :clojure-total 679,
-     :percent 0.5743740795287187},
-    clojure.set {:in-both-count 12, :clojure-total 12, :percent 1.0},
-    clojure.pprint {:in-both-count 0, :clojure-total 26, :percent 0.0},
-    clojure.math {:in-both-count 45, :clojure-total 45, :percent 1.0},
-    clojure.edn {:in-both-count 1, :clojure-total 2, :percent 0.5},
-    clojure.instant {:in-both-count 0, :clojure-total 5, :percent 0.0},
-    clojure.string
-    {:in-both-count 21, :clojure-total 21, :percent 1.0},
-    clojure.data {:in-both-count 1, :clojure-total 5, :percent 0.2},
-    clojure.walk {:in-both-count 9, :clojure-total 10, :percent 0.9},
-    clojure.template
-    {:in-both-count 2, :clojure-total 2, :percent 1.0}}}
-  {:date "2026-07-09",
+ [{:date "2026-07-09",
    :dialect-tag "cljd",
    :clojure-version "7975955-cljd",
    :headline
@@ -571,6 +538,41 @@
     clojure.data {:in-both-count 1, :clojure-total 5, :percent 0.2},
     clojure.walk {:in-both-count 9, :clojure-total 10, :percent 0.9},
     clojure.template
+    {:in-both-count 2, :clojure-total 2, :percent 1.0}}}
+  {:date "2026-07-22",
+   :dialect-tag "cljd",
+   :clojure-version "721e927-cljd",
+   :headline
+   {:in-both-count 523,
+    :clojure-total 995,
+    :percent 0.5256281407035176},
+   :per-namespace
+   {clojure.spec.alpha
+    {:in-both-count 0, :clojure-total 87, :percent 0.0},
+    clojure.datafy {:in-both-count 0, :clojure-total 2, :percent 0.0},
+    clojure.zip {:in-both-count 28, :clojure-total 28, :percent 1.0},
+    clojure.core.reducers
+    {:in-both-count 0, :clojure-total 21, :percent 0.0},
+    clojure.test
+    {:in-both-count 10,
+     :clojure-total 39,
+     :percent 0.2564102564102564},
+    clojure.core.protocols
+    {:in-both-count 0, :clojure-total 11, :percent 0.0},
+    clojure.core
+    {:in-both-count 394,
+     :clojure-total 679,
+     :percent 0.5802650957290133},
+    clojure.set {:in-both-count 12, :clojure-total 12, :percent 1.0},
+    clojure.pprint {:in-both-count 0, :clojure-total 26, :percent 0.0},
+    clojure.math {:in-both-count 45, :clojure-total 45, :percent 1.0},
+    clojure.edn {:in-both-count 1, :clojure-total 2, :percent 0.5},
+    clojure.instant {:in-both-count 0, :clojure-total 5, :percent 0.0},
+    clojure.string
+    {:in-both-count 21, :clojure-total 21, :percent 1.0},
+    clojure.data {:in-both-count 1, :clojure-total 5, :percent 0.2},
+    clojure.walk {:in-both-count 9, :clojure-total 10, :percent 0.9},
+    clojure.template
     {:in-both-count 2, :clojure-total 2, :percent 1.0}}}],
  :mismatches
  [{:dynamic-clojure false,
@@ -809,6 +811,10 @@
    :arglists-dialect ([source]),
    :namespace clojure.core,
    :var shuffle}
+  {:arglists-clojure ([s]),
+   :arglists-dialect ([x]),
+   :namespace clojure.core,
+   :var special-symbol?}
   {:arglists-clojure ([] [x] [x & ys]),
    :arglists-dialect ([] [x] [x & xs]),
    :namespace clojure.core,
@@ -903,12 +909,17 @@
    :description
    "Where reader attaches meta and which ops preserve it."}],
  :drift
- {:from-date "2026-07-20",
-  :to-date "2026-07-21",
-  :added-vars #{},
+ {:from-date "2026-07-21",
+  :to-date "2026-07-22",
+  :added-vars
+  #{clojure.core/uuid-regex
+    clojure.core/parse-uuid
+    clojure.core/reversible?
+    clojure.core/sorted?
+    clojure.core/special-symbol?},
   :removed-vars #{},
   :changed [],
-  :coverage-delta 0.0},
+  :coverage-delta 0.004020100502512558},
  :extensions
  [{:id :cljd-flutter,
    :title "cljd.flutter -- declarative widgets and reactive state",
@@ -1041,6 +1052,7 @@
   clojure.core/u32x2-bit-count
   clojure.core/unchecked-array-for
   clojure.core/uuid
+  clojure.core/uuid-regex
   clojure.core/validate-atom-state
   clojure.core/warp->>
   clojure.core/xform-iterator
@@ -1256,7 +1268,6 @@
   {:namespace clojure.core, :var numerator}
   {:namespace clojure.core, :var object-array}
   {:namespace clojure.core, :var parents}
-  {:namespace clojure.core, :var parse-uuid}
   {:namespace clojure.core, :var partitionv}
   {:namespace clojure.core, :var partitionv-all}
   {:namespace clojure.core, :var pcalls}
@@ -1304,7 +1315,6 @@
   {:namespace clojure.core, :var resolve}
   {:namespace clojure.core, :var restart-agent}
   {:namespace clojure.core, :var resultset-seq}
-  {:namespace clojure.core, :var reversible?}
   {:namespace clojure.core, :var send}
   {:namespace clojure.core, :var send-off}
   {:namespace clojure.core, :var send-via}
@@ -1318,8 +1328,6 @@
   {:namespace clojure.core, :var shorts}
   {:namespace clojure.core, :var shutdown-agents}
   {:namespace clojure.core, :var slurp}
-  {:namespace clojure.core, :var sorted?}
-  {:namespace clojure.core, :var special-symbol?}
   {:namespace clojure.core, :var spit}
   {:namespace clojure.core, :var splitv-at}
   {:namespace clojure.core, :var stream-into!}
