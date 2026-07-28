@@ -1,5 +1,5 @@
 {:dialect-tag "bb",
- :clojure-version "1.12.4-SCI",
+ :clojure-version "1.12.5-SCI",
  :namespaces
  {clojure.core
   {:vars
@@ -19,19 +19,19 @@
     {:doc "bound in a repl thread to the most recent value printed",
      :dynamic true,
      :file "clojure/core.clj",
-     :line 6345},
+     :line 6349},
     *2
     {:doc
      "bound in a repl thread to the second most recent value printed",
      :dynamic true,
      :file "clojure/core.clj",
-     :line 6350},
+     :line 6354},
     *3
     {:doc
      "bound in a repl thread to the third most recent value printed",
      :dynamic true,
      :file "clojure/core.clj",
-     :line 6355},
+     :line 6359},
     *assert* {:dynamic true},
     *clojure-version*
     {:doc
@@ -54,7 +54,7 @@
      "bound in a repl thread to the most recent exception caught by the repl",
      :dynamic true,
      :file "clojure/core.clj",
-     :line 6360},
+     :line 6364},
     *err*
     {:doc
      " A java.io.Writer object representing standard error for print operations.",
@@ -159,26 +159,26 @@
      "Threads the expr through the forms. Inserts x as the\n  second item in the first form, making a list of it if it is not a\n  list already. If there are more forms, inserts the first form as the\n  second item in second form, etc.",
      :macro true,
      :file "clojure/core.clj",
-     :line 1694},
+     :line 1698},
     ->>
     {:arglists ([x & forms]),
      :doc
      "Threads the expr through the forms. Inserts x as the\n  last item in the first form, making a list of it if it is not a\n  list already. If there are more forms, inserts the first form as the\n  last item in second form, etc.",
      :macro true,
      :file "clojure/core.clj",
-     :line 1710},
+     :line 1714},
     ->Eduction
     {:arglists ([xform coll]),
      :doc
      "Positional factory function for class clojure.core.Eduction.",
      :file "clojure/core.clj",
-     :line 7874},
+     :line 7878},
     -add-loaded-lib
-    {:arglists ([name]), :file "sci/impl/namespaces.cljc", :line 1090},
+    {:arglists ([name]), :file "sci/impl/namespaces.cljc", :line 1173},
     -locking-impl
     {:arglists ([lockee lock-fn]),
      :file "sci/impl/namespaces.cljc",
-     :line 59},
+     :line 63},
     -new-dynamic-var {},
     -new-var {},
     -reified-methods {},
@@ -196,7 +196,7 @@
      "form => fieldName-symbol or (instanceMethodName-symbol args*)\n\n  Expands into a member access (.) of the first member on the first\n  argument, followed by the next member on the result, etc. For\n  instance:\n\n  (.. System (getProperties) (get \"os.name\"))\n\n  expands to:\n\n  (. (. System (getProperties)) (get \"os.name\"))\n\n  but is easier to write, read, and understand.",
      :macro true,
      :file "clojure/core.clj",
-     :line 1676},
+     :line 1680},
     /
     {:arglists ([x] [x y] [x y & more]),
      :doc
@@ -243,7 +243,7 @@
     {:arglists ([num]),
      :doc "Returns true if num is NaN, else false",
      :file "clojure/core.clj",
-     :line 8214},
+     :line 8218},
     PrintWriter-on
     {:arglists ([flush-fn close-fn] [flush-fn close-fn autoflush?]),
      :doc
@@ -274,85 +274,85 @@
      :doc
      "Returns a clone of the Java array. Works on arrays of known\n  types.",
      :file "clojure/core.clj",
-     :line 3931},
+     :line 3935},
     add-tap
     {:arglists ([f]),
      :doc
      "adds f, a fn of one argument, to the tap set. This function will be called with anything sent via tap>.\n  This function may (briefly) block (e.g. for streams), and will never impede calls to tap>,\n  but blocking indefinitely may cause tap values to be dropped.\n  Remember f in order to remove-tap",
      :file "clojure/core.clj",
-     :line 8106},
+     :line 8110},
     add-watch
     {:arglists ([reference key fn]),
      :doc
      "Adds a watch function to an agent/atom/var/ref reference. The watch\n  fn must be a fn of 4 args: a key, the reference, its old-state, its\n  new-state. Whenever the reference's state might have been changed,\n  any registered watches will have their functions called. The watch fn\n  will be called synchronously, on the agent's thread if an agent,\n  before any pending sends if agent or ref. Note that an atom's or\n  ref's state may have changed again prior to the fn call, so use\n  old/new-state rather than derefing the reference. Note also that watch\n  fns may be called from multiple threads simultaneously. Var watchers\n  are triggered only by root binding changes, not thread-local\n  set!s. Keys must be unique per reference, and can be used to remove\n  the watch with remove-watch, but are otherwise considered opaque by\n  the watch mechanism.",
      :file "clojure/core.clj",
-     :line 2161},
+     :line 2165},
     agent
     {:arglists ([state & options]),
      :doc
      "Creates and returns an agent with an initial value of state and\n  zero or more options (in any order):\n\n  :meta metadata-map\n\n  :validator validate-fn\n\n  :error-handler handler-fn\n\n  :error-mode mode-keyword\n\n  If metadata-map is supplied, it will become the metadata on the\n  agent. validate-fn must be nil or a side-effect-free fn of one\n  argument, which will be passed the intended new state on any state\n  change. If the new state is unacceptable, the validate-fn should\n  return false or throw an exception.  handler-fn is called if an\n  action throws an exception or if validate-fn rejects a new state --\n  see set-error-handler! for details.  The mode-keyword may be either\n  :continue (the default if an error-handler is given) or :fail (the\n  default if no error-handler is given) -- see set-error-mode! for\n  details.",
      :file "clojure/core.clj",
-     :line 2071},
+     :line 2075},
     agent-error
     {:arglists ([a]),
      :doc
      "Returns the exception thrown during an asynchronous action of the\n  agent if the agent is failed.  Returns nil if the agent is not\n  failed.",
      :file "clojure/core.clj",
-     :line 2186},
+     :line 2190},
     aget
     {:arglists ([array idx] [array idx & idxs]),
      :doc
      "Returns the value at the index/indices. Works on Java arrays of all\n  types.",
      :file "clojure/core.clj",
-     :line 3938},
+     :line 3942},
     alength
     {:arglists ([array]),
      :doc
      "Returns the length of the Java array. Works on arrays of all\n  types.",
      :file "clojure/core.clj",
-     :line 3924},
+     :line 3928},
     alias
     {:arglists ([alias namespace-sym]),
      :doc
      "Add an alias in the current namespace to another\n  namespace. Arguments are two symbols: the alias to be used, and\n  the symbolic name of the target namespace. Use :as in the ns macro in preference\n  to calling this directly.",
      :file "clojure/core.clj",
-     :line 4290},
+     :line 4294},
     all-ns
     {:arglists ([]),
      :doc "Returns a sequence of all namespaces.",
      :file "clojure/core.clj",
-     :line 4173},
+     :line 4177},
     alter
     {:arglists ([ref fun & args]),
      :doc
      "Must be called in a transaction. Sets the in-transaction-value of\n  ref to:\n\n  (apply fun in-transaction-value-of-ref args)\n\n  and returns the in-transaction-value of ref.",
      :file "clojure/core.clj",
-     :line 2460},
+     :line 2464},
     alter-meta!
     {:arglists ([iref f & args]),
      :doc
      "Atomically sets the metadata for a namespace/var/ref/agent/atom to be:\n\n  (apply f its-current-meta args)\n\n  f must be free of side-effects",
      :file "clojure/core.clj",
-     :line 2423},
+     :line 2427},
     alter-var-root
     {:arglists ([v f & args]),
      :doc
      "Atomically alters the root binding of var v by applying f to its\n  current value plus any args",
      :file "clojure/core.clj",
-     :line 5558},
+     :line 5562},
     amap
     {:arglists ([a idx ret expr]),
      :doc
      "Maps an expression across an array a, using an index named idx, and\n  return value named ret, initialized to a clone of a, then setting \n  each element of ret to the evaluation of expr, returning the new \n  array ret.",
      :macro true,
      :file "clojure/core.clj",
-     :line 5302},
+     :line 5306},
     ancestors
     {:arglists ([tag] [h tag]),
      :doc
      "Returns the immediate and indirect parents of tag, either via a Java type\n  inheritance relationship or a relationship established via derive. h\n  must be a hierarchy obtained from make-hierarchy, if not supplied\n  defaults to the global hierarchy",
      :file "clojure/core.clj",
-     :line 5651},
+     :line 5655},
     and
     {:arglists ([] [x] [x & next]),
      :doc
@@ -383,81 +383,81 @@
      "Reduces an expression across an array a, using an index named idx,\n  and return value named ret, initialized to init, setting ret to the \n  evaluation of expr at each step, returning ret.",
      :macro true,
      :file "clojure/core.clj",
-     :line 5318},
+     :line 5322},
     array-map
     {:arglists ([] [& keyvals]),
      :doc
      "Constructs an array-map. If any keys are equal, they are handled as\n  if by repeated uses of assoc.",
      :file "clojure/core.clj",
-     :line 4405},
+     :line 4409},
     as->
     {:arglists ([expr name & forms]),
      :doc
      "Binds name to expr, evaluates the first form in the lexical context\n  of that binding, then binds name to that result, repeating for each\n  successive form, returning the result of the last form.",
      :macro true,
      :file "clojure/core.clj",
-     :line 7764},
+     :line 7768},
     aset
     {:arglists ([array idx val] [array idx idx2 & idxv]),
      :doc
      "Sets the value at the index/indices. Works on Java arrays of\n  reference types. Returns val.",
      :file "clojure/core.clj",
-     :line 3949},
+     :line 3953},
     aset-boolean
     {:arglists ([array idx val] [array idx idx2 & idxv]),
      :doc
      "Sets the value at the index/indices. Works on arrays of boolean. Returns val.",
      :file "clojure/core.clj",
-     :line 3982},
+     :line 3986},
     aset-byte
     {:arglists ([array idx val] [array idx idx2 & idxv]),
      :doc
      "Sets the value at the index/indices. Works on arrays of byte. Returns val.",
      :file "clojure/core.clj",
-     :line 4002},
+     :line 4006},
     aset-char
     {:arglists ([array idx val] [array idx idx2 & idxv]),
      :doc
      "Sets the value at the index/indices. Works on arrays of char. Returns val.",
      :file "clojure/core.clj",
-     :line 4007},
+     :line 4011},
     aset-double
     {:arglists ([array idx val] [array idx idx2 & idxv]),
      :doc
      "Sets the value at the index/indices. Works on arrays of double. Returns val.",
      :file "clojure/core.clj",
-     :line 3992},
+     :line 3996},
     aset-float
     {:arglists ([array idx val] [array idx idx2 & idxv]),
      :doc
      "Sets the value at the index/indices. Works on arrays of float. Returns val.",
      :file "clojure/core.clj",
-     :line 3987},
+     :line 3991},
     aset-int
     {:arglists ([array idx val] [array idx idx2 & idxv]),
      :doc
      "Sets the value at the index/indices. Works on arrays of int. Returns val.",
      :file "clojure/core.clj",
-     :line 3972},
+     :line 3976},
     aset-long
     {:arglists ([array idx val] [array idx idx2 & idxv]),
      :doc
      "Sets the value at the index/indices. Works on arrays of long. Returns val.",
      :file "clojure/core.clj",
-     :line 3977},
+     :line 3981},
     aset-short
     {:arglists ([array idx val] [array idx idx2 & idxv]),
      :doc
      "Sets the value at the index/indices. Works on arrays of short. Returns val.",
      :file "clojure/core.clj",
-     :line 3997},
+     :line 4001},
     assert
     {:arglists ([x] [x message]),
      :doc
      "Evaluates expression x and throws an AssertionError with optional\n  message if x does not evaluate to logical true.\n\n  Assertion checks are omitted from compiled code if '*assert*' is\n  false.",
      :macro true,
      :file "clojure/core.clj",
-     :line 4866},
+     :line 4870},
     assoc
     {:arglists ([map key val] [map key val & kvs]),
      :doc
@@ -469,36 +469,36 @@
      :doc
      "When applied to a transient map, adds mapping of key(s) to\n  val(s). When applied to a transient vector, sets the val at index.\n  Note - index must be <= (count vector). Returns coll.",
      :file "clojure/core.clj",
-     :line 3394},
+     :line 3398},
     assoc-in
     {:arglists ([m [k & ks] v]),
      :doc
      "Associates a value in a nested associative structure, where ks is a\n  sequence of keys and v is the new value and returns a new nested structure.\n  If any levels do not exist, hash-maps will be created.",
      :file "clojure/core.clj",
-     :line 6224},
+     :line 6228},
     associative?
     {:arglists ([coll]),
      :doc "Returns true if coll implements Associative",
      :file "clojure/core.clj",
-     :line 6300},
+     :line 6304},
     atom
     {:arglists ([x] [x & options]),
      :doc
      "Creates and returns an Atom with an initial value of x and zero or\n  more options (in any order):\n\n  :meta metadata-map\n\n  :validator validate-fn\n\n  If metadata-map is supplied, it will become the metadata on the\n  atom. validate-fn must be nil or a side-effect-free fn of one\n  argument, which will be passed the intended new state on any state\n  change. If the new state is unacceptable, the validate-fn should\n  return false or throw an exception.",
      :file "clojure/core.clj",
-     :line 2344},
+     :line 2348},
     await
     {:arglists ([& agents]),
      :doc
      "Blocks the current thread (indefinitely!) until all actions\n  dispatched thus far, from this thread or agent, to the agent(s) have\n  occurred.  Will block on failed agents.  Will never return if\n  a failed agent is restarted with :clear-actions true or shutdown-agents was called.",
      :file "clojure/core.clj",
-     :line 3292},
+     :line 3296},
     await-for
     {:arglists ([timeout-ms & agents]),
      :doc
      "Blocks the current thread until all actions dispatched thus\n  far (from this thread or agent) to the agents have occurred, or the\n  timeout (in milliseconds) has elapsed. Returns logical false if\n  returning due to timeout, logical true otherwise.",
      :file "clojure/core.clj",
-     :line 3314},
+     :line 3318},
     bean
     {:arglists ([x]),
      :doc
@@ -510,26 +510,26 @@
      :doc "Coerce to BigDecimal",
      :tag "class java.math.BigDecimal",
      :file "clojure/core.clj",
-     :line 3673},
+     :line 3677},
     bigint
     {:arglists ([x]),
      :doc "Coerce to BigInt",
      :tag "class clojure.lang.BigInt",
      :file "clojure/core.clj",
-     :line 3645},
+     :line 3649},
     biginteger
     {:arglists ([x]),
      :doc "Coerce to BigInteger",
      :tag "class java.math.BigInteger",
      :file "clojure/core.clj",
-     :line 3659},
+     :line 3663},
     binding
     {:arglists ([bindings & body]),
      :doc
      "binding => var-symbol init-expr\n\n  Creates new bindings for the (already-existing) vars, with the\n  supplied initial values, executes the exprs in an implicit do, then\n  re-establishes the bindings that existed before.  The new bindings\n  are made in parallel (unlike let); all init-exprs are evaluated\n  before the vars are bound to their new values.",
      :macro true,
      :file "clojure/core.clj",
-     :line 1964},
+     :line 1968},
     bit-and
     {:arglists ([x y] [x y & more]),
      :doc "Bitwise and",
@@ -589,12 +589,12 @@
     {:arglists ([x]),
      :doc "Coerce to boolean",
      :file "clojure/core.clj",
-     :line 1620},
+     :line 1624},
     boolean-array
     {:arglists ([size-or-seq] [size init-val-or-seq]),
      :doc "Creates an array of booleans",
      :file "clojure/core.clj",
-     :line 5338},
+     :line 5342},
     boolean?
     {:arglists ([x]),
      :doc "Return true if x is a Boolean",
@@ -604,32 +604,32 @@
     {:arglists ([xs]),
      :doc "Casts to boolean[]",
      :file "clojure/core.clj",
-     :line 5401},
+     :line 5405},
     bound-fn
     {:arglists ([& fntail]),
      :doc
      "Returns a function defined by the given fntail, which will install the\n  same bindings in effect as in the thread at the time bound-fn was called.\n  This may be used to define a helper function which runs on a different\n  thread, but needs the same bindings in place.",
      :macro true,
      :file "clojure/core.clj",
-     :line 2023},
+     :line 2027},
     bound-fn*
     {:arglists ([f]),
      :doc
      "Returns a function, which will install the same bindings in effect as in\n  the thread at the time bound-fn* was called and then call f with any given\n  arguments. This may be used to define a helper function which runs on a\n  different thread, but needs the same bindings in place.",
      :file "sci/impl/namespaces.cljc",
-     :line 753},
+     :line 771},
     bound?
     {:arglists ([& vars]),
      :doc
      "Returns true if all of the vars provided as arguments have any bound value, root or thread-local.\n   Implies that deref'ing the provided vars will succeed. Returns true if no vars are provided.",
      :file "clojure/core.clj",
-     :line 5565},
+     :line 5569},
     bounded-count
     {:arglists ([n coll]),
      :doc
      "If coll is counted? returns its count, else will count at most the first n\n  elements of coll using its seq",
      :file "clojure/core.clj",
-     :line 7576},
+     :line 7580},
     butlast
     {:arglists ([coll]),
      :doc
@@ -640,45 +640,45 @@
     {:arglists ([x]),
      :doc "Coerce to byte",
      :file "clojure/core.clj",
-     :line 3530},
+     :line 3534},
     byte-array
     {:arglists ([size-or-seq] [size init-val-or-seq]),
      :doc "Creates an array of bytes",
      :file "clojure/core.clj",
-     :line 5346},
+     :line 5350},
     bytes
     {:arglists ([xs]),
      :doc "Casts to bytes[]",
      :file "clojure/core.clj",
-     :line 5406},
+     :line 5410},
     bytes?
     {:arglists ([x]),
      :doc "Return true if x is a byte array",
      :file "clojure/core.clj",
-     :line 5441},
+     :line 5445},
     case
     {:arglists ([e & clauses]),
      :doc
      "Takes an expression, and a set of clauses.\n\n  Each clause can take the form of either:\n\n  test-constant result-expr\n\n  (test-constant1 ... test-constantN)  result-expr\n\n  The test-constants are not evaluated. They must be compile-time\n  literals, and need not be quoted.  If the expression is equal to a\n  test-constant, the corresponding result-expr is returned. A single\n  default expression can follow the clauses, and its value will be\n  returned if no clause matches. If no default expression is provided\n  and no clause matches, an IllegalArgumentException is thrown.\n\n  Unlike cond and condp, case does a constant-time dispatch, the\n  clauses are not considered sequentially.  All manner of constant\n  expressions are acceptable in case, including numbers, strings,\n  symbols, keywords, and (Clojure) composites thereof. Note that since\n  lists are used to group multiple constants that map to the same\n  expression, a vector can be used to match a list if needed. The\n  test-constants need not be all of the same type.",
      :macro true,
      :file "clojure/core.clj",
-     :line 6789},
+     :line 6793},
     cat
     {:arglists ([rf]),
      :doc
      "A transducer which concatenates the contents of each input, which must be a\n  collection, into the reduction.",
      :file "clojure/core.clj",
-     :line 7811},
+     :line 7815},
     char
     {:arglists ([x]),
      :doc "Coerce to char",
      :file "clojure/core.clj",
-     :line 3536},
+     :line 3540},
     char-array
     {:arglists ([size-or-seq] [size init-val-or-seq]),
      :doc "Creates an array of chars",
      :file "clojure/core.clj",
-     :line 5354},
+     :line 5358},
     char-escape-string
     {:doc "Returns escape string for char or nil if none",
      :tag "class java.lang.String",
@@ -698,7 +698,7 @@
     {:arglists ([xs]),
      :doc "Casts to chars[]",
      :file "clojure/core.clj",
-     :line 5411},
+     :line 5415},
     chunk
     {:arglists ([b]),
      :tag "interface clojure.lang.IChunk",
@@ -734,46 +734,46 @@
     {:arglists ([x]),
      :doc "Returns the Class of x",
      :file "clojure/core.clj",
-     :line 3486},
+     :line 3490},
     class?
     {:arglists ([x]),
      :doc "Returns true if x is an instance of Class",
      :file "clojure/core.clj",
-     :line 5496},
+     :line 5500},
     clojure-version
     {:arglists ([]),
      :doc "Returns clojure version as a printable string.",
      :file "clojure/core.clj",
-     :line 7229},
+     :line 7233},
     coll?
     {:arglists ([x]),
      :doc "Returns true if x implements IPersistentCollection",
      :file "clojure/core.clj",
-     :line 6269},
+     :line 6273},
     comment
     {:arglists ([& body]),
      :doc "Ignores body, yields nil",
      :macro true,
      :file "clojure/core.clj",
-     :line 4760},
+     :line 4764},
     commute
     {:arglists ([ref fun & args]),
      :doc
      "Must be called in a transaction. Sets the in-transaction-value of\n  ref to:\n\n  (apply fun in-transaction-value-of-ref args)\n\n  and returns the in-transaction-value of ref.\n\n  At the commit point of the transaction, sets the value of ref to be:\n\n  (apply fun most-recently-committed-value-of-ref args)\n\n  Thus fun should be commutative, or, failing that, you must accept\n  last-one-in-wins behavior.  commute allows for more concurrency than\n  ref-set.",
      :file "clojure/core.clj",
-     :line 2439},
+     :line 2443},
     comp
     {:arglists ([] [f] [f g] [f g & fs]),
      :doc
      "Takes a set of functions and returns a fn that is the composition\n  of those fns.  The returned fn takes a variable number of args,\n  applies the rightmost of fns to the args, the next\n  fn (right-to-left) to the result, etc.",
      :file "clojure/core.clj",
-     :line 2574},
+     :line 2578},
     comparator
     {:arglists ([pred]),
      :doc
      "Returns an implementation of java.util.Comparator based upon pred.",
      :file "clojure/core.clj",
-     :line 3102},
+     :line 3106},
     compare
     {:arglists ([x y]),
      :doc
@@ -785,7 +785,7 @@
      :doc
      "Atomically sets the value of atom to newval if and only if the\n  current value of the atom is identical to oldval. Returns true if\n  set happened, else false",
      :file "clojure/core.clj",
-     :line 2385},
+     :line 2389},
     complement
     {:arglists ([f]),
      :doc
@@ -797,7 +797,7 @@
      :doc
      "Takes a reducing function f of 2 args and returns a fn suitable for\n  transduce by adding an arity-1 signature that calls cf (default -\n  identity) on the result argument.",
      :file "clojure/core.clj",
-     :line 7000},
+     :line 7004},
     concat
     {:arglists ([] [x] [x y] [x y & zs]),
      :doc
@@ -817,21 +817,21 @@
      "Takes an expression and a set of test/form pairs. Threads expr (via ->)\n  through each form for which the corresponding test\n  expression is true. Note that, unlike cond branching, cond-> threading does\n  not short circuit after the first true test expression.",
      :macro true,
      :file "clojure/core.clj",
-     :line 7730},
+     :line 7734},
     cond->>
     {:arglists ([expr & clauses]),
      :doc
      "Takes an expression and a set of test/form pairs. Threads expr (via ->>)\n  through each form for which the corresponding test expression\n  is true.  Note that, unlike cond branching, cond->> threading does not short circuit\n  after the first true test expression.",
      :macro true,
      :file "clojure/core.clj",
-     :line 7747},
+     :line 7751},
     condp
     {:arglists ([pred expr & clauses]),
      :doc
      "Takes a binary predicate, an expression, and a set of clauses.\n  Each clause can take the form of either:\n\n  test-expr result-expr\n\n  test-expr :>> result-fn\n\n  Note :>> is an ordinary keyword.\n\n  For each clause, (pred test-expr expr) is evaluated. If it returns\n  logical true, the clause is a match. If a binary clause matches, the\n  result-expr is returned, if a ternary clause matches, its result-fn,\n  which must be a unary function, is called with the result of the\n  predicate as its argument, the result of that call being the return\n  value of condp. A single default expression can follow the clauses,\n  and its value will be returned if no clause matches. If no default\n  expression is provided and no clause matches, an\n  IllegalArgumentException is thrown.",
      :macro true,
      :file "clojure/core.clj",
-     :line 6430},
+     :line 6434},
     conj
     {:arglists ([] [coll] [coll x] [coll x & xs]),
      :doc
@@ -843,7 +843,7 @@
      :doc
      "Adds x to the transient collection, and return coll. The 'addition'\n  may happen at different 'places' depending on the concrete type.",
      :file "clojure/core.clj",
-     :line 3384},
+     :line 3388},
     cons
     {:arglists ([x seq]),
      :doc
@@ -861,7 +861,7 @@
      :doc
      "Returns true if key is present in the given collection, otherwise\n  returns false.  Note that for numerically indexed collections like\n  vectors and Java arrays, this tests if the numeric key is within the\n  range of indexes. 'contains?' operates constant or logarithmic time;\n  it will not perform a linear search for a value.  See also 'some'.",
      :file "clojure/core.clj",
-     :line 1498},
+     :line 1502},
     count
     {:arglists ([coll]),
      :doc
@@ -872,19 +872,19 @@
     {:arglists ([coll]),
      :doc "Returns true if coll implements count in constant time",
      :file "clojure/core.clj",
-     :line 6318},
+     :line 6322},
     create-ns
     {:arglists ([sym]),
      :doc
      "Create a new namespace named by the symbol if one doesn't already\n  exist, returns it or the already-existing namespace of the same\n  name.",
      :file "clojure/core.clj",
-     :line 4158},
+     :line 4162},
     cycle
     {:arglists ([coll]),
      :doc
      "Returns a lazy (infinite!) sequence of repetitions of the items in coll.",
      :file "clojure/core.clj",
-     :line 3002},
+     :line 3006},
     dec
     {:arglists ([x]),
      :doc
@@ -901,25 +901,25 @@
     {:arglists ([n]),
      :doc "Returns true if n is a BigDecimal",
      :file "clojure/core.clj",
-     :line 3624},
+     :line 3628},
     declare
     {:arglists ([& names]),
      :doc
      "defs the supplied var names with no bindings, useful for making forward declarations.",
      :macro true,
      :file "clojure/core.clj",
-     :line 2793},
+     :line 2797},
     dedupe
     {:arglists ([] [coll]),
      :doc
      "Returns a lazy sequence removing consecutive duplicates in coll.\n  Returns a transducer when no collection is provided.",
      :file "clojure/core.clj",
-     :line 7847},
+     :line 7851},
     default-data-readers
     {:doc
      "Default map of data reader functions provided by Clojure. May be\n  overridden by binding *data-readers*.",
      :file "clojure/core.clj",
-     :line 7988},
+     :line 7992},
     defmacro
     {:arglists
      ([name doc-string? attr-map? [params*] body]
@@ -935,14 +935,14 @@
      "Creates and installs a new method of multimethod associated with dispatch-value. ",
      :macro true,
      :file "clojure/core.clj",
-     :line 1800},
+     :line 1804},
     defmulti
     {:arglists ([name docstring? attr-map? dispatch-fn & options]),
      :doc
      "Creates a new multimethod with the associated dispatch function.\n  The docstring and attr-map are optional.\n\n  Options are key-value pairs and may be one of:\n\n  :default\n\n  The default dispatch value, defaults to :default\n\n  :hierarchy\n\n  The value used for hierarchical dispatch (e.g. ::square is-a ::shape)\n\n  Hierarchies are type-like relationships that do not depend upon type\n  inheritance. By default Clojure's multimethods dispatch off of a\n  global hierarchy map.  However, a hierarchy relationship can be\n  created with the derive function used to augment the root ancestor\n  created with make-hierarchy.\n\n  Multimethods expect the value of the hierarchy option to be supplied as\n  a reference type e.g. a var (i.e. via the Var-quote dispatch macro #'\n  or the var special form).",
      :macro true,
      :file "clojure/core.clj",
-     :line 1742},
+     :line 1746},
     defn
     {:arglists
      ([name doc-string? attr-map? [params*] prepost-map? body]
@@ -962,14 +962,14 @@
      :doc "same as defn, yielding non-public def",
      :macro true,
      :file "clojure/core.clj",
-     :line 4978},
+     :line 4982},
     defonce
     {:arglists ([name expr]),
      :doc
      "defs name to have the root value of the expr iff the named var has no root value,\n  else expr is unevaluated",
      :macro true,
      :file "clojure/core.clj",
-     :line 5881},
+     :line 5885},
     defprotocol
     {:arglists ([name & opts+sigs]),
      :doc
@@ -1008,121 +1008,121 @@
      :doc
      "Delivers the supplied value to the promise, releasing any pending\n  derefs. A subsequent call to deliver on a promise will have no effect.",
      :file "clojure/core.clj",
-     :line 7275},
+     :line 7279},
     denominator
     {:arglists ([r]),
      :doc "Returns the denominator part of a Ratio.",
      :tag "class java.math.BigInteger",
      :file "clojure/core.clj",
-     :line 3616},
+     :line 3620},
     deref
     {:arglists ([ref] [ref timeout-ms timeout-val]),
      :doc
      "Also reader macro: @ref/@agent/@var/@atom/@delay/@future/@promise. Within a transaction,\n  returns the in-transaction-value of ref, else returns the\n  most-recently-committed value of ref. When applied to a var, agent\n  or atom, returns its current state. When applied to a delay, forces\n  it if not already forced. When applied to a future, will block if\n  computation not complete. When applied to a promise, will block\n  until a value is delivered.  The variant taking a timeout can be\n  used for blocking references (futures and promises), and will return\n  timeout-val if the timeout (in milliseconds) is reached before a\n  value is available. See also - realized?.",
      :file "clojure/core.clj",
-     :line 2323},
+     :line 2327},
     derive
     {:arglists ([tag parent] [h tag parent]),
      :doc
      "Establishes a parent/child relationship between parent and\n  tag. Parent must be a namespace-qualified symbol or keyword and\n  child can be either a namespace-qualified symbol or keyword or a\n  class. h must be a hierarchy obtained from make-hierarchy, if not\n  supplied defaults to, and modifies, the global hierarchy.",
      :file "clojure/core.clj",
-     :line 5679},
+     :line 5683},
     descendants
     {:arglists ([tag] [h tag]),
      :doc
      "Returns the immediate and indirect children of tag, through a\n  relationship established via derive. h must be a hierarchy obtained\n  from make-hierarchy, if not supplied defaults to the global\n  hierarchy. Note: does not work on Java type inheritance\n  relationships.",
      :file "clojure/core.clj",
-     :line 5667},
+     :line 5671},
     destructure
     {:arglists ([b] [b loc]),
      :file "sci/impl/destructure.cljc",
-     :line 113},
+     :line 202},
     disj
     {:arglists ([set] [set key] [set key & ks]),
      :doc
      "disj[oin]. Returns a new set of the same (hashed/sorted) type, that\n  does not contain key(s).",
      :file "clojure/core.clj",
-     :line 1533},
+     :line 1537},
     disj!
     {:arglists ([set] [set key] [set key & ks]),
      :doc
      "disj[oin]. Returns a transient set of the same (hashed/sorted) type, that\n  does not contain key(s).",
      :file "clojure/core.clj",
-     :line 3426},
+     :line 3430},
     dissoc
     {:arglists ([map] [map key] [map key & ks]),
      :doc
      "dissoc[iate]. Returns a new map of the same (hashed/sorted) type,\n  that does not contain a mapping for key(s).",
      :file "clojure/core.clj",
-     :line 1519},
+     :line 1523},
     dissoc!
     {:arglists ([map key] [map key & ks]),
      :doc
      "Returns a transient map that doesn't contain a mapping for key(s).",
      :file "clojure/core.clj",
-     :line 3407},
+     :line 3411},
     distinct
     {:arglists ([] [coll]),
      :doc
      "Returns a lazy sequence of the elements of coll with duplicates removed.\n  Returns a stateful transducer when no collection is provided.",
      :file "clojure/core.clj",
-     :line 5082},
+     :line 5086},
     distinct?
     {:arglists ([x] [x y] [x y & more]),
      :doc "Returns true if no two of the arguments are =",
      :tag "class java.lang.Boolean",
      :file "clojure/core.clj",
-     :line 5738},
+     :line 5742},
     doall
     {:arglists ([coll] [n coll]),
      :doc
      "When lazy sequences are produced via functions that have side\n  effects, any effects other than those needed to produce the first\n  element in the seq do not occur until the seq is consumed. doall can\n  be used to force any effects. Walks through the successive nexts of\n  the seq, retains the head and returns it, thus causing the entire\n  seq to reside in memory at one time.",
      :file "clojure/core.clj",
-     :line 3156},
+     :line 3160},
     dorun
     {:arglists ([coll] [n coll]),
      :doc
      "When lazy sequences are produced via functions that have side\n  effects, any effects other than those needed to produce the first\n  element in the seq do not occur until the seq is consumed. dorun can\n  be used to force any effects. Walks through the successive nexts of\n  the seq, does not retain the head and returns nil.",
      :file "clojure/core.clj",
-     :line 3141},
+     :line 3145},
     doseq
     {:arglists ([seq-exprs & body]),
      :doc
      "Repeatedly executes body (presumably for side-effects) with\n  bindings and filtering as provided by \"for\".  Does not retain\n  the head of the sequence. Returns nil.",
      :macro true,
      :file "clojure/core.clj",
-     :line 3234},
+     :line 3238},
     dosync
     {:arglists ([& exprs]),
      :doc
      "Runs the exprs (in an implicit do) in a transaction that encompasses\n  exprs and any nested calls.  Starts a transaction if none is already\n  running on this thread. Any uncaught exception will abort the\n  transaction and flow out of dosync. The exprs may be run more than\n  once, but any effects on Refs will be atomic.",
      :macro true,
      :file "clojure/core.clj",
-     :line 5129},
+     :line 5133},
     dotimes
     {:arglists ([bindings & body]),
      :doc
      "bindings => name n\n\n  Repeatedly executes body (presumably for side-effects) with name\n  bound to integers from 0 through n-1.",
      :macro true,
      :file "clojure/core.clj",
-     :line 3331},
+     :line 3335},
     doto
     {:arglists ([x & forms]),
      :doc
      "Evaluates x then calls all of the methods and functions with the\n  value of x supplied at the front of the given arguments.  The forms\n  are evaluated in order.  Returns x.\n\n  (doto (new java.util.HashMap) (.put \"a\" 1) (.put \"b\" 2))",
      :macro true,
      :file "clojure/core.clj",
-     :line 3878},
+     :line 3882},
     double
     {:arglists ([x]),
      :doc "Coerce to double",
      :file "clojure/core.clj",
-     :line 3518},
+     :line 3522},
     double-array
     {:arglists ([size-or-seq] [size init-val-or-seq]),
      :doc "Creates an array of doubles",
      :file "clojure/core.clj",
-     :line 5370},
+     :line 5374},
     double?
     {:arglists ([x]),
      :doc "Return true if x is a Double",
@@ -1132,77 +1132,77 @@
     {:arglists ([xs]),
      :doc "Casts to double[]",
      :file "clojure/core.clj",
-     :line 5431},
+     :line 5435},
     drop
     {:arglists ([n] [n coll]),
      :doc
      "Returns a laziness-preserving sequence of all but the first n items in coll.\n  Returns a stateful transducer when no collection is provided.",
      :file "clojure/core.clj",
-     :line 2926},
+     :line 2930},
     drop-last
     {:arglists ([coll] [n coll]),
      :doc
      "Return a lazy sequence of all but the last n (default 1) items in coll",
      :file "clojure/core.clj",
-     :line 2957},
+     :line 2961},
     drop-while
     {:arglists ([pred] [pred coll]),
      :doc
      "Returns a lazy sequence of the items in coll starting from the\n  first item for which (pred item) returns logical false.  Returns a\n  stateful transducer when no collection is provided.",
      :file "clojure/core.clj",
-     :line 2975},
+     :line 2979},
     eduction
     {:arglists ([xform* coll]),
      :doc
      "Returns a reducible/iterable application of the transducers\n  to the items in coll. Transducers are applied in order as if\n  combined with comp. Note that these applications will be\n  performed every time reduce/iterator is called.",
      :file "clojure/core.clj",
-     :line 7886},
+     :line 7890},
     empty
     {:arglists ([coll]),
      :doc
      "Returns an empty collection of the same category as coll, or nil",
      :file "clojure/core.clj",
-     :line 5294},
+     :line 5298},
     empty?
     {:arglists ([coll]),
      :doc
      "Returns true if coll has no items. To check the emptiness of a seq,\n  please use the idiom (seq x) rather than (not (empty? x))",
      :file "clojure/core.clj",
-     :line 6324},
+     :line 6328},
     ensure
     {:arglists ([ref]),
      :doc
      "Must be called in a transaction. Protects the ref from modification\n  by other transactions.  Returns the in-transaction-value of\n  ref. Allows for more concurrency than (ref-set ref @ref)",
      :file "clojure/core.clj",
-     :line 2505},
+     :line 2509},
     ensure-reduced
     {:arglists ([x]),
      :doc
      "If x is already reduced?, returns it, else returns (reduced x)",
      :file "clojure/core.clj",
-     :line 2866},
+     :line 2870},
     enumeration-seq
     {:arglists ([e]),
      :doc "Returns a seq on a java.util.Enumeration",
      :file "clojure/core.clj",
-     :line 5784},
+     :line 5788},
     error-handler
     {:arglists ([a]),
      :doc
      "Returns the error-handler of agent a, or nil if there is none.\n  See set-error-handler!",
      :file "clojure/core.clj",
-     :line 2221},
+     :line 2225},
     error-mode
     {:arglists ([a]),
      :doc "Returns the error-mode of agent a.  See set-error-mode!",
      :file "clojure/core.clj",
-     :line 2246},
+     :line 2250},
     eval
     {:arglists ([form]),
      :doc
      "Evaluates the form data structure (not text!) and returns the result.",
      :file "clojure/core.clj",
-     :line 3228},
+     :line 3232},
     even?
     {:arglists ([n]),
      :doc
@@ -1214,39 +1214,39 @@
      :doc
      "Takes a set of predicates and returns a function f that returns true if all of its\n  composing predicates return a logical true value against all of its arguments, else it returns\n  false. Note that f is short-circuiting in that it will stop execution on the first\n  argument that triggers a logical false result against the original predicates.",
      :file "clojure/core.clj",
-     :line 7588},
+     :line 7592},
     every?
     {:arglists ([pred coll]),
      :doc
      "Returns true if (pred x) is logical true for every x in coll, else\n  false.",
      :tag "class java.lang.Boolean",
      :file "clojure/core.clj",
-     :line 2689},
+     :line 2693},
     ex-cause
     {:arglists ([ex]),
      :doc
      "Returns the cause of ex if ex is a Throwable.\n  Otherwise returns nil.",
      :tag "class java.lang.Throwable",
      :file "clojure/core.clj",
-     :line 4857},
+     :line 4861},
     ex-data
     {:arglists ([ex]),
      :doc
      "Returns exception data (a map) if ex is an IExceptionInfo.\n   Otherwise returns nil.",
      :file "clojure/core.clj",
-     :line 4841},
+     :line 4845},
     ex-info
     {:arglists ([msg map] [msg map cause]),
      :doc
      "Create an instance of ExceptionInfo, a RuntimeException subclass\n   that carries a map of additional data.",
      :file "clojure/core.clj",
-     :line 4832},
+     :line 4836},
     ex-message
     {:arglists ([ex]),
      :doc
      "Returns the message attached to ex if ex is a Throwable.\n  Otherwise returns nil.",
      :file "clojure/core.clj",
-     :line 4849},
+     :line 4853},
     extend
     {:arglists ([atype & proto+mmaps]),
      :doc
@@ -1287,36 +1287,36 @@
     {:arglists ([dir]),
      :doc "A tree seq on java.io.Files",
      :file "clojure/core.clj",
-     :line 5001},
+     :line 5005},
     filter
     {:arglists ([pred] [pred coll]),
      :doc
      "Returns a lazy sequence of the items in coll for which\n  (pred item) returns logical true. pred must be free of side-effects.\n  Returns a transducer when no collection is provided.",
      :file "clojure/core.clj",
-     :line 2810},
+     :line 2814},
     filterv
     {:arglists ([pred coll]),
      :doc
      "Returns a vector of the items in coll for which\n  (pred item) returns logical true. pred must be free of side-effects.",
      :file "clojure/core.clj",
-     :line 7068},
+     :line 7072},
     find
     {:arglists ([map key]),
      :doc "Returns the map entry for key, or nil if key not present.",
      :file "clojure/core.clj",
-     :line 1549},
+     :line 1553},
     find-ns
     {:arglists ([sym]),
      :doc
      "Returns the namespace named by the symbol or nil if it doesn't exist.",
      :file "clojure/core.clj",
-     :line 4152},
+     :line 4156},
     find-var
     {:arglists ([sym]),
      :doc
      "Returns the global var named by the namespace-qualified symbol, or\n  nil if no var with that name.",
      :file "clojure/core.clj",
-     :line 2032},
+     :line 2036},
     first
     {:arglists ([coll]),
      :doc
@@ -1328,46 +1328,46 @@
      :doc
      "Takes any nested combination of sequential things (lists, vectors,\n  etc.) and returns their contents as a single, flat lazy sequence.\n  (flatten nil) returns an empty sequence.",
      :file "clojure/core.clj",
-     :line 7284},
+     :line 7288},
     float
     {:arglists ([x]),
      :doc "Coerce to float",
      :file "clojure/core.clj",
-     :line 3512},
+     :line 3516},
     float-array
     {:arglists ([size-or-seq] [size init-val-or-seq]),
      :doc "Creates an array of floats",
      :file "clojure/core.clj",
-     :line 5330},
+     :line 5334},
     float?
     {:arglists ([n]),
      :doc "Returns true if n is a floating point number",
      :file "clojure/core.clj",
-     :line 3630},
+     :line 3634},
     floats
     {:arglists ([xs]),
      :doc "Casts to float[]",
      :file "clojure/core.clj",
-     :line 5421},
+     :line 5425},
     flush
     {:arglists ([]),
      :doc
      "Flushes the output stream that is the current value of\n  *out*",
      :file "clojure/core.clj",
-     :line 3731},
+     :line 3735},
     fn
     {:arglists ([& sigs]),
      :doc
      "params => positional-params*, or positional-params* & rest-param\n  positional-param => binding-form\n  rest-param => binding-form\n  binding-form => name, or destructuring-form\n\n  Defines a function.\n\n  See https://clojure.org/reference/special_forms#fn for more information",
      :macro true,
      :file "clojure/core.clj",
-     :line 4560},
+     :line 4564},
     fn?
     {:arglists ([x]),
      :doc
      "Returns true if x implements Fn, i.e. is an object created via fn.",
      :file "clojure/core.clj",
-     :line 6293},
+     :line 6297},
     fnext
     {:arglists ([x]),
      :doc "Same as (first (next x))",
@@ -1378,14 +1378,14 @@
      :doc
      "Takes a function f, and returns a function that calls f, replacing\n  a nil first argument to f with the supplied value x. Higher arity\n  versions can replace arguments in the second and third\n  positions (y, z). Note that the function f can take any number of\n  arguments, not just the one(s) being nil-patched.",
      :file "clojure/core.clj",
-     :line 6635},
+     :line 6639},
     for
     {:arglists ([seq-exprs body-expr]),
      :doc
      "List comprehension. Takes a vector of one or more\n   binding-form/collection-expr pairs, each followed by zero or more\n   modifiers, and yields a lazy sequence of evaluations of expr.\n   Collections are iterated in a nested fashion, rightmost fastest,\n   and nested coll-exprs can refer to bindings created in prior\n   binding-forms.  Supported modifiers are: :let [binding-form expr ...],\n   :while test, :when test.\n\n  (take 100 (for [x (range 100000000) y (range 1000000) :while (< y x)] [x y]))",
      :macro true,
      :file "clojure/core.clj",
-     :line 4673},
+     :line 4677},
     force
     {:arglists ([x]),
      :doc
@@ -1397,46 +1397,46 @@
      :doc
      "Formats a string using java.lang.String.format, see java.util.Formatter for format\n  string syntax",
      :file "clojure/core.clj",
-     :line 5791},
+     :line 5795},
     frequencies
     {:arglists ([coll]),
      :doc
      "Returns a map from distinct items in coll to the number of times\n  they appear.",
      :file "clojure/core.clj",
-     :line 7351},
+     :line 7355},
     future
     {:arglists ([& body]),
      :doc
      "Takes a body of expressions and yields a future object that will\n  invoke the body in another thread, and will cache the result and\n  return it on all subsequent calls to deref/@. If the computation has\n  not yet finished, calls to deref/@ will block, unless the variant of\n  deref with timeout is used. See also - realized?.",
      :macro true,
      :file "clojure/core.clj",
-     :line 7137},
+     :line 7141},
     future-call
     {:arglists ([f]),
      :doc
      "Takes a function of no args and yields a future object that will\n  invoke the function in another thread, and will cache the result and\n  return it on all subsequent calls to deref/@. If the computation has\n  not yet finished, calls to deref/@ will block, unless the variant\n  of deref with timeout is used. See also - realized?.",
      :file "clojure/core.clj",
-     :line 7110},
+     :line 7114},
     future-cancel
     {:arglists ([f]),
      :doc "Cancels the future, if possible.",
      :file "clojure/core.clj",
-     :line 7147},
+     :line 7151},
     future-cancelled?
     {:arglists ([f]),
      :doc "Returns true if future f is cancelled",
      :file "clojure/core.clj",
-     :line 7153},
+     :line 7157},
     future-done?
     {:arglists ([f]),
      :doc "Returns true if future f is done",
      :file "clojure/core.clj",
-     :line 6615},
+     :line 6619},
     future?
     {:arglists ([x]),
      :doc "Returns true if x is a future",
      :file "clojure/core.clj",
-     :line 6609},
+     :line 6613},
     gensym
     {:arglists ([] [prefix-string]),
      :doc
@@ -1448,54 +1448,54 @@
      :doc
      "Returns the value mapped to key, not-found or nil if key not present\n  in associative collection, set, string, array, or ILookup instance.",
      :file "clojure/core.clj",
-     :line 1508},
+     :line 1512},
     get-in
     {:arglists ([m ks] [m ks not-found]),
      :doc
      "Returns the value in a nested associative structure,\n  where ks is a sequence of keys. Returns nil if the key\n  is not present, or the not-found value if supplied.",
      :file "clojure/core.clj",
-     :line 6205},
+     :line 6209},
     get-method
     {:arglists ([multifn dispatch-val]),
      :doc
      "Given a multimethod and a dispatch value, returns the dispatch fn\n  that would apply to that value, or nil if none apply and no default",
      :file "clojure/core.clj",
-     :line 1834},
+     :line 1838},
     get-thread-binding-frame-impl {},
     get-thread-bindings
     {:arglists ([]),
      :doc
      "Get a map with the Var/value pairs which is currently in effect for the\n  current thread.",
      :file "clojure/core.clj",
-     :line 1956},
+     :line 1960},
     get-validator
     {:arglists ([iref]),
      :doc "Gets the validator-fn for a var/ref/agent/atom.",
      :file "clojure/core.clj",
-     :line 2417},
+     :line 2421},
     global-hierarchy {},
     group-by
     {:arglists ([f coll]),
      :doc
      "Returns a map of the elements of coll keyed by the result of\n  f on each element. The value at each key will be a vector of the\n  corresponding elements, in the order they appeared in coll.",
      :file "clojure/core.clj",
-     :line 7294},
+     :line 7298},
     halt-when
     {:arglists ([pred] [pred retf]),
      :doc
      "Returns a transducer that ends transduction when pred returns true\n  for an input. When retf is supplied it must be a fn of 2 arguments -\n  it will be passed the (completed) result so far and the input that\n  triggered the predicate, and its return value (if it does not throw\n  an exception) will be the return value of the transducer. If retf\n  is not supplied, the input that triggered the predicate will be\n  returned. If the predicate never returns true the transduction is\n  unaffected.",
      :file "clojure/core.clj",
-     :line 7823},
+     :line 7827},
     has-root-impl
     {:arglists ([sci-var]),
      :file "sci/impl/namespaces.cljc",
-     :line 423},
+     :line 437},
     hash
     {:arglists ([x]),
      :doc
      "Returns the hash code of its argument. Note this is the hash code\n  consistent with =, and thus is different than .hashCode for Integer,\n  Short, Byte and Clojure collections.",
      :file "clojure/core.clj",
-     :line 5218},
+     :line 5222},
     hash-combine
     {:arglists ([x y]), :file "clojure/core_deftype.clj", :line 128},
     hash-map
@@ -1509,7 +1509,7 @@
      :doc
      "Returns the hash code, consistent with =, for an external ordered\n   collection implementing Iterable.\n   See http://clojure.org/data_structures#hash for full algorithms.",
      :file "clojure/core.clj",
-     :line 5239},
+     :line 5243},
     hash-set
     {:arglists ([] [& keys]),
      :doc
@@ -1521,12 +1521,12 @@
      :doc
      "Returns the hash code, consistent with =, for an external unordered\n   collection implementing Iterable. For maps, the iterator should\n   return map entries whose hash is computed as\n     (hash-ordered-coll [k v]).\n   See http://clojure.org/data_structures#hash for full algorithms.",
      :file "clojure/core.clj",
-     :line 5248},
+     :line 5252},
     ident?
     {:arglists ([x]),
      :doc "Return true if x is a symbol or keyword",
      :file "clojure/core.clj",
-     :line 1627},
+     :line 1631},
     identical?
     {:arglists ([x y]),
      :doc "Tests if 2 arguments are the same object",
@@ -1536,14 +1536,14 @@
     {:arglists ([x]),
      :doc "Returns its argument.",
      :file "clojure/core.clj",
-     :line 1465},
+     :line 1469},
     if-let
     {:arglists ([bindings then] [bindings then else & oldform]),
      :doc
      "bindings => binding-form test\n\n  If test is true, evaluates then with binding-form bound to the value of \n  test, if not, yields else",
      :macro true,
      :file "clojure/core.clj",
-     :line 1858},
+     :line 1862},
     if-not
     {:arglists ([test then] [test then else]),
      :doc
@@ -1557,13 +1557,13 @@
      "bindings => binding-form test\n\n   If test is not nil, evaluates then with binding-form bound to the\n   value of test, if not, yields else",
      :macro true,
      :file "clojure/core.clj",
-     :line 1893},
+     :line 1897},
     ifn?
     {:arglists ([x]),
      :doc
      "Returns true if x implements IFn. Note that many data structures\n  (e.g. sets and maps) implement IFn",
      :file "clojure/core.clj",
-     :line 6286},
+     :line 6290},
     in-ns
     {:arglists ([name]),
      :doc
@@ -1585,24 +1585,24 @@
      :doc
      "Return true if coll implements Indexed, indicating efficient lookup by index",
      :file "clojure/core.clj",
-     :line 6340},
+     :line 6344},
     infinite?
     {:arglists ([num]),
      :doc
      "Returns true if num is negative or positive infinity, else false",
      :file "clojure/core.clj",
-     :line 8223},
+     :line 8227},
     inst-ms
     {:arglists ([inst]),
      :doc
      "Return the number of milliseconds since January 1, 1970, 00:00:00 GMT",
      :file "clojure/core.clj",
-     :line 6916},
+     :line 6920},
     inst?
     {:arglists ([x]),
      :doc "Return true if x satisfies Inst",
      :file "clojure/core.clj",
-     :line 6922},
+     :line 6926},
     instance?
     {:arglists ([c x]),
      :doc
@@ -1618,7 +1618,7 @@
     {:arglists ([size-or-seq] [size init-val-or-seq]),
      :doc "Creates an array of ints",
      :file "clojure/core.clj",
-     :line 5385},
+     :line 5389},
     int?
     {:arglists ([x]),
      :doc "Return true if x is a fixed precision integer",
@@ -1634,25 +1634,25 @@
      :doc
      "Returns a lazy seq of the first item in each coll, then the second etc.",
      :file "clojure/core.clj",
-     :line 4335},
+     :line 4339},
     intern
     {:arglists ([ns name] [ns name val]),
      :doc
      "Finds or creates a var named by the symbol name in the namespace\n  ns (which can be a symbol or a namespace), setting its root binding\n  to val if supplied. The namespace must exist. The var will adopt any\n  metadata from the name symbol.  Returns the var.",
      :file "clojure/core.clj",
-     :line 6388},
+     :line 6392},
     interpose
     {:arglists ([sep] [sep coll]),
      :doc
      "Returns a lazy seq of the elements of coll separated by sep.\n  Returns a stateful transducer when no collection is provided.",
      :file "clojure/core.clj",
-     :line 5259},
+     :line 5263},
     into
     {:arglists ([] [to] [to from] [to xform from]),
      :doc
      "Returns a new coll consisting of to with all of the items of\n  from conjoined. A transducer may be supplied.\n  (into x) returns x. (into) returns [].",
      :file "clojure/core.clj",
-     :line 7029},
+     :line 7033},
     into-array
     {:arglists ([aseq] [type aseq]),
      :doc
@@ -1663,19 +1663,19 @@
     {:arglists ([xs]),
      :doc "Casts to int[]",
      :file "clojure/core.clj",
-     :line 5426},
+     :line 5430},
     isa?
     {:arglists ([child parent] [h child parent]),
      :doc
      "Returns true if (= child parent), or child is directly or indirectly derived from\n  parent, either via a Java type inheritance relationship or a\n  relationship established via derive. h must be a hierarchy obtained\n  from make-hierarchy, if not supplied defaults to the global\n  hierarchy",
      :file "clojure/core.clj",
-     :line 5617},
+     :line 5621},
     iterate
     {:arglists ([f x]),
      :doc
      "Returns a lazy (infinite!) sequence of x, (f x), (f (f x)) etc.\n  f must be free of side-effects",
      :file "clojure/core.clj",
-     :line 3036},
+     :line 3040},
     iteration
     {:arglists
      ([step
@@ -1685,42 +1685,42 @@
      :doc
      "Creates a seqable/reducible via repeated calls to step,\n  a function of some (continuation token) 'k'. The first call to step\n  will be passed initk, returning 'ret'. Iff (somef ret) is true,\n  (vf ret) will be included in the iteration, else iteration will\n  terminate and vf/kf will not be called. If (kf ret) is non-nil it\n  will be passed to the next step call, else iteration will terminate.\n\n  This can be used e.g. to consume APIs that return paginated or batched data.\n\n   step - (possibly impure) fn of 'k' -> 'ret'\n\n   :somef - fn of 'ret' -> logical true/false, default 'some?'\n   :vf - fn of 'ret' -> 'v', a value produced by the iteration, default 'identity'\n   :kf - fn of 'ret' -> 'next-k' or nil (signaling 'do not continue'), default 'identity'\n   :initk - the first value passed to step, default 'nil'\n\n  It is presumed that step with non-initk is unreproducible/non-idempotent.\n  If step with initk is unreproducible it is on the consumer to not consume twice.",
      :file "clojure/core.clj",
-     :line 7910},
+     :line 7914},
     iterator-seq
     {:arglists ([iter]),
      :doc
      "Returns a seq on a java.util.Iterator. Note that most collections\n  providing iterators implement Iterable and thus support seq directly.\n  Seqs cache values, thus iterator-seq should not be used on any\n  iterator that repeatedly returns the same mutable object.",
      :file "clojure/core.clj",
-     :line 5774},
+     :line 5778},
     juxt
     {:arglists ([f] [f g] [f g h] [f g h & fs]),
      :doc
      "Takes a set of functions and returns a fn that is the juxtaposition\n  of those fns.  The returned fn takes a variable number of args, and\n  returns a vector containing the result of applying each fn to the\n  args (left-to-right).\n  ((juxt a b c) x) => [(a x) (b x) (c x)]",
      :file "clojure/core.clj",
-     :line 2593},
+     :line 2597},
     keep
     {:arglists ([f] [f coll]),
      :doc
      "Returns a lazy sequence of the non-nil results of (f item). Note,\n  this means false return values will be included.  f must be free of\n  side-effects.  Returns a transducer when no collection is provided.",
      :file "clojure/core.clj",
-     :line 7505},
+     :line 7509},
     keep-indexed
     {:arglists ([f] [f coll]),
      :doc
      "Returns a lazy sequence of the non-nil results of (f index item). Note,\n  this means false return values will be included.  f must be free of\n  side-effects.  Returns a stateful transducer when no collection is\n  provided.",
      :file "clojure/core.clj",
-     :line 7538},
+     :line 7542},
     key
     {:arglists ([e]),
      :doc "Returns the key of the map entry.",
      :file "clojure/core.clj",
-     :line 1582},
+     :line 1586},
     keys
     {:arglists ([map]),
      :doc
      "Returns a sequence of the map's keys, in the same order as (seq map).",
      :file "clojure/core.clj",
-     :line 1570},
+     :line 1574},
     keyword
     {:arglists ([name] [ns name]),
      :doc
@@ -1744,7 +1744,7 @@
      "Expands to code which yields a lazy sequence of the concatenation\n  of the supplied colls.  Each coll expr is not evaluated until it is\n  needed. \n\n  (lazy-cat xs ys zs) === (concat (lazy-seq xs) (lazy-seq ys) (lazy-seq zs))",
      :macro true,
      :file "clojure/core.clj",
-     :line 4663},
+     :line 4667},
     lazy-seq
     {:arglists ([& body]),
      :doc
@@ -1758,20 +1758,20 @@
      "binding => binding-form init-expr\n  binding-form => name, or destructuring-form\n  destructuring-form => map-destructure-form, or seq-destructure-form\n\n  Evaluates the exprs in a lexical context in which the symbols in\n  the binding-forms are bound to their respective init-exprs or parts\n  therein.\n\n  See https://clojure.org/reference/special_forms#binding-forms for\n  more information about destructuring.",
      :macro true,
      :file "clojure/core.clj",
-     :line 4523},
+     :line 4527},
     letfn
     {:arglists ([fnspecs & body]),
      :doc
      "fnspec ==> (fname [params*] exprs) or (fname ([params*] exprs)+)\n\n  Takes a vector of function specs and a body, and generates a set of\n  bindings of functions to their names. All of the names are available\n  in all of the definitions of the functions, as well as the body.",
      :macro true,
      :file "clojure/core.clj",
-     :line 6622},
+     :line 6626},
     line-seq
     {:arglists ([rdr]),
      :doc
      "Returns the lines of text from rdr as a lazy sequence of strings.\n  rdr must implement java.io.BufferedReader.",
      :file "clojure/core.clj",
-     :line 3093},
+     :line 3097},
     list
     {:arglists ([& items]),
      :doc "Creates a new list containing the items.",
@@ -1788,7 +1788,7 @@
     {:arglists ([x]),
      :doc "Returns true if x implements IPersistentList",
      :file "clojure/core.clj",
-     :line 6275},
+     :line 6279},
     load
     {:arglists ([& paths]),
      :doc
@@ -1801,89 +1801,89 @@
      :doc
      "Sequentially read and evaluate the set of forms contained in the\n  stream/file",
      :file "clojure/core.clj",
-     :line 4108},
+     :line 4112},
     load-string
     {:arglists ([s]),
      :doc
      "Sequentially read and evaluate the set of forms contained in the\n  string",
      :file "clojure/core.clj",
-     :line 4115},
+     :line 4119},
     loaded-libs
     {:arglists ([]),
      :doc
      "Returns a sorted set of symbols naming the currently loaded libs",
      :file "clojure/core.clj",
-     :line 6167},
+     :line 6171},
     locking
     {:arglists ([x & body]),
      :doc
      "Executes exprs in an implicit do, while holding the monitor of x.\n  Will release the monitor of x in all circumstances.",
      :macro true,
      :file "clojure/core.clj",
-     :line 1662},
+     :line 1666},
     long
     {:arglists ([x]),
      :doc "Coerce to long",
      :file "clojure/core.clj",
-     :line 3506},
+     :line 3510},
     long-array
     {:arglists ([size-or-seq] [size init-val-or-seq]),
      :doc "Creates an array of longs",
      :file "clojure/core.clj",
-     :line 5393},
+     :line 5397},
     longs
     {:arglists ([xs]),
      :doc "Casts to long[]",
      :file "clojure/core.clj",
-     :line 5436},
+     :line 5440},
     loop
     {:arglists ([bindings & body]),
      :doc
      "Evaluates the exprs in a lexical context in which the symbols in\n  the binding-forms are bound to their respective init-exprs or parts\n  therein. Acts as a recur target.",
      :macro true,
      :file "clojure/core.clj",
-     :line 4624},
+     :line 4628},
     macroexpand
     {:arglists ([form]),
      :doc
      "Repeatedly calls macroexpand-1 on form until it no longer\n  represents a macro form, then returns it.  Note neither\n  macroexpand-1 nor macroexpand expand macros in subforms.",
      :file "clojure/core.clj",
-     :line 4052},
+     :line 4056},
     macroexpand-1
     {:arglists ([form]),
      :doc
      "If form represents a macro form, returns its expansion,\n  else returns form.",
      :file "clojure/core.clj",
-     :line 4044},
+     :line 4048},
     make-array
     {:arglists ([type len] [type dim & more-dims]),
      :doc
      "Creates and returns an array of instances of the specified class of\n  the specified dimension(s).  Note that a class object is required.\n  Class objects can be obtained by using their imported or\n  fully-qualified name.  Class objects for the primitive types can be\n  obtained using, e.g., Integer/TYPE.",
      :file "clojure/core.clj",
-     :line 4012},
+     :line 4016},
     make-hierarchy
     {:arglists ([]),
      :doc "Creates a hierarchy object for use with derive, isa? etc.",
      :file "clojure/core.clj",
-     :line 5581},
+     :line 5585},
     map
     {:arglists
      ([f] [f coll] [f c1 c2] [f c1 c2 c3] [f c1 c2 c3 & colls]),
      :doc
      "Returns a lazy sequence consisting of the result of applying f to\n  the set of first items of each coll, followed by applying f to the\n  set of second items in each coll, until any one of the colls is\n  exhausted.  Any remaining items in other colls are ignored. Function\n  f should accept number-of-colls arguments. Returns a transducer when\n  no collection is provided.",
      :file "clojure/core.clj",
-     :line 2744},
+     :line 2748},
     map-entry?
     {:arglists ([x]),
      :doc "Return true if x is a map entry",
      :file "clojure/core.clj",
-     :line 1492},
+     :line 1496},
     map-indexed
     {:arglists ([f] [f coll]),
      :doc
      "Returns a lazy sequence consisting of the result of applying f to 0\n  and the first item of coll, followed by applying f to 1 and the second\n  item in coll, etc, until coll is exhausted. Thus function f should\n  accept 2 arguments, index and item. Returns a stateful transducer when\n  no collection is provided.",
      :file "clojure/core.clj",
-     :line 7475},
+     :line 7479},
     map?
     {:arglists ([x]),
      :doc "Return true if x implements IPersistentMap",
@@ -1894,13 +1894,13 @@
      :doc
      "Returns the result of applying concat to the result of applying map\n  to f and colls.  Thus function f should return a collection. Returns\n  a transducer when no collections are provided",
      :file "clojure/core.clj",
-     :line 2800},
+     :line 2804},
     mapv
     {:arglists ([f coll] [f c1 c2] [f c1 c2 c3] [f c1 c2 c3 & colls]),
      :doc
      "Returns a vector consisting of the result of applying f to the\n  set of first items of each coll, followed by applying f to the set\n  of second items in each coll, until any one of the colls is\n  exhausted.  Any remaining items in other colls are ignored. Function\n  f should accept number-of-colls arguments.",
      :file "clojure/core.clj",
-     :line 7050},
+     :line 7054},
     max
     {:arglists ([x] [x y] [x y & more]),
      :doc "Returns the greatest of the nums.",
@@ -1911,31 +1911,31 @@
      :doc
      "Returns the x for which (k x), a number, is greatest.\n\n  If there are multiple such xs, the last one is returned.",
      :file "clojure/core.clj",
-     :line 5042},
+     :line 5046},
     memfn
     {:doc
      "Expands into code that creates a fn that expects to be passed an\n  object and any args and calls the named instance method on the\n  object passing the args. Use when you want to treat a JavaScript\n  method as a first-class fn.",
      :macro true,
      :file "sci/impl/namespaces.cljc",
-     :line 360},
+     :line 372},
     memoize
     {:arglists ([f]),
      :doc
      "Returns a memoized version of a referentially transparent function. The\n  memoized version of the function keeps a cache of the mapping from arguments\n  to results and, when calls with the same arguments are repeated often, has\n  higher performance at the expense of higher memory use.",
      :file "clojure/core.clj",
-     :line 6414},
+     :line 6418},
     merge
     {:arglists ([& maps]),
      :doc
      "Returns a map that consists of the rest of the maps conj-ed onto\n  the first.  If a key occurs in more than one map, the mapping from\n  the latter (left-to-right) will be the mapping in the result.",
      :file "clojure/core.clj",
-     :line 3065},
+     :line 3069},
     merge-with
     {:arglists ([f & maps]),
      :doc
      "Returns a map that consists of the rest of the maps conj-ed onto\n  the first.  If a key occurs in more than one map, the mapping(s)\n  from the latter (left-to-right) will be combined with the mapping in\n  the result by calling (f val-in-result val-in-latter).",
      :file "clojure/core.clj",
-     :line 3075},
+     :line 3079},
     meta
     {:arglists ([obj]),
      :doc
@@ -1947,7 +1947,7 @@
      :doc
      "Given a multimethod, returns a map of dispatch values -> dispatch fns",
      :file "clojure/core.clj",
-     :line 1828},
+     :line 1832},
     min
     {:arglists ([x] [x y] [x y & more]),
      :doc "Returns the least of the nums.",
@@ -1958,23 +1958,23 @@
      :doc
      "Returns the x for which (k x), a number, is least.\n\n  If there are multiple such xs, the last one is returned.",
      :file "clojure/core.clj",
-     :line 5062},
+     :line 5066},
     mod
     {:arglists ([num div]),
      :doc
      "Modulus of num and div. Truncates toward negative infinity.",
      :file "clojure/core.clj",
-     :line 3592},
+     :line 3596},
     multi-fn-add-method-impl
     {:arglists ([multifn dispatch-val f]),
      :file "sci/impl/multimethods.cljc",
-     :line 100},
+     :line 176},
     multi-fn-impl
     {:arglists ([name dispatch-fn default hierarchy]),
      :file "sci/impl/multimethods.cljc",
-     :line 93},
+     :line 167},
     multi-fn?-impl
-    {:arglists ([x]), :file "sci/impl/multimethods.cljc", :line 89},
+    {:arglists ([x]), :file "sci/impl/multimethods.cljc", :line 162},
     munge
     {:arglists ([s]), :file "clojure/core_deftype.clj", :line 131},
     name
@@ -1982,14 +1982,14 @@
      :doc "Returns the name String of a string, symbol or keyword.",
      :tag "class java.lang.String",
      :file "clojure/core.clj",
-     :line 1604},
+     :line 1608},
     namespace
     {:arglists ([x]),
      :doc
      "Returns the namespace String of a symbol or keyword, or nil if not present.",
      :tag "class java.lang.String",
      :file "clojure/core.clj",
-     :line 1612},
+     :line 1616},
     namespace-munge
     {:arglists ([ns]),
      :doc
@@ -2015,7 +2015,7 @@
     {:arglists ([]),
      :doc "Writes a platform-specific newline to *out*",
      :file "clojure/core.clj",
-     :line 3723},
+     :line 3727},
     next
     {:arglists ([coll]),
      :doc
@@ -2051,19 +2051,19 @@
      "Returns false if (pred x) is logical true for any x in coll,\n  else true.",
      :tag "class java.lang.Boolean",
      :file "clojure/core.clj",
-     :line 2720},
+     :line 2724},
     not-empty
     {:arglists ([coll]),
      :doc "If coll is empty, returns nil, else coll",
      :file "clojure/core.clj",
-     :line 5590},
+     :line 5594},
     not-every?
     {:arglists ([pred coll]),
      :doc
      "Returns false if (pred x) is logical true for every x in\n  coll, else true.",
      :tag "class java.lang.Boolean",
      :file "clojure/core.clj",
-     :line 2701},
+     :line 2705},
     not=
     {:arglists ([x] [x y] [x y & more]),
      :doc "Same as (not (= obj1 obj2))",
@@ -2076,59 +2076,59 @@
      "Sets *ns* to the namespace named by name (unevaluated), creating it\n  if needed.  references can be zero or more of: (:refer-clojure ...)\n  (:require ...) (:use ...) (:import ...) (:load ...) (:gen-class)\n  with the syntax of refer-clojure/require/use/import/load/gen-class\n  respectively, except the arguments are unevaluated and need not be\n  quoted. (:gen-class ...), when supplied, defaults to :name\n  corresponding to the ns name, :main true, :impl-ns same as ns, and\n  :init-impl-ns true. All options of gen-class are\n  supported. The :gen-class directive is ignored when not\n  compiling. If :gen-class is not supplied, when compiled only an\n  nsname__init.class will be generated. If :refer-clojure is not used, a\n  default (refer 'clojure.core) is used.  Use of ns is preferred to\n  individual calls to in-ns/require/use/import:\n\n  (ns foo.bar\n    (:refer-clojure :exclude [ancestors printf])\n    (:require (clojure.contrib sql combinatorics))\n    (:use (my.lib this that))\n    (:import (java.util Date Timer Random)\n             (java.sql Connection Statement)))",
      :macro true,
      :file "clojure/core.clj",
-     :line 5817},
+     :line 5821},
     ns-aliases
     {:arglists ([ns]),
      :doc "Returns a map of the aliases for the namespace.",
      :file "clojure/core.clj",
-     :line 4300},
+     :line 4304},
     ns-imports
     {:arglists ([ns]),
      :doc "Returns a map of the import mappings for the namespace.",
      :file "clojure/core.clj",
-     :line 4226},
+     :line 4230},
     ns-interns
     {:arglists ([ns]),
      :doc "Returns a map of the intern mappings for the namespace.",
      :file "clojure/core.clj",
-     :line 4233},
+     :line 4237},
     ns-map
     {:arglists ([ns]),
      :doc "Returns a map of all the mappings for the namespace.",
      :file "clojure/core.clj",
-     :line 4197},
+     :line 4201},
     ns-name
     {:arglists ([ns]),
      :doc "Returns the name of the namespace, a symbol.",
      :file "clojure/core.clj",
-     :line 4190},
+     :line 4194},
     ns-publics
     {:arglists ([ns]),
      :doc
      "Returns a map of the public intern mappings for the namespace.",
      :file "clojure/core.clj",
-     :line 4215},
+     :line 4219},
     ns-refers
     {:arglists ([ns]),
      :doc "Returns a map of the refer mappings for the namespace.",
      :file "clojure/core.clj",
-     :line 4280},
+     :line 4284},
     ns-resolve
     {:arglists ([ns sym] [ns env sym]),
      :doc
      "Returns the var or Class to which a symbol will be resolved in the\n  namespace (unless found in the environment), else nil.  Note that\n  if the symbol is fully qualified, the var/Class to which it resolves\n  need not be present in the namespace.",
      :file "clojure/core.clj",
-     :line 4385},
+     :line 4389},
     ns-unalias
     {:arglists ([ns sym]),
      :doc "Removes the alias for the symbol from the namespace.",
      :file "clojure/core.clj",
-     :line 4307},
+     :line 4311},
     ns-unmap
     {:arglists ([ns sym]),
      :doc "Removes the mappings for the symbol from the namespace.",
      :file "clojure/core.clj",
-     :line 4204},
+     :line 4208},
     nth
     {:arglists ([coll index] [coll index not-found]),
      :doc
@@ -2139,34 +2139,34 @@
     {:arglists ([coll n]),
      :doc "Returns the nth next of coll, (seq coll) when n is 0.",
      :file "clojure/core.clj",
-     :line 3172},
+     :line 3176},
     nthrest
     {:arglists ([coll n]),
      :doc "Returns the nth rest of coll, coll when n is 0.",
      :file "clojure/core.clj",
-     :line 3186},
+     :line 3190},
     num
     {:arglists ([x]),
      :doc "Coerce to Number",
      :tag "class java.lang.Number",
      :file "clojure/core.clj",
-     :line 3499},
+     :line 3503},
     number?
     {:arglists ([x]),
      :doc "Returns true if x is a Number",
      :file "clojure/core.clj",
-     :line 3585},
+     :line 3589},
     numerator
     {:arglists ([r]),
      :doc "Returns the numerator part of a Ratio.",
      :tag "class java.math.BigInteger",
      :file "clojure/core.clj",
-     :line 3608},
+     :line 3612},
     object-array
     {:arglists ([size-or-seq]),
      :doc "Creates an array of objects",
      :file "clojure/core.clj",
-     :line 5378},
+     :line 5382},
     odd?
     {:arglists ([n]),
      :doc
@@ -2185,31 +2185,31 @@
      :doc
      "Returns the immediate parents of tag, either via a Java type\n  inheritance relationship or a relationship established via derive. h\n  must be a hierarchy obtained from make-hierarchy, if not supplied\n  defaults to the global hierarchy",
      :file "clojure/core.clj",
-     :line 5638},
+     :line 5642},
     parse-boolean
     {:arglists ([s]),
      :doc
      "Parse strings \"true\" or \"false\" and return a boolean, or nil if invalid",
      :file "clojure/core.clj",
-     :line 8203},
+     :line 8207},
     parse-double
     {:arglists ([s]),
      :doc
      "Parse string with floating point components and return a Double value,\n  or nil if parse fails.\n\n  Grammar: https://docs.oracle.com/javase/8/docs/api/java/lang/Double.html#valueOf-java.lang.String-",
      :file "clojure/core.clj",
-     :line 8179},
+     :line 8183},
     parse-long
     {:arglists ([s]),
      :doc
      "Parse string of decimal digits with optional leading -/+ and return a\n  Long value, or nil if parse fails",
      :file "clojure/core.clj",
-     :line 8168},
+     :line 8172},
     parse-uuid
     {:arglists ([s]),
      :doc
      "Parse a string representing a UUID and return a java.util.UUID instance,\n  or nil if parse fails.\n\n  Grammar: https://docs.oracle.com/javase/8/docs/api/java/util/UUID.html#toString--",
      :file "clojure/core.clj",
-     :line 8192},
+     :line 8196},
     partial
     {:arglists
      ([f]
@@ -2220,68 +2220,68 @@
      :doc
      "Takes a function f and fewer than the normal arguments to f, and\n  returns a fn that takes a variable number of additional args. When\n  called, the returned function calls f with args + additional args.",
      :file "clojure/core.clj",
-     :line 2631},
+     :line 2635},
     partition
     {:arglists ([n coll] [n step coll] [n step pad coll]),
      :doc
      "Returns a lazy sequence of lists of n items each, at offsets step\n  apart. If step is not supplied, defaults to n, i.e. the partitions\n  do not overlap. If a pad collection is supplied, use its elements as\n  necessary to complete last partition upto n items. In case there are\n  not enough padding elements, return a partition with less than n items.",
      :file "clojure/core.clj",
-     :line 3202},
+     :line 3206},
     partition-all
     {:arglists ([n] [n coll] [n step coll]),
      :doc
      "Returns a lazy sequence of lists like partition, but may include\n  partitions with fewer than n items at the end.  Returns a stateful\n  transducer when no collection is provided.",
      :file "clojure/core.clj",
-     :line 7388},
+     :line 7392},
     partition-by
     {:arglists ([f] [f coll]),
      :doc
      "Applies f to each value in coll, splitting it each time f returns a\n   new value.  Returns a lazy seq of partitions.  Returns a stateful\n   transducer when no collection is provided.",
      :file "clojure/core.clj",
-     :line 7308},
+     :line 7312},
     partitionv
     {:arglists ([n coll] [n step coll] [n step pad coll]),
      :doc
      "Returns a lazy sequence of vectors of n items each, at offsets step\n  apart. If step is not supplied, defaults to n, i.e. the partitions\n  do not overlap. If a pad collection is supplied, use its elements as\n  necessary to complete last partition upto n items. In case there are\n  not enough padding elements, return a partition with less than n items.",
      :file "clojure/core.clj",
-     :line 7428},
+     :line 7432},
     partitionv-all
     {:arglists ([n] [n coll] [n step coll]),
      :doc
      "Returns a lazy sequence of vector partitions, but may include\n  partitions with fewer than n items at the end.\n  Returns a stateful transducer when no collection is provided.",
      :file "clojure/core.clj",
-     :line 7451},
+     :line 7455},
     peek
     {:arglists ([coll]),
      :doc
      "For a list or queue, same as first, for a vector, same as, but much\n  more efficient than, last. If the collection is empty, returns nil.",
      :file "clojure/core.clj",
-     :line 1474},
+     :line 1478},
     persistent!
     {:arglists ([coll]),
      :doc
      "Returns a new, persistent version of the transient collection, in\n  constant time. The transient collection cannot be used after this\n  call, any such use will throw an exception.",
      :file "clojure/core.clj",
-     :line 3375},
+     :line 3379},
     pmap {},
     pop
     {:arglists ([coll]),
      :doc
      "For a list or queue, returns a new list/queue without the first\n  item, for a vector, returns a new vector without the last item. If\n  the collection is empty, throws an exception.  Note - not the same\n  as next/butlast.",
      :file "clojure/core.clj",
-     :line 1481},
+     :line 1485},
     pop!
     {:arglists ([coll]),
      :doc
      "Removes the last item from a transient vector. If\n  the collection is empty, throws an exception. Returns coll",
      :file "clojure/core.clj",
-     :line 3418},
+     :line 3422},
     pop-thread-bindings
     {:arglists ([]),
      :doc
      "Pop one set of bindings pushed with push-binding before. It is an error to\n  pop bindings without pushing before.",
      :file "clojure/core.clj",
-     :line 1948},
+     :line 1952},
     pos-int?
     {:arglists ([x]),
      :doc "Return true if x is a positive fixed precision integer",
@@ -2298,33 +2298,33 @@
      "Prints the object(s) to the output stream that is the current value\n  of *out*.  Prints the object(s), separated by spaces if there is\n  more than one.  By default, pr and prn print in a way that objects\n  can be read by the reader",
      :dynamic true,
      :file "clojure/core.clj",
-     :line 3703},
+     :line 3707},
     pr-str
     {:arglists ([& xs]),
      :doc "pr to a string, returning it",
      :tag "class java.lang.String",
      :file "clojure/core.clj",
-     :line 4785},
+     :line 4789},
     prefer-method
     {:arglists ([multifn dispatch-val-x dispatch-val-y]),
      :doc
      "Causes the multimethod to prefer matches of dispatch-val-x over dispatch-val-y \n   when there is a conflict",
      :file "clojure/core.clj",
-     :line 1820},
+     :line 1824},
     prefers
     {:arglists ([multifn]),
      :doc
      "Given a multimethod, returns a map of preferred value -> set of other values",
      :file "clojure/core.clj",
-     :line 1841},
+     :line 1845},
     print
     {:arglists ([& more]),
      :doc
      "Prints the object(s) to the output stream that is the current value\n  of *out*.  print and println produce output for human consumption.",
      :file "clojure/core.clj",
-     :line 3750},
-    print-dup {:file "clojure/core.clj", :line 3692},
-    print-method {:file "clojure/core.clj", :line 3689},
+     :line 3754},
+    print-dup {:file "clojure/core.clj", :line 3696},
+    print-method {:file "clojure/core.clj", :line 3693},
     print-simple
     {:arglists ([o w]), :file "clojure/core_print.clj", :line 83},
     print-str
@@ -2332,41 +2332,41 @@
      :doc "print to a string, returning it",
      :tag "class java.lang.String",
      :file "clojure/core.clj",
-     :line 4803},
+     :line 4807},
     printf
     {:arglists ([fmt & args]),
      :doc "Prints formatted output, as per format",
      :file "clojure/core.clj",
-     :line 5799},
+     :line 5803},
     println
     {:arglists ([& more]),
      :doc "Same as print followed by (newline)",
      :file "clojure/core.clj",
-     :line 3759},
+     :line 3763},
     println-str
     {:arglists ([& xs]),
      :doc "println to a string, returning it",
      :tag "class java.lang.String",
      :file "clojure/core.clj",
-     :line 4812},
+     :line 4816},
     prn
     {:arglists ([& more]),
      :doc
      "Same as pr followed by (newline). Observes *flush-on-newline*",
      :file "clojure/core.clj",
-     :line 3740},
+     :line 3744},
     prn-str
     {:arglists ([& xs]),
      :doc "prn to a string, returning it",
      :tag "class java.lang.String",
      :file "clojure/core.clj",
-     :line 4794},
+     :line 4798},
     promise
     {:arglists ([]),
      :doc
      "Returns a promise object that can be read with deref/@, and set,\n  once only, with deliver. Calls to deref/@ prior to delivery will\n  block, unless the variant of deref with timeout is used. All\n  subsequent derefs will return the same delivered value without\n  blocking. See also - realized?.",
      :file "clojure/core.clj",
-     :line 7244},
+     :line 7248},
     protocol-type-impl {},
     proxy
     {:arglists ([class-and-interfaces args & fs]),
@@ -2397,22 +2397,22 @@
      :doc
      "WARNING: This is a low-level function. Prefer high-level macros like\n  binding where ever possible.\n\n  Takes a map of Var/value pairs. Binds each Var to the associated value for\n  the current thread. Each call *MUST* be accompanied by a matching call to\n  pop-thread-bindings wrapped in a try-finally!\n  \n      (push-thread-bindings bindings)\n      (try\n        ...\n        (finally\n          (pop-thread-bindings)))",
      :file "clojure/core.clj",
-     :line 1930},
+     :line 1934},
     qualified-ident?
     {:arglists ([x]),
      :doc "Return true if x is a symbol or keyword with a namespace",
      :file "clojure/core.clj",
-     :line 1637},
+     :line 1641},
     qualified-keyword?
     {:arglists ([x]),
      :doc "Return true if x is a keyword with a namespace",
      :file "clojure/core.clj",
-     :line 1657},
+     :line 1661},
     qualified-symbol?
     {:arglists ([x]),
      :doc "Return true if x is a symbol with a namespace",
      :file "clojure/core.clj",
-     :line 1647},
+     :line 1651},
     quot
     {:arglists ([num div]),
      :doc "quot[ient] of dividing numerator by denominator.",
@@ -2423,47 +2423,47 @@
      :doc
      "Returns a random floating point number between 0 (inclusive) and\n  n (default 1) (exclusive).",
      :file "clojure/core.clj",
-     :line 4964},
+     :line 4968},
     rand-int
     {:arglists ([n]),
      :doc
      "Returns a random integer between 0 (inclusive) and n (exclusive).",
      :file "clojure/core.clj",
-     :line 4972},
+     :line 4976},
     rand-nth
     {:arglists ([coll]),
      :doc
      "Return a random element of the (sequential) collection. Will have\n  the same performance characteristics as nth for the given\n  collection.",
      :file "clojure/core.clj",
-     :line 7379},
+     :line 7383},
     random-sample
     {:arglists ([prob] [prob coll]),
      :doc
      "Returns items from coll with random probability of prob (0.0 -\n  1.0).  Returns a transducer when no collection is provided.",
      :file "clojure/core.clj",
-     :line 7865},
+     :line 7869},
     random-uuid
     {:arglists ([]),
      :doc
      "Returns a pseudo-randomly generated java.util.UUID instance (i.e. type 4).\n\n  See: https://docs.oracle.com/javase/8/docs/api/java/util/UUID.html#randomUUID--",
      :file "clojure/core.clj",
-     :line 6939},
+     :line 6943},
     range
     {:arglists ([] [end] [start end] [start end step]),
      :doc
      "Returns a lazy seq of nums from start (inclusive) to end\n  (exclusive), by step, where start defaults to 0, step to 1, and end to\n  infinity. When step is equal to 0, returns an infinite sequence of\n  start. When start is equal to end, returns empty list.",
      :file "clojure/core.clj",
-     :line 3043},
+     :line 3047},
     ratio?
     {:arglists ([n]),
      :doc "Returns true if n is a Ratio",
      :file "clojure/core.clj",
-     :line 3602},
+     :line 3606},
     rational?
     {:arglists ([n]),
      :doc "Returns true if n is a rational number",
      :file "clojure/core.clj",
-     :line 3638},
+     :line 3642},
     rationalize
     {:arglists ([num]),
      :doc "returns the rational value of num",
@@ -2474,39 +2474,39 @@
      :doc
      "Returns the next regex match, if any, of string to pattern, using\n  java.util.regex.Matcher.find().  Uses re-groups to return the\n  groups.",
      :file "clojure/core.clj",
-     :line 4951},
+     :line 4955},
     re-groups
     {:arglists ([m]),
      :doc
      "Returns the groups from the most recent match/find. If there are no\n  nested groups, returns a string of the entire match. If there are\n  nested groups, returns a vector of the groups, the first element\n  being the entire match.",
      :file "clojure/core.clj",
-     :line 4911},
+     :line 4915},
     re-matcher
     {:arglists ([re s]),
      :doc
      "Returns an instance of java.util.regex.Matcher, for use, e.g. in\n  re-find.",
      :tag "class java.util.regex.Matcher",
      :file "clojure/core.clj",
-     :line 4902},
+     :line 4906},
     re-matches
     {:arglists ([re s]),
      :doc
      "Returns the match, if any, of string to pattern, using\n  java.util.regex.Matcher.matches().  Uses re-groups to return the\n  groups.",
      :file "clojure/core.clj",
-     :line 4939},
+     :line 4943},
     re-pattern
     {:arglists ([s]),
      :doc
      "Returns an instance of java.util.regex.Pattern, for use, e.g. in\n  re-matcher.",
      :tag "class java.util.regex.Pattern",
      :file "clojure/core.clj",
-     :line 4892},
+     :line 4896},
     re-seq
     {:arglists ([re s]),
      :doc
      "Returns a lazy sequence of successive matches of pattern in string,\n  using java.util.regex.Matcher.find(), each such match processed with\n  re-groups.",
      :file "clojure/core.clj",
-     :line 4927},
+     :line 4931},
     read
     {:arglists
      ([]
@@ -2517,38 +2517,38 @@
      :doc
      "Reads the next object from stream, which must be an instance of\n  java.io.PushbackReader or some derivee.  stream defaults to the\n  current value of *in*.\n\n  Opts is a persistent map with valid keys:\n    :read-cond - :allow to process reader conditionals, or\n                 :preserve to keep all branches\n    :features - persistent set of feature keywords for reader conditionals\n    :eof - on eof, return value unless :eofthrow, then throw.\n           if not specified, will throw\n\n  Note that read can execute code (controlled by *read-eval*),\n  and as such should be used only with trusted sources.\n\n  For data structure interop use clojure.edn/read",
      :file "clojure/core.clj",
-     :line 3767},
+     :line 3771},
     read+string {},
     read-line
     {:arglists ([]),
      :doc
      "Reads the next line from stream that is the current value of *in* .",
      :file "clojure/core.clj",
-     :line 3822},
+     :line 3826},
     read-string
     {:arglists ([s] [opts s]),
      :doc
      "Reads one object from the string s. Optionally include reader\n  options, as specified in read.\n\n  Note that read-string can execute code (controlled by *read-eval*),\n  and as such should be used only with trusted sources.\n\n  For data structure interop use clojure.edn/read-string",
      :file "clojure/core.clj",
-     :line 3831},
+     :line 3835},
     reader-conditional
     {:arglists ([form splicing?]),
      :doc
      "Construct a data representation of a reader conditional.\n  If true, splicing? indicates read-cond-splicing.",
      :file "clojure/core.clj",
-     :line 7976},
+     :line 7980},
     reader-conditional?
     {:arglists ([value]),
      :doc
      "Return true if the value is the data representation of a reader conditional",
      :file "clojure/core.clj",
-     :line 7970},
+     :line 7974},
     realized?
     {:arglists ([x]),
      :doc
      "Returns true if a value has been produced for a promise, delay, future or lazy sequence.",
      :file "clojure/core.clj",
-     :line 7725},
+     :line 7729},
     record?
     {:arglists ([x]),
      :doc "Returns true if x is a record",
@@ -2559,71 +2559,71 @@
      :doc
      "f should be a function of 2 arguments. If val is not supplied,\n  returns the result of applying f to the first 2 items in coll, then\n  applying f to that result and the 3rd item, etc. If coll contains no\n  items, f must accept no arguments as well, and reduce returns the\n  result of calling f with no arguments.  If coll has only 1 item, it\n  is returned and f is not called.  If val is supplied, returns the\n  result of applying f to val and the first item in coll, then\n  applying f to that result and the 2nd item, etc. If coll contains no\n  items, returns val and f is not called.",
      :file "clojure/core.clj",
-     :line 6947},
+     :line 6951},
     reduce-kv
     {:arglists ([f init coll]),
      :doc
      "Reduces an associative collection. f should be a function of 3\n  arguments. Returns the result of applying f to init, the first key\n  and the first value in coll, then applying f to that result and the\n  2nd key and value, etc. If coll contains no entries, returns init\n  and f is not called. Note that reduce-kv is supported on vectors,\n  where the keys will be the ordinals.",
      :file "clojure/core.clj",
-     :line 6989},
+     :line 6993},
     reduced
     {:arglists ([x]),
      :doc
      "Wraps x in a way such that a reduce will terminate with the value x",
      :file "clojure/core.clj",
-     :line 2853},
+     :line 2857},
     reduced?
     {:arglists ([x]),
      :doc "Returns true if x is the result of a call to reduced",
      :file "clojure/core.clj",
-     :line 2859},
+     :line 2863},
     reductions
     {:arglists ([f coll] [f init coll]),
      :doc
      "Returns a lazy seq of the intermediate values of the reduction (as\n  per reduce) of coll by f, starting with init.",
      :file "clojure/core.clj",
-     :line 7362},
+     :line 7366},
     ref
     {:arglists ([x] [x & options]),
      :doc
      "Creates and returns a Ref with an initial value of x and zero or\n  more options (in any order):\n\n  :meta metadata-map\n\n  :validator validate-fn\n\n  :min-history (default 0)\n  :max-history (default 10)\n\n  If metadata-map is supplied, it will become the metadata on the\n  ref. validate-fn must be nil or a side-effect-free fn of one\n  argument, which will be passed the intended new state on any state\n  change. If the new state is unacceptable, the validate-fn should\n  return false or throw an exception. validate-fn will be called on\n  transaction commit, when all refs have their final values.\n\n  Normally refs accumulate history dynamically as needed to deal with\n  read demands. If you know in advance you will need history you can\n  set :min-history to ensure it will be available when first needed (instead\n  of after a read fault). History is limited, and the limit can be set\n  with :max-history.",
      :file "clojure/core.clj",
-     :line 2279},
+     :line 2283},
     ref-history-count
     {:arglists ([ref]),
      :doc "Returns the history count of a ref",
      :file "clojure/core.clj",
-     :line 2480},
+     :line 2484},
     ref-max-history
     {:arglists ([ref] [ref n]),
      :doc
      "Gets the max-history of a ref, or sets it and returns the ref",
      :file "clojure/core.clj",
-     :line 2496},
+     :line 2500},
     ref-min-history
     {:arglists ([ref] [ref n]),
      :doc
      "Gets the min-history of a ref, or sets it and returns the ref",
      :file "clojure/core.clj",
-     :line 2487},
+     :line 2491},
     ref-set
     {:arglists ([ref val]),
      :doc
      "Must be called in a transaction. Sets the value of ref.\n  Returns val.",
      :file "clojure/core.clj",
-     :line 2472},
+     :line 2476},
     refer
     {:arglists ([ns-sym & filters]),
      :doc
      "refers to all public vars of ns, subject to filters.\n  filters can include at most one each of:\n\n  :exclude list-of-symbols\n  :only list-of-symbols\n  :rename map-of-fromsymbol-tosymbol\n\n  For each public interned var in the namespace named by the symbol,\n  adds a mapping from the name of the var to the var to the current\n  namespace.  Throws an exception if name is already mapped to\n  something else in the current namespace. Filters can be used to\n  select a subset, via inclusion or exclusion, or to provide a mapping\n  to a symbol different from the var's name, in order to prevent\n  clashes. Use :use in the ns macro in preference to calling this directly.",
      :file "clojure/core.clj",
-     :line 4243},
+     :line 4247},
     refer-clojure
     {:arglists ([& filters]),
      :doc "Same as (refer 'clojure.core <filters>)",
      :macro true,
      :file "clojure/core.clj",
-     :line 5875},
+     :line 5879},
     reify
     {:arglists ([& opts+specs]),
      :doc
@@ -2637,7 +2637,7 @@
      :doc
      "Normally, actions sent directly or indirectly during another action\n  are held until the action completes (changes the agent's\n  state). This function can be used to dispatch any pending sent\n  actions immediately. This has no impact on actions sent during a\n  transaction, which are still held until commit. If no action is\n  occurring, does nothing. Returns the number of actions dispatched.",
      :file "clojure/core.clj",
-     :line 2150},
+     :line 2154},
     rem
     {:arglists ([num div]),
      :doc "remainder of dividing numerator by denominator.",
@@ -2648,95 +2648,96 @@
      :doc
      "Returns a lazy sequence of the items in coll for which\n  (pred item) returns logical false. pred must be free of side-effects.\n  Returns a transducer when no collection is provided.",
      :file "clojure/core.clj",
-     :line 2843},
+     :line 2847},
     remove-all-methods
     {:arglists ([multifn]),
      :doc "Removes all of the methods of multimethod.",
      :file "clojure/core.clj",
-     :line 1806},
+     :line 1810},
     remove-method
     {:arglists ([multifn dispatch-val]),
      :doc
      "Removes the method of multimethod associated with dispatch-value.",
      :file "clojure/core.clj",
-     :line 1813},
+     :line 1817},
     remove-ns
     {:arglists ([sym]),
      :doc
      "Removes the namespace named by the symbol. Use with caution.\n  Cannot be used to remove the clojure namespace.",
      :file "clojure/core.clj",
-     :line 4166},
+     :line 4170},
     remove-tap
     {:arglists ([f]),
      :doc "Remove f from the tap set.",
      :file "clojure/core.clj",
-     :line 8117},
+     :line 8121},
     remove-watch
     {:arglists ([reference key]),
      :doc "Removes a watch (set by add-watch) from a reference",
      :file "clojure/core.clj",
-     :line 2179},
+     :line 2183},
     repeat
     {:arglists ([x] [n x]),
      :doc
      "Returns a lazy (infinite!, or length n if supplied) sequence of xs.",
      :file "clojure/core.clj",
-     :line 3022},
+     :line 3026},
     repeatedly
     {:arglists ([f] [n f]),
      :doc
      "Takes a function of no args, presumably with side effects, and\n  returns an infinite (or length n if supplied) lazy sequence of calls\n  to it",
      :file "clojure/core.clj",
-     :line 5196},
+     :line 5200},
     replace
     {:arglists ([smap] [smap coll]),
      :doc
      "Given a map of replacement pairs and a vector/collection, returns a\n  vector/seq with any elements = a key in smap replaced with the\n  corresponding val in smap.  Returns a transducer when no collection\n  is provided.",
      :file "clojure/core.clj",
-     :line 5111},
+     :line 5115},
     replicate
     {:arglists ([n x]),
      :doc
      "DEPRECATED: Use 'repeat' instead.\n   Returns a lazy seq of n xs.",
      :file "clojure/core.clj",
-     :line 3029},
+     :line 3033},
+    req! {},
     require
     {:arglists ([& args]),
      :doc
      "Loads libs, skipping any that are already loaded. Each argument is\n  either a libspec that identifies a lib, a prefix list that identifies\n  multiple libs whose names share a common prefix, or a flag that modifies\n  how all the identified libs are loaded. Use :require in the ns macro\n  in preference to calling this directly.\n\n  Libs\n\n  A 'lib' is a named set of resources in classpath whose contents define a\n  library of Clojure code. Lib names are symbols and each lib is associated\n  with a Clojure namespace and a Java package that share its name. A lib's\n  name also locates its root directory within classpath using Java's\n  package name to classpath-relative path mapping. All resources in a lib\n  should be contained in the directory structure under its root directory.\n  All definitions a lib makes should be in its associated namespace.\n\n  'require loads a lib by loading its root resource. The root resource path\n  is derived from the lib name in the following manner:\n  Consider a lib named by the symbol 'x.y.z; it has the root directory\n  <classpath>/x/y/, and its root resource is <classpath>/x/y/z.clj, or\n  <classpath>/x/y/z.cljc if <classpath>/x/y/z.clj does not exist. The\n  root resource should contain code to create the lib's\n  namespace (usually by using the ns macro) and load any additional\n  lib resources.\n\n  Libspecs\n\n  A libspec is a lib name or a vector containing a lib name followed by\n  options expressed as sequential keywords and arguments.\n\n  Recognized options:\n  :as takes a symbol as its argument and makes that symbol an alias to the\n    lib's namespace in the current namespace.\n  :as-alias takes a symbol as its argument and aliases like :as, however\n    the lib will not be loaded. If the lib has not been loaded, a new\n    empty namespace will be created (as with create-ns).\n  :refer takes a list of symbols to refer from the namespace or the :all\n    keyword to bring in all public vars.\n\n  Prefix Lists\n\n  It's common for Clojure code to depend on several libs whose names have\n  the same prefix. When specifying libs, prefix lists can be used to reduce\n  repetition. A prefix list contains the shared prefix followed by libspecs\n  with the shared prefix removed from the lib names. After removing the\n  prefix, the names that remain must not contain any periods.\n\n  Flags\n\n  A flag is a keyword.\n  Recognized flags: :reload, :reload-all, :verbose\n  :reload forces loading of all the identified libs even if they are\n    already loaded (has no effect on libspecs using :as-alias)\n  :reload-all implies :reload and also forces loading of all libs that the\n    identified libs directly or indirectly load via require or use\n    (has no effect on libspecs using :as-alias)\n  :verbose triggers printing information about each load, alias, and refer\n\n  Example:\n\n  The following would load the libraries clojure.zip and clojure.set\n  abbreviated as 's'.\n\n  (require '(clojure zip [set :as s]))",
      :file "clojure/core.clj",
-     :line 6066},
+     :line 6070},
     requiring-resolve
     {:arglists ([sym]),
      :doc
      "Resolves namespace-qualified sym per 'resolve'. If initial resolve\nfails, attempts to require sym's namespace and retries.",
      :file "clojure/core.clj",
-     :line 6145},
+     :line 6149},
     reset!
     {:arglists ([atom newval]),
      :doc
      "Sets the value of atom to newval without regard for the\n  current value. Returns newval.",
      :file "clojure/core.clj",
-     :line 2393},
+     :line 2397},
     reset-meta!
     {:arglists ([iref metadata-map]),
      :doc
      "Atomically resets the metadata for a namespace/var/ref/agent/atom",
      :file "clojure/core.clj",
-     :line 2433},
+     :line 2437},
     reset-thread-binding-frame-impl {},
     reset-vals!
     {:arglists ([atom newval]),
      :doc
      "Sets the value of atom to newval. Returns [old new], the value of the\n   atom before and after the reset.",
      :file "clojure/core.clj",
-     :line 2400},
+     :line 2404},
     resolve
     {:arglists ([sym] [env sym]),
      :doc
      "same as (ns-resolve *ns* symbol) or (ns-resolve *ns* &env symbol)",
      :file "clojure/core.clj",
-     :line 4398},
+     :line 4402},
     rest
     {:arglists ([coll]),
      :doc
@@ -2749,7 +2750,7 @@
      :doc
      "When an agent is failed, changes the agent state to new-state and\n  then un-fails the agent so that sends are allowed again.  If\n  a :clear-actions true option is given, any actions queued on the\n  agent that were being held while it was failed will be discarded,\n  otherwise those held actions will proceed.  The new-state must pass\n  the validator if any, or restart will throw an exception and the\n  agent will remain failed with its old state and error.  Watchers, if\n  any, will NOT be notified of the new state.  Throws an exception if\n  the agent is not failed.",
      :file "clojure/core.clj",
-     :line 2194},
+     :line 2198},
     reverse
     {:arglists ([coll]),
      :doc
@@ -2760,26 +2761,26 @@
     {:arglists ([coll]),
      :doc "Returns true if coll implements Reversible",
      :file "clojure/core.clj",
-     :line 6334},
+     :line 6338},
     rseq
     {:arglists ([rev]),
      :doc
      "Returns, in constant time, a seq of the items in rev (which\n  can be a vector or sorted-map), in reverse order. If rev is empty returns nil",
      :file "clojure/core.clj",
-     :line 1596},
+     :line 1600},
     rsubseq
     {:arglists
      ([sc test key] [sc start-test start-key end-test end-key]),
      :doc
      "sc must be a sorted collection, test(s) one of <, <=, > or\n  >=. Returns a reverse seq of those entries with keys ek for\n  which (test (.. sc comparator (compare ek key)) 0) is true",
      :file "clojure/core.clj",
-     :line 5179},
+     :line 5183},
     run!
     {:arglists ([proc coll]),
      :doc
      "Runs the supplied procedure (via reduce), for purposes of side\n  effects, on successive items in the collection. Returns nil",
      :file "clojure/core.clj",
-     :line 7902},
+     :line 7906},
     satisfies?
     {:arglists ([protocol x]),
      :doc "Returns true if x satisfies the protocol",
@@ -2795,25 +2796,25 @@
      :doc
      "Returns a map containing only those entries in map whose key is in keys",
      :file "clojure/core.clj",
-     :line 1555},
+     :line 1559},
     send
     {:arglists ([a f & args]),
      :doc
      "Dispatch an action to an agent. Returns the agent immediately.\n  Subsequently, in a thread from a thread pool, the state of the agent\n  will be set to the value of:\n\n  (apply action-fn state-of-agent args)",
      :file "clojure/core.clj",
-     :line 2128},
+     :line 2132},
     send-off
     {:arglists ([a f & args]),
      :doc
      "Dispatch a potentially blocking action to an agent. Returns the\n  agent immediately. Subsequently, in a separate thread, the state of\n  the agent will be set to the value of:\n\n  (apply action-fn state-of-agent args)",
      :file "clojure/core.clj",
-     :line 2139},
+     :line 2143},
     send-via
     {:arglists ([executor a f & args]),
      :doc
      "Dispatch an action to an agent. Returns the agent immediately.\n  Subsequently, in a thread supplied by executor, the state of the agent\n  will be set to the value of:\n\n  (apply action-fn state-of-agent args)",
      :file "clojure/core.clj",
-     :line 2118},
+     :line 2122},
     seq
     {:arglists ([coll]),
      :doc
@@ -2826,7 +2827,7 @@
      :doc
      "Builds a map from a seq as described in\n  https://clojure.org/reference/special_forms#keyword-arguments",
      :file "clojure/core.clj",
-     :line 4417},
+     :line 4421},
     seq?
     {:arglists ([x]),
      :doc "Return true if x implements ISeq",
@@ -2836,137 +2837,138 @@
     {:arglists ([x]),
      :doc "Return true if the seq function is supported for x",
      :file "clojure/core.clj",
-     :line 6281},
+     :line 6285},
     seque
     {:arglists ([s] [n-or-q s]),
      :doc
      "Creates a queued seq on another (presumably lazy) seq s. The queued\n  seq will produce a concrete seq in the background, and can get up to\n  n items ahead of the consumer. n-or-q can be an integer n buffer\n  size, or an instance of java.util.concurrent BlockingQueue. Note\n  that reading from a seque can block if the reader gets ahead of the\n  producer.",
      :file "clojure/core.clj",
-     :line 5450},
+     :line 5454},
     sequence
     {:arglists ([coll] [xform coll] [xform coll & colls]),
      :doc
      "Coerces coll to a (possibly empty) sequence, if it is not already\n  one. Will not force a lazy seq. (sequence nil) yields (), When a\n  transducer is supplied, returns a lazy sequence of applications of\n  the transform to the items in coll(s), i.e. to the set of first\n  items of each coll, followed by the set of second\n  items in each coll, until any one of the colls is exhausted.  Any\n  remaining items in other colls are ignored. The transform should accept\n  number-of-colls arguments",
      :file "clojure/core.clj",
-     :line 2664},
+     :line 2668},
     sequential?
     {:arglists ([coll]),
      :doc "Returns true if coll implements Sequential",
      :file "clojure/core.clj",
-     :line 6306},
+     :line 6310},
     set
     {:arglists ([coll]),
      :doc "Returns a set of the distinct elements of coll.",
      :file "clojure/core.clj",
-     :line 4131},
+     :line 4135},
     set-agent-send-executor!
     {:arglists ([executor]),
      :doc "Sets the ExecutorService to be used by send",
      :file "clojure/core.clj",
-     :line 2106},
+     :line 2110},
     set-agent-send-off-executor!
     {:arglists ([executor]),
      :doc "Sets the ExecutorService to be used by send-off",
      :file "clojure/core.clj",
-     :line 2112},
+     :line 2116},
     set-error-handler!
     {:arglists ([a handler-fn]),
      :doc
      "Sets the error-handler of agent a to handler-fn.  If an action\n  being run by the agent throws an exception or doesn't pass the\n  validator fn, handler-fn will be called with two arguments: the\n  agent and the exception.",
      :file "clojure/core.clj",
-     :line 2211},
+     :line 2215},
     set-error-mode!
     {:arglists ([a mode-keyword]),
      :doc
      "Sets the error-mode of agent a to mode-keyword, which must be\n  either :fail or :continue.  If an action being run by the agent\n  throws an exception or doesn't pass the validator fn, an\n  error-handler may be called (see set-error-handler!), after which,\n  if the mode is :continue, the agent will continue as if neither the\n  action that caused the error nor the error itself ever happened.\n  \n  If the mode is :fail, the agent will become failed and will stop\n  accepting new 'send' and 'send-off' actions, and any previously\n  queued actions will be held until a 'restart-agent'.  Deref will\n  still work, returning the state of the agent before the error.",
      :file "clojure/core.clj",
-     :line 2229},
+     :line 2233},
     set-validator!
     {:arglists ([iref validator-fn]),
      :doc
      "Sets the validator-fn for a var/ref/agent/atom. validator-fn must be nil or a\n  side-effect-free fn of one argument, which will be passed the intended\n  new state on any state change. If the new state is unacceptable, the\n  validator-fn should return false or throw an exception. If the current state (root\n  value if var) is not acceptable to the new validator, an exception\n  will be thrown and the validator will not be changed.",
      :file "clojure/core.clj",
-     :line 2406},
+     :line 2410},
     set?
     {:arglists ([x]),
      :doc "Returns true if x implements IPersistentSet",
      :file "clojure/core.clj",
-     :line 4125},
+     :line 4129},
     short
     {:arglists ([x]),
      :doc "Coerce to short",
      :file "clojure/core.clj",
-     :line 3524},
+     :line 3528},
     short-array
     {:arglists ([size-or-seq] [size init-val-or-seq]),
      :doc "Creates an array of shorts",
      :file "clojure/core.clj",
-     :line 5362},
+     :line 5366},
     shorts
     {:arglists ([xs]),
      :doc "Casts to shorts[]",
      :file "clojure/core.clj",
-     :line 5416},
+     :line 5420},
     shuffle
     {:arglists ([coll]),
      :doc "Return a random permutation of coll",
      :file "clojure/core.clj",
-     :line 7466},
+     :line 7470},
     shutdown-agents
     {:arglists ([]),
      :doc
      "Initiates a shutdown of the thread pools that back the agent\n  system. Running actions will complete, but no new actions will be\n  accepted",
      :file "clojure/core.clj",
-     :line 2271},
+     :line 2275},
     simple-ident?
     {:arglists ([x]),
      :doc
      "Return true if x is a symbol or keyword without a namespace",
      :file "clojure/core.clj",
-     :line 1632},
+     :line 1636},
     simple-keyword?
     {:arglists ([x]),
      :doc "Return true if x is a keyword without a namespace",
      :file "clojure/core.clj",
-     :line 1652},
+     :line 1656},
     simple-symbol?
     {:arglists ([x]),
      :doc "Return true if x is a symbol without a namespace",
      :file "clojure/core.clj",
-     :line 1642},
+     :line 1646},
     slurp
     {:arglists ([f & opts]),
      :doc
      "Opens a reader on f and reads all its contents, returning a string.\n  See clojure.java.io/reader for a complete list of supported arguments.",
      :tag "class java.lang.String",
      :file "clojure/core.clj",
-     :line 7089},
+     :line 7093},
     some
     {:arglists ([pred coll]),
      :doc
      "Returns the first logical true value of (pred x) for any x in coll,\n  else nil.  One common idiom is to use a set as pred, for example\n  this will return :fred if :fred is in the sequence, otherwise nil:\n  (some #{:fred} coll)",
      :file "clojure/core.clj",
-     :line 2709},
+     :line 2713},
     some->
     {:arglists ([expr & forms]),
      :doc
      "When expr is not nil, threads it into the first form (via ->),\n  and when that result is not nil, through the next etc",
      :macro true,
      :file "clojure/core.clj",
-     :line 7776},
+     :line 7780},
     some->>
     {:arglists ([expr & forms]),
      :doc
      "When expr is not nil, threads it into the first form (via ->>),\n  and when that result is not nil, through the next etc",
      :macro true,
      :file "clojure/core.clj",
-     :line 7790},
+     :line 7794},
     some-fn
     {:arglists ([p] [p1 p2] [p1 p2 p3] [p1 p2 p3 & ps]),
      :doc
      "Takes a set of predicates and returns a function f that returns the first logical true value\n  returned by one of its composing predicates against any of its arguments, else it returns\n  logical false. Note that f is short-circuiting in that it will stop execution on the first\n  argument that triggers a logical true result against the original predicates.",
      :file "clojure/core.clj",
-     :line 7628},
+     :line 7632},
+    some-vals {},
     some?
     {:arglists ([x]),
      :doc "Returns true if x is not nil, false otherwise.",
@@ -2978,13 +2980,13 @@
      :doc
      "Returns a sorted sequence of the items in coll. If no comparator is\n  supplied, uses compare.  comparator must implement\n  java.util.Comparator.  Guaranteed to be stable: equal elements will\n  not be reordered.  If coll is a Java array, it will be modified.  To\n  avoid this, sort a copy of the array.",
      :file "clojure/core.clj",
-     :line 3110},
+     :line 3114},
     sort-by
     {:arglists ([keyfn coll] [keyfn comp coll]),
      :doc
      "Returns a sorted sequence of the items in coll, where the sort\n  order is determined by comparing (keyfn item).  If no comparator is\n  supplied, uses compare.  comparator must implement\n  java.util.Comparator.  Guaranteed to be stable: equal elements will\n  not be reordered.  If coll is a Java array, it will be modified.  To\n  avoid this, sort a copy of the array.",
      :file "clojure/core.clj",
-     :line 3127},
+     :line 3131},
     sorted-map
     {:arglists ([& keyvals]),
      :doc
@@ -3013,35 +3015,35 @@
     {:arglists ([coll]),
      :doc "Returns true if coll implements Sorted",
      :file "clojure/core.clj",
-     :line 6312},
+     :line 6316},
     special-symbol?
     {:arglists ([s]),
      :doc "Returns true if s names a special form",
      :file "clojure/core.clj",
-     :line 5021},
+     :line 5025},
     spit
     {:arglists ([f content & options]),
      :doc
      "Opposite of slurp.  Opens f with writer, writes content, then\n  closes f. Options passed to clojure.java.io/writer.",
      :file "clojure/core.clj",
-     :line 7101},
+     :line 7105},
     split-at
     {:arglists ([n coll]),
      :doc "Returns a vector of [(take n coll) (drop n coll)]",
      :file "clojure/core.clj",
-     :line 3008},
+     :line 3012},
     split-with
     {:arglists ([pred coll]),
      :doc
      "Returns a vector of [(take-while pred coll) (drop-while pred coll)]",
      :file "clojure/core.clj",
-     :line 3015},
+     :line 3019},
     splitv-at
     {:arglists ([n coll]),
      :doc
      "Returns a vector of [(into [] (take n) coll) (drop n coll)]",
      :file "clojure/core.clj",
-     :line 7422},
+     :line 7426},
     str
     {:arglists ([] [x] [x & ys]),
      :doc
@@ -3054,25 +3056,25 @@
      :doc
      "Returns a new coll consisting of coll with all of the items of the\n  stream conjoined. This is a terminal operation on the stream.",
      :file "clojure/core.clj",
-     :line 6887},
+     :line 6891},
     stream-reduce!
     {:arglists ([f s] [f init s]),
      :doc
      "Works like reduce but takes a java.util.stream.BaseStream as its source.\n  Honors 'reduced', is a terminal operation on the stream",
      :file "clojure/core.clj",
-     :line 6861},
+     :line 6865},
     stream-seq!
     {:arglists ([stream]),
      :doc
      "Takes a java.util.stream.BaseStream instance s and returns a seq of its\n  contents. This is a terminal operation on the stream.",
      :file "clojure/core.clj",
-     :line 6870},
+     :line 6874},
     stream-transduce!
     {:arglists ([xform f stream] [xform f init stream]),
      :doc
      "Works like transduce but takes a java.util.stream.BaseStream as its source.\n  This is a terminal operation on the stream.",
      :file "clojure/core.clj",
-     :line 6877},
+     :line 6881},
     string?
     {:arglists ([x]),
      :doc "Return true if x is a String",
@@ -3083,38 +3085,38 @@
      :doc
      "Returns the substring of s beginning at start inclusive, and ending\n  at end (defaults to length of string), exclusive.",
      :file "clojure/core.clj",
-     :line 5034},
+     :line 5038},
     subseq
     {:arglists
      ([sc test key] [sc start-test start-key end-test end-key]),
      :doc
      "sc must be a sorted collection, test(s) one of <, <=, > or\n  >=. Returns a seq of those entries with keys ek for\n  which (test (.. sc comparator (compare ek key)) 0) is true",
      :file "clojure/core.clj",
-     :line 5162},
+     :line 5166},
     subvec
     {:arglists ([v start] [v start end]),
      :doc
      "Returns a persistent vector of the items in vector from\n  start (inclusive) to end (exclusive).  If end is not supplied,\n  defaults to (count vector). This operation is O(1) and very fast, as\n  the resulting vector shares structure with the original and no\n  trimming is done.",
      :file "clojure/core.clj",
-     :line 3844},
+     :line 3848},
     supers
     {:arglists ([class]),
      :doc
      "Returns the immediate and indirect superclasses and interfaces of c, if any",
      :file "clojure/core.clj",
-     :line 5606},
+     :line 5610},
     swap!
     {:arglists ([atom f] [atom f x] [atom f x y] [atom f x y & args]),
      :doc
      "Atomically swaps the value of atom to be:\n  (apply f current-value-of-atom args). Note that f may be called\n  multiple times, and thus should be free of side effects.  Returns\n  the value that was swapped in.",
      :file "clojure/core.clj",
-     :line 2362},
+     :line 2366},
     swap-vals!
     {:arglists ([atom f] [atom f x] [atom f x y] [atom f x y & args]),
      :doc
      "Atomically swaps the value of atom to be:\n  (apply f current-value-of-atom args). Note that f may be called\n  multiple times, and thus should be free of side effects.\n  Returns [old new], the value of the atom before and after the swap.",
      :file "clojure/core.clj",
-     :line 2374},
+     :line 2378},
     symbol
     {:arglists ([name] [ns name]),
      :doc
@@ -3135,74 +3137,74 @@
      :file "babashka/impl/clojure/core.clj",
      :line 101},
     system-time
-    {:arglists ([]), :file "sci/impl/namespaces.cljc", :line 1173},
+    {:arglists ([]), :file "sci/impl/namespaces.cljc", :line 1260},
     tagged-literal
     {:arglists ([tag form]),
      :doc
      "Construct a data representation of a tagged literal from a\n  tag symbol and a form.",
      :file "clojure/core.clj",
-     :line 7963},
+     :line 7967},
     tagged-literal?
     {:arglists ([value]),
      :doc
      "Return true if the value is the data representation of a tagged literal",
      :file "clojure/core.clj",
-     :line 7957},
+     :line 7961},
     take
     {:arglists ([n] [n coll]),
      :doc
      "Returns a lazy sequence of the first n items in coll, or all items if\n  there are fewer than n.  Returns a stateful transducer when\n  no collection is provided.",
      :file "clojure/core.clj",
-     :line 2878},
+     :line 2882},
     take-last
     {:arglists ([n coll]),
      :doc
      "Returns a seq of the last n items in coll.  Depending on the type\n  of coll may be no better than linear time.  For vectors, see also subvec.",
      :file "clojure/core.clj",
-     :line 2964},
+     :line 2968},
     take-nth
     {:arglists ([n] [n coll]),
      :doc
      "Returns a lazy seq of every nth item in coll.  Returns a stateful\n  transducer when no collection is provided.",
      :file "clojure/core.clj",
-     :line 4314},
+     :line 4318},
     take-while
     {:arglists ([pred] [pred coll]),
      :doc
      "Returns a lazy sequence of successive items from coll while\n  (pred item) returns logical true. pred must be free of side-effects.\n  Returns a transducer when no collection is provided.",
      :file "clojure/core.clj",
-     :line 2905},
+     :line 2909},
     tap>
     {:arglists ([x]),
      :doc
      "sends x to any taps. Will not block. Returns true if there was room in the queue,\n  false if not (dropped).",
      :file "clojure/core.clj",
-     :line 8124},
+     :line 8128},
     test
     {:arglists ([v]),
      :doc
      "test [v] finds fn at key :test in var metadata and calls it,\n  presuming failure will throw exception",
      :file "clojure/core.clj",
-     :line 4882},
+     :line 4886},
     the-ns
     {:arglists ([x]),
      :doc
      "If passed a namespace, returns it. Else, when passed a symbol,\n  returns the namespace named by it, throwing an exception if not\n  found.",
      :file "clojure/core.clj",
-     :line 4179},
+     :line 4183},
     thread-bound?
     {:arglists ([& vars]),
      :doc
      "Returns true if all of the vars provided as arguments have thread-local bindings.\n   Implies that set!'ing the provided vars will succeed.  Returns true if no vars are provided.",
      :file "clojure/core.clj",
-     :line 5573},
+     :line 5577},
     time
     {:arglists ([_ _ expr]),
      :doc
      "Evaluates expr and prints the time it took. Returns the value of expr.",
      :macro true,
      :file "sci/impl/namespaces.cljc",
-     :line 1137},
+     :line 1221},
     to-array
     {:arglists ([coll]),
      :doc
@@ -3216,31 +3218,31 @@
      "Returns a (potentially-ragged) 2-dimensional array of Objects\n  containing the contents of coll, which can be any Collection of any\n  Collection.",
      :tag "[[Ljava.lang.Object;",
      :file "clojure/core.clj",
-     :line 4029},
+     :line 4033},
     trampoline
     {:arglists ([f] [f & args]),
      :doc
      "trampoline can be used to convert algorithms requiring mutual\n  recursion without stack consumption. Calls f with supplied args, if\n  any. If f returns a fn, calls that fn with no arguments, and\n  continues to repeat, until the return value is not a fn, then\n  returns that non-fn value. Note that if you want to return a fn as a\n  final value, you must wrap it in some data structure and unpack it\n  after trampoline returns.",
      :file "clojure/core.clj",
-     :line 6370},
+     :line 6374},
     transduce
     {:arglists ([xform f coll] [xform f init coll]),
      :doc
      "reduce with a transformation of f (xf). If init is not\n  supplied, (f) will be called to produce it. f should be a reducing\n  step function that accepts both 1 and 2 arguments, if it accepts\n  only 2 you can add the arity-1 with 'completing'. Returns the result\n  of applying (the transformed) xf to init and the first item in coll,\n  then applying xf to that result and the 2nd item, etc. If coll\n  contains no items, returns init and f is not called. Note that\n  certain transforms may inject or skip items.",
      :file "clojure/core.clj",
-     :line 7012},
+     :line 7016},
     transient
     {:arglists ([coll]),
      :doc
      "Returns a new, transient version of the collection, in constant time.\n\n  Transients support a parallel set of 'changing' operations, with similar names\n  followed by ! - assoc!, conj! etc. These do the same things as their persistent\n  counterparts except the return values are themselves transient.\n\n  Note in particular that transients are not designed to be bashed in-place. You\n  must capture and use the return value in the next call. In this way, they support\n  the same code structure as the functional persistent code they replace.",
      :file "clojure/core.clj",
-     :line 3360},
+     :line 3364},
     tree-seq
     {:arglists ([branch? children root]),
      :doc
      "Returns a lazy sequence of the nodes in a tree, via a depth-first walk.\n   branch? must be a fn of one arg that returns true if passed a node\n   that can have children (but may not).  children must be a fn of one\n   arg that returns a sequence of the children. Will only be called on\n   nodes for which branch? returns true. Root is the root node of the\n  tree.",
      :file "clojure/core.clj",
-     :line 4984},
+     :line 4988},
     true?
     {:arglists ([x]),
      :doc "Returns true if x is the value true, false otherwise.",
@@ -3251,7 +3253,7 @@
     {:arglists ([x]),
      :doc "Returns the :type metadata of x, or its Class if none",
      :file "clojure/core.clj",
-     :line 3492},
+     :line 3496},
     unchecked-add
     {:arglists ([x y]),
      :doc
@@ -3268,12 +3270,12 @@
     {:arglists ([x]),
      :doc "Coerce to byte. Subject to rounding or truncation.",
      :file "clojure/core.clj",
-     :line 3542},
+     :line 3546},
     unchecked-char
     {:arglists ([x]),
      :doc "Coerce to char. Subject to rounding or truncation.",
      :file "clojure/core.clj",
-     :line 3554},
+     :line 3558},
     unchecked-dec
     {:arglists ([x]),
      :doc
@@ -3296,12 +3298,12 @@
     {:arglists ([x]),
      :doc "Coerce to double. Subject to rounding.",
      :file "clojure/core.clj",
-     :line 3578},
+     :line 3582},
     unchecked-float
     {:arglists ([x]),
      :doc "Coerce to float. Subject to rounding.",
      :file "clojure/core.clj",
-     :line 3572},
+     :line 3576},
     unchecked-inc
     {:arglists ([x]),
      :doc
@@ -3318,12 +3320,12 @@
     {:arglists ([x]),
      :doc "Coerce to int. Subject to rounding or truncation.",
      :file "clojure/core.clj",
-     :line 3560},
+     :line 3564},
     unchecked-long
     {:arglists ([x]),
      :doc "Coerce to long. Subject to rounding or truncation.",
      :file "clojure/core.clj",
-     :line 3566},
+     :line 3570},
     unchecked-multiply
     {:arglists ([x y]),
      :doc
@@ -3358,7 +3360,7 @@
     {:arglists ([x]),
      :doc "Coerce to short. Subject to rounding or truncation.",
      :file "clojure/core.clj",
-     :line 3548},
+     :line 3552},
     unchecked-subtract
     {:arglists ([x y]),
      :doc
@@ -3376,13 +3378,13 @@
      :doc
      "Removes a parent/child relationship between parent and\n  tag. h must be a hierarchy obtained from make-hierarchy, if not\n  supplied defaults to, and modifies, the global hierarchy.",
      :file "clojure/core.clj",
-     :line 5717},
+     :line 5721},
     unquote {},
     unreduced
     {:arglists ([x]),
      :doc "If x is reduced?, returns (deref x), else returns x",
      :file "clojure/core.clj",
-     :line 2872},
+     :line 2876},
     unsigned-bit-shift-right
     {:arglists ([x n]),
      :doc "Bitwise shift right, without sign-extension.",
@@ -3398,19 +3400,19 @@
      :doc
      "'Updates' a value in an associative structure, where k is a\n  key and f is a function that will take the old value\n  and any supplied args and return the new value, and returns a new\n  structure.  If the key does not exist, nil is passed as the old value.",
      :file "clojure/core.clj",
-     :line 6251},
+     :line 6255},
     update-in
     {:arglists ([m ks f & args]),
      :doc
      "'Updates' a value in a nested associative structure, where ks is a\n  sequence of keys and f is a function that will take the old value\n  and any supplied args and return the new value, and returns a new\n  nested structure.  If any levels do not exist, hash-maps will be\n  created.",
      :file "clojure/core.clj",
-     :line 6235},
+     :line 6239},
     update-keys
     {:arglists ([m f]),
      :doc
      "m f => {(f k) v ...}\n\n  Given a map m and a function f of 1-argument, returns a new map whose\n  keys are the result of applying f to the keys of m, mapped to the\n  corresponding values of m.\n  f must return a unique key for each key of m, else the behavior is undefined.",
      :file "clojure/core.clj",
-     :line 8148},
+     :line 8152},
     update-proxy
     {:arglists ([proxy mappings]),
      :doc
@@ -3422,50 +3424,50 @@
      :doc
      "m f => {k (f v) ...}\n\n  Given a map m and a function f of 1-argument, returns a new map where the keys of m\n  are mapped to result of applying f to the corresponding values of m.",
      :file "clojure/core.clj",
-     :line 8132},
+     :line 8136},
     uri?
     {:arglists ([x]),
      :doc "Return true if x is a java.net.URI",
      :file "clojure/core.clj",
-     :line 8083},
+     :line 8087},
     use
     {:arglists ([& args]),
      :doc
      "Like 'require, but also refers to each lib's namespace using\n  clojure.core/refer. Use :use in the ns macro in preference to calling\n  this directly.\n\n  'use accepts additional options in libspecs: :exclude, :only, :rename.\n  The arguments and semantics for :exclude, :only, and :rename are the same\n  as those documented for clojure.core/refer.",
      :file "clojure/core.clj",
-     :line 6156},
+     :line 6160},
     uuid?
     {:arglists ([x]),
      :doc "Return true if x is a java.util.UUID",
      :file "clojure/core.clj",
-     :line 6934},
+     :line 6938},
     val
     {:arglists ([e]),
      :doc "Returns the value in the map entry.",
      :file "clojure/core.clj",
-     :line 1589},
+     :line 1593},
     vals
     {:arglists ([map]),
      :doc
      "Returns a sequence of the map's values, in the same order as (seq map).",
      :file "clojure/core.clj",
-     :line 1576},
+     :line 1580},
     var-get
     {:arglists ([x]),
      :doc "Gets the value in the var object",
      :file "clojure/core.clj",
-     :line 4353},
+     :line 4357},
     var-set
     {:arglists ([x val]),
      :doc
      "Sets the value in the var object to val. The var must be\n thread-locally bound.",
      :file "clojure/core.clj",
-     :line 4359},
+     :line 4363},
     var?
     {:arglists ([v]),
      :doc "Returns true if v is of type clojure.lang.Var",
      :file "clojure/core.clj",
-     :line 5028},
+     :line 5032},
     vary-meta
     {:arglists ([obj f & args]),
      :doc
@@ -3502,25 +3504,25 @@
      "Creates and returns a Volatile with an initial value of val.",
      :tag "class clojure.lang.Volatile",
      :file "clojure/core.clj",
-     :line 2542},
+     :line 2546},
     volatile?
     {:arglists ([x]),
      :doc "Returns true if x is a volatile.",
      :file "clojure/core.clj",
-     :line 2565},
+     :line 2569},
     vreset!
     {:arglists ([vol newval]),
      :doc
      "Sets the value of volatile to newval without regard for the\n   current value. Returns newval.",
      :file "clojure/core.clj",
-     :line 2549},
+     :line 2553},
     vswap!
     {:arglists ([_ _ vol f & args]),
      :doc
      "Non-atomically swaps the value of the volatile as if:\n   (apply f current-value-of-vol args). Returns the value that\n   was swapped in.",
      :macro true,
      :file "sci/impl/namespaces.cljc",
-     :line 352},
+     :line 364},
     when
     {:arglists ([test & body]),
      :doc
@@ -3534,14 +3536,14 @@
      "bindings => x xs\n\n  Roughly the same as (when (seq xs) (let [x (first xs)] body)) but xs is evaluated only once",
      :macro true,
      :file "clojure/core.clj",
-     :line 4649},
+     :line 4653},
     when-let
     {:arglists ([bindings & body]),
      :doc
      "bindings => binding-form test\n\n  When test is true, evaluates body with binding-form bound to the value of test",
      :macro true,
      :file "clojure/core.clj",
-     :line 1878},
+     :line 1882},
     when-not
     {:arglists ([test & body]),
      :doc
@@ -3555,41 +3557,41 @@
      "bindings => binding-form test\n\n   When test is not nil, evaluates body with binding-form bound to the\n   value of test",
      :macro true,
      :file "clojure/core.clj",
-     :line 1913},
+     :line 1917},
     while
     {:arglists ([test & body]),
      :doc
      "Repeatedly executes body while test expression is true. Presumes\n  some side-effect will cause test to become false/nil. Returns nil",
      :macro true,
      :file "clojure/core.clj",
-     :line 6404},
+     :line 6408},
     with-bindings
     {:arglists ([binding-map & body]),
      :doc
      "Takes a map of Var/value pairs. Installs for the given Vars the associated\n  values as thread-local bindings. Then executes body. Pops the installed\n  bindings after body was evaluated. Returns the value of body.",
      :macro true,
      :file "clojure/core.clj",
-     :line 2003},
+     :line 2007},
     with-bindings*
     {:arglists ([binding-map f & args]),
      :doc
      "Takes a map of Var/value pairs. Installs for the given Vars the associated\n  values as thread-local bindings. Then calls f with the supplied arguments.\n  Pops the installed bindings after f returned. Returns whatever f returns.",
      :file "sci/impl/namespaces.cljc",
-     :line 715},
+     :line 733},
     with-in-str
     {:arglists ([s & body]),
      :doc
      "Evaluates body in a context in which *in* is bound to a fresh\n  StringReader initialized with the string s.",
      :macro true,
      :file "clojure/core.clj",
-     :line 4776},
+     :line 4780},
     with-local-vars
     {:arglists ([name-vals-vec & body]),
      :doc
      "varbinding=> symbol init-expr\n\n  Executes the exprs in a context in which the symbols are bound to\n  vars with per-thread bindings to the init-exprs.  The symbols refer\n  to the var objects themselves, and must be accessed with var-get and\n  var-set",
      :macro true,
      :file "clojure/core.clj",
-     :line 4366},
+     :line 4370},
     with-meta
     {:arglists ([obj m]),
      :doc
@@ -3602,14 +3604,14 @@
      "bindings => [name init ...]\n\n  Evaluates body in a try expression with names bound to the values\n  of the inits, and a finally clause that calls (.close name) on each\n  name in reverse order.",
      :macro true,
      :file "clojure/core.clj",
-     :line 3857},
+     :line 3861},
     with-out-str
     {:arglists ([& body]),
      :doc
      "Evaluates exprs in a context in which *out* is bound to a fresh\n  StringWriter.  Returns the string created by any nested printing\n  calls.",
      :macro true,
      :file "clojure/core.clj",
-     :line 4765},
+     :line 4769},
     with-precision
     {:arglists ([precision & exprs]),
      :doc
@@ -3623,18 +3625,18 @@
      "binding => var-symbol temp-value-expr\n\n  Temporarily redefines Vars while executing the body.  The\n  temp-value-exprs will be evaluated and each resulting value will\n  replace in parallel the root value of its Var.  After the body is\n  executed, the root values of all the Vars will be set back to their\n  old values.  These temporary changes will be visible in all threads.\n  Useful for mocking out functions during testing.",
      :macro true,
      :file "clojure/core.clj",
-     :line 7710},
+     :line 7714},
     with-redefs-fn
     {:arglists ([binding-map func]),
      :doc
      "Temporarily redefines Vars during a call to func.  Each val of\n  binding-map will replace the root value of its key which must be\n  a Var.  After func is called with no args, the root values of all\n  the Vars will be set back to their old values.  These temporary\n  changes will be visible in all threads.  Useful for mocking out\n  functions during testing.",
      :file "clojure/core.clj",
-     :line 7690},
+     :line 7694},
     xml-seq
     {:arglists ([root]),
      :doc "A tree seq on the xml elements as per xml/parse",
      :file "clojure/core.clj",
-     :line 5011},
+     :line 5015},
     zero?
     {:arglists ([num]),
      :doc "Returns true if num is zero, else false",
@@ -3645,7 +3647,7 @@
      :doc
      "Returns a map with the keys mapped to the corresponding vals.",
      :file "clojure/core.clj",
-     :line 6660}}},
+     :line 6664}}},
   clojure.core.protocols
   {:vars
    {Datafiable {},
@@ -4802,12 +4804,12 @@
    {apply-template
     {:arglists ([argv expr values]),
      :file "sci/impl/namespaces.cljc",
-     :line 2119},
+     :line 2261},
     do-template
     {:arglists ([_ _ argv expr & values]),
      :macro true,
      :file "sci/impl/namespaces.cljc",
-     :line 2125}}},
+     :line 2267}}},
   clojure.test
   {:vars
    {*initial-report-counters* {:dynamic true},
@@ -5218,4 +5220,4 @@
    monitor-enter
    def},
  :spec-keys #{:clojure.spec.alpha/kvs->map},
- :captured-at "2026-07-27T06:23:32Z"}
+ :captured-at "2026-07-28T06:07:57Z"}
