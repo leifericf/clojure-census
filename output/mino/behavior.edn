@@ -1,5 +1,5 @@
 {:dialect-tag "mino",
- :run-at "2026-08-10T06:08:16Z",
+ :run-at "2026-08-11T05:50:37Z",
  :totals
  {:match 9, :mismatch 1, :divergent-as-expected 12, :skipped 0},
  :parities
@@ -8,7 +8,7 @@
    :oracle
    {:status :value,
     :value {:clj-census/opaque "class java.lang.String"},
-    :elapsed-ms 2},
+    :elapsed-ms 1},
    :dialect {:status :value, :value :string, :elapsed-ms 0},
    :verdict :divergent-as-expected,
    :reason "predicate :keyword-vs-class matched",
@@ -42,35 +42,35 @@
    "divergence declared :keyword-vs-class but predicate did not match"}
   {:case-id :compare/strings-positive,
    :var clojure.core/compare,
-   :oracle {:status :value, :value 25, :elapsed-ms 2},
+   :oracle {:status :value, :value 25, :elapsed-ms 1},
    :dialect {:status :value, :value 1, :elapsed-ms 0},
    :verdict :divergent-as-expected,
    :reason "predicate :sign-normalized matched",
    :divergence-id :compare-sign-normalized}
   {:case-id :compare/strings-negative,
    :var clojure.core/compare,
-   :oracle {:status :value, :value -25, :elapsed-ms 3},
+   :oracle {:status :value, :value -25, :elapsed-ms 1},
    :dialect {:status :value, :value -1, :elapsed-ms 0},
    :verdict :divergent-as-expected,
    :reason "predicate :sign-normalized matched",
    :divergence-id :compare-sign-normalized}
   {:case-id :compare/strings-equal,
    :var clojure.core/compare,
-   :oracle {:status :value, :value 0, :elapsed-ms 3},
+   :oracle {:status :value, :value 0, :elapsed-ms 1},
    :dialect {:status :value, :value 0, :elapsed-ms 0},
    :verdict :divergent-as-expected,
    :reason "predicate :sign-normalized matched",
    :divergence-id :compare-sign-normalized}
   {:case-id :compare/numbers-ascending,
    :var clojure.core/compare,
-   :oracle {:status :value, :value -1, :elapsed-ms 2},
-   :dialect {:status :value, :value -1, :elapsed-ms 0},
+   :oracle {:status :value, :value -1, :elapsed-ms 1},
+   :dialect {:status :value, :value -1, :elapsed-ms 1},
    :verdict :divergent-as-expected,
    :reason "predicate :sign-normalized matched",
    :divergence-id :compare-sign-normalized}
   {:case-id :compare/numbers-equal,
    :var clojure.core/compare,
-   :oracle {:status :value, :value 0, :elapsed-ms 2},
+   :oracle {:status :value, :value 0, :elapsed-ms 1},
    :dialect {:status :value, :value 0, :elapsed-ms 0},
    :verdict :divergent-as-expected,
    :reason "predicate :sign-normalized matched",
@@ -84,7 +84,7 @@
   {:case-id :plus/single-positive,
    :var clojure.core/+,
    :oracle {:status :value, :value 5, :elapsed-ms 1},
-   :dialect {:status :value, :value 5, :elapsed-ms 1},
+   :dialect {:status :value, :value 5, :elapsed-ms 0},
    :verdict :match,
    :reason "values equivalent"}
   {:case-id :plus/two-positive,
@@ -95,19 +95,19 @@
    :reason "values equivalent"}
   {:case-id :plus/with-negative,
    :var clojure.core/+,
-   :oracle {:status :value, :value 3, :elapsed-ms 2},
-   :dialect {:status :value, :value 3, :elapsed-ms 1},
+   :oracle {:status :value, :value 3, :elapsed-ms 1},
+   :dialect {:status :value, :value 3, :elapsed-ms 0},
    :verdict :match,
    :reason "values equivalent"}
   {:case-id :plus/varargs,
    :var clojure.core/+,
-   :oracle {:status :value, :value 15, :elapsed-ms 3},
+   :oracle {:status :value, :value 15, :elapsed-ms 1},
    :dialect {:status :value, :value 15, :elapsed-ms 0},
    :verdict :match,
    :reason "values equivalent"}
   {:case-id :sort/numbers-ascending,
    :var clojure.core/sort,
-   :oracle {:status :value, :value [1 1 2 3 4 5 6 9], :elapsed-ms 3},
+   :oracle {:status :value, :value [1 1 2 3 4 5 6 9], :elapsed-ms 2},
    :dialect {:status :value, :value [1 1 2 3 4 5 6 9], :elapsed-ms 1},
    :verdict :match,
    :reason "values equivalent"}
@@ -121,7 +121,7 @@
    :reason "values equivalent"}
   {:case-id :sort/with-comparator-descending,
    :var clojure.core/sort,
-   :oracle {:status :value, :value [4 3 2 1], :elapsed-ms 3},
+   :oracle {:status :value, :value [4 3 2 1], :elapsed-ms 1},
    :dialect {:status :value, :value [4 3 2 1], :elapsed-ms 1},
    :verdict :match,
    :reason "values equivalent"}
@@ -136,7 +136,7 @@
    :oracle
    {:status :value,
     :value {:clj-census/opaque "class java.lang.String"},
-    :elapsed-ms 2},
+    :elapsed-ms 0},
    :dialect {:status :value, :value :string, :elapsed-ms 0},
    :verdict :divergent-as-expected,
    :reason "predicate :keyword-vs-class matched",
@@ -157,7 +157,7 @@
    {:status :value,
     :value {:clj-census/opaque "class clojure.lang.Keyword"},
     :elapsed-ms 1},
-   :dialect {:status :value, :value :keyword, :elapsed-ms 1},
+   :dialect {:status :value, :value :keyword, :elapsed-ms 0},
    :verdict :divergent-as-expected,
    :reason "predicate :keyword-vs-class matched",
    :divergence-id :type-as-keyword}
@@ -167,7 +167,7 @@
    {:status :value,
     :value {:clj-census/opaque "class clojure.lang.PersistentVector"},
     :elapsed-ms 1},
-   :dialect {:status :value, :value :vector, :elapsed-ms 1},
+   :dialect {:status :value, :value :vector, :elapsed-ms 0},
    :verdict :divergent-as-expected,
    :reason "predicate :keyword-vs-class matched",
    :divergence-id :type-as-keyword}]}
