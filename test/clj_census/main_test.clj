@@ -42,7 +42,7 @@
       (is (= "/tmp/home" (:home ctx))))))
 
 (deftest known-subcommands
-  (is (= #{"validate-data" "dump" "diff" "render" "behavior" "all" "help"}
+  (is (= #{"validate-data" "dump" "diff" "render" "behavior" "payload" "all" "help"}
          (set (keys main/dispatch-table)))))
 
 (deftest help-prints-usage

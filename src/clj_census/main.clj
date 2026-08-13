@@ -32,6 +32,7 @@
             [clj-census.extension  :as extension]
             [clj-census.history    :as history]
             [clj-census.parity     :as parity]
+            [clj-census.site-payload :as site-payload]
             [clj-census.store      :as store]
             [clj-census.surface    :as surface]))
 
@@ -47,6 +48,7 @@
 (defn prev-surface-path    [tag] (p "output" tag "surface.prev.edn"))
 (defn dashboard-edn-path   [tag] (p "output" tag "dashboard.edn"))
 (defn badge-json-path      [tag] (p "output" tag "badge.json"))
+(defn site-payload-path    [tag] (p "output" tag "site_payload.edn"))
 (defn behavior-output-path [tag] (p "output" tag "behavior.edn"))
 (defn history-dir-path     [tag] (p "output" tag "history"))
 
@@ -161,6 +163,17 @@
       (load-edn-validated path #(extension/validate! % cats))
       [])))
 
+(defn- load-missing-reasons
+  "Load data/<dialect>/missing_reasons.edn if it exists, else nil.
+  The file classifies each missing-from-Clojure var as :jvm-bound
+  (intentionally absent) or :gap (genuinely missing)."
+  [cfg]
+  (let [path (str (:data-dir cfg) "/missing_reasons.edn")]
+    (when (.exists (io/file path))
+      (let [data (store/slurp-edn path)]
+        (site-payload/validate-missing-reasons! data)
+        data))))
+
 (defn- load-behavior-catalog
   "Walk `<root>/data/behavior/**/*.edn` and return one validated flat
   vector of cases. Returns `[]` when the directory does not exist.
@@ -216,6 +229,9 @@
 
 (defn- write-badge! [path badge]
   (store/spit-json! path badge))
+
+(defn- write-site-payload! [path bundle missing-reasons]
+  (store/spit-edn! path (site-payload/render bundle missing-reasons)))
 
 (defn- write-history-snapshot! [dir snapshot]
   (history/validate-snapshot! snapshot)
@@ -404,6 +420,7 @@
         prev-s       (load-prev-surface tag)
         divs         (load-divergences cfg cats)
         exts         (load-extensions  cfg cats)
+        missing-r    (load-missing-reasons cfg)
         {:keys [comparison coverage]}
         (compare-loaded spec reference-s dialect-s)
         prior        (load-history (history-dir-path tag))
@@ -439,6 +456,8 @@
                         {:dialect-tag tag
                          :headline    (:headline coverage)}))
     (write-history-snapshot! (history-dir-path tag) snap)
+    (when missing-r
+      (write-site-payload! (site-payload-path tag) bundle missing-r))
     (println "diff:" tag "→"
              (coverage/percent-as-pct-string
                (get-in coverage [:headline :percent])))
@@ -458,6 +477,7 @@
         dialect-s   (load-surface (surface-output-path tag))
         divs        (load-divergences cfg cats)
         exts        (load-extensions  cfg cats)
+        missing-r   (load-missing-reasons cfg)
         {:keys [comparison coverage]}
         (compare-loaded spec reference-s dialect-s)
         behavior-r  (load-behavior tag)
@@ -470,12 +490,14 @@
                                :clojure-spec   spec
                                :dialect-config cfg
                                :history        (load-history (history-dir-path tag))}
-                        behavior-r (assoc :behavior behavior-r)))]
+                         behavior-r (assoc :behavior behavior-r)))]
     (write-dashboard! (dashboard-edn-path tag) bundle)
     (write-badge!     (badge-json-path tag)
                       (badge/endpoint
                         {:dialect-tag tag
                          :headline    (:headline coverage)}))
+    (when missing-r
+      (write-site-payload! (site-payload-path tag) bundle missing-r))
     (println "render:" tag "→"
              (coverage/percent-as-pct-string
                (get-in coverage [:headline :percent])))
@@ -539,6 +561,38 @@
   (let [_ (subcmd-dump ctx args)]
     (subcmd-diff ctx args)))
 
+(defn- subcmd-payload
+  "_ctx [tag]"
+  [_ctx [tag :as _args]]
+  (let [cfg         (load-dialect tag)
+        cats        (load-categories)
+        spec        (load-reference)
+        reference-s (load-reference-surface spec)
+        dialect-s   (load-surface (surface-output-path tag))
+        divs        (load-divergences cfg cats)
+        exts        (load-extensions  cfg cats)
+        missing-r   (load-missing-reasons cfg)
+        {:keys [comparison coverage]}
+        (compare-loaded spec reference-s dialect-s)
+        bundle      (bundle/build
+                      {:comparison     comparison
+                       :coverage       coverage
+                       :divergences    divs
+                       :extensions     exts
+                       :categories     cats
+                       :clojure-spec   spec
+                       :dialect-config cfg})]
+    (if-not missing-r
+      (do (println "payload:" tag "-> no missing_reasons.edn found")
+          1)
+      (do (write-site-payload! (site-payload-path tag) bundle missing-r)
+          (println "payload:" tag "->" (site-payload-path tag))
+          (println "  divergences:" (count divs))
+          (println "  missing:    "
+                   (get-in (site-payload/render bundle missing-r)
+                           [:missing :count]))
+          0))))
+
 (defn- subcmd-help
   [_ctx _args]
   (println "Usage: clojure -M:run <subcommand> [args]")
@@ -549,6 +603,7 @@
   (println "  diff <dialect>        produce the dashboard for a dialect")
   (println "  render <dialect>      re-render from saved surfaces")
   (println "  behavior <dialect>    evaluate the behavior catalog")
+  (println "  payload <dialect>    emit the site-render payload EDN")
   (println "  all <dialect>         dump + diff combined")
   (println "  help                  this message")
   0)
@@ -559,6 +614,7 @@
    "diff"          {:fn subcmd-diff}
    "render"        {:fn subcmd-render}
    "behavior"      {:fn subcmd-behavior}
+   "payload"       {:fn subcmd-payload}
    "all"           {:fn subcmd-all}
    "help"          {:fn subcmd-help}})
 

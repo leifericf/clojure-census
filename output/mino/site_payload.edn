@@ -1,0 +1,1010 @@
+{:schema-version 1,
+ :meta
+ {:dialect-tag "mino",
+  :dialect-name "mino",
+  :clojure-version "1.12.4",
+  :compared-at "2026-08-13T04:38:08Z"},
+ :coverage
+ {:headline
+  {:in-both-count 904,
+   :clojure-total 995,
+   :percent 0.9085427135678392},
+  :per-namespace
+  {clojure.spec.alpha
+   {:in-both-count 87, :clojure-total 87, :percent 1.0},
+   clojure.datafy {:in-both-count 2, :clojure-total 2, :percent 1.0},
+   clojure.zip {:in-both-count 28, :clojure-total 28, :percent 1.0},
+   clojure.core.reducers
+   {:in-both-count 19, :clojure-total 21, :percent 0.9047619047619048},
+   clojure.test {:in-both-count 39, :clojure-total 39, :percent 1.0},
+   clojure.core.protocols
+   {:in-both-count 10, :clojure-total 11, :percent 0.9090909090909091},
+   clojure.core
+   {:in-both-count 593,
+    :clojure-total 679,
+    :percent 0.8733431516936672},
+   clojure.set {:in-both-count 12, :clojure-total 12, :percent 1.0},
+   clojure.pprint {:in-both-count 26, :clojure-total 26, :percent 1.0},
+   clojure.math {:in-both-count 45, :clojure-total 45, :percent 1.0},
+   clojure.edn {:in-both-count 2, :clojure-total 2, :percent 1.0},
+   clojure.instant {:in-both-count 3, :clojure-total 5, :percent 0.6},
+   clojure.string {:in-both-count 21, :clojure-total 21, :percent 1.0},
+   clojure.data {:in-both-count 5, :clojure-total 5, :percent 1.0},
+   clojure.walk {:in-both-count 10, :clojure-total 10, :percent 1.0},
+   clojure.template
+   {:in-both-count 2, :clojure-total 2, :percent 1.0}}},
+ :divergences
+ [{:category
+   {:id :ordering,
+    :title "Ordering & comparison",
+    :description "How sort, compare, and ordered iteration work."},
+   :dialect-example "(compare \"z\" \"a\") ;=> 1",
+   :since "v0.1.0",
+   :affected [clojure.core/compare],
+   :clojure-example "(compare \"z\" \"a\") ;=> 25",
+   :behavior
+   {:expectation :diverges,
+    :predicate :sign-normalized,
+    :note
+    "Same sign as JVM compare; magnitude\n                                  collapsed to -1/0/1."},
+   :title "compare returns sign-only (-1, 0, 1)",
+   :doc-link "/coming-from-clojure#ordering",
+   :rationale
+   "Hickey-test for what compare's contract is: a\n                    three-way ordering function. Sign-normalized\n                    return values are simpler and avoid leaking\n                    representation-specific deltas.",
+   :id :compare-sign-normalized}
+  {:id :one-integer-tier,
+   :title "Single integer type -- no Long/Integer/Short distinction",
+   :rationale
+   "mino has no JVM types; one integer representation\n                    suffices. Promotion within the integer tier never\n                    happens because there is only one tier.",
+   :since "v0.1.0",
+   :affected
+   [clojure.core/integer? clojure.core/int? clojure.core/long],
+   :category
+   {:id :numeric-tower,
+    :title "Numeric tower",
+    :description "Integer tiers, ratio promotion, float precision."}}
+  {:id :double-float32-distinct,
+   :title "Float-32 is a distinct numeric type",
+   :rationale
+   "mino exposes a 32-bit float-tagged value for\n                    space-constrained embedded use; Clojure (JVM) collapses\n                    to Double.",
+   :since "v0.1.0",
+   :doc-link "/coming-from-clojure#numeric",
+   :category
+   {:id :numeric-tower,
+    :title "Numeric tower",
+    :description "Integer tiers, ratio promotion, float precision."}}
+  {:category
+   {:id :type-system,
+    :title "Type-system representation",
+    :description
+    "How type, class, and dispatch report a value's kind."},
+   :dialect-example "(type [1 2 3]) ;=> :vector",
+   :since "v0.1.0",
+   :affected [clojure.core/type clojure.core/class],
+   :clojure-example "(type [1 2 3]) ;=> clojure.lang.PersistentVector",
+   :behavior
+   {:expectation :diverges,
+    :predicate :keyword-vs-class,
+    :note
+    "Oracle returns a Class object; mino\n                                  returns the analogous keyword tag."},
+   :title "type returns a keyword, not a Java class",
+   :doc-link "/coming-from-clojure#types",
+   :rationale
+   "No JVM classes. mino's type system is keyword-\n                    tagged (:vector, :map, :list, :symbol, ...).\n                    type reports the concrete tag and, unlike class,\n                    honours :type metadata when present. Dispatch\n                    logic that pattern-matches on classes must use\n                    the keyword tags instead.",
+   :id :type-as-keyword}
+  {:category
+   {:id :type-system,
+    :title "Type-system representation",
+    :description
+    "How type, class, and dispatch report a value's kind."},
+   :dialect-example "(class nil) ;=> nil, (class [1 2 3]) ;=> :vector",
+   :since "v0.1.0",
+   :affected [clojure.core/class],
+   :clojure-example
+   "(class nil) ;=> nil, (class [1 2 3]) ;=> clojure.lang.PersistentVector",
+   :behavior
+   {:expectation :diverges,
+    :predicate :keyword-vs-class,
+    :note
+    "nil yields nil (a true match); other\n                                  values yield the analogous keyword\n                                  or record-type symbol where the\n                                  oracle returns a Class object."},
+   :title "class is a concrete-tag function, not a JVM class",
+   :rationale
+   "There are no JVM classes, so class is a real\n                    concrete-tag function rather than an alias of\n                    type: nil yields nil, a record yields the\n                    record's type symbol, and every other value\n                    yields its type keyword. class ignores :type\n                    metadata, which is what distinguishes it from\n                    type. Code that branches on a host Class must use\n                    the keyword/symbol tags instead.",
+   :id :class-of-non-jvm}
+  {:category
+   {:id :error-messages,
+    :title "Error message shapes",
+    :description "Exception types, ex-data shapes, message phrasing."},
+   :since "v0.1.0",
+   :affected
+   [clojure.core/ex-info
+    clojure.core/ex-data
+    clojure.core/ex-message
+    clojure.core/ex-cause],
+   :behavior
+   {:expectation :skip,
+    :note
+    "Exception type/message comparison is\n                                  out of scope per the README's\n                                  error-message exclusion."},
+   :title "ex-info / throw use mino-native exception type",
+   :doc-link "/coming-from-clojure#exceptions",
+   :rationale
+   "No JVM Throwable. mino's exception type is its\n                    own runtime value with :message and :data fields;\n                    instance checks via clojure.lang.ExceptionInfo do\n                    not work.",
+   :id :ex-info-no-jvm-throwable-hierarchy}
+  {:id :no-jvm-class-statics,
+   :title "Integer/MAX_VALUE etc. remapped or absent",
+   :rationale
+   "mino exposes a curated subset of JVM-static-name\n                    values (Integer/toBinaryString, Long/toHexString,\n                    ...) for Clojure code that depends on\n                    them. Most are absent.",
+   :since "v0.1.0",
+   :doc-link "/coming-from-clojure#jvm-statics",
+   :category
+   {:id :jvm-statics,
+    :title "JVM-static value remap",
+    :description
+    "JVM-only statics remapped to dialect-native equivalents."}}
+  {:id :concurrency-no-jvm-threads,
+   :title "Atoms, refs, futures, agents have alpha-quality",
+   :rationale
+   "mino runs single-threaded in the embedded host;\n                    concurrency primitives are present but the\n                    underlying execution model is cooperative, not\n                    preemptive.",
+   :since "v0.1.0",
+   :affected
+   [clojure.core/future
+    clojure.core/agent
+    clojure.core/send
+    clojure.core/send-off],
+   :doc-link "/coming-from-clojure#concurrency",
+   :category
+   {:id :concurrency,
+    :title "Concurrency primitives",
+    :description "Atoms, refs, agents, futures, core.async behavior."}}
+  {:category
+   {:id :reader,
+    :title "Reader behavior",
+    :description
+    "Reader macros, literal forms, source-meta attachment."},
+   :dialect-example "#?(:clj :A :mino :B :default :C) ;=> :B",
+   :since "v0.1.0",
+   :clojure-example "#?(:clj :A :mino :B :default :C) ;=> :A",
+   :title "Reader conditional :clj does not fire under mino",
+   :doc-link "/coming-from-clojure#reader-conditionals",
+   :rationale
+   "mino is not JVM Clojure; portable code must use\n                    :default or :mino to target it. Documented and\n                    intentional.",
+   :id :no-reader-conditional-clj}
+  {:id :keyword-namespaces-canonicalized,
+   :title "Namespaced keyword aliasing uses runtime aliases",
+   :rationale
+   "::alias/kw is resolved at read time against the\n                    current ns's aliases -- same as JVM Clojure, but\n                    mino's reader does not have access to the JVM\n                    classloader hierarchy.",
+   :since "v0.1.0",
+   :category
+   {:id :namespaces,
+    :title "Namespace mechanics",
+    :description
+    "ns, require, refer, alias, var resolution semantics."}}
+  {:id :file-line-meta-source-aware,
+   :title "Reader-tracked :file may be relative or absolute",
+   :rationale
+   "mino's reader records the path as the embedder\n                    passed it; JVM Clojure normalizes to classpath-\n                    relative. Tools that compare :file values must\n                    accept either.",
+   :since "v0.1.0",
+   :category
+   {:id :metadata,
+    :title "Metadata propagation",
+    :description
+    "Where reader attaches meta and which ops preserve it."}}
+  {:id :pprint-minimal,
+   :title "pprint is minimal -- no cl-format directives",
+   :rationale
+   "mino's clojure.pprint supports pretty-printing\n                    basic forms; cl-format and table directives are\n                    not implemented. Targets the common case.",
+   :since "v0.1.0",
+   :affected [clojure.pprint/cl-format clojure.pprint/print-table],
+   :doc-link "/coming-from-clojure#pprint",
+   :category
+   {:id :printer,
+    :title "Printer behavior",
+    :description
+    "pr-str output for various values and dynamic-var states."}}
+  {:id :spec-gen-minimal,
+   :title "clojure.spec generators ship as separate primitives",
+   :rationale
+   "mino's spec.alpha implements the documented\n                    surface; clojure.spec.gen.alpha is partially\n                    present and may diverge from clojure.test.check\n                    behavior on edge cases.",
+   :since "v0.1.0",
+   :doc-link "/coming-from-clojure#spec",
+   :category
+   {:id :collections,
+    :title "Collection semantics",
+    :description
+    "Iteration order, equality, hash, structural sharing."}}
+  {:id :no-jvm-reflection,
+   :title "No clojure.reflect -- JVM-only",
+   :rationale
+   "Reflection is meaningless without a JVM. mino's\n                    introspection uses ns-publics + meta, not class\n                    inspection.",
+   :since "v0.1.0",
+   :category
+   {:id :jvm-statics,
+    :title "JVM-static value remap",
+    :description
+    "JVM-only statics remapped to dialect-native equivalents."}}
+  {:id :record-no-host-class,
+   :title "defrecord types are not Java classes",
+   :rationale
+   "mino's records carry identity, field slots, and a\n                    type keyword -- no host-level class is generated.\n                    instance? on a record uses the type keyword as\n                    its discriminator.",
+   :since "v0.1.0",
+   :affected [clojure.core/defrecord clojure.core/instance?],
+   :category
+   {:id :type-system,
+    :title "Type-system representation",
+    :description
+    "How type, class, and dispatch report a value's kind."}}
+  {:id :proxy-not-implemented,
+   :title "proxy is not provided",
+   :rationale
+   "proxy generates a JVM class -- no equivalent in\n                    mino. defrecord + protocols cover the same use\n                    case in a host-portable way.",
+   :since "v0.1.0",
+   :affected [clojure.core/proxy],
+   :category
+   {:id :jvm-statics,
+    :title "JVM-static value remap",
+    :description
+    "JVM-only statics remapped to dialect-native equivalents."}}
+  {:id :gen-class-not-implemented,
+   :title "gen-class is not provided",
+   :rationale
+   "gen-class emits JVM bytecode. mino has no Java\n                    interop layer.",
+   :since "v0.1.0",
+   :affected [clojure.core/gen-class],
+   :category
+   {:id :jvm-statics,
+    :title "JVM-static value remap",
+    :description
+    "JVM-only statics remapped to dialect-native equivalents."}}
+  {:id :deftype-record-only,
+   :title "deftype is an alias for defrecord without map-like ops",
+   :rationale
+   "deftype's volatile-field and interface-impl\n                    features depend on JVM semantics. mino provides\n                    deftype as a structural type carrier; the JVM-\n                    only knobs are no-ops.",
+   :since "v0.1.0",
+   :affected [clojure.core/deftype],
+   :category
+   {:id :type-system,
+    :title "Type-system representation",
+    :description
+    "How type, class, and dispatch report a value's kind."}}
+  {:id :transit-not-bundled,
+   :title "transit reader/writer are not bundled",
+   :rationale
+   "Transit is a JVM artifact in Clojure (JVM) distributions;\n                    mino does not bundle it. EDN remains the wire\n                    format.",
+   :since "v0.1.0",
+   :category
+   {:id :collections,
+    :title "Collection semantics",
+    :description
+    "Iteration order, equality, hash, structural sharing."}}
+  {:id :clojure-java-io-absent,
+   :title "clojure.java.io namespace is intentionally absent",
+   :rationale
+   "mino's host I/O is exposed via mino-native\n                    primitives that do not match File / InputStream\n                    abstractions. clojure.java.io is excluded from\n                    parity comparison.",
+   :since "v0.1.0",
+   :category
+   {:id :jvm-statics,
+    :title "JVM-static value remap",
+    :description
+    "JVM-only statics remapped to dialect-native equivalents."}}
+  {:id :sorted-coll-comparator-default,
+   :title "sorted-map default comparator does not handle mixed types",
+   :rationale
+   "Cross-type comparison was closed in v0.98; mixed-\n                    type sorted-map keys without an explicit comparator\n                    may throw rather than coerce.",
+   :since "v0.98.0",
+   :affected [clojure.core/sorted-map clojure.core/sorted-set],
+   :doc-link "/coming-from-clojure#ordering",
+   :category
+   {:id :ordering,
+    :title "Ordering & comparison",
+    :description "How sort, compare, and ordered iteration work."}}
+  {:id :equality-default-strict,
+   :title "= on cross-type numbers follows Clojure (JVM), not JVM =",
+   :rationale
+   "= remains a value-equality predicate; numeric\n                    equality across float / int is what Clojure (JVM)\n                    specifies, not JVM-Object-equality.",
+   :since "v0.1.0",
+   :affected [clojure.core/=],
+   :category
+   {:id :numeric-tower,
+    :title "Numeric tower",
+    :description "Integer tiers, ratio promotion, float precision."}}
+  {:id :iterate-chunking,
+   :title "Sequence chunking is deterministic but not always 32",
+   :rationale
+   "Lazy realization batch size is implementation-\n                    defined in Clojure (JVM); mino picks sizes that suit the\n                    embedded use case. Code that depends on exact\n                    chunk boundaries is non-portable in Clojure (JVM) too.",
+   :since "v0.1.0",
+   :category
+   {:id :collections,
+    :title "Collection semantics",
+    :description
+    "Iteration order, equality, hash, structural sharing."}}
+  {:id :namespaced-map-default-true,
+   :title "CLI default for *print-namespace-maps* is true",
+   :rationale
+   "mino's CLI alters the var-root to true on startup\n                    so user-facing prints collapse qualified-key maps.\n                    bb and JVM Clojure do the same; library use sees\n                    the documented false default.",
+   :since "v0.422.0",
+   :affected [clojure.core/*print-namespace-maps*],
+   :category
+   {:id :printer,
+    :title "Printer behavior",
+    :description
+    "pr-str output for various values and dynamic-var states."}}
+  {:id :reader-list-attaches-meta,
+   :title "Reader attaches {:line :column} to lists only",
+   :rationale
+   "mino mirrors JVM Clojure: per-cons reader meta is\n                    accessible through meta; literal vectors/maps/sets\n                    receive no per-instance reader meta.",
+   :since "v0.422.0",
+   :doc-link "/coming-from-clojure#metadata",
+   :category
+   {:id :metadata,
+    :title "Metadata propagation",
+    :description
+    "Where reader attaches meta and which ops preserve it."}}
+  {:id :error-message-text-may-differ,
+   :title "Error messages and ex-info keys may differ",
+   :rationale
+   "Exception text is implementation-defined in\n                    Clojure (JVM). mino's messages aim to be informative but\n                    are not byte-for-byte JVM-Clojure-compatible. Use\n                    ex-data / ex-cause / category keys to dispatch.",
+   :since "v0.1.0",
+   :category
+   {:id :error-messages,
+    :title "Error message shapes",
+    :description "Exception types, ex-data shapes, message phrasing."}}
+  {:id :no-clojure-repl,
+   :title "clojure.repl is intentionally absent",
+   :rationale
+   "Repl support is environment-bound and uses\n                    embedder-specific input/output. doc, source,\n                    apropos are exposed at the CLI rather than in\n                    a namespace.",
+   :since "v0.1.0",
+   :category
+   {:id :jvm-statics,
+    :title "JVM-static value remap",
+    :description
+    "JVM-only statics remapped to dialect-native equivalents."}}
+  {:category
+   {:id :numeric-tower,
+    :title "Numeric tower",
+    :description "Integer tiers, ratio promotion, float precision."},
+   :dialect-example
+   "(s/valid? (s/double-in :min 0.0 :max 1.0) ##NaN) ;=> false",
+   :since "unreleased",
+   :affected [clojure.spec.alpha/double-in],
+   :clojure-example
+   "(s/valid? (s/double-in :min 0.0 :max 1.0) ##NaN) ;=> true",
+   :title "s/double-in rejects NaN and infinity unless opted in",
+   :rationale
+   "A plain range spec admitting NaN and infinity by\n                    default is a silent-surprise trap; mino defaults\n                    :NaN? and :infinite? to false so out-of-range\n                    non-finite doubles fail validation unless the\n                    spec opts in. Canon defaults both to true.",
+   :id :double-in-strict-defaults}
+  {:category
+   {:id :metadata,
+    :title "Metadata propagation",
+    :description
+    "Where reader attaches meta and which ops preserve it."},
+   :dialect-example "(:dynamic (meta (resolve 'pr))) ;=> nil",
+   :since "v0.1.0",
+   :affected [clojure.core/pr clojure.core/*clojure-version*],
+   :clojure-example "(:dynamic (meta (resolve 'pr))) ;=> true",
+   :title "pr and *clojure-version* do not carry :dynamic metadata",
+   :rationale
+   "On the JVM these two are marked dynamic for\n                    host-historical reasons (pprint-era rebinding and\n                    a version map nobody rebinds). mino does not\n                    inherit the wart; neither var is rebindable and\n                    neither claims to be.",
+   :id :print-vars-not-dynamic}
+  {:category
+   {:id :error-messages,
+    :title "Error message shapes",
+    :description "Exception types, ex-data shapes, message phrasing."},
+   :dialect-example "(:trace (Throwable->map e)) ;=> []",
+   :since "unreleased",
+   :affected [clojure.core/Throwable->map],
+   :clojure-example
+   "(:trace (Throwable->map e)) ;=> [[clazz method file line] ...]",
+   :title "Throwable->map returns an empty :trace vector",
+   :rationale
+   "mino error values carry no stack frames, so the\n                    canon map shape is preserved (:cause :data :via\n                    :trace) with :trace always []. Code that walks\n                    :via and :cause ports unchanged; frame-inspecting\n                    code finds an empty vector, not a missing key.",
+   :id :throwable-map-empty-trace}
+  {:id :no-primitive-arrays,
+   :title "Primitive-array and gvec machinery is absent",
+   :rationale
+   "mino has no JVM primitive arrays. The array\n                    constructors, mutators, coercions, and the gvec\n                    (vector-of) backing types front java[] storage\n                    that does not exist here; persistent vectors and\n                    maps cover the same use cases host-portably.",
+   :since "v0.1.0",
+   :affected
+   [clojure.core/aclone
+    clojure.core/amap
+    clojure.core/areduce
+    clojure.core/aset-boolean
+    clojure.core/aset-byte
+    clojure.core/aset-char
+    clojure.core/aset-double
+    clojure.core/aset-float
+    clojure.core/aset-int
+    clojure.core/aset-long
+    clojure.core/aset-short
+    clojure.core/booleans
+    clojure.core/bytes
+    clojure.core/chars
+    clojure.core/shorts
+    clojure.core/ints
+    clojure.core/longs
+    clojure.core/floats
+    clojure.core/doubles
+    clojure.core/make-array
+    clojure.core/to-array-2d
+    clojure.core/vector-of
+    clojure.core/->ArrayChunk
+    clojure.core/->Vec
+    clojure.core/->VecNode
+    clojure.core/->VecSeq
+    clojure.core/EMPTY-NODE
+    clojure.core/primitives-classnames],
+   :category
+   {:id :jvm-statics,
+    :title "JVM-static value remap",
+    :description
+    "JVM-only statics remapped to dialect-native equivalents."}}
+  {:id :no-proxy-struct-machinery,
+   :title "proxy / struct class-generation helpers are absent",
+   :rationale
+   "construct-proxy, the proxy-* helpers, gen-interface,\n                    and the struct family all generate or manipulate\n                    JVM classes and struct-maps. mino has no host class\n                    layer; defrecord plus protocols cover the same\n                    ground host-portably.",
+   :since "v0.1.0",
+   :affected
+   [clojure.core/construct-proxy
+    clojure.core/get-proxy-class
+    clojure.core/init-proxy
+    clojure.core/update-proxy
+    clojure.core/proxy-call-with-super
+    clojure.core/proxy-mappings
+    clojure.core/proxy-name
+    clojure.core/proxy-super
+    clojure.core/gen-interface
+    clojure.core/create-struct
+    clojure.core/defstruct
+    clojure.core/struct
+    clojure.core/struct-map],
+   :category
+   {:id :jvm-statics,
+    :title "JVM-static value remap",
+    :description
+    "JVM-only statics remapped to dialect-native equivalents."}}
+  {:id :no-classloader-compiler,
+   :title "Classloader and compiler controls are absent",
+   :rationale
+   "mino has no JVM classloader hierarchy or bytecode\n                    compiler, so the vars and functions that drive\n                    them have nothing to bind or call. Loading is\n                    handled by mino-native primitives instead.",
+   :since "v0.1.0",
+   :affected
+   [clojure.core/*compiler-options*
+    clojure.core/*fn-loader*
+    clojure.core/*use-context-classloader*
+    clojure.core/*reader-resolver*
+    clojure.core/*allow-unresolved-vars*
+    clojure.core/*verbose-defrecords*
+    clojure.core/*suppress-read*
+    clojure.core/add-classpath
+    clojure.core/compile
+    clojure.core/load
+    clojure.core/load-reader
+    clojure.core/with-loading-context
+    clojure.core/definline],
+   :category
+   {:id :jvm-statics,
+    :title "JVM-static value remap",
+    :description
+    "JVM-only statics remapped to dialect-native equivalents."}}
+  {:id :no-host-bridges,
+   :title "Java host-interop bridges are absent",
+   :rationale
+   "These vars bridge into the Java host -- class\n                    hierarchy queries, bean reflection, the .. and\n                    memfn interop sugar, host iterator/enumeration and\n                    JDK-stream adapters, and the class? predicate.\n                    Without a JVM there is nothing to bridge to.",
+   :since "v0.1.0",
+   :affected
+   [clojure.core/bases
+    clojure.core/supers
+    clojure.core/cast
+    clojure.core/class?
+    clojure.core/bean
+    clojure.core/enumeration-seq
+    clojure.core/iterator-seq
+    clojure.core/resultset-seq
+    clojure.core/PrintWriter-on
+    clojure.core/StackTraceElement->vec
+    clojure.core/method-sig
+    clojure.core/accessor
+    clojure.core/..
+    clojure.core/memfn
+    clojure.core/stream-into!
+    clojure.core/stream-reduce!
+    clojure.core/stream-seq!
+    clojure.core/stream-transduce!],
+   :category
+   {:id :jvm-statics,
+    :title "JVM-static value remap",
+    :description
+    "JVM-only statics remapped to dialect-native equivalents."}}
+  {:id :no-agent-executors,
+   :title "Agent ForkJoin-executor controls are absent",
+   :rationale
+   "mino's agents run on a cooperative single-threaded\n                    model, so the JVM ForkJoin send-executor controls\n                    and agent-error inspection vars have no backing\n                    thread pool to configure.",
+   :since "v0.1.0",
+   :affected
+   [clojure.core/agent-errors
+    clojure.core/await1
+    clojure.core/clear-agent-errors
+    clojure.core/set-agent-send-executor!
+    clojure.core/set-agent-send-off-executor!],
+   :category
+   {:id :concurrency,
+    :title "Concurrency primitives",
+    :description "Atoms, refs, agents, futures, core.async behavior."}}
+  {:id :no-print-dup-machinery,
+   :title "print-dup / print-ctor are absent",
+   :rationale
+   "print-dup emits host-class-aware, read-eval-able\n                    forms keyed on Java types. mino prints EDN-readable\n                    forms through the ordinary printer; the print-dup\n                    dispatch and its print-ctor helper are not\n                    provided.",
+   :since "v0.1.0",
+   :affected [clojure.core/print-dup clojure.core/print-ctor],
+   :category
+   {:id :printer,
+    :title "Printer behavior",
+    :description
+    "pr-str output for various values and dynamic-var states."}}
+  {:id :no-host-name-munging,
+   :title "Host symbol-name munging is absent",
+   :rationale
+   "munge and namespace-munge encode Clojure names\n                    into JVM-legal class and member names. mino emits\n                    no host symbols, so the munging step has no\n                    purpose.",
+   :since "v0.1.0",
+   :affected [clojure.core/munge clojure.core/namespace-munge],
+   :category
+   {:id :jvm-statics,
+    :title "JVM-static value remap",
+    :description
+    "JVM-only statics remapped to dialect-native equivalents."}}
+  {:id :no-read-eval,
+   :title "*read-eval* is absent",
+   :rationale
+   "*read-eval* gates the JVM reader's #=() eval-on-read\n                    feature, which mino's reader does not provide; there\n                    is no host eval to guard, so the var is absent.",
+   :since "v0.1.0",
+   :affected [clojure.core/*read-eval*],
+   :category
+   {:id :jvm-statics,
+    :title "JVM-static value remap",
+    :description
+    "JVM-only statics remapped to dialect-native equivalents."}}
+  {:id :protocol-impl-internals,
+   :title "Protocol-dispatch implementation internals are absent",
+   :rationale
+   "These are private-ish JVM dispatch internals: the\n                    protocol-fn cache, method-reset, impl/method lookup\n                    over host classes, and the iterator reduce helper.\n                    mino dispatches protocols through its own\n                    atom-keyed mechanism and does not expose the JVM\n                    internals.",
+   :since "v0.1.0",
+   :affected
+   [clojure.core/-cache-protocol-fn
+    clojure.core/-reset-methods
+    clojure.core/find-protocol-impl
+    clojure.core/find-protocol-method
+    clojure.core.protocols/iterator-reduce!],
+   :category
+   {:id :type-system,
+    :title "Type-system representation",
+    :description
+    "How type, class, and dispatch report a value's kind."}}
+  {:id :no-reducers-forkjoin-pool,
+   :title "reducers ForkJoin task/pool entry points are absent",
+   :rationale
+   "clojure.core.reducers/fjtask and /pool front a JVM\n                    ForkJoinPool for parallel fold. mino has no\n                    ForkJoin runtime, so fold runs sequentially and the\n                    pool entry points are absent.",
+   :since "v0.1.0",
+   :affected [clojure.core.reducers/fjtask clojure.core.reducers/pool],
+   :category
+   {:id :concurrency,
+    :title "Concurrency primitives",
+    :description "Atoms, refs, agents, futures, core.async behavior."}}
+  {:id :no-instant-host-calendar,
+   :title "read-instant-calendar / -timestamp are absent",
+   :rationale
+   "These instant readers materialise java.util.Calendar\n                    and java.sql.Timestamp host values. mino has neither\n                    type; read-instant-date covers the portable case.",
+   :since "v0.1.0",
+   :affected
+   [clojure.instant/read-instant-calendar
+    clojure.instant/read-instant-timestamp],
+   :category
+   {:id :jvm-statics,
+    :title "JVM-static value remap",
+    :description
+    "JVM-only statics remapped to dialect-native equivalents."}}],
+ :missing
+ {:jvm-bound
+  [{:namespace clojure.core,
+    :var *allow-unresolved-vars*,
+    :reason
+    "JVM compiler, classloader, or Java-type machinery a host-free runtime cannot honor"}
+   {:namespace clojure.core,
+    :var *compiler-options*,
+    :reason
+    "JVM compiler, classloader, or Java-type machinery a host-free runtime cannot honor"}
+   {:namespace clojure.core,
+    :var *fn-loader*,
+    :reason
+    "JVM compiler, classloader, or Java-type machinery a host-free runtime cannot honor"}
+   {:namespace clojure.core,
+    :var *read-eval*,
+    :reason
+    "JVM compiler, classloader, or Java-type machinery a host-free runtime cannot honor"}
+   {:namespace clojure.core,
+    :var *reader-resolver*,
+    :reason
+    "JVM compiler, classloader, or Java-type machinery a host-free runtime cannot honor"}
+   {:namespace clojure.core,
+    :var *suppress-read*,
+    :reason
+    "JVM compiler, classloader, or Java-type machinery a host-free runtime cannot honor"}
+   {:namespace clojure.core,
+    :var *use-context-classloader*,
+    :reason
+    "JVM compiler, classloader, or Java-type machinery a host-free runtime cannot honor"}
+   {:namespace clojure.core,
+    :var *verbose-defrecords*,
+    :reason
+    "JVM compiler, classloader, or Java-type machinery a host-free runtime cannot honor"}
+   {:namespace clojure.core,
+    :var ->ArrayChunk,
+    :reason
+    "JVM compiler, classloader, or Java-type machinery a host-free runtime cannot honor"}
+   {:namespace clojure.core,
+    :var ->Vec,
+    :reason
+    "JVM compiler, classloader, or Java-type machinery a host-free runtime cannot honor"}
+   {:namespace clojure.core,
+    :var ->VecNode,
+    :reason
+    "JVM compiler, classloader, or Java-type machinery a host-free runtime cannot honor"}
+   {:namespace clojure.core,
+    :var ->VecSeq,
+    :reason
+    "JVM compiler, classloader, or Java-type machinery a host-free runtime cannot honor"}
+   {:namespace clojure.core,
+    :var -cache-protocol-fn,
+    :reason
+    "JVM compiler, classloader, or Java-type machinery a host-free runtime cannot honor"}
+   {:namespace clojure.core,
+    :var -reset-methods,
+    :reason
+    "JVM compiler, classloader, or Java-type machinery a host-free runtime cannot honor"}
+   {:namespace clojure.core,
+    :var ..,
+    :reason
+    "JVM compiler, classloader, or Java-type machinery a host-free runtime cannot honor"}
+   {:namespace clojure.core,
+    :var EMPTY-NODE,
+    :reason
+    "JVM compiler, classloader, or Java-type machinery a host-free runtime cannot honor"}
+   {:namespace clojure.core,
+    :var PrintWriter-on,
+    :reason
+    "JVM compiler, classloader, or Java-type machinery a host-free runtime cannot honor"}
+   {:namespace clojure.core,
+    :var StackTraceElement->vec,
+    :reason
+    "JVM compiler, classloader, or Java-type machinery a host-free runtime cannot honor"}
+   {:namespace clojure.core,
+    :var accessor,
+    :reason
+    "JVM compiler, classloader, or Java-type machinery a host-free runtime cannot honor"}
+   {:namespace clojure.core,
+    :var aclone,
+    :reason
+    "JVM compiler, classloader, or Java-type machinery a host-free runtime cannot honor"}
+   {:namespace clojure.core,
+    :var add-classpath,
+    :reason
+    "JVM compiler, classloader, or Java-type machinery a host-free runtime cannot honor"}
+   {:namespace clojure.core,
+    :var agent-errors,
+    :reason
+    "JVM compiler, classloader, or Java-type machinery a host-free runtime cannot honor"}
+   {:namespace clojure.core,
+    :var amap,
+    :reason
+    "JVM compiler, classloader, or Java-type machinery a host-free runtime cannot honor"}
+   {:namespace clojure.core,
+    :var areduce,
+    :reason
+    "JVM compiler, classloader, or Java-type machinery a host-free runtime cannot honor"}
+   {:namespace clojure.core,
+    :var aset-boolean,
+    :reason
+    "JVM compiler, classloader, or Java-type machinery a host-free runtime cannot honor"}
+   {:namespace clojure.core,
+    :var aset-byte,
+    :reason
+    "JVM compiler, classloader, or Java-type machinery a host-free runtime cannot honor"}
+   {:namespace clojure.core,
+    :var aset-char,
+    :reason
+    "JVM compiler, classloader, or Java-type machinery a host-free runtime cannot honor"}
+   {:namespace clojure.core,
+    :var aset-double,
+    :reason
+    "JVM compiler, classloader, or Java-type machinery a host-free runtime cannot honor"}
+   {:namespace clojure.core,
+    :var aset-float,
+    :reason
+    "JVM compiler, classloader, or Java-type machinery a host-free runtime cannot honor"}
+   {:namespace clojure.core,
+    :var aset-int,
+    :reason
+    "JVM compiler, classloader, or Java-type machinery a host-free runtime cannot honor"}
+   {:namespace clojure.core,
+    :var aset-long,
+    :reason
+    "JVM compiler, classloader, or Java-type machinery a host-free runtime cannot honor"}
+   {:namespace clojure.core,
+    :var aset-short,
+    :reason
+    "JVM compiler, classloader, or Java-type machinery a host-free runtime cannot honor"}
+   {:namespace clojure.core,
+    :var await1,
+    :reason
+    "JVM compiler, classloader, or Java-type machinery a host-free runtime cannot honor"}
+   {:namespace clojure.core,
+    :var bases,
+    :reason
+    "JVM compiler, classloader, or Java-type machinery a host-free runtime cannot honor"}
+   {:namespace clojure.core,
+    :var bean,
+    :reason
+    "JVM compiler, classloader, or Java-type machinery a host-free runtime cannot honor"}
+   {:namespace clojure.core,
+    :var booleans,
+    :reason
+    "JVM compiler, classloader, or Java-type machinery a host-free runtime cannot honor"}
+   {:namespace clojure.core,
+    :var bytes,
+    :reason
+    "JVM compiler, classloader, or Java-type machinery a host-free runtime cannot honor"}
+   {:namespace clojure.core,
+    :var cast,
+    :reason
+    "JVM compiler, classloader, or Java-type machinery a host-free runtime cannot honor"}
+   {:namespace clojure.core,
+    :var chars,
+    :reason
+    "JVM compiler, classloader, or Java-type machinery a host-free runtime cannot honor"}
+   {:namespace clojure.core,
+    :var class?,
+    :reason
+    "JVM compiler, classloader, or Java-type machinery a host-free runtime cannot honor"}
+   {:namespace clojure.core,
+    :var clear-agent-errors,
+    :reason
+    "JVM compiler, classloader, or Java-type machinery a host-free runtime cannot honor"}
+   {:namespace clojure.core,
+    :var compile,
+    :reason
+    "JVM compiler, classloader, or Java-type machinery a host-free runtime cannot honor"}
+   {:namespace clojure.core,
+    :var construct-proxy,
+    :reason
+    "JVM compiler, classloader, or Java-type machinery a host-free runtime cannot honor"}
+   {:namespace clojure.core,
+    :var create-struct,
+    :reason
+    "JVM compiler, classloader, or Java-type machinery a host-free runtime cannot honor"}
+   {:namespace clojure.core,
+    :var defstruct,
+    :reason
+    "JVM compiler, classloader, or Java-type machinery a host-free runtime cannot honor"}
+   {:namespace clojure.core,
+    :var doubles,
+    :reason
+    "JVM compiler, classloader, or Java-type machinery a host-free runtime cannot honor"}
+   {:namespace clojure.core,
+    :var enumeration-seq,
+    :reason
+    "JVM compiler, classloader, or Java-type machinery a host-free runtime cannot honor"}
+   {:namespace clojure.core,
+    :var find-protocol-impl,
+    :reason
+    "JVM compiler, classloader, or Java-type machinery a host-free runtime cannot honor"}
+   {:namespace clojure.core,
+    :var find-protocol-method,
+    :reason
+    "JVM compiler, classloader, or Java-type machinery a host-free runtime cannot honor"}
+   {:namespace clojure.core.reducers,
+    :var fjtask,
+    :reason
+    "JVM compiler, classloader, or Java-type machinery a host-free runtime cannot honor"}
+   {:namespace clojure.core,
+    :var floats,
+    :reason
+    "JVM compiler, classloader, or Java-type machinery a host-free runtime cannot honor"}
+   {:namespace clojure.core,
+    :var gen-interface,
+    :reason
+    "JVM compiler, classloader, or Java-type machinery a host-free runtime cannot honor"}
+   {:namespace clojure.core,
+    :var get-proxy-class,
+    :reason
+    "JVM compiler, classloader, or Java-type machinery a host-free runtime cannot honor"}
+   {:namespace clojure.core,
+    :var init-proxy,
+    :reason
+    "JVM compiler, classloader, or Java-type machinery a host-free runtime cannot honor"}
+   {:namespace clojure.core,
+    :var ints,
+    :reason
+    "JVM compiler, classloader, or Java-type machinery a host-free runtime cannot honor"}
+   {:namespace clojure.core.protocols,
+    :var iterator-reduce!,
+    :reason
+    "JVM compiler, classloader, or Java-type machinery a host-free runtime cannot honor"}
+   {:namespace clojure.core,
+    :var iterator-seq,
+    :reason
+    "JVM compiler, classloader, or Java-type machinery a host-free runtime cannot honor"}
+   {:namespace clojure.core,
+    :var load,
+    :reason
+    "JVM compiler, classloader, or Java-type machinery a host-free runtime cannot honor"}
+   {:namespace clojure.core,
+    :var load-reader,
+    :reason
+    "JVM compiler, classloader, or Java-type machinery a host-free runtime cannot honor"}
+   {:namespace clojure.core,
+    :var longs,
+    :reason
+    "JVM compiler, classloader, or Java-type machinery a host-free runtime cannot honor"}
+   {:namespace clojure.core,
+    :var make-array,
+    :reason
+    "JVM compiler, classloader, or Java-type machinery a host-free runtime cannot honor"}
+   {:namespace clojure.core,
+    :var memfn,
+    :reason
+    "JVM compiler, classloader, or Java-type machinery a host-free runtime cannot honor"}
+   {:namespace clojure.core,
+    :var method-sig,
+    :reason
+    "JVM compiler, classloader, or Java-type machinery a host-free runtime cannot honor"}
+   {:namespace clojure.core,
+    :var namespace-munge,
+    :reason
+    "JVM compiler, classloader, or Java-type machinery a host-free runtime cannot honor"}
+   {:namespace clojure.core.reducers,
+    :var pool,
+    :reason
+    "JVM compiler, classloader, or Java-type machinery a host-free runtime cannot honor"}
+   {:namespace clojure.core,
+    :var primitives-classnames,
+    :reason
+    "JVM compiler, classloader, or Java-type machinery a host-free runtime cannot honor"}
+   {:namespace clojure.core,
+    :var print-ctor,
+    :reason
+    "JVM compiler, classloader, or Java-type machinery a host-free runtime cannot honor"}
+   {:namespace clojure.core,
+    :var print-dup,
+    :reason
+    "JVM compiler, classloader, or Java-type machinery a host-free runtime cannot honor"}
+   {:namespace clojure.core,
+    :var proxy-call-with-super,
+    :reason
+    "JVM compiler, classloader, or Java-type machinery a host-free runtime cannot honor"}
+   {:namespace clojure.core,
+    :var proxy-mappings,
+    :reason
+    "JVM compiler, classloader, or Java-type machinery a host-free runtime cannot honor"}
+   {:namespace clojure.core,
+    :var proxy-name,
+    :reason
+    "JVM compiler, classloader, or Java-type machinery a host-free runtime cannot honor"}
+   {:namespace clojure.core,
+    :var proxy-super,
+    :reason
+    "JVM compiler, classloader, or Java-type machinery a host-free runtime cannot honor"}
+   {:namespace clojure.instant,
+    :var read-instant-calendar,
+    :reason
+    "JVM compiler, classloader, or Java-type machinery a host-free runtime cannot honor"}
+   {:namespace clojure.instant,
+    :var read-instant-timestamp,
+    :reason
+    "JVM compiler, classloader, or Java-type machinery a host-free runtime cannot honor"}
+   {:namespace clojure.core,
+    :var resultset-seq,
+    :reason
+    "JVM compiler, classloader, or Java-type machinery a host-free runtime cannot honor"}
+   {:namespace clojure.core,
+    :var set-agent-send-executor!,
+    :reason
+    "JVM compiler, classloader, or Java-type machinery a host-free runtime cannot honor"}
+   {:namespace clojure.core,
+    :var set-agent-send-off-executor!,
+    :reason
+    "JVM compiler, classloader, or Java-type machinery a host-free runtime cannot honor"}
+   {:namespace clojure.core,
+    :var shorts,
+    :reason
+    "JVM compiler, classloader, or Java-type machinery a host-free runtime cannot honor"}
+   {:namespace clojure.core,
+    :var stream-into!,
+    :reason
+    "JVM compiler, classloader, or Java-type machinery a host-free runtime cannot honor"}
+   {:namespace clojure.core,
+    :var stream-reduce!,
+    :reason
+    "JVM compiler, classloader, or Java-type machinery a host-free runtime cannot honor"}
+   {:namespace clojure.core,
+    :var stream-seq!,
+    :reason
+    "JVM compiler, classloader, or Java-type machinery a host-free runtime cannot honor"}
+   {:namespace clojure.core,
+    :var stream-transduce!,
+    :reason
+    "JVM compiler, classloader, or Java-type machinery a host-free runtime cannot honor"}
+   {:namespace clojure.core,
+    :var struct,
+    :reason
+    "JVM compiler, classloader, or Java-type machinery a host-free runtime cannot honor"}
+   {:namespace clojure.core,
+    :var struct-map,
+    :reason
+    "JVM compiler, classloader, or Java-type machinery a host-free runtime cannot honor"}
+   {:namespace clojure.core,
+    :var supers,
+    :reason
+    "JVM compiler, classloader, or Java-type machinery a host-free runtime cannot honor"}
+   {:namespace clojure.core,
+    :var to-array-2d,
+    :reason
+    "JVM compiler, classloader, or Java-type machinery a host-free runtime cannot honor"}
+   {:namespace clojure.core,
+    :var update-proxy,
+    :reason
+    "JVM compiler, classloader, or Java-type machinery a host-free runtime cannot honor"}
+   {:namespace clojure.core,
+    :var vector-of,
+    :reason
+    "JVM compiler, classloader, or Java-type machinery a host-free runtime cannot honor"}
+   {:namespace clojure.core,
+    :var with-loading-context,
+    :reason
+    "JVM compiler, classloader, or Java-type machinery a host-free runtime cannot honor"}],
+  :gap
+  [{:namespace clojure.core,
+    :var definline,
+    :reason "Portable macro mino does not yet expose"}
+   {:namespace clojure.core,
+    :var munge,
+    :reason "Portable name-mangling fn mino does not yet expose"}],
+  :count {:jvm-bound 89, :gap 2, :total 91}},
+ :categories
+ [{:id :ordering,
+   :title "Ordering & comparison",
+   :description "How sort, compare, and ordered iteration work."}
+  {:id :type-system,
+   :title "Type-system representation",
+   :description "How type, class, and dispatch report a value's kind."}
+  {:id :numeric-tower,
+   :title "Numeric tower",
+   :description "Integer tiers, ratio promotion, float precision."}
+  {:id :reader,
+   :title "Reader behavior",
+   :description
+   "Reader macros, literal forms, source-meta attachment."}
+  {:id :printer,
+   :title "Printer behavior",
+   :description
+   "pr-str output for various values and dynamic-var states."}
+  {:id :collections,
+   :title "Collection semantics",
+   :description "Iteration order, equality, hash, structural sharing."}
+  {:id :concurrency,
+   :title "Concurrency primitives",
+   :description "Atoms, refs, agents, futures, core.async behavior."}
+  {:id :error-messages,
+   :title "Error message shapes",
+   :description "Exception types, ex-data shapes, message phrasing."}
+  {:id :jvm-statics,
+   :title "JVM-static value remap",
+   :description
+   "JVM-only statics remapped to dialect-native equivalents."}
+  {:id :namespaces,
+   :title "Namespace mechanics",
+   :description "ns, require, refer, alias, var resolution semantics."}
+  {:id :macros,
+   :title "Macro semantics",
+   :description "Syntax-quote, macroexpansion order, hygiene."}
+  {:id :metadata,
+   :title "Metadata propagation",
+   :description
+   "Where reader attaches meta and which ops preserve it."}]}
