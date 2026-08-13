@@ -41,7 +41,7 @@
     (render-html
       (layout/page
         {:title (str "Readiness: " (:tag dialect)) :link link}
-        (components/readiness-detail dialect payload {:link link})))))
+        (components/readiness-detail dialect (:dashboard dialect) payload {:link link})))))
 
 (defn- stylesheet-page [_]
   (styles/css-string))

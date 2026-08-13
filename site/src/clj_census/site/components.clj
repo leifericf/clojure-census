@@ -500,13 +500,14 @@
 
 (defn readiness-detail
   "Consolidated readiness view for one dialect."
-  [{:keys [tag name]} payload {:keys [link]}]
+  [{:keys [tag name]} dashboard payload {:keys [link]}]
   (let [coverage  (get-in payload [:coverage :headline])
         signals   (:signals payload)
         missing-c (get-in payload [:missing :count])
         us        (:upstream-suite signals)
         cd        (:clojuredocs-probe signals)
         bh-totals (get-in payload [:behavior :totals])
+        history   (:history dashboard)
         rows (cond-> []
                (some? coverage)
                (conj (stat-row "Surface coverage"
@@ -531,13 +532,31 @@
                (some? cd)
                (conj (stat-row "ClojureDocs probe"
                                (str (:passed cd) " / " (:total cd))
-                               (str (:failed cd) " failed"))))]
+                               (str (:failed cd) " failed"))))
+        trend-rows (when (seq history)
+                     (for [h history]
+                       (stat-row (:date h)
+                                 (pct (get-in h [:headline :percent]))
+                                 (str (get-in h [:headline :in-both-count] 0)
+                                      " / "
+                                      (get-in h [:headline :clojure-total] 0)))))]
     [:main.detail
      [:p.crumbs
-      [:a {:href (link "/")} "Overview"]
-      " · "
+      [:a {:href (link "/")} "Overview"] " · "
       [:a {:href (link (str "/dialects/" tag "/"))} name]]
-     [:header.detail-header
-      [:h1 "Readiness: " name]]
-     [:table.stats
-      [:tbody (for [r rows] r)]]]))
+     [:header.detail-header [:h1 "Readiness: " name]]
+     [:table.stats [:tbody (for [r rows] r)]]
+     (when (seq trend-rows)
+       [:section
+        [:h2 "Coverage trend"]
+        [:table.stats
+         [:thead [:tr [:th "Date"] [:th "Coverage"] [:th "Vars"]]]
+         [:tbody (for [r trend-rows] r)]]])
+     (when (:fuzz signals)
+       [:section
+        [:h2 "Fuzz status"]
+        [:table.stats
+         [:tbody
+          [[:tr [:th "Fuzzer"]
+            [:td (get-in signals [:fuzz :target])]
+            [:td.muted (str (get-in signals [:fuzz :runs] 0) " runs")]]]]]])]))
