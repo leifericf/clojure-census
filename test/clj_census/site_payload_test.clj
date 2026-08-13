@@ -39,7 +39,7 @@
     {:in-both     #{'map 'filter}
      :clojure-only  #{'bean 'proxy}
      :dialect-only #{}
-     :mismatches   []}}})
+     :mismatches   [{:var-name 'when :macro-clojure true :macro-dialect false}]}}})
 
 (def clojure-spec
   {:version           "1.12.4"
@@ -147,3 +147,8 @@
 (deftest signals-omitted-when-absent
   (let [p (site-payload/render bundle missing-reasons nil)]
     (is (not (contains? p :signals)))))
+
+(deftest mismatches-extracted-from-comparison
+  (let [p (site-payload/render bundle missing-reasons)]
+    (is (vector? (:mismatches p)))
+    (is (= 'when (-> p :mismatches first :var)))))

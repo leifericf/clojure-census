@@ -53,7 +53,7 @@
   "Partition missing-reasons into {:jvm-bound [...] :gap [...]}.
   Each entry keeps :namespace, :var, and :reason."
   [missing-reasons]
-  (let [project (fn [r] (select-keys r [:namespace :var :reason]))
+  (let [project (fn [r] (select-keys r [:namespace :var :verdict :reason]))
         groups (group-by :verdict missing-reasons)]
     {:jvm-bound (mapv project (get groups :jvm-bound))
      :gap       (mapv project (get groups :gap))
@@ -75,7 +75,14 @@
    (render bundle missing-reasons nil))
   ([{:keys [comparison coverage divergences categories
             clojure-spec dialect-config]} missing-reasons signals]
-   (let [cats-by-id (into {} (map (juxt :id identity)) categories)]
+   (let [cats-by-id (into {} (map (juxt :id identity)) categories)
+         mismatches  (vec
+                       (for [[ns-sym ns-cmp] (sort-by key
+                                                       (:namespaces-compared comparison))
+                             mm (:mismatches ns-cmp)]
+                         (-> mm
+                             (assoc :namespace ns-sym :var (:var-name mm))
+                             (dissoc :var-name))))]
      (cond-> {:schema-version schema-version
               :meta           {:dialect-tag     (:tag dialect-config)
                                :dialect-name    (:name dialect-config)
@@ -83,5 +90,6 @@
               :coverage       coverage
               :divergences    (mapv #(embed-category cats-by-id %) divergences)
               :missing        (split-missing missing-reasons)
+              :mismatches     mismatches
               :categories     (vec categories)}
        (seq signals) (assoc :signals signals)))))
