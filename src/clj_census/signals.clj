@@ -52,3 +52,45 @@
   [signals]
   (schema/assert-conforms! ::signals signals "signals")
   true)
+
+;; ===== behavior-schema mapping =====================================
+
+(s/def ::match nat-int?)
+(s/def ::mismatch nat-int?)
+(s/def ::divergent-as-expected nat-int?)
+(s/def ::skipped nat-int?)
+
+(s/def ::behavior-totals
+  (s/keys :req-un [::match ::mismatch ::divergent-as-expected ::skipped]))
+
+(defn clojuredocs->behavior-totals
+  "Map a clojuredocs-probe signal into the census behavior-totals
+  shape so the readiness view can present one unified picture.
+
+  Mapping:
+    :match                  <- probe :passed
+    :mismatch               <- probe :failed
+    :divergent-as-expected  <- 0 (probe does not separate these)
+    :skipped                <- 0
+
+  Returns nil when the probe signal is absent."
+  [signals]
+  (when-let [probe (:clojuredocs-probe signals)]
+    (let [totals {:match                 (:passed probe 0)
+                  :mismatch              (:failed probe 0)
+                  :divergent-as-expected 0
+                  :skipped               0}]
+      (schema/assert-conforms! ::behavior-totals totals
+                               "clojuredocs-behavior-totals")
+      totals)))
+
+(defn merge-behavior-signals
+  "Combine the hand-curated behavior report totals (if present in the
+  bundle) with the clojuredocs-probe-derived totals. The merged map
+  has a :source key indicating provenance."
+  [behavior-report signals]
+  (let [cd-totals (clojuredocs->behavior-totals signals)
+        bh-totals (some-> behavior-report :totals)]
+    (cond-> {}
+      bh-totals (assoc :curated bh-totals)
+      cd-totals (assoc :clojuredocs cd-totals))))

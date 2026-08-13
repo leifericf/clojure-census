@@ -32,3 +32,24 @@
 
 (deftest validate-signals-accepts-empty
   (is (true? (signals/validate-signals! {}))))
+
+;; ===== behavior-schema mapping ====================================
+
+(deftest clojuredocs-maps-to-behavior-totals
+  (let [totals (signals/clojuredocs->behavior-totals
+                 {:clojuredocs-probe clojuredocs-probe})]
+    (is (= 7 (:match totals)))
+    (is (= 0 (:mismatch totals)))
+    (is (zero? (:divergent-as-expected totals)))
+    (is (zero? (:skipped totals)))))
+
+(deftest clojuredocs-mapping-nil-when-absent
+  (is (nil? (signals/clojuredocs->behavior-totals {}))))
+
+(deftest merge-behavior-combines-sources
+  (let [report {:totals {:match 5 :mismatch 1
+                         :divergent-as-expected 3 :skipped 0}}
+        merged (signals/merge-behavior-signals
+                 report {:clojuredocs-probe clojuredocs-probe})]
+    (is (= 5 (get-in merged [:curated :match])))
+    (is (= 7 (get-in merged [:clojuredocs :match])))))
