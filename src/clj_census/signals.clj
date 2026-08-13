@@ -32,8 +32,16 @@
 (s/def ::clojuredocs-probe
   (s/keys :req-un [::total ::passed ::failed]))
 
+(s/def ::name  ::schema/non-blank-string)
+(s/def ::seeds nat-int?)
+(s/def ::fuzz-target
+  (s/keys :req-un [::name ::seeds ::passed ::failed]))
+(s/def ::targets
+  (s/coll-of ::fuzz-target :kind sequential? :min-count 1))
+(s/def ::fuzz
+  (s/keys :req-un [::targets]))
 (s/def ::signals
-  (s/keys :opt-un [::upstream-suite ::clojuredocs-probe]))
+  (s/keys :opt-un [::upstream-suite ::clojuredocs-probe ::fuzz]))
 
 (defn validate-upstream-suite!
   "Schema-validate an upstream-suite signal map."
@@ -45,6 +53,12 @@
   "Schema-validate a clojuredocs-probe signal map."
   [m]
   (schema/assert-conforms! ::clojuredocs-probe m "clojuredocs-probe")
+  true)
+
+(defn validate-fuzz!
+  "Schema-validate a fuzz signal map."
+  [m]
+  (schema/assert-conforms! ::fuzz m "fuzz")
   true)
 
 (defn validate-signals!

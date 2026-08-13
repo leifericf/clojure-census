@@ -554,11 +554,14 @@
         [:table.stats
          [:thead [:tr [:th "Date"] [:th "Coverage"] [:th "Vars"]]]
          [:tbody (for [r trend-rows] r)]]])
-     (when (:fuzz signals)
-       [:section
-        [:h2 "Fuzz status"]
-        [:table.stats
-         [:tbody
-          [[:tr [:th "Fuzzer"]
-            [:td (get-in signals [:fuzz :target])]
-            [:td.muted (str (get-in signals [:fuzz :runs] 0) " runs")]]]]]])]))
+      (when (:fuzz signals)
+        (let [fuzz-targets (get-in signals [:fuzz :targets])]
+          [:section
+           [:h2 "Fuzz status"]
+           [:table.stats
+            [:thead [:tr [:th "Target"] [:th "Result"] [:th "Detail"]]]
+            [:tbody
+             (for [t fuzz-targets]
+               (stat-row (:name t)
+                         (str (:passed t) "/" (:seeds t))
+                         (str (:failed t) " failed")))]]]))]))

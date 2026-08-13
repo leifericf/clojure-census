@@ -183,6 +183,7 @@
   (let [dir     (str (:data-dir cfg) "/signals")
         us-path (str dir "/upstream_suite.edn")
         cd-path (str dir "/clojuredocs_probe.edn")
+        fz-path (str dir "/fuzz.edn")
         result  (cond-> {}
                   (.exists (io/file us-path))
                   (assoc :upstream-suite
@@ -191,7 +192,11 @@
                   (.exists (io/file cd-path))
                   (assoc :clojuredocs-probe
                          (doto (store/slurp-edn cd-path)
-                           (signals/validate-clojuredocs-probe!))))]
+                           (signals/validate-clojuredocs-probe!)))
+                  (.exists (io/file fz-path))
+                  (assoc :fuzz
+                         (doto (store/slurp-edn fz-path)
+                           (signals/validate-fuzz!))))]
     (when (seq result) result)))
 
 (defn- load-behavior-catalog

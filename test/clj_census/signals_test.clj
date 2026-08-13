@@ -33,6 +33,14 @@
 (deftest validate-signals-accepts-empty
   (is (true? (signals/validate-signals! {}))))
 
+(deftest validate-fuzz-accepts-good
+  (is (true? (signals/validate-fuzz!
+               {:targets [{:name "reader" :seeds 22 :passed 22 :failed 0}]}))))
+
+(deftest validate-fuzz-rejects-bad
+  (is (thrown? clojure.lang.ExceptionInfo
+               (signals/validate-fuzz! {:targets []}))))
+
 ;; ===== behavior-schema mapping ====================================
 
 (deftest clojuredocs-maps-to-behavior-totals
