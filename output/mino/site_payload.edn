@@ -2,8 +2,7 @@
  :meta
  {:dialect-tag "mino",
   :dialect-name "mino",
-  :clojure-version "1.12.4",
-  :compared-at "2026-08-13T04:38:08Z"},
+  :clojure-version "1.12.4"},
  :coverage
  {:headline
   {:in-both-count 904,

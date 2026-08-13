@@ -76,8 +76,7 @@
     {:schema-version schema-version
      :meta           {:dialect-tag     (:tag dialect-config)
                       :dialect-name    (:name dialect-config)
-                      :clojure-version (:version clojure-spec)
-                      :compared-at     (:compared-at comparison)}
+                      :clojure-version (:version clojure-spec)}
      :coverage       coverage
      :divergences    (mapv #(embed-category cats-by-id %) divergences)
      :missing        (split-missing missing-reasons)
