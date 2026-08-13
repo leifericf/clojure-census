@@ -1,7 +1,7 @@
 {
   "date": "2026-08-13",
   "dialect-tag": "mino",
-  "clojure-version": "1.11.0",
+  "clojure-version": "2026.08.08-alpha1",
   "headline": {
     "in-both-count": 904,
     "clojure-total": 995,

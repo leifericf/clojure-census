@@ -2,7 +2,7 @@
  {:dialect-tag "mino",
   :dialect-name "mino",
   :clojure-version "1.12.4",
-  :compared-at "2026-06-13T07:48:34Z"},
+  :compared-at "2026-08-13T21:37:10Z"},
  :divergences
  [{:dialect-example "(compare \"z\" \"a\") ;=> 1",
    :since "v0.1.0",
@@ -450,547 +450,7 @@
    clojure.template
    {:in-both-count 2, :clojure-total 2, :percent 1.0}}},
  :history
- [{:date "2026-06-01",
-   :dialect-tag "mino",
-   :clojure-version "1.11.0",
-   :headline
-   {:in-both-count 751,
-    :clojure-total 995,
-    :percent 0.7547738693467336},
-   :per-namespace
-   {clojure.spec.alpha
-    {:in-both-count 49,
-     :clojure-total 87,
-     :percent 0.5632183908045977},
-    clojure.datafy {:in-both-count 2, :clojure-total 2, :percent 1.0},
-    clojure.zip {:in-both-count 28, :clojure-total 28, :percent 1.0},
-    clojure.core.reducers
-    {:in-both-count 13,
-     :clojure-total 21,
-     :percent 0.6190476190476191},
-    clojure.test
-    {:in-both-count 8,
-     :clojure-total 39,
-     :percent 0.20512820512820512},
-    clojure.core.protocols
-    {:in-both-count 8, :clojure-total 11, :percent 0.7272727272727273},
-    clojure.core
-    {:in-both-count 560,
-     :clojure-total 679,
-     :percent 0.8247422680412371},
-    clojure.set {:in-both-count 12, :clojure-total 12, :percent 1.0},
-    clojure.pprint
-    {:in-both-count 3,
-     :clojure-total 26,
-     :percent 0.11538461538461539},
-    clojure.math
-    {:in-both-count 31,
-     :clojure-total 45,
-     :percent 0.6888888888888889},
-    clojure.edn {:in-both-count 2, :clojure-total 2, :percent 1.0},
-    clojure.instant {:in-both-count 3, :clojure-total 5, :percent 0.6},
-    clojure.string
-    {:in-both-count 21, :clojure-total 21, :percent 1.0},
-    clojure.data {:in-both-count 1, :clojure-total 5, :percent 0.2},
-    clojure.walk {:in-both-count 8, :clojure-total 10, :percent 0.8},
-    clojure.template
-    {:in-both-count 2, :clojure-total 2, :percent 1.0}}}
-  {:date "2026-06-02",
-   :dialect-tag "mino",
-   :clojure-version "1.11.0",
-   :headline
-   {:in-both-count 751,
-    :clojure-total 995,
-    :percent 0.7547738693467336},
-   :per-namespace
-   {clojure.spec.alpha
-    {:in-both-count 49,
-     :clojure-total 87,
-     :percent 0.5632183908045977},
-    clojure.datafy {:in-both-count 2, :clojure-total 2, :percent 1.0},
-    clojure.zip {:in-both-count 28, :clojure-total 28, :percent 1.0},
-    clojure.core.reducers
-    {:in-both-count 13,
-     :clojure-total 21,
-     :percent 0.6190476190476191},
-    clojure.test
-    {:in-both-count 8,
-     :clojure-total 39,
-     :percent 0.20512820512820512},
-    clojure.core.protocols
-    {:in-both-count 8, :clojure-total 11, :percent 0.7272727272727273},
-    clojure.core
-    {:in-both-count 560,
-     :clojure-total 679,
-     :percent 0.8247422680412371},
-    clojure.set {:in-both-count 12, :clojure-total 12, :percent 1.0},
-    clojure.pprint
-    {:in-both-count 3,
-     :clojure-total 26,
-     :percent 0.11538461538461539},
-    clojure.math
-    {:in-both-count 31,
-     :clojure-total 45,
-     :percent 0.6888888888888889},
-    clojure.edn {:in-both-count 2, :clojure-total 2, :percent 1.0},
-    clojure.instant {:in-both-count 3, :clojure-total 5, :percent 0.6},
-    clojure.string
-    {:in-both-count 21, :clojure-total 21, :percent 1.0},
-    clojure.data {:in-both-count 1, :clojure-total 5, :percent 0.2},
-    clojure.walk {:in-both-count 8, :clojure-total 10, :percent 0.8},
-    clojure.template
-    {:in-both-count 2, :clojure-total 2, :percent 1.0}}}
-  {:date "2026-06-03",
-   :dialect-tag "mino",
-   :clojure-version "1.11.0",
-   :headline
-   {:in-both-count 751,
-    :clojure-total 995,
-    :percent 0.7547738693467336},
-   :per-namespace
-   {clojure.spec.alpha
-    {:in-both-count 49,
-     :clojure-total 87,
-     :percent 0.5632183908045977},
-    clojure.datafy {:in-both-count 2, :clojure-total 2, :percent 1.0},
-    clojure.zip {:in-both-count 28, :clojure-total 28, :percent 1.0},
-    clojure.core.reducers
-    {:in-both-count 13,
-     :clojure-total 21,
-     :percent 0.6190476190476191},
-    clojure.test
-    {:in-both-count 8,
-     :clojure-total 39,
-     :percent 0.20512820512820512},
-    clojure.core.protocols
-    {:in-both-count 8, :clojure-total 11, :percent 0.7272727272727273},
-    clojure.core
-    {:in-both-count 560,
-     :clojure-total 679,
-     :percent 0.8247422680412371},
-    clojure.set {:in-both-count 12, :clojure-total 12, :percent 1.0},
-    clojure.pprint
-    {:in-both-count 3,
-     :clojure-total 26,
-     :percent 0.11538461538461539},
-    clojure.math
-    {:in-both-count 31,
-     :clojure-total 45,
-     :percent 0.6888888888888889},
-    clojure.edn {:in-both-count 2, :clojure-total 2, :percent 1.0},
-    clojure.instant {:in-both-count 3, :clojure-total 5, :percent 0.6},
-    clojure.string
-    {:in-both-count 21, :clojure-total 21, :percent 1.0},
-    clojure.data {:in-both-count 1, :clojure-total 5, :percent 0.2},
-    clojure.walk {:in-both-count 8, :clojure-total 10, :percent 0.8},
-    clojure.template
-    {:in-both-count 2, :clojure-total 2, :percent 1.0}}}
-  {:date "2026-06-04",
-   :dialect-tag "mino",
-   :clojure-version "1.11.0",
-   :headline
-   {:in-both-count 751,
-    :clojure-total 995,
-    :percent 0.7547738693467336},
-   :per-namespace
-   {clojure.spec.alpha
-    {:in-both-count 49,
-     :clojure-total 87,
-     :percent 0.5632183908045977},
-    clojure.datafy {:in-both-count 2, :clojure-total 2, :percent 1.0},
-    clojure.zip {:in-both-count 28, :clojure-total 28, :percent 1.0},
-    clojure.core.reducers
-    {:in-both-count 13,
-     :clojure-total 21,
-     :percent 0.6190476190476191},
-    clojure.test
-    {:in-both-count 8,
-     :clojure-total 39,
-     :percent 0.20512820512820512},
-    clojure.core.protocols
-    {:in-both-count 8, :clojure-total 11, :percent 0.7272727272727273},
-    clojure.core
-    {:in-both-count 560,
-     :clojure-total 679,
-     :percent 0.8247422680412371},
-    clojure.set {:in-both-count 12, :clojure-total 12, :percent 1.0},
-    clojure.pprint
-    {:in-both-count 3,
-     :clojure-total 26,
-     :percent 0.11538461538461539},
-    clojure.math
-    {:in-both-count 31,
-     :clojure-total 45,
-     :percent 0.6888888888888889},
-    clojure.edn {:in-both-count 2, :clojure-total 2, :percent 1.0},
-    clojure.instant {:in-both-count 3, :clojure-total 5, :percent 0.6},
-    clojure.string
-    {:in-both-count 21, :clojure-total 21, :percent 1.0},
-    clojure.data {:in-both-count 1, :clojure-total 5, :percent 0.2},
-    clojure.walk {:in-both-count 8, :clojure-total 10, :percent 0.8},
-    clojure.template
-    {:in-both-count 2, :clojure-total 2, :percent 1.0}}}
-  {:date "2026-06-05",
-   :dialect-tag "mino",
-   :clojure-version "1.11.0",
-   :headline
-   {:in-both-count 751,
-    :clojure-total 995,
-    :percent 0.7547738693467336},
-   :per-namespace
-   {clojure.spec.alpha
-    {:in-both-count 49,
-     :clojure-total 87,
-     :percent 0.5632183908045977},
-    clojure.datafy {:in-both-count 2, :clojure-total 2, :percent 1.0},
-    clojure.zip {:in-both-count 28, :clojure-total 28, :percent 1.0},
-    clojure.core.reducers
-    {:in-both-count 13,
-     :clojure-total 21,
-     :percent 0.6190476190476191},
-    clojure.test
-    {:in-both-count 8,
-     :clojure-total 39,
-     :percent 0.20512820512820512},
-    clojure.core.protocols
-    {:in-both-count 8, :clojure-total 11, :percent 0.7272727272727273},
-    clojure.core
-    {:in-both-count 560,
-     :clojure-total 679,
-     :percent 0.8247422680412371},
-    clojure.set {:in-both-count 12, :clojure-total 12, :percent 1.0},
-    clojure.pprint
-    {:in-both-count 3,
-     :clojure-total 26,
-     :percent 0.11538461538461539},
-    clojure.math
-    {:in-both-count 31,
-     :clojure-total 45,
-     :percent 0.6888888888888889},
-    clojure.edn {:in-both-count 2, :clojure-total 2, :percent 1.0},
-    clojure.instant {:in-both-count 3, :clojure-total 5, :percent 0.6},
-    clojure.string
-    {:in-both-count 21, :clojure-total 21, :percent 1.0},
-    clojure.data {:in-both-count 1, :clojure-total 5, :percent 0.2},
-    clojure.walk {:in-both-count 8, :clojure-total 10, :percent 0.8},
-    clojure.template
-    {:in-both-count 2, :clojure-total 2, :percent 1.0}}}
-  {:date "2026-06-06",
-   :dialect-tag "mino",
-   :clojure-version "1.11.0",
-   :headline
-   {:in-both-count 751,
-    :clojure-total 995,
-    :percent 0.7547738693467336},
-   :per-namespace
-   {clojure.spec.alpha
-    {:in-both-count 49,
-     :clojure-total 87,
-     :percent 0.5632183908045977},
-    clojure.datafy {:in-both-count 2, :clojure-total 2, :percent 1.0},
-    clojure.zip {:in-both-count 28, :clojure-total 28, :percent 1.0},
-    clojure.core.reducers
-    {:in-both-count 13,
-     :clojure-total 21,
-     :percent 0.6190476190476191},
-    clojure.test
-    {:in-both-count 8,
-     :clojure-total 39,
-     :percent 0.20512820512820512},
-    clojure.core.protocols
-    {:in-both-count 8, :clojure-total 11, :percent 0.7272727272727273},
-    clojure.core
-    {:in-both-count 560,
-     :clojure-total 679,
-     :percent 0.8247422680412371},
-    clojure.set {:in-both-count 12, :clojure-total 12, :percent 1.0},
-    clojure.pprint
-    {:in-both-count 3,
-     :clojure-total 26,
-     :percent 0.11538461538461539},
-    clojure.math
-    {:in-both-count 31,
-     :clojure-total 45,
-     :percent 0.6888888888888889},
-    clojure.edn {:in-both-count 2, :clojure-total 2, :percent 1.0},
-    clojure.instant {:in-both-count 3, :clojure-total 5, :percent 0.6},
-    clojure.string
-    {:in-both-count 21, :clojure-total 21, :percent 1.0},
-    clojure.data {:in-both-count 1, :clojure-total 5, :percent 0.2},
-    clojure.walk {:in-both-count 8, :clojure-total 10, :percent 0.8},
-    clojure.template
-    {:in-both-count 2, :clojure-total 2, :percent 1.0}}}
-  {:date "2026-06-07",
-   :dialect-tag "mino",
-   :clojure-version "1.11.0",
-   :headline
-   {:in-both-count 769,
-    :clojure-total 995,
-    :percent 0.7728643216080402},
-   :per-namespace
-   {clojure.spec.alpha
-    {:in-both-count 49,
-     :clojure-total 87,
-     :percent 0.5632183908045977},
-    clojure.datafy {:in-both-count 2, :clojure-total 2, :percent 1.0},
-    clojure.zip {:in-both-count 28, :clojure-total 28, :percent 1.0},
-    clojure.core.reducers
-    {:in-both-count 13,
-     :clojure-total 21,
-     :percent 0.6190476190476191},
-    clojure.test
-    {:in-both-count 8,
-     :clojure-total 39,
-     :percent 0.20512820512820512},
-    clojure.core.protocols
-    {:in-both-count 8, :clojure-total 11, :percent 0.7272727272727273},
-    clojure.core
-    {:in-both-count 565,
-     :clojure-total 679,
-     :percent 0.8321060382916053},
-    clojure.set {:in-both-count 12, :clojure-total 12, :percent 1.0},
-    clojure.pprint
-    {:in-both-count 3,
-     :clojure-total 26,
-     :percent 0.11538461538461539},
-    clojure.math
-    {:in-both-count 44,
-     :clojure-total 45,
-     :percent 0.9777777777777777},
-    clojure.edn {:in-both-count 2, :clojure-total 2, :percent 1.0},
-    clojure.instant {:in-both-count 3, :clojure-total 5, :percent 0.6},
-    clojure.string
-    {:in-both-count 21, :clojure-total 21, :percent 1.0},
-    clojure.data {:in-both-count 1, :clojure-total 5, :percent 0.2},
-    clojure.walk {:in-both-count 8, :clojure-total 10, :percent 0.8},
-    clojure.template
-    {:in-both-count 2, :clojure-total 2, :percent 1.0}}}
-  {:date "2026-06-08",
-   :dialect-tag "mino",
-   :clojure-version "1.11.0",
-   :headline
-   {:in-both-count 769,
-    :clojure-total 995,
-    :percent 0.7728643216080402},
-   :per-namespace
-   {clojure.spec.alpha
-    {:in-both-count 49,
-     :clojure-total 87,
-     :percent 0.5632183908045977},
-    clojure.datafy {:in-both-count 2, :clojure-total 2, :percent 1.0},
-    clojure.zip {:in-both-count 28, :clojure-total 28, :percent 1.0},
-    clojure.core.reducers
-    {:in-both-count 13,
-     :clojure-total 21,
-     :percent 0.6190476190476191},
-    clojure.test
-    {:in-both-count 8,
-     :clojure-total 39,
-     :percent 0.20512820512820512},
-    clojure.core.protocols
-    {:in-both-count 8, :clojure-total 11, :percent 0.7272727272727273},
-    clojure.core
-    {:in-both-count 565,
-     :clojure-total 679,
-     :percent 0.8321060382916053},
-    clojure.set {:in-both-count 12, :clojure-total 12, :percent 1.0},
-    clojure.pprint
-    {:in-both-count 3,
-     :clojure-total 26,
-     :percent 0.11538461538461539},
-    clojure.math
-    {:in-both-count 44,
-     :clojure-total 45,
-     :percent 0.9777777777777777},
-    clojure.edn {:in-both-count 2, :clojure-total 2, :percent 1.0},
-    clojure.instant {:in-both-count 3, :clojure-total 5, :percent 0.6},
-    clojure.string
-    {:in-both-count 21, :clojure-total 21, :percent 1.0},
-    clojure.data {:in-both-count 1, :clojure-total 5, :percent 0.2},
-    clojure.walk {:in-both-count 8, :clojure-total 10, :percent 0.8},
-    clojure.template
-    {:in-both-count 2, :clojure-total 2, :percent 1.0}}}
-  {:date "2026-06-09",
-   :dialect-tag "mino",
-   :clojure-version "1.11.0",
-   :headline
-   {:in-both-count 769,
-    :clojure-total 995,
-    :percent 0.7728643216080402},
-   :per-namespace
-   {clojure.spec.alpha
-    {:in-both-count 49,
-     :clojure-total 87,
-     :percent 0.5632183908045977},
-    clojure.datafy {:in-both-count 2, :clojure-total 2, :percent 1.0},
-    clojure.zip {:in-both-count 28, :clojure-total 28, :percent 1.0},
-    clojure.core.reducers
-    {:in-both-count 13,
-     :clojure-total 21,
-     :percent 0.6190476190476191},
-    clojure.test
-    {:in-both-count 8,
-     :clojure-total 39,
-     :percent 0.20512820512820512},
-    clojure.core.protocols
-    {:in-both-count 8, :clojure-total 11, :percent 0.7272727272727273},
-    clojure.core
-    {:in-both-count 565,
-     :clojure-total 679,
-     :percent 0.8321060382916053},
-    clojure.set {:in-both-count 12, :clojure-total 12, :percent 1.0},
-    clojure.pprint
-    {:in-both-count 3,
-     :clojure-total 26,
-     :percent 0.11538461538461539},
-    clojure.math
-    {:in-both-count 44,
-     :clojure-total 45,
-     :percent 0.9777777777777777},
-    clojure.edn {:in-both-count 2, :clojure-total 2, :percent 1.0},
-    clojure.instant {:in-both-count 3, :clojure-total 5, :percent 0.6},
-    clojure.string
-    {:in-both-count 21, :clojure-total 21, :percent 1.0},
-    clojure.data {:in-both-count 1, :clojure-total 5, :percent 0.2},
-    clojure.walk {:in-both-count 8, :clojure-total 10, :percent 0.8},
-    clojure.template
-    {:in-both-count 2, :clojure-total 2, :percent 1.0}}}
-  {:date "2026-06-10",
-   :dialect-tag "mino",
-   :clojure-version "1.11.0",
-   :headline
-   {:in-both-count 769,
-    :clojure-total 995,
-    :percent 0.7728643216080402},
-   :per-namespace
-   {clojure.spec.alpha
-    {:in-both-count 49,
-     :clojure-total 87,
-     :percent 0.5632183908045977},
-    clojure.datafy {:in-both-count 2, :clojure-total 2, :percent 1.0},
-    clojure.zip {:in-both-count 28, :clojure-total 28, :percent 1.0},
-    clojure.core.reducers
-    {:in-both-count 13,
-     :clojure-total 21,
-     :percent 0.6190476190476191},
-    clojure.test
-    {:in-both-count 8,
-     :clojure-total 39,
-     :percent 0.20512820512820512},
-    clojure.core.protocols
-    {:in-both-count 8, :clojure-total 11, :percent 0.7272727272727273},
-    clojure.core
-    {:in-both-count 565,
-     :clojure-total 679,
-     :percent 0.8321060382916053},
-    clojure.set {:in-both-count 12, :clojure-total 12, :percent 1.0},
-    clojure.pprint
-    {:in-both-count 3,
-     :clojure-total 26,
-     :percent 0.11538461538461539},
-    clojure.math
-    {:in-both-count 44,
-     :clojure-total 45,
-     :percent 0.9777777777777777},
-    clojure.edn {:in-both-count 2, :clojure-total 2, :percent 1.0},
-    clojure.instant {:in-both-count 3, :clojure-total 5, :percent 0.6},
-    clojure.string
-    {:in-both-count 21, :clojure-total 21, :percent 1.0},
-    clojure.data {:in-both-count 1, :clojure-total 5, :percent 0.2},
-    clojure.walk {:in-both-count 8, :clojure-total 10, :percent 0.8},
-    clojure.template
-    {:in-both-count 2, :clojure-total 2, :percent 1.0}}}
-  {:date "2026-06-11",
-   :dialect-tag "mino",
-   :clojure-version "1.11.0",
-   :headline
-   {:in-both-count 769,
-    :clojure-total 995,
-    :percent 0.7728643216080402},
-   :per-namespace
-   {clojure.spec.alpha
-    {:in-both-count 49,
-     :clojure-total 87,
-     :percent 0.5632183908045977},
-    clojure.datafy {:in-both-count 2, :clojure-total 2, :percent 1.0},
-    clojure.zip {:in-both-count 28, :clojure-total 28, :percent 1.0},
-    clojure.core.reducers
-    {:in-both-count 13,
-     :clojure-total 21,
-     :percent 0.6190476190476191},
-    clojure.test
-    {:in-both-count 8,
-     :clojure-total 39,
-     :percent 0.20512820512820512},
-    clojure.core.protocols
-    {:in-both-count 8, :clojure-total 11, :percent 0.7272727272727273},
-    clojure.core
-    {:in-both-count 565,
-     :clojure-total 679,
-     :percent 0.8321060382916053},
-    clojure.set {:in-both-count 12, :clojure-total 12, :percent 1.0},
-    clojure.pprint
-    {:in-both-count 3,
-     :clojure-total 26,
-     :percent 0.11538461538461539},
-    clojure.math
-    {:in-both-count 44,
-     :clojure-total 45,
-     :percent 0.9777777777777777},
-    clojure.edn {:in-both-count 2, :clojure-total 2, :percent 1.0},
-    clojure.instant {:in-both-count 3, :clojure-total 5, :percent 0.6},
-    clojure.string
-    {:in-both-count 21, :clojure-total 21, :percent 1.0},
-    clojure.data {:in-both-count 1, :clojure-total 5, :percent 0.2},
-    clojure.walk {:in-both-count 8, :clojure-total 10, :percent 0.8},
-    clojure.template
-    {:in-both-count 2, :clojure-total 2, :percent 1.0}}}
-  {:date "2026-06-12",
-   :dialect-tag "mino",
-   :clojure-version "1.11.0",
-   :headline
-   {:in-both-count 769,
-    :clojure-total 995,
-    :percent 0.7728643216080402},
-   :per-namespace
-   {clojure.spec.alpha
-    {:in-both-count 49,
-     :clojure-total 87,
-     :percent 0.5632183908045977},
-    clojure.datafy {:in-both-count 2, :clojure-total 2, :percent 1.0},
-    clojure.zip {:in-both-count 28, :clojure-total 28, :percent 1.0},
-    clojure.core.reducers
-    {:in-both-count 13,
-     :clojure-total 21,
-     :percent 0.6190476190476191},
-    clojure.test
-    {:in-both-count 8,
-     :clojure-total 39,
-     :percent 0.20512820512820512},
-    clojure.core.protocols
-    {:in-both-count 8, :clojure-total 11, :percent 0.7272727272727273},
-    clojure.core
-    {:in-both-count 565,
-     :clojure-total 679,
-     :percent 0.8321060382916053},
-    clojure.set {:in-both-count 12, :clojure-total 12, :percent 1.0},
-    clojure.pprint
-    {:in-both-count 3,
-     :clojure-total 26,
-     :percent 0.11538461538461539},
-    clojure.math
-    {:in-both-count 44,
-     :clojure-total 45,
-     :percent 0.9777777777777777},
-    clojure.edn {:in-both-count 2, :clojure-total 2, :percent 1.0},
-    clojure.instant {:in-both-count 3, :clojure-total 5, :percent 0.6},
-    clojure.string
-    {:in-both-count 21, :clojure-total 21, :percent 1.0},
-    clojure.data {:in-both-count 1, :clojure-total 5, :percent 0.2},
-    clojure.walk {:in-both-count 8, :clojure-total 10, :percent 0.8},
-    clojure.template
-    {:in-both-count 2, :clojure-total 2, :percent 1.0}}}
-  {:date "2026-06-13",
+ [{:date "2026-08-01",
    :dialect-tag "mino",
    :clojure-version "1.11.0",
    :headline
@@ -1027,9 +487,453 @@
     clojure.walk {:in-both-count 10, :clojure-total 10, :percent 1.0},
     clojure.template
     {:in-both-count 2, :clojure-total 2, :percent 1.0}}}
-  {:date "2026-06-13",
+  {:date "2026-08-02",
    :dialect-tag "mino",
    :clojure-version "1.11.0",
+   :headline
+   {:in-both-count 904,
+    :clojure-total 995,
+    :percent 0.9085427135678392},
+   :per-namespace
+   {clojure.spec.alpha
+    {:in-both-count 87, :clojure-total 87, :percent 1.0},
+    clojure.datafy {:in-both-count 2, :clojure-total 2, :percent 1.0},
+    clojure.zip {:in-both-count 28, :clojure-total 28, :percent 1.0},
+    clojure.core.reducers
+    {:in-both-count 19,
+     :clojure-total 21,
+     :percent 0.9047619047619048},
+    clojure.test {:in-both-count 39, :clojure-total 39, :percent 1.0},
+    clojure.core.protocols
+    {:in-both-count 10,
+     :clojure-total 11,
+     :percent 0.9090909090909091},
+    clojure.core
+    {:in-both-count 593,
+     :clojure-total 679,
+     :percent 0.8733431516936672},
+    clojure.set {:in-both-count 12, :clojure-total 12, :percent 1.0},
+    clojure.pprint
+    {:in-both-count 26, :clojure-total 26, :percent 1.0},
+    clojure.math {:in-both-count 45, :clojure-total 45, :percent 1.0},
+    clojure.edn {:in-both-count 2, :clojure-total 2, :percent 1.0},
+    clojure.instant {:in-both-count 3, :clojure-total 5, :percent 0.6},
+    clojure.string
+    {:in-both-count 21, :clojure-total 21, :percent 1.0},
+    clojure.data {:in-both-count 5, :clojure-total 5, :percent 1.0},
+    clojure.walk {:in-both-count 10, :clojure-total 10, :percent 1.0},
+    clojure.template
+    {:in-both-count 2, :clojure-total 2, :percent 1.0}}}
+  {:date "2026-08-03",
+   :dialect-tag "mino",
+   :clojure-version "1.11.0",
+   :headline
+   {:in-both-count 904,
+    :clojure-total 995,
+    :percent 0.9085427135678392},
+   :per-namespace
+   {clojure.spec.alpha
+    {:in-both-count 87, :clojure-total 87, :percent 1.0},
+    clojure.datafy {:in-both-count 2, :clojure-total 2, :percent 1.0},
+    clojure.zip {:in-both-count 28, :clojure-total 28, :percent 1.0},
+    clojure.core.reducers
+    {:in-both-count 19,
+     :clojure-total 21,
+     :percent 0.9047619047619048},
+    clojure.test {:in-both-count 39, :clojure-total 39, :percent 1.0},
+    clojure.core.protocols
+    {:in-both-count 10,
+     :clojure-total 11,
+     :percent 0.9090909090909091},
+    clojure.core
+    {:in-both-count 593,
+     :clojure-total 679,
+     :percent 0.8733431516936672},
+    clojure.set {:in-both-count 12, :clojure-total 12, :percent 1.0},
+    clojure.pprint
+    {:in-both-count 26, :clojure-total 26, :percent 1.0},
+    clojure.math {:in-both-count 45, :clojure-total 45, :percent 1.0},
+    clojure.edn {:in-both-count 2, :clojure-total 2, :percent 1.0},
+    clojure.instant {:in-both-count 3, :clojure-total 5, :percent 0.6},
+    clojure.string
+    {:in-both-count 21, :clojure-total 21, :percent 1.0},
+    clojure.data {:in-both-count 5, :clojure-total 5, :percent 1.0},
+    clojure.walk {:in-both-count 10, :clojure-total 10, :percent 1.0},
+    clojure.template
+    {:in-both-count 2, :clojure-total 2, :percent 1.0}}}
+  {:date "2026-08-04",
+   :dialect-tag "mino",
+   :clojure-version "1.11.0",
+   :headline
+   {:in-both-count 904,
+    :clojure-total 995,
+    :percent 0.9085427135678392},
+   :per-namespace
+   {clojure.spec.alpha
+    {:in-both-count 87, :clojure-total 87, :percent 1.0},
+    clojure.datafy {:in-both-count 2, :clojure-total 2, :percent 1.0},
+    clojure.zip {:in-both-count 28, :clojure-total 28, :percent 1.0},
+    clojure.core.reducers
+    {:in-both-count 19,
+     :clojure-total 21,
+     :percent 0.9047619047619048},
+    clojure.test {:in-both-count 39, :clojure-total 39, :percent 1.0},
+    clojure.core.protocols
+    {:in-both-count 10,
+     :clojure-total 11,
+     :percent 0.9090909090909091},
+    clojure.core
+    {:in-both-count 593,
+     :clojure-total 679,
+     :percent 0.8733431516936672},
+    clojure.set {:in-both-count 12, :clojure-total 12, :percent 1.0},
+    clojure.pprint
+    {:in-both-count 26, :clojure-total 26, :percent 1.0},
+    clojure.math {:in-both-count 45, :clojure-total 45, :percent 1.0},
+    clojure.edn {:in-both-count 2, :clojure-total 2, :percent 1.0},
+    clojure.instant {:in-both-count 3, :clojure-total 5, :percent 0.6},
+    clojure.string
+    {:in-both-count 21, :clojure-total 21, :percent 1.0},
+    clojure.data {:in-both-count 5, :clojure-total 5, :percent 1.0},
+    clojure.walk {:in-both-count 10, :clojure-total 10, :percent 1.0},
+    clojure.template
+    {:in-both-count 2, :clojure-total 2, :percent 1.0}}}
+  {:date "2026-08-05",
+   :dialect-tag "mino",
+   :clojure-version "1.11.0",
+   :headline
+   {:in-both-count 904,
+    :clojure-total 995,
+    :percent 0.9085427135678392},
+   :per-namespace
+   {clojure.spec.alpha
+    {:in-both-count 87, :clojure-total 87, :percent 1.0},
+    clojure.datafy {:in-both-count 2, :clojure-total 2, :percent 1.0},
+    clojure.zip {:in-both-count 28, :clojure-total 28, :percent 1.0},
+    clojure.core.reducers
+    {:in-both-count 19,
+     :clojure-total 21,
+     :percent 0.9047619047619048},
+    clojure.test {:in-both-count 39, :clojure-total 39, :percent 1.0},
+    clojure.core.protocols
+    {:in-both-count 10,
+     :clojure-total 11,
+     :percent 0.9090909090909091},
+    clojure.core
+    {:in-both-count 593,
+     :clojure-total 679,
+     :percent 0.8733431516936672},
+    clojure.set {:in-both-count 12, :clojure-total 12, :percent 1.0},
+    clojure.pprint
+    {:in-both-count 26, :clojure-total 26, :percent 1.0},
+    clojure.math {:in-both-count 45, :clojure-total 45, :percent 1.0},
+    clojure.edn {:in-both-count 2, :clojure-total 2, :percent 1.0},
+    clojure.instant {:in-both-count 3, :clojure-total 5, :percent 0.6},
+    clojure.string
+    {:in-both-count 21, :clojure-total 21, :percent 1.0},
+    clojure.data {:in-both-count 5, :clojure-total 5, :percent 1.0},
+    clojure.walk {:in-both-count 10, :clojure-total 10, :percent 1.0},
+    clojure.template
+    {:in-both-count 2, :clojure-total 2, :percent 1.0}}}
+  {:date "2026-08-06",
+   :dialect-tag "mino",
+   :clojure-version "1.11.0",
+   :headline
+   {:in-both-count 904,
+    :clojure-total 995,
+    :percent 0.9085427135678392},
+   :per-namespace
+   {clojure.spec.alpha
+    {:in-both-count 87, :clojure-total 87, :percent 1.0},
+    clojure.datafy {:in-both-count 2, :clojure-total 2, :percent 1.0},
+    clojure.zip {:in-both-count 28, :clojure-total 28, :percent 1.0},
+    clojure.core.reducers
+    {:in-both-count 19,
+     :clojure-total 21,
+     :percent 0.9047619047619048},
+    clojure.test {:in-both-count 39, :clojure-total 39, :percent 1.0},
+    clojure.core.protocols
+    {:in-both-count 10,
+     :clojure-total 11,
+     :percent 0.9090909090909091},
+    clojure.core
+    {:in-both-count 593,
+     :clojure-total 679,
+     :percent 0.8733431516936672},
+    clojure.set {:in-both-count 12, :clojure-total 12, :percent 1.0},
+    clojure.pprint
+    {:in-both-count 26, :clojure-total 26, :percent 1.0},
+    clojure.math {:in-both-count 45, :clojure-total 45, :percent 1.0},
+    clojure.edn {:in-both-count 2, :clojure-total 2, :percent 1.0},
+    clojure.instant {:in-both-count 3, :clojure-total 5, :percent 0.6},
+    clojure.string
+    {:in-both-count 21, :clojure-total 21, :percent 1.0},
+    clojure.data {:in-both-count 5, :clojure-total 5, :percent 1.0},
+    clojure.walk {:in-both-count 10, :clojure-total 10, :percent 1.0},
+    clojure.template
+    {:in-both-count 2, :clojure-total 2, :percent 1.0}}}
+  {:date "2026-08-07",
+   :dialect-tag "mino",
+   :clojure-version "1.11.0",
+   :headline
+   {:in-both-count 904,
+    :clojure-total 995,
+    :percent 0.9085427135678392},
+   :per-namespace
+   {clojure.spec.alpha
+    {:in-both-count 87, :clojure-total 87, :percent 1.0},
+    clojure.datafy {:in-both-count 2, :clojure-total 2, :percent 1.0},
+    clojure.zip {:in-both-count 28, :clojure-total 28, :percent 1.0},
+    clojure.core.reducers
+    {:in-both-count 19,
+     :clojure-total 21,
+     :percent 0.9047619047619048},
+    clojure.test {:in-both-count 39, :clojure-total 39, :percent 1.0},
+    clojure.core.protocols
+    {:in-both-count 10,
+     :clojure-total 11,
+     :percent 0.9090909090909091},
+    clojure.core
+    {:in-both-count 593,
+     :clojure-total 679,
+     :percent 0.8733431516936672},
+    clojure.set {:in-both-count 12, :clojure-total 12, :percent 1.0},
+    clojure.pprint
+    {:in-both-count 26, :clojure-total 26, :percent 1.0},
+    clojure.math {:in-both-count 45, :clojure-total 45, :percent 1.0},
+    clojure.edn {:in-both-count 2, :clojure-total 2, :percent 1.0},
+    clojure.instant {:in-both-count 3, :clojure-total 5, :percent 0.6},
+    clojure.string
+    {:in-both-count 21, :clojure-total 21, :percent 1.0},
+    clojure.data {:in-both-count 5, :clojure-total 5, :percent 1.0},
+    clojure.walk {:in-both-count 10, :clojure-total 10, :percent 1.0},
+    clojure.template
+    {:in-both-count 2, :clojure-total 2, :percent 1.0}}}
+  {:date "2026-08-08",
+   :dialect-tag "mino",
+   :clojure-version "1.11.0",
+   :headline
+   {:in-both-count 904,
+    :clojure-total 995,
+    :percent 0.9085427135678392},
+   :per-namespace
+   {clojure.spec.alpha
+    {:in-both-count 87, :clojure-total 87, :percent 1.0},
+    clojure.datafy {:in-both-count 2, :clojure-total 2, :percent 1.0},
+    clojure.zip {:in-both-count 28, :clojure-total 28, :percent 1.0},
+    clojure.core.reducers
+    {:in-both-count 19,
+     :clojure-total 21,
+     :percent 0.9047619047619048},
+    clojure.test {:in-both-count 39, :clojure-total 39, :percent 1.0},
+    clojure.core.protocols
+    {:in-both-count 10,
+     :clojure-total 11,
+     :percent 0.9090909090909091},
+    clojure.core
+    {:in-both-count 593,
+     :clojure-total 679,
+     :percent 0.8733431516936672},
+    clojure.set {:in-both-count 12, :clojure-total 12, :percent 1.0},
+    clojure.pprint
+    {:in-both-count 26, :clojure-total 26, :percent 1.0},
+    clojure.math {:in-both-count 45, :clojure-total 45, :percent 1.0},
+    clojure.edn {:in-both-count 2, :clojure-total 2, :percent 1.0},
+    clojure.instant {:in-both-count 3, :clojure-total 5, :percent 0.6},
+    clojure.string
+    {:in-both-count 21, :clojure-total 21, :percent 1.0},
+    clojure.data {:in-both-count 5, :clojure-total 5, :percent 1.0},
+    clojure.walk {:in-both-count 10, :clojure-total 10, :percent 1.0},
+    clojure.template
+    {:in-both-count 2, :clojure-total 2, :percent 1.0}}}
+  {:date "2026-08-09",
+   :dialect-tag "mino",
+   :clojure-version "1.11.0",
+   :headline
+   {:in-both-count 904,
+    :clojure-total 995,
+    :percent 0.9085427135678392},
+   :per-namespace
+   {clojure.spec.alpha
+    {:in-both-count 87, :clojure-total 87, :percent 1.0},
+    clojure.datafy {:in-both-count 2, :clojure-total 2, :percent 1.0},
+    clojure.zip {:in-both-count 28, :clojure-total 28, :percent 1.0},
+    clojure.core.reducers
+    {:in-both-count 19,
+     :clojure-total 21,
+     :percent 0.9047619047619048},
+    clojure.test {:in-both-count 39, :clojure-total 39, :percent 1.0},
+    clojure.core.protocols
+    {:in-both-count 10,
+     :clojure-total 11,
+     :percent 0.9090909090909091},
+    clojure.core
+    {:in-both-count 593,
+     :clojure-total 679,
+     :percent 0.8733431516936672},
+    clojure.set {:in-both-count 12, :clojure-total 12, :percent 1.0},
+    clojure.pprint
+    {:in-both-count 26, :clojure-total 26, :percent 1.0},
+    clojure.math {:in-both-count 45, :clojure-total 45, :percent 1.0},
+    clojure.edn {:in-both-count 2, :clojure-total 2, :percent 1.0},
+    clojure.instant {:in-both-count 3, :clojure-total 5, :percent 0.6},
+    clojure.string
+    {:in-both-count 21, :clojure-total 21, :percent 1.0},
+    clojure.data {:in-both-count 5, :clojure-total 5, :percent 1.0},
+    clojure.walk {:in-both-count 10, :clojure-total 10, :percent 1.0},
+    clojure.template
+    {:in-both-count 2, :clojure-total 2, :percent 1.0}}}
+  {:date "2026-08-10",
+   :dialect-tag "mino",
+   :clojure-version "1.11.0",
+   :headline
+   {:in-both-count 904,
+    :clojure-total 995,
+    :percent 0.9085427135678392},
+   :per-namespace
+   {clojure.spec.alpha
+    {:in-both-count 87, :clojure-total 87, :percent 1.0},
+    clojure.datafy {:in-both-count 2, :clojure-total 2, :percent 1.0},
+    clojure.zip {:in-both-count 28, :clojure-total 28, :percent 1.0},
+    clojure.core.reducers
+    {:in-both-count 19,
+     :clojure-total 21,
+     :percent 0.9047619047619048},
+    clojure.test {:in-both-count 39, :clojure-total 39, :percent 1.0},
+    clojure.core.protocols
+    {:in-both-count 10,
+     :clojure-total 11,
+     :percent 0.9090909090909091},
+    clojure.core
+    {:in-both-count 593,
+     :clojure-total 679,
+     :percent 0.8733431516936672},
+    clojure.set {:in-both-count 12, :clojure-total 12, :percent 1.0},
+    clojure.pprint
+    {:in-both-count 26, :clojure-total 26, :percent 1.0},
+    clojure.math {:in-both-count 45, :clojure-total 45, :percent 1.0},
+    clojure.edn {:in-both-count 2, :clojure-total 2, :percent 1.0},
+    clojure.instant {:in-both-count 3, :clojure-total 5, :percent 0.6},
+    clojure.string
+    {:in-both-count 21, :clojure-total 21, :percent 1.0},
+    clojure.data {:in-both-count 5, :clojure-total 5, :percent 1.0},
+    clojure.walk {:in-both-count 10, :clojure-total 10, :percent 1.0},
+    clojure.template
+    {:in-both-count 2, :clojure-total 2, :percent 1.0}}}
+  {:date "2026-08-11",
+   :dialect-tag "mino",
+   :clojure-version "1.11.0",
+   :headline
+   {:in-both-count 904,
+    :clojure-total 995,
+    :percent 0.9085427135678392},
+   :per-namespace
+   {clojure.spec.alpha
+    {:in-both-count 87, :clojure-total 87, :percent 1.0},
+    clojure.datafy {:in-both-count 2, :clojure-total 2, :percent 1.0},
+    clojure.zip {:in-both-count 28, :clojure-total 28, :percent 1.0},
+    clojure.core.reducers
+    {:in-both-count 19,
+     :clojure-total 21,
+     :percent 0.9047619047619048},
+    clojure.test {:in-both-count 39, :clojure-total 39, :percent 1.0},
+    clojure.core.protocols
+    {:in-both-count 10,
+     :clojure-total 11,
+     :percent 0.9090909090909091},
+    clojure.core
+    {:in-both-count 593,
+     :clojure-total 679,
+     :percent 0.8733431516936672},
+    clojure.set {:in-both-count 12, :clojure-total 12, :percent 1.0},
+    clojure.pprint
+    {:in-both-count 26, :clojure-total 26, :percent 1.0},
+    clojure.math {:in-both-count 45, :clojure-total 45, :percent 1.0},
+    clojure.edn {:in-both-count 2, :clojure-total 2, :percent 1.0},
+    clojure.instant {:in-both-count 3, :clojure-total 5, :percent 0.6},
+    clojure.string
+    {:in-both-count 21, :clojure-total 21, :percent 1.0},
+    clojure.data {:in-both-count 5, :clojure-total 5, :percent 1.0},
+    clojure.walk {:in-both-count 10, :clojure-total 10, :percent 1.0},
+    clojure.template
+    {:in-both-count 2, :clojure-total 2, :percent 1.0}}}
+  {:date "2026-08-12",
+   :dialect-tag "mino",
+   :clojure-version "1.11.0",
+   :headline
+   {:in-both-count 904,
+    :clojure-total 995,
+    :percent 0.9085427135678392},
+   :per-namespace
+   {clojure.spec.alpha
+    {:in-both-count 87, :clojure-total 87, :percent 1.0},
+    clojure.datafy {:in-both-count 2, :clojure-total 2, :percent 1.0},
+    clojure.zip {:in-both-count 28, :clojure-total 28, :percent 1.0},
+    clojure.core.reducers
+    {:in-both-count 19,
+     :clojure-total 21,
+     :percent 0.9047619047619048},
+    clojure.test {:in-both-count 39, :clojure-total 39, :percent 1.0},
+    clojure.core.protocols
+    {:in-both-count 10,
+     :clojure-total 11,
+     :percent 0.9090909090909091},
+    clojure.core
+    {:in-both-count 593,
+     :clojure-total 679,
+     :percent 0.8733431516936672},
+    clojure.set {:in-both-count 12, :clojure-total 12, :percent 1.0},
+    clojure.pprint
+    {:in-both-count 26, :clojure-total 26, :percent 1.0},
+    clojure.math {:in-both-count 45, :clojure-total 45, :percent 1.0},
+    clojure.edn {:in-both-count 2, :clojure-total 2, :percent 1.0},
+    clojure.instant {:in-both-count 3, :clojure-total 5, :percent 0.6},
+    clojure.string
+    {:in-both-count 21, :clojure-total 21, :percent 1.0},
+    clojure.data {:in-both-count 5, :clojure-total 5, :percent 1.0},
+    clojure.walk {:in-both-count 10, :clojure-total 10, :percent 1.0},
+    clojure.template
+    {:in-both-count 2, :clojure-total 2, :percent 1.0}}}
+  {:date "2026-08-13",
+   :dialect-tag "mino",
+   :clojure-version "1.11.0",
+   :headline
+   {:in-both-count 904,
+    :clojure-total 995,
+    :percent 0.9085427135678392},
+   :per-namespace
+   {clojure.spec.alpha
+    {:in-both-count 87, :clojure-total 87, :percent 1.0},
+    clojure.datafy {:in-both-count 2, :clojure-total 2, :percent 1.0},
+    clojure.zip {:in-both-count 28, :clojure-total 28, :percent 1.0},
+    clojure.core.reducers
+    {:in-both-count 19,
+     :clojure-total 21,
+     :percent 0.9047619047619048},
+    clojure.test {:in-both-count 39, :clojure-total 39, :percent 1.0},
+    clojure.core.protocols
+    {:in-both-count 10,
+     :clojure-total 11,
+     :percent 0.9090909090909091},
+    clojure.core
+    {:in-both-count 593,
+     :clojure-total 679,
+     :percent 0.8733431516936672},
+    clojure.set {:in-both-count 12, :clojure-total 12, :percent 1.0},
+    clojure.pprint
+    {:in-both-count 26, :clojure-total 26, :percent 1.0},
+    clojure.math {:in-both-count 45, :clojure-total 45, :percent 1.0},
+    clojure.edn {:in-both-count 2, :clojure-total 2, :percent 1.0},
+    clojure.instant {:in-both-count 3, :clojure-total 5, :percent 0.6},
+    clojure.string
+    {:in-both-count 21, :clojure-total 21, :percent 1.0},
+    clojure.data {:in-both-count 5, :clojure-total 5, :percent 1.0},
+    clojure.walk {:in-both-count 10, :clojure-total 10, :percent 1.0},
+    clojure.template
+    {:in-both-count 2, :clojure-total 2, :percent 1.0}}}
+  {:date "2026-08-13",
+   :dialect-tag "mino",
+   :clojure-version "2026.08.08-alpha1",
    :headline
    {:in-both-count 904,
     :clojure-total 995,
@@ -1286,10 +1190,46 @@
    "Where reader attaches meta and which ops preserve it."}],
  :drift
  {:from-date "2026-06-13",
-  :to-date "2026-06-13",
-  :added-vars #{},
-  :removed-vars #{},
-  :changed [],
+  :to-date "2026-08-13",
+  :added-vars
+  #{clojure.core/store-read-wal*
+    clojure.core/store-close*
+    clojure.core/which
+    clojure.core/run
+    clojure.core/store-open*
+    clojure.core/store-clock*
+    clojure.core/store-commit*
+    clojure.core/store-read-snapshot*
+    clojure.core/load-image-into
+    clojure.core/sha256
+    clojure.core/store?
+    clojure.core/realpath
+    clojure.core/store-checkpoint*
+    clojure.core/save-image},
+  :removed-vars
+  #{clojure.spec.alpha/instrument clojure.spec.alpha/unstrument},
+  :changed
+  [{:var clojure.core/*clojure-version*,
+    :before
+    {:doc
+     "The Clojure compatibility version for this runtime, as a map with :major :minor :incremental and :qualifier keys.",
+     :dynamic true},
+    :after
+    {:doc
+     "The version of this runtime, as a map with :major :minor :incremental\n   and :qualifier keys. CalVer scheme matches MINO_VERSION in src/mino.h.",
+     :dynamic true}}
+   {:var clojure.core/clojure-version,
+    :before
+    {:doc
+     "Returns the Clojure compatibility version as a printable string."},
+    :after {:doc "Returns the runtime version as a printable string."}}
+   {:var clojure.test/run-tests-and-exit,
+    :before
+    {:doc
+     "Runs the whole registry and exits the process with code 0 on no\n  failures or errors, 1 otherwise.  A no-op while suite-mode is true.\n  Used as the bottom-of-file entry point in test files and by the suite\n  driver; it always runs every registered test, independent of the\n  namespace-scoped run-tests."},
+    :after
+    {:doc
+     "Runs the whole registry and exits the process with code 0 on no\n  failures or errors, 1 otherwise.  A no-op while suite-mode is true.\n  Used as the bottom-of-file entry point in test files and by the suite\n  driver; it always runs every registered test, independent of the\n  namespace-scoped run-tests.\n\n  When the MINO_TEST_SUMMARY env var names a writable path, the summary\n  is written there as EDN before exiting. The shape is:\n    {:tests N :passes N :failures N :errors N\n     :assertions N :pass-rate 0.0..1.0}"}}],
   :coverage-delta 0.0},
  :extensions
  [{:id :integer-radix-strings,
@@ -1404,6 +1344,7 @@
   clojure.core/lazy-map-1
   clojure.core/lazy-take
   clojure.core/let-bits
+  clojure.core/load-image-into
   clojure.core/map-entry
   clojure.core/math-acos
   clojure.core/math-asin
@@ -1463,6 +1404,7 @@
   clojure.core/rangev
   clojure.core/re-find-from
   clojure.core/read*
+  clojure.core/realpath
   clojure.core/record*
   clojure.core/record-fields
   clojure.core/record-from-map
@@ -1470,12 +1412,23 @@
   clojure.core/ref?
   clojure.core/regex?
   clojure.core/rm-rf
+  clojure.core/run
+  clojure.core/save-image
   clojure.core/set!
   clojure.core/set-dyn-binding!
   clojure.core/set-fail-alloc-at!
   clojure.core/set-print-method!
   clojure.core/sh
   clojure.core/sh!
+  clojure.core/sha256
+  clojure.core/store-checkpoint*
+  clojure.core/store-clock*
+  clojure.core/store-close*
+  clojure.core/store-commit*
+  clojure.core/store-open*
+  clojure.core/store-read-snapshot*
+  clojure.core/store-read-wal*
+  clojure.core/store?
   clojure.core/subbits
   clojure.core/thread
   clojure.core/thread-sleep
@@ -1483,6 +1436,7 @@
   clojure.core/time-ms
   clojure.core/transient?
   clojure.core/walk
+  clojure.core/which
   clojure.core/Boolean/parseBoolean
   clojure.core/Character/toString
   clojure.core/Double/isInfinite
@@ -1557,14 +1511,12 @@
   clojure.spec.alpha/double-in-impl
   clojure.spec.alpha/fdef-impl
   clojure.spec.alpha/inst-in-impl
-  clojure.spec.alpha/instrument
   clojure.spec.alpha/int-in-impl
   clojure.spec.alpha/invalid
   clojure.spec.alpha/keys*-impl
   clojure.spec.alpha/keys-impl
   clojure.spec.alpha/map-of-impl
   clojure.spec.alpha/re-consume
-  clojure.spec.alpha/unstrument
   clojure.test/*current-test*
   clojure.test/assert-error!
   clojure.test/assert-fail!

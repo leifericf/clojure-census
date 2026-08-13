@@ -1,5 +1,5 @@
 {:dialect-tag "mino",
- :clojure-version "1.11.0",
+ :clojure-version "2026.08.08-alpha1",
  :namespaces
  {clojure.core
   {:vars
@@ -15,7 +15,7 @@
      :dynamic true},
     *clojure-version*
     {:doc
-     "The Clojure compatibility version for this runtime, as a map with :major :minor :incremental and :qualifier keys.",
+     "The version of this runtime, as a map with :major :minor :incremental\n   and :qualifier keys. CalVer scheme matches MINO_VERSION in src/mino.h.",
      :dynamic true},
     *command-line-args* {:dynamic true},
     *compile-files* {:dynamic true},
@@ -246,8 +246,7 @@
     chunked-seq? {},
     class {},
     clojure-version
-    {:doc
-     "Returns the Clojure compatibility version as a printable string."},
+    {:doc "Returns the runtime version as a printable string."},
     coll-reduce {},
     coll? {:doc "Returns true if x is a collection."},
     comment {:doc "Ignores body, returns nil.", :macro true},
@@ -633,6 +632,7 @@
      "Creates a new list containing the items prepended to the rest, the\n   last of which will be treated as a sequence."},
     list? {},
     load-file {},
+    load-image-into {},
     load-string {},
     loaded-libs {},
     locking
@@ -920,6 +920,7 @@
     realized?
     {:doc
      "Returns true if a delay, lazy sequence, future, or promise has\n     been realized."},
+    realpath {},
     record* {},
     record-fields {},
     record-from-map {},
@@ -994,12 +995,14 @@
     rm-rf {},
     rseq {},
     rsubseq {},
+    run {},
     run!
     {:doc
      "Applies f to each item in coll for side effects. Returns nil."},
     satisfies?
     {:doc
      "Returns true if x's type has implementations for all methods of\n   proto."},
+    save-image {},
     second {:doc "Returns the second item in coll."},
     select-keys
     {:doc
@@ -1036,6 +1039,7 @@
     set? {},
     sh {},
     sh! {},
+    sha256 {},
     short {},
     short-array {},
     shuffle
@@ -1080,6 +1084,14 @@
     splitv-at
     {:doc
      "Returns a vector [(vec (take n coll)) (vec (drop n coll))]."},
+    store-checkpoint* {},
+    store-clock* {},
+    store-close* {},
+    store-commit* {},
+    store-open* {},
+    store-read-snapshot* {},
+    store-read-wal* {},
+    store? {},
     str {},
     string? {},
     subbits {},
@@ -1225,6 +1237,7 @@
     when-some
     {:doc "Binds the result of expr, evaluates body if non-nil.",
      :macro true},
+    which {},
     while
     {:doc "Repeatedly evaluates body while test is truthy.",
      :macro true},
@@ -1791,9 +1804,6 @@
     inst-in-range?
     {:doc
      "Return true when inst is at or after start and strictly before end."},
-    instrument
-    {:doc
-     "Wrap the var named by sym so its args are validated against the\n  registered fdef on every call.  Returns sym if instrumented, nil\n  if no fdef is registered."},
     int-in
     {:doc
      "Return a spec validating fixed-precision integers in the range from\n  start (inclusive) to end (exclusive).",
@@ -1886,8 +1896,6 @@
      "Return the destructuring inverse of conform.  Given a conformed\n  value y produced by (conform spec x), unform returns a value that\n  conforms to spec and conforms to it back to y.  For specs without\n  an inverse (registered :clojure.spec.alpha/conformer specs without\n  an :unform key), unform returns y unchanged."},
     unform*
     {:doc "Internal dispatch for unform.  Public callers use unform."},
-    unstrument
-    {:doc "Restore an instrumented var to its original value."},
     valid? {:doc "Return true iff x conforms to spec."},
     with-gen
     {:doc
@@ -2005,7 +2013,7 @@
      "Run registered tests and return a summary map.\n\n  With no arguments, runs the tests registered in the namespace that is\n  current when run-tests is called (reads *ns* at call time, per JVM\n  canon).  Given namespace symbols or objects, runs tests registered in\n  those namespaces.\n\n  Prints a summary line and any failure details to stdout."},
     run-tests-and-exit
     {:doc
-     "Runs the whole registry and exits the process with code 0 on no\n  failures or errors, 1 otherwise.  A no-op while suite-mode is true.\n  Used as the bottom-of-file entry point in test files and by the suite\n  driver; it always runs every registered test, independent of the\n  namespace-scoped run-tests."},
+     "Runs the whole registry and exits the process with code 0 on no\n  failures or errors, 1 otherwise.  A no-op while suite-mode is true.\n  Used as the bottom-of-file entry point in test files and by the suite\n  driver; it always runs every registered test, independent of the\n  namespace-scoped run-tests.\n\n  When the MINO_TEST_SUMMARY env var names a writable path, the summary\n  is written there as EDN before exiting. The shape is:\n    {:tests N :passes N :failures N :errors N\n     :assertions N :pass-rate 0.0..1.0}"},
     set-test {:macro true},
     successful?
     {:doc
@@ -2113,4 +2121,4 @@
    throw
    def},
  :spec-keys #{},
- :captured-at "2026-06-13T07:48:20Z"}
+ :captured-at "2026-08-13T21:36:55Z"}
