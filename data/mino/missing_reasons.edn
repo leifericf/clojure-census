@@ -10,7 +10,7 @@
 ;; census is the source of truth; mino's jvm-only is what makes
 ;; a missing var intentional, not a gap). Regenerate after a
 ;; Clojure baseline move or when mino adds a var:
-;;   bb scripts/gen_missing_reasons.bb
+;;   clojure -M:run gen-missing-reasons mino
 ;;
 ;; The dashboard rendering consumes this to split the parity gap
 ;; into intentional and gap so the number stays interpretable.

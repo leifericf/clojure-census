@@ -621,6 +621,89 @@
                            [:missing :count]))
           0))))
 
+(defn- extract-jvm-only
+  "Read mino's tests/clojure_coverage_test.clj and extract the jvm-only
+  set. Each top-level (def sym value) form is collected; the value of
+  the symbol named 'jvm-only is returned as a set."
+  [mino-path]
+  (let [src  (slurp (str mino-path "/tests/clojure_coverage_test.clj"))
+        rdr  (java.io.PushbackReader. (java.io.StringReader. src))
+        forms (doall (take-while some?
+                                 (repeatedly #(read rdr false nil))))
+        unwrap (fn [v] (if (and (seq? v) (= (first v) 'quote))
+                         (second v) v))
+        defs  (into {}
+                    (for [f forms :when (and (seq? f) (= (first f) 'def))]
+                      [(second f) (unwrap (last f))]))]
+    (get defs 'jvm-only)))
+
+(def jvm-bound-override
+  "Cross-namespace JVM-coupled vars mino's clojure.core-only jvm-only
+  set does not name: reducers fork-join machinery, the protocol
+  Java-Iterator reduction, and the JVM Calendar/Timestamp instant
+  parsers. JVM-bound by the same rationale."
+  #{'clojure.core.reducers/fjtask
+    'clojure.core.reducers/pool
+    'clojure.core.protocols/iterator-reduce!
+    'clojure.instant/read-instant-calendar
+    'clojure.instant/read-instant-timestamp})
+
+(defn- jvm-bound?
+  [m jvm-only]
+  (or (contains? jvm-only (:var m))
+      (contains? jvm-bound-override
+                 (symbol (name (:namespace m)) (name (:var m))))))
+
+(defn- reason-for [m jvm-only]
+  (if (jvm-bound? m jvm-only)
+    "JVM compiler, classloader, or Java-type machinery a host-free runtime cannot honor"
+    (case (:var m)
+      definline "Portable macro mino does not yet expose"
+      munge     "Portable name-mangling fn mino does not yet expose"
+      "Genuine portable gap, a real coverage target")))
+
+(defn- subcmd-gen-missing-reasons
+  [_ctx [tag mino-path :as _args]]
+  (let [mino-path  (or mino-path "../mino")
+        dash-path  (dashboard-edn-path tag)
+        dash       (store/slurp-edn dash-path)
+        missing    (:missing dash)
+        jvm-only   (extract-jvm-only mino-path)]
+    (when-not (seq missing)
+      (println "gen-missing-reasons:" tag "-> no :missing in" dash-path)
+      (System/exit 1))
+    (let [header (str ";; Classification of mino's missing-from-Clojure surface.\n"
+                      ";;\n"
+                      ";; Each missing var is either :jvm-bound (intentionally absent:\n"
+                      ";; JVM compiler, classloader, or Java-type machinery a host-free\n"
+                      ";; runtime cannot honor) or :gap (genuinely missing portable\n"
+                      ";; surface, a real coverage target).\n"
+                      ";;\n"
+                      ";; The :jvm-bound verdict is cross-referenced from mino's own\n"
+                      ";; jvm-only set in tests/clojure_coverage_test.clj (ADR 19:\n"
+                      ";; census is the source of truth; mino's jvm-only is what makes\n"
+                      ";; a missing var intentional, not a gap). Regenerate after a\n"
+                      ";; Clojure baseline move or when mino adds a var:\n"
+                      ";;   clojure -M:run gen-missing-reasons mino\n"
+                      ";;\n"
+                      ";; The dashboard rendering consumes this to split the parity gap\n"
+                      ";; into intentional and gap so the number stays interpretable.\n"
+                      "[\n")
+          body   (apply str
+                        (for [m (sort-by :var missing)]
+                          (str " {:namespace " (:namespace m)
+                               " :var "       (:var m)
+                               " :verdict "   (if (jvm-bound? m jvm-only) :jvm-bound :gap)
+                               " :reason "    (pr-str (reason-for m jvm-only))
+                               "}\n")))
+          out-path (str "data/" tag "/missing_reasons.edn")]
+      (spit out-path (str header body "]\n"))
+      (let [jb (count (filter #(jvm-bound? % jvm-only) missing))
+            gp (- (count missing) jb)]
+        (println (str "gen-missing-reasons: " out-path " (" (count missing)
+                      " entries: " jb " jvm-bound, " gp " gap)")))
+      0)))
+
 (defn- subcmd-help
   [_ctx _args]
   (println "Usage: clojure -M:run <subcommand> [args]")
@@ -631,20 +714,22 @@
   (println "  diff <dialect>        produce the dashboard for a dialect")
   (println "  render <dialect>      re-render from saved surfaces")
   (println "  behavior <dialect>    evaluate the behavior catalog")
-  (println "  payload <dialect>    emit the site-render payload EDN")
+  (println "  payload <dialect>     emit the site-render payload EDN")
+  (println "  gen-missing-reasons <dialect> [mino-path]  regenerate missing_reasons.edn")
   (println "  all <dialect>         dump + diff combined")
   (println "  help                  this message")
   0)
 
 (def dispatch-table
-  {"validate-data" {:fn subcmd-validate-data}
-   "dump"          {:fn subcmd-dump}
-   "diff"          {:fn subcmd-diff}
-   "render"        {:fn subcmd-render}
-   "behavior"      {:fn subcmd-behavior}
-   "payload"       {:fn subcmd-payload}
-   "all"           {:fn subcmd-all}
-   "help"          {:fn subcmd-help}})
+  {"validate-data"       {:fn subcmd-validate-data}
+   "dump"                {:fn subcmd-dump}
+   "diff"                {:fn subcmd-diff}
+   "render"              {:fn subcmd-render}
+   "behavior"            {:fn subcmd-behavior}
+   "payload"             {:fn subcmd-payload}
+   "gen-missing-reasons" {:fn subcmd-gen-missing-reasons}
+   "all"                 {:fn subcmd-all}
+   "help"                {:fn subcmd-help}})
 
 (defn -main [& args]
   (let [[cmd & rest] (or args ["help"])
