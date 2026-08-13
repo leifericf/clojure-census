@@ -36,6 +36,13 @@
         {:title (str (:tag dialect) " / " ns-sym) :link link}
         (components/dialect-namespace-detail dialect ns-sym {:link link})))))
 
+(defn- readiness-page [link dialect payload]
+  (fn [_]
+    (render-html
+      (layout/page
+        {:title (str "Readiness: " (:tag dialect)) :link link}
+        (components/readiness-detail dialect payload {:link link})))))
+
 (defn- stylesheet-page [_]
   (styles/css-string))
 
@@ -55,13 +62,21 @@
                                 :when (some? dashboard)]
                             [(str "/dialects/" (:tag d) "/index.html")
                              (dialect-page link d)]))
-        deep-dives  (into {}
-                          (for [{:keys [tag dashboard] :as d} dialects
-                                :when (some? dashboard)
-                                ns-sym (keys (-> dashboard :coverage :per-namespace))]
-                            [(str "/dialects/" tag "/ns/" (str ns-sym) "/index.html")
-                             (dialect-namespace-page link d ns-sym)]))]
+         deep-dives  (into {}
+                           (for [{:keys [tag dashboard] :as d} dialects
+                                 :when (some? dashboard)
+                                 ns-sym (keys (-> dashboard :coverage :per-namespace))]
+                             [(str "/dialects/" tag "/ns/" (str ns-sym) "/index.html")
+                              (dialect-namespace-page link d ns-sym)]))
+         readiness   (into {}
+                           (for [{:keys [tag] :as d} dialects
+                                 :let [payload (data/load-site-payload
+                                                 (config/output-root) tag)]
+                                 :when payload]
+                             [(str "/dialects/" tag "/readiness/index.html")
+                              (readiness-page link d payload)]))]
     (-> landing
         (into overviews)
         (into deep-dives)
+        (into readiness)
         (assoc "/css/main.css" stylesheet-page))))

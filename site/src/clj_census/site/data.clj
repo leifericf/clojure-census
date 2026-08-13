@@ -75,3 +75,12 @@
   column order with the engine's source-of-truth namespace list."
   [path]
   (read-edn-file path))
+
+(defn load-site-payload
+  "Read output/<tag>/site_payload.edn if it exists, else nil.
+  The payload carries divergences, coverage, the missing-surface
+  split, and optional correctness signals."
+  [output-root tag]
+  (let [f (io/file output-root tag "site_payload.edn")]
+    (when (.exists f)
+      (read-edn-file f))))

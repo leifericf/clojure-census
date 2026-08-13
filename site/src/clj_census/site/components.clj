@@ -489,4 +489,55 @@
      (ns-missing-table missing)
      (ns-dialect-only-table dialect-only)
      (ns-extensions-section extensions)
-     (ns-divergences-section divergences)]))
+      (ns-divergences-section divergences)]))
+
+;; ===== readiness view ==============================================
+
+(defn- stat-row
+  "Render one readiness stat table row."
+  [label value detail]
+  [:tr [:th label] [:td value] [:td.muted detail]])
+
+(defn readiness-detail
+  "Consolidated readiness view for one dialect."
+  [{:keys [tag name]} payload {:keys [link]}]
+  (let [coverage  (get-in payload [:coverage :headline])
+        signals   (:signals payload)
+        missing-c (get-in payload [:missing :count])
+        us        (:upstream-suite signals)
+        cd        (:clojuredocs-probe signals)
+        bh-totals (get-in payload [:behavior :totals])
+        rows (cond-> []
+               (some? coverage)
+               (conj (stat-row "Surface coverage"
+                               (pct (:percent coverage))
+                               (str (:in-both-count coverage) " / "
+                                    (:clojure-total coverage) " vars")))
+               (some? missing-c)
+               (conj (stat-row "Missing surface"
+                               (str (:total missing-c) " vars")
+                               (str (:jvm-bound missing-c) " JVM-bound, "
+                                    (:gap missing-c) " gap")))
+               (some? bh-totals)
+               (conj (stat-row "Behavior parity"
+                               (str (reduce + (vals bh-totals)) " cases")
+                               (str (:match bh-totals 0) " match, "
+                                    (:mismatch bh-totals 0) " mismatch")))
+               (some? us)
+               (conj (stat-row "Upstream test suite"
+                               (pct (:pass-rate us))
+                               (str (:passes us) " / " (:assertions us)
+                                    " assertions")))
+               (some? cd)
+               (conj (stat-row "ClojureDocs probe"
+                               (str (:passed cd) " / " (:total cd))
+                               (str (:failed cd) " failed"))))]
+    [:main.detail
+     [:p.crumbs
+      [:a {:href (link "/")} "Overview"]
+      " · "
+      [:a {:href (link (str "/dialects/" tag "/"))} name]]
+     [:header.detail-header
+      [:h1 "Readiness: " name]]
+     [:table.stats
+      [:tbody (for [r rows] r)]]]))
