@@ -362,10 +362,12 @@
     [:main.detail
      [:p.crumbs [:a {:href (link "/")} "← back to overview"]]
      [:p.no-snapshot "no snapshot yet"]]
-    [:main.detail
-     [:p.crumbs [:a {:href (link "/")} "← overview"]]
-     (detail-header dialect)
-     (per-namespace-summary dialect link)
+     [:main.detail
+      [:p.crumbs [:a {:href (link "/")} "← overview"]]
+      (detail-header dialect)
+      [:p [:a {:href (link (str "/dialects/" (:tag dialect) "/readiness/"))}
+           "Readiness report"]]
+      (per-namespace-summary dialect link)
      (category-collapsibles dashboard :extensions  "Documented Extensions")
      (category-collapsibles dashboard :divergences "Documented Intentional Divergences")
      (behavior-section dashboard)
