@@ -62,22 +62,26 @@
                  :total     (count missing-reasons)}}))
 
 (defn render
-  "Pure: produce the site-render payload from a dashboard bundle and
-  a validated vector of missing-reason entries.
+  "Pure: produce the site-render payload from a dashboard bundle, a
+  validated vector of missing-reason entries, and optional signals.
 
   The bundle is the same map produced by `clj-census.bundle/build`;
-  missing-reasons comes from `data/<dialect>/missing_reasons.edn`.
+  missing-reasons comes from `data/<dialect>/missing_reasons.edn`;
+  signals (optional) comes from `data/<dialect>/signals/`.
 
   Returns a stable EDN map. Same inputs always produce the same
   output; no timestamps."
-  [{:keys [comparison coverage divergences categories
-           clojure-spec dialect-config]} missing-reasons]
-  (let [cats-by-id (into {} (map (juxt :id identity)) categories)]
-    {:schema-version schema-version
-     :meta           {:dialect-tag     (:tag dialect-config)
-                      :dialect-name    (:name dialect-config)
-                      :clojure-version (:version clojure-spec)}
-     :coverage       coverage
-     :divergences    (mapv #(embed-category cats-by-id %) divergences)
-     :missing        (split-missing missing-reasons)
-     :categories     (vec categories)}))
+  ([bundle missing-reasons]
+   (render bundle missing-reasons nil))
+  ([{:keys [comparison coverage divergences categories
+            clojure-spec dialect-config]} missing-reasons signals]
+   (let [cats-by-id (into {} (map (juxt :id identity)) categories)]
+     (cond-> {:schema-version schema-version
+              :meta           {:dialect-tag     (:tag dialect-config)
+                               :dialect-name    (:name dialect-config)
+                               :clojure-version (:version clojure-spec)}
+              :coverage       coverage
+              :divergences    (mapv #(embed-category cats-by-id %) divergences)
+              :missing        (split-missing missing-reasons)
+              :categories     (vec categories)}
+       (seq signals) (assoc :signals signals)))))

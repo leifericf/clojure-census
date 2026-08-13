@@ -32,6 +32,7 @@
             [clj-census.extension  :as extension]
             [clj-census.history    :as history]
             [clj-census.parity     :as parity]
+            [clj-census.signals    :as signals]
             [clj-census.site-payload :as site-payload]
             [clj-census.store      :as store]
             [clj-census.surface    :as surface]))
@@ -174,6 +175,25 @@
         (site-payload/validate-missing-reasons! data)
         data))))
 
+(defn- load-signals
+  "Load correctness signals from data/<dialect>/signals/. Returns a
+  map that may carry :upstream-suite and :clojuredocs-probe keys.
+  Missing files are silently skipped (returns nil if none found)."
+  [cfg]
+  (let [dir     (str (:data-dir cfg) "/signals")
+        us-path (str dir "/upstream_suite.edn")
+        cd-path (str dir "/clojuredocs_probe.edn")
+        result  (cond-> {}
+                  (.exists (io/file us-path))
+                  (assoc :upstream-suite
+                         (doto (store/slurp-edn us-path)
+                           (signals/validate-upstream-suite!)))
+                  (.exists (io/file cd-path))
+                  (assoc :clojuredocs-probe
+                         (doto (store/slurp-edn cd-path)
+                           (signals/validate-clojuredocs-probe!))))]
+    (when (seq result) result)))
+
 (defn- load-behavior-catalog
   "Walk `<root>/data/behavior/**/*.edn` and return one validated flat
   vector of cases. Returns `[]` when the directory does not exist.
@@ -230,8 +250,8 @@
 (defn- write-badge! [path badge]
   (store/spit-json! path badge))
 
-(defn- write-site-payload! [path bundle missing-reasons]
-  (store/spit-edn! path (site-payload/render bundle missing-reasons)))
+(defn- write-site-payload! [path bundle missing-reasons signals]
+  (store/spit-edn! path (site-payload/render bundle missing-reasons signals)))
 
 (defn- write-history-snapshot! [dir snapshot]
   (history/validate-snapshot! snapshot)
@@ -421,6 +441,7 @@
         divs         (load-divergences cfg cats)
         exts         (load-extensions  cfg cats)
         missing-r    (load-missing-reasons cfg)
+        signals      (load-signals cfg)
         {:keys [comparison coverage]}
         (compare-loaded spec reference-s dialect-s)
         prior        (load-history (history-dir-path tag))
@@ -457,7 +478,7 @@
                          :headline    (:headline coverage)}))
     (write-history-snapshot! (history-dir-path tag) snap)
     (when missing-r
-      (write-site-payload! (site-payload-path tag) bundle missing-r))
+      (write-site-payload! (site-payload-path tag) bundle missing-r signals))
     (println "diff:" tag "→"
              (coverage/percent-as-pct-string
                (get-in coverage [:headline :percent])))
@@ -478,6 +499,7 @@
         divs        (load-divergences cfg cats)
         exts        (load-extensions  cfg cats)
         missing-r   (load-missing-reasons cfg)
+        signals     (load-signals cfg)
         {:keys [comparison coverage]}
         (compare-loaded spec reference-s dialect-s)
         behavior-r  (load-behavior tag)
@@ -497,7 +519,7 @@
                         {:dialect-tag tag
                          :headline    (:headline coverage)}))
     (when missing-r
-      (write-site-payload! (site-payload-path tag) bundle missing-r))
+      (write-site-payload! (site-payload-path tag) bundle missing-r signals))
     (println "render:" tag "→"
              (coverage/percent-as-pct-string
                (get-in coverage [:headline :percent])))
@@ -572,6 +594,7 @@
         divs        (load-divergences cfg cats)
         exts        (load-extensions  cfg cats)
         missing-r   (load-missing-reasons cfg)
+        signals     (load-signals cfg)
         {:keys [comparison coverage]}
         (compare-loaded spec reference-s dialect-s)
         bundle      (bundle/build
@@ -585,7 +608,7 @@
     (if-not missing-r
       (do (println "payload:" tag "-> no missing_reasons.edn found")
           1)
-      (do (write-site-payload! (site-payload-path tag) bundle missing-r)
+      (do (write-site-payload! (site-payload-path tag) bundle missing-r signals)
           (println "payload:" tag "->" (site-payload-path tag))
           (println "  divergences:" (count divs))
           (println "  missing:    "

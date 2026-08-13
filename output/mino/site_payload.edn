@@ -1006,4 +1006,20 @@
   {:id :metadata,
    :title "Metadata propagation",
    :description
-   "Where reader attaches meta and which ops preserve it."}]}
+   "Where reader attaches meta and which ops preserve it."}],
+ :signals
+ {:upstream-suite
+  {:tests 2527,
+   :passes 21945,
+   :failures 0,
+   :errors 0,
+   :assertions 21945,
+   :pass-rate 1.0},
+  :clojuredocs-probe
+  {:total 7,
+   :passed 7,
+   :failed 0,
+   :seed 0,
+   :mode "smoke",
+   :replay false,
+   :elapsed 10385.226000070572}}}

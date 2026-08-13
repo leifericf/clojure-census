@@ -130,3 +130,20 @@
 
 (deftest validate-accepts-good-reasons
   (is (true? (site-payload/validate-missing-reasons! missing-reasons))))
+
+;; ===== signals integration ========================================
+
+(def test-signals
+  {:upstream-suite    {:tests 100 :passes 98 :failures 2 :errors 0
+                       :assertions 100 :pass-rate 0.98}
+   :clojuredocs-probe {:total 7 :passed 7 :failed 0}})
+
+(deftest signals-included-when-present
+  (let [p (site-payload/render bundle missing-reasons test-signals)]
+    (is (contains? p :signals))
+    (is (= 100 (get-in p [:signals :upstream-suite :tests])))
+    (is (= 7 (get-in p [:signals :clojuredocs-probe :total])))))
+
+(deftest signals-omitted-when-absent
+  (let [p (site-payload/render bundle missing-reasons nil)]
+    (is (not (contains? p :signals)))))
