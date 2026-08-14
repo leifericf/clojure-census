@@ -2,7 +2,7 @@
  {:dialect-tag "mino",
   :dialect-name "mino",
   :clojure-version "1.12.4",
-  :compared-at "2026-08-13T21:37:10Z"},
+  :compared-at "2026-08-14T06:10:20Z"},
  :divergences
  [{:dialect-example "(compare \"z\" \"a\") ;=> 1",
    :since "v0.1.0",
@@ -896,7 +896,7 @@
     {:in-both-count 2, :clojure-total 2, :percent 1.0}}}
   {:date "2026-08-13",
    :dialect-tag "mino",
-   :clojure-version "1.11.0",
+   :clojure-version "2026.08.08-alpha1",
    :headline
    {:in-both-count 904,
     :clojure-total 995,
@@ -931,7 +931,7 @@
     clojure.walk {:in-both-count 10, :clojure-total 10, :percent 1.0},
     clojure.template
     {:in-both-count 2, :clojure-total 2, :percent 1.0}}}
-  {:date "2026-08-13",
+  {:date "2026-08-14",
    :dialect-tag "mino",
    :clojure-version "2026.08.08-alpha1",
    :headline
@@ -970,7 +970,7 @@
     {:in-both-count 2, :clojure-total 2, :percent 1.0}}}],
  :behavior
  {:dialect-tag "mino",
-  :run-at "2026-06-13T07:48:22Z",
+  :run-at "2026-08-14T06:10:00Z",
   :totals
   {:match 9, :mismatch 0, :divergent-as-expected 13, :skipped 0},
   :parities
@@ -989,7 +989,7 @@
     :oracle
     {:status :value,
      :value {:clj-census/opaque "class java.lang.Long"},
-     :elapsed-ms 0},
+     :elapsed-ms 1},
     :dialect {:status :value, :value :int, :elapsed-ms 0},
     :verdict :divergent-as-expected,
     :reason "predicate :keyword-vs-class matched",
@@ -1006,14 +1006,14 @@
     :divergence-id :type-as-keyword}
    {:case-id :class/nil,
     :var clojure.core/class,
-    :oracle {:status :value, :value nil, :elapsed-ms 0},
-    :dialect {:status :value, :value nil, :elapsed-ms 0},
+    :oracle {:status :value, :value nil, :elapsed-ms 1},
+    :dialect {:status :value, :value nil, :elapsed-ms 1},
     :verdict :divergent-as-expected,
     :reason "predicate :keyword-vs-class matched",
     :divergence-id :type-as-keyword}
    {:case-id :compare/strings-positive,
     :var clojure.core/compare,
-    :oracle {:status :value, :value 25, :elapsed-ms 0},
+    :oracle {:status :value, :value 25, :elapsed-ms 1},
     :dialect {:status :value, :value 1, :elapsed-ms 0},
     :verdict :divergent-as-expected,
     :reason "predicate :sign-normalized matched",
@@ -1027,7 +1027,7 @@
     :divergence-id :compare-sign-normalized}
    {:case-id :compare/strings-equal,
     :var clojure.core/compare,
-    :oracle {:status :value, :value 0, :elapsed-ms 0},
+    :oracle {:status :value, :value 0, :elapsed-ms 1},
     :dialect {:status :value, :value 0, :elapsed-ms 0},
     :verdict :divergent-as-expected,
     :reason "predicate :sign-normalized matched",
@@ -1041,7 +1041,7 @@
     :divergence-id :compare-sign-normalized}
    {:case-id :compare/numbers-equal,
     :var clojure.core/compare,
-    :oracle {:status :value, :value 0, :elapsed-ms 0},
+    :oracle {:status :value, :value 0, :elapsed-ms 1},
     :dialect {:status :value, :value 0, :elapsed-ms 0},
     :verdict :divergent-as-expected,
     :reason "predicate :sign-normalized matched",
@@ -1049,36 +1049,36 @@
    {:case-id :plus/identity,
     :var clojure.core/+,
     :oracle {:status :value, :value 0, :elapsed-ms 0},
-    :dialect {:status :value, :value 0, :elapsed-ms 0},
+    :dialect {:status :value, :value 0, :elapsed-ms 1},
     :verdict :match,
     :reason "values equivalent"}
    {:case-id :plus/single-positive,
     :var clojure.core/+,
-    :oracle {:status :value, :value 5, :elapsed-ms 0},
+    :oracle {:status :value, :value 5, :elapsed-ms 1},
     :dialect {:status :value, :value 5, :elapsed-ms 0},
     :verdict :match,
     :reason "values equivalent"}
    {:case-id :plus/two-positive,
     :var clojure.core/+,
-    :oracle {:status :value, :value 3, :elapsed-ms 0},
+    :oracle {:status :value, :value 3, :elapsed-ms 1},
     :dialect {:status :value, :value 3, :elapsed-ms 0},
     :verdict :match,
     :reason "values equivalent"}
    {:case-id :plus/with-negative,
     :var clojure.core/+,
-    :oracle {:status :value, :value 3, :elapsed-ms 0},
+    :oracle {:status :value, :value 3, :elapsed-ms 1},
     :dialect {:status :value, :value 3, :elapsed-ms 0},
     :verdict :match,
     :reason "values equivalent"}
    {:case-id :plus/varargs,
     :var clojure.core/+,
-    :oracle {:status :value, :value 15, :elapsed-ms 1},
-    :dialect {:status :value, :value 15, :elapsed-ms 1},
+    :oracle {:status :value, :value 15, :elapsed-ms 2},
+    :dialect {:status :value, :value 15, :elapsed-ms 0},
     :verdict :match,
     :reason "values equivalent"}
    {:case-id :sort/numbers-ascending,
     :var clojure.core/sort,
-    :oracle {:status :value, :value [1 1 2 3 4 5 6 9], :elapsed-ms 0},
+    :oracle {:status :value, :value [1 1 2 3 4 5 6 9], :elapsed-ms 1},
     :dialect {:status :value, :value [1 1 2 3 4 5 6 9], :elapsed-ms 0},
     :verdict :match,
     :reason "values equivalent"}
@@ -1096,13 +1096,13 @@
     :reason "values equivalent"}
    {:case-id :sort/with-comparator-descending,
     :var clojure.core/sort,
-    :oracle {:status :value, :value [4 3 2 1], :elapsed-ms 0},
+    :oracle {:status :value, :value [4 3 2 1], :elapsed-ms 1},
     :dialect {:status :value, :value [4 3 2 1], :elapsed-ms 0},
     :verdict :match,
     :reason "values equivalent"}
    {:case-id :sort/empty,
     :var clojure.core/sort,
-    :oracle {:status :value, :value [], :elapsed-ms 0},
+    :oracle {:status :value, :value [], :elapsed-ms 1},
     :dialect {:status :value, :value [], :elapsed-ms 0},
     :verdict :match,
     :reason "values equivalent"}
@@ -1121,7 +1121,7 @@
     :oracle
     {:status :value,
      :value {:clj-census/opaque "class java.lang.Long"},
-     :elapsed-ms 0},
+     :elapsed-ms 1},
     :dialect {:status :value, :value :int, :elapsed-ms 0},
     :verdict :divergent-as-expected,
     :reason "predicate :keyword-vs-class matched",
@@ -1141,7 +1141,7 @@
     :oracle
     {:status :value,
      :value {:clj-census/opaque "class clojure.lang.PersistentVector"},
-     :elapsed-ms 0},
+     :elapsed-ms 1},
     :dialect {:status :value, :value :vector, :elapsed-ms 0},
     :verdict :divergent-as-expected,
     :reason "predicate :keyword-vs-class matched",
@@ -1189,47 +1189,11 @@
    :description
    "Where reader attaches meta and which ops preserve it."}],
  :drift
- {:from-date "2026-06-13",
-  :to-date "2026-08-13",
-  :added-vars
-  #{clojure.core/store-read-wal*
-    clojure.core/store-close*
-    clojure.core/which
-    clojure.core/run
-    clojure.core/store-open*
-    clojure.core/store-clock*
-    clojure.core/store-commit*
-    clojure.core/store-read-snapshot*
-    clojure.core/load-image-into
-    clojure.core/sha256
-    clojure.core/store?
-    clojure.core/realpath
-    clojure.core/store-checkpoint*
-    clojure.core/save-image},
-  :removed-vars
-  #{clojure.spec.alpha/instrument clojure.spec.alpha/unstrument},
-  :changed
-  [{:var clojure.core/*clojure-version*,
-    :before
-    {:doc
-     "The Clojure compatibility version for this runtime, as a map with :major :minor :incremental and :qualifier keys.",
-     :dynamic true},
-    :after
-    {:doc
-     "The version of this runtime, as a map with :major :minor :incremental\n   and :qualifier keys. CalVer scheme matches MINO_VERSION in src/mino.h.",
-     :dynamic true}}
-   {:var clojure.core/clojure-version,
-    :before
-    {:doc
-     "Returns the Clojure compatibility version as a printable string."},
-    :after {:doc "Returns the runtime version as a printable string."}}
-   {:var clojure.test/run-tests-and-exit,
-    :before
-    {:doc
-     "Runs the whole registry and exits the process with code 0 on no\n  failures or errors, 1 otherwise.  A no-op while suite-mode is true.\n  Used as the bottom-of-file entry point in test files and by the suite\n  driver; it always runs every registered test, independent of the\n  namespace-scoped run-tests."},
-    :after
-    {:doc
-     "Runs the whole registry and exits the process with code 0 on no\n  failures or errors, 1 otherwise.  A no-op while suite-mode is true.\n  Used as the bottom-of-file entry point in test files and by the suite\n  driver; it always runs every registered test, independent of the\n  namespace-scoped run-tests.\n\n  When the MINO_TEST_SUMMARY env var names a writable path, the summary\n  is written there as EDN before exiting. The shape is:\n    {:tests N :passes N :failures N :errors N\n     :assertions N :pass-rate 0.0..1.0}"}}],
+ {:from-date "2026-08-13",
+  :to-date "2026-08-14",
+  :added-vars #{},
+  :removed-vars #{},
+  :changed [],
   :coverage-delta 0.0},
  :extensions
  [{:id :integer-radix-strings,
