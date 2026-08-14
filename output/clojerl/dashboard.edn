@@ -2,7 +2,7 @@
  {:dialect-tag "clojerl",
   :dialect-name "Clojerl",
   :clojure-version "1.12.4",
-  :compared-at "2026-08-13T08:12:02Z"},
+  :compared-at "2026-08-14T08:07:14Z"},
  :divergences
  [{:id :beam-host,
    :title "Host runtime is the BEAM, not the JVM",
@@ -85,47 +85,7 @@
    clojure.template
    {:in-both-count 2, :clojure-total 2, :percent 1.0}}},
  :history
- [{:date "2026-07-31",
-   :dialect-tag "clojerl",
-   :clojure-version "0.0.0-1.4ad14e5",
-   :headline
-   {:in-both-count 739,
-    :clojure-total 995,
-    :percent 0.742713567839196},
-   :per-namespace
-   {clojure.spec.alpha
-    {:in-both-count 85,
-     :clojure-total 87,
-     :percent 0.9770114942528736},
-    clojure.datafy {:in-both-count 0, :clojure-total 2, :percent 0.0},
-    clojure.zip {:in-both-count 28, :clojure-total 28, :percent 1.0},
-    clojure.core.reducers
-    {:in-both-count 19,
-     :clojure-total 21,
-     :percent 0.9047619047619048},
-    clojure.test
-    {:in-both-count 37,
-     :clojure-total 39,
-     :percent 0.9487179487179487},
-    clojure.core.protocols
-    {:in-both-count 0, :clojure-total 11, :percent 0.0},
-    clojure.core
-    {:in-both-count 491,
-     :clojure-total 679,
-     :percent 0.7231222385861561},
-    clojure.set {:in-both-count 12, :clojure-total 12, :percent 1.0},
-    clojure.pprint
-    {:in-both-count 26, :clojure-total 26, :percent 1.0},
-    clojure.math {:in-both-count 0, :clojure-total 45, :percent 0.0},
-    clojure.edn {:in-both-count 2, :clojure-total 2, :percent 1.0},
-    clojure.instant {:in-both-count 3, :clojure-total 5, :percent 0.6},
-    clojure.string
-    {:in-both-count 21, :clojure-total 21, :percent 1.0},
-    clojure.data {:in-both-count 3, :clojure-total 5, :percent 0.6},
-    clojure.walk {:in-both-count 10, :clojure-total 10, :percent 1.0},
-    clojure.template
-    {:in-both-count 2, :clojure-total 2, :percent 1.0}}}
-  {:date "2026-08-01",
+ [{:date "2026-08-01",
    :dialect-tag "clojerl",
    :clojure-version "0.0.0-1.4ad14e5",
    :headline
@@ -644,69 +604,49 @@
     clojure.data {:in-both-count 3, :clojure-total 5, :percent 0.6},
     clojure.walk {:in-both-count 10, :clojure-total 10, :percent 1.0},
     clojure.template
+    {:in-both-count 2, :clojure-total 2, :percent 1.0}}}
+  {:date "2026-08-14",
+   :dialect-tag "clojerl",
+   :clojure-version "0.0.0-1.4ad14e5",
+   :headline
+   {:in-both-count 739,
+    :clojure-total 995,
+    :percent 0.742713567839196},
+   :per-namespace
+   {clojure.spec.alpha
+    {:in-both-count 85,
+     :clojure-total 87,
+     :percent 0.9770114942528736},
+    clojure.datafy {:in-both-count 0, :clojure-total 2, :percent 0.0},
+    clojure.zip {:in-both-count 28, :clojure-total 28, :percent 1.0},
+    clojure.core.reducers
+    {:in-both-count 19,
+     :clojure-total 21,
+     :percent 0.9047619047619048},
+    clojure.test
+    {:in-both-count 37,
+     :clojure-total 39,
+     :percent 0.9487179487179487},
+    clojure.core.protocols
+    {:in-both-count 0, :clojure-total 11, :percent 0.0},
+    clojure.core
+    {:in-both-count 491,
+     :clojure-total 679,
+     :percent 0.7231222385861561},
+    clojure.set {:in-both-count 12, :clojure-total 12, :percent 1.0},
+    clojure.pprint
+    {:in-both-count 26, :clojure-total 26, :percent 1.0},
+    clojure.math {:in-both-count 0, :clojure-total 45, :percent 0.0},
+    clojure.edn {:in-both-count 2, :clojure-total 2, :percent 1.0},
+    clojure.instant {:in-both-count 3, :clojure-total 5, :percent 0.6},
+    clojure.string
+    {:in-both-count 21, :clojure-total 21, :percent 1.0},
+    clojure.data {:in-both-count 3, :clojure-total 5, :percent 0.6},
+    clojure.walk {:in-both-count 10, :clojure-total 10, :percent 1.0},
+    clojure.template
     {:in-both-count 2, :clojure-total 2, :percent 1.0}}}],
  :mismatches
- [{:dynamic-clojure false,
-   :dynamic-dialect true,
-   :namespace clojure.core,
-   :var *agent*}
-  {:dynamic-clojure false,
-   :dynamic-dialect true,
-   :namespace clojure.core,
-   :var *assert*}
-  {:dynamic-clojure false,
-   :dynamic-dialect true,
-   :namespace clojure.core,
-   :var *command-line-args*}
-  {:dynamic-clojure false,
-   :dynamic-dialect true,
-   :namespace clojure.core,
-   :var *compile-files*}
-  {:dynamic-clojure false,
-   :dynamic-dialect true,
-   :namespace clojure.core,
-   :var *compile-path*}
-  {:dynamic-clojure false,
-   :dynamic-dialect true,
-   :namespace clojure.core,
-   :var *err*}
-  {:dynamic-clojure false,
-   :dynamic-dialect true,
-   :namespace clojure.core,
-   :var *flush-on-newline*}
-  {:dynamic-clojure false,
-   :dynamic-dialect true,
-   :namespace clojure.core,
-   :var *in*}
-  {:dynamic-clojure false,
-   :dynamic-dialect true,
-   :namespace clojure.core,
-   :var *ns*}
-  {:dynamic-clojure false,
-   :dynamic-dialect true,
-   :namespace clojure.core,
-   :var *out*}
-  {:dynamic-clojure false,
-   :dynamic-dialect true,
-   :namespace clojure.core,
-   :var *print-dup*}
-  {:dynamic-clojure false,
-   :dynamic-dialect true,
-   :namespace clojure.core,
-   :var *print-meta*}
-  {:dynamic-clojure false,
-   :dynamic-dialect true,
-   :namespace clojure.core,
-   :var *print-readably*}
-  {:dynamic-clojure false,
-   :dynamic-dialect true,
-   :namespace clojure.core,
-   :var *read-eval*}
-  {:dynamic-clojure false,
-   :dynamic-dialect true,
-   :namespace clojure.core,
-   :var *reader-resolver*}
-  {:arglists-clojure ([] [coll] [coll x] [coll x & xs]),
+ [{:arglists-clojure ([] [coll] [coll x] [coll x & xs]),
    :arglists-dialect ([coll x] [coll x & xs]),
    :namespace clojure.core,
    :var conj}
@@ -826,8 +766,8 @@
    :description
    "Where reader attaches meta and which ops preserve it."}],
  :drift
- {:from-date "2026-08-12",
-  :to-date "2026-08-13",
+ {:from-date "2026-08-13",
+  :to-date "2026-08-14",
   :added-vars #{},
   :removed-vars #{},
   :changed [],
