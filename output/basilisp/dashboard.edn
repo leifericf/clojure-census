@@ -2,7 +2,7 @@
  {:dialect-tag "basilisp",
   :dialect-name "Basilisp",
   :clojure-version "1.12.4",
-  :compared-at "2026-08-15T07:00:03Z"},
+  :compared-at "2026-08-16T07:01:23Z"},
  :divergences
  [{:id :python-host,
    :title "Host runtime is Python 3, not the JVM",
@@ -80,45 +80,7 @@
    clojure.template
    {:in-both-count 2, :clojure-total 2, :percent 1.0}}},
  :history
- [{:date "2026-08-02",
-   :dialect-tag "basilisp",
-   :clojure-version "unknown",
-   :headline
-   {:in-both-count 610,
-    :clojure-total 995,
-    :percent 0.6130653266331658},
-   :per-namespace
-   {clojure.spec.alpha
-    {:in-both-count 0, :clojure-total 87, :percent 0.0},
-    clojure.datafy {:in-both-count 0, :clojure-total 2, :percent 0.0},
-    clojure.zip {:in-both-count 0, :clojure-total 28, :percent 0.0},
-    clojure.core.reducers
-    {:in-both-count 0, :clojure-total 21, :percent 0.0},
-    clojure.test
-    {:in-both-count 7, :clojure-total 39, :percent 0.1794871794871795},
-    clojure.core.protocols
-    {:in-both-count 3, :clojure-total 11, :percent 0.2727272727272727},
-    clojure.core
-    {:in-both-count 536,
-     :clojure-total 679,
-     :percent 0.7893961708394698},
-    clojure.set {:in-both-count 12, :clojure-total 12, :percent 1.0},
-    clojure.pprint
-    {:in-both-count 20,
-     :clojure-total 26,
-     :percent 0.7692307692307693},
-    clojure.math {:in-both-count 0, :clojure-total 45, :percent 0.0},
-    clojure.edn {:in-both-count 2, :clojure-total 2, :percent 1.0},
-    clojure.instant {:in-both-count 0, :clojure-total 5, :percent 0.0},
-    clojure.string
-    {:in-both-count 17,
-     :clojure-total 21,
-     :percent 0.8095238095238095},
-    clojure.data {:in-both-count 1, :clojure-total 5, :percent 0.2},
-    clojure.walk {:in-both-count 10, :clojure-total 10, :percent 1.0},
-    clojure.template
-    {:in-both-count 2, :clojure-total 2, :percent 1.0}}}
-  {:date "2026-08-03",
+ [{:date "2026-08-03",
    :dialect-tag "basilisp",
    :clojure-version "unknown",
    :headline
@@ -575,6 +537,44 @@
     clojure.template
     {:in-both-count 2, :clojure-total 2, :percent 1.0}}}
   {:date "2026-08-15",
+   :dialect-tag "basilisp",
+   :clojure-version "unknown",
+   :headline
+   {:in-both-count 610,
+    :clojure-total 995,
+    :percent 0.6130653266331658},
+   :per-namespace
+   {clojure.spec.alpha
+    {:in-both-count 0, :clojure-total 87, :percent 0.0},
+    clojure.datafy {:in-both-count 0, :clojure-total 2, :percent 0.0},
+    clojure.zip {:in-both-count 0, :clojure-total 28, :percent 0.0},
+    clojure.core.reducers
+    {:in-both-count 0, :clojure-total 21, :percent 0.0},
+    clojure.test
+    {:in-both-count 7, :clojure-total 39, :percent 0.1794871794871795},
+    clojure.core.protocols
+    {:in-both-count 3, :clojure-total 11, :percent 0.2727272727272727},
+    clojure.core
+    {:in-both-count 536,
+     :clojure-total 679,
+     :percent 0.7893961708394698},
+    clojure.set {:in-both-count 12, :clojure-total 12, :percent 1.0},
+    clojure.pprint
+    {:in-both-count 20,
+     :clojure-total 26,
+     :percent 0.7692307692307693},
+    clojure.math {:in-both-count 0, :clojure-total 45, :percent 0.0},
+    clojure.edn {:in-both-count 2, :clojure-total 2, :percent 1.0},
+    clojure.instant {:in-both-count 0, :clojure-total 5, :percent 0.0},
+    clojure.string
+    {:in-both-count 17,
+     :clojure-total 21,
+     :percent 0.8095238095238095},
+    clojure.data {:in-both-count 1, :clojure-total 5, :percent 0.2},
+    clojure.walk {:in-both-count 10, :clojure-total 10, :percent 1.0},
+    clojure.template
+    {:in-both-count 2, :clojure-total 2, :percent 1.0}}}
+  {:date "2026-08-16",
    :dialect-tag "basilisp",
    :clojure-version "unknown",
    :headline
@@ -1917,8 +1917,8 @@
    :description
    "Where reader attaches meta and which ops preserve it."}],
  :drift
- {:from-date "2026-08-14",
-  :to-date "2026-08-15",
+ {:from-date "2026-08-15",
+  :to-date "2026-08-16",
   :added-vars #{},
   :removed-vars #{},
   :changed [],
