@@ -1114,7 +1114,73 @@
    :seed 0,
    :mode "smoke",
    :replay false,
-   :elapsed 10385.226000070572},
+   :elapsed 11175.325999975204,
+   :verdicts
+   [{:probe "diff-random.summary",
+     :verdict "pass",
+     :tested 100,
+     :passed 100,
+     :failed 0,
+     :seed 0,
+     :elapsed 6171.957999944687}
+    {:probe "diff-closure.summary",
+     :verdict "pass",
+     :tested 20,
+     :passed 20,
+     :failed 0,
+     :elapsed 940.2449998855591}
+    {:probe "diff-arith.summary",
+     :verdict "pass",
+     :tested 20,
+     :passed 20,
+     :failed 0,
+     :elapsed 977.5889999866486}
+    {:probe "diff-coll.summary",
+     :verdict "pass",
+     :tested 20,
+     :passed 20,
+     :failed 0,
+     :elapsed 987.7929999828339}
+    {:probe "diff-ctrl.summary",
+     :verdict "pass",
+     :tested 20,
+     :passed 20,
+     :failed 0,
+     :elapsed 964.0539999008179}
+    {:probe "diff-jit.warmup-parity",
+     :verdict "pass",
+     :cold "153450",
+     :warm "153450"}
+    {:probe "diff-jit.deopt-after-redef",
+     :verdict "pass",
+     :before ":before 42",
+     :after ":after 2100"}
+    {:probe "diff-jit.ic-invalidation",
+     :verdict "pass",
+     :before ":before 1",
+     :after ":after 999"}
+    {:probe "diff-jit.mode-switch-parity",
+     :verdict "pass",
+     :off "6765 479001600 4950",
+     :on "6765 479001600 4950",
+     :auto "6765 479001600 4950"}
+    {:probe "diff-jit.protocol-dispatch-stable",
+     :verdict "pass",
+     :a ":a :from-a",
+     :b ":b :from-b"}
+    {:probe "diff-jit.summary",
+     :verdict "pass",
+     :n 5,
+     :elapsed 121.26999998092651}
+    {:seed 0,
+     :fail 0,
+     :allowlisted 6,
+     :probe "diff-clojuredocs.summary",
+     :verdict "pass",
+     :mino-fail 0,
+     :pass 44,
+     :elapsed 979.6189999580383,
+     :tested 50}]},
   :fuzz
   {:targets
    [{:name "fuzz-smoke", :seeds 22, :passed 22, :failed 0}
