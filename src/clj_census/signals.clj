@@ -73,30 +73,75 @@
 (s/def ::mismatch nat-int?)
 (s/def ::divergent-as-expected nat-int?)
 (s/def ::skipped nat-int?)
+(s/def ::probes nat-int?)
 
 (s/def ::behavior-totals
-  (s/keys :req-un [::match ::mismatch ::divergent-as-expected ::skipped]))
+  (s/keys :req-un [::match ::mismatch ::divergent-as-expected ::skipped]
+          :opt-un [::probes]))
+
+(defn- verdicts->behavior-totals
+  "Fold per-probe verdicts into behavior totals. Every verdict other
+  than \"pass\" lands in :mismatch; the probe count rides along as
+  :probes so the readiness view can size the aggregate honestly."
+  [verdicts]
+  (let [pass?  #(= "pass" (:verdict %))
+        passes (count (filter pass? verdicts))]
+    {:match                 passes
+     :mismatch              (- (count verdicts) passes)
+     :divergent-as-expected 0
+     :skipped               0
+     :probes                (count verdicts)}))
 
 (defn clojuredocs->behavior-totals
   "Map a clojuredocs-probe signal into the census behavior-totals
   shape so the readiness view can present one unified picture.
 
+  When the probe carries :verdicts, totals derive from the per-probe
+  verdicts; the aggregate :passed/:failed keys are the fallback for
+  the older shape.
+
   Mapping:
-    :match                  <- probe :passed
-    :mismatch               <- probe :failed
+    :match                  <- verdicts \"pass\" (or probe :passed)
+    :mismatch               <- verdicts not \"pass\" (or probe :failed)
     :divergent-as-expected  <- 0 (probe does not separate these)
     :skipped                <- 0
+    :probes                 <- verdict count (verdict shape only)
 
   Returns nil when the probe signal is absent."
   [signals]
   (when-let [probe (:clojuredocs-probe signals)]
-    (let [totals {:match                 (:passed probe 0)
-                  :mismatch              (:failed probe 0)
-                  :divergent-as-expected 0
-                  :skipped               0}]
+    (let [totals (if-let [verdicts (seq (:verdicts probe))]
+                   (verdicts->behavior-totals verdicts)
+                   {:match                 (:passed probe 0)
+                    :mismatch              (:failed probe 0)
+                    :divergent-as-expected 0
+                    :skipped               0})]
       (schema/assert-conforms! ::behavior-totals totals
                                "clojuredocs-behavior-totals")
       totals)))
+
+(defn clojuredocs-corpus-totals
+  "Extract the ClojureDocs corpus verdict (probe name
+  \"diff-clojuredocs.summary\") from a clojuredocs-probe signal.
+  Returns {:tested :pass :fail :mino-fail :allowlisted} counts for
+  the example corpus, or nil when the probe or the corpus verdict is
+  absent."
+  [signals]
+  (when-let [v (->> (get-in signals [:clojuredocs-probe :verdicts])
+                    (filter #(= "diff-clojuredocs.summary" (:probe %)))
+                    first)]
+    (select-keys v [:tested :pass :fail :mino-fail :allowlisted])))
+
+(defn enrich-clojuredocs-probe
+  "Attach derived detail to a clojuredocs-probe signal map: :probes
+  (verdict count) and :corpus (the corpus verdict counts). Returns
+  the map unchanged when it carries no verdicts; nil in, nil out."
+  [probe]
+  (if (seq (:verdicts probe))
+    (assoc probe
+           :probes (count (:verdicts probe))
+           :corpus (clojuredocs-corpus-totals {:clojuredocs-probe probe}))
+    probe))
 
 (defn merge-behavior-signals
   "Combine the hand-curated behavior report totals (if present in the

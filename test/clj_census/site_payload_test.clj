@@ -138,11 +138,34 @@
                        :assertions 100 :pass-rate 0.98}
    :clojuredocs-probe {:total 7 :passed 7 :failed 0}})
 
+(def test-signals-clojuredocs-with-verdicts
+  {:verdicts
+   [{:probe "diff-random.summary" :verdict "pass" :tested 10 :passed 10}
+    {:probe "diff-jit.summary" :verdict "pass" :n 5}
+    {:probe "diff-clojuredocs.summary" :verdict "fail" :tested 50
+     :pass 44 :fail 1 :mino-fail 0 :allowlisted 5}]})
+
 (deftest signals-included-when-present
   (let [p (site-payload/render bundle missing-reasons test-signals)]
     (is (contains? p :signals))
     (is (= 100 (get-in p [:signals :upstream-suite :tests])))
     (is (= 7 (get-in p [:signals :clojuredocs-probe :total])))))
+
+(deftest clojuredocs-probe-enriched-with-verdict-detail
+  (let [probe (assoc test-signals-clojuredocs-with-verdicts
+                     :total 3 :passed 2 :failed 1)
+        p (site-payload/render
+            bundle missing-reasons
+            {:upstream-suite (:upstream-suite test-signals)
+             :clojuredocs-probe probe})]
+    (is (= 3 (get-in p [:signals :clojuredocs-probe :probes])))
+    (is (= {:tested 50 :pass 44 :fail 1 :mino-fail 0 :allowlisted 5}
+           (get-in p [:signals :clojuredocs-probe :corpus])))))
+
+(deftest clojuredocs-probe-passed-through-when-aggregate-only
+  (let [p (site-payload/render bundle missing-reasons test-signals)]
+    (is (nil? (get-in p [:signals :clojuredocs-probe :corpus])))
+    (is (nil? (get-in p [:signals :clojuredocs-probe :probes])))))
 
 (deftest signals-omitted-when-absent
   (let [p (site-payload/render bundle missing-reasons nil)]

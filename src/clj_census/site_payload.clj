@@ -10,8 +10,9 @@
   timestamps in the output. Iteration order is stable (categories
   declaration order, divergences file order)."
   (:require [clojure.spec.alpha :as s]
-            [clj-census.category :as category]
-            [clj-census.schema :as schema]))
+             [clj-census.category :as category]
+            [clj-census.schema :as schema]
+            [clj-census.signals :as signals]))
 
 ;; ===== payload schema version ======================================
 
@@ -92,4 +93,7 @@
               :missing        (split-missing missing-reasons)
               :mismatches     mismatches
               :categories     (vec categories)}
-       (seq signals) (assoc :signals signals)))))
+        (seq signals)
+        (assoc :signals
+               (update signals :clojuredocs-probe
+                       #(some-> % signals/enrich-clojuredocs-probe)))))))

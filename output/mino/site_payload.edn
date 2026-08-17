@@ -1108,13 +1108,13 @@
    :assertions 21945,
    :pass-rate 1.0},
   :clojuredocs-probe
-  {:total 7,
-   :passed 7,
-   :failed 0,
-   :seed 0,
+  {:passed 7,
    :mode "smoke",
    :replay false,
-   :elapsed 11175.325999975204,
+   :probes 12,
+   :corpus
+   {:tested 50, :pass 44, :fail 0, :mino-fail 0, :allowlisted 6},
+   :seed 0,
    :verdicts
    [{:probe "diff-random.summary",
      :verdict "pass",
@@ -1180,7 +1180,10 @@
      :mino-fail 0,
      :pass 44,
      :elapsed 979.6189999580383,
-     :tested 50}]},
+     :tested 50}],
+   :total 7,
+   :failed 0,
+   :elapsed 11175.325999975204},
   :fuzz
   {:targets
    [{:name "fuzz-smoke", :seeds 22, :passed 22, :failed 0}

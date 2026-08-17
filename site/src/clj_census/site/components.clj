@@ -500,6 +500,17 @@
   [label value detail]
   [:tr [:th label] [:td value] [:td.muted detail]])
 
+(defn- clojuredocs-probe-detail
+  "Detail cell for the ClojureDocs probe readiness row. With derived
+  verdict detail present, show probe and corpus counts; otherwise the
+  plain failed count."
+  [cd]
+  (if-let [corpus (:corpus cd)]
+    (str (:probes cd) " probes, corpus "
+         (:pass corpus) "/" (:tested corpus)
+         ", " (:allowlisted corpus) " allowlisted")
+    (str (:failed cd) " failed")))
+
 (defn readiness-detail
   "Consolidated readiness view for one dialect."
   [{:keys [tag name]} dashboard payload {:keys [link]}]
@@ -534,7 +545,7 @@
                (some? cd)
                (conj (stat-row "ClojureDocs probe"
                                (str (:passed cd) " / " (:total cd))
-                               (str (:failed cd) " failed"))))
+                               (clojuredocs-probe-detail cd))))
         trend-rows (when (seq history)
                      (for [h history]
                        (stat-row (:date h)

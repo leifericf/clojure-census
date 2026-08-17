@@ -438,3 +438,39 @@
   (assert-all-headers-title-case!
     (c/dialect-namespace-detail foo-dialect 'clojure.core ctx)
     "dialect-namespace-detail"))
+
+;; ===== readiness view ==============================================
+
+(def readiness-payload-with-verdicts
+  {:signals
+   {:upstream-suite {:tests 2527 :passes 21945 :failures 0 :errors 0
+                     :assertions 21945 :pass-rate 1.0}
+    :clojuredocs-probe
+    {:total 7 :passed 7 :failed 0 :probes 12
+     :corpus {:tested 50 :pass 44 :fail 0 :mino-fail 0 :allowlisted 6}}}})
+
+(def readiness-payload-aggregate-only
+  {:signals
+   {:clojuredocs-probe {:total 7 :passed 7 :failed 0}}})
+
+(deftest readiness-shows-per-probe-and-corpus-detail
+  (let [page (c/readiness-detail foo-dialect foo-dashboard
+                                 readiness-payload-with-verdicts ctx)]
+    (testing "probe row carries suite headline"
+      (is (tree-contains-string? page "ClojureDocs probe")))
+    (testing "per-probe and corpus numbers surface"
+      (is (tree-contains-string? page "12 probes"))
+      (is (tree-contains-string? page "44/50"))
+      (is (tree-contains-string? page "6 allowlisted")))))
+
+(deftest readiness-probe-row-falls-back-to-failed-count
+  (let [page (c/readiness-detail foo-dialect foo-dashboard
+                                 readiness-payload-aggregate-only ctx)]
+    (is (tree-contains-string? page "0 failed"))
+    (is (not (tree-contains-string? page "probes,")))))
+
+(deftest readiness-upstream-row-renders-assertions
+  (let [page (c/readiness-detail foo-dialect foo-dashboard
+                                 readiness-payload-with-verdicts ctx)]
+    (is (tree-contains-string? page "Upstream test suite"))
+    (is (tree-contains-string? page "21945 / 21945 assertions"))))
