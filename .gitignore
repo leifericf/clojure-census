@@ -21,3 +21,8 @@ out/
 
 # transient prior-surface rotation, regenerated on each dump
 output/**/surface.prev.edn
+
+# agent-local config (symlinked or copied per machine; not project data)
+/.claude/
+/.mcp.json
+/CLAUDE.md
