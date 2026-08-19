@@ -1,5 +1,5 @@
 {:dialect-tag "bb",
- :run-at "2026-08-18T05:43:10Z",
+ :run-at "2026-08-19T05:44:11Z",
  :totals
  {:match 22, :mismatch 0, :divergent-as-expected 0, :skipped 0},
  :parities
@@ -8,7 +8,7 @@
    :oracle
    {:status :value,
     :value {:clj-census/opaque "class java.lang.String"},
-    :elapsed-ms 0},
+    :elapsed-ms 1},
    :dialect
    {:status :value,
     :value {:clj-census/opaque "class java.lang.String"},
@@ -65,7 +65,7 @@
    :reason "values equivalent"}
   {:case-id :compare/numbers-ascending,
    :var clojure.core/compare,
-   :oracle {:status :value, :value -1, :elapsed-ms 2},
+   :oracle {:status :value, :value -1, :elapsed-ms 1},
    :dialect {:status :value, :value -1, :elapsed-ms 0},
    :verdict :match,
    :reason "values equivalent"}
@@ -84,7 +84,7 @@
   {:case-id :plus/single-positive,
    :var clojure.core/+,
    :oracle {:status :value, :value 5, :elapsed-ms 1},
-   :dialect {:status :value, :value 5, :elapsed-ms 0},
+   :dialect {:status :value, :value 5, :elapsed-ms 1},
    :verdict :match,
    :reason "values equivalent"}
   {:case-id :plus/two-positive,
@@ -95,7 +95,7 @@
    :reason "values equivalent"}
   {:case-id :plus/with-negative,
    :var clojure.core/+,
-   :oracle {:status :value, :value 3, :elapsed-ms 2},
+   :oracle {:status :value, :value 3, :elapsed-ms 1},
    :dialect {:status :value, :value 3, :elapsed-ms 0},
    :verdict :match,
    :reason "values equivalent"}
@@ -114,9 +114,9 @@
   {:case-id :sort/strings,
    :var clojure.core/sort,
    :oracle
-   {:status :value, :value ["apple" "banana" "cherry"], :elapsed-ms 1},
+   {:status :value, :value ["apple" "banana" "cherry"], :elapsed-ms 2},
    :dialect
-   {:status :value, :value ["apple" "banana" "cherry"], :elapsed-ms 0},
+   {:status :value, :value ["apple" "banana" "cherry"], :elapsed-ms 1},
    :verdict :match,
    :reason "values equivalent"}
   {:case-id :sort/with-comparator-descending,
@@ -136,7 +136,7 @@
    :oracle
    {:status :value,
     :value {:clj-census/opaque "class java.lang.String"},
-    :elapsed-ms 0},
+    :elapsed-ms 1},
    :dialect
    {:status :value,
     :value {:clj-census/opaque "class java.lang.String"},
@@ -172,10 +172,10 @@
    :oracle
    {:status :value,
     :value {:clj-census/opaque "class clojure.lang.PersistentVector"},
-    :elapsed-ms 1},
+    :elapsed-ms 0},
    :dialect
    {:status :value,
     :value {:clj-census/opaque "class clojure.lang.PersistentVector"},
-    :elapsed-ms 0},
+    :elapsed-ms 1},
    :verdict :match,
    :reason "values equivalent"}]}
