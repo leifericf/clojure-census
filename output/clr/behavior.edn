@@ -1,5 +1,5 @@
 {:dialect-tag "clr",
- :run-at "2026-08-19T06:02:12Z",
+ :run-at "2026-08-20T06:02:32Z",
  :totals
  {:match 12, :mismatch 10, :divergent-as-expected 0, :skipped 0},
  :parities
@@ -12,7 +12,7 @@
    :dialect
    {:status :value,
     :value {:clj-census/opaque "System.String"},
-    :elapsed-ms 3},
+    :elapsed-ms 2},
    :verdict :mismatch,
    :reason "values differ"}
   {:case-id :class/long,
@@ -24,7 +24,7 @@
    :dialect
    {:status :value,
     :value {:clj-census/opaque "System.Int64"},
-    :elapsed-ms 3},
+    :elapsed-ms 2},
    :verdict :mismatch,
    :reason "values differ"}
   {:case-id :class/keyword,
@@ -32,17 +32,17 @@
    :oracle
    {:status :value,
     :value {:clj-census/opaque "class clojure.lang.Keyword"},
-    :elapsed-ms 1},
+    :elapsed-ms 0},
    :dialect
    {:status :value,
     :value {:clj-census/opaque "clojure.lang.Keyword"},
-    :elapsed-ms 3},
+    :elapsed-ms 2},
    :verdict :mismatch,
    :reason "values differ"}
   {:case-id :class/nil,
    :var clojure.core/class,
    :oracle {:status :value, :value nil, :elapsed-ms 1},
-   :dialect {:status :value, :value nil, :elapsed-ms 3},
+   :dialect {:status :value, :value nil, :elapsed-ms 2},
    :verdict :match,
    :reason "values equivalent"}
   {:case-id :compare/strings-positive,
@@ -54,13 +54,13 @@
   {:case-id :compare/strings-negative,
    :var clojure.core/compare,
    :oracle {:status :value, :value -25, :elapsed-ms 1},
-   :dialect {:status :value, :value -1, :elapsed-ms 3},
+   :dialect {:status :value, :value -1, :elapsed-ms 2},
    :verdict :mismatch,
    :reason "values differ"}
   {:case-id :compare/strings-equal,
    :var clojure.core/compare,
    :oracle {:status :value, :value 0, :elapsed-ms 1},
-   :dialect {:status :value, :value 0, :elapsed-ms 3},
+   :dialect {:status :value, :value 0, :elapsed-ms 2},
    :verdict :match,
    :reason "values equivalent"}
   {:case-id :compare/numbers-ascending,
@@ -84,13 +84,13 @@
   {:case-id :plus/single-positive,
    :var clojure.core/+,
    :oracle {:status :value, :value 5, :elapsed-ms 1},
-   :dialect {:status :value, :value 5, :elapsed-ms 3},
+   :dialect {:status :value, :value 5, :elapsed-ms 2},
    :verdict :match,
    :reason "values equivalent"}
   {:case-id :plus/two-positive,
    :var clojure.core/+,
    :oracle {:status :value, :value 3, :elapsed-ms 1},
-   :dialect {:status :value, :value 3, :elapsed-ms 3},
+   :dialect {:status :value, :value 3, :elapsed-ms 2},
    :verdict :match,
    :reason "values equivalent"}
   {:case-id :plus/with-negative,
@@ -101,14 +101,14 @@
    :reason "values equivalent"}
   {:case-id :plus/varargs,
    :var clojure.core/+,
-   :oracle {:status :value, :value 15, :elapsed-ms 2},
-   :dialect {:status :value, :value 15, :elapsed-ms 4},
+   :oracle {:status :value, :value 15, :elapsed-ms 1},
+   :dialect {:status :value, :value 15, :elapsed-ms 3},
    :verdict :match,
    :reason "values equivalent"}
   {:case-id :sort/numbers-ascending,
    :var clojure.core/sort,
    :oracle {:status :value, :value [1 1 2 3 4 5 6 9], :elapsed-ms 1},
-   :dialect {:status :value, :value [1 1 2 3 4 5 6 9], :elapsed-ms 4},
+   :dialect {:status :value, :value [1 1 2 3 4 5 6 9], :elapsed-ms 3},
    :verdict :match,
    :reason "values equivalent"}
   {:case-id :sort/strings,
@@ -136,11 +136,11 @@
    :oracle
    {:status :value,
     :value {:clj-census/opaque "class java.lang.String"},
-    :elapsed-ms 0},
+    :elapsed-ms 1},
    :dialect
    {:status :value,
     :value {:clj-census/opaque "System.String"},
-    :elapsed-ms 3},
+    :elapsed-ms 2},
    :verdict :mismatch,
    :reason "values differ"}
   {:case-id :type/long,
@@ -152,7 +152,7 @@
    :dialect
    {:status :value,
     :value {:clj-census/opaque "System.Int64"},
-    :elapsed-ms 3},
+    :elapsed-ms 2},
    :verdict :mismatch,
    :reason "values differ"}
   {:case-id :type/keyword,
@@ -160,7 +160,7 @@
    :oracle
    {:status :value,
     :value {:clj-census/opaque "class clojure.lang.Keyword"},
-    :elapsed-ms 0},
+    :elapsed-ms 1},
    :dialect
    {:status :value,
     :value {:clj-census/opaque "clojure.lang.Keyword"},
@@ -176,6 +176,6 @@
    :dialect
    {:status :value,
     :value {:clj-census/opaque "clojure.lang.PersistentVector"},
-    :elapsed-ms 3},
+    :elapsed-ms 2},
    :verdict :mismatch,
    :reason "values differ"}]}
