@@ -157,6 +157,8 @@
     atom? {},
     await {},
     await-for {},
+    base64-decode {},
+    base64-encode {},
     bigdec {},
     bigint {},
     bigint? {},
@@ -305,6 +307,7 @@
     {:doc
      "Default map of data reader functions keyed by tag symbol: 'inst\n     and 'uuid."},
     definterface {:macro true},
+    deflate-decompress {},
     defmacro
     {:doc
      "Defines a macro: a named function, invoked at expansion time, whose return value replaces the calling form before it is evaluated.",
@@ -506,6 +509,7 @@
     getcwd {},
     getenv {},
     group-by {},
+    gzip-decompress {},
     halt-when
     {:doc
      "Returns a transducer that halts reduction when pred is satisfied."},
@@ -521,6 +525,13 @@
     hash-unordered-coll
     {:doc
      "Computes a position-independent hash for an unordered collection."},
+    hex-decode {},
+    hex-encode {},
+    http-encode-chunk {},
+    http-encode-request {},
+    http-parse-response {},
+    http-parse-response-chunks {},
+    http-request {},
     ident? {:doc "Returns true if x is a symbol or keyword."},
     identical? {},
     identity {:doc "Returns its argument."},
@@ -735,6 +746,14 @@
     neg-int?
     {:doc "Returns true if x is a negative integer (long tier)."},
     neg? {},
+    net-accept {},
+    net-close {},
+    net-connect {},
+    net-listen {},
+    net-listener-port {},
+    net-read {},
+    net-read-all {},
+    net-write {},
     newline {},
     next
     {:doc
@@ -784,6 +803,7 @@
      "Parses 'true' or 'false' (case-sensitive) and returns the boolean.\n   Returns nil for strings that don't match. Per Clojure's contract\n   raises an error on non-string input (analogous to JVM's\n   ClassCastException / NullPointerException)."},
     parse-double {},
     parse-long {},
+    parse-url {},
     parse-uuid {},
     partial {},
     partition
@@ -805,10 +825,15 @@
     {:doc
      "Executes the no-arg fns in parallel, returning a lazy sequence of\n   their values. Mirrors clojure.core/pcalls. When host threads aren't\n   granted (mino-thread-limit <= 1), falls back to sequential map so\n   the surface is portable across embedded and CLI runs."},
     peek {},
+    percent-decode {},
+    percent-encode {},
     persistent! {},
     pmap
     {:doc
      "Like map, except f is applied in parallel via futures. Semi-lazy in\n   that the parallel computation stays no more than thread-limit-1\n   items ahead of the consumer. f's invocations across the collection\n   are independent; do not pmap with a side-effectful f if order of\n   effects matters.\n\n   Single-arity collection only: (pmap f coll). When host threads are\n   not granted (mino-thread-limit <= 1), falls back to (map f coll)\n   so callers don't need a conditional."},
+    pool-checkout {},
+    pool-close-all {},
+    pool-return {},
     pop {},
     pop! {},
     pop-thread-bindings
@@ -926,6 +951,7 @@
     record-from-map {},
     record-type? {},
     record? {},
+    redirect-next {},
     reduce
     {:doc
      "Reduces coll using f. With 2 args, uses the first element as init.\n  With 3 args, uses init explicitly. Consults CollReduce: a user\n  type or :default override on coll-reduce takes precedence over the\n  built-in seq-driven reduction."},
@@ -1143,6 +1169,11 @@
      "Evaluates body, prints elapsed time, and returns the result.",
      :macro true},
     time-ms {},
+    tls-close {},
+    tls-connect {},
+    tls-read {},
+    tls-read-all {},
+    tls-write {},
     to-array {},
     trampoline
     {:doc
@@ -2121,4 +2152,4 @@
    throw
    def},
  :spec-keys #{},
- :captured-at "2026-08-19T05:25:05Z"}
+ :captured-at "2026-08-20T05:25:47Z"}
