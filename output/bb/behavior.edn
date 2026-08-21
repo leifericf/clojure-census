@@ -1,5 +1,5 @@
 {:dialect-tag "bb",
- :run-at "2026-08-20T05:44:39Z",
+ :run-at "2026-08-21T05:45:59Z",
  :totals
  {:match 22, :mismatch 0, :divergent-as-expected 0, :skipped 0},
  :parities
@@ -36,13 +36,13 @@
    :dialect
    {:status :value,
     :value {:clj-census/opaque "class clojure.lang.Keyword"},
-    :elapsed-ms 0},
+    :elapsed-ms 1},
    :verdict :match,
    :reason "values equivalent"}
   {:case-id :class/nil,
    :var clojure.core/class,
    :oracle {:status :value, :value nil, :elapsed-ms 0},
-   :dialect {:status :value, :value nil, :elapsed-ms 0},
+   :dialect {:status :value, :value nil, :elapsed-ms 1},
    :verdict :match,
    :reason "values equivalent"}
   {:case-id :compare/strings-positive,
@@ -77,7 +77,7 @@
    :reason "values equivalent"}
   {:case-id :plus/identity,
    :var clojure.core/+,
-   :oracle {:status :value, :value 0, :elapsed-ms 0},
+   :oracle {:status :value, :value 0, :elapsed-ms 1},
    :dialect {:status :value, :value 0, :elapsed-ms 0},
    :verdict :match,
    :reason "values equivalent"}
@@ -102,7 +102,7 @@
   {:case-id :plus/varargs,
    :var clojure.core/+,
    :oracle {:status :value, :value 15, :elapsed-ms 2},
-   :dialect {:status :value, :value 15, :elapsed-ms 1},
+   :dialect {:status :value, :value 15, :elapsed-ms 0},
    :verdict :match,
    :reason "values equivalent"}
   {:case-id :sort/numbers-ascending,
@@ -122,7 +122,7 @@
   {:case-id :sort/with-comparator-descending,
    :var clojure.core/sort,
    :oracle {:status :value, :value [4 3 2 1], :elapsed-ms 2},
-   :dialect {:status :value, :value [4 3 2 1], :elapsed-ms 1},
+   :dialect {:status :value, :value [4 3 2 1], :elapsed-ms 0},
    :verdict :match,
    :reason "values equivalent"}
   {:case-id :sort/empty,
@@ -148,7 +148,7 @@
    :oracle
    {:status :value,
     :value {:clj-census/opaque "class java.lang.Long"},
-    :elapsed-ms 1},
+    :elapsed-ms 0},
    :dialect
    {:status :value,
     :value {:clj-census/opaque "class java.lang.Long"},
@@ -160,7 +160,7 @@
    :oracle
    {:status :value,
     :value {:clj-census/opaque "class clojure.lang.Keyword"},
-    :elapsed-ms 0},
+    :elapsed-ms 1},
    :dialect
    {:status :value,
     :value {:clj-census/opaque "class clojure.lang.Keyword"},
