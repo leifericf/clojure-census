@@ -2,7 +2,7 @@
  {:dialect-tag "clr",
   :dialect-name "ClojureCLR",
   :clojure-version "1.12.4",
-  :compared-at "2026-08-20T06:03:16Z"},
+  :compared-at "2026-08-21T06:04:44Z"},
  :divergences
  [{:id :host-class-system-clr,
    :title "Host classes are CLR System.*, not JVM java.*",
@@ -90,45 +90,7 @@
    clojure.template
    {:in-both-count 2, :clojure-total 2, :percent 1.0}}},
  :history
- [{:date "2026-08-07",
-   :dialect-tag "clr",
-   :clojure-version "1.12.2",
-   :headline
-   {:in-both-count 962,
-    :clojure-total 995,
-    :percent 0.9668341708542714},
-   :per-namespace
-   {clojure.spec.alpha
-    {:in-both-count 87, :clojure-total 87, :percent 1.0},
-    clojure.datafy {:in-both-count 2, :clojure-total 2, :percent 1.0},
-    clojure.zip {:in-both-count 28, :clojure-total 28, :percent 1.0},
-    clojure.core.reducers
-    {:in-both-count 19,
-     :clojure-total 21,
-     :percent 0.9047619047619048},
-    clojure.test {:in-both-count 39, :clojure-total 39, :percent 1.0},
-    clojure.core.protocols
-    {:in-both-count 11, :clojure-total 11, :percent 1.0},
-    clojure.core
-    {:in-both-count 674,
-     :clojure-total 679,
-     :percent 0.9926362297496318},
-    clojure.set {:in-both-count 12, :clojure-total 12, :percent 1.0},
-    clojure.pprint
-    {:in-both-count 26, :clojure-total 26, :percent 1.0},
-    clojure.math
-    {:in-both-count 22,
-     :clojure-total 45,
-     :percent 0.4888888888888889},
-    clojure.edn {:in-both-count 2, :clojure-total 2, :percent 1.0},
-    clojure.instant {:in-both-count 2, :clojure-total 5, :percent 0.4},
-    clojure.string
-    {:in-both-count 21, :clojure-total 21, :percent 1.0},
-    clojure.data {:in-both-count 5, :clojure-total 5, :percent 1.0},
-    clojure.walk {:in-both-count 10, :clojure-total 10, :percent 1.0},
-    clojure.template
-    {:in-both-count 2, :clojure-total 2, :percent 1.0}}}
-  {:date "2026-08-08",
+ [{:date "2026-08-08",
    :dialect-tag "clr",
    :clojure-version "1.12.2",
    :headline
@@ -621,10 +583,48 @@
     clojure.data {:in-both-count 5, :clojure-total 5, :percent 1.0},
     clojure.walk {:in-both-count 10, :clojure-total 10, :percent 1.0},
     clojure.template
+    {:in-both-count 2, :clojure-total 2, :percent 1.0}}}
+  {:date "2026-08-21",
+   :dialect-tag "clr",
+   :clojure-version "1.12.2",
+   :headline
+   {:in-both-count 962,
+    :clojure-total 995,
+    :percent 0.9668341708542714},
+   :per-namespace
+   {clojure.spec.alpha
+    {:in-both-count 87, :clojure-total 87, :percent 1.0},
+    clojure.datafy {:in-both-count 2, :clojure-total 2, :percent 1.0},
+    clojure.zip {:in-both-count 28, :clojure-total 28, :percent 1.0},
+    clojure.core.reducers
+    {:in-both-count 19,
+     :clojure-total 21,
+     :percent 0.9047619047619048},
+    clojure.test {:in-both-count 39, :clojure-total 39, :percent 1.0},
+    clojure.core.protocols
+    {:in-both-count 11, :clojure-total 11, :percent 1.0},
+    clojure.core
+    {:in-both-count 674,
+     :clojure-total 679,
+     :percent 0.9926362297496318},
+    clojure.set {:in-both-count 12, :clojure-total 12, :percent 1.0},
+    clojure.pprint
+    {:in-both-count 26, :clojure-total 26, :percent 1.0},
+    clojure.math
+    {:in-both-count 22,
+     :clojure-total 45,
+     :percent 0.4888888888888889},
+    clojure.edn {:in-both-count 2, :clojure-total 2, :percent 1.0},
+    clojure.instant {:in-both-count 2, :clojure-total 5, :percent 0.4},
+    clojure.string
+    {:in-both-count 21, :clojure-total 21, :percent 1.0},
+    clojure.data {:in-both-count 5, :clojure-total 5, :percent 1.0},
+    clojure.walk {:in-both-count 10, :clojure-total 10, :percent 1.0},
+    clojure.template
     {:in-both-count 2, :clojure-total 2, :percent 1.0}}}],
  :behavior
  {:dialect-tag "clr",
-  :run-at "2026-08-20T06:02:32Z",
+  :run-at "2026-08-21T06:03:47Z",
   :totals
   {:match 12, :mismatch 10, :divergent-as-expected 0, :skipped 0},
   :parities
@@ -637,7 +637,7 @@
     :dialect
     {:status :value,
      :value {:clj-census/opaque "System.String"},
-     :elapsed-ms 2},
+     :elapsed-ms 3},
     :verdict :mismatch,
     :reason "values differ"}
    {:case-id :class/long,
@@ -649,7 +649,7 @@
     :dialect
     {:status :value,
      :value {:clj-census/opaque "System.Int64"},
-     :elapsed-ms 2},
+     :elapsed-ms 3},
     :verdict :mismatch,
     :reason "values differ"}
    {:case-id :class/keyword,
@@ -657,17 +657,17 @@
     :oracle
     {:status :value,
      :value {:clj-census/opaque "class clojure.lang.Keyword"},
-     :elapsed-ms 0},
+     :elapsed-ms 1},
     :dialect
     {:status :value,
      :value {:clj-census/opaque "clojure.lang.Keyword"},
-     :elapsed-ms 2},
+     :elapsed-ms 3},
     :verdict :mismatch,
     :reason "values differ"}
    {:case-id :class/nil,
     :var clojure.core/class,
-    :oracle {:status :value, :value nil, :elapsed-ms 1},
-    :dialect {:status :value, :value nil, :elapsed-ms 2},
+    :oracle {:status :value, :value nil, :elapsed-ms 0},
+    :dialect {:status :value, :value nil, :elapsed-ms 3},
     :verdict :match,
     :reason "values equivalent"}
    {:case-id :compare/strings-positive,
@@ -679,13 +679,13 @@
    {:case-id :compare/strings-negative,
     :var clojure.core/compare,
     :oracle {:status :value, :value -25, :elapsed-ms 1},
-    :dialect {:status :value, :value -1, :elapsed-ms 2},
+    :dialect {:status :value, :value -1, :elapsed-ms 3},
     :verdict :mismatch,
     :reason "values differ"}
    {:case-id :compare/strings-equal,
     :var clojure.core/compare,
     :oracle {:status :value, :value 0, :elapsed-ms 1},
-    :dialect {:status :value, :value 0, :elapsed-ms 2},
+    :dialect {:status :value, :value 0, :elapsed-ms 3},
     :verdict :match,
     :reason "values equivalent"}
    {:case-id :compare/numbers-ascending,
@@ -709,25 +709,25 @@
    {:case-id :plus/single-positive,
     :var clojure.core/+,
     :oracle {:status :value, :value 5, :elapsed-ms 1},
-    :dialect {:status :value, :value 5, :elapsed-ms 2},
+    :dialect {:status :value, :value 5, :elapsed-ms 3},
     :verdict :match,
     :reason "values equivalent"}
    {:case-id :plus/two-positive,
     :var clojure.core/+,
     :oracle {:status :value, :value 3, :elapsed-ms 1},
-    :dialect {:status :value, :value 3, :elapsed-ms 2},
+    :dialect {:status :value, :value 3, :elapsed-ms 4},
     :verdict :match,
     :reason "values equivalent"}
    {:case-id :plus/with-negative,
     :var clojure.core/+,
-    :oracle {:status :value, :value 3, :elapsed-ms 1},
+    :oracle {:status :value, :value 3, :elapsed-ms 2},
     :dialect {:status :value, :value 3, :elapsed-ms 3},
     :verdict :match,
     :reason "values equivalent"}
    {:case-id :plus/varargs,
     :var clojure.core/+,
-    :oracle {:status :value, :value 15, :elapsed-ms 1},
-    :dialect {:status :value, :value 15, :elapsed-ms 3},
+    :oracle {:status :value, :value 15, :elapsed-ms 2},
+    :dialect {:status :value, :value 15, :elapsed-ms 4},
     :verdict :match,
     :reason "values equivalent"}
    {:case-id :sort/numbers-ascending,
@@ -751,7 +751,7 @@
    {:case-id :sort/with-comparator-descending,
     :var clojure.core/sort,
     :oracle {:status :value, :value [4 3 2 1], :elapsed-ms 1},
-    :dialect {:status :value, :value [1 3 2 4], :elapsed-ms 3},
+    :dialect {:status :value, :value [1 3 2 4], :elapsed-ms 4},
     :verdict :mismatch,
     :reason "values differ"}
    {:case-id :sort/empty,
@@ -769,7 +769,7 @@
     :dialect
     {:status :value,
      :value {:clj-census/opaque "System.String"},
-     :elapsed-ms 2},
+     :elapsed-ms 3},
     :verdict :mismatch,
     :reason "values differ"}
    {:case-id :type/long,
@@ -777,11 +777,11 @@
     :oracle
     {:status :value,
      :value {:clj-census/opaque "class java.lang.Long"},
-     :elapsed-ms 0},
+     :elapsed-ms 1},
     :dialect
     {:status :value,
      :value {:clj-census/opaque "System.Int64"},
-     :elapsed-ms 2},
+     :elapsed-ms 3},
     :verdict :mismatch,
     :reason "values differ"}
    {:case-id :type/keyword,
@@ -801,11 +801,11 @@
     :oracle
     {:status :value,
      :value {:clj-census/opaque "class clojure.lang.PersistentVector"},
-     :elapsed-ms 1},
+     :elapsed-ms 2},
     :dialect
     {:status :value,
      :value {:clj-census/opaque "clojure.lang.PersistentVector"},
-     :elapsed-ms 2},
+     :elapsed-ms 3},
     :verdict :mismatch,
     :reason "values differ"}]},
  :mismatches
@@ -967,8 +967,8 @@
    :description
    "Where reader attaches meta and which ops preserve it."}],
  :drift
- {:from-date "2026-08-19",
-  :to-date "2026-08-20",
+ {:from-date "2026-08-20",
+  :to-date "2026-08-21",
   :added-vars #{},
   :removed-vars #{},
   :changed [],
