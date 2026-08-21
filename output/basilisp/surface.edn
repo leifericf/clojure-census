@@ -1,8 +1,6 @@
-{:special-forms
- #{try finally do if recur set! . var quote catch throw def},
- :spec-keys #{},
+{:clojure-version "unknown",
  :dialect-tag "basilisp",
- :clojure-version "unknown",
+ :spec-keys #{},
  :namespaces
  {clojure.core
   {:vars
@@ -1318,13 +1316,13 @@
      "Return a collection of types explicitly extending protocol ``proto``\\.\n\n  The returned collection will not include types which extend proto via inheritance\n  (as by :lpy:fn:`deftype` and :lpy:fn:`defrecord`). Only types extending proto via\n  :lpy:fn:`extend` (or :lpy:fn:`extend-protocol` or :lpy:fn:`extend-type`) will appear.",
      :file
      "/opt/hostedtoolcache/Python/3.12.14/x64/lib/python3.12/site-packages/basilisp/core.lpy",
-     :arglists ([{:as proto, :keys [impls]}]),
+     :arglists ([{:keys [impls], :as proto}]),
      :line 6931},
     extends?
     {:doc "Return ``true`` ``if`` type extends protocol ``proto``\\.",
      :file
      "/opt/hostedtoolcache/Python/3.12.14/x64/lib/python3.12/site-packages/basilisp/core.lpy",
-     :arglists ([{:as proto, :keys [interface impls]} type]),
+     :arglists ([{:keys [interface impls], :as proto} type]),
      :line 6940},
     false?
     {:doc
@@ -1840,7 +1838,7 @@
      ([step
        &
        {:keys [somef vf kf initk],
-        :or {vf identity, somef some?, kf identity, initk nil}}]),
+        :or {vf identity, initk nil, kf identity, somef some?}}]),
      :line 8079},
     iterator-seq
     {:doc
@@ -3144,7 +3142,7 @@
     {:doc "Return true if ``x`` satisfies protocol ``proto``\\.",
      :file
      "/opt/hostedtoolcache/Python/3.12.14/x64/lib/python3.12/site-packages/basilisp/core.lpy",
-     :arglists ([{:as proto, :keys [interface impls]} x]),
+     :arglists ([{:keys [interface impls], :as proto} x]),
      :line 6946},
     second
     {:doc "Returns the second element in a Seq.",
@@ -4717,4 +4715,6 @@
      "/opt/hostedtoolcache/Python/3.12.14/x64/lib/python3.12/site-packages/basilisp/walk.lpy",
      :arglists ([this inner outer]),
      :line 8}}}},
- :captured-at "2026-08-20T07:08:57Z"}
+ :special-forms
+ #{try finally do if recur set! . var quote catch throw def},
+ :captured-at "2026-08-21T07:10:00Z"}
