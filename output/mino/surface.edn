@@ -111,7 +111,9 @@
     abs
     {:doc
      "Returns the absolute value of x. Matches JVM Math/abs 2's-complement\n   semantics: (abs Long/MIN_VALUE) returns Long/MIN_VALUE rather than\n   overflowing, since the true absolute value is unrepresentable in a\n   signed 64-bit int."},
+    add-days {},
     add-load-path! {},
+    add-months {},
     add-tap
     {:doc
      "Registers f as a tap target. Each call to tap> invokes every\n   registered tap with the tapped value. Returns nil."},
@@ -288,11 +290,14 @@
     counted?
     {:doc
      "Returns true if (count x) is a constant-time operation. Per\n   Clojure this is the Counted protocol -- vectors, maps, sets, and\n   sorted variants. Strings are not Counted on the JVM (their count\n   walks java.lang.CharSequence)."},
+    cpu-ms {},
     create-ns {},
     cycle
     {:doc
      "Returns a lazy infinite sequence of repetitions of the items in\n   coll."},
     datafy {},
+    days-between {},
+    days-in-month {},
     dec {},
     dec' {},
     decimal? {},
@@ -405,6 +410,7 @@
     ensure {},
     ensure-reduced
     {:doc "Wraps x in reduced if it is not already reduced."},
+    epoch->time-map {},
     error-handler {},
     error-mode {},
     error? {},
@@ -484,6 +490,7 @@
     {:doc
      "Forces evaluation of a delay. If x is not a delay, returns x."},
     format {},
+    format-time {},
     frequencies {},
     future
     {:doc
@@ -508,6 +515,7 @@
     get-validator {},
     getcwd {},
     getenv {},
+    glob {},
     group-by {},
     gzip-decompress {},
     halt-when
@@ -532,6 +540,7 @@
     http-parse-response {},
     http-parse-response-chunks {},
     http-request {},
+    human-diff {},
     ident? {:doc "Returns true if x is a symbol or keyword."},
     identical? {},
     identity {:doc "Returns its argument."},
@@ -622,6 +631,7 @@
      "Returns a sequence whose body is not evaluated until the first element is requested, then caches the realized sequence for later traversals.",
      :macro true},
     lazy-take {},
+    leap-year? {},
     let
     {:doc
      "Evaluates the body with a sequence of local bindings established left to right from the binding vector; later bindings may refer to earlier ones.",
@@ -737,6 +747,7 @@
     monitor-try-enter
     {:doc
      "Claim x for owner, or reenter if owner already holds it. Returns\n  true when the claim succeeded, false when another thread holds x."},
+    months-between {},
     name {},
     namespace {},
     nano-time {},
@@ -766,6 +777,8 @@
     not-empty {:doc "Returns coll if it has items, nil otherwise."},
     not-every? {},
     not= {:doc "Returns true if the arguments are not equal."},
+    now {},
+    now-s {},
     ns
     {:doc
      "Selects or creates a namespace and applies its require / refer / import clauses, becoming the current namespace for the forms that follow.",
@@ -803,6 +816,7 @@
      "Parses 'true' or 'false' (case-sensitive) and returns the boolean.\n   Returns nil for strings that don't match. Per Clojure's contract\n   raises an error on non-string input (analogous to JVM's\n   ClassCastException / NullPointerException)."},
     parse-double {},
     parse-long {},
+    parse-time {},
     parse-url {},
     parse-uuid {},
     partial {},
@@ -821,6 +835,17 @@
     partitionv-all
     {:doc
      "Like partition-all but returns a lazy seq of vectors instead of\n   lists."},
+    path-absolute? {},
+    path-basename {},
+    path-dirname {},
+    path-expand-home {},
+    path-extension {},
+    path-glob-match {},
+    path-join {},
+    path-normalize {},
+    path-split {},
+    path-split-ext {},
+    path-stem {},
     pcalls
     {:doc
      "Executes the no-arg fns in parallel, returning a lazy sequence of\n   their values. Mirrors clojure.core/pcalls. When host threads aren't\n   granted (mino-thread-limit <= 1), falls back to sequential map so\n   the surface is portable across embedded and CLI runs."},
@@ -1168,6 +1193,7 @@
     {:doc
      "Evaluates body, prints elapsed time, and returns the result.",
      :macro true},
+    time-map->epoch {},
     time-ms {},
     tls-close {},
     tls-connect {},
@@ -1254,6 +1280,7 @@
     walk
     {:doc
      "Traverses form, applying inner to each element and outer to the\n   result."},
+    weekday {},
     when
     {:doc "Evaluates body when test is truthy. Returns nil otherwise.",
      :macro true},
@@ -2152,4 +2179,4 @@
    throw
    def},
  :spec-keys #{},
- :captured-at "2026-08-20T05:25:47Z"}
+ :captured-at "2026-08-21T05:27:55Z"}

@@ -2,7 +2,7 @@
  {:dialect-tag "mino",
   :dialect-name "mino",
   :clojure-version "1.12.4",
-  :compared-at "2026-08-20T05:26:16Z"},
+  :compared-at "2026-08-21T05:28:24Z"},
  :divergences
  [{:dialect-example "(compare \"z\" \"a\") ;=> 1",
    :since "v0.1.0",
@@ -450,44 +450,7 @@
    clojure.template
    {:in-both-count 2, :clojure-total 2, :percent 1.0}}},
  :history
- [{:date "2026-08-07",
-   :dialect-tag "mino",
-   :clojure-version "1.11.0",
-   :headline
-   {:in-both-count 904,
-    :clojure-total 995,
-    :percent 0.9085427135678392},
-   :per-namespace
-   {clojure.spec.alpha
-    {:in-both-count 87, :clojure-total 87, :percent 1.0},
-    clojure.datafy {:in-both-count 2, :clojure-total 2, :percent 1.0},
-    clojure.zip {:in-both-count 28, :clojure-total 28, :percent 1.0},
-    clojure.core.reducers
-    {:in-both-count 19,
-     :clojure-total 21,
-     :percent 0.9047619047619048},
-    clojure.test {:in-both-count 39, :clojure-total 39, :percent 1.0},
-    clojure.core.protocols
-    {:in-both-count 10,
-     :clojure-total 11,
-     :percent 0.9090909090909091},
-    clojure.core
-    {:in-both-count 593,
-     :clojure-total 679,
-     :percent 0.8733431516936672},
-    clojure.set {:in-both-count 12, :clojure-total 12, :percent 1.0},
-    clojure.pprint
-    {:in-both-count 26, :clojure-total 26, :percent 1.0},
-    clojure.math {:in-both-count 45, :clojure-total 45, :percent 1.0},
-    clojure.edn {:in-both-count 2, :clojure-total 2, :percent 1.0},
-    clojure.instant {:in-both-count 3, :clojure-total 5, :percent 0.6},
-    clojure.string
-    {:in-both-count 21, :clojure-total 21, :percent 1.0},
-    clojure.data {:in-both-count 5, :clojure-total 5, :percent 1.0},
-    clojure.walk {:in-both-count 10, :clojure-total 10, :percent 1.0},
-    clojure.template
-    {:in-both-count 2, :clojure-total 2, :percent 1.0}}}
-  {:date "2026-08-08",
+ [{:date "2026-08-08",
    :dialect-tag "mino",
    :clojure-version "1.11.0",
    :headline
@@ -967,10 +930,47 @@
     clojure.data {:in-both-count 5, :clojure-total 5, :percent 1.0},
     clojure.walk {:in-both-count 10, :clojure-total 10, :percent 1.0},
     clojure.template
+    {:in-both-count 2, :clojure-total 2, :percent 1.0}}}
+  {:date "2026-08-21",
+   :dialect-tag "mino",
+   :clojure-version "2026.08.08-alpha1",
+   :headline
+   {:in-both-count 904,
+    :clojure-total 995,
+    :percent 0.9085427135678392},
+   :per-namespace
+   {clojure.spec.alpha
+    {:in-both-count 87, :clojure-total 87, :percent 1.0},
+    clojure.datafy {:in-both-count 2, :clojure-total 2, :percent 1.0},
+    clojure.zip {:in-both-count 28, :clojure-total 28, :percent 1.0},
+    clojure.core.reducers
+    {:in-both-count 19,
+     :clojure-total 21,
+     :percent 0.9047619047619048},
+    clojure.test {:in-both-count 39, :clojure-total 39, :percent 1.0},
+    clojure.core.protocols
+    {:in-both-count 10,
+     :clojure-total 11,
+     :percent 0.9090909090909091},
+    clojure.core
+    {:in-both-count 593,
+     :clojure-total 679,
+     :percent 0.8733431516936672},
+    clojure.set {:in-both-count 12, :clojure-total 12, :percent 1.0},
+    clojure.pprint
+    {:in-both-count 26, :clojure-total 26, :percent 1.0},
+    clojure.math {:in-both-count 45, :clojure-total 45, :percent 1.0},
+    clojure.edn {:in-both-count 2, :clojure-total 2, :percent 1.0},
+    clojure.instant {:in-both-count 3, :clojure-total 5, :percent 0.6},
+    clojure.string
+    {:in-both-count 21, :clojure-total 21, :percent 1.0},
+    clojure.data {:in-both-count 5, :clojure-total 5, :percent 1.0},
+    clojure.walk {:in-both-count 10, :clojure-total 10, :percent 1.0},
+    clojure.template
     {:in-both-count 2, :clojure-total 2, :percent 1.0}}}],
  :behavior
  {:dialect-tag "mino",
-  :run-at "2026-08-20T05:25:50Z",
+  :run-at "2026-08-21T05:27:59Z",
   :totals
   {:match 9, :mismatch 0, :divergent-as-expected 13, :skipped 0},
   :parities
@@ -979,7 +979,7 @@
     :oracle
     {:status :value,
      :value {:clj-census/opaque "class java.lang.String"},
-     :elapsed-ms 1},
+     :elapsed-ms 0},
     :dialect {:status :value, :value :string, :elapsed-ms 0},
     :verdict :divergent-as-expected,
     :reason "predicate :keyword-vs-class matched",
@@ -989,7 +989,7 @@
     :oracle
     {:status :value,
      :value {:clj-census/opaque "class java.lang.Long"},
-     :elapsed-ms 0},
+     :elapsed-ms 1},
     :dialect {:status :value, :value :int, :elapsed-ms 0},
     :verdict :divergent-as-expected,
     :reason "predicate :keyword-vs-class matched",
@@ -999,7 +999,7 @@
     :oracle
     {:status :value,
      :value {:clj-census/opaque "class clojure.lang.Keyword"},
-     :elapsed-ms 1},
+     :elapsed-ms 0},
     :dialect {:status :value, :value :keyword, :elapsed-ms 0},
     :verdict :divergent-as-expected,
     :reason "predicate :keyword-vs-class matched",
@@ -1014,14 +1014,14 @@
    {:case-id :compare/strings-positive,
     :var clojure.core/compare,
     :oracle {:status :value, :value 25, :elapsed-ms 1},
-    :dialect {:status :value, :value 1, :elapsed-ms 0},
+    :dialect {:status :value, :value 1, :elapsed-ms 1},
     :verdict :divergent-as-expected,
     :reason "predicate :sign-normalized matched",
     :divergence-id :compare-sign-normalized}
    {:case-id :compare/strings-negative,
     :var clojure.core/compare,
     :oracle {:status :value, :value -25, :elapsed-ms 1},
-    :dialect {:status :value, :value -1, :elapsed-ms 0},
+    :dialect {:status :value, :value -1, :elapsed-ms 1},
     :verdict :divergent-as-expected,
     :reason "predicate :sign-normalized matched",
     :divergence-id :compare-sign-normalized}
@@ -1060,25 +1060,25 @@
     :reason "values equivalent"}
    {:case-id :plus/two-positive,
     :var clojure.core/+,
-    :oracle {:status :value, :value 3, :elapsed-ms 0},
+    :oracle {:status :value, :value 3, :elapsed-ms 1},
     :dialect {:status :value, :value 3, :elapsed-ms 0},
     :verdict :match,
     :reason "values equivalent"}
    {:case-id :plus/with-negative,
     :var clojure.core/+,
-    :oracle {:status :value, :value 3, :elapsed-ms 0},
+    :oracle {:status :value, :value 3, :elapsed-ms 1},
     :dialect {:status :value, :value 3, :elapsed-ms 0},
     :verdict :match,
     :reason "values equivalent"}
    {:case-id :plus/varargs,
     :var clojure.core/+,
     :oracle {:status :value, :value 15, :elapsed-ms 2},
-    :dialect {:status :value, :value 15, :elapsed-ms 0},
+    :dialect {:status :value, :value 15, :elapsed-ms 1},
     :verdict :match,
     :reason "values equivalent"}
    {:case-id :sort/numbers-ascending,
     :var clojure.core/sort,
-    :oracle {:status :value, :value [1 1 2 3 4 5 6 9], :elapsed-ms 1},
+    :oracle {:status :value, :value [1 1 2 3 4 5 6 9], :elapsed-ms 2},
     :dialect {:status :value, :value [1 1 2 3 4 5 6 9], :elapsed-ms 0},
     :verdict :match,
     :reason "values equivalent"}
@@ -1087,11 +1087,11 @@
     :oracle
     {:status :value,
      :value ["apple" "banana" "cherry"],
-     :elapsed-ms 2},
+     :elapsed-ms 1},
     :dialect
     {:status :value,
      :value ["apple" "banana" "cherry"],
-     :elapsed-ms 0},
+     :elapsed-ms 1},
     :verdict :match,
     :reason "values equivalent"}
    {:case-id :sort/with-comparator-descending,
@@ -1112,7 +1112,7 @@
     {:status :value,
      :value {:clj-census/opaque "class java.lang.String"},
      :elapsed-ms 1},
-    :dialect {:status :value, :value :string, :elapsed-ms 1},
+    :dialect {:status :value, :value :string, :elapsed-ms 0},
     :verdict :divergent-as-expected,
     :reason "predicate :keyword-vs-class matched",
     :divergence-id :type-as-keyword}
@@ -1122,7 +1122,7 @@
     {:status :value,
      :value {:clj-census/opaque "class java.lang.Long"},
      :elapsed-ms 1},
-    :dialect {:status :value, :value :int, :elapsed-ms 1},
+    :dialect {:status :value, :value :int, :elapsed-ms 0},
     :verdict :divergent-as-expected,
     :reason "predicate :keyword-vs-class matched",
     :divergence-id :type-as-keyword}
@@ -1132,7 +1132,7 @@
     {:status :value,
      :value {:clj-census/opaque "class clojure.lang.Keyword"},
      :elapsed-ms 1},
-    :dialect {:status :value, :value :keyword, :elapsed-ms 0},
+    :dialect {:status :value, :value :keyword, :elapsed-ms 1},
     :verdict :divergent-as-expected,
     :reason "predicate :keyword-vs-class matched",
     :divergence-id :type-as-keyword}
@@ -1189,40 +1189,36 @@
    :description
    "Where reader attaches meta and which ops preserve it."}],
  :drift
- {:from-date "2026-08-19",
-  :to-date "2026-08-20",
+ {:from-date "2026-08-20",
+  :to-date "2026-08-21",
   :added-vars
-  #{clojure.core/tls-close
-    clojure.core/net-read-all
-    clojure.core/percent-decode
-    clojure.core/tls-connect
-    clojure.core/base64-decode
-    clojure.core/net-read
-    clojure.core/net-listener-port
-    clojure.core/http-request
-    clojure.core/pool-return
-    clojure.core/gzip-decompress
-    clojure.core/base64-encode
-    clojure.core/pool-close-all
-    clojure.core/redirect-next
-    clojure.core/http-parse-response
-    clojure.core/net-write
-    clojure.core/parse-url
-    clojure.core/net-close
-    clojure.core/net-listen
-    clojure.core/hex-encode
-    clojure.core/tls-write
-    clojure.core/pool-checkout
-    clojure.core/net-connect
-    clojure.core/deflate-decompress
-    clojure.core/http-encode-request
-    clojure.core/tls-read-all
-    clojure.core/http-parse-response-chunks
-    clojure.core/tls-read
-    clojure.core/net-accept
-    clojure.core/http-encode-chunk
-    clojure.core/hex-decode
-    clojure.core/percent-encode},
+  #{clojure.core/glob
+    clojure.core/path-basename
+    clojure.core/path-extension
+    clojure.core/add-days
+    clojure.core/path-split-ext
+    clojure.core/weekday
+    clojure.core/epoch->time-map
+    clojure.core/parse-time
+    clojure.core/path-join
+    clojure.core/time-map->epoch
+    clojure.core/path-stem
+    clojure.core/path-normalize
+    clojure.core/leap-year?
+    clojure.core/path-dirname
+    clojure.core/path-absolute?
+    clojure.core/path-split
+    clojure.core/path-glob-match
+    clojure.core/months-between
+    clojure.core/add-months
+    clojure.core/path-expand-home
+    clojure.core/now
+    clojure.core/now-s
+    clojure.core/days-between
+    clojure.core/days-in-month
+    clojure.core/human-diff
+    clojure.core/format-time
+    clojure.core/cpu-ms},
   :removed-vars #{},
   :changed [],
   :coverage-delta 0.0},
@@ -1274,7 +1270,9 @@
   clojure.core/Inst--inst-ms*
   clojure.core/Navigable
   clojure.core/Navigable--nav
+  clojure.core/add-days
   clojure.core/add-load-path!
+  clojure.core/add-months
   clojure.core/agent?
   clojure.core/alloc-profile-dump!
   clojure.core/alloc-profile-enabled?
@@ -1314,7 +1312,10 @@
   clojure.core/chdir
   clojure.core/coll-reduce
   clojure.core/cons?
+  clojure.core/cpu-ms
   clojure.core/datafy
+  clojure.core/days-between
+  clojure.core/days-in-month
   clojure.core/deflate-decompress
   clojure.core/defrecord*
   clojure.core/deref-delay
@@ -1323,15 +1324,18 @@
   clojure.core/drain!
   clojure.core/drain-loop!
   clojure.core/drop-seq
+  clojure.core/epoch->time-map
   clojure.core/error?
   clojure.core/exit
   clojure.core/file-exists?
   clojure.core/file-mtime
+  clojure.core/format-time
   clojure.core/future-deref
   clojure.core/gc!
   clojure.core/gc-stats
   clojure.core/getcwd
   clojure.core/getenv
+  clojure.core/glob
   clojure.core/gzip-decompress
   clojure.core/hex-decode
   clojure.core/hex-encode
@@ -1340,6 +1344,7 @@
   clojure.core/http-parse-response
   clojure.core/http-parse-response-chunks
   clojure.core/http-request
+  clojure.core/human-diff
   clojure.core/in-transaction?
   clojure.core/internal-reduce
   clojure.core/internal-reduce-kv
@@ -1349,6 +1354,7 @@
   clojure.core/lazy-filter
   clojure.core/lazy-map-1
   clojure.core/lazy-take
+  clojure.core/leap-year?
   clojure.core/let-bits
   clojure.core/load-image-into
   clojure.core/map-entry
@@ -1395,6 +1401,7 @@
   clojure.core/monitor-exit
   clojure.core/monitor-registry
   clojure.core/monitor-try-enter
+  clojure.core/months-between
   clojure.core/nano-time
   clojure.core/nav
   clojure.core/net-accept
@@ -1405,7 +1412,21 @@
   clojure.core/net-read
   clojure.core/net-read-all
   clojure.core/net-write
+  clojure.core/now
+  clojure.core/now-s
+  clojure.core/parse-time
   clojure.core/parse-url
+  clojure.core/path-absolute?
+  clojure.core/path-basename
+  clojure.core/path-dirname
+  clojure.core/path-expand-home
+  clojure.core/path-extension
+  clojure.core/path-glob-match
+  clojure.core/path-join
+  clojure.core/path-normalize
+  clojure.core/path-split
+  clojure.core/path-split-ext
+  clojure.core/path-stem
   clojure.core/percent-decode
   clojure.core/percent-encode
   clojure.core/pool-checkout
@@ -1454,6 +1475,7 @@
   clojure.core/thread
   clojure.core/thread-sleep
   clojure.core/throw
+  clojure.core/time-map->epoch
   clojure.core/time-ms
   clojure.core/tls-close
   clojure.core/tls-connect
@@ -1462,6 +1484,7 @@
   clojure.core/tls-write
   clojure.core/transient?
   clojure.core/walk
+  clojure.core/weekday
   clojure.core/which
   clojure.core/Boolean/parseBoolean
   clojure.core/Character/toString
