@@ -604,6 +604,7 @@
     iteration
     {:doc
      "Creates a seqable via repeated calls to step, a function of some\n   continuation token 'k'. The first call to step is passed initk,\n   returning 'ret'. If (somef ret) is true, (vf ret) is included in\n   the iteration; else iteration terminates and vf/kf are not called.\n   If (kf ret) is non-nil it is passed to the next step call; else\n   iteration terminates. Used to consume APIs that return paginated\n   or batched data.\n\n   step  - (possibly impure) fn of 'k' -> 'ret'\n   :somef - fn of 'ret' -> truthy/falsy, default some?\n   :vf    - fn of 'ret' -> 'v', default identity\n   :kf    - fn of 'ret' -> 'next-k' or nil, default identity\n   :initk - first value passed to step, default nil\n\n   Step with non-initk is presumed unreproducible. The first step\n   call is deferred until the result is realized."},
+    json-parse {},
     juxt {},
     keep
     {:doc
@@ -2179,4 +2180,4 @@
    throw
    def},
  :spec-keys #{},
- :captured-at "2026-08-21T05:27:55Z"}
+ :captured-at "2026-08-22T05:21:59Z"}
