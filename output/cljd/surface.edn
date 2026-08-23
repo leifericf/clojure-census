@@ -1,5 +1,5 @@
 {:dialect-tag "cljd",
- :clojure-version "4383a6e-cljd",
+ :clojure-version "01c4159-cljd",
  :namespaces
  {clojure.core
   {:vars
@@ -1986,4 +1986,4 @@
    throw
    def},
  :spec-keys #{},
- :captured-at "2026-08-22T07:17:25Z"}
+ :captured-at "2026-08-23T07:18:54Z"}
