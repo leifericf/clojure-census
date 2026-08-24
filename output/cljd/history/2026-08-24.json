@@ -1,0 +1,92 @@
+{
+  "date": "2026-08-24",
+  "dialect-tag": "cljd",
+  "clojure-version": "01c4159-cljd",
+  "headline": {
+    "in-both-count": 523,
+    "clojure-total": 995,
+    "percent": 0.5256281407035176
+  },
+  "per-namespace": {
+    "clojure.zip": {
+      "in-both-count": 28,
+      "clojure-total": 28,
+      "percent": 1.0
+    },
+    "clojure.pprint": {
+      "in-both-count": 0,
+      "clojure-total": 26,
+      "percent": 0.0
+    },
+    "clojure.set": {
+      "in-both-count": 12,
+      "clojure-total": 12,
+      "percent": 1.0
+    },
+    "clojure.datafy": {
+      "in-both-count": 0,
+      "clojure-total": 2,
+      "percent": 0.0
+    },
+    "clojure.core": {
+      "in-both-count": 394,
+      "clojure-total": 679,
+      "percent": 0.5802650957290133
+    },
+    "clojure.core.protocols": {
+      "in-both-count": 0,
+      "clojure-total": 11,
+      "percent": 0.0
+    },
+    "clojure.walk": {
+      "in-both-count": 9,
+      "clojure-total": 10,
+      "percent": 0.9
+    },
+    "clojure.edn": {
+      "in-both-count": 1,
+      "clojure-total": 2,
+      "percent": 0.5
+    },
+    "clojure.test": {
+      "in-both-count": 10,
+      "clojure-total": 39,
+      "percent": 0.2564102564102564
+    },
+    "clojure.instant": {
+      "in-both-count": 0,
+      "clojure-total": 5,
+      "percent": 0.0
+    },
+    "clojure.string": {
+      "in-both-count": 21,
+      "clojure-total": 21,
+      "percent": 1.0
+    },
+    "clojure.spec.alpha": {
+      "in-both-count": 0,
+      "clojure-total": 87,
+      "percent": 0.0
+    },
+    "clojure.template": {
+      "in-both-count": 2,
+      "clojure-total": 2,
+      "percent": 1.0
+    },
+    "clojure.math": {
+      "in-both-count": 45,
+      "clojure-total": 45,
+      "percent": 1.0
+    },
+    "clojure.data": {
+      "in-both-count": 1,
+      "clojure-total": 5,
+      "percent": 0.2
+    },
+    "clojure.core.reducers": {
+      "in-both-count": 0,
+      "clojure-total": 21,
+      "percent": 0.0
+    }
+  }
+}
