@@ -291,7 +291,9 @@
     {:doc
      "Returns true if (count x) is a constant-time operation. Per\n   Clojure this is the Counted protocol -- vectors, maps, sets, and\n   sorted variants. Strings are not Counted on the JVM (their count\n   walks java.lang.CharSequence)."},
     cpu-ms {},
+    crc32 {},
     create-ns {},
+    csv-parse {},
     cycle
     {:doc
      "Returns a lazy infinite sequence of repetitions of the items in\n   coll."},
@@ -535,6 +537,7 @@
      "Computes a position-independent hash for an unordered collection."},
     hex-decode {},
     hex-encode {},
+    hmac-sha256 {},
     http-encode-chunk {},
     http-encode-request {},
     http-parse-response {},
@@ -721,6 +724,7 @@
     math-ulp {},
     max {:doc "Returns the greatest of the given values."},
     max-key {:doc "Returns the x for which (k x) is greatest."},
+    md5 {},
     memoize
     {:doc
      "Returns a memoized version of f that caches return values by\n   arguments."},
@@ -1091,6 +1095,7 @@
     set? {},
     sh {},
     sh! {},
+    sha1 {},
     sha256 {},
     short {},
     short-array {},
@@ -2180,4 +2185,4 @@
    throw
    def},
  :spec-keys #{},
- :captured-at "2026-08-24T05:34:14Z"}
+ :captured-at "2026-08-25T05:26:56Z"}
