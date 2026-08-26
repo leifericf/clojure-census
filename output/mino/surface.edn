@@ -538,6 +538,7 @@
     hex-decode {},
     hex-encode {},
     hmac-sha256 {},
+    html-parse {},
     http-encode-chunk {},
     http-encode-request {},
     http-parse-response {},
@@ -1182,6 +1183,8 @@
     tap>
     {:doc
      "Sends x to every registered tap. Tap fns that throw are silently\n   skipped so a misbehaving subscriber does not poison the stream.\n   Returns true."},
+    terminal-height {},
+    terminal-width {},
     test
     {:doc
      "Finds fn at key :test in v's metadata, calls it (presumably with\n   no side effects on the wider system), and reports :ok when it\n   returns, :no-test when no :test fn is present. An error thrown by\n   the :test fn flows out unwrapped."},
@@ -1207,6 +1210,7 @@
     tls-read-all {},
     tls-write {},
     to-array {},
+    toml-parse {},
     trampoline
     {:doc
      "Calls f with args, then repeatedly calls the result if it is a\n   function."},
@@ -1218,6 +1222,7 @@
     tree-seq
     {:doc "Returns a lazy depth-first sequence of nodes in a tree."},
     true? {},
+    tty? {},
     type {},
     unchecked-add {},
     unchecked-add-int {},
@@ -1338,11 +1343,14 @@
     with-redefs-fn
     {:doc
      "Temporarily rebinds the root values of vars to new-values while\n   thunk runs, restoring originals afterward. bindings-map is a map\n   of var -> new-value."},
+    xml-parse {},
     xml-seq
     {:doc
      "A tree seq on the xml elements as per xml/parse: nodes are maps\n   with :tag and :content keys, leaves are strings."},
+    yaml-parse {},
     zero? {},
     zipmap {},
+    zone-offset-mins {},
     Boolean/parseBoolean {},
     Character/toString {},
     Double/isInfinite {},
@@ -2185,4 +2193,4 @@
    throw
    def},
  :spec-keys #{},
- :captured-at "2026-08-25T05:26:56Z"}
+ :captured-at "2026-08-26T05:29:57Z"}
