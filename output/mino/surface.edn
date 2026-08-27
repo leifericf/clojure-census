@@ -314,6 +314,7 @@
     {:doc
      "Default map of data reader functions keyed by tag symbol: 'inst\n     and 'uuid."},
     definterface {:macro true},
+    deflate-compress {},
     deflate-decompress {},
     defmacro
     {:doc
@@ -519,6 +520,7 @@
     getenv {},
     glob {},
     group-by {},
+    gzip-compress {},
     gzip-decompress {},
     halt-when
     {:doc
@@ -1349,7 +1351,12 @@
      "A tree seq on the xml elements as per xml/parse: nodes are maps\n   with :tag and :content keys, leaves are strings."},
     yaml-parse {},
     zero? {},
+    zip-entries {},
+    zip-read {},
+    zip-write {},
     zipmap {},
+    zlib-compress {},
+    zlib-decompress {},
     zone-offset-mins {},
     Boolean/parseBoolean {},
     Character/toString {},
@@ -2193,4 +2200,4 @@
    throw
    def},
  :spec-keys #{},
- :captured-at "2026-08-26T05:29:57Z"}
+ :captured-at "2026-08-27T16:04:04Z"}
