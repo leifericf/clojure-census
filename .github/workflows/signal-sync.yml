@@ -65,6 +65,14 @@ jobs:
           path: mino-tests
           submodules: true
 
+      - name: Build mino (mino-tests submodule)
+        # The probe drives ./mino/mino and ./mino/mino-lean; without the
+        # lean build the probe sees lean-exit=127.
+        working-directory: mino-tests/mino
+        run: |
+          make
+          ./mino task build-lean
+
       - name: Run ClojureDocs probe summary
         working-directory: mino-tests
         run: ./mino/mino task clojuredocs-summary
@@ -80,6 +88,10 @@ jobs:
           repository: leifericf/mino-bench
           path: mino-bench
           submodules: true
+
+      - name: Build mino (mino-bench submodule)
+        working-directory: mino-bench/mino
+        run: make
 
       - name: Run fuzz summary
         working-directory: mino-bench
