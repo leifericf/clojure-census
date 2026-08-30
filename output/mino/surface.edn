@@ -3,8 +3,8 @@
  :namespaces
  {clojure.core
   {:vars
-   {* {},
-    *' {},
+   {* {:arglists ([] [x] [x y] [x y & more])},
+    *' {:arglists ([] [x] [x y] [x y & more])},
     *1 {:dynamic true},
     *2 {:dynamic true},
     *3 {:dynamic true},
@@ -67,33 +67,38 @@
     *source-path* {:dynamic true},
     *unchecked-math* {:dynamic true},
     *warn-on-reflection* {:dynamic true},
-    + {},
-    +' {},
-    - {},
-    -' {},
+    + {:arglists ([] [x] [x y] [x y & more])},
+    +' {:arglists ([] [x] [x y] [x y & more])},
+    - {:arglists ([x] [x y] [x y & more])},
+    -' {:arglists ([x] [x y] [x y & more])},
     ->
-    {:doc
+    {:arglists ([x & forms]),
+     :doc
      "Thread-first. Inserts x as the second item in the first form, then\n  inserts the result as the second item in the next form, and so on.",
      :macro true},
     ->>
-    {:doc
+    {:arglists ([x & forms]),
+     :doc
      "Thread-last. Inserts x as the last item in the first form, then\n  inserts the result as the last item in the next form, and so on.",
      :macro true},
     ->Eduction
-    {:doc
+    {:arglists ([xform coll]),
+     :doc
      "Factory matching the value (eduction xform coll) returns. mino's\n   eduction values are sequences, so the factory applies xform to\n   coll the same way eduction does."},
     -empty-queue {},
     -thread-bound? {},
+    -var-root {},
     -var-root-bound? {},
-    / {},
-    < {},
-    <= {},
-    = {},
+    / {:arglists ([x] [x y] [x y & more])},
+    < {:arglists ([x] [x y] [x y & more])},
+    <= {:arglists ([x] [x y] [x y & more])},
+    = {:arglists ([x] [x y] [x y & more])},
     ==
-    {:doc
+    {:arglists ([x] [x y] [x y & more]),
+     :doc
      "Returns true if nums are numerically equal, treating ints and floats\n   uniformly."},
-    > {},
-    >= {},
+    > {:arglists ([x] [x y] [x y & more])},
+    >= {:arglists ([x] [x y] [x y & more])},
     CollReduce {},
     CollReduce--coll-reduce {},
     Datafiable {},
@@ -102,114 +107,142 @@
     IKVReduce--kv-reduce {},
     Inst {},
     Inst--inst-ms* {},
-    NaN? {},
+    NaN? {:arglists ([num])},
     Navigable {},
     Navigable--nav {},
     Throwable->map
-    {:doc
+    {:arglists ([o]),
+     :doc
      "Constructs a data representation of an error value, shaped\n   {:cause m :data d :via [...] :trace []}: :cause is the root\n   cause's message, :data its ex-data (absent when nil), :via a\n   vector of {:type <symbol> :message <str> :at [] :data <optional>}\n   maps from the outermost error to the root, and :trace an empty\n   vector (mino error values do not retain call-stack frames).\n   Works on caught diagnostic maps and on ex-info values alike;\n   the cause chain is walked via ex-cause."},
     abs
-    {:doc
+    {:arglists ([a]),
+     :doc
      "Returns the absolute value of x. Matches JVM Math/abs 2's-complement\n   semantics: (abs Long/MIN_VALUE) returns Long/MIN_VALUE rather than\n   overflowing, since the true absolute value is unrepresentable in a\n   signed 64-bit int."},
     add-days {},
     add-load-path! {},
     add-months {},
     add-tap
-    {:doc
+    {:arglists ([f]),
+     :doc
      "Registers f as a tap target. Each call to tap> invokes every\n   registered tap with the tapped value. Returns nil."},
-    add-watch {},
-    agent {},
-    agent-error {},
+    add-watch {:arglists ([reference key fn])},
+    agent {:arglists ([state & options])},
+    agent-error {:arglists ([a])},
     agent? {},
-    aget {},
-    alength {},
-    alias {},
-    all-ns {},
+    aget {:arglists ([array idx])},
+    alength {:arglists ([array])},
+    alias {:arglists ([alias namespace-sym])},
+    all-ns {:arglists ([])},
     alloc-profile-dump! {},
     alloc-profile-enabled? {},
     alloc-profile-reset! {},
-    alter {},
-    alter-meta! {},
-    alter-var-root {},
-    ancestors {:doc "Returns all ancestors of tag in the hierarchy."},
+    alter {:arglists ([ref fun & args])},
+    alter-meta! {:arglists ([iref f & args])},
+    alter-var-root {:arglists ([v f & args])},
+    ancestors
+    {:arglists ([tag] [h tag]),
+     :doc "Returns all ancestors of tag in the hierarchy."},
     and
-    {:doc
+    {:arglists ([& xs]),
+     :doc
      "Returns the first falsy value, or the last value if all are truthy.",
      :macro true},
-    any? {:doc "Returns true for any argument."},
-    apply {},
-    array-map {:doc "Creates a hash-map."},
+    any? {:arglists ([x]), :doc "Returns true for any argument."},
+    apply
+    {:arglists
+     ([f args]
+      [f x args]
+      [f x y args]
+      [f x y z args]
+      [f a b c d & args])},
+    array-map {:arglists ([] [& keyvals]), :doc "Creates a hash-map."},
     as->
-    {:doc
+    {:arglists ([expr name & forms]),
+     :doc
      "Binds expr to sym, then threads it through each form where sym can\n   appear anywhere.",
      :macro true},
-    aset {},
-    assert {:macro true},
-    assoc {},
-    assoc! {},
+    aset {:arglists ([array idx val])},
+    assert {:arglists ([x] [x message]), :macro true},
+    assoc {:arglists ([map key val] [map key val & kvs])},
+    assoc! {:arglists ([coll key val] [coll key val & kvs])},
     assoc-in
-    {:doc
+    {:arglists ([m ks v]),
+     :doc
      "Associates a value in a nested associative structure at the given\n   key path."},
     associative?
-    {:doc "Returns true if x supports assoc (maps and vectors)."},
+    {:arglists ([coll]),
+     :doc "Returns true if x supports assoc (maps and vectors)."},
     async-next-timer-ms* {},
     async-sched-enqueue* {},
     async-schedule-timer* {},
-    atom {},
+    atom {:arglists ([x] [x & options])},
     atom? {},
-    await {},
-    await-for {},
+    await {:arglists ([& agents])},
+    await-for {:arglists ([timeout-ms & agents])},
     base64-decode {},
     base64-encode {},
-    bigdec {},
-    bigint {},
+    bigdec {:arglists ([x])},
+    bigint {:arglists ([x])},
     bigint? {},
-    biginteger {},
+    biginteger {:arglists ([x])},
     binding
-    {:doc
+    {:arglists ([bindings & body]),
+     :doc
      "Establishes thread-local bindings for dynamic vars over the extent of the body, restoring the prior roots when the body returns or unwinds.",
      :macro true},
-    bit-and {},
+    bit-and {:arglists ([x y] [x y & more])},
     bit-and-not
-    {:doc "Returns the bitwise AND of x and the complement of y."},
-    bit-clear {:doc "Returns x with bit n cleared."},
-    bit-flip {:doc "Returns x with bit n flipped."},
-    bit-not {},
-    bit-or {},
-    bit-set {:doc "Returns x with bit n set."},
-    bit-shift-left {},
-    bit-shift-right {},
-    bit-test {:doc "Returns true if bit n of x is set."},
-    bit-xor {},
+    {:arglists ([x] [x y] [x y & more]),
+     :doc
+     "Returns the bitwise AND of x and the complement of each remaining\n   argument, folded left to right."},
+    bit-clear
+    {:arglists ([x n]), :doc "Returns x with bit n cleared."},
+    bit-flip {:arglists ([x n]), :doc "Returns x with bit n flipped."},
+    bit-not {:arglists ([x])},
+    bit-or {:arglists ([x y] [x y & more])},
+    bit-set {:arglists ([x n]), :doc "Returns x with bit n set."},
+    bit-shift-left {:arglists ([x n])},
+    bit-shift-right {:arglists ([x n])},
+    bit-test
+    {:arglists ([x n]), :doc "Returns true if bit n of x is set."},
+    bit-xor {:arglists ([x y] [x y & more])},
     bits {},
     bits-get {},
     bitstring? {},
-    boolean {:doc "Coerces x to a boolean value."},
-    boolean-array {},
-    boolean? {},
+    boolean {:arglists ([x]), :doc "Coerces x to a boolean value."},
+    boolean-array {:arglists ([size-or-seq] [size init-val-or-seq])},
+    boolean? {:arglists ([x])},
     bound-fn
-    {:doc
+    {:arglists ([& fntail]),
+     :doc
      "Returns a function defined by the given fntail, which will install\n   the same bindings in effect as in the thread at the time bound-fn\n   was called.",
      :macro true},
     bound-fn*
-    {:doc
+    {:arglists ([f]),
+     :doc
      "Returns a function which installs the same bindings in effect as in\n   the thread at the time bound-fn* was called and then invokes f."},
     bound?
-    {:doc
+    {:arglists ([& vars]),
+     :doc
      "Returns true if all of the vars provided as arguments have any\n   bindings — either a root binding or a thread-local binding."},
     bounded-count
-    {:doc "Returns the count of coll, but stops counting at n."},
-    butlast {:doc "Returns a seq of all but the last item in coll."},
-    byte {},
-    byte-array {},
-    bytes? {},
+    {:arglists ([n coll]),
+     :doc "Returns the count of coll, but stops counting at n."},
+    butlast
+    {:arglists ([coll]),
+     :doc "Returns a seq of all but the last item in coll."},
+    byte {:arglists ([x])},
+    byte-array {:arglists ([size-or-seq] [size init-val-or-seq])},
+    bytes? {:arglists ([x])},
     car {},
     case
-    {:doc
+    {:arglists ([e & clauses]),
+     :doc
      "Dispatches on the value of expr. Matches constants in pairs, with\n   an optional default.",
      :macro true},
     cat
-    {:doc
+    {:arglists ([rf]),
+     :doc
      "A transducer that concatenates the contents of each input."},
     cdr {},
     chan-buf-add {},
@@ -231,466 +264,583 @@
     chan-set-xform {},
     chan-take {},
     chan-take-alts {},
-    char {},
-    char-array {},
+    char {:arglists ([x])},
+    char-array {:arglists ([size-or-seq] [size init-val-or-seq])},
     char-at {},
     char-escape-string
     {:doc "Returns escape string for char or nil if none."},
     char-name-string
     {:doc "Returns name string for char or nil if none."},
-    char? {},
+    char? {:arglists ([x])},
     chdir {},
-    chunk {},
-    chunk-append {},
-    chunk-buffer {},
-    chunk-cons {},
-    chunk-first {},
-    chunk-next {},
-    chunk-rest {},
-    chunked-seq? {},
-    class {},
+    chunk {:arglists ([b])},
+    chunk-append {:arglists ([b x])},
+    chunk-buffer {:arglists ([capacity])},
+    chunk-cons {:arglists ([chunk rest])},
+    chunk-first {:arglists ([s])},
+    chunk-next {:arglists ([s])},
+    chunk-rest {:arglists ([s])},
+    chunked-seq? {:arglists ([s])},
+    class {:arglists ([x])},
     clojure-version
-    {:doc "Returns the runtime version as a printable string."},
-    coll-reduce {},
-    coll? {:doc "Returns true if x is a collection."},
-    comment {:doc "Ignores body, returns nil.", :macro true},
-    commute {},
-    comp {},
+    {:arglists ([]),
+     :doc "Returns the runtime version as a printable string."},
+    coll-reduce {:arglists ([coll f init])},
+    coll? {:arglists ([x]), :doc "Returns true if x is a collection."},
+    comment
+    {:arglists ([& body]),
+     :doc "Ignores body, returns nil.",
+     :macro true},
+    commute {:arglists ([ref fun & args])},
+    comp {:arglists ([] [f] [f g] [f g & fs])},
     comparator
-    {:doc "Returns a comparator function from a two-arg predicate."},
-    compare {},
-    compare-and-set! {},
-    complement {},
+    {:arglists ([pred]),
+     :doc "Returns a comparator function from a two-arg predicate."},
+    compare {:arglists ([x y])},
+    compare-and-set! {:arglists ([atom oldval newval])},
+    complement {:arglists ([f])},
     completing
-    {:doc "Returns a reducing function with a completion step."},
+    {:arglists ([f] [f cf]),
+     :doc "Returns a reducing function with a completion step."},
     concat
-    {:doc
+    {:arglists ([& colls]),
+     :doc
      "Returns a lazy sequence of the concatenation of the given\n   collections."},
     cond
-    {:doc
+    {:arglists ([& clauses]),
+     :doc
      "Takes pairs of test/expr. Returns the expr for the first truthy test.",
      :macro true},
     cond->
-    {:doc "Thread-first through forms whose tests are truthy.",
+    {:arglists ([expr & clauses]),
+     :doc "Thread-first through forms whose tests are truthy.",
      :macro true},
     cond->>
-    {:doc "Thread-last through forms whose tests are truthy.",
+    {:arglists ([expr & clauses]),
+     :doc "Thread-last through forms whose tests are truthy.",
      :macro true},
     condp
-    {:doc
+    {:arglists ([pred expr & clauses]),
+     :doc
      "Takes a binary predicate, an expression, and clauses. Returns the\n   first clause value where (pred test-val expr) is truthy. The\n   special clause shape `test :>> result-fn` calls `(result-fn p)`\n   on the truthy pred-result whenever `(pred test expr)` is truthy.",
      :macro true},
-    conj {},
-    conj! {},
-    cons {},
+    conj {:arglists ([] [coll] [coll x] [coll x & xs])},
+    conj! {:arglists ([] [coll] [coll x])},
+    cons {:arglists ([x seq])},
     cons? {},
-    constantly {:doc "Returns a function that always returns x."},
-    contains? {},
-    count {},
+    constantly
+    {:arglists ([x]),
+     :doc "Returns a function that always returns x."},
+    contains? {:arglists ([coll key])},
+    count {:arglists ([coll])},
     counted?
-    {:doc
+    {:arglists ([coll]),
+     :doc
      "Returns true if (count x) is a constant-time operation. Per\n   Clojure this is the Counted protocol -- vectors, maps, sets, and\n   sorted variants. Strings are not Counted on the JVM (their count\n   walks java.lang.CharSequence)."},
     cpu-ms {},
     crc32 {},
-    create-ns {},
+    create-ns {:arglists ([sym])},
     csv-parse {},
     cycle
-    {:doc
+    {:arglists ([coll]),
+     :doc
      "Returns a lazy infinite sequence of repetitions of the items in\n   coll."},
-    datafy {},
+    datafy {:arglists ([o])},
     days-between {},
     days-in-month {},
-    dec {},
-    dec' {},
-    decimal? {},
+    dec {:arglists ([x])},
+    dec' {:arglists ([x])},
+    decimal? {:arglists ([n])},
     declare
-    {:doc
+    {:arglists ([& names]),
+     :doc
      "Interns one or more names as unbound vars so they can be referred to before their defining form appears.",
      :macro true},
     dedupe
-    {:doc
+    {:arglists ([] [coll]),
+     :doc
      "Returns a lazy sequence removing consecutive duplicates. When\n   called with no collection, returns a transducer."},
     default-data-readers
     {:doc
      "Default map of data reader functions keyed by tag symbol: 'inst\n     and 'uuid."},
-    definterface {:macro true},
+    definterface {:arglists ([& _]), :macro true},
     deflate-compress {},
     deflate-decompress {},
     defmacro
-    {:doc
+    {:arglists
+     ([name doc-string? attr-map? [params*] body]
+      [name doc-string? attr-map? ([params*] body) + attr-map?]),
+     :doc
      "Defines a macro: a named function, invoked at expansion time, whose return value replaces the calling form before it is evaluated.",
      :macro true},
     defmethod
-    {:doc "Defines a method for a multimethod.", :macro true},
+    {:arglists ([multifn dispatch-val & fn-tail]),
+     :doc "Defines a method for a multimethod.",
+     :macro true},
     defmulti
-    {:doc "Defines a multimethod with the given dispatch function.",
+    {:arglists ([mm-name & options]),
+     :doc "Defines a multimethod with the given dispatch function.",
      :macro true},
     defn
-    {:doc
+    {:arglists ([name & fdecl]),
+     :doc
      "Defines a named function. Supports docstrings, multi-arity, and\n   :pre/:post conditions.",
      :macro true},
     defn-
-    {:doc "Same as defn, yielding a non-public def.", :macro true},
+    {:arglists ([name & decls]),
+     :doc "Same as defn, yielding a non-public def.",
+     :macro true},
     defonce
-    {:doc "Defines name only if it has no root binding.", :macro true},
+    {:arglists ([name expr]),
+     :doc "Defines name only if it has no root binding.",
+     :macro true},
     defprotocol
-    {:doc "Defines a protocol with the given method signatures.",
+    {:arglists ([name & opts+sigs]),
+     :doc "Defines a protocol with the given method signatures.",
      :macro true},
     defrecord
-    {:doc
+    {:arglists ([name fields & specs]),
+     :doc
      "Defines a record type Name with the given fields and optional\n   inline protocol specs. Establishes:\n     Name       — the MINO_TYPE value (used by extend-type and\n                  instance? as the dispatch key)\n     ->Name     — positional constructor: (->Name f1 f2 ...) returns\n                  a record value\n     map->Name  — map constructor: (map->Name {:f1 v1 :f2 v2}) reads\n                  declared fields from the map; non-field keys land\n                  in ext.\n\n   Fields must be a vector of symbols; they are stored as keywords\n   on the type. Specs follow the same shape as extend-type:\n   protocol-name followed by one or more (method [args] body) forms.\n\n   Inside an inline protocol method body, field names resolve as\n   locals bound to (get this :field) -- matches Clojure's defrecord\n   contract so (defrecord R [a b] IFoo (bar [this] (+ a b))) works\n   without writing (:a this) / (:b this) by hand.",
      :macro true},
     defrecord* {},
     deftype
-    {:doc
+    {:arglists ([name fields & specs]),
+     :doc
      "Alias for defrecord. mino has no separate JVM-class layer to\n   expose, so the deftype/defrecord distinction collapses; values\n   created either way are real types with map-isomorphic behaviour.",
      :macro true},
     delay
-    {:doc
+    {:arglists ([& body]),
+     :doc
      "Creates a delay that evaluates body on first deref. The body runs\n  at most once: a failure is recorded and rethrown on every later\n  force.",
      :macro true},
-    delay? {:doc "Returns true if x is a delay."},
-    deliver {},
-    denominator {},
-    deref {},
+    delay? {:arglists ([x]), :doc "Returns true if x is a delay."},
+    deliver {:arglists ([promise val])},
+    denominator {:arglists ([r])},
+    deref {:arglists ([ref] [ref timeout-ms timeout-val])},
     deref-delay
-    {:doc "Forces evaluation of a delay and returns its value."},
+    {:arglists ([d]),
+     :doc "Forces evaluation of a delay and returns its value."},
     derive
-    {:doc
+    {:arglists ([tag parent] [h tag parent]),
+     :doc
      "Establishes a parent/child relationship between child and parent\n   in a hierarchy."},
     descendants
-    {:doc "Returns all descendants of tag in the hierarchy."},
-    destructure {},
+    {:arglists ([tag] [h tag]),
+     :doc "Returns all descendants of tag in the hierarchy."},
+    destructure {:arglists ([bindings])},
     directory? {},
-    disj {},
-    disj! {},
-    dissoc {},
-    dissoc! {},
+    disj {:arglists ([set] [set key] [set key & ks])},
+    disj! {:arglists ([set] [set key] [set key & ks])},
+    dissoc {:arglists ([map] [map key] [map key & ks])},
+    dissoc! {:arglists ([map key] [map key & ks])},
     distinct
-    {:doc
+    {:arglists ([] [coll]),
+     :doc
      "Returns a lazy sequence of the distinct items in coll. When called\n   with no collection, returns a transducer."},
-    distinct? {},
-    doall {},
-    dorun {},
+    distinct? {:arglists ([x] [x y] [x y & more])},
+    doall {:arglists ([coll] [n coll])},
+    dorun {:arglists ([coll] [n coll])},
     doseq
-    {:doc
+    {:arglists ([seq-exprs & body]),
+     :doc
      "Iterates over collections for side effects, evaluating body once\n   per binding combination, and returns nil. Supports nested\n   bindings and the modifier clauses :let, :when, and :while -- the\n   same surface clojure.core/doseq exposes:\n     :let [name expr ...]  introduces locals visible to inner clauses\n     :when expr            skips this iteration when expr is falsy\n     :while expr           halts all iteration when expr is falsy\n\n  Implementation note: :while needs to stop the outer loop too, not\n  just the inner one. We encode that with a shared 'stop' atom that\n  the outer driver inspects each iteration. Without it, an outer\n  infinite seq paired with a later :while would never terminate.",
      :macro true},
     dosync
-    {:doc
+    {:arglists ([& exprs]),
+     :doc
      "Runs body in an STM transaction. Refs may be altered, set, ensured,\n  or commuted within. The transaction retries on write conflicts in\n  multi-threaded mode. Side effects via (io! ...) inside the body\n  throw. Requires STM to be installed (mino_install_stm).",
      :macro true},
     dosync* {},
     dotimes
-    {:doc "Evaluates body n times with sym bound to 0 through n-1.",
+    {:arglists ([bindings & body]),
+     :doc "Evaluates body n times with sym bound to 0 through n-1.",
      :macro true},
     doto
-    {:doc
+    {:arglists ([x & forms]),
+     :doc
      "Evaluates x, then calls each form with x as the first argument.\n   Returns x.",
      :macro true},
-    double {},
-    double-array {},
+    double {:arglists ([x])},
+    double-array {:arglists ([size-or-seq] [size init-val-or-seq])},
     double?
-    {:doc
+    {:arglists ([x]),
+     :doc
      "Returns true if x is a 64-bit double (mino's `:float` tier).\n   Distinct from `float?`, which also returns true for the 32-bit\n   `:float32` tier produced by `(float x)`. Matches JVM Clojure\n   where `double?` is `(instance? Double x)`."},
     drain! {},
     drain-loop! {},
     drop
-    {:doc
+    {:arglists ([n] [n coll]),
+     :doc
      "Returns a lazy sequence of all but the first n items in coll. When\n   called with no collection, returns a transducer."},
     drop-last
-    {:doc
+    {:arglists ([coll] [n coll]),
+     :doc
      "Returns a lazy sequence of all but the last n items in coll."},
     drop-seq {},
     drop-while
-    {:doc
+    {:arglists ([pred] [pred coll]),
+     :doc
      "Returns a lazy sequence of items from coll after pred returns\n   falsy. When called with no collection, returns a transducer."},
     eduction
-    {:doc
+    {:arglists ([& args]),
+     :doc
      "Returns a lazy sequence of applying the given transducers to coll."},
-    empty {},
-    empty? {},
-    ensure {},
+    empty {:arglists ([coll])},
+    empty? {:arglists ([coll])},
+    ensure {:arglists ([ref])},
     ensure-reduced
-    {:doc "Wraps x in reduced if it is not already reduced."},
+    {:arglists ([x]),
+     :doc "Wraps x in reduced if it is not already reduced."},
     epoch->time-map {},
-    error-handler {},
-    error-mode {},
+    error-handler {:arglists ([a])},
+    error-mode {:arglists ([a])},
     error? {},
-    eval {},
-    even? {},
+    eval {:arglists ([form])},
+    even? {:arglists ([n])},
     every-pred
-    {:doc
+    {:arglists ([p] [p1 p2] [p1 p2 p3] [p1 p2 p3 & ps]),
+     :doc
      "Returns a function that returns true when all preds are satisfied\n   by all its arguments."},
-    every? {},
+    every? {:arglists ([pred coll])},
     ex-cause
-    {:doc
+    {:arglists ([ex]),
+     :doc
      "Returns the cause attached to the given exception, or nil."},
     ex-data
-    {:doc
+    {:arglists ([ex]),
+     :doc
      "Extract the data map from an exception. Handles diagnostic maps\n  (from catch), ex-info maps, and plain thrown values."},
     ex-info
-    {:doc
+    {:arglists ([msg map] [msg map cause]),
+     :doc
      "Create an exception map with a message and data map. The 3-arity\n  form additionally attaches a cause; ex-cause walks the chain via\n  metadata so the visible map structure stays the same as the\n  2-arity form. The data argument must be a map (or nil)."},
     ex-message
-    {:doc
+    {:arglists ([ex]),
+     :doc
      "Extract the message from an exception. Handles both diagnostic maps\n  and ex-info maps."},
     exit {},
     extend
-    {:doc
+    {:arglists ([atype & proto+mmaps]),
+     :doc
      "Registers method implementations for one or more protocols on type\n   t without generating wrapper code: (extend T P {:m (fn [x] ...)}).\n   The fn-map keys are keywordized method names; values are the\n   implementation fns."},
     extend-protocol
-    {:doc
+    {:arglists ([p & specs]),
+     :doc
      "Extends a protocol with implementations for multiple types.",
      :macro true},
     extend-type
-    {:doc
+    {:arglists ([t & specs]),
+     :doc
      "Extends a protocol with method implementations for the given type.",
      :macro true},
     extenders
-    {:doc
+    {:arglists ([protocol]),
+     :doc
      "Returns a seq of the types explicitly extended to proto, or nil\n   when there are none."},
     extends?
-    {:doc
+    {:arglists ([protocol atype]),
+     :doc
      "Returns true if type t has been extended to proto (an explicit\n   registration for at least one method; :default does not count)."},
-    false? {},
-    ffirst {:doc "Returns the first item of the first item in coll."},
+    false? {:arglists ([x])},
+    ffirst
+    {:arglists ([x]),
+     :doc "Returns the first item of the first item in coll."},
     file-exists? {},
     file-mtime {},
-    file-seq {},
+    file-seq {:arglists ([dir])},
     filter
-    {:doc
+    {:arglists ([pred] [pred coll]),
+     :doc
      "Returns a lazy sequence of items in coll for which pred returns\n   truthy. When called with no collection, returns a transducer."},
-    filterv {},
-    find {},
-    find-keyword
-    {:doc
-     "Returns the keyword for the given string. In mino keywords are\n   always interned, so this is equivalent to keyword for string input\n   and nil for other input."},
-    find-ns {},
-    find-var {},
-    first {},
+    filterv {:arglists ([pred coll])},
+    find {:arglists ([map key])},
+    find-keyword {:arglists ([name] [ns name])},
+    find-ns {:arglists ([sym])},
+    find-var {:arglists ([sym])},
+    first {:arglists ([coll])},
     flatten
-    {:doc
+    {:arglists ([x]),
+     :doc
      "Returns a lazy sequence of the non-sequential items from a nested\n   structure."},
-    float {},
-    float-array {},
-    float? {},
-    flush {},
+    float {:arglists ([x])},
+    float-array {:arglists ([size-or-seq] [size init-val-or-seq])},
+    float? {:arglists ([n])},
+    flush {:arglists ([])},
     fn
-    {:doc
+    {:arglists ([& sigs]),
+     :doc
      "Defines an anonymous function. Takes an optional name, a vector of parameters, and a body; supports multiple arities and a variadic & rest parameter.",
      :macro true},
-    fn? {},
-    fnext {:doc "Same as (first (next coll))."},
+    fn? {:arglists ([x])},
+    fnext {:arglists ([x]), :doc "Same as (first (next coll))."},
     fnil
-    {:doc
+    {:arglists ([f x] [f x y] [f x y z]),
+     :doc
      "Returns a function like f, but replaces nil arguments with the\n   given defaults."},
     for
-    {:doc
+    {:arglists ([bindings & body]),
+     :doc
      "List comprehension. Takes binding vectors and body, returns a lazy\n   sequence.",
      :macro true},
     force
-    {:doc
+    {:arglists ([x]),
+     :doc
      "Forces evaluation of a delay. If x is not a delay, returns x."},
-    format {},
+    format {:arglists ([fmt & args])},
     format-time {},
-    frequencies {},
+    frequencies {:arglists ([coll])},
     future
-    {:doc
+    {:arglists ([& body]),
+     :doc
      "Takes a body of expressions and yields a future object that will\n  evaluate the body in another thread, blocking on deref until the\n  value is available. Throws :mino/unsupported when host threads are\n  not granted; see mino-thread-limit.",
      :macro true},
-    future-call {},
-    future-cancel {},
-    future-cancelled? {},
+    future-call {:arglists ([f])},
+    future-cancel {:arglists ([f])},
+    future-cancelled? {:arglists ([f])},
     future-deref {},
-    future-done? {},
-    future? {},
+    future-done? {:arglists ([f])},
+    future? {:arglists ([x])},
     gc! {},
     gc-stats {},
-    gen-class {:macro true},
-    gensym {},
-    get {},
+    gen-class {:arglists ([& options]), :macro true},
+    gensym {:arglists ([] [prefix-string])},
+    get {:arglists ([map key] [map key not-found])},
     get-in
-    {:doc
+    {:arglists ([m ks] [m ks not-found]),
+     :doc
      "Returns the value in a nested associative structure at the given\n   key path."},
-    get-method {:doc "Returns the method for dispatch-val, or nil."},
-    get-thread-bindings {},
-    get-validator {},
+    get-method
+    {:arglists ([multifn dispatch-val]),
+     :doc "Returns the method for dispatch-val, or nil."},
+    get-thread-bindings {:arglists ([])},
+    get-validator {:arglists ([iref])},
     getcwd {},
     getenv {},
     glob {},
-    group-by {},
+    group-by {:arglists ([f coll])},
     gzip-compress {},
     gzip-decompress {},
     halt-when
-    {:doc
+    {:arglists ([pred] [pred retf]),
+     :doc
      "Returns a transducer that halts reduction when pred is satisfied."},
-    hash {},
+    hash {:arglists ([x])},
     hash-combine
-    {:doc
+    {:arglists ([x y]),
+     :doc
      "Boost-style hash combiner: mixes seed and hash into a single 32-bit\n  hash. Matches clojure.core/hash-combine bit-for-bit so user code that\n  manually composes hashes via this helper sees the same result on\n  mino as on JVM Clojure.\n\n    seed ^= hash + 0x9e3779b9 + (seed << 6) + (seed >> 2)\n\n  The operation is performed in unchecked 32-bit arithmetic; the result\n  is truncated to the low 32 bits."},
-    hash-map {},
+    hash-map {:arglists ([] [& keyvals])},
     hash-ordered-coll
-    {:doc
+    {:arglists ([coll]),
+     :doc
      "Computes a sequence-position-aware hash for an ordered collection."},
-    hash-set {},
+    hash-set {:arglists ([] [& keys])},
     hash-unordered-coll
-    {:doc
+    {:arglists ([coll]),
+     :doc
      "Computes a position-independent hash for an unordered collection."},
     hex-decode {},
     hex-encode {},
     hmac-sha256 {},
+    hmac-sha512 {},
     html-parse {},
     http-encode-chunk {},
     http-encode-request {},
+    http-encode-response {},
+    http-parse-request {},
+    http-parse-request-chunks {},
     http-parse-response {},
     http-parse-response-chunks {},
     http-request {},
     human-diff {},
-    ident? {:doc "Returns true if x is a symbol or keyword."},
-    identical? {},
-    identity {:doc "Returns its argument."},
+    ident?
+    {:arglists ([x]),
+     :doc "Returns true if x is a symbol or keyword."},
+    identical? {:arglists ([x y])},
+    identity {:arglists ([x]), :doc "Returns its argument."},
     if-let
-    {:doc
+    {:arglists ([bindings then & else]),
+     :doc
      "Binds the result of expr, evaluates then if truthy, else otherwise.",
      :macro true},
     if-not
-    {:doc "Evaluates then when test is falsy, else otherwise.",
+    {:arglists ([test then & else]),
+     :doc "Evaluates then when test is falsy, else otherwise.",
      :macro true},
     if-some
-    {:doc
+    {:arglists ([bindings then & else]),
+     :doc
      "Binds the result of expr, evaluates then if non-nil, else\n   otherwise.",
      :macro true},
-    ifn? {:doc "Returns true if x can be called as a function."},
-    import {:macro true},
-    in-ns {},
+    ifn?
+    {:arglists ([x]),
+     :doc "Returns true if x can be called as a function."},
+    import {:arglists ([& import-symbols-or-lists]), :macro true},
+    in-ns {:arglists ([name])},
     in-transaction? {},
-    inc {},
-    inc' {},
+    inc {:arglists ([x])},
+    inc' {:arglists ([x])},
     indexed?
-    {:doc
+    {:arglists ([coll]),
+     :doc
      "Returns true if x supports nth in constant time (vectors)."},
-    infinite? {},
+    infinite? {:arglists ([num])},
     inst-ms
-    {:doc
+    {:arglists ([inst]),
+     :doc
      "Returns epoch millis (since 1970-01-01T00:00:00Z) for an inst\n   value as returned by clojure.instant/read-instant-date or the\n   `#inst \"...\"` reader literal. Throws on a non-inst argument."},
-    inst-ms* {},
-    inst? {},
+    inst-ms* {:arglists ([inst])},
+    inst? {:arglists ([x])},
     instance?
-    {:doc
+    {:arglists ([c x]),
+     :doc
      "Returns true if x is an instance of t. For record types defined\n   with defrecord, t is the type value and the test is type-pointer\n   identity. For built-in types or ad-hoc :type-tagged values, t may\n   be the keyword (type x) returns and the test is keyword equality."},
-    int {},
-    int-array {},
-    int? {},
+    int {:arglists ([x])},
+    int-array {:arglists ([size-or-seq] [size init-val-or-seq])},
+    int? {:arglists ([x])},
     integer?
-    {:doc "Returns true if x is an integer (long or bigint)."},
+    {:arglists ([n]),
+     :doc "Returns true if x is an integer (long or bigint)."},
     interleave
-    {:doc
+    {:arglists ([] [c1] [c1 c2] [c1 c2 & colls]),
+     :doc
      "Returns a lazy sequence of the first item in each collection, then\n   the second, and so on."},
-    intern {},
+    intern {:arglists ([ns name] [ns name val])},
     internal-reduce {},
     internal-reduce-kv {},
     interpose
-    {:doc
+    {:arglists ([sep] [sep coll]),
+     :doc
      "Returns a lazy sequence of the items in coll separated by sep. When\n   called with no collection, returns a transducer."},
     into
-    {:doc
+    {:arglists ([] [to] [to from] [to xform from]),
+     :doc
      "Adds all items from from into to. With a transducer, transforms\n   items first."},
-    into-array {:doc "Converts a collection to an Object array."},
+    into-array
+    {:arglists ([aseq] [type aseq]),
+     :doc "Converts a collection to an Object array."},
     io!
-    {:doc
+    {:arglists ([& body]),
+     :doc
      "If invoked within an STM transaction, throws an\n  IllegalStateException-equivalent before evaluating body. Marks a\n  body as having unsafe side effects so dosync can refuse it.",
      :macro true},
     io!-check {},
     isa?
-    {:doc "Returns true if child is equal to or derives from parent."},
+    {:arglists ([child parent] [h child parent]),
+     :doc "Returns true if child is equal to or derives from parent."},
     iterate
-    {:doc
+    {:arglists ([f x]),
+     :doc
      "Returns a lazy sequence of x, (f x), (f (f x)), and so on."},
     iteration
-    {:doc
+    {:arglists
+     ([step
+       &
+       {:keys [somef vf kf initk],
+        :or {vf identity, kf identity, somef some?}}]),
+     :doc
      "Creates a seqable via repeated calls to step, a function of some\n   continuation token 'k'. The first call to step is passed initk,\n   returning 'ret'. If (somef ret) is true, (vf ret) is included in\n   the iteration; else iteration terminates and vf/kf are not called.\n   If (kf ret) is non-nil it is passed to the next step call; else\n   iteration terminates. Used to consume APIs that return paginated\n   or batched data.\n\n   step  - (possibly impure) fn of 'k' -> 'ret'\n   :somef - fn of 'ret' -> truthy/falsy, default some?\n   :vf    - fn of 'ret' -> 'v', default identity\n   :kf    - fn of 'ret' -> 'next-k' or nil, default identity\n   :initk - first value passed to step, default nil\n\n   Step with non-initk is presumed unreproducible. The first step\n   call is deferred until the result is realized."},
     json-parse {},
-    juxt {},
+    juxt {:arglists ([f] [f g] [f g h] [f g h & fs])},
     keep
-    {:doc
+    {:arglists ([f] [f coll]),
+     :doc
      "Returns a lazy sequence of non-nil results of (f item). When called\n   with no collection, returns a transducer."},
     keep-indexed
-    {:doc
+    {:arglists ([f] [f coll]),
+     :doc
      "Returns a lazy sequence of non-nil results of (f index item).\n   When called with no collection, returns a transducer."},
     key
-    {:doc
+    {:arglists ([e]),
+     :doc
      "Returns the key of a map entry. Throws on values that are not\n   map entries (a literal 2-vector, for instance)."},
-    keys {},
-    keyword {},
-    keyword? {},
-    kv-reduce {},
-    last {:doc "Returns the last item in coll."},
+    keys {:arglists ([map])},
+    keyword {:arglists ([name] [ns name])},
+    keyword? {:arglists ([x])},
+    kv-reduce {:arglists ([coll f init])},
+    last {:arglists ([coll]), :doc "Returns the last item in coll."},
     last-error {},
     lazy-cat
-    {:doc
+    {:arglists ([& colls]),
+     :doc
      "Expands to code that yields a lazy concatenation of the given\n   collections.",
      :macro true},
     lazy-filter {},
     lazy-map-1 {},
     lazy-seq
-    {:doc
+    {:arglists ([& body]),
+     :doc
      "Returns a sequence whose body is not evaluated until the first element is requested, then caches the realized sequence for later traversals.",
      :macro true},
     lazy-take {},
     leap-year? {},
     let
-    {:doc
+    {:arglists ([bindings & body]),
+     :doc
      "Evaluates the body with a sequence of local bindings established left to right from the binding vector; later bindings may refer to earlier ones.",
      :macro true},
     let-bits
-    {:doc
+    {:arglists ([bindings & body]),
+     :doc
      "Destructure-shaped binding over a bytes value.\n   (let-bits [bytes-val [sym & opts] ...] body...)\n   See documentation in core.clj just above this definition.",
      :macro true},
     letfn
-    {:doc
+    {:arglists ([fnspecs & body]),
+     :doc
      "Binds local functions. Each binding is (name [params] body...).\n   Expands to the `letfn*` special form so the bound fns can refer\n   to each other (mutual recursion) — every name is placeholder-\n   bound before any fn body is evaluated, so each fn's closure\n   captures the shared scope.",
      :macro true},
     line-seq
-    {:doc
-     "Returns the lines of text from rdr as a lazy sequence of strings.\n   rdr is a string-cursor atom (the *in* model that read-line\n   consumes from): each realized element takes one line off the\n   cursor. Returns nil when the cursor is exhausted."},
-    list {},
+    {:arglists ([rdr]),
+     :doc
+     "Returns the lines of text from rdr as a lazy sequence of strings.\n   rdr is a string-cursor atom (the *in* model that read-line\n   consumes from): each realized element takes one line off the\n   cursor. Returns nil when the cursor is exhausted. Throws for a\n   rdr that is not an atom; per JVM line-seq, a value that is not a\n   reader cannot be consumed."},
+    list {:arglists ([& items])},
     list*
-    {:doc
+    {:arglists
+     ([args] [a args] [a b args] [a b c args] [a b c d & more]),
+     :doc
      "Creates a new list containing the items prepended to the rest, the\n   last of which will be treated as a sequence."},
-    list? {},
-    load-file {},
+    list? {:arglists ([x])},
+    load-file {:arglists ([name])},
     load-image-into {},
-    load-string {},
-    loaded-libs {},
+    load-string {:arglists ([s])},
+    loaded-libs {:arglists ([])},
     locking
-    {:doc
+    {:arglists ([x & body]),
+     :doc
      "Executes body while holding a monitor of x. Reentrant per thread;\n  released on normal exit and on throw. Exclusion is cooperative:\n  contending threads wait for the holder to release across yield\n  points.",
      :macro true},
-    long {},
-    long-array {},
+    long {:arglists ([x])},
+    long-array {:arglists ([size-or-seq] [size init-val-or-seq])},
     loop
-    {:doc
+    {:arglists ([bindings & body]),
+     :doc
      "Like let, but establishes a recursion point: a recur in tail position rebinds the loop locals and jumps back to the top without growing the stack.",
      :macro true},
-    macroexpand {},
-    macroexpand-1 {},
-    make-hierarchy {:doc "Returns an empty hierarchy."},
+    macroexpand {:arglists ([form])},
+    macroexpand-1 {:arglists ([form])},
+    make-hierarchy
+    {:arglists ([]), :doc "Returns an empty hierarchy."},
     map
-    {:doc
+    {:arglists ([f] [f & colls]),
+     :doc
      "Returns a lazy sequence of applying f to each item in coll. When\n   called with multiple collections, maps f across them in parallel.\n   When called with no collection, returns a transducer."},
     map-entry {},
     map-entry?
-    {:doc
+    {:arglists ([x]),
+     :doc
      "Returns true if x is a map entry (mino represents entries as\n   2-vectors)."},
     map-indexed
-    {:doc
+    {:arglists ([f] [f coll]),
+     :doc
      "Returns a lazy sequence of (f index item) for each item in coll.\n   When called with no collection, returns a transducer."},
-    map? {},
+    map? {:arglists ([x])},
     mapcat
-    {:doc
+    {:arglists ([f] [f coll] [f c1 c2] [f c1 c2 & colls]),
+     :doc
      "Returns the result of applying concat to the result of mapping f\n   over coll. When called with no collection, returns a transducer."},
-    mapv {},
+    mapv
+    {:arglists ([f coll] [f c1 c2] [f c1 c2 c3] [f c1 c2 c3 & colls])},
     math-acos {},
     math-asin {},
     math-atan {},
@@ -725,46 +875,63 @@
     math-to-degrees {},
     math-to-radians {},
     math-ulp {},
-    max {:doc "Returns the greatest of the given values."},
-    max-key {:doc "Returns the x for which (k x) is greatest."},
+    max
+    {:arglists ([x] [x y] [x y & more]),
+     :doc "Returns the greatest of the given values."},
+    max-key
+    {:arglists ([k x] [k x y] [k x y & more]),
+     :doc "Returns the x for which (k x) is greatest."},
     md5 {},
     memoize
-    {:doc
+    {:arglists ([f]),
+     :doc
      "Returns a memoized version of f that caches return values by\n   arguments."},
     merge
-    {:doc
+    {:arglists ([& maps]),
+     :doc
      "Returns a map that is the merge of the maps. If a key occurs in more\n  than one map, the mapping from the latter (left-to-right) will be\n  the mapping in the result. Per Clojure, position-2+ args use `conj`\n  semantics, so MapEntries / 2-element vectors are accepted."},
-    merge-with {},
-    meta {},
-    methods {:doc "Returns the method table of multimethod mm."},
-    min {:doc "Returns the least of the given values."},
-    min-key {:doc "Returns the x for which (k x) is least."},
+    merge-with {:arglists ([f & maps])},
+    meta {:arglists ([obj])},
+    methods
+    {:arglists ([multifn]),
+     :doc "Returns the method table of multimethod mm."},
+    min
+    {:arglists ([x] [x y] [x y & more]),
+     :doc "Returns the least of the given values."},
+    min-key
+    {:arglists ([k x] [k x y] [k x y & more]),
+     :doc "Returns the x for which (k x) is least."},
     mino-capability {},
     mino-installed? {},
     mino-thread-count {},
     mino-thread-id* {},
     mino-thread-limit {},
     mix-collection-hash
-    {:doc "Combines a hash-basis with the collection's count."},
+    {:arglists ([hash-basis count]),
+     :doc "Combines a hash-basis with the collection's count."},
     mkdir-p {},
-    mod {},
+    mod {:arglists ([num div])},
     monitor-exit
-    {:doc
+    {:arglists ([x owner]),
+     :doc
      "Release one level of x for owner; drops the entry at depth zero."},
     monitor-registry {},
     monitor-try-enter
-    {:doc
+    {:arglists ([x owner]),
+     :doc
      "Claim x for owner, or reenter if owner already holds it. Returns\n  true when the claim succeeded, false when another thread holds x."},
     months-between {},
-    name {},
-    namespace {},
+    name {:arglists ([x])},
+    namespace {:arglists ([x])},
     nano-time {},
     nat-int?
-    {:doc "Returns true if x is a non-negative integer (long tier)."},
-    nav {},
+    {:arglists ([x]),
+     :doc "Returns true if x is a non-negative integer (long tier)."},
+    nav {:arglists ([coll k v])},
     neg-int?
-    {:doc "Returns true if x is a negative integer (long tier)."},
-    neg? {},
+    {:arglists ([x]),
+     :doc "Returns true if x is a negative integer (long tier)."},
+    neg? {:arglists ([num])},
     net-accept {},
     net-close {},
     net-connect {},
@@ -773,75 +940,98 @@
     net-read {},
     net-read-all {},
     net-write {},
-    newline {},
+    newline {:arglists ([])},
     next
-    {:doc
+    {:arglists ([coll]),
+     :doc
      "Returns a seq of the items after the first. Returns nil if no more\n   items."},
-    nfirst {:doc "Same as (next (first coll))."},
-    nil? {},
-    nnext {:doc "Same as (next (next coll))."},
-    not {},
-    not-any? {},
-    not-empty {:doc "Returns coll if it has items, nil otherwise."},
-    not-every? {},
-    not= {:doc "Returns true if the arguments are not equal."},
+    nfirst {:arglists ([x]), :doc "Same as (next (first coll))."},
+    nil? {:arglists ([x])},
+    nnext {:arglists ([x]), :doc "Same as (next (next coll))."},
+    not {:arglists ([x])},
+    not-any? {:arglists ([pred coll])},
+    not-empty
+    {:arglists ([coll]),
+     :doc "Returns coll if it has items, nil otherwise."},
+    not-every? {:arglists ([pred coll])},
+    not=
+    {:arglists ([x] [x y] [x y & more]),
+     :doc "Returns true if the arguments are not equal."},
     now {},
     now-s {},
     ns
-    {:doc
+    {:arglists ([name docstring? attr-map? references*]),
+     :doc
      "Selects or creates a namespace and applies its require / refer / import clauses, becoming the current namespace for the forms that follow.",
      :macro true},
-    ns-aliases {},
-    ns-imports {},
-    ns-interns {},
-    ns-map {},
-    ns-name {},
-    ns-publics {},
-    ns-refers {},
-    ns-resolve {},
-    ns-unalias {},
-    ns-unmap {},
-    nth {},
+    ns-aliases {:arglists ([ns])},
+    ns-imports {:arglists ([ns])},
+    ns-interns {:arglists ([ns])},
+    ns-map {:arglists ([ns])},
+    ns-name {:arglists ([ns])},
+    ns-publics {:arglists ([ns])},
+    ns-refers {:arglists ([ns])},
+    ns-resolve {:arglists ([ns sym] [ns env sym])},
+    ns-unalias {:arglists ([ns sym])},
+    ns-unmap {:arglists ([ns sym])},
+    nth {:arglists ([coll index] [coll index not-found])},
     nthnext
-    {:doc "Returns the result of calling next n times on coll."},
+    {:arglists ([coll n]),
+     :doc "Returns the result of calling next n times on coll."},
     nthrest
-    {:doc "Returns the result of calling rest n times on coll."},
+    {:arglists ([coll n]),
+     :doc "Returns the result of calling rest n times on coll."},
     num
-    {:doc
+    {:arglists ([x]),
+     :doc
      "Returns x if it is a number, nil if x is nil, otherwise throws.\n   Nil pass-through matches the cross-dialect convention used by the\n   `:default` arm of `clojure.core-test.num` (no-op on numeric inputs\n   plus nil), where JVM Clojure's NPE-on-nil is platform-specific."},
-    number? {},
-    numerator {},
-    object-array {},
-    odd? {},
+    number? {:arglists ([x])},
+    numerator {:arglists ([r])},
+    object-array {:arglists ([size-or-seq])},
+    odd? {:arglists ([n])},
     or
-    {:doc
+    {:arglists ([& xs]),
+     :doc
      "Returns the first truthy value, or the last value if none are truthy.",
      :macro true},
     parents
-    {:doc "Returns the immediate parents of tag in the hierarchy."},
+    {:arglists ([tag] [h tag]),
+     :doc "Returns the immediate parents of tag in the hierarchy."},
     parse-boolean
-    {:doc
+    {:arglists ([s]),
+     :doc
      "Parses 'true' or 'false' (case-sensitive) and returns the boolean.\n   Returns nil for strings that don't match. Per Clojure's contract\n   raises an error on non-string input (analogous to JVM's\n   ClassCastException / NullPointerException)."},
-    parse-double {},
-    parse-long {},
+    parse-double {:arglists ([s])},
+    parse-long {:arglists ([s])},
     parse-time {},
     parse-url {},
-    parse-uuid {},
-    partial {},
+    parse-uuid {:arglists ([s])},
+    partial
+    {:arglists
+     ([f]
+      [f arg1]
+      [f arg1 arg2]
+      [f arg1 arg2 arg3]
+      [f arg1 arg2 arg3 & more])},
     partition
-    {:doc
+    {:arglists ([n coll] [n step coll] [n step pad coll]),
+     :doc
      "Returns a lazy sequence of lists of n items each, at offsets step\n   apart. With pad, the final partition is filled from pad to reach\n   n; if pad is shorter than needed, returns a partition with fewer\n   than n items."},
     partition-all
-    {:doc
+    {:arglists ([n] [n coll] [n step coll]),
+     :doc
      "Like partition, but includes a final partial group if items remain.\n   The transducer arity emits each group as a vector (matching JVM\n   Clojure's `(vec (.toArray buf))`); the seq arities emit lists per\n   `partition`'s shape."},
     partition-by
-    {:doc
+    {:arglists ([f] [f coll]),
+     :doc
      "Splits coll into lazy sequences of consecutive items with the same\n   (f item) value. When called with no collection, returns a\n   transducer."},
     partitionv
-    {:doc
+    {:arglists ([n coll] [n step coll] [n step pad coll]),
+     :doc
      "Like partition but returns a lazy seq of vectors instead of lists."},
     partitionv-all
-    {:doc
+    {:arglists ([n coll] [n step coll]),
+     :doc
      "Like partition-all but returns a lazy seq of vectors instead of\n   lists."},
     path-absolute? {},
     path-basename {},
@@ -855,294 +1045,367 @@
     path-split-ext {},
     path-stem {},
     pcalls
-    {:doc
+    {:arglists ([& fns]),
+     :doc
      "Executes the no-arg fns in parallel, returning a lazy sequence of\n   their values. Mirrors clojure.core/pcalls. When host threads aren't\n   granted (mino-thread-limit <= 1), falls back to sequential map so\n   the surface is portable across embedded and CLI runs."},
-    peek {},
+    peek {:arglists ([coll])},
     percent-decode {},
     percent-encode {},
-    persistent! {},
+    persistent! {:arglists ([coll])},
     pmap
-    {:doc
+    {:arglists ([f coll]),
+     :doc
      "Like map, except f is applied in parallel via futures. Semi-lazy in\n   that the parallel computation stays no more than thread-limit-1\n   items ahead of the consumer. f's invocations across the collection\n   are independent; do not pmap with a side-effectful f if order of\n   effects matters.\n\n   Single-arity collection only: (pmap f coll). When host threads are\n   not granted (mino-thread-limit <= 1), falls back to (map f coll)\n   so callers don't need a conditional."},
     pool-checkout {},
     pool-close-all {},
     pool-return {},
-    pop {},
-    pop! {},
+    pop {:arglists ([coll])},
+    pop! {:arglists ([coll])},
     pop-thread-bindings
-    {:doc
+    {:arglists ([]),
+     :doc
      "Pop the topmost dynamic-binding frame. Throws when no frame is\n   active. Pair with push-thread-bindings."},
     pop-thread-bindings* {},
     pos-int?
-    {:doc "Returns true if x is a positive integer (long tier)."},
-    pos? {},
+    {:arglists ([x]),
+     :doc "Returns true if x is a positive integer (long tier)."},
+    pos? {:arglists ([num])},
     postwalk
-    {:doc
+    {:arglists ([f form]),
+     :doc
      "Walks form depth-first, applying f to each sub-form after its\n   children."},
     postwalk-replace
-    {:doc
+    {:arglists ([smap form]),
+     :doc
      "Replaces items in form that appear as keys in smap, walking\n   bottom-up."},
-    pr {:dynamic true},
+    pr {:arglists ([] [x] [x & more]), :dynamic true},
     pr-builtin {},
-    pr-str {},
+    pr-str {:arglists ([& xs])},
     prefer-method
-    {:doc "Prefers dispatch-val x over y in multimethod mm."},
-    prefers {:doc "Returns the prefer-table of multimethod mm."},
+    {:arglists ([multifn dispatch-val-x dispatch-val-y]),
+     :doc "Prefers dispatch-val x over y in multimethod mm."},
+    prefers
+    {:arglists ([multifn]),
+     :doc "Returns the prefer-table of multimethod mm."},
     prewalk
-    {:doc
+    {:arglists ([f form]),
+     :doc
      "Walks form depth-first, applying f to each sub-form before its\n   children."},
     prewalk-replace
-    {:doc
+    {:arglists ([smap form]),
+     :doc
      "Replaces items in form that appear as keys in smap, walking\n   top-down."},
-    print {},
+    print {:arglists ([& more])},
     print-method {},
     print-simple
-    {:doc
+    {:arglists ([o w]),
+     :doc
      "Writes the plain text form of o (its str form, bypassing the\n   print-method dispatch) to w, a string-collecting atom like the one\n   *out* is bound to inside with-out-str. Returns nil."},
     print-str
-    {:doc
+    {:arglists ([& xs]),
+     :doc
      "Returns the print-string of args, space-separated, no trailing newline."},
-    printf {},
-    println {},
+    printf {:arglists ([fmt & args])},
+    println {:arglists ([& more])},
     println-str
-    {:doc "Returns the print-string of args followed by a newline."},
-    prn {},
+    {:arglists ([& xs]),
+     :doc "Returns the print-string of args followed by a newline."},
+    prn {:arglists ([& more])},
     prn-str
-    {:doc
+    {:arglists ([& xs]),
+     :doc
      "Returns the readable-string of args followed by a newline."},
-    promise {},
-    protocol-dispatch {},
-    proxy {:macro true},
+    promise {:arglists ([])},
+    protocol-dispatch {:arglists ([dispatch-atom mname & args])},
+    proxy {:arglists ([& _]), :macro true},
     push-thread-bindings
-    {:doc
+    {:arglists ([bindings]),
+     :doc
      "Push a fresh dynamic-binding frame whose entries come from the map.\n   Symbols-or-strings are accepted as keys. Must be paired with\n   pop-thread-bindings in a try/finally."},
     push-thread-bindings* {},
     pvalues
-    {:doc
+    {:arglists ([& exprs]),
+     :doc
      "Returns a lazy sequence of the values of the exprs, which are\n   evaluated in parallel via pcalls. Mirrors clojure.core/pvalues.",
      :macro true},
     qualified-ident?
-    {:doc
+    {:arglists ([x]),
+     :doc
      "Returns true if x is a namespace-qualified symbol or keyword."},
     qualified-keyword?
-    {:doc "Returns true if x is a namespace-qualified keyword."},
+    {:arglists ([x]),
+     :doc "Returns true if x is a namespace-qualified keyword."},
     qualified-symbol?
-    {:doc "Returns true if x is a namespace-qualified symbol."},
+    {:arglists ([x]),
+     :doc "Returns true if x is a namespace-qualified symbol."},
     queue? {},
-    quot {},
-    rand {},
+    quot {:arglists ([num div])},
+    rand {:arglists ([] [n])},
     rand-int
-    {:doc
+    {:arglists ([n]),
+     :doc
      "Returns a random integer between 0 (inclusive) and n (exclusive)."},
-    rand-nth {:doc "Returns a random element from coll."},
+    rand-nth
+    {:arglists ([coll]), :doc "Returns a random element from coll."},
     random-sample
-    {:doc
+    {:arglists ([prob] [prob coll]),
+     :doc
      "Returns items from coll with probability prob. When called with no\n   collection, returns a transducer."},
     random-seed! {},
-    random-uuid {},
-    range {},
+    random-uuid {:arglists ([])},
+    range {:arglists ([] [end] [start end] [start end step])},
     rangev {},
-    ratio? {},
-    rational? {},
-    rationalize {},
+    ratio? {:arglists ([n])},
+    rational? {:arglists ([n])},
+    rationalize {:arglists ([num])},
     re-find
-    {:doc
+    {:arglists ([m] [re s]),
+     :doc
      "Find the first match. (re-find pattern text) returns a string (no\n   groups) or [whole g1 g2 ...] (groups). (re-find m) advances a matcher."},
     re-find-from {},
     re-groups
-    {:doc
+    {:arglists ([m]),
+     :doc
      "Returns the most recent match groups for matcher m: a vector\n   [whole g1 g2 ...] when the pattern has groups, the whole-match string\n   otherwise. Throws when the matcher has no recorded match yet."},
     re-matcher
-    {:doc
+    {:arglists ([re s]),
+     :doc
      "Returns a matcher value for repeated find/match operations on text\n   using pattern. The resulting value is consumed by re-find, re-groups\n   and so on."},
     re-matches
-    {:doc
+    {:arglists ([re s]),
+     :doc
      "Like re-find but anchored to the whole string. Returns a string\n   (no groups) or [whole g1 g2 ...] (groups), or nil."},
-    re-pattern {},
+    re-pattern {:arglists ([s])},
     re-seq
-    {:doc
+    {:arglists ([re s]),
+     :doc
      "Returns a lazy sequence of all matches of pattern in string s. Each\n   match is a string when the pattern has no groups, or a vector\n   [whole g1 g2 ...] when it does."},
-    read {},
+    read {:arglists ([] [s] [opts s])},
     read* {},
     read+string
-    {:doc
+    {:arglists ([s]),
+     :doc
      "Like read: consumes one form from the source and returns\n   [form text] where text is the exactly-consumed input, whitespace-\n   trimmed. The source may be a string or a string-cursor atom of the\n   kind *in* / with-in-str use (the cursor advances past the form)."},
-    read-line {},
-    read-string {},
+    read-line {:arglists ([])},
+    read-string {:arglists ([s] [opts s])},
     reader-conditional
-    {:doc
+    {:arglists ([form splicing?]),
+     :doc
      "Builds a reader-conditional record with form and splicing? fields.\n   Predicate reader-conditional? returns true on the result."},
     reader-conditional?
-    {:doc
+    {:arglists ([value]),
+     :doc
      "Returns true if x is a reader-conditional record produced by\n   reader-conditional."},
     realized?
-    {:doc
+    {:arglists ([x]),
+     :doc
      "Returns true if a delay, lazy sequence, future, or promise has\n     been realized."},
     realpath {},
     record* {},
     record-fields {},
     record-from-map {},
     record-type? {},
-    record? {},
+    record? {:arglists ([x])},
     redirect-next {},
     reduce
-    {:doc
-     "Reduces coll using f. With 2 args, uses the first element as init.\n  With 3 args, uses init explicitly. Consults CollReduce: a user\n  type or :default override on coll-reduce takes precedence over the\n  built-in seq-driven reduction."},
+    {:arglists ([f coll] [f val coll]),
+     :doc
+     "Reduces coll using f. With 2 args, uses the first element as init.\n  With 3 args, uses val explicitly. Consults CollReduce: a user\n  type or :default override on coll-reduce takes precedence over the\n  built-in seq-driven reduction."},
     reduce-kv
-    {:doc
+    {:arglists ([f init coll]),
+     :doc
      "Reduces a map (or any associative source) with f taking\n   accumulator, key, and value. Consults IKVReduce; falls back to\n   walking the seq."},
-    reduced {},
-    reduced? {},
+    reduced {:arglists ([x])},
+    reduced? {:arglists ([x])},
     reductions
-    {:doc
+    {:arglists ([f coll] [f init coll]),
+     :doc
      "Returns a lazy sequence of the intermediate values of a reduction."},
-    ref {},
-    ref-history-count {},
-    ref-max-history {},
-    ref-min-history {},
-    ref-set {},
+    ref {:arglists ([x] [x & options])},
+    ref-history-count {:arglists ([ref])},
+    ref-max-history {:arglists ([ref] [ref n])},
+    ref-min-history {:arglists ([ref] [ref n])},
+    ref-set {:arglists ([ref val])},
     ref? {},
-    refer {},
+    refer {:arglists ([ns-sym & filters])},
     refer-clojure
-    {:doc
+    {:arglists ([& filters]),
+     :doc
      "Refers public vars from clojure.core into the current namespace,\n   accepting the same filter options as the ns :refer-clojure clause:\n   :exclude, :only, :rename.  Exclusions and :only limits are honored\n   by re-applying the ns form on the current namespace, which cuts the\n   clojure.core parent chain and rebuilds the filtered mapping — the\n   same path the (ns ...) special form takes.",
      :macro true},
     regex? {},
     reify
-    {:doc
+    {:arglists ([& opts+specs]),
+     :doc
      "Returns an instance of a fresh anonymous record type that\n   satisfies the named protocols. Each reify form generates one\n   type at expansion time; repeated invocations of the form share\n   that type, so (= (type r1) (type r2)) is true for two values\n   produced by the same reify form.",
      :macro true},
-    release-pending-sends {},
-    rem {},
+    release-pending-sends {:arglists ([])},
+    rem {:arglists ([num div])},
     remove
-    {:doc
+    {:arglists ([pred] [pred coll]),
+     :doc
      "Returns a lazy sequence of items in coll for which pred returns\n   falsy. When called with no collection, returns a transducer."},
     remove-all-methods
-    {:doc "Removes all methods from multimethod mm."},
+    {:arglists ([multifn]),
+     :doc "Removes all methods from multimethod mm."},
     remove-method
-    {:doc "Removes the method for dispatch-val from multimethod mm."},
-    remove-ns {},
+    {:arglists ([multifn dispatch-val]),
+     :doc "Removes the method for dispatch-val from multimethod mm."},
+    remove-ns {:arglists ([sym])},
     remove-tap
-    {:doc "Unregisters f from the tap registry. Returns nil."},
-    remove-watch {},
+    {:arglists ([f]),
+     :doc "Unregisters f from the tap registry. Returns nil."},
+    remove-watch {:arglists ([reference key])},
     repeat
-    {:doc
+    {:arglists ([x] [n x]),
+     :doc
      "Returns a lazy sequence of xs. With two args, returns n repetitions\n   of x. n must be a number; floats and ratios truncate toward zero\n   (so 3.14 and 3.99 both yield three repetitions), matching JVM\n   Clojure's RT/longCast. Booleans, strings, keywords, and other\n   non-numeric counts throw."},
     repeatedly
-    {:doc
+    {:arglists ([f] [n f]),
+     :doc
      "Returns a lazy sequence of calls to f. With two args, returns n\n   calls."},
     replace
-    {:doc
-     "Returns a collection with items in coll replaced by entries in\n   smap."},
+    {:arglists ([smap] [smap coll]),
+     :doc
+     "Returns a collection with items in coll replaced by entries in\n   smap. When called with no collection, returns a transducer."},
     replicate
-    {:doc
+    {:arglists ([n x]),
+     :doc
      "Returns a lazy seq of n copies of x. Deprecated alias for\n   (take n (repeat x))."},
-    require {},
-    requiring-resolve {},
-    reset! {},
+    require {:arglists ([& args])},
+    requiring-resolve {:arglists ([sym])},
+    reset! {:arglists ([atom newval])},
     reset-meta!
-    {:doc
+    {:arglists ([iref metadata-map]),
+     :doc
      "Atomically resets the metadata for a reference type to meta-map.\n   Returns meta-map."},
-    reset-vals! {},
-    resolve {},
-    rest {},
-    restart-agent {},
-    reverse {},
+    reset-vals! {:arglists ([atom newval])},
+    resolve {:arglists ([sym])},
+    rest {:arglists ([coll])},
+    restart-agent {:arglists ([a new-state & options])},
+    reverse {:arglists ([coll])},
     reversible?
-    {:doc
+    {:arglists ([coll]),
+     :doc
      "Returns true if x supports rseq (vectors and sorted collections)."},
     rm-rf {},
-    rseq {},
-    rsubseq {},
+    rseq {:arglists ([rev])},
+    rsubseq
+    {:arglists
+     ([sc test key] [sc start-test start-key end-test end-key])},
     run {},
     run!
-    {:doc
+    {:arglists ([proc coll]),
+     :doc
      "Applies f to each item in coll for side effects. Returns nil."},
     satisfies?
-    {:doc
+    {:arglists ([protocol x]),
+     :doc
      "Returns true if x's type has implementations for all methods of\n   proto."},
     save-image {},
-    second {:doc "Returns the second item in coll."},
+    second {:arglists ([x]), :doc "Returns the second item in coll."},
     select-keys
-    {:doc
+    {:arglists ([map keyseq]),
+     :doc
      "Returns a map containing only the entries whose keys are in ks."},
-    send {},
-    send-off {},
-    send-via {},
-    seq {},
+    send {:arglists ([a f & args])},
+    send-off {:arglists ([a f & args])},
+    send-via {:arglists ([executor a f & args])},
+    seq {:arglists ([coll])},
     seq-to-map-for-destructuring
-    {:doc
+    {:arglists ([s]),
+     :doc
      "Builds a map from a sequence of keyword/value pairs, possibly with\n   a trailing override map. Used by JVM Clojure's 1.11+ map-destructure\n   over a varargs seq. Public so portable code can call it directly."},
-    seq? {},
-    seqable? {:doc "Returns true if (seq x) is supported."},
+    seq? {:arglists ([x])},
+    seqable?
+    {:arglists ([x]), :doc "Returns true if (seq x) is supported."},
     seque
-    {:doc
+    {:arglists ([s] [n-or-q s]),
+     :doc
      "Returns a seq with the same elements and order as s, where a\n   producer running on another thread stays up to n elements (default\n   128) ahead of the consumer. The producer realizes s in n-sized\n   batches, each batch filling while the consumer walks the previous\n   one. When host threads are not granted (mino-thread-limit <= 1),\n   falls back to (seq s) so callers don't need a conditional."},
     sequence
-    {:doc
+    {:arglists ([coll] [xform coll] [xform coll & colls]),
+     :doc
      "Coerces coll to a (possibly empty) sequence, if it is not already\n   one. Will not force a lazy seq. (sequence nil) yields ().\n\n   With a transducer xf, returns a lazy sequence of applying xf to\n   coll, or to the pair-wise step of multiple collections. Parallel\n   collections stop at the shortest."},
     sequential?
-    {:doc
+    {:arglists ([coll]),
+     :doc
      "Returns true if x is a sequential collection (list, vector,\n   lazy-seq, or queue)."},
-    set {},
+    set {:arglists ([coll])},
     set!
-    {:doc
+    {:arglists ([target value]),
+     :doc
      "Mutates a thread-local dynamic-var binding to the given value.\n   The target must be a dynamic var with an enclosing (binding ...)\n   form on the call stack; without one, throws \"Can't\n   change/establish root binding\". Matches Clojure JVM's contract\n   for set! on Vars. Returns the new value.\n\n   The JVM-only field-mutation shape (set! (.-field obj) val) is not\n   supported -- mino has no JVM fields.",
      :macro true},
     set-dyn-binding! {},
-    set-error-handler! {},
-    set-error-mode! {},
+    set-error-handler! {:arglists ([a handler-fn])},
+    set-error-mode! {:arglists ([a mode-keyword])},
     set-fail-alloc-at! {},
     set-print-method! {},
-    set-validator! {},
-    set? {},
+    set-validator! {:arglists ([iref validator-fn])},
+    set? {:arglists ([x])},
     sh {},
     sh! {},
     sha1 {},
     sha256 {},
-    short {},
-    short-array {},
+    sha512 {},
+    short {:arglists ([x])},
+    short-array {:arglists ([size-or-seq] [size init-val-or-seq])},
     shuffle
-    {:doc "Returns a randomly shuffled vector of the items in coll."},
-    shutdown-agents {},
+    {:arglists ([coll]),
+     :doc "Returns a randomly shuffled vector of the items in coll."},
+    shutdown-agents {:arglists ([])},
     simple-ident?
-    {:doc
+    {:arglists ([x]),
+     :doc
      "Returns true if x is a non-namespace-qualified symbol or keyword."},
     simple-keyword?
-    {:doc "Returns true if x is a keyword with no namespace."},
+    {:arglists ([x]),
+     :doc "Returns true if x is a keyword with no namespace."},
     simple-symbol?
-    {:doc "Returns true if x is a symbol with no namespace."},
-    slurp {},
-    some {},
+    {:arglists ([x]),
+     :doc "Returns true if x is a symbol with no namespace."},
+    slurp {:arglists ([f])},
+    some {:arglists ([pred coll])},
     some->
-    {:doc "Thread-first through forms, short-circuiting on nil.",
+    {:arglists ([expr & forms]),
+     :doc "Thread-first through forms, short-circuiting on nil.",
      :macro true},
     some->>
-    {:doc "Thread-last through forms, short-circuiting on nil.",
+    {:arglists ([expr & forms]),
+     :doc "Thread-last through forms, short-circuiting on nil.",
      :macro true},
     some-fn
-    {:doc
+    {:arglists ([p] [p1 p2] [p1 p2 p3] [p1 p2 p3 & ps]),
+     :doc
      "Returns a function that returns the first truthy value from any\n   pred applied to any argument."},
-    some? {},
-    sort {},
+    some? {:arglists ([x])},
+    sort {:arglists ([coll] [comp coll])},
     sort-by
-    {:doc
+    {:arglists ([keyfn coll] [keyfn comp coll]),
+     :doc
      "Returns a sorted sequence of the items in coll, ordered by (keyfn item)."},
-    sorted-map {},
-    sorted-map-by {},
-    sorted-set {},
-    sorted-set-by {},
-    sorted? {:doc "Returns true if x is a sorted collection."},
+    sorted-map {:arglists ([& keyvals])},
+    sorted-map-by {:arglists ([comparator & keyvals])},
+    sorted-set {:arglists ([& keys])},
+    sorted-set-by {:arglists ([comparator & keys])},
+    sorted?
+    {:arglists ([coll]),
+     :doc "Returns true if x is a sorted collection."},
     special-symbol?
-    {:doc "Returns true if x is a symbol that names a special form."},
-    spit {},
+    {:arglists ([s]),
+     :doc "Returns true if x is a symbol that names a special form."},
+    spit {:arglists ([f content & options])},
     split-at
-    {:doc "Returns a vector of [(take n coll) (drop n coll)]."},
+    {:arglists ([n coll]),
+     :doc "Returns a vector of [(take n coll) (drop n coll)]."},
     split-with
-    {:doc
+    {:arglists ([pred coll]),
+     :doc
      "Returns a vector of [(take-while pred coll) (drop-while pred coll)]."},
     splitv-at
-    {:doc
+    {:arglists ([n coll]),
+     :doc
      "Returns a vector [(vec (take n coll)) (vec (drop n coll))]."},
     store-checkpoint* {},
     store-clock* {},
@@ -1152,56 +1415,73 @@
     store-read-snapshot* {},
     store-read-wal* {},
     store? {},
-    str {},
-    string? {},
+    str {:arglists ([] [x] [x & ys])},
+    string? {:arglists ([x])},
     subbits {},
-    subs {},
-    subseq {},
-    subvec {},
-    swap! {},
-    swap-vals! {},
-    symbol {},
-    symbol? {},
+    subs {:arglists ([s start] [s start end])},
+    subseq
+    {:arglists
+     ([sc test key] [sc start-test start-key end-test end-key])},
+    subvec {:arglists ([v start] [v start end])},
+    swap!
+    {:arglists ([atom f] [atom f x] [atom f x y] [atom f x y & args])},
+    swap-vals!
+    {:arglists ([atom f] [atom f x] [atom f x y] [atom f x y & args])},
+    symbol {:arglists ([name] [ns name])},
+    symbol? {:arglists ([x])},
     sync
-    {:doc
+    {:arglists ([flags-ignored-for-now & body]),
+     :doc
      "Like dosync: runs the exprs (which may be nil) in an STM\n  transaction. flags-ignored is accepted for arglist parity and\n  currently ignored.",
      :macro true},
     tagged-literal
-    {:doc
+    {:arglists ([tag form]),
+     :doc
      "Builds a tagged-literal record with tag and form fields. Predicate\n   tagged-literal? returns true on the result."},
     tagged-literal?
-    {:doc
+    {:arglists ([value]),
+     :doc
      "Returns true if x is a tagged-literal record produced by\n   tagged-literal."},
     take
-    {:doc
+    {:arglists ([n] [n coll]),
+     :doc
      "Returns a lazy sequence of the first n items in coll. When called\n   with no collection, returns a transducer."},
-    take-last {:doc "Returns a seq of the last n items in coll."},
+    take-last
+    {:arglists ([n coll]),
+     :doc "Returns a seq of the last n items in coll."},
     take-nth
-    {:doc
+    {:arglists ([n] [n coll]),
+     :doc
      "Returns a lazy sequence of every nth item in coll. When called with\n   no collection, returns a transducer."},
     take-while
-    {:doc
+    {:arglists ([pred] [pred coll]),
+     :doc
      "Returns a lazy sequence of items from coll while pred returns\n   truthy. When called with no collection, returns a transducer."},
     tap>
-    {:doc
+    {:arglists ([x]),
+     :doc
      "Sends x to every registered tap. Tap fns that throw are silently\n   skipped so a misbehaving subscriber does not poison the stream.\n   Returns true."},
     terminal-height {},
     terminal-width {},
     test
-    {:doc
+    {:arglists ([v]),
+     :doc
      "Finds fn at key :test in v's metadata, calls it (presumably with\n   no side effects on the wider system), and reports :ok when it\n   returns, :no-test when no :test fn is present. An error thrown by\n   the :test fn flows out unwrapped."},
-    the-ns {},
+    the-ns {:arglists ([x])},
     thread
-    {:doc
+    {:arglists ([& body]),
+     :doc
      "Executes the body in another thread, returning a future-like value\n  that can be deref'd. Shares the same worker pool as future. Throws\n  :mino/unsupported when host threads are not granted.",
      :macro true},
     thread-bound?
-    {:doc
+    {:arglists ([& vars]),
+     :doc
      "Returns true if all of the vars provided as arguments have\n   thread-local bindings active on the current dyn-stack."},
     thread-sleep {},
     throw {},
     time
-    {:doc
+    {:arglists ([& body]),
+     :doc
      "Evaluates body, prints elapsed time, and returns the result.",
      :macro true},
     time-map->epoch {},
@@ -1211,150 +1491,195 @@
     tls-read {},
     tls-read-all {},
     tls-write {},
-    to-array {},
+    to-array {:arglists ([coll])},
     toml-parse {},
     trampoline
-    {:doc
+    {:arglists ([f & args]),
+     :doc
      "Calls f with args, then repeatedly calls the result if it is a\n   function."},
     transduce
-    {:doc
+    {:arglists ([xform f coll] [xform f init coll]),
+     :doc
      "Reduces coll using the transducer xf applied to the reducing\n   function f."},
-    transient {},
+    transient {:arglists ([coll])},
     transient? {},
     tree-seq
-    {:doc "Returns a lazy depth-first sequence of nodes in a tree."},
-    true? {},
+    {:arglists ([branch? children root]),
+     :doc "Returns a lazy depth-first sequence of nodes in a tree."},
+    true? {:arglists ([x])},
     tty? {},
-    type {},
-    unchecked-add {},
-    unchecked-add-int {},
-    unchecked-byte {},
-    unchecked-char {},
-    unchecked-dec {},
-    unchecked-dec-int {},
-    unchecked-divide-int {},
-    unchecked-double {},
-    unchecked-float {},
-    unchecked-inc {},
-    unchecked-inc-int {},
-    unchecked-int {},
-    unchecked-long {},
-    unchecked-multiply {},
-    unchecked-multiply-int {},
-    unchecked-negate {},
-    unchecked-negate-int {},
-    unchecked-remainder-int {},
-    unchecked-short {},
-    unchecked-subtract {},
-    unchecked-subtract-int {},
+    type {:arglists ([x])},
+    uname {},
+    unchecked-add {:arglists ([x y])},
+    unchecked-add-int {:arglists ([x y])},
+    unchecked-byte {:arglists ([x])},
+    unchecked-char {:arglists ([x])},
+    unchecked-dec {:arglists ([x])},
+    unchecked-dec-int {:arglists ([x])},
+    unchecked-divide-int {:arglists ([x y])},
+    unchecked-double {:arglists ([x])},
+    unchecked-float {:arglists ([x])},
+    unchecked-inc {:arglists ([x])},
+    unchecked-inc-int {:arglists ([x])},
+    unchecked-int {:arglists ([x])},
+    unchecked-long {:arglists ([x])},
+    unchecked-multiply {:arglists ([x y])},
+    unchecked-multiply-int {:arglists ([x y])},
+    unchecked-negate {:arglists ([x])},
+    unchecked-negate-int {:arglists ([x])},
+    unchecked-remainder-int {:arglists ([x y])},
+    unchecked-short {:arglists ([x])},
+    unchecked-subtract {:arglists ([x y])},
+    unchecked-subtract-int {:arglists ([x y])},
     underive
-    {:doc
+    {:arglists ([tag parent] [h tag parent]),
+     :doc
      "Removes a parent/child relationship between child and parent."},
     unquote
-    {:doc
+    {:arglists ([& _]),
+     :doc
      "Placeholder for the ~ reader form. Only meaningful inside\n   syntax-quote; calling it directly throws."},
     unquote-splicing
-    {:doc
+    {:arglists ([& _]),
+     :doc
      "Placeholder for the ~@ reader form. Only meaningful inside\n   syntax-quote; calling it directly throws."},
     unreduced
-    {:doc "Unwraps a reduced value. If not reduced, returns x."},
-    unsigned-bit-shift-right {},
+    {:arglists ([x]),
+     :doc "Unwraps a reduced value. If not reduced, returns x."},
+    unsigned-bit-shift-right {:arglists ([x n])},
     update
-    {:doc
+    {:arglists ([m k f & args]),
+     :doc
      "Updates the value at key k in map m by applying f to the old value\n   and any args."},
     update-in
-    {:doc
+    {:arglists ([m ks f & args]),
+     :doc
      "Updates a value in a nested associative structure by applying f at\n   the given key path."},
-    update-keys {:doc "Returns a map with f applied to each key."},
-    update-vals {:doc "Returns a map with f applied to each value."},
-    uri? {},
-    use {},
-    uuid? {},
+    update-keys
+    {:arglists ([m f]),
+     :doc "Returns a map with f applied to each key."},
+    update-vals
+    {:arglists ([m f]),
+     :doc "Returns a map with f applied to each value."},
+    uri? {:arglists ([x])},
+    use {:arglists ([& args])},
+    user-name {},
+    uuid? {:arglists ([x])},
     val
-    {:doc
+    {:arglists ([e]),
+     :doc
      "Returns the value of a map entry. Throws on values that are not\n   map entries (a literal 2-vector, for instance)."},
-    vals {},
-    var-get {},
-    var-set {},
-    var? {},
-    vary-meta {},
+    vals {:arglists ([map])},
+    var-get {:arglists ([x])},
+    var-set {:arglists ([x val])},
+    var? {:arglists ([v])},
+    vary-meta {:arglists ([obj f & args])},
     vec
-    {:doc
+    {:arglists ([coll]),
+     :doc
      "Converts coll into a vector. Coll must be nil, a sequential\n   collection, a string, a map, a set, or a host array. Booleans,\n   numbers, keywords, characters, regexes, and transients throw\n   (matching JVM Clojure's `vec` rejecting non-seqable scalars)."},
-    vector {},
-    vector? {},
-    volatile! {},
-    volatile? {},
-    vreset! {},
+    vector
+    {:arglists
+     ([]
+      [a]
+      [a b]
+      [a b c]
+      [a b c d]
+      [a b c d e]
+      [a b c d e f]
+      [a b c d e f & args])},
+    vector? {:arglists ([x])},
+    volatile! {:arglists ([val])},
+    volatile? {:arglists ([x])},
+    vreset! {:arglists ([vol newval])},
     vswap!
-    {:doc
+    {:arglists ([vol f & args]),
+     :doc
      "Non-atomically swaps the value of the volatile to be:\n   (apply f current-value-of-vol args). Returns the new value.",
      :macro true},
     walk
-    {:doc
+    {:arglists ([inner outer form]),
+     :doc
      "Traverses form, applying inner to each element and outer to the\n   result."},
     weekday {},
     when
-    {:doc "Evaluates body when test is truthy. Returns nil otherwise.",
+    {:arglists ([test & body]),
+     :doc "Evaluates body when test is truthy. Returns nil otherwise.",
      :macro true},
     when-first
-    {:doc
+    {:arglists ([[x coll] & body]),
+     :doc
      "Binds the first element of a collection, evaluates body if the\n   collection is non-empty.",
      :macro true},
     when-let
-    {:doc "Binds the result of expr, evaluates body if truthy.",
+    {:arglists ([bindings & body]),
+     :doc "Binds the result of expr, evaluates body if truthy.",
      :macro true},
-    when-not {:doc "Evaluates body when test is falsy.", :macro true},
+    when-not
+    {:arglists ([test & body]),
+     :doc "Evaluates body when test is falsy.",
+     :macro true},
     when-some
-    {:doc "Binds the result of expr, evaluates body if non-nil.",
+    {:arglists ([bindings & body]),
+     :doc "Binds the result of expr, evaluates body if non-nil.",
      :macro true},
     which {},
     while
-    {:doc "Repeatedly evaluates body while test is truthy.",
+    {:arglists ([test & body]),
+     :doc "Repeatedly evaluates body while test is truthy.",
      :macro true},
     with-bindings
-    {:doc
+    {:arglists ([binding-map & body]),
+     :doc
      "Takes a map of var->value pairs. Installs the bindings, executes\n   body, and pops the bindings in a finally clause.",
      :macro true},
-    with-bindings* {},
+    with-bindings* {:arglists ([binding-map f])},
     with-in-str
-    {:doc
+    {:arglists ([s & body]),
+     :doc
      "Evaluates body with *in* bound to a string-cursor atom holding\n  s. read and read-line consume from the cursor as forms or lines\n  are taken; the body's value is returned.",
      :macro true},
     with-local-vars
-    {:doc
+    {:arglists ([name-vals-vec & body]),
+     :doc
      "Binds names to fresh, lexically-scoped vars holding init values.\n   Within body the names refer to vars: read with @name, mutate with\n   (var-set name val). The vars are interned in the current namespace\n   under gensym'd suffixes so they don't collide with named defs.",
      :macro true},
-    with-meta {},
+    with-meta {:arglists ([obj m])},
     with-open
-    {:doc
+    {:arglists ([bindings & body]),
+     :doc
      "Binds resources, evaluates body, then closes each resource.",
      :macro true},
     with-out-str
-    {:doc
+    {:arglists ([& body]),
+     :doc
      "Evaluates body with *out* bound to a fresh string-collecting atom,\n  and returns the accumulated string.",
      :macro true},
     with-precision
-    {:doc
+    {:arglists ([precision & exprs]),
+     :doc
      "Sets *math-context* to {:precision precision :rounding-mode mode}\n  around body. The keyword :rounding takes the next form as a\n  rounding-mode keyword (e.g. (with-precision 5 :rounding :half-up\n  (/ 1M 3M))) or as a JVM RoundingMode enum symbol (e.g. HALF_UP,\n  CEILING). Without :rounding, the mode defaults to :half-up.",
      :macro true},
     with-redefs
-    {:doc
+    {:arglists ([bindings & body]),
+     :doc
      "Temporarily rebinds the root bindings of vars while body executes, restoring\n   them in a finally clause. Bindings is a vector of var-name/value pairs.\n\n   The temp-value exprs are evaluated in parallel BEFORE any rebind fires, so a\n   later binding-value that names an earlier-listed var sees that var's\n   pre-redef value (matching Clojure JVM).",
      :macro true},
     with-redefs-fn
-    {:doc
+    {:arglists ([binding-map func]),
+     :doc
      "Temporarily rebinds the root values of vars to new-values while\n   thunk runs, restoring originals afterward. bindings-map is a map\n   of var -> new-value."},
     xml-parse {},
     xml-seq
-    {:doc
+    {:arglists ([root]),
+     :doc
      "A tree seq on the xml elements as per xml/parse: nodes are maps\n   with :tag and :content keys, leaves are strings."},
     yaml-parse {},
-    zero? {},
+    zero? {:arglists ([num])},
     zip-entries {},
     zip-read {},
     zip-write {},
-    zipmap {},
+    zipmap {:arglists ([keys vals])},
     zlib-compress {},
     zlib-decompress {},
     zone-offset-mins {},
@@ -1416,66 +1741,90 @@
     InternalReduce--internal-reduce {},
     Navigable {},
     Navigable--nav {},
-    coll-reduce {},
-    datafy {},
-    internal-reduce {},
-    kv-reduce {},
-    nav {}}},
+    coll-reduce {:arglists ([coll f init])},
+    datafy {:arglists ([o])},
+    internal-reduce {:arglists ([seq f start])},
+    kv-reduce {:arglists ([amap f init])},
+    nav {:arglists ([coll k v])}}},
   clojure.core.reducers
   {:vars
    {->Cat
-    {:doc
+    {:arglists ([cnt left right]),
+     :doc
      "Positional constructor for a catenation value: a count and the left\n  and right halves. mino realizes the halves eagerly, so the resulting\n  count always comes from the data itself; cnt is accepted for\n  signature parity with the canonical constructor."},
-    ->Folder {},
-    ->Reducer {},
+    ->Folder {:arglists ([coll xf])},
+    ->Reducer {:arglists ([coll xf])},
     Cat {},
     CollFold {},
     CollFold--coll-fold {},
     Folder {},
     Reducer {},
     append!
-    {:doc
+    {:arglists ([acc x]),
+     :doc
      "Accumulates x onto acc and returns the updated accumulator. Named\n  with a bang for contract parity: the canonical accumulator mutates\n  in place, while mino's is a persistent vector and a fresh value\n  comes back — fold threads the return value either way."},
     cat
-    {:doc
+    {:arglists ([] [ctor] [left right]),
+     :doc
      "Combining fn yielding the catenation of its two reduced arguments.\n  With no arguments, returns the empty accumulator (a vector). With\n  one argument ctor, returns a combining fn whose zero arity calls\n  ctor instead. With two, a side whose count is zero answers the other\n  side unchanged; otherwise the halves become a Cat value — counted,\n  seqable, reducible, and foldable. See also foldcat."},
-    coll-fold {},
-    drop {:doc "Reducer that drops the first n elements."},
+    coll-fold {:arglists ([coll n combinef reducef])},
+    drop
+    {:arglists ([n coll]),
+     :doc "Reducer that drops the first n elements."},
     drop-while
-    {:doc "Reducer that drops elements while pred is truthy."},
+    {:arglists ([pred coll]),
+     :doc "Reducer that drops elements while pred is truthy."},
     filter
-    {:doc "Reducer that keeps elements for which pred is truthy."},
+    {:arglists ([pred coll]),
+     :doc "Reducer that keeps elements for which pred is truthy."},
     flatten
-    {:doc "Reducer that flattens one level of nested collections."},
+    {:arglists ([coll]),
+     :doc "Reducer that flattens one level of nested collections."},
     fold
-    {:doc
+    {:arglists
+     ([reducef coll]
+      [combinef reducef coll]
+      [n combinef reducef coll]),
+     :doc
      "Reduces coll through a seed-and-combine contract: reducef\n  accumulates over the elements starting from (combinef), and combinef\n  (default reducef) must be associative with (combinef) producing its\n  identity element. n is the canonical group-size hint (default 512).\n  mino executes the whole fold as one sequential pass, which yields\n  the same result a grouped execution of associative fns would."},
     foldcat
-    {:doc
+    {:arglists ([coll]),
+     :doc
      "Pours coll into a counted, seqable, reducible accumulation of its\n  elements: (fold cat append! coll)."},
     folder
-    {:doc
+    {:arglists ([coll xf]),
+     :doc
      "Wraps a foldable coll so any reducing fn supplied to reduce or fold\n  is first transformed by xf — a fn from reducing fn to reducing fn.\n  Unlike reducer, the wrapper participates in fold: coll-fold hands\n  (xf reducef) down to the wrapped collection's own strategy."},
-    map {:doc "Reducer that applies f to each element."},
-    map->Folder {},
-    map->Reducer {},
+    map
+    {:arglists ([f coll]),
+     :doc "Reducer that applies f to each element."},
+    map->Folder {:arglists ([m])},
+    map->Reducer {:arglists ([m])},
     mapcat
-    {:doc
+    {:arglists ([f coll]),
+     :doc
      "Reducer that maps f over coll and concatenates the results."},
     monoid
-    {:doc
+    {:arglists ([op ctor]),
+     :doc
      "Helper for fold: return f if init is provided, else a fn that calls\n  ctor for an init value."},
     reduce
-    {:doc
+    {:arglists ([f coll] [f init coll]),
+     :doc
      "Like clojure.core/reduce, with two reducer-layer differences: the\n  no-init arity seeds the reduction from (f) rather than the first\n  element, and maps reduce through reduce-kv so f receives the\n  accumulator, key, and value."},
     reducer
-    {:doc
+    {:arglists ([coll xf]),
+     :doc
      "Wraps a reducible coll so any reducing fn supplied to reduce is\n  first transformed by xf — a fn from reducing fn to reducing fn. The\n  wrapper is reducible only; folding it falls back to the sequential\n  reduce strategy."},
     remove
-    {:doc "Reducer that drops elements for which pred is truthy."},
-    take {:doc "Reducer that yields at most n elements."},
+    {:arglists ([pred coll]),
+     :doc "Reducer that drops elements for which pred is truthy."},
+    take
+    {:arglists ([n coll]),
+     :doc "Reducer that yields at most n elements."},
     take-while
-    {:doc "Reducer that yields elements while pred is truthy."}}},
+    {:arglists ([pred coll]),
+     :doc "Reducer that yields elements while pred is truthy."}}},
   clojure.data
   {:vars
    {Diff {},
@@ -1483,123 +1832,187 @@
     EqualityPartition {},
     EqualityPartition--equality-partition {},
     diff
-    {:doc
+    {:arglists ([a b]),
+     :doc
      "Recursively compares a and b, returning the triple\n  [only-in-a only-in-b in-both]. Equal values yield [nil nil a].\n  Maps recurse into values under shared keys; sequential things\n  diff position by position and report vectors; sets split into\n  difference/difference/intersection without recursing. Anything\n  else, strings included, compares whole as an atom."},
-    diff-similar {},
-    equality-partition {}}},
-  clojure.datafy {:vars {datafy {}, nav {}}},
-  clojure.edn {:vars {read {}, read-string {}}},
+    diff-similar {:arglists ([a b])},
+    equality-partition {:arglists ([x])}}},
+  clojure.datafy
+  {:vars {datafy {:arglists ([x])}, nav {:arglists ([coll k v])}}},
+  clojure.edn
+  {:vars
+   {read {:arglists ([s] [opts s])},
+    read-string {:arglists ([s] [opts s])}}},
   clojure.instant
   {:vars
    {inst-ms
-    {:doc
+    {:arglists ([v]),
+     :doc
      "Returns epoch millis (since 1970-01-01T00:00:00Z) for an inst\n   value as returned by `read-instant-date`. Throws on a non-inst\n   value."},
     inst?
-    {:doc
+    {:arglists ([v]),
+     :doc
      "True when v is a value produced by clojure.instant/read-instant-date\n   (or a map carrying the same `:mino/instant true` metadata marker).\n   Matches JVM Clojure's inst? predicate over the mino representation."},
     parse-timestamp
-    {:doc
+    {:arglists ([s]),
+     :doc
      "Parses an ISO 8601 timestamp string into a component map. Returns\n   the map; throws ex-info on malformed input.\n\n   Accepted shapes (each later component is optional but, when\n   present, requires its predecessors):\n\n     YYYY\n     YYYY-MM\n     YYYY-MM-DD\n     YYYY-MM-DDTHH:MM\n     YYYY-MM-DDTHH:MM:SS\n     YYYY-MM-DDTHH:MM:SS.fff       (1 to 9 fractional digits)\n\n   Optional zone suffix:\n     Z                              (UTC)\n     +HH:MM | -HH:MM                (numeric offset)"},
     read-instant-date
-    {:doc
+    {:arglists ([cs]),
+     :doc
      "Parses an ISO 8601 timestamp string and returns the validated\n   component map. Named for parity with canonical clojure.instant;\n   on the JVM and JS this returns a host Date instance, but mino\n   has no host date type so the map is the honest representation.\n   The returned map carries `:mino/instant true` in its metadata so\n   `inst?` recognises it; the map content itself stays free of\n   marker keys so equality with user-constructed maps of the same\n   shape isn't accidentally broken."},
     validated
-    {:doc
+    {:arglists
+     ([{:keys
+        [years
+         months
+         days
+         hours
+         minutes
+         seconds
+         nanoseconds
+         offset-hours
+         offset-minutes],
+        :as m}]),
+     :doc
      "Range-checks the components in a parsed timestamp map. Returns\n   the map unchanged on success; throws ex-info on out-of-range\n   values. Mirrors the canonical clojure.instant validation."}}},
   clojure.math
   {:vars
    {E {},
-    IEEE-remainder {:doc "Returns the IEEE 754 remainder of a/b."},
+    IEEE-remainder
+    {:arglists ([dividend divisor]),
+     :doc "Returns the IEEE 754 remainder of a/b."},
     PI {},
     acos
-    {:doc
+    {:arglists ([a]),
+     :doc
      "Returns the arc-cosine of n (-1 <= n <= 1); result in [0, PI]."},
     add-exact
-    {:doc
+    {:arglists ([x y]),
+     :doc
      "Returns the sum of x and y. Note: unlike Clojure on the JVM, does\n   not throw on long overflow -- promotes to bignum instead."},
     asin
-    {:doc
+    {:arglists ([a]),
+     :doc
      "Returns the arc-sine of n (-1 <= n <= 1); result in [-PI/2, PI/2]."},
     atan
-    {:doc "Returns the arc-tangent of n; result in [-PI/2, PI/2]."},
+    {:arglists ([a]),
+     :doc "Returns the arc-tangent of n; result in [-PI/2, PI/2]."},
     atan2
-    {:doc
+    {:arglists ([y x]),
+     :doc
      "Returns atan2(y, x): the angle in radians between the positive x-axis and (x, y)."},
-    cbrt {:doc "Returns the cube root of n."},
+    cbrt {:arglists ([a]), :doc "Returns the cube root of n."},
     ceil
-    {:doc
+    {:arglists ([a]),
+     :doc
      "Returns the smallest double >= n and equal to a mathematical integer."},
     copy-sign
-    {:doc
+    {:arglists ([magnitude sign]),
+     :doc
      "Returns a value with the magnitude of mag and the sign of sgn."},
-    cos {:doc "Returns the cosine of n (in radians)."},
-    cosh {:doc "Returns the hyperbolic cosine of n."},
+    cos
+    {:arglists ([a]), :doc "Returns the cosine of n (in radians)."},
+    cosh {:arglists ([x]), :doc "Returns the hyperbolic cosine of n."},
     decrement-exact
-    {:doc
+    {:arglists ([a]),
+     :doc
      "Returns x decremented by 1. Note: unlike Clojure on the JVM, does\n   not throw on long overflow -- promotes to bignum instead."},
-    exp {:doc "Returns e^n."},
-    expm1 {:doc "Returns exp(n) - 1, accurate for small n."},
+    exp {:arglists ([a]), :doc "Returns e^n."},
+    expm1
+    {:arglists ([x]),
+     :doc "Returns exp(n) - 1, accurate for small n."},
     floor
-    {:doc
+    {:arglists ([a]),
+     :doc
      "Returns the largest double <= n and equal to a mathematical integer."},
     floor-div
-    {:doc
+    {:arglists ([x y]),
+     :doc
      "Integer division rounding toward negative infinity: the largest\n   integer <= the exact quotient of x and y."},
     floor-mod
-    {:doc
+    {:arglists ([x y]),
+     :doc
      "Floor modulus of x and y: x - (floor-div x y) * y. Has the sign of\n   the divisor y."},
     get-exponent
-    {:doc
+    {:arglists ([d]),
+     :doc
      "Returns the unbiased binary exponent of n. Zero and subnormals\n   report MIN_EXPONENT - 1 (-1023); NaN and infinities report\n   MAX_EXPONENT + 1 (1024)."},
     hypot
-    {:doc "Returns sqrt(a^2 + b^2) avoiding intermediate overflow."},
+    {:arglists ([x y]),
+     :doc "Returns sqrt(a^2 + b^2) avoiding intermediate overflow."},
     increment-exact
-    {:doc
+    {:arglists ([a]),
+     :doc
      "Returns x incremented by 1. Note: unlike Clojure on the JVM, does\n   not throw on long overflow -- promotes to bignum instead."},
-    log {:doc "Returns the natural logarithm (base e) of n."},
-    log10 {:doc "Returns the base-10 logarithm of n."},
-    log1p {:doc "Returns ln(1 + n), accurate for small n."},
+    log
+    {:arglists ([a]),
+     :doc "Returns the natural logarithm (base e) of n."},
+    log10
+    {:arglists ([a]), :doc "Returns the base-10 logarithm of n."},
+    log1p
+    {:arglists ([x]), :doc "Returns ln(1 + n), accurate for small n."},
     multiply-exact
-    {:doc
+    {:arglists ([x y]),
+     :doc
      "Returns the product of x and y. Note: unlike Clojure on the JVM,\n   does not throw on long overflow -- promotes to bignum instead."},
     negate-exact
-    {:doc
+    {:arglists ([a]),
+     :doc
      "Returns the negation of x. Note: unlike Clojure on the JVM, does\n   not throw on long overflow -- promotes to bignum instead."},
     next-after
-    {:doc
+    {:arglists ([start direction]),
+     :doc
      "Returns the double adjacent to start in the direction\n   of direction."},
     next-down
-    {:doc "Returns the next representable double less than n."},
+    {:arglists ([d]),
+     :doc "Returns the next representable double less than n."},
     next-up
-    {:doc "Returns the next representable double greater than n."},
-    pow {:doc "Returns base raised to the power of exp."},
+    {:arglists ([d]),
+     :doc "Returns the next representable double greater than n."},
+    pow
+    {:arglists ([a b]),
+     :doc "Returns base raised to the power of exp."},
     random
-    {:doc
+    {:arglists ([]),
+     :doc
      "Returns a positive double between 0.0 (inclusive) and 1.0 (exclusive),\n   chosen pseudorandomly with approximately uniform distribution."},
     rint
-    {:doc
+    {:arglists ([a]),
+     :doc
      "Returns the double closest to n and equal to a mathematical\n   integer, rounding ties to the even integer."},
     round
-    {:doc
+    {:arglists ([a]),
+     :doc
      "Returns the closest long to n, rounding half-up away from zero."},
     scalb
-    {:doc
+    {:arglists ([d scaleFactor]),
+     :doc
      "Returns n scaled by 2 to the power of the integer scale-factor:\n   n * 2^scale-factor, computed as a single rounding."},
     signum
-    {:doc
+    {:arglists ([d]),
+     :doc
      "Returns -1.0, 0.0, or 1.0 depending on the sign of n; preserves -0.0."},
-    sin {:doc "Returns the sine of n (in radians)."},
-    sinh {:doc "Returns the hyperbolic sine of n."},
-    sqrt {:doc "Returns the square root of n."},
+    sin {:arglists ([a]), :doc "Returns the sine of n (in radians)."},
+    sinh {:arglists ([x]), :doc "Returns the hyperbolic sine of n."},
+    sqrt {:arglists ([a]), :doc "Returns the square root of n."},
     subtract-exact
-    {:doc
+    {:arglists ([x y]),
+     :doc
      "Returns the difference of x and y. Note: unlike Clojure on the JVM,\n   does not throw on long overflow -- promotes to bignum instead."},
-    tan {:doc "Returns the tangent of n (in radians)."},
-    tanh {:doc "Returns the hyperbolic tangent of n."},
-    to-degrees {:doc "Converts the angle a (in radians) to degrees."},
-    to-radians {:doc "Converts the angle a (in degrees) to radians."},
+    tan
+    {:arglists ([a]), :doc "Returns the tangent of n (in radians)."},
+    tanh
+    {:arglists ([x]), :doc "Returns the hyperbolic tangent of n."},
+    to-degrees
+    {:arglists ([r]),
+     :doc "Converts the angle a (in radians) to degrees."},
+    to-radians
+    {:arglists ([deg]),
+     :doc "Converts the angle a (in degrees) to radians."},
     ulp
-    {:doc "Returns the size of an ulp (unit in last place) of n."}}},
+    {:arglists ([d]),
+     :doc "Returns the size of an ulp (unit in last place) of n."}}},
   clojure.pprint
   {:vars
    {*pp-state* {:dynamic true},
@@ -1626,96 +2039,125 @@
      "Don't print namespaces with symbols. Useful when pretty printing the\n  results of macro expansions.",
      :dynamic true},
     cl-format
-    {:doc
+    {:arglists ([writer format-in & args]),
+     :doc
      "An implementation of a Common-Lisp-compatible format function.\n  cl-format formats its arguments to an output destination or string based\n  on the format control string given.\n\n  writer is true to output to *out*, nil to return the formatted string, or\n  a writer to write to it. format-in is the format control string (or a\n  compiled formatter); the remaining arguments are the data to format.\n\n  If writer is nil, cl-format returns the formatted result string;\n  otherwise it returns nil."},
     code-dispatch
-    {:doc
+    {:arglists ([object]),
+     :doc
      "A pretty-print dispatch function for Clojure code. Select it with\n  with-pprint-dispatch or set-pprint-dispatch; it registers nothing\n  globally. Lists are laid out as code (recognized special forms indent\n  their body under the head, let-style bindings stay paired); everything\n  else falls back to the simple-dispatch layout."},
     formatter
-    {:doc
+    {:arglists ([format-in]),
+     :doc
      "Makes a function which can directly run format-in. The returned function\n  takes a writer (true, nil or a writer) followed by the format arguments,\n  and returns nil or the formatted string the same way cl-format does.",
      :macro true},
     formatter-impl
-    {:doc
+    {:arglists ([format-in]),
+     :doc
      "Implementation backing the formatter macro; not part of the public API."},
     formatter-out
-    {:doc
+    {:arglists ([format-in]),
+     :doc
      "Makes a function which can directly run format-in, writing to *out*. The\n  returned function takes the format arguments and always writes to *out*,\n  returning nil. Designed for use inside dispatch functions.",
      :macro true},
     formatter-out-impl
-    {:doc
+    {:arglists ([format-in]),
+     :doc
      "Implementation backing the formatter-out macro; not part of the public API."},
     fresh-line
-    {:doc
+    {:arglists ([]),
+     :doc
      "Emit a newline only when output is not already at the start of a line.\n  Inside the engine the column is known exactly; otherwise, when *out* is\n  a string-collecting atom, inspect the buffer; failing that, emit a\n  newline."},
     get-pretty-writer
-    {:doc
+    {:arglists ([writer]),
+     :doc
      "Returns a pretty-printing writer wrapping base-writer, or a default\n  output sink when base-writer is nil. The result is usable as *out* for\n  write-out."},
-    pp {:doc "Pretty print the last REPL result (*1).", :macro true},
+    pp
+    {:arglists ([]),
+     :doc "Pretty print the last REPL result (*1).",
+     :macro true},
     pp-write-str
-    {:doc
+    {:arglists ([s]),
+     :doc
      "Write a raw string through the pretty-printing engine, advancing the\n  column. Public so macros expanded in other namespaces (print-length-loop)\n  can reach it."},
     pprint
-    {:doc
+    {:arglists ([object] [object writer]),
+     :doc
      "Pretty print object to the optional writer, defaulting to *out*.\n  Always finishes the output with a newline."},
     pprint-indent
-    {:doc
+    {:arglists ([relative-to n]),
+     :doc
      "Set the indentation for following lines of the current logical block.\n  relative-to is :block (offset from the block start) or :current (offset\n  from the current column); n is the offset."},
     pprint-logical-block
-    {:doc
+    {:arglists ([& args]),
+     :doc
      "Execute the body as a pretty-printing logical block on *out*, which\n  must be a pretty-printing engine (true within pprint or a dispatch fn).\n  Optional leading options: :prefix, :per-line-prefix, :suffix.",
      :macro true},
     pprint-logical-block*
-    {:doc
+    {:arglists ([prefix per-line suffix body-thunk]),
+     :doc
      "Functional core of pprint-logical-block. prefix / per-line / suffix may\n  be nil; body-thunk is a zero-argument function performing the block's\n  writes. Decides break vs inline by measuring the body, then renders it\n  for real."},
     pprint-newline
-    {:doc
+    {:arglists ([kind]),
+     :doc
      "Print a conditional newline to the pretty-printing engine. kind is\n  :linear, :miser, :fill or :mandatory. Output goes to *out*, which must\n  be a pretty-printing engine (true within pprint or a dispatch fn)."},
     pprint-tab
-    {:doc "Tab in the pretty-printing engine. Not yet implemented."},
+    {:arglists ([kind colnum colinc]),
+     :doc "Tab in the pretty-printing engine. Not yet implemented."},
     print-length-loop
-    {:doc
+    {:arglists ([bindings & body]),
+     :doc
      "A loop that iterates at most *print-length* times, emitting \"...\"\n  when the limit is reached. For use in dispatch functions.",
      :macro true},
     print-table
-    {:doc
+    {:arglists ([rows] [ks rows]),
+     :doc
      "Prints a collection of maps as a textual table. Prints the heading row\n  ks, a separator row, and one row per map, each cell drawn from the\n  corresponding key. ks selects and orders the columns; it defaults to\n  the keys of the first row. Columns are padded to the widest cell and\n  delimited with pipes."},
     set-pprint-dispatch
-    {:doc "Set the global pretty-print dispatch function."},
+    {:arglists ([function]),
+     :doc "Set the global pretty-print dispatch function."},
     simple-dispatch
-    {:doc
+    {:arglists ([object]),
+     :doc
      "The default pretty-print dispatch function for plain data."},
     with-pprint-dispatch
-    {:doc
+    {:arglists ([function & body]),
+     :doc
      "Execute body with the pretty-print dispatch function bound to function.",
      :macro true},
     write
-    {:doc
+    {:arglists ([object & kw-args]),
+     :doc
      "Write object subject to the current printer control variables. Keyword\n  options override individual variables for this call:\n\n    :stream         writer for output, or nil to return a string\n    :pretty         if true, pretty print\n    :base           base for printing integers\n    :radix          if true, prepend a radix specifier\n    :right-margin   the right-margin column\n    :miser-width    the column to enter miser style\n    :length         maximum elements to show\n    :suppress-namespaces  if true, no namespaces on symbols\n\n  Returns the string result when :stream is nil, otherwise nil."},
     write-out
-    {:doc
+    {:arglists ([object]),
+     :doc
      "Write an object to *out* subject to the current printer control\n  variables. Intended for use inside pretty-print dispatch functions,\n  which run with the engine already established. Aggregates are handed to\n  the dispatch function (so nested structures honor custom dispatch);\n  atoms are printed directly, so a dispatch function written for a\n  specific aggregate shape need not handle every leaf type."}}},
   clojure.set
   {:vars
-   {difference {},
-    index {},
-    intersection {},
-    join {},
-    map-invert {},
-    project {},
-    rename {},
-    rename-keys {},
-    select {},
-    subset? {},
-    superset? {},
-    union {}}},
+   {difference {:arglists ([s1] [s1 s2] [s1 s2 & sets])},
+    index {:arglists ([xrel ks])},
+    intersection {:arglists ([s1] [s1 s2] [s1 s2 & sets])},
+    join {:arglists ([xrel yrel] [xrel yrel km])},
+    map-invert {:arglists ([m])},
+    project {:arglists ([xrel ks])},
+    rename {:arglists ([xrel kmap])},
+    rename-keys {:arglists ([map kmap])},
+    select {:arglists ([pred xset])},
+    subset? {:arglists ([set1 set2])},
+    superset? {:arglists ([set1 set2])},
+    union {:arglists ([] [s1] [s1 s2] [s1 s2 & sets])}}},
   clojure.spec.alpha
   {:vars
    {&
-    {:doc
+    {:arglists ([re & preds]),
+     :doc
      "Wrap a regex spec with additional predicates applied to the\n  conformed sequence value. Each pred must return truthy.",
      :macro true},
-    * {:doc "Zero or more occurrences of pred.", :macro true},
+    *
+    {:arglists ([pred-form]),
+     :doc "Zero or more occurrences of pred.",
+     :macro true},
     *coll-check-limit*
     {:doc
      "The number of elements validated in a collection spec'ed with\n  every / every-kv.",
@@ -1740,8 +2182,14 @@
     {:doc
      "A soft limit on how many times a branching spec (or / alt / * /\n  opt-keys / multi-spec) can be recursed through during generation.\n  After this a non-recursive branch is chosen.",
      :dynamic true},
-    + {:doc "One or more occurrences of pred.", :macro true},
-    ? {:doc "Zero or one occurrence of pred.", :macro true},
+    +
+    {:arglists ([pred-form]),
+     :doc "One or more occurrences of pred.",
+     :macro true},
+    ?
+    {:arglists ([pred-form]),
+     :doc "Zero or one occurrence of pred.",
+     :macro true},
     Spec
     {:doc
      "Descriptor for the Spec protocol.  Spec values are ::kind-tagged\n  maps; the protocol's methods are the namespace fns listed under\n  ::methods, dispatching on that tag."},
@@ -1749,279 +2197,380 @@
     {:doc
      "Descriptor for the Specize protocol.  Coercion to a spec value is\n  the namespace fn specize*."},
     abbrev
-    {:doc
+    {:arglists ([form]),
+     :doc
      "Return an abbreviated description of a spec form. Strips namespace\n  qualifiers from symbols and shortens (fn [%] body) to body."},
     alt
-    {:doc "Alternation: branches with named tags, single-element.",
+    {:arglists ([& key-pred-forms]),
+     :doc "Alternation: branches with named tags, single-element.",
      :macro true},
-    alt-impl {},
+    alt-impl {:arglists ([ks ps forms])},
     amp-impl
-    {:doc
+    {:arglists ([re re-form preds pred-forms]),
+     :doc
      "Build an ::amp regex spec: re-spec is consumed normally; the\n  conformed sequence is then threaded through each pred as a spec\n  (see the ::amp branch of re-consume).  Any ::invalid step yields\n  ::invalid for the whole consume."},
     and
-    {:doc
+    {:arglists ([& pred-forms]),
+     :doc
      "Compose specs left to right; each receives the conformed value of\n  the previous.",
      :macro true},
-    and-spec-impl {},
+    and-spec-impl {:arglists ([forms specs])},
     assert
-    {:doc
+    {:arglists ([spec x]),
+     :doc
      "Spec-checking assert.  Returns x when it conforms to spec, else\n  throws an ex-info carrying explain-data plus ::failure of\n  :assertion-failed.  When *compile-asserts* is false at expansion the\n  check compiles away to x; at runtime (check-asserts?) gates whether\n  the compiled check evaluates.",
      :macro true},
     assert*
-    {:doc
+    {:arglists ([spec x]),
+     :doc
      "Runtime worker behind the assert macro.  Returns x when it conforms\n  to spec, else throws an ex-info carrying explain-data plus\n  ::failure :assertion-failed.  Callers normally use the assert macro."},
-    cat {:doc "Sequence of named tagged elements.", :macro true},
-    cat-impl {},
+    cat
+    {:arglists ([& key-pred-forms]),
+     :doc "Sequence of named tagged elements.",
+     :macro true},
+    cat-impl {:arglists ([ks ps forms])},
     check-asserts
-    {:doc
+    {:arglists ([flag]),
+     :doc
      "Enable or disable runtime s/assert checking.  Returns the flag."},
     check-asserts?
-    {:doc "Return the current runtime s/assert checking flag."},
+    {:arglists ([]),
+     :doc "Return the current runtime s/assert checking flag."},
     coll-of
-    {:doc
+    {:arglists ([pred & opts]),
+     :doc
      "Validate that x is a collection whose elements all conform to spec.",
      :macro true},
-    coll-of-impl {},
+    coll-of-impl {:arglists ([form spec opts])},
     conform
-    {:doc
+    {:arglists ([spec x]),
+     :doc
      "Conform x against spec.  Returns the conformed value or\n  :clojure.spec.alpha/invalid."},
     conform*
-    {:doc
+    {:arglists ([spec x]),
+     :doc
      "Internal dispatch for conform.  Public callers use conform."},
     conformer
-    {:doc
+    {:arglists ([& args]),
+     :doc
      "Return a spec that uses cfn as the conform path. cfn takes a value\n  and returns the conformed value or :clojure.spec.alpha/invalid.\n  Optionally takes an unform fn; if omitted, unform is identity.",
      :macro true},
     conformer-impl
-    {:doc
+    {:arglists ([cfn] [cfn ufn]),
+     :doc
      "Return a spec that uses cfn as the conform path. cfn takes a value\n  and returns the conformed value or :clojure.spec.alpha/invalid.\n  Optionally takes an unform fn; if omitted, unform is identity."},
     def
-    {:doc "Register a spec under k.  k is a namespaced keyword.",
+    {:arglists ([k spec-form]),
+     :doc "Register a spec under k.  k is a namespaced keyword.",
      :macro true},
     def-impl
-    {:doc
+    {:arglists ([k form spec]),
+     :doc
      "Register the spec under k.  k must be a namespaced keyword or symbol."},
     describe
-    {:doc "Return an abbreviated description of the spec as data."},
+    {:arglists ([spec]),
+     :doc "Return an abbreviated description of the spec as data."},
     describe*
-    {:doc
+    {:arglists ([spec]),
+     :doc
      "Protocol-shaped describe: return the raw (unabbreviated) form of a\n  spec.  Public callers usually want describe."},
     double-in
-    {:doc
+    {:arglists ([& opts]),
+     :doc
      "Return a spec for a 64-bit floating point number.  Options:\n    :infinite? - whether +/- infinity is allowed (default false)\n    :NaN?      - whether NaN is allowed (default false)\n    :min       - inclusive minimum (default none)\n    :max       - inclusive maximum (default none)\n\n  Divergence: the canonical library defaults :infinite? and :NaN? to\n  true; mino defaults both to false so a plain double-in rejects the\n  non-finite values unless they are explicitly opted in -- the safer\n  default for a range spec.",
      :macro true},
     double-in-impl
-    {:doc
+    {:arglists ([& opts]),
+     :doc
      "Return a spec for a 64-bit floating point number.  Options:\n    :infinite? - whether +/- infinity is allowed (default false)\n    :NaN?      - whether NaN is allowed (default false)\n    :min       - inclusive minimum (default none)\n    :max       - inclusive maximum (default none)\n\n  Divergence: the canonical library defaults :infinite? and :NaN? to\n  true; mino defaults both to false so a plain double-in rejects the\n  non-finite values unless they are explicitly opted in -- the safer\n  default for a range spec."},
     every
-    {:doc
+    {:arglists ([pred & opts]),
+     :doc
      "Validate that every element of a collection satisfies pred.  Samples\n  up to coll-check-limit (101) elements; does not conform elements; the\n  input collection is returned unchanged on success.\n\n  Opts: :kind pred, :count n, :min-count n, :max-count n, :distinct bool.",
      :macro true},
     every-impl
-    {:doc
+    {:arglists ([form spec opts]),
+     :doc
      "Build an ::every spec value.  Recognized opts: :kind, :count,\n  :min-count, :max-count, :distinct, :into, plus ::conform-all\n  (conform each element instead of sampling) and ::kv (elements are\n  [k v] entries; explain reports the key, not the index)."},
     every-kv
-    {:doc
+    {:arglists ([kpred vpred & opts]),
+     :doc
      "Like every but validates associative entries as [kpred vpred] pairs.\n  Works on maps and sequences of pairs.",
      :macro true},
     exercise
-    {:doc
+    {:arglists ([spec] [spec n] [spec n overrides]),
+     :doc
      "Generate `n` (default 10) sample/conformed pairs for `spec`."},
     exercise-fn
-    {:doc
+    {:arglists ([sym] [sym n] [sym-or-f n fspec]),
+     :doc
      "Exercise the fn named by sym by applying it to n (default 10)\n  generated samples of its registered fdef :args spec.  Returns a\n  sequence of [args ret] tuples.  The three-arity form takes an\n  explicit fspec (or fn): sym-or-f may then be a fn directly."},
     explain
-    {:doc
+    {:arglists ([spec x]),
+     :doc
      "Print an explanation of why x fails spec to *out* via *explain-out*."},
     explain*
-    {:doc
+    {:arglists ([spec path via in x]),
+     :doc
      "Internal dispatch for explain-data.  Public callers use\n  explain-data / explain / explain-str. When the spec is registered\n  (carries ::name), prepend that name to via so problems list the\n  surrounding spec path the way Clojure's spec.alpha does."},
     explain-data
-    {:doc
+    {:arglists ([spec x]),
+     :doc
      "Return a problem map describing why x fails spec, or nil if it\n  passes.  Shape: {::problems [{:path ... :pred ... :val ... :via ...\n  :in ...}] ::spec ... ::value ...}."},
     explain-data*
-    {:doc
+    {:arglists ([spec path via in x]),
+     :doc
      "Lower-level explain entry point: run explain* with the given path,\n  via and in seeds and wrap the resulting problems in the canonical\n  {::problems ::spec ::value} map, or return nil when x conforms.\n  Public callers usually want explain-data."},
     explain-out
-    {:doc
+    {:arglists ([ed]),
+     :doc
      "Print explanation data (per explain-data) to *out* using the printer\n  in *explain-out*, by default explain-printer."},
     explain-printer
-    {:doc
+    {:arglists ([ed]),
+     :doc
      "Default printer for explain-data: write a human-readable description\n  of each problem to *out*.  nil indicates a successful validation and\n  prints \"Success!\".  Problems are ordered longest-path first, the\n  way Clojure's explain-printer sorts them, so the deepest failure\n  reads first."},
     explain-str
-    {:doc
+    {:arglists ([spec x]),
+     :doc
      "Return a string describing why x fails spec, or \"Success!\\n\" if\n  it passes. Format follows clojure.spec.alpha: each problem on its\n  own line terminated with \\n."},
     fdef
-    {:doc
+    {:arglists ([fn-sym & specs]),
+     :doc
      "Register a function spec under the qualified symbol of fn-sym.\n  Options: :args, :ret, :fn (each a spec form).",
      :macro true},
-    fdef-impl {},
+    fdef-impl
+    {:arglists
+     ([sym args-form ret-form fn-form args-spec ret-spec fn-spec])},
     form
-    {:doc
+    {:arglists ([spec]),
+     :doc
      "Return the form of the spec, or :clojure.spec.alpha/unknown if x is\n  not a registered spec."},
     fspec
-    {:doc
+    {:arglists ([& opts]),
+     :doc
      "Build a function spec from :args :ret and (optional) :fn preds.\n  conform / explain take a fn and validate it via generative testing;\n  the conformed value is always the fn itself.  :ret defaults to any?.",
      :macro true},
     fspec-impl
-    {:doc
+    {:arglists ([argspec aform retspec rform fnspec fform gfn]),
+     :doc
      "Build an fspec value from the :args / :ret / :fn specs and their\n  forms.  conform validates a fn by generatively sampling :args (up to\n  *fspec-iterations*) and checking :ret (and :fn); the conformed value\n  is the fn itself.  Callers normally use the fspec macro or fdef."},
     gen
-    {:doc
+    {:arglists ([spec] [spec overrides]),
+     :doc
      "Build a clojure.test.check generator for `spec`. `overrides` is a\n  map from spec-key keywords (or predicate symbols) to alternative\n  generators. A generator attached with with-gen wins over the one\n  derived from the spec's form."},
     gen*
-    {:doc
+    {:arglists ([spec overrides path rmap]),
+     :doc
      "Protocol-shaped generator hook: return the generator for spec,\n  honoring an attached with-gen generator. path and rmap are accepted\n  for the canonical signature; recursion limiting arrives with the\n  dynamic-var wave."},
-    get-spec {:doc "Return the spec registered under k, or nil."},
+    get-spec
+    {:arglists ([k]),
+     :doc "Return the spec registered under k, or nil."},
     inst-in
-    {:doc
+    {:arglists ([start end]),
+     :doc
      "Return a spec validating insts in the range from start (inclusive)\n  to end (exclusive).",
      :macro true},
     inst-in-impl
-    {:doc
+    {:arglists ([start end]),
+     :doc
      "Return a spec validating insts in the range from start (inclusive)\n  to end (exclusive)."},
     inst-in-range?
-    {:doc
+    {:arglists ([start end inst]),
+     :doc
      "Return true when inst is at or after start and strictly before end."},
     int-in
-    {:doc
+    {:arglists ([start end]),
+     :doc
      "Return a spec validating fixed-precision integers in the range from\n  start (inclusive) to end (exclusive).",
      :macro true},
     int-in-impl
-    {:doc
+    {:arglists ([start end]),
+     :doc
      "Return a spec validating fixed-precision integers in the range from\n  start (inclusive) to end (exclusive)."},
     int-in-range?
-    {:doc
+    {:arglists ([start end val]),
+     :doc
      "Return true when val is a fixed-precision integer with\n  start <= val < end."},
     invalid {},
-    invalid? {},
+    invalid? {:arglists ([ret])},
     keys
-    {:doc
+    {:arglists ([& opts]),
+     :doc
      "Validate a map shape.  Required-key presence is enforced; per-key\n  values are conformed against specs registered under the qualified\n  key.",
      :macro true},
     keys*
-    {:doc
+    {:arglists ([& kspecs]),
+     :doc
      "Like keys but produces a regex spec that matches inline key/value\n  pairs in a sequence.  Conforms to a map.",
      :macro true},
     keys*-impl
-    {:doc
+    {:arglists ([mspec]),
+     :doc
      "Build the keys* regex op around mspec, a keys spec built from the\n  same arguments.  Callers normally use the keys* macro."},
-    keys-impl {},
+    keys-impl {:arglists ([forms opts])},
     map-of
-    {:doc "Validate a map of key-spec to val-spec.", :macro true},
-    map-of-impl {},
+    {:arglists ([kpred vpred & opts]),
+     :doc "Validate a map of key-spec to val-spec.",
+     :macro true},
+    map-of-impl {:arglists ([k-form v-form k-spec v-spec opts])},
     map-spec-impl
-    {:doc
+    {:arglists
+     ([{:keys
+        [req
+         opt
+         req-un
+         opt-un
+         req-keys
+         req-specs
+         opt-keys
+         opt-specs
+         keys-pred
+         pred-exprs
+         pred-forms
+         gfn],
+        :as argm}]),
+     :doc
      "Build a map spec from the canonical argument map.  See the comment\n  above; callers normally use the keys macro."},
     maybe-impl
-    {:doc
+    {:arglists ([p form]),
+     :doc
      "Build a ? regex spec: zero or one occurrence of pred.  Callers\n  normally use the ? macro.  Note the canonical argument order: pred\n  first, form second."},
     merge
-    {:doc
+    {:arglists ([& pred-forms]),
+     :doc
      "Conjunction of map specs.  x must conform to every branch; the\n  conformed maps are merged left to right.",
      :macro true},
     merge-spec-impl
-    {:doc
+    {:arglists ([forms preds gfn]),
+     :doc
      "Build a merge spec from branch forms and branch specs.  Callers\n  normally use the merge macro."},
     multi-spec
-    {:doc
+    {:arglists ([mm retag]),
+     :doc
      "Dispatch a spec through a multimethod.  mm is the multimethod\n  symbol; retag is the keyword used to extract the dispatch value.",
      :macro true},
     multi-spec-impl
-    {:doc
+    {:arglists ([form mmvar retag] [form mmvar retag gfn]),
+     :doc
      "Build a multi-spec value.  form names the multimethod, mmvar is the\n  var holding it, retag is the tag key.  Callers normally use the\n  multi-spec macro."},
     nilable
-    {:doc "Spec that allows nil OR a value matching pred.",
+    {:arglists ([pred]),
+     :doc "Spec that allows nil OR a value matching pred.",
      :macro true},
-    nilable-impl {},
+    nilable-impl {:arglists ([form spec])},
     nonconforming
-    {:doc
+    {:arglists ([spec]),
+     :doc
      "Return a spec with the same properties as spec, except conform\n  returns the original (not the conformed) value."},
     or
-    {:doc "Branches with named tags; the first match wins.",
+    {:arglists ([& key-pred-forms]),
+     :doc "Branches with named tags; the first match wins.",
      :macro true},
-    or-spec-impl {},
+    or-spec-impl {:arglists ([keys forms specs])},
     re-consume
-    {:doc
+    {:arglists ([spec xs]),
+     :doc
      "Greedy consume from xs against a regex spec.  Returns\n  [conformed-result remaining-xs] or [::invalid xs]."},
     regex-spec-impl
-    {:doc
+    {:arglists ([re gfn]),
+     :doc
      "Wrap a regex op as a non-regex spec: the result conforms an element\n  value as a whole sequence rather than splicing into the surrounding\n  regex context.  gfn, when given, attaches a generator fn."},
     regex?
-    {:doc
+    {:arglists ([x]),
+     :doc
      "Return x when x is a spec regex op (cat / * / + / ? / alt / &),\n  else nil.  Specs that merely wrap a regex (see spec / regex-spec-impl)\n  are spec objects, not regex ops."},
-    registry {},
+    registry {:arglists ([])},
     rep+impl
-    {:doc
+    {:arglists ([form p]),
+     :doc
      "Build a + regex spec: one or more occurrences of pred.  Callers\n  normally use the + macro."},
-    rep-impl {},
+    rep-impl {:arglists ([op form spec])},
     spec
-    {:doc "Promote a predicate form to a spec value.", :macro true},
+    {:arglists ([pred]),
+     :doc "Promote a predicate form to a spec value.",
+     :macro true},
     spec-impl
-    {:doc
+    {:arglists ([form pred]),
+     :doc
      "Build a spec value from a form and predicate.  When pred resolves to\n  a regex spec (cat / * / + / ? / alt / a registered regex), the result\n  wraps the regex (see regex-spec-impl)."},
     spec?
-    {:doc
+    {:arglists ([x]),
+     :doc
      "Return x when x is a spec object, else nil.  Regex ops are not\n  spec objects (see regex?)."},
     specize*
-    {:doc
+    {:arglists ([_] [_ form]),
+     :doc
      "Coerce x to a spec value: spec maps pass through, registered\n  keywords resolve, anything callable as a predicate is promoted to a\n  pred spec.  The binary arity uses form as the promoted description."},
     tuple
-    {:doc "Validate a fixed-length, position-indexed vector.",
+    {:arglists ([& preds]),
+     :doc "Validate a fixed-length, position-indexed vector.",
      :macro true},
-    tuple-impl {},
+    tuple-impl {:arglists ([forms specs])},
     unform
-    {:doc
+    {:arglists ([spec x]),
+     :doc
      "Return the destructuring inverse of conform.  Given a conformed\n  value y produced by (conform spec x), unform returns a value that\n  conforms to spec and conforms to it back to y.  For specs without\n  an inverse (registered :clojure.spec.alpha/conformer specs without\n  an :unform key), unform returns y unchanged."},
     unform*
-    {:doc "Internal dispatch for unform.  Public callers use unform."},
-    valid? {:doc "Return true iff x conforms to spec."},
+    {:arglists ([spec y]),
+     :doc "Internal dispatch for unform.  Public callers use unform."},
+    valid?
+    {:arglists ([spec x]), :doc "Return true iff x conforms to spec."},
     with-gen
-    {:doc
+    {:arglists ([spec gen-fn]),
+     :doc
      "Return a copy of spec that uses gen-fn as its generator. spec may\n  be a registered keyword, a spec map, or any predicate-shaped value\n  acceptable to as-spec."},
     with-gen*
-    {:doc
+    {:arglists ([spec gfn]),
+     :doc
      "Protocol-shaped with-gen: return a copy of the spec value carrying\n  gen-fn as its generator."}}},
   clojure.string
   {:vars
-   {blank? {},
-    capitalize {},
-    ends-with? {},
-    escape {},
-    includes? {},
+   {blank? {:arglists ([s])},
+    capitalize {:arglists ([s])},
+    ends-with? {:arglists ([s substr])},
+    escape {:arglists ([s cmap])},
+    includes? {:arglists ([s substr])},
     index-of
-    {:doc
+    {:arglists ([s value] [s value from-index]),
+     :doc
      "Return index of value (string or char) in s, optionally searching\n   forward from from-index. Returns nil if value not found."},
-    join {},
+    join {:arglists ([coll] [separator coll])},
     last-index-of
-    {:doc
+    {:arglists ([s value] [s value from-index]),
+     :doc
      "Return last index of value (string or char) in s, optionally\n   searching backward from from-index. Returns nil if value not found."},
-    lower-case {},
+    lower-case {:arglists ([s])},
     re-quote-replacement
-    {:doc
+    {:arglists ([replacement]),
+     :doc
      "Escapes $ and \\ in replacement so s can be used literally in\n   replacement strings without triggering backreference syntax."},
     replace
-    {:doc
+    {:arglists ([s match replacement]),
+     :doc
      "Replace all matches of `match` in `s` with `replacement`. `match` may\n   be a string, char, or regex. For regex `match`, `replacement` may be\n   a string (with `$N` group backrefs and `\\$` / `\\\\` escapes) or a\n   function called per match with the whole-match string when the\n   pattern has no groups, or `[whole g1 g2 ...]` when it does. Char\n   `match` is coerced to a 1-char string before delegating to the C\n   primitive."},
     replace-first
-    {:doc
+    {:arglists ([s match replacement]),
+     :doc
      "Replaces only the first occurrence of match in s with replacement.\n   match may be a string, char, or regex; for regex match, replacement\n   may be a $N template string or a function, exactly as in replace."},
-    reverse {:doc "Returns s with its characters reversed."},
-    split {},
-    split-lines {},
-    starts-with? {},
-    trim {},
-    trim-newline {},
-    triml {},
-    trimr {},
-    upper-case {}}},
+    reverse
+    {:arglists ([s]), :doc "Returns s with its characters reversed."},
+    split {:arglists ([s re] [s re limit])},
+    split-lines {:arglists ([s])},
+    starts-with? {:arglists ([s substr])},
+    trim {:arglists ([s])},
+    trim-newline {:arglists ([s])},
+    triml {:arglists ([s])},
+    trimr {:arglists ([s])},
+    upper-case {:arglists ([s])}}},
   clojure.template
   {:vars
    {apply-template
-    {:doc
+    {:arglists ([argv expr values]),
+     :doc
      "Replaces argv symbols in expr with the corresponding values.\n\n   argv is a binding vector of symbols (no destructuring). expr is\n   the template form. values is a sequence whose elements are\n   substituted positionally.\n\n   (apply-template '[x] '(+ x x) '[2])    ; => (+ 2 2)\n   (apply-template '[a b] '(- a b) '[5 3]) ; => (- 5 3)"},
     do-template
-    {:doc
+    {:arglists ([argv expr & values]),
+     :doc
      "Repeatedly copies expr (wrapped in a do) for each group of values.\n\n   values are partitioned by (count argv); each group binds argv\n   in expr and the resulting form joins the do.\n\n   (do-template [x y] (+ y x) 2 4 3 5)\n   ; => (do (+ 4 2) (+ 5 3))",
      :macro true}}},
   clojure.test
@@ -2034,154 +2583,186 @@
     *test-out* {:dynamic true},
     *testing-contexts* {:dynamic true},
     *testing-vars* {:dynamic true},
-    are {:macro true},
+    are {:arglists ([argv expr & args]), :macro true},
     assert-any
-    {:doc
+    {:arglists ([msg form]),
+     :doc
      "Returns generic assertion code for any test, including macros and\n  isolated symbols."},
-    assert-error! {},
+    assert-error! {:arglists ([form msg thrown])},
     assert-expr {},
-    assert-fail! {},
-    assert-pass! {},
+    assert-fail! {:arglists ([form msg detail])},
+    assert-pass! {:arglists ([])},
     assert-predicate
-    {:doc
+    {:arglists ([msg form]),
+     :doc
      "Returns generic assertion code for any functional predicate.\n  The :expected key will contain the original form; :actual will\n  contain the evaluated form.  On failure :actual is wrapped in\n  (not ...)."},
     compose-fixtures
-    {:doc
+    {:arglists ([f1 f2]),
+     :doc
      "Composes two fixture functions into a single fixture function that\n  calls f1 as the outer fixture and f2 as the inner fixture."},
-    deftest {:macro true},
-    deftest- {:macro true},
+    deftest {:arglists ([name & body]), :macro true},
+    deftest- {:arglists ([name & body]), :macro true},
     do-report
-    {:doc
+    {:arglists ([m]),
+     :doc
      "Add file and line information to a test result map and call report.\n  When writing a custom assert-expr method, call this to pass results\n  to report."},
-    exception-message-for-match {},
+    exception-message-for-match {:arglists ([e])},
     file-position
-    {:doc
+    {:arglists ([n]),
+     :doc
      "Returns a vector [filename line-number] for the nth call up the stack.\n  Deprecated in Clojure 1.2; present for compatibility."},
     fixtures-registry {},
     function?
-    {:doc
+    {:arglists ([x]),
+     :doc
      "Returns true if argument is a function or a symbol that resolves to\n  a function (not a macro)."},
     get-possibly-unbound-var
-    {:doc "Like var-get but returns nil when the var is unbound."},
+    {:arglists ([v]),
+     :doc "Like var-get but returns nil when the var is unbound."},
     inc-report-counter
-    {:doc
+    {:arglists ([name]),
+     :doc
      "Increments the named counter in *report-counters* (an atom).\n  Does nothing when *report-counters* is nil."},
-    is {:macro true},
+    is {:arglists ([& args]), :macro true},
     join-fixtures
-    {:doc
+    {:arglists ([fixtures]),
+     :doc
      "Composes a collection of fixtures in order, returning a single\n  fixture function.  Always returns a valid fixture function, even for\n  an empty collection."},
     report {:dynamic true},
     run-all-registered-tests
-    {:doc
+    {:arglists ([]),
+     :doc
      "Runs every test in the registry, regardless of namespace, and returns\n  a summary map.  Used by the suite driver (tests/run.clj) and by\n  run-tests-and-exit."},
     run-all-tests
-    {:doc
+    {:arglists ([] [re]),
+     :doc
      "Runs all tests in every namespace whose name matches the optional\n  regex re.  With no argument, runs all tests in all namespaces.\n  Returns a summary map."},
     run-namespace-tests
-    {:doc
+    {:arglists ([ns-names]),
+     :doc
      "Runs the registered tests for the given namespace names (strings) and\n  returns a summary map.  An empty collection runs nothing."},
     run-test
-    {:doc
+    {:arglists ([test-symbol]),
+     :doc
      "Runs a single test identified by its symbol in the current namespace.\n  Returns a summary map.",
      :macro true},
     run-test-var
-    {:doc
+    {:arglists ([v]),
+     :doc
      "Runs the tests for a single var with a fresh counter, and returns a\n  summary map with :type :summary."},
     run-tests
-    {:doc
+    {:arglists ([] [& namespaces]),
+     :doc
      "Run registered tests and return a summary map.\n\n  With no arguments, runs the tests registered in the namespace that is\n  current when run-tests is called (reads *ns* at call time, per JVM\n  canon).  Given namespace symbols or objects, runs tests registered in\n  those namespaces.\n\n  Prints a summary line and any failure details to stdout."},
     run-tests-and-exit
-    {:doc
+    {:arglists ([& _nss]),
+     :doc
      "Runs the whole registry and exits the process with code 0 on no\n  failures or errors, 1 otherwise.  A no-op while suite-mode is true.\n  Used as the bottom-of-file entry point in test files and by the suite\n  driver; it always runs every registered test, independent of the\n  namespace-scoped run-tests.\n\n  When the MINO_TEST_SUMMARY env var names a writable path, the summary\n  is written there as EDN before exiting. The shape is:\n    {:tests N :passes N :failures N :errors N\n     :assertions N :pass-rate 0.0..1.0}"},
-    set-test {:macro true},
+    set-test {:arglists ([name & body]), :macro true},
     successful?
-    {:doc
+    {:arglists ([summary]),
+     :doc
      "Returns true when the given test summary has no failures or errors."},
     suite-mode {},
     test-all-vars
-    {:doc "Calls test-vars on every var interned in the namespace."},
+    {:arglists ([ns]),
+     :doc "Calls test-vars on every var interned in the namespace."},
     test-ns
-    {:doc
+    {:arglists ([ns]),
+     :doc
      "Runs tests in the given namespace (symbol or ns object).  Binds\n  *report-counters* to a fresh atom, calls test-all-vars, and returns\n  the final counter map."},
     test-var
-    {:doc
+    {:arglists ([v]),
+     :doc
      "If v has a function in its :test metadata, calls that function with\n  *testing-vars* bound to (conj *testing-vars* v).  Increments the\n  :test counter in *report-counters*.  Dynamic so that binding can\n  replace the implementation for custom runners (JVM canon parity).",
      :dynamic true},
     test-vars
-    {:doc
+    {:arglists ([vars]),
+     :doc
      "Runs test-var on each var in vars that has :test metadata."},
-    testing {:macro true},
+    testing {:arglists ([string & body]), :macro true},
     testing-contexts-str
-    {:doc
+    {:arglists ([]),
+     :doc
      "Returns a string representation of the current test context.  Joins\n  strings in *testing-contexts* with spaces."},
     testing-vars-str
-    {:doc
+    {:arglists ([m]),
+     :doc
      "Returns a string representation of the current test.  Renders names\n  in *testing-vars* as a list, then the source file and line of the\n  current assertion."},
     tests-registry {},
     try-expr
-    {:doc "Used by the is macro to catch unexpected exceptions.",
+    {:arglists ([msg form]),
+     :doc "Used by the is macro to catch unexpected exceptions.",
      :macro true},
     use-fixtures
-    {:doc
+    {:arglists ([kind & fixtures]),
+     :doc
      "Register fixture functions for the current namespace.\n\n  kind is :once (run around the entire batch of tests in this ns) or\n  :each (run around each individual test).  Multiple fixtures of the\n  same kind compose left-to-right (the first fixture is outermost).\n\n  Reads *ns* at call time so the fixture is registered under the\n  namespace that is current when use-fixtures is called (JVM canon\n  parity)."},
-    with-test {:macro true},
-    with-test-out {:macro true}}},
+    with-test {:arglists ([definition & body]), :macro true},
+    with-test-out {:arglists ([& body]), :macro true}}},
   clojure.walk
   {:vars
    {keywordize-keys
-    {:doc
+    {:arglists ([m]),
+     :doc
      "Recursively transforms all map keys from strings to keywords."},
     macroexpand-all
-    {:doc
+    {:arglists ([form]),
+     :doc
      "Recursively performs all possible macroexpansions in form."},
-    postwalk {},
+    postwalk {:arglists ([f form])},
     postwalk-demo
-    {:doc
+    {:arglists ([form]),
+     :doc
      "Demonstrates the behavior of postwalk by printing each form as it is\n  walked. Returns form."},
-    postwalk-replace {},
-    prewalk {},
+    postwalk-replace {:arglists ([smap form])},
+    prewalk {:arglists ([f form])},
     prewalk-demo
-    {:doc
+    {:arglists ([form]),
+     :doc
      "Demonstrates the behavior of prewalk by printing each form as it is\n  walked. Returns form."},
-    prewalk-replace {},
+    prewalk-replace {:arglists ([smap form])},
     stringify-keys
-    {:doc
+    {:arglists ([m]),
+     :doc
      "Recursively transforms all map keys from keywords to strings."},
-    walk {}}},
+    walk {:arglists ([inner outer form])}}},
   clojure.zip
   {:vars
-   {append-child {},
-    branch? {},
-    children {},
-    down {},
-    edit {},
-    end? {},
-    insert-child {},
-    insert-left {},
-    insert-right {},
-    left {},
+   {append-child {:arglists ([loc item])},
+    branch? {:arglists ([loc])},
+    children {:arglists ([loc])},
+    down {:arglists ([loc])},
+    edit {:arglists ([loc f & args])},
+    end? {:arglists ([loc])},
+    insert-child {:arglists ([loc item])},
+    insert-left {:arglists ([loc item])},
+    insert-right {:arglists ([loc item])},
+    left {:arglists ([loc])},
     leftmost
-    {:doc
+    {:arglists ([loc]),
+     :doc
      "Returns the loc of the leftmost sibling, or self if no siblings to\n   the left."},
-    lefts {},
-    make-node {},
-    next {},
-    node {},
-    path {},
-    prev {},
-    remove {},
-    replace {},
-    right {},
+    lefts {:arglists ([loc])},
+    make-node {:arglists ([loc node children])},
+    next {:arglists ([loc])},
+    node {:arglists ([loc])},
+    path {:arglists ([loc])},
+    prev {:arglists ([loc])},
+    remove {:arglists ([loc])},
+    replace {:arglists ([loc node])},
+    right {:arglists ([loc])},
     rightmost
-    {:doc
+    {:arglists ([loc]),
+     :doc
      "Returns the loc of the rightmost sibling, or self if no siblings to\n   the right."},
-    rights {},
-    root {},
-    seq-zip {},
-    up {},
-    vector-zip {},
-    xml-zip {},
-    zipper {}}}},
+    rights {:arglists ([loc])},
+    root {:arglists ([loc])},
+    seq-zip {:arglists ([root])},
+    up {:arglists ([loc])},
+    vector-zip {:arglists ([root])},
+    xml-zip {:arglists ([root])},
+    zipper {:arglists ([branch? children make-node root])}}}},
  :special-forms
  #{try
    finally
@@ -2200,4 +2781,4 @@
    throw
    def},
  :spec-keys #{},
- :captured-at "2026-08-29T11:27:40Z"}
+ :captured-at "2026-08-30T10:14:42Z"}
