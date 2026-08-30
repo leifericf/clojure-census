@@ -2,7 +2,7 @@
  {:dialect-tag "jank",
   :dialect-name "jank",
   :clojure-version "1.12.4",
-  :compared-at "2026-07-18T06:38:45Z"},
+  :compared-at "2026-08-30T18:43:24Z"},
  :divergences
  [{:id :stdlib-incomplete-alpha,
    :title
@@ -66,9 +66,9 @@
  :schema-version 2,
  :coverage
  {:headline
-  {:in-both-count 687,
+  {:in-both-count 688,
    :clojure-total 995,
-   :percent 0.6904522613065327},
+   :percent 0.6914572864321608},
   :per-namespace
   {clojure.spec.alpha
    {:in-both-count 0, :clojure-total 87, :percent 0.0},
@@ -81,9 +81,9 @@
    clojure.core.protocols
    {:in-both-count 0, :clojure-total 11, :percent 0.0},
    clojure.core
-   {:in-both-count 604,
+   {:in-both-count 605,
     :clojure-total 679,
-    :percent 0.8895434462444771},
+    :percent 0.8910162002945509},
    clojure.set {:in-both-count 12, :clojure-total 12, :percent 1.0},
    clojure.pprint {:in-both-count 0, :clojure-total 26, :percent 0.0},
    clojure.math {:in-both-count 0, :clojure-total 45, :percent 0.0},
@@ -95,42 +95,7 @@
    clojure.template
    {:in-both-count 2, :clojure-total 2, :percent 1.0}}},
  :history
- [{:date "2026-07-05",
-   :dialect-tag "jank",
-   :clojure-version "jank-alpha",
-   :headline
-   {:in-both-count 687,
-    :clojure-total 995,
-    :percent 0.6904522613065327},
-   :per-namespace
-   {clojure.spec.alpha
-    {:in-both-count 0, :clojure-total 87, :percent 0.0},
-    clojure.datafy {:in-both-count 0, :clojure-total 2, :percent 0.0},
-    clojure.zip {:in-both-count 0, :clojure-total 28, :percent 0.0},
-    clojure.core.reducers
-    {:in-both-count 0, :clojure-total 21, :percent 0.0},
-    clojure.test
-    {:in-both-count 38,
-     :clojure-total 39,
-     :percent 0.9743589743589743},
-    clojure.core.protocols
-    {:in-both-count 0, :clojure-total 11, :percent 0.0},
-    clojure.core
-    {:in-both-count 604,
-     :clojure-total 679,
-     :percent 0.8895434462444771},
-    clojure.set {:in-both-count 12, :clojure-total 12, :percent 1.0},
-    clojure.pprint {:in-both-count 0, :clojure-total 26, :percent 0.0},
-    clojure.math {:in-both-count 0, :clojure-total 45, :percent 0.0},
-    clojure.edn {:in-both-count 0, :clojure-total 2, :percent 0.0},
-    clojure.instant {:in-both-count 0, :clojure-total 5, :percent 0.0},
-    clojure.string
-    {:in-both-count 21, :clojure-total 21, :percent 1.0},
-    clojure.data {:in-both-count 0, :clojure-total 5, :percent 0.0},
-    clojure.walk {:in-both-count 10, :clojure-total 10, :percent 1.0},
-    clojure.template
-    {:in-both-count 2, :clojure-total 2, :percent 1.0}}}
-  {:date "2026-07-06",
+ [{:date "2026-07-06",
    :dialect-tag "jank",
    :clojure-version "jank-alpha",
    :headline
@@ -584,76 +549,51 @@
     clojure.data {:in-both-count 0, :clojure-total 5, :percent 0.0},
     clojure.walk {:in-both-count 10, :clojure-total 10, :percent 1.0},
     clojure.template
+    {:in-both-count 2, :clojure-total 2, :percent 1.0}}}
+  {:date "2026-08-30",
+   :dialect-tag "jank",
+   :clojure-version "jank-alpha",
+   :headline
+   {:in-both-count 688,
+    :clojure-total 995,
+    :percent 0.6914572864321608},
+   :per-namespace
+   {clojure.spec.alpha
+    {:in-both-count 0, :clojure-total 87, :percent 0.0},
+    clojure.datafy {:in-both-count 0, :clojure-total 2, :percent 0.0},
+    clojure.zip {:in-both-count 0, :clojure-total 28, :percent 0.0},
+    clojure.core.reducers
+    {:in-both-count 0, :clojure-total 21, :percent 0.0},
+    clojure.test
+    {:in-both-count 38,
+     :clojure-total 39,
+     :percent 0.9743589743589743},
+    clojure.core.protocols
+    {:in-both-count 0, :clojure-total 11, :percent 0.0},
+    clojure.core
+    {:in-both-count 605,
+     :clojure-total 679,
+     :percent 0.8910162002945509},
+    clojure.set {:in-both-count 12, :clojure-total 12, :percent 1.0},
+    clojure.pprint {:in-both-count 0, :clojure-total 26, :percent 0.0},
+    clojure.math {:in-both-count 0, :clojure-total 45, :percent 0.0},
+    clojure.edn {:in-both-count 0, :clojure-total 2, :percent 0.0},
+    clojure.instant {:in-both-count 0, :clojure-total 5, :percent 0.0},
+    clojure.string
+    {:in-both-count 21, :clojure-total 21, :percent 1.0},
+    clojure.data {:in-both-count 0, :clojure-total 5, :percent 0.0},
+    clojure.walk {:in-both-count 10, :clojure-total 10, :percent 1.0},
+    clojure.template
     {:in-both-count 2, :clojure-total 2, :percent 1.0}}}],
  :mismatches
  [{:arglists-clojure ([] [x] [x y] [x y & more]),
    :arglists-dialect ([] [x] [l r] [l r & args]),
    :namespace clojure.core,
    :var *}
-  {:dynamic-clojure false,
-   :dynamic-dialect true,
+  {:dynamic-clojure true,
+   :dynamic-dialect false,
    :namespace clojure.core,
-   :var *assert*}
-  {:dynamic-clojure false,
-   :dynamic-dialect true,
-   :namespace clojure.core,
-   :var *compile-files*}
-  {:dynamic-clojure false,
-   :dynamic-dialect true,
-   :namespace clojure.core,
-   :var *compile-path*}
-  {:dynamic-clojure false,
-   :dynamic-dialect true,
-   :namespace clojure.core,
-   :var *compiler-options*}
-  {:dynamic-clojure false,
-   :dynamic-dialect true,
-   :namespace clojure.core,
-   :var *err*}
-  {:dynamic-clojure false,
-   :dynamic-dialect true,
-   :namespace clojure.core,
-   :var *file*}
-  {:dynamic-clojure false,
-   :dynamic-dialect true,
-   :namespace clojure.core,
-   :var *flush-on-newline*}
-  {:dynamic-clojure false,
-   :dynamic-dialect true,
-   :namespace clojure.core,
-   :var *in*}
-  {:dynamic-clojure false,
-   :dynamic-dialect true,
-   :namespace clojure.core,
-   :var *ns*}
-  {:dynamic-clojure false,
-   :dynamic-dialect true,
-   :namespace clojure.core,
-   :var *out*}
-  {:dynamic-clojure false,
-   :dynamic-dialect true,
-   :namespace clojure.core,
-   :var *print-dup*}
-  {:dynamic-clojure false,
-   :dynamic-dialect true,
-   :namespace clojure.core,
-   :var *print-meta*}
-  {:dynamic-clojure false,
-   :dynamic-dialect true,
-   :namespace clojure.core,
-   :var *print-readably*}
-  {:dynamic-clojure false,
-   :dynamic-dialect true,
-   :namespace clojure.core,
-   :var *read-eval*}
-  {:dynamic-clojure false,
-   :dynamic-dialect true,
-   :namespace clojure.core,
-   :var *unchecked-math*}
-  {:dynamic-clojure false,
-   :dynamic-dialect true,
-   :namespace clojure.core,
-   :var *warn-on-reflection*}
+   :var *command-line-args*}
   {:arglists-clojure ([] [x] [x y] [x y & more]),
    :arglists-dialect ([] [x] [l r] [l r & args]),
    :namespace clojure.core,
@@ -819,6 +759,10 @@
    :arglists-dialect ([f]),
    :namespace clojure.core,
    :var slurp}
+  {:arglists-clojure ([pred coll]),
+   :arglists-dialect ([selector coll]),
+   :namespace clojure.core,
+   :var some}
   {:arglists-clojure ([& keyvals]),
    :arglists-dialect ([] [& keyvals]),
    :namespace clojure.core,
@@ -911,12 +855,21 @@
    :description
    "Where reader attaches meta and which ops preserve it."}],
  :drift
- {:from-date "2026-07-17",
-  :to-date "2026-07-18",
-  :added-vars #{},
+ {:from-date "2026-07-18",
+  :to-date "2026-08-30",
+  :added-vars #{clojure.core/Throwable->map clojure.core/ex-map},
   :removed-vars #{},
-  :changed [],
-  :coverage-delta 0.0},
+  :changed
+  [{:var clojure.core/some,
+    :before
+    {:arglists ([pred coll]),
+     :doc
+     "Returns the first logical true value of (pred x) for any x in coll,\n   else nil.  One common idiom is to use a set as pred, for example\n   this will return :fred if :fred is in the sequence, otherwise nil:\n   (some #{:fred} coll)"},
+    :after
+    {:arglists ([selector coll]),
+     :doc
+     "Returns the first logical true value of (selector x) for any x in coll,\n   else nil.  One common idiom is to use a set as selector, for example\n   this will return :fred if :fred is in the sequence, otherwise nil:\n   (some #{:fred} coll)"}}],
+  :coverage-delta 0.0010050251256280562},
  :extensions
  [{:id :cpp-interop-namespace,
    :title "Seamless C++ interop via cpp/ tag",
@@ -956,6 +909,7 @@
   clojure.core/deref-future
   clojure.core/descriptor
   clojure.core/elide-top-frames
+  clojure.core/ex-map
   clojure.core/filter-key
   clojure.core/fits-table?
   clojure.core/fresh-seq
@@ -1034,7 +988,6 @@
   {:namespace clojure.core, :var Inst}
   {:namespace clojure.core, :var PrintWriter-on}
   {:namespace clojure.core, :var StackTraceElement->vec}
-  {:namespace clojure.core, :var Throwable->map}
   {:namespace clojure.core, :var bean}
   {:namespace clojure.core, :var booleans}
   {:namespace clojure.core, :var bytes}

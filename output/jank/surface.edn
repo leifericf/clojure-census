@@ -93,6 +93,7 @@
     >= {:arglists ([x] [l r] [l r & args])},
     NaN?
     {:arglists ([num]), :doc "Returns true if num is NaN, else false"},
+    Throwable->map {},
     abs
     {:arglists ([a]),
      :doc
@@ -712,6 +713,9 @@
     {:arglists ([msg map] [msg map cause]),
      :doc
      "Create an instance of ExceptionInfo, a RuntimeException subclass\n   that carries a map of additional data."},
+    ex-map
+    {:arglists ([ex]),
+     :doc "Returns a map representation of an exception info."},
     ex-message
     {:arglists ([ex]),
      :doc
@@ -1777,9 +1781,9 @@
     {:arglists ([f]),
      :doc "Reads the file at the specified path into a string."},
     some
-    {:arglists ([pred coll]),
+    {:arglists ([selector coll]),
      :doc
-     "Returns the first logical true value of (pred x) for any x in coll,\n   else nil.  One common idiom is to use a set as pred, for example\n   this will return :fred if :fred is in the sequence, otherwise nil:\n   (some #{:fred} coll)"},
+     "Returns the first logical true value of (selector x) for any x in coll,\n   else nil.  One common idiom is to use a set as selector, for example\n   this will return :fred if :fred is in the sequence, otherwise nil:\n   (some #{:fred} coll)"},
     some->
     {:arglists ([expr & forms]),
      :doc
@@ -2563,4 +2567,4 @@
      "Traverses form, an arbitrary data structure.  inner and outer are\n  functions.  Applies inner to each element of form, building up a\n  data structure of the same type, then applies outer to the result.\n  Recognizes all Clojure data structures. Consumes seqs as with doall."}}}},
  :special-forms #{},
  :spec-keys #{},
- :captured-at "2026-07-18T06:38:40Z"}
+ :captured-at "2026-08-30T18:43:21Z"}
