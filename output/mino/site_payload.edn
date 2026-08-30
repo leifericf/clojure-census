@@ -1446,11 +1446,11 @@
    "Where reader attaches meta and which ops preserve it."}],
  :signals
  {:upstream-suite
-  {:tests 2527,
-   :passes 21945,
+  {:tests 3852,
+   :passes 51103,
    :failures 0,
    :errors 0,
-   :assertions 21945,
+   :assertions 51103,
    :pass-rate 1.0},
   :clojuredocs-probe
   {:passed 7,
@@ -1458,7 +1458,7 @@
    :replay false,
    :probes 12,
    :corpus
-   {:tested 50, :pass 44, :fail 0, :mino-fail 0, :allowlisted 6},
+   {:tested 50, :pass 43, :fail 0, :mino-fail 0, :allowlisted 7},
    :seed 0,
    :verdicts
    [{:probe "diff-random.summary",
@@ -1467,31 +1467,31 @@
      :passed 100,
      :failed 0,
      :seed 0,
-     :elapsed 6171.957999944687}
+     :elapsed 10643.65015599993}
     {:probe "diff-closure.summary",
      :verdict "pass",
      :tested 20,
      :passed 20,
      :failed 0,
-     :elapsed 940.2449998855591}
+     :elapsed 1638.1902280000504}
     {:probe "diff-arith.summary",
      :verdict "pass",
      :tested 20,
      :passed 20,
      :failed 0,
-     :elapsed 977.5889999866486}
+     :elapsed 1623.68989899999}
     {:probe "diff-coll.summary",
      :verdict "pass",
      :tested 20,
      :passed 20,
      :failed 0,
-     :elapsed 987.7929999828339}
+     :elapsed 1635.2058269999688}
     {:probe "diff-ctrl.summary",
      :verdict "pass",
      :tested 20,
      :passed 20,
      :failed 0,
-     :elapsed 964.0539999008179}
+     :elapsed 1617.2898210000712}
     {:probe "diff-jit.warmup-parity",
      :verdict "pass",
      :cold "153450",
@@ -1516,19 +1516,19 @@
     {:probe "diff-jit.summary",
      :verdict "pass",
      :n 5,
-     :elapsed 121.26999998092651}
+     :elapsed 182.04460400005337}
     {:seed 0,
      :fail 0,
-     :allowlisted 6,
+     :allowlisted 7,
      :probe "diff-clojuredocs.summary",
      :verdict "pass",
      :mino-fail 0,
-     :pass 44,
-     :elapsed 979.6189999580383,
+     :pass 43,
+     :elapsed 1321.9256090000272,
      :tested 50}],
    :total 7,
    :failed 0,
-   :elapsed 11175.325999975204},
+   :elapsed 18703.681171000004},
   :fuzz
   {:targets
    [{:name "fuzz-smoke", :seeds 22, :passed 22, :failed 0}
