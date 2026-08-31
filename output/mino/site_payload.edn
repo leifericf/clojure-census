@@ -1446,11 +1446,11 @@
    "Where reader attaches meta and which ops preserve it."}],
  :signals
  {:upstream-suite
-  {:tests 3852,
-   :passes 51103,
+  {:tests 3856,
+   :passes 51122,
    :failures 0,
    :errors 0,
-   :assertions 51103,
+   :assertions 51122,
    :pass-rate 1.0},
   :clojuredocs-probe
   {:passed 7,
@@ -1458,7 +1458,7 @@
    :replay false,
    :probes 12,
    :corpus
-   {:tested 50, :pass 43, :fail 0, :mino-fail 0, :allowlisted 7},
+   {:tested 50, :pass 40, :fail 0, :mino-fail 0, :allowlisted 10},
    :seed 0,
    :verdicts
    [{:probe "diff-random.summary",
@@ -1467,31 +1467,31 @@
      :passed 100,
      :failed 0,
      :seed 0,
-     :elapsed 10643.65015599993}
+     :elapsed 11275.772826}
     {:probe "diff-closure.summary",
      :verdict "pass",
      :tested 20,
      :passed 20,
      :failed 0,
-     :elapsed 1638.1902280000504}
+     :elapsed 1748.3081090000924}
     {:probe "diff-arith.summary",
      :verdict "pass",
      :tested 20,
      :passed 20,
      :failed 0,
-     :elapsed 1623.68989899999}
+     :elapsed 1729.4083380000666}
     {:probe "diff-coll.summary",
      :verdict "pass",
      :tested 20,
      :passed 20,
      :failed 0,
-     :elapsed 1635.2058269999688}
+     :elapsed 1758.5296500000404}
     {:probe "diff-ctrl.summary",
      :verdict "pass",
      :tested 20,
      :passed 20,
      :failed 0,
-     :elapsed 1617.2898210000712}
+     :elapsed 1740.1819649999961}
     {:probe "diff-jit.warmup-parity",
      :verdict "pass",
      :cold "153450",
@@ -1516,19 +1516,19 @@
     {:probe "diff-jit.summary",
      :verdict "pass",
      :n 5,
-     :elapsed 182.04460400005337}
+     :elapsed 192.97774500004016}
     {:seed 0,
      :fail 0,
-     :allowlisted 7,
+     :allowlisted 10,
      :probe "diff-clojuredocs.summary",
      :verdict "pass",
      :mino-fail 0,
-     :pass 43,
-     :elapsed 1321.9256090000272,
+     :pass 40,
+     :elapsed 1344.3997669999953,
      :tested 50}],
    :total 7,
    :failed 0,
-   :elapsed 18703.681171000004},
+   :elapsed 19832.823827999993},
   :fuzz
   {:targets
    [{:name "fuzz-smoke", :seeds 22, :passed 22, :failed 0}
