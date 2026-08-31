@@ -59,6 +59,7 @@
     == {},
     > {},
     >= {},
+    Inst {},
     NaN? {},
     PrintWriter-on {},
     StackTraceElement->vec {},
@@ -293,6 +294,7 @@
     indexed? {},
     infinite? {},
     inst-ms {},
+    inst-ms* {},
     inst? {},
     instance? {},
     int {},
@@ -950,4 +952,4 @@
    monitor-enter
    def},
  :spec-keys #{:clojure.spec.alpha/kvs->map},
- :captured-at "2026-08-30T10:27:47Z"}
+ :captured-at "2026-08-31T11:34:10Z"}
