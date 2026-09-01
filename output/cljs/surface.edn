@@ -5178,4 +5178,4 @@
  :special-forms
  #{try finally do if new recur set! . var quote catch throw def},
  :spec-keys #{},
- :captured-at "2026-08-31T11:41:08Z"}
+ :captured-at "2026-09-01T10:15:10Z"}
