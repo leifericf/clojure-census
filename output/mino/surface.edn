@@ -732,7 +732,7 @@
     iterate
     {:arglists ([f x]),
      :doc
-     "Returns a lazy sequence of x, (f x), (f (f x)), and so on."},
+     "Returns a lazy sequence of x, (f x), (f (f x)), and so on. f is\n   applied only when the tail is realized: element 0 is x itself, so\n   taking n elements calls f exactly (dec n) times."},
     iteration
     {:arglists
      ([step
@@ -1220,7 +1220,7 @@
     reductions
     {:arglists ([f coll] [f init coll]),
      :doc
-     "Returns a lazy sequence of the intermediate values of a reduction."},
+     "Returns a lazy sequence of the intermediate values of a reduction.\n   A reduced value from f (or as init) short-circuits: its dereferenced\n   value becomes the final element."},
     ref {:arglists ([x] [x & options])},
     ref-history-count {:arglists ([ref])},
     ref-max-history {:arglists ([ref] [ref n])},
@@ -1406,7 +1406,7 @@
     splitv-at
     {:arglists ([n coll]),
      :doc
-     "Returns a vector [(vec (take n coll)) (vec (drop n coll))]."},
+     "Returns a vector [(vec (take n coll)) (drop n coll)]: the head is a\n   vector, the tail stays a lazy seq."},
     store-checkpoint* {},
     store-clock* {},
     store-close* {},
@@ -1860,7 +1860,7 @@
     read-instant-date
     {:arglists ([cs]),
      :doc
-     "Parses an ISO 8601 timestamp string and returns the validated\n   component map. Named for parity with canonical clojure.instant;\n   on the JVM and JS this returns a host Date instance, but mino\n   has no host date type so the map is the honest representation.\n   The returned map carries `:mino/instant true` in its metadata so\n   `inst?` recognises it; the map content itself stays free of\n   marker keys so equality with user-constructed maps of the same\n   shape isn't accidentally broken."},
+     "Parses an ISO 8601 timestamp string and returns the validated\n   component map. Named for parity with canonical clojure.instant;\n   on the JVM and JS this returns a host Date instance, but mino\n   has no host date type so the map is the honest representation.\n   The returned map carries `:mino/instant true` in its metadata so\n   `inst?` recognises it; the map content itself stays free of\n   marker keys so equality with user-constructed maps of the same\n   shape isn't accidentally broken.\n\n   A :60 leap second is normalized into the following minute (see\n   normalize-leap-second) so the returned instant equals the one the\n   JVM produces via java.util.Date."},
     validated
     {:arglists
      ([{:keys
@@ -1875,7 +1875,7 @@
          offset-minutes],
         :as m}]),
      :doc
-     "Range-checks the components in a parsed timestamp map. Returns\n   the map unchanged on success; throws ex-info on out-of-range\n   values. Mirrors the canonical clojure.instant validation."}}},
+     "Range-checks the components in a parsed timestamp map. Returns\n   the map unchanged on success; throws ex-info on out-of-range\n   values. Mirrors the canonical clojure.instant validation,\n   including its per-month day bound and its rule that a :60 leap\n   second is accepted only when minutes is 59."}}},
   clojure.math
   {:vars
    {E {},
@@ -2781,4 +2781,4 @@
    throw
    def},
  :spec-keys #{},
- :captured-at "2026-08-31T11:18:59Z"}
+ :captured-at "2026-09-01T09:43:34Z"}
