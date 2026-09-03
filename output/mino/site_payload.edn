@@ -1467,31 +1467,31 @@
      :passed 100,
      :failed 0,
      :seed 0,
-     :elapsed 9242.67306000006}
+     :elapsed 12203.946307000006}
     {:probe "diff-closure.summary",
      :verdict "pass",
      :tested 20,
      :passed 20,
      :failed 0,
-     :elapsed 1497.802818999975}
+     :elapsed 1985.3465829999186}
     {:probe "diff-arith.summary",
      :verdict "pass",
      :tested 20,
      :passed 20,
      :failed 0,
-     :elapsed 1484.5170339999022}
+     :elapsed 1984.3004469999578}
     {:probe "diff-coll.summary",
      :verdict "pass",
      :tested 20,
      :passed 20,
      :failed 0,
-     :elapsed 1483.260263999924}
+     :elapsed 1981.2210889999988}
     {:probe "diff-ctrl.summary",
      :verdict "pass",
      :tested 20,
      :passed 20,
      :failed 0,
-     :elapsed 1504.3811030000215}
+     :elapsed 1983.5993500000332}
     {:probe "diff-jit.warmup-parity",
      :verdict "pass",
      :cold "153450",
@@ -1516,7 +1516,7 @@
     {:probe "diff-jit.summary",
      :verdict "pass",
      :n 5,
-     :elapsed 162.24655100004748}
+     :elapsed 214.69721300003584}
     {:seed 0,
      :fail 0,
      :allowlisted 4,
@@ -1524,7 +1524,7 @@
      :verdict "pass",
      :mino-fail 0,
      :pass 46,
-     :elapsed 1594.1931659999536,
+     :elapsed 2936.0532779999776,
      :tested 50}
     {:pending 1,
      :seed 0,
@@ -1534,7 +1534,7 @@
      :verdict "pass",
      :mino-fail 0,
      :pass 179,
-     :elapsed 5915.358510000049,
+     :elapsed 8073.355253000045,
      :tested 180}
     {:probe "diff-jvm-core.summary",
      :verdict "pass",
@@ -1543,10 +1543,10 @@
      :fail 0,
      :mino-fail 0,
      :allowlisted 6,
-     :elapsed 243.08889700006694}],
+     :elapsed 326.68115900002886}],
    :total 9,
    :failed 0,
-   :elapsed 23164.063330999925},
+   :elapsed 31734.80976799992},
   :fuzz
   {:targets
    [{:name "fuzz-smoke", :seeds 22, :passed 22, :failed 0}
