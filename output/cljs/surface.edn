@@ -4141,40 +4141,40 @@
      :doc "Positional factory function for cljs.pprint/start-block-t.",
      :file "out/cljs/pprint.cljs",
      :line 256},
-    ->t_cljs$pprint10031
-    {:arglists ([writer max-columns fields meta10032]),
+    ->t_cljs$pprint10054
+    {:arglists ([writer max-columns fields meta10055]),
      :doc
-     "Positional factory function for cljs.pprint/t_cljs$pprint10031.",
+     "Positional factory function for cljs.pprint/t_cljs$pprint10054.",
      :file "out/cljs/pprint.cljs",
      :line 189},
-    ->t_cljs$pprint10629
-    {:arglists ([writer max-columns miser-width lb fields meta10630]),
+    ->t_cljs$pprint10687
+    {:arglists ([writer max-columns miser-width lb fields meta10688]),
      :doc
-     "Positional factory function for cljs.pprint/t_cljs$pprint10629.",
+     "Positional factory function for cljs.pprint/t_cljs$pprint10687.",
      :file "out/cljs/pprint.cljs",
      :line 510},
-    ->t_cljs$pprint11346
-    {:arglists ([writer meta11347]),
+    ->t_cljs$pprint11438
+    {:arglists ([writer meta11439]),
      :doc
-     "Positional factory function for cljs.pprint/t_cljs$pprint11346.",
+     "Positional factory function for cljs.pprint/t_cljs$pprint11438.",
      :file "out/cljs/pprint.cljs",
      :line 1922},
-    ->t_cljs$pprint11364
-    {:arglists ([writer meta11365]),
+    ->t_cljs$pprint11453
+    {:arglists ([writer meta11454]),
      :doc
-     "Positional factory function for cljs.pprint/t_cljs$pprint11364.",
+     "Positional factory function for cljs.pprint/t_cljs$pprint11453.",
      :file "out/cljs/pprint.cljs",
      :line 1943},
-    ->t_cljs$pprint11381
-    {:arglists ([writer last-was-whitespace? meta11382]),
+    ->t_cljs$pprint11482
+    {:arglists ([writer last-was-whitespace? meta11483]),
      :doc
-     "Positional factory function for cljs.pprint/t_cljs$pprint11381.",
+     "Positional factory function for cljs.pprint/t_cljs$pprint11482.",
      :file "out/cljs/pprint.cljs",
      :line 1988},
-    ->t_cljs$pprint11415
-    {:arglists ([writer capped meta11416]),
+    ->t_cljs$pprint11499
+    {:arglists ([writer capped meta11500]),
      :doc
-     "Positional factory function for cljs.pprint/t_cljs$pprint11415.",
+     "Positional factory function for cljs.pprint/t_cljs$pprint11499.",
      :file "out/cljs/pprint.cljs",
      :line 2014},
     -ppflush
@@ -4227,31 +4227,31 @@
     indent-t
     {:tag "function", :file "out/cljs/pprint.cljs", :line 260},
     map->buffer-blob
-    {:arglists ([G__10134]),
+    {:arglists ([G__10182]),
      :doc
      "Factory function for cljs.pprint/buffer-blob, taking a map of keywords to field values.",
      :file "out/cljs/pprint.cljs",
      :line 251},
     map->end-block-t
-    {:arglists ([G__10326]),
+    {:arglists ([G__10409]),
      :doc
      "Factory function for cljs.pprint/end-block-t, taking a map of keywords to field values.",
      :file "out/cljs/pprint.cljs",
      :line 258},
     map->indent-t
-    {:arglists ([G__10403]),
+    {:arglists ([G__10507]),
      :doc
      "Factory function for cljs.pprint/indent-t, taking a map of keywords to field values.",
      :file "out/cljs/pprint.cljs",
      :line 260},
     map->nl-t
-    {:arglists ([G__10189]),
+    {:arglists ([G__10256]),
      :doc
      "Factory function for cljs.pprint/nl-t, taking a map of keywords to field values.",
      :file "out/cljs/pprint.cljs",
      :line 254},
     map->start-block-t
-    {:arglists ([G__10243]),
+    {:arglists ([G__10348]),
      :doc
      "Factory function for cljs.pprint/start-block-t, taking a map of keywords to field values.",
      :file "out/cljs/pprint.cljs",
@@ -4299,17 +4299,17 @@
      :line 2905},
     start-block-t
     {:tag "function", :file "out/cljs/pprint.cljs", :line 256},
-    t_cljs$pprint10031
+    t_cljs$pprint10054
     {:tag "function", :file "out/cljs/pprint.cljs", :line 189},
-    t_cljs$pprint10629
+    t_cljs$pprint10687
     {:tag "function", :file "out/cljs/pprint.cljs", :line 510},
-    t_cljs$pprint11346
+    t_cljs$pprint11438
     {:tag "function", :file "out/cljs/pprint.cljs", :line 1922},
-    t_cljs$pprint11364
+    t_cljs$pprint11453
     {:tag "function", :file "out/cljs/pprint.cljs", :line 1943},
-    t_cljs$pprint11381
+    t_cljs$pprint11482
     {:tag "function", :file "out/cljs/pprint.cljs", :line 1988},
-    t_cljs$pprint11415
+    t_cljs$pprint11499
     {:tag "function", :file "out/cljs/pprint.cljs", :line 2014},
     write
     {:arglists ([object & kw-args]),
@@ -4433,35 +4433,35 @@
      :tag "any",
      :file "out/cljs/spec/alpha.cljs",
      :line 21},
-    ->t_cljs$spec$alpha3826
+    ->t_cljs$spec$alpha3858
     {:arglists
-     ([keys->specnames
+     ([p__3846
+       keys->specnames
        opt
        req-un
        opt-un
-       p__3820
        gfn
        pred-exprs
        keys-pred
        argm
        opt-keys
        req-specs
-       map__3821
+       map__3847
        req
        id
        req-keys
        opt-specs
        k->s
        pred-forms
-       meta3827]),
+       meta3859]),
      :doc
-     "Positional factory function for cljs.spec.alpha/t_cljs$spec$alpha3826.",
+     "Positional factory function for cljs.spec.alpha/t_cljs$spec$alpha3858.",
      :file "out/cljs/spec/alpha.cljs",
      :line 430},
-    ->t_cljs$spec$alpha3947
-    {:arglists ([form pred gfn cpred? unc meta3948]),
+    ->t_cljs$spec$alpha3984
+    {:arglists ([form pred gfn cpred? unc meta3985]),
      :doc
-     "Positional factory function for cljs.spec.alpha/t_cljs$spec$alpha3947.",
+     "Positional factory function for cljs.spec.alpha/t_cljs$spec$alpha3984.",
      :file "out/cljs/spec/alpha.cljs",
      :line 520},
     ->t_cljs$spec$alpha4007
@@ -4470,39 +4470,38 @@
      "Positional factory function for cljs.spec.alpha/t_cljs$spec$alpha4007.",
      :file "out/cljs/spec/alpha.cljs",
      :line 556},
-    ->t_cljs$spec$alpha4058
-    {:arglists ([forms preds gfn specs cnt meta4059]),
+    ->t_cljs$spec$alpha4026
+    {:arglists ([forms preds gfn specs cnt meta4027]),
      :doc
-     "Positional factory function for cljs.spec.alpha/t_cljs$spec$alpha4058.",
+     "Positional factory function for cljs.spec.alpha/t_cljs$spec$alpha4026.",
      :file "out/cljs/spec/alpha.cljs",
      :line 600},
-    ->t_cljs$spec$alpha4126
-    {:arglists ([keys forms preds gfn id kps specs cform meta4127]),
+    ->t_cljs$spec$alpha4063
+    {:arglists ([keys forms preds gfn id kps specs cform meta4064]),
      :doc
-     "Positional factory function for cljs.spec.alpha/t_cljs$spec$alpha4126.",
+     "Positional factory function for cljs.spec.alpha/t_cljs$spec$alpha4063.",
      :file "out/cljs/spec/alpha.cljs",
      :line 697},
-    ->t_cljs$spec$alpha4214
-    {:arglists ([forms preds gfn specs cform meta4215]),
+    ->t_cljs$spec$alpha4184
+    {:arglists ([forms preds gfn specs cform meta4185]),
      :doc
-     "Positional factory function for cljs.spec.alpha/t_cljs$spec$alpha4214.",
+     "Positional factory function for cljs.spec.alpha/t_cljs$spec$alpha4184.",
      :file "out/cljs/spec/alpha.cljs",
      :line 780},
-    ->t_cljs$spec$alpha4257
-    {:arglists ([forms preds gfn meta4258]),
+    ->t_cljs$spec$alpha4251
+    {:arglists ([forms preds gfn meta4252]),
      :doc
-     "Positional factory function for cljs.spec.alpha/t_cljs$spec$alpha4257.",
+     "Positional factory function for cljs.spec.alpha/t_cljs$spec$alpha4251.",
      :file "out/cljs/spec/alpha.cljs",
      :line 816},
-    ->t_cljs$spec$alpha4301
+    ->t_cljs$spec$alpha4273
     {:arglists
-     ([form
+     ([map__4271
+       form
        max-count
-       p__4297
        check?
        gfn
        gen-max
-       map__4298
        pred
        cpred
        conform-keys
@@ -4519,35 +4518,36 @@
        opts
        kind
        conform-all
+       p__4270
        conform-into
-       meta4302]),
+       meta4274]),
      :doc
-     "Positional factory function for cljs.spec.alpha/t_cljs$spec$alpha4301.",
+     "Positional factory function for cljs.spec.alpha/t_cljs$spec$alpha4273.",
      :file "out/cljs/spec/alpha.cljs",
      :line 881},
-    ->t_cljs$spec$alpha4596
-    {:arglists ([re gfn meta4597]),
+    ->t_cljs$spec$alpha4583
+    {:arglists ([re gfn meta4584]),
      :doc
-     "Positional factory function for cljs.spec.alpha/t_cljs$spec$alpha4596.",
+     "Positional factory function for cljs.spec.alpha/t_cljs$spec$alpha4583.",
      :file "out/cljs/spec/alpha.cljs",
      :line 1297},
-    ->t_cljs$spec$alpha4624
+    ->t_cljs$spec$alpha4607
     {:arglists
-     ([argspec aform retspec rform fnspec fform gfn specs meta4625]),
+     ([argspec aform retspec rform fnspec fform gfn specs meta4608]),
      :doc
-     "Positional factory function for cljs.spec.alpha/t_cljs$spec$alpha4624.",
+     "Positional factory function for cljs.spec.alpha/t_cljs$spec$alpha4607.",
      :file "out/cljs/spec/alpha.cljs",
      :line 1346},
-    ->t_cljs$spec$alpha4689
-    {:arglists ([spec meta4690]),
+    ->t_cljs$spec$alpha4672
+    {:arglists ([spec meta4673]),
      :doc
-     "Positional factory function for cljs.spec.alpha/t_cljs$spec$alpha4689.",
+     "Positional factory function for cljs.spec.alpha/t_cljs$spec$alpha4672.",
      :file "out/cljs/spec/alpha.cljs",
      :line 1394},
-    ->t_cljs$spec$alpha4705
-    {:arglists ([form pred gfn spec meta4706]),
+    ->t_cljs$spec$alpha4680
+    {:arglists ([form pred gfn spec meta4681]),
      :doc
-     "Positional factory function for cljs.spec.alpha/t_cljs$spec$alpha4705.",
+     "Positional factory function for cljs.spec.alpha/t_cljs$spec$alpha4680.",
      :file "out/cljs/spec/alpha.cljs",
      :line 1414},
     MAX_INT
@@ -4817,29 +4817,29 @@
     {:arglists ([_] [_ form]),
      :file "out/cljs/spec/alpha.cljs",
      :line 131},
-    t_cljs$spec$alpha3826
+    t_cljs$spec$alpha3858
     {:tag "function", :file "out/cljs/spec/alpha.cljs", :line 430},
-    t_cljs$spec$alpha3947
+    t_cljs$spec$alpha3984
     {:tag "function", :file "out/cljs/spec/alpha.cljs", :line 520},
     t_cljs$spec$alpha4007
     {:tag "function", :file "out/cljs/spec/alpha.cljs", :line 556},
-    t_cljs$spec$alpha4058
+    t_cljs$spec$alpha4026
     {:tag "function", :file "out/cljs/spec/alpha.cljs", :line 600},
-    t_cljs$spec$alpha4126
+    t_cljs$spec$alpha4063
     {:tag "function", :file "out/cljs/spec/alpha.cljs", :line 697},
-    t_cljs$spec$alpha4214
+    t_cljs$spec$alpha4184
     {:tag "function", :file "out/cljs/spec/alpha.cljs", :line 780},
-    t_cljs$spec$alpha4257
+    t_cljs$spec$alpha4251
     {:tag "function", :file "out/cljs/spec/alpha.cljs", :line 816},
-    t_cljs$spec$alpha4301
+    t_cljs$spec$alpha4273
     {:tag "function", :file "out/cljs/spec/alpha.cljs", :line 881},
-    t_cljs$spec$alpha4596
+    t_cljs$spec$alpha4583
     {:tag "function", :file "out/cljs/spec/alpha.cljs", :line 1297},
-    t_cljs$spec$alpha4624
+    t_cljs$spec$alpha4607
     {:tag "function", :file "out/cljs/spec/alpha.cljs", :line 1346},
-    t_cljs$spec$alpha4689
+    t_cljs$spec$alpha4672
     {:tag "function", :file "out/cljs/spec/alpha.cljs", :line 1394},
-    t_cljs$spec$alpha4705
+    t_cljs$spec$alpha4680
     {:tag "function", :file "out/cljs/spec/alpha.cljs", :line 1414},
     tuple-impl
     {:arglists ([forms preds] [forms preds gfn]),
@@ -5178,4 +5178,4 @@
  :special-forms
  #{try finally do if new recur set! . var quote catch throw def},
  :spec-keys #{},
- :captured-at "2026-09-02T09:44:08Z"}
+ :captured-at "2026-09-03T09:57:13Z"}
