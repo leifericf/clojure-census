@@ -1458,7 +1458,7 @@
    :replay false,
    :probes 14,
    :corpus
-   {:tested 50, :pass 46, :fail 0, :mino-fail 0, :allowlisted 4},
+   {:tested 50, :pass 45, :fail 0, :mino-fail 0, :allowlisted 5},
    :seed 0,
    :verdicts
    [{:probe "diff-random.summary",
@@ -1467,31 +1467,31 @@
      :passed 100,
      :failed 0,
      :seed 0,
-     :elapsed 12203.946307000006}
+     :elapsed 11935.710651999922}
     {:probe "diff-closure.summary",
      :verdict "pass",
      :tested 20,
      :passed 20,
      :failed 0,
-     :elapsed 1985.3465829999186}
+     :elapsed 1953.1646950000431}
     {:probe "diff-arith.summary",
      :verdict "pass",
      :tested 20,
      :passed 20,
      :failed 0,
-     :elapsed 1984.3004469999578}
+     :elapsed 1943.8306149999844}
     {:probe "diff-coll.summary",
      :verdict "pass",
      :tested 20,
      :passed 20,
      :failed 0,
-     :elapsed 1981.2210889999988}
+     :elapsed 1921.6043960000388}
     {:probe "diff-ctrl.summary",
      :verdict "pass",
      :tested 20,
      :passed 20,
      :failed 0,
-     :elapsed 1983.5993500000332}
+     :elapsed 1950.5217589999083}
     {:probe "diff-jit.warmup-parity",
      :verdict "pass",
      :cold "153450",
@@ -1516,15 +1516,15 @@
     {:probe "diff-jit.summary",
      :verdict "pass",
      :n 5,
-     :elapsed 214.69721300003584}
+     :elapsed 212.40175900002941}
     {:seed 0,
      :fail 0,
-     :allowlisted 4,
+     :allowlisted 5,
      :probe "diff-clojuredocs.summary",
      :verdict "pass",
      :mino-fail 0,
-     :pass 46,
-     :elapsed 2936.0532779999776,
+     :pass 45,
+     :elapsed 2025.297237000079,
      :tested 50}
     {:pending 1,
      :seed 0,
@@ -1534,7 +1534,7 @@
      :verdict "pass",
      :mino-fail 0,
      :pass 179,
-     :elapsed 8073.355253000045,
+     :elapsed 7741.524848999921,
      :tested 180}
     {:probe "diff-jvm-core.summary",
      :verdict "pass",
@@ -1543,10 +1543,10 @@
      :fail 0,
      :mino-fail 0,
      :allowlisted 6,
-     :elapsed 326.68115900002886}],
+     :elapsed 319.82288999995217}],
    :total 9,
    :failed 0,
-   :elapsed 31734.80976799992},
+   :elapsed 30047.678214999964},
   :fuzz
   {:targets
    [{:name "fuzz-smoke", :seeds 22, :passed 22, :failed 0}
