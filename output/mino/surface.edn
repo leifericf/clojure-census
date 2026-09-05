@@ -175,6 +175,7 @@
     async-next-timer-ms* {},
     async-sched-enqueue* {},
     async-schedule-timer* {},
+    at-exit {},
     atom {:arglists ([x] [x & options])},
     atom? {},
     await {:arglists ([& agents])},
@@ -233,6 +234,7 @@
      :doc "Returns a seq of all but the last item in coll."},
     byte {:arglists ([x])},
     byte-array {:arglists ([size-or-seq] [size init-val-or-seq])},
+    bytes->string {},
     bytes? {:arglists ([x])},
     car {},
     case
@@ -273,6 +275,7 @@
     {:doc "Returns name string for char or nil if none."},
     char? {:arglists ([x])},
     chdir {},
+    chmod {},
     chunk {:arglists ([b])},
     chunk-append {:arglists ([b x])},
     chunk-buffer {:arglists ([capacity])},
@@ -332,6 +335,8 @@
     {:arglists ([x]),
      :doc "Returns a function that always returns x."},
     contains? {:arglists ([coll key])},
+    copy {},
+    copy-tree {},
     count {:arglists ([coll])},
     counted?
     {:arglists ([coll]),
@@ -439,6 +444,7 @@
      :doc
      "Returns a lazy sequence of the distinct items in coll. When called\n   with no collection, returns a transducer."},
     distinct? {:arglists ([x] [x y] [x y & more])},
+    dns-lookup {},
     doall {:arglists ([coll] [n coll])},
     dorun {:arglists ([coll] [n coll])},
     doseq
@@ -549,6 +555,7 @@
     file-exists? {},
     file-mtime {},
     file-seq {:arglists ([dir])},
+    file-size {},
     filter
     {:arglists ([pred] [pred coll]),
      :doc
@@ -566,6 +573,7 @@
     float {:arglists ([x])},
     float-array {:arglists ([size-or-seq] [size init-val-or-seq])},
     float? {:arglists ([n])},
+    flock {},
     flush {:arglists ([])},
     fn
     {:arglists ([& sigs]),
@@ -590,6 +598,7 @@
     format {:arglists ([fmt & args])},
     format-time {},
     frequencies {:arglists ([coll])},
+    funlock {},
     future
     {:arglists ([& body]),
      :doc
@@ -910,6 +919,8 @@
     {:arglists ([hash-basis count]),
      :doc "Combines a hash-basis with the collection's count."},
     mkdir-p {},
+    mkdtemp {},
+    mkstemp {},
     mod {:arglists ([num div])},
     monitor-exit
     {:arglists ([x owner]),
@@ -989,11 +1000,16 @@
     numerator {:arglists ([r])},
     object-array {:arglists ([size-or-seq])},
     odd? {:arglists ([n])},
+    on-signal {},
     or
     {:arglists ([& xs]),
      :doc
      "Returns the first truthy value, or the last value if none are truthy.",
      :macro true},
+    out-buffer {},
+    out-buffer-line-start? {},
+    out-buffer-str {},
+    out-buffer? {},
     parents
     {:arglists ([tag] [h tag]),
      :doc "Returns the immediate parents of tag in the hierarchy."},
@@ -1100,7 +1116,7 @@
     print-simple
     {:arglists ([o w]),
      :doc
-     "Writes the plain text form of o (its str form, bypassing the\n   print-method dispatch) to w, a string-collecting atom like the one\n   *out* is bound to inside with-out-str. Returns nil."},
+     "Writes the plain text form of o (its str form, bypassing the\n   print-method dispatch) to w, an output sink such as the buffer\n   *out* is bound to inside with-out-str or a string-collecting\n   atom. Returns nil."},
     print-str
     {:arglists ([& xs]),
      :doc
@@ -1141,12 +1157,14 @@
     queue? {},
     quot {:arglists ([num div])},
     rand {:arglists ([] [n])},
+    rand-hex {},
     rand-int
     {:arglists ([n]),
      :doc
      "Returns a random integer between 0 (inclusive) and n (exclusive)."},
     rand-nth
     {:arglists ([coll]), :doc "Returns a random element from coll."},
+    rand-token {},
     random-sample
     {:arglists ([prob] [prob coll]),
      :doc
@@ -1187,7 +1205,9 @@
      :doc
      "Like read: consumes one form from the source and returns\n   [form text] where text is the exactly-consumed input, whitespace-\n   trimmed. The source may be a string or a string-cursor atom of the\n   kind *in* / with-in-str use (the cursor advances past the form)."},
     read-line {:arglists ([])},
+    read-password {},
     read-string {:arglists ([s] [opts s])},
+    read-symlink {},
     reader-conditional
     {:arglists ([form splicing?]),
      :doc
@@ -1304,6 +1324,7 @@
      "Returns true if x's type has implementations for all methods of\n   proto."},
     save-image {},
     second {:arglists ([x]), :doc "Returns the second item in coll."},
+    secure-rand-bytes {},
     select-keys
     {:arglists ([map keyseq]),
      :doc
@@ -1407,6 +1428,7 @@
     {:arglists ([n coll]),
      :doc
      "Returns a vector [(vec (take n coll)) (drop n coll)]: the head is a\n   vector, the tail stays a lazy seq."},
+    stat {},
     store-checkpoint* {},
     store-clock* {},
     store-close* {},
@@ -1429,6 +1451,7 @@
     {:arglists ([atom f] [atom f x] [atom f x y] [atom f x y & args])},
     symbol {:arglists ([name] [ns name])},
     symbol? {:arglists ([x])},
+    symlink {},
     sync
     {:arglists ([flags-ignored-for-now & body]),
      :doc
@@ -1461,6 +1484,10 @@
     {:arglists ([x]),
      :doc
      "Sends x to every registered tap. Tap fns that throw are silently\n   skipped so a misbehaving subscriber does not poison the stream.\n   Returns true."},
+    tar-create {},
+    tar-entries {},
+    tar-extract {},
+    tar-read {},
     terminal-height {},
     terminal-width {},
     test
@@ -1509,6 +1536,11 @@
     true? {:arglists ([x])},
     tty? {},
     type {:arglists ([x])},
+    udp-close {},
+    udp-recv {},
+    udp-send {},
+    udp-socket {},
+    udp-socket-port {},
     uname {},
     unchecked-add {:arglists ([x y])},
     unchecked-add-int {:arglists ([x y])},
@@ -1634,6 +1666,11 @@
      "Takes a map of var->value pairs. Installs the bindings, executes\n   body, and pops the bindings in a finally clause.",
      :macro true},
     with-bindings* {:arglists ([binding-map f])},
+    with-file-lock
+    {:arglists ([bindings & body]),
+     :doc
+     "Acquires an advisory lock on the lockfile, binds name to the lock\n   handle, evaluates body, and releases the lock on every exit, including\n   a throwing one. An optional opts map is passed to flock.",
+     :macro true},
     with-in-str
     {:arglists ([s & body]),
      :doc
@@ -1653,7 +1690,7 @@
     with-out-str
     {:arglists ([& body]),
      :doc
-     "Evaluates body with *out* bound to a fresh string-collecting atom,\n  and returns the accumulated string.",
+     "Evaluates body with *out* bound to a fresh growable output buffer,\n  and returns the accumulated string.",
      :macro true},
     with-precision
     {:arglists ([precision & exprs]),
@@ -1669,6 +1706,19 @@
     {:arglists ([binding-map func]),
      :doc
      "Temporarily rebinds the root values of vars to new-values while\n   thunk runs, restoring originals afterward. bindings-map is a map\n   of var -> new-value."},
+    with-temp-dir
+    {:arglists ([bindings & body]),
+     :doc
+     "Binds name to a fresh private temp directory, evaluates body, and\n   removes the directory (and its contents) on every exit, including a\n   throwing one. An optional prefix string names the directory.",
+     :macro true},
+    with-temp-file
+    {:arglists ([bindings & body]),
+     :doc
+     "Binds name to a fresh private temp file, evaluates body, and removes\n   the file on every exit, including a throwing one. An optional prefix\n   string names the file.",
+     :macro true},
+    ws-accept-key {},
+    ws-decode-frames {},
+    ws-encode-frame {},
     xml-parse {},
     xml-seq
     {:arglists ([root]),
@@ -2067,7 +2117,7 @@
     fresh-line
     {:arglists ([]),
      :doc
-     "Emit a newline only when output is not already at the start of a line.\n  Inside the engine the column is known exactly; otherwise, when *out* is\n  a string-collecting atom, inspect the buffer; failing that, emit a\n  newline."},
+     "Emit a newline only when output is not already at the start of a line.\n  Inside the engine the column is known exactly; otherwise, when *out* is\n  a capture sink (a with-out-str buffer or a string-collecting atom),\n  inspect the buffer; failing that, emit a newline."},
     get-pretty-writer
     {:arglists ([writer]),
      :doc
@@ -2781,4 +2831,4 @@
    throw
    def},
  :spec-keys #{},
- :captured-at "2026-09-04T09:17:43Z"}
+ :captured-at "2026-09-05T08:46:32Z"}

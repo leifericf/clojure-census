@@ -2,7 +2,7 @@
  {:dialect-tag "mino",
   :dialect-name "mino",
   :clojure-version "1.12.4",
-  :compared-at "2026-09-04T09:18:12Z"},
+  :compared-at "2026-09-05T08:47:01Z"},
  :divergences
  [{:dialect-example "(compare \"z\" \"a\") ;=> 1",
    :since "v0.1.0",
@@ -450,44 +450,7 @@
    clojure.template
    {:in-both-count 2, :clojure-total 2, :percent 1.0}}},
  :history
- [{:date "2026-08-22",
-   :dialect-tag "mino",
-   :clojure-version "2026.08.08-alpha1",
-   :headline
-   {:in-both-count 904,
-    :clojure-total 995,
-    :percent 0.9085427135678392},
-   :per-namespace
-   {clojure.spec.alpha
-    {:in-both-count 87, :clojure-total 87, :percent 1.0},
-    clojure.datafy {:in-both-count 2, :clojure-total 2, :percent 1.0},
-    clojure.zip {:in-both-count 28, :clojure-total 28, :percent 1.0},
-    clojure.core.reducers
-    {:in-both-count 19,
-     :clojure-total 21,
-     :percent 0.9047619047619048},
-    clojure.test {:in-both-count 39, :clojure-total 39, :percent 1.0},
-    clojure.core.protocols
-    {:in-both-count 10,
-     :clojure-total 11,
-     :percent 0.9090909090909091},
-    clojure.core
-    {:in-both-count 593,
-     :clojure-total 679,
-     :percent 0.8733431516936672},
-    clojure.set {:in-both-count 12, :clojure-total 12, :percent 1.0},
-    clojure.pprint
-    {:in-both-count 26, :clojure-total 26, :percent 1.0},
-    clojure.math {:in-both-count 45, :clojure-total 45, :percent 1.0},
-    clojure.edn {:in-both-count 2, :clojure-total 2, :percent 1.0},
-    clojure.instant {:in-both-count 3, :clojure-total 5, :percent 0.6},
-    clojure.string
-    {:in-both-count 21, :clojure-total 21, :percent 1.0},
-    clojure.data {:in-both-count 5, :clojure-total 5, :percent 1.0},
-    clojure.walk {:in-both-count 10, :clojure-total 10, :percent 1.0},
-    clojure.template
-    {:in-both-count 2, :clojure-total 2, :percent 1.0}}}
-  {:date "2026-08-23",
+ [{:date "2026-08-23",
    :dialect-tag "mino",
    :clojure-version "2026.08.08-alpha1",
    :headline
@@ -967,10 +930,47 @@
     clojure.data {:in-both-count 5, :clojure-total 5, :percent 1.0},
     clojure.walk {:in-both-count 10, :clojure-total 10, :percent 1.0},
     clojure.template
+    {:in-both-count 2, :clojure-total 2, :percent 1.0}}}
+  {:date "2026-09-05",
+   :dialect-tag "mino",
+   :clojure-version "2026.08.08-alpha1",
+   :headline
+   {:in-both-count 904,
+    :clojure-total 995,
+    :percent 0.9085427135678392},
+   :per-namespace
+   {clojure.spec.alpha
+    {:in-both-count 87, :clojure-total 87, :percent 1.0},
+    clojure.datafy {:in-both-count 2, :clojure-total 2, :percent 1.0},
+    clojure.zip {:in-both-count 28, :clojure-total 28, :percent 1.0},
+    clojure.core.reducers
+    {:in-both-count 19,
+     :clojure-total 21,
+     :percent 0.9047619047619048},
+    clojure.test {:in-both-count 39, :clojure-total 39, :percent 1.0},
+    clojure.core.protocols
+    {:in-both-count 10,
+     :clojure-total 11,
+     :percent 0.9090909090909091},
+    clojure.core
+    {:in-both-count 593,
+     :clojure-total 679,
+     :percent 0.8733431516936672},
+    clojure.set {:in-both-count 12, :clojure-total 12, :percent 1.0},
+    clojure.pprint
+    {:in-both-count 26, :clojure-total 26, :percent 1.0},
+    clojure.math {:in-both-count 45, :clojure-total 45, :percent 1.0},
+    clojure.edn {:in-both-count 2, :clojure-total 2, :percent 1.0},
+    clojure.instant {:in-both-count 3, :clojure-total 5, :percent 0.6},
+    clojure.string
+    {:in-both-count 21, :clojure-total 21, :percent 1.0},
+    clojure.data {:in-both-count 5, :clojure-total 5, :percent 1.0},
+    clojure.walk {:in-both-count 10, :clojure-total 10, :percent 1.0},
+    clojure.template
     {:in-both-count 2, :clojure-total 2, :percent 1.0}}}],
  :behavior
  {:dialect-tag "mino",
-  :run-at "2026-09-04T09:17:47Z",
+  :run-at "2026-09-05T08:46:36Z",
   :totals
   {:match 9, :mismatch 0, :divergent-as-expected 13, :skipped 0},
   :parities
@@ -980,7 +980,7 @@
     {:status :value,
      :value {:clj-census/opaque "class java.lang.String"},
      :elapsed-ms 1},
-    :dialect {:status :value, :value :string, :elapsed-ms 0},
+    :dialect {:status :value, :value :string, :elapsed-ms 1},
     :verdict :divergent-as-expected,
     :reason "predicate :keyword-vs-class matched",
     :divergence-id :type-as-keyword}
@@ -989,7 +989,7 @@
     :oracle
     {:status :value,
      :value {:clj-census/opaque "class java.lang.Long"},
-     :elapsed-ms 1},
+     :elapsed-ms 0},
     :dialect {:status :value, :value :int, :elapsed-ms 0},
     :verdict :divergent-as-expected,
     :reason "predicate :keyword-vs-class matched",
@@ -1034,8 +1034,8 @@
     :divergence-id :compare-sign-normalized}
    {:case-id :compare/numbers-ascending,
     :var clojure.core/compare,
-    :oracle {:status :value, :value -1, :elapsed-ms 1},
-    :dialect {:status :value, :value -1, :elapsed-ms 0},
+    :oracle {:status :value, :value -1, :elapsed-ms 0},
+    :dialect {:status :value, :value -1, :elapsed-ms 1},
     :verdict :divergent-as-expected,
     :reason "predicate :sign-normalized matched",
     :divergence-id :compare-sign-normalized}
@@ -1048,7 +1048,7 @@
     :divergence-id :compare-sign-normalized}
    {:case-id :plus/identity,
     :var clojure.core/+,
-    :oracle {:status :value, :value 0, :elapsed-ms 1},
+    :oracle {:status :value, :value 0, :elapsed-ms 0},
     :dialect {:status :value, :value 0, :elapsed-ms 0},
     :verdict :match,
     :reason "values equivalent"}
@@ -1060,26 +1060,26 @@
     :reason "values equivalent"}
    {:case-id :plus/two-positive,
     :var clojure.core/+,
-    :oracle {:status :value, :value 3, :elapsed-ms 1},
+    :oracle {:status :value, :value 3, :elapsed-ms 0},
     :dialect {:status :value, :value 3, :elapsed-ms 0},
     :verdict :match,
     :reason "values equivalent"}
    {:case-id :plus/with-negative,
     :var clojure.core/+,
-    :oracle {:status :value, :value 3, :elapsed-ms 1},
+    :oracle {:status :value, :value 3, :elapsed-ms 0},
     :dialect {:status :value, :value 3, :elapsed-ms 0},
     :verdict :match,
     :reason "values equivalent"}
    {:case-id :plus/varargs,
     :var clojure.core/+,
-    :oracle {:status :value, :value 15, :elapsed-ms 1},
+    :oracle {:status :value, :value 15, :elapsed-ms 2},
     :dialect {:status :value, :value 15, :elapsed-ms 0},
     :verdict :match,
     :reason "values equivalent"}
    {:case-id :sort/numbers-ascending,
     :var clojure.core/sort,
     :oracle {:status :value, :value [1 1 2 3 4 5 6 9], :elapsed-ms 1},
-    :dialect {:status :value, :value [1 1 2 3 4 5 6 9], :elapsed-ms 1},
+    :dialect {:status :value, :value [1 1 2 3 4 5 6 9], :elapsed-ms 0},
     :verdict :match,
     :reason "values equivalent"}
    {:case-id :sort/strings,
@@ -1091,7 +1091,7 @@
     :dialect
     {:status :value,
      :value ["apple" "banana" "cherry"],
-     :elapsed-ms 0},
+     :elapsed-ms 1},
     :verdict :match,
     :reason "values equivalent"}
    {:case-id :sort/with-comparator-descending,
@@ -1103,7 +1103,7 @@
    {:case-id :sort/empty,
     :var clojure.core/sort,
     :oracle {:status :value, :value [], :elapsed-ms 1},
-    :dialect {:status :value, :value [], :elapsed-ms 0},
+    :dialect {:status :value, :value [], :elapsed-ms 1},
     :verdict :match,
     :reason "values equivalent"}
    {:case-id :type/string,
@@ -1111,7 +1111,7 @@
     :oracle
     {:status :value,
      :value {:clj-census/opaque "class java.lang.String"},
-     :elapsed-ms 0},
+     :elapsed-ms 1},
     :dialect {:status :value, :value :string, :elapsed-ms 0},
     :verdict :divergent-as-expected,
     :reason "predicate :keyword-vs-class matched",
@@ -1534,11 +1534,78 @@
    :description
    "Where reader attaches meta and which ops preserve it."}],
  :drift
- {:from-date "2026-09-03",
-  :to-date "2026-09-04",
-  :added-vars #{},
+ {:from-date "2026-09-04",
+  :to-date "2026-09-05",
+  :added-vars
+  #{clojure.core/out-buffer?
+    clojure.core/udp-close
+    clojure.core/at-exit
+    clojure.core/stat
+    clojure.core/ws-accept-key
+    clojure.core/out-buffer
+    clojure.core/chmod
+    clojure.core/udp-recv
+    clojure.core/rand-hex
+    clojure.core/with-temp-file
+    clojure.core/copy
+    clojure.core/ws-encode-frame
+    clojure.core/dns-lookup
+    clojure.core/tar-read
+    clojure.core/out-buffer-line-start?
+    clojure.core/symlink
+    clojure.core/udp-socket-port
+    clojure.core/read-symlink
+    clojure.core/on-signal
+    clojure.core/with-temp-dir
+    clojure.core/tar-extract
+    clojure.core/out-buffer-str
+    clojure.core/funlock
+    clojure.core/secure-rand-bytes
+    clojure.core/mkdtemp
+    clojure.core/mkstemp
+    clojure.core/ws-decode-frames
+    clojure.core/tar-create
+    clojure.core/copy-tree
+    clojure.core/bytes->string
+    clojure.core/udp-send
+    clojure.core/udp-socket
+    clojure.core/with-file-lock
+    clojure.core/flock
+    clojure.core/read-password
+    clojure.core/rand-token
+    clojure.core/file-size
+    clojure.core/tar-entries},
   :removed-vars #{},
-  :changed [],
+  :changed
+  [{:var clojure.core/print-simple,
+    :before
+    {:arglists ([o w]),
+     :doc
+     "Writes the plain text form of o (its str form, bypassing the\n   print-method dispatch) to w, a string-collecting atom like the one\n   *out* is bound to inside with-out-str. Returns nil."},
+    :after
+    {:arglists ([o w]),
+     :doc
+     "Writes the plain text form of o (its str form, bypassing the\n   print-method dispatch) to w, an output sink such as the buffer\n   *out* is bound to inside with-out-str or a string-collecting\n   atom. Returns nil."}}
+   {:var clojure.core/with-out-str,
+    :before
+    {:arglists ([& body]),
+     :doc
+     "Evaluates body with *out* bound to a fresh string-collecting atom,\n  and returns the accumulated string.",
+     :macro true},
+    :after
+    {:arglists ([& body]),
+     :doc
+     "Evaluates body with *out* bound to a fresh growable output buffer,\n  and returns the accumulated string.",
+     :macro true}}
+   {:var clojure.pprint/fresh-line,
+    :before
+    {:arglists ([]),
+     :doc
+     "Emit a newline only when output is not already at the start of a line.\n  Inside the engine the column is known exactly; otherwise, when *out* is\n  a string-collecting atom, inspect the buffer; failing that, emit a\n  newline."},
+    :after
+    {:arglists ([]),
+     :doc
+     "Emit a newline only when output is not already at the start of a line.\n  Inside the engine the column is known exactly; otherwise, when *out* is\n  a capture sink (a with-out-str buffer or a string-collecting atom),\n  inspect the buffer; failing that, emit a newline."}}],
   :coverage-delta 0.0},
  :extensions
  [{:id :integer-radix-strings,
@@ -1599,6 +1666,7 @@
   clojure.core/async-next-timer-ms*
   clojure.core/async-sched-enqueue*
   clojure.core/async-schedule-timer*
+  clojure.core/at-exit
   clojure.core/atom?
   clojure.core/base64-decode
   clojure.core/base64-encode
@@ -1606,6 +1674,7 @@
   clojure.core/bits
   clojure.core/bits-get
   clojure.core/bitstring?
+  clojure.core/bytes->string
   clojure.core/car
   clojure.core/cdr
   clojure.core/chan-buf-add
@@ -1629,8 +1698,11 @@
   clojure.core/chan-take-alts
   clojure.core/char-at
   clojure.core/chdir
+  clojure.core/chmod
   clojure.core/coll-reduce
   clojure.core/cons?
+  clojure.core/copy
+  clojure.core/copy-tree
   clojure.core/cpu-ms
   clojure.core/crc32
   clojure.core/csv-parse
@@ -1642,6 +1714,7 @@
   clojure.core/defrecord*
   clojure.core/deref-delay
   clojure.core/directory?
+  clojure.core/dns-lookup
   clojure.core/dosync*
   clojure.core/drain!
   clojure.core/drain-loop!
@@ -1651,7 +1724,10 @@
   clojure.core/exit
   clojure.core/file-exists?
   clojure.core/file-mtime
+  clojure.core/file-size
+  clojure.core/flock
   clojure.core/format-time
+  clojure.core/funlock
   clojure.core/future-deref
   clojure.core/gc!
   clojure.core/gc-stats
@@ -1729,6 +1805,8 @@
   clojure.core/mino-thread-id*
   clojure.core/mino-thread-limit
   clojure.core/mkdir-p
+  clojure.core/mkdtemp
+  clojure.core/mkstemp
   clojure.core/monitor-exit
   clojure.core/monitor-registry
   clojure.core/monitor-try-enter
@@ -1745,6 +1823,11 @@
   clojure.core/net-write
   clojure.core/now
   clojure.core/now-s
+  clojure.core/on-signal
+  clojure.core/out-buffer
+  clojure.core/out-buffer-line-start?
+  clojure.core/out-buffer-str
+  clojure.core/out-buffer?
   clojure.core/parse-time
   clojure.core/parse-url
   clojure.core/path-absolute?
@@ -1772,10 +1855,14 @@
   clojure.core/protocol-dispatch
   clojure.core/push-thread-bindings*
   clojure.core/queue?
+  clojure.core/rand-hex
+  clojure.core/rand-token
   clojure.core/random-seed!
   clojure.core/rangev
   clojure.core/re-find-from
   clojure.core/read*
+  clojure.core/read-password
+  clojure.core/read-symlink
   clojure.core/realpath
   clojure.core/record*
   clojure.core/record-fields
@@ -1787,6 +1874,7 @@
   clojure.core/rm-rf
   clojure.core/run
   clojure.core/save-image
+  clojure.core/secure-rand-bytes
   clojure.core/set!
   clojure.core/set-dyn-binding!
   clojure.core/set-fail-alloc-at!
@@ -1796,6 +1884,7 @@
   clojure.core/sha1
   clojure.core/sha256
   clojure.core/sha512
+  clojure.core/stat
   clojure.core/store-checkpoint*
   clojure.core/store-clock*
   clojure.core/store-close*
@@ -1805,6 +1894,11 @@
   clojure.core/store-read-wal*
   clojure.core/store?
   clojure.core/subbits
+  clojure.core/symlink
+  clojure.core/tar-create
+  clojure.core/tar-entries
+  clojure.core/tar-extract
+  clojure.core/tar-read
   clojure.core/terminal-height
   clojure.core/terminal-width
   clojure.core/thread
@@ -1820,11 +1914,22 @@
   clojure.core/toml-parse
   clojure.core/transient?
   clojure.core/tty?
+  clojure.core/udp-close
+  clojure.core/udp-recv
+  clojure.core/udp-send
+  clojure.core/udp-socket
+  clojure.core/udp-socket-port
   clojure.core/uname
   clojure.core/user-name
   clojure.core/walk
   clojure.core/weekday
   clojure.core/which
+  clojure.core/with-file-lock
+  clojure.core/with-temp-dir
+  clojure.core/with-temp-file
+  clojure.core/ws-accept-key
+  clojure.core/ws-decode-frames
+  clojure.core/ws-encode-frame
   clojure.core/xml-parse
   clojure.core/yaml-parse
   clojure.core/zip-entries
