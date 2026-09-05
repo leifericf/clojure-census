@@ -2,7 +2,7 @@
  {:dialect-tag "cljs",
   :dialect-name "ClojureScript (planck)",
   :clojure-version "1.12.4",
-  :compared-at "2026-09-04T09:45:28Z"},
+  :compared-at "2026-09-05T09:10:22Z"},
  :divergences
  [{:id :no-jvm-class-system,
    :title "No JVM class hierarchy",
@@ -110,49 +110,7 @@
    clojure.template
    {:in-both-count 0, :clojure-total 2, :percent 0.0}}},
  :history
- [{:date "2026-08-22",
-   :dialect-tag "cljs",
-   :clojure-version "1.11.132",
-   :headline
-   {:in-both-count 532,
-    :clojure-total 995,
-    :percent 0.5346733668341709},
-   :per-namespace
-   {clojure.spec.alpha
-    {:in-both-count 59,
-     :clojure-total 87,
-     :percent 0.6781609195402298},
-    clojure.datafy {:in-both-count 0, :clojure-total 2, :percent 0.0},
-    clojure.zip {:in-both-count 0, :clojure-total 28, :percent 0.0},
-    clojure.core.reducers
-    {:in-both-count 0, :clojure-total 21, :percent 0.0},
-    clojure.test
-    {:in-both-count 9,
-     :clojure-total 39,
-     :percent 0.23076923076923078},
-    clojure.core.protocols
-    {:in-both-count 0, :clojure-total 11, :percent 0.0},
-    clojure.core
-    {:in-both-count 403,
-     :clojure-total 679,
-     :percent 0.593519882179676},
-    clojure.set {:in-both-count 12, :clojure-total 12, :percent 1.0},
-    clojure.pprint
-    {:in-both-count 20,
-     :clojure-total 26,
-     :percent 0.7692307692307693},
-    clojure.math {:in-both-count 0, :clojure-total 45, :percent 0.0},
-    clojure.edn {:in-both-count 2, :clojure-total 2, :percent 1.0},
-    clojure.instant {:in-both-count 0, :clojure-total 5, :percent 0.0},
-    clojure.string
-    {:in-both-count 20,
-     :clojure-total 21,
-     :percent 0.9523809523809523},
-    clojure.data {:in-both-count 0, :clojure-total 5, :percent 0.0},
-    clojure.walk {:in-both-count 7, :clojure-total 10, :percent 0.7},
-    clojure.template
-    {:in-both-count 0, :clojure-total 2, :percent 0.0}}}
-  {:date "2026-08-23",
+ [{:date "2026-08-23",
    :dialect-tag "cljs",
    :clojure-version "1.11.132",
    :headline
@@ -657,6 +615,48 @@
     clojure.template
     {:in-both-count 0, :clojure-total 2, :percent 0.0}}}
   {:date "2026-09-04",
+   :dialect-tag "cljs",
+   :clojure-version "1.11.132",
+   :headline
+   {:in-both-count 532,
+    :clojure-total 995,
+    :percent 0.5346733668341709},
+   :per-namespace
+   {clojure.spec.alpha
+    {:in-both-count 59,
+     :clojure-total 87,
+     :percent 0.6781609195402298},
+    clojure.datafy {:in-both-count 0, :clojure-total 2, :percent 0.0},
+    clojure.zip {:in-both-count 0, :clojure-total 28, :percent 0.0},
+    clojure.core.reducers
+    {:in-both-count 0, :clojure-total 21, :percent 0.0},
+    clojure.test
+    {:in-both-count 9,
+     :clojure-total 39,
+     :percent 0.23076923076923078},
+    clojure.core.protocols
+    {:in-both-count 0, :clojure-total 11, :percent 0.0},
+    clojure.core
+    {:in-both-count 403,
+     :clojure-total 679,
+     :percent 0.593519882179676},
+    clojure.set {:in-both-count 12, :clojure-total 12, :percent 1.0},
+    clojure.pprint
+    {:in-both-count 20,
+     :clojure-total 26,
+     :percent 0.7692307692307693},
+    clojure.math {:in-both-count 0, :clojure-total 45, :percent 0.0},
+    clojure.edn {:in-both-count 2, :clojure-total 2, :percent 1.0},
+    clojure.instant {:in-both-count 0, :clojure-total 5, :percent 0.0},
+    clojure.string
+    {:in-both-count 20,
+     :clojure-total 21,
+     :percent 0.9523809523809523},
+    clojure.data {:in-both-count 0, :clojure-total 5, :percent 0.0},
+    clojure.walk {:in-both-count 7, :clojure-total 10, :percent 0.7},
+    clojure.template
+    {:in-both-count 0, :clojure-total 2, :percent 0.0}}}
+  {:date "2026-09-05",
    :dialect-tag "cljs",
    :clojure-version "1.11.132",
    :headline
@@ -1235,11 +1235,144 @@
    :description
    "Where reader attaches meta and which ops preserve it."}],
  :drift
- {:from-date "2026-09-03",
-  :to-date "2026-09-04",
-  :added-vars #{},
-  :removed-vars #{},
-  :changed [],
+ {:from-date "2026-09-04",
+  :to-date "2026-09-05",
+  :added-vars
+  #{clojure.pprint/t_cljs$pprint11381
+    clojure.pprint/->t_cljs$pprint10031
+    clojure.spec.alpha/t_cljs$spec$alpha4596
+    clojure.pprint/->t_cljs$pprint11346
+    clojure.spec.alpha/t_cljs$spec$alpha4624
+    clojure.spec.alpha/t_cljs$spec$alpha4689
+    clojure.pprint/->t_cljs$pprint11364
+    clojure.spec.alpha/t_cljs$spec$alpha3826
+    clojure.spec.alpha/t_cljs$spec$alpha3947
+    clojure.pprint/t_cljs$pprint11415
+    clojure.spec.alpha/->t_cljs$spec$alpha4624
+    clojure.pprint/t_cljs$pprint11364
+    clojure.spec.alpha/->t_cljs$spec$alpha4689
+    clojure.pprint/t_cljs$pprint10629
+    clojure.pprint/t_cljs$pprint11346
+    clojure.spec.alpha/t_cljs$spec$alpha4214
+    clojure.spec.alpha/->t_cljs$spec$alpha4214
+    clojure.spec.alpha/t_cljs$spec$alpha4705
+    clojure.spec.alpha/->t_cljs$spec$alpha3826
+    clojure.spec.alpha/t_cljs$spec$alpha4301
+    clojure.spec.alpha/t_cljs$spec$alpha4126
+    clojure.pprint/->t_cljs$pprint11381
+    clojure.pprint/t_cljs$pprint10031
+    clojure.spec.alpha/->t_cljs$spec$alpha3947
+    clojure.spec.alpha/->t_cljs$spec$alpha4301
+    clojure.spec.alpha/->t_cljs$spec$alpha4257
+    clojure.spec.alpha/->t_cljs$spec$alpha4705
+    clojure.pprint/->t_cljs$pprint10629
+    clojure.spec.alpha/->t_cljs$spec$alpha4058
+    clojure.spec.alpha/t_cljs$spec$alpha4257
+    clojure.pprint/->t_cljs$pprint11415
+    clojure.spec.alpha/t_cljs$spec$alpha4058
+    clojure.spec.alpha/->t_cljs$spec$alpha4126
+    clojure.spec.alpha/->t_cljs$spec$alpha4596},
+  :removed-vars
+  #{clojure.pprint/t_cljs$pprint10687
+    clojure.spec.alpha/->t_cljs$spec$alpha4184
+    clojure.spec.alpha/t_cljs$spec$alpha4607
+    clojure.spec.alpha/->t_cljs$spec$alpha4026
+    clojure.pprint/->t_cljs$pprint11453
+    clojure.pprint/->t_cljs$pprint11482
+    clojure.pprint/t_cljs$pprint10054
+    clojure.spec.alpha/->t_cljs$spec$alpha4607
+    clojure.spec.alpha/->t_cljs$spec$alpha4273
+    clojure.spec.alpha/->t_cljs$spec$alpha4251
+    clojure.pprint/->t_cljs$pprint10054
+    clojure.spec.alpha/t_cljs$spec$alpha3858
+    clojure.pprint/->t_cljs$pprint11438
+    clojure.spec.alpha/->t_cljs$spec$alpha3984
+    clojure.pprint/t_cljs$pprint11438
+    clojure.spec.alpha/t_cljs$spec$alpha3984
+    clojure.spec.alpha/->t_cljs$spec$alpha4583
+    clojure.pprint/->t_cljs$pprint11499
+    clojure.spec.alpha/t_cljs$spec$alpha4672
+    clojure.spec.alpha/t_cljs$spec$alpha4026
+    clojure.spec.alpha/->t_cljs$spec$alpha4063
+    clojure.spec.alpha/->t_cljs$spec$alpha4672
+    clojure.pprint/t_cljs$pprint11482
+    clojure.spec.alpha/->t_cljs$spec$alpha3858
+    clojure.spec.alpha/t_cljs$spec$alpha4063
+    clojure.pprint/->t_cljs$pprint10687
+    clojure.spec.alpha/->t_cljs$spec$alpha4680
+    clojure.spec.alpha/t_cljs$spec$alpha4251
+    clojure.spec.alpha/t_cljs$spec$alpha4583
+    clojure.pprint/t_cljs$pprint11499
+    clojure.spec.alpha/t_cljs$spec$alpha4184
+    clojure.pprint/t_cljs$pprint11453
+    clojure.spec.alpha/t_cljs$spec$alpha4680
+    clojure.spec.alpha/t_cljs$spec$alpha4273},
+  :changed
+  [{:var clojure.pprint/map->buffer-blob,
+    :before
+    {:arglists ([G__10182]),
+     :doc
+     "Factory function for cljs.pprint/buffer-blob, taking a map of keywords to field values.",
+     :file "out/cljs/pprint.cljs",
+     :line 251},
+    :after
+    {:arglists ([G__10134]),
+     :doc
+     "Factory function for cljs.pprint/buffer-blob, taking a map of keywords to field values.",
+     :file "out/cljs/pprint.cljs",
+     :line 251}}
+   {:var clojure.pprint/map->end-block-t,
+    :before
+    {:arglists ([G__10409]),
+     :doc
+     "Factory function for cljs.pprint/end-block-t, taking a map of keywords to field values.",
+     :file "out/cljs/pprint.cljs",
+     :line 258},
+    :after
+    {:arglists ([G__10326]),
+     :doc
+     "Factory function for cljs.pprint/end-block-t, taking a map of keywords to field values.",
+     :file "out/cljs/pprint.cljs",
+     :line 258}}
+   {:var clojure.pprint/map->indent-t,
+    :before
+    {:arglists ([G__10507]),
+     :doc
+     "Factory function for cljs.pprint/indent-t, taking a map of keywords to field values.",
+     :file "out/cljs/pprint.cljs",
+     :line 260},
+    :after
+    {:arglists ([G__10403]),
+     :doc
+     "Factory function for cljs.pprint/indent-t, taking a map of keywords to field values.",
+     :file "out/cljs/pprint.cljs",
+     :line 260}}
+   {:var clojure.pprint/map->nl-t,
+    :before
+    {:arglists ([G__10256]),
+     :doc
+     "Factory function for cljs.pprint/nl-t, taking a map of keywords to field values.",
+     :file "out/cljs/pprint.cljs",
+     :line 254},
+    :after
+    {:arglists ([G__10189]),
+     :doc
+     "Factory function for cljs.pprint/nl-t, taking a map of keywords to field values.",
+     :file "out/cljs/pprint.cljs",
+     :line 254}}
+   {:var clojure.pprint/map->start-block-t,
+    :before
+    {:arglists ([G__10348]),
+     :doc
+     "Factory function for cljs.pprint/start-block-t, taking a map of keywords to field values.",
+     :file "out/cljs/pprint.cljs",
+     :line 256},
+    :after
+    {:arglists ([G__10243]),
+     :doc
+     "Factory function for cljs.pprint/start-block-t, taking a map of keywords to field values.",
+     :file "out/cljs/pprint.cljs",
+     :line 256}}],
   :coverage-delta 0.0},
  :extensions
  [{:id :js-interop-syntax,
@@ -1702,12 +1835,12 @@
   clojure.pprint/->indent-t
   clojure.pprint/->nl-t
   clojure.pprint/->start-block-t
-  clojure.pprint/->t_cljs$pprint10054
-  clojure.pprint/->t_cljs$pprint10687
-  clojure.pprint/->t_cljs$pprint11438
-  clojure.pprint/->t_cljs$pprint11453
-  clojure.pprint/->t_cljs$pprint11482
-  clojure.pprint/->t_cljs$pprint11499
+  clojure.pprint/->t_cljs$pprint10031
+  clojure.pprint/->t_cljs$pprint10629
+  clojure.pprint/->t_cljs$pprint11346
+  clojure.pprint/->t_cljs$pprint11364
+  clojure.pprint/->t_cljs$pprint11381
+  clojure.pprint/->t_cljs$pprint11415
   clojure.pprint/-ppflush
   clojure.pprint/IPrettyFlush
   clojure.pprint/buffer-blob
@@ -1724,38 +1857,38 @@
   clojure.pprint/nl-t
   clojure.pprint/pprint-set
   clojure.pprint/start-block-t
-  clojure.pprint/t_cljs$pprint10054
-  clojure.pprint/t_cljs$pprint10687
-  clojure.pprint/t_cljs$pprint11438
-  clojure.pprint/t_cljs$pprint11453
-  clojure.pprint/t_cljs$pprint11482
-  clojure.pprint/t_cljs$pprint11499
-  clojure.spec.alpha/->t_cljs$spec$alpha3858
-  clojure.spec.alpha/->t_cljs$spec$alpha3984
+  clojure.pprint/t_cljs$pprint10031
+  clojure.pprint/t_cljs$pprint10629
+  clojure.pprint/t_cljs$pprint11346
+  clojure.pprint/t_cljs$pprint11364
+  clojure.pprint/t_cljs$pprint11381
+  clojure.pprint/t_cljs$pprint11415
+  clojure.spec.alpha/->t_cljs$spec$alpha3826
+  clojure.spec.alpha/->t_cljs$spec$alpha3947
   clojure.spec.alpha/->t_cljs$spec$alpha4007
-  clojure.spec.alpha/->t_cljs$spec$alpha4026
-  clojure.spec.alpha/->t_cljs$spec$alpha4063
-  clojure.spec.alpha/->t_cljs$spec$alpha4184
-  clojure.spec.alpha/->t_cljs$spec$alpha4251
-  clojure.spec.alpha/->t_cljs$spec$alpha4273
-  clojure.spec.alpha/->t_cljs$spec$alpha4583
-  clojure.spec.alpha/->t_cljs$spec$alpha4607
-  clojure.spec.alpha/->t_cljs$spec$alpha4672
-  clojure.spec.alpha/->t_cljs$spec$alpha4680
+  clojure.spec.alpha/->t_cljs$spec$alpha4058
+  clojure.spec.alpha/->t_cljs$spec$alpha4126
+  clojure.spec.alpha/->t_cljs$spec$alpha4214
+  clojure.spec.alpha/->t_cljs$spec$alpha4257
+  clojure.spec.alpha/->t_cljs$spec$alpha4301
+  clojure.spec.alpha/->t_cljs$spec$alpha4596
+  clojure.spec.alpha/->t_cljs$spec$alpha4624
+  clojure.spec.alpha/->t_cljs$spec$alpha4689
+  clojure.spec.alpha/->t_cljs$spec$alpha4705
   clojure.spec.alpha/MAX_INT
   clojure.spec.alpha/map-spec
-  clojure.spec.alpha/t_cljs$spec$alpha3858
-  clojure.spec.alpha/t_cljs$spec$alpha3984
+  clojure.spec.alpha/t_cljs$spec$alpha3826
+  clojure.spec.alpha/t_cljs$spec$alpha3947
   clojure.spec.alpha/t_cljs$spec$alpha4007
-  clojure.spec.alpha/t_cljs$spec$alpha4026
-  clojure.spec.alpha/t_cljs$spec$alpha4063
-  clojure.spec.alpha/t_cljs$spec$alpha4184
-  clojure.spec.alpha/t_cljs$spec$alpha4251
-  clojure.spec.alpha/t_cljs$spec$alpha4273
-  clojure.spec.alpha/t_cljs$spec$alpha4583
-  clojure.spec.alpha/t_cljs$spec$alpha4607
-  clojure.spec.alpha/t_cljs$spec$alpha4672
-  clojure.spec.alpha/t_cljs$spec$alpha4680
+  clojure.spec.alpha/t_cljs$spec$alpha4058
+  clojure.spec.alpha/t_cljs$spec$alpha4126
+  clojure.spec.alpha/t_cljs$spec$alpha4214
+  clojure.spec.alpha/t_cljs$spec$alpha4257
+  clojure.spec.alpha/t_cljs$spec$alpha4301
+  clojure.spec.alpha/t_cljs$spec$alpha4596
+  clojure.spec.alpha/t_cljs$spec$alpha4624
+  clojure.spec.alpha/t_cljs$spec$alpha4689
+  clojure.spec.alpha/t_cljs$spec$alpha4705
   clojure.test/*current-env*
   clojure.test/IAsyncTest
   clojure.test/async?
