@@ -2,7 +2,7 @@
  {:dialect-tag "bb",
   :dialect-name "Babashka",
   :clojure-version "1.12.4",
-  :compared-at "2026-09-04T09:36:07Z"},
+  :compared-at "2026-09-05T09:02:20Z"},
  :divergences
  [{:id :reducers-absent,
    :title "clojure.core.reducers is not bundled",
@@ -81,47 +81,7 @@
    clojure.template
    {:in-both-count 2, :clojure-total 2, :percent 1.0}}},
  :history
- [{:date "2026-08-22",
-   :dialect-tag "bb",
-   :clojure-version "1.12.5-SCI",
-   :headline
-   {:in-both-count 898,
-    :clojure-total 995,
-    :percent 0.9025125628140703},
-   :per-namespace
-   {clojure.spec.alpha
-    {:in-both-count 87, :clojure-total 87, :percent 1.0},
-    clojure.datafy {:in-both-count 2, :clojure-total 2, :percent 1.0},
-    clojure.zip {:in-both-count 28, :clojure-total 28, :percent 1.0},
-    clojure.core.reducers
-    {:in-both-count 0, :clojure-total 21, :percent 0.0},
-    clojure.test
-    {:in-both-count 37,
-     :clojure-total 39,
-     :percent 0.9487179487179487},
-    clojure.core.protocols
-    {:in-both-count 5,
-     :clojure-total 11,
-     :percent 0.45454545454545453},
-    clojure.core
-    {:in-both-count 629,
-     :clojure-total 679,
-     :percent 0.9263622974963182},
-    clojure.set {:in-both-count 12, :clojure-total 12, :percent 1.0},
-    clojure.pprint
-    {:in-both-count 14,
-     :clojure-total 26,
-     :percent 0.5384615384615384},
-    clojure.math {:in-both-count 45, :clojure-total 45, :percent 1.0},
-    clojure.edn {:in-both-count 2, :clojure-total 2, :percent 1.0},
-    clojure.instant {:in-both-count 2, :clojure-total 5, :percent 0.4},
-    clojure.string
-    {:in-both-count 21, :clojure-total 21, :percent 1.0},
-    clojure.data {:in-both-count 2, :clojure-total 5, :percent 0.4},
-    clojure.walk {:in-both-count 10, :clojure-total 10, :percent 1.0},
-    clojure.template
-    {:in-both-count 2, :clojure-total 2, :percent 1.0}}}
-  {:date "2026-08-23",
+ [{:date "2026-08-23",
    :dialect-tag "bb",
    :clojure-version "1.12.5-SCI",
    :headline
@@ -640,10 +600,50 @@
     clojure.data {:in-both-count 2, :clojure-total 5, :percent 0.4},
     clojure.walk {:in-both-count 10, :clojure-total 10, :percent 1.0},
     clojure.template
+    {:in-both-count 2, :clojure-total 2, :percent 1.0}}}
+  {:date "2026-09-05",
+   :dialect-tag "bb",
+   :clojure-version "1.12.5-SCI",
+   :headline
+   {:in-both-count 900,
+    :clojure-total 995,
+    :percent 0.9045226130653267},
+   :per-namespace
+   {clojure.spec.alpha
+    {:in-both-count 87, :clojure-total 87, :percent 1.0},
+    clojure.datafy {:in-both-count 2, :clojure-total 2, :percent 1.0},
+    clojure.zip {:in-both-count 28, :clojure-total 28, :percent 1.0},
+    clojure.core.reducers
+    {:in-both-count 0, :clojure-total 21, :percent 0.0},
+    clojure.test
+    {:in-both-count 37,
+     :clojure-total 39,
+     :percent 0.9487179487179487},
+    clojure.core.protocols
+    {:in-both-count 5,
+     :clojure-total 11,
+     :percent 0.45454545454545453},
+    clojure.core
+    {:in-both-count 631,
+     :clojure-total 679,
+     :percent 0.9293078055964654},
+    clojure.set {:in-both-count 12, :clojure-total 12, :percent 1.0},
+    clojure.pprint
+    {:in-both-count 14,
+     :clojure-total 26,
+     :percent 0.5384615384615384},
+    clojure.math {:in-both-count 45, :clojure-total 45, :percent 1.0},
+    clojure.edn {:in-both-count 2, :clojure-total 2, :percent 1.0},
+    clojure.instant {:in-both-count 2, :clojure-total 5, :percent 0.4},
+    clojure.string
+    {:in-both-count 21, :clojure-total 21, :percent 1.0},
+    clojure.data {:in-both-count 2, :clojure-total 5, :percent 0.4},
+    clojure.walk {:in-both-count 10, :clojure-total 10, :percent 1.0},
+    clojure.template
     {:in-both-count 2, :clojure-total 2, :percent 1.0}}}],
  :behavior
  {:dialect-tag "bb",
-  :run-at "2026-09-04T09:35:42Z",
+  :run-at "2026-09-05T09:01:54Z",
   :totals
   {:match 22, :mismatch 0, :divergent-as-expected 0, :skipped 0},
   :parities
@@ -668,7 +668,7 @@
     :dialect
     {:status :value,
      :value {:clj-census/opaque "class java.lang.Long"},
-     :elapsed-ms 0},
+     :elapsed-ms 1},
     :verdict :match,
     :reason "values equivalent"}
    {:case-id :class/keyword,
@@ -676,16 +676,16 @@
     :oracle
     {:status :value,
      :value {:clj-census/opaque "class clojure.lang.Keyword"},
-     :elapsed-ms 0},
+     :elapsed-ms 1},
     :dialect
     {:status :value,
      :value {:clj-census/opaque "class clojure.lang.Keyword"},
-     :elapsed-ms 0},
+     :elapsed-ms 1},
     :verdict :match,
     :reason "values equivalent"}
    {:case-id :class/nil,
     :var clojure.core/class,
-    :oracle {:status :value, :value nil, :elapsed-ms 1},
+    :oracle {:status :value, :value nil, :elapsed-ms 0},
     :dialect {:status :value, :value nil, :elapsed-ms 0},
     :verdict :match,
     :reason "values equivalent"}
@@ -698,13 +698,13 @@
    {:case-id :compare/strings-negative,
     :var clojure.core/compare,
     :oracle {:status :value, :value -25, :elapsed-ms 1},
-    :dialect {:status :value, :value -25, :elapsed-ms 0},
+    :dialect {:status :value, :value -25, :elapsed-ms 1},
     :verdict :match,
     :reason "values equivalent"}
    {:case-id :compare/strings-equal,
     :var clojure.core/compare,
     :oracle {:status :value, :value 0, :elapsed-ms 1},
-    :dialect {:status :value, :value 0, :elapsed-ms 1},
+    :dialect {:status :value, :value 0, :elapsed-ms 0},
     :verdict :match,
     :reason "values equivalent"}
    {:case-id :compare/numbers-ascending,
@@ -722,7 +722,7 @@
    {:case-id :plus/identity,
     :var clojure.core/+,
     :oracle {:status :value, :value 0, :elapsed-ms 1},
-    :dialect {:status :value, :value 0, :elapsed-ms 0},
+    :dialect {:status :value, :value 0, :elapsed-ms 1},
     :verdict :match,
     :reason "values equivalent"}
    {:case-id :plus/single-positive,
@@ -751,7 +751,7 @@
     :reason "values equivalent"}
    {:case-id :sort/numbers-ascending,
     :var clojure.core/sort,
-    :oracle {:status :value, :value [1 1 2 3 4 5 6 9], :elapsed-ms 2},
+    :oracle {:status :value, :value [1 1 2 3 4 5 6 9], :elapsed-ms 1},
     :dialect {:status :value, :value [1 1 2 3 4 5 6 9], :elapsed-ms 0},
     :verdict :match,
     :reason "values equivalent"}
@@ -776,7 +776,7 @@
    {:case-id :sort/empty,
     :var clojure.core/sort,
     :oracle {:status :value, :value [], :elapsed-ms 1},
-    :dialect {:status :value, :value [], :elapsed-ms 1},
+    :dialect {:status :value, :value [], :elapsed-ms 0},
     :verdict :match,
     :reason "values equivalent"}
    {:case-id :type/string,
@@ -824,7 +824,7 @@
     :dialect
     {:status :value,
      :value {:clj-census/opaque "class clojure.lang.PersistentVector"},
-     :elapsed-ms 0},
+     :elapsed-ms 1},
     :verdict :match,
     :reason "values equivalent"}]},
  :mismatches
@@ -1518,8 +1518,8 @@
    :description
    "Where reader attaches meta and which ops preserve it."}],
  :drift
- {:from-date "2026-09-03",
-  :to-date "2026-09-04",
+ {:from-date "2026-09-04",
+  :to-date "2026-09-05",
   :added-vars #{},
   :removed-vars #{},
   :changed [],
