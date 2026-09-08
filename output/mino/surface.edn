@@ -419,13 +419,11 @@
      :doc
      "Creates a delay that evaluates body on first deref. The body runs\n  at most once: a failure is recorded and rethrown on every later\n  force.",
      :macro true},
+    delay* {},
     delay? {:arglists ([x]), :doc "Returns true if x is a delay."},
     deliver {:arglists ([promise val])},
     denominator {:arglists ([r])},
     deref {:arglists ([ref] [ref timeout-ms timeout-val])},
-    deref-delay
-    {:arglists ([d]),
-     :doc "Forces evaluation of a delay and returns its value."},
     derive
     {:arglists ([tag parent] [h tag parent]),
      :doc
@@ -1216,10 +1214,7 @@
     {:arglists ([value]),
      :doc
      "Returns true if x is a reader-conditional record produced by\n   reader-conditional."},
-    realized?
-    {:arglists ([x]),
-     :doc
-     "Returns true if a delay, lazy sequence, future, or promise has\n     been realized."},
+    realized? {:arglists ([x])},
     realpath {},
     record* {},
     record-fields {},
@@ -2831,4 +2826,4 @@
    throw
    def},
  :spec-keys #{},
- :captured-at "2026-09-07T09:55:09Z"}
+ :captured-at "2026-09-08T09:19:49Z"}
