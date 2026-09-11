@@ -2,7 +2,7 @@
  {:dialect-tag "mino",
   :dialect-name "mino",
   :clojure-version "1.12.4",
-  :compared-at "2026-09-10T09:22:12Z"},
+  :compared-at "2026-09-11T09:20:14Z"},
  :divergences
  [{:dialect-example "(compare \"z\" \"a\") ;=> 1",
    :since "v0.1.0",
@@ -450,44 +450,7 @@
    clojure.template
    {:in-both-count 2, :clojure-total 2, :percent 1.0}}},
  :history
- [{:date "2026-08-28",
-   :dialect-tag "mino",
-   :clojure-version "2026.08.08-alpha1",
-   :headline
-   {:in-both-count 904,
-    :clojure-total 995,
-    :percent 0.9085427135678392},
-   :per-namespace
-   {clojure.spec.alpha
-    {:in-both-count 87, :clojure-total 87, :percent 1.0},
-    clojure.datafy {:in-both-count 2, :clojure-total 2, :percent 1.0},
-    clojure.zip {:in-both-count 28, :clojure-total 28, :percent 1.0},
-    clojure.core.reducers
-    {:in-both-count 19,
-     :clojure-total 21,
-     :percent 0.9047619047619048},
-    clojure.test {:in-both-count 39, :clojure-total 39, :percent 1.0},
-    clojure.core.protocols
-    {:in-both-count 10,
-     :clojure-total 11,
-     :percent 0.9090909090909091},
-    clojure.core
-    {:in-both-count 593,
-     :clojure-total 679,
-     :percent 0.8733431516936672},
-    clojure.set {:in-both-count 12, :clojure-total 12, :percent 1.0},
-    clojure.pprint
-    {:in-both-count 26, :clojure-total 26, :percent 1.0},
-    clojure.math {:in-both-count 45, :clojure-total 45, :percent 1.0},
-    clojure.edn {:in-both-count 2, :clojure-total 2, :percent 1.0},
-    clojure.instant {:in-both-count 3, :clojure-total 5, :percent 0.6},
-    clojure.string
-    {:in-both-count 21, :clojure-total 21, :percent 1.0},
-    clojure.data {:in-both-count 5, :clojure-total 5, :percent 1.0},
-    clojure.walk {:in-both-count 10, :clojure-total 10, :percent 1.0},
-    clojure.template
-    {:in-both-count 2, :clojure-total 2, :percent 1.0}}}
-  {:date "2026-08-29",
+ [{:date "2026-08-29",
    :dialect-tag "mino",
    :clojure-version "2026.08.08-alpha1",
    :headline
@@ -967,10 +930,47 @@
     clojure.data {:in-both-count 5, :clojure-total 5, :percent 1.0},
     clojure.walk {:in-both-count 10, :clojure-total 10, :percent 1.0},
     clojure.template
+    {:in-both-count 2, :clojure-total 2, :percent 1.0}}}
+  {:date "2026-09-11",
+   :dialect-tag "mino",
+   :clojure-version "2026.08.08-alpha1",
+   :headline
+   {:in-both-count 904,
+    :clojure-total 995,
+    :percent 0.9085427135678392},
+   :per-namespace
+   {clojure.spec.alpha
+    {:in-both-count 87, :clojure-total 87, :percent 1.0},
+    clojure.datafy {:in-both-count 2, :clojure-total 2, :percent 1.0},
+    clojure.zip {:in-both-count 28, :clojure-total 28, :percent 1.0},
+    clojure.core.reducers
+    {:in-both-count 19,
+     :clojure-total 21,
+     :percent 0.9047619047619048},
+    clojure.test {:in-both-count 39, :clojure-total 39, :percent 1.0},
+    clojure.core.protocols
+    {:in-both-count 10,
+     :clojure-total 11,
+     :percent 0.9090909090909091},
+    clojure.core
+    {:in-both-count 593,
+     :clojure-total 679,
+     :percent 0.8733431516936672},
+    clojure.set {:in-both-count 12, :clojure-total 12, :percent 1.0},
+    clojure.pprint
+    {:in-both-count 26, :clojure-total 26, :percent 1.0},
+    clojure.math {:in-both-count 45, :clojure-total 45, :percent 1.0},
+    clojure.edn {:in-both-count 2, :clojure-total 2, :percent 1.0},
+    clojure.instant {:in-both-count 3, :clojure-total 5, :percent 0.6},
+    clojure.string
+    {:in-both-count 21, :clojure-total 21, :percent 1.0},
+    clojure.data {:in-both-count 5, :clojure-total 5, :percent 1.0},
+    clojure.walk {:in-both-count 10, :clojure-total 10, :percent 1.0},
+    clojure.template
     {:in-both-count 2, :clojure-total 2, :percent 1.0}}}],
  :behavior
  {:dialect-tag "mino",
-  :run-at "2026-09-10T09:21:47Z",
+  :run-at "2026-09-11T09:20:00Z",
   :totals
   {:match 9, :mismatch 0, :divergent-as-expected 13, :skipped 0},
   :parities
@@ -989,8 +989,8 @@
     :oracle
     {:status :value,
      :value {:clj-census/opaque "class java.lang.Long"},
-     :elapsed-ms 1},
-    :dialect {:status :value, :value :int, :elapsed-ms 0},
+     :elapsed-ms 0},
+    :dialect {:status :value, :value :int, :elapsed-ms 1},
     :verdict :divergent-as-expected,
     :reason "predicate :keyword-vs-class matched",
     :divergence-id :type-as-keyword}
@@ -999,21 +999,21 @@
     :oracle
     {:status :value,
      :value {:clj-census/opaque "class clojure.lang.Keyword"},
-     :elapsed-ms 0},
+     :elapsed-ms 1},
     :dialect {:status :value, :value :keyword, :elapsed-ms 0},
     :verdict :divergent-as-expected,
     :reason "predicate :keyword-vs-class matched",
     :divergence-id :type-as-keyword}
    {:case-id :class/nil,
     :var clojure.core/class,
-    :oracle {:status :value, :value nil, :elapsed-ms 1},
-    :dialect {:status :value, :value nil, :elapsed-ms 0},
+    :oracle {:status :value, :value nil, :elapsed-ms 0},
+    :dialect {:status :value, :value nil, :elapsed-ms 1},
     :verdict :divergent-as-expected,
     :reason "predicate :keyword-vs-class matched",
     :divergence-id :type-as-keyword}
    {:case-id :compare/strings-positive,
     :var clojure.core/compare,
-    :oracle {:status :value, :value 25, :elapsed-ms 1},
+    :oracle {:status :value, :value 25, :elapsed-ms 0},
     :dialect {:status :value, :value 1, :elapsed-ms 0},
     :verdict :divergent-as-expected,
     :reason "predicate :sign-normalized matched",
@@ -1021,7 +1021,7 @@
    {:case-id :compare/strings-negative,
     :var clojure.core/compare,
     :oracle {:status :value, :value -25, :elapsed-ms 1},
-    :dialect {:status :value, :value -1, :elapsed-ms 1},
+    :dialect {:status :value, :value -1, :elapsed-ms 0},
     :verdict :divergent-as-expected,
     :reason "predicate :sign-normalized matched",
     :divergence-id :compare-sign-normalized}
@@ -1034,7 +1034,7 @@
     :divergence-id :compare-sign-normalized}
    {:case-id :compare/numbers-ascending,
     :var clojure.core/compare,
-    :oracle {:status :value, :value -1, :elapsed-ms 1},
+    :oracle {:status :value, :value -1, :elapsed-ms 0},
     :dialect {:status :value, :value -1, :elapsed-ms 0},
     :verdict :divergent-as-expected,
     :reason "predicate :sign-normalized matched",
@@ -1048,7 +1048,7 @@
     :divergence-id :compare-sign-normalized}
    {:case-id :plus/identity,
     :var clojure.core/+,
-    :oracle {:status :value, :value 0, :elapsed-ms 1},
+    :oracle {:status :value, :value 0, :elapsed-ms 0},
     :dialect {:status :value, :value 0, :elapsed-ms 0},
     :verdict :match,
     :reason "values equivalent"}
@@ -1061,25 +1061,25 @@
    {:case-id :plus/two-positive,
     :var clojure.core/+,
     :oracle {:status :value, :value 3, :elapsed-ms 1},
-    :dialect {:status :value, :value 3, :elapsed-ms 1},
+    :dialect {:status :value, :value 3, :elapsed-ms 0},
     :verdict :match,
     :reason "values equivalent"}
    {:case-id :plus/with-negative,
     :var clojure.core/+,
-    :oracle {:status :value, :value 3, :elapsed-ms 1},
-    :dialect {:status :value, :value 3, :elapsed-ms 1},
+    :oracle {:status :value, :value 3, :elapsed-ms 0},
+    :dialect {:status :value, :value 3, :elapsed-ms 0},
     :verdict :match,
     :reason "values equivalent"}
    {:case-id :plus/varargs,
     :var clojure.core/+,
     :oracle {:status :value, :value 15, :elapsed-ms 1},
-    :dialect {:status :value, :value 15, :elapsed-ms 0},
+    :dialect {:status :value, :value 15, :elapsed-ms 1},
     :verdict :match,
     :reason "values equivalent"}
    {:case-id :sort/numbers-ascending,
     :var clojure.core/sort,
-    :oracle {:status :value, :value [1 1 2 3 4 5 6 9], :elapsed-ms 2},
-    :dialect {:status :value, :value [1 1 2 3 4 5 6 9], :elapsed-ms 0},
+    :oracle {:status :value, :value [1 1 2 3 4 5 6 9], :elapsed-ms 1},
+    :dialect {:status :value, :value [1 1 2 3 4 5 6 9], :elapsed-ms 1},
     :verdict :match,
     :reason "values equivalent"}
    {:case-id :sort/strings,
@@ -1097,7 +1097,7 @@
    {:case-id :sort/with-comparator-descending,
     :var clojure.core/sort,
     :oracle {:status :value, :value [4 3 2 1], :elapsed-ms 1},
-    :dialect {:status :value, :value [4 3 2 1], :elapsed-ms 1},
+    :dialect {:status :value, :value [4 3 2 1], :elapsed-ms 0},
     :verdict :match,
     :reason "values equivalent"}
    {:case-id :sort/empty,
@@ -1131,7 +1131,7 @@
     :oracle
     {:status :value,
      :value {:clj-census/opaque "class clojure.lang.Keyword"},
-     :elapsed-ms 1},
+     :elapsed-ms 0},
     :dialect {:status :value, :value :keyword, :elapsed-ms 0},
     :verdict :divergent-as-expected,
     :reason "predicate :keyword-vs-class matched",
@@ -1142,7 +1142,7 @@
     {:status :value,
      :value {:clj-census/opaque "class clojure.lang.PersistentVector"},
      :elapsed-ms 1},
-    :dialect {:status :value, :value :vector, :elapsed-ms 0},
+    :dialect {:status :value, :value :vector, :elapsed-ms 1},
     :verdict :divergent-as-expected,
     :reason "predicate :keyword-vs-class matched",
     :divergence-id :type-as-keyword}]},
@@ -1534,9 +1534,42 @@
    :description
    "Where reader attaches meta and which ops preserve it."}],
  :drift
- {:from-date "2026-09-09",
-  :to-date "2026-09-10",
-  :added-vars #{},
+ {:from-date "2026-09-10",
+  :to-date "2026-09-11",
+  :added-vars
+  #{clojure.core/Float/NaN
+    clojure.core/lazy-remove
+    clojure.core/Integer/MAX_VALUE
+    clojure.core/Float/MIN_VALUE
+    clojure.core/Long/MAX_VALUE
+    clojure.core/Integer/MIN_VALUE
+    clojure.core/Byte/MIN_VALUE
+    clojure.core/Double/MIN_VALUE
+    clojure.core/Short/MIN_VALUE
+    clojure.core/Long
+    clojure.core/Math/PI
+    clojure.core/Long/MIN_VALUE
+    clojure.core/lazy-keep
+    clojure.core/__transduce-fuse
+    clojure.core/Double
+    clojure.core/Short/MAX_VALUE
+    clojure.core/math-pi
+    clojure.core/String
+    clojure.core/Boolean
+    clojure.core/Double/MAX_VALUE
+    clojure.core/Double/NaN
+    clojure.core/lazy-map-indexed
+    clojure.core/Double/POSITIVE_INFINITY
+    clojure.core/Character
+    clojure.core/Float/MAX_VALUE
+    clojure.core/Float/POSITIVE_INFINITY
+    clojure.core/Double/NEGATIVE_INFINITY
+    clojure.core/Boolean/FALSE
+    clojure.core/Math/E
+    clojure.core/Object
+    clojure.core/Byte/MAX_VALUE
+    clojure.core/Boolean/TRUE
+    clojure.core/Float/NEGATIVE_INFINITY},
   :removed-vars #{},
   :changed [],
   :coverage-delta 0.0},
@@ -1580,15 +1613,22 @@
   clojure.core/-thread-bound?
   clojure.core/-var-root
   clojure.core/-var-root-bound?
+  clojure.core/Boolean
+  clojure.core/Character
   clojure.core/CollReduce
   clojure.core/CollReduce--coll-reduce
   clojure.core/Datafiable
   clojure.core/Datafiable--datafy
+  clojure.core/Double
   clojure.core/IKVReduce
   clojure.core/IKVReduce--kv-reduce
   clojure.core/Inst--inst-ms*
+  clojure.core/Long
   clojure.core/Navigable
   clojure.core/Navigable--nav
+  clojure.core/Object
+  clojure.core/String
+  clojure.core/__transduce-fuse
   clojure.core/add-days
   clojure.core/add-load-path!
   clojure.core/add-months
@@ -1691,7 +1731,10 @@
   clojure.core/kv-reduce
   clojure.core/last-error
   clojure.core/lazy-filter
+  clojure.core/lazy-keep
   clojure.core/lazy-map-1
+  clojure.core/lazy-map-indexed
+  clojure.core/lazy-remove
   clojure.core/lazy-take
   clojure.core/leap-year?
   clojure.core/let-bits
@@ -1718,6 +1761,7 @@
   clojure.core/math-next-after
   clojure.core/math-next-down
   clojure.core/math-next-up
+  clojure.core/math-pi
   clojure.core/math-pow
   clojure.core/math-rint
   clojure.core/math-round
@@ -1871,20 +1915,40 @@
   clojure.core/zlib-compress
   clojure.core/zlib-decompress
   clojure.core/zone-offset-mins
+  clojure.core/Boolean/FALSE
+  clojure.core/Boolean/TRUE
   clojure.core/Boolean/parseBoolean
+  clojure.core/Byte/MAX_VALUE
+  clojure.core/Byte/MIN_VALUE
   clojure.core/Character/toString
+  clojure.core/Double/MAX_VALUE
+  clojure.core/Double/MIN_VALUE
+  clojure.core/Double/NEGATIVE_INFINITY
+  clojure.core/Double/NaN
+  clojure.core/Double/POSITIVE_INFINITY
   clojure.core/Double/isInfinite
   clojure.core/Double/isNaN
   clojure.core/Double/parseDouble
+  clojure.core/Float/MAX_VALUE
+  clojure.core/Float/MIN_VALUE
+  clojure.core/Float/NEGATIVE_INFINITY
+  clojure.core/Float/NaN
+  clojure.core/Float/POSITIVE_INFINITY
   clojure.core/Float/parseFloat
+  clojure.core/Integer/MAX_VALUE
+  clojure.core/Integer/MIN_VALUE
   clojure.core/Integer/parseInt
   clojure.core/Integer/toBinaryString
   clojure.core/Integer/toHexString
   clojure.core/Integer/toOctalString
+  clojure.core/Long/MAX_VALUE
+  clojure.core/Long/MIN_VALUE
   clojure.core/Long/parseLong
   clojure.core/Long/toBinaryString
   clojure.core/Long/toHexString
   clojure.core/Long/toOctalString
+  clojure.core/Math/E
+  clojure.core/Math/PI
   clojure.core/Math/abs
   clojure.core/Math/atan
   clojure.core/Math/atan2
@@ -1901,6 +1965,8 @@
   clojure.core/Math/sin
   clojure.core/Math/sqrt
   clojure.core/Math/tan
+  clojure.core/Short/MAX_VALUE
+  clojure.core/Short/MIN_VALUE
   clojure.core/String/valueOf
   clojure.core/System/currentTimeMillis
   clojure.core/System/exit
