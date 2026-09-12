@@ -575,6 +575,52 @@
    {:id :concurrency,
     :title "Concurrency primitives",
     :description "Atoms, refs, agents, futures, core.async behavior."}}
+  {:category
+   {:id :printer,
+    :title "Printer behavior",
+    :description
+    "pr-str output for various values and dynamic-var states."},
+   :dialect-example "(pr-str (char 1)) ;=> \"\\\\u0001\"",
+   :since "2026.09.12-alpha1",
+   :affected [clojure.core/pr clojure.core/pr-str clojure.core/prn],
+   :clojure-example
+   "(pr-str (char 1)) ;=> a backslash and a raw 0x01 byte",
+   :title "Unnamed characters print as \\uXXXX escapes",
+   :rationale
+   "Clojure prints characters outside the named set\n                    as a backslash plus the raw glyph, even for\n                    unprintable control bytes. mino prints every BMP\n                    codepoint outside printable ASCII and the named\n                    set as the four-hex \\uXXXX escape, which is part\n                    of Clojure's own reader grammar, so the printed\n                    form reads back to the same character in both\n                    dialects while output never carries raw control\n                    bytes. Recorded as mino ADR 68.",
+   :id :unnamed-chars-print-escaped}
+  {:category
+   {:id :collections,
+    :title "Collection semantics",
+    :description
+    "Iteration order, equality, hash, structural sharing."},
+   :dialect-example "(counted? '(1 2)) ;=> false",
+   :since "2026.09.12-alpha1",
+   :affected [clojure.core/counted? clojure.core/realized?],
+   :clojure-example "(counted? '(1 2)) ;=> true",
+   :title "counted? and realized? answer for mino's own structures",
+   :rationale
+   "Clojure lists carry a count field and bounded\n                    ranges size themselves arithmetically, so\n                    counted? is true for them; its iterate cell holds\n                    a pre-computed seed, so (realized? (range)) is\n                    true. mino cons lists and lazy ranges count by\n                    walking, and its lazy cells realize nothing until\n                    forced, so both predicates answer false there:\n                    they never promise a constant-time count or a\n                    realized element the structure does not have.\n                    Recorded as mino ADR 69.",
+   :id :counted-realized-report-own-structures}
+  {:category
+   {:id :collections,
+    :title "Collection semantics",
+    :description
+    "Iteration order, equality, hash, structural sharing."},
+   :dialect-example
+   "(let [n (atom 0)] (first (map (fn [x] (swap! n inc) x) (vec (range 100)))) @n) ;=> 1",
+   :since "2026.09.12-alpha1",
+   :affected
+   [clojure.core/lazy-seq
+    clojure.core/sequence
+    clojure.core/map
+    clojure.core/filter
+    clojure.core/range],
+   :clojure-example "same form ;=> 32 (one chunk)",
+   :title "Sequences realize per element, never in chunks",
+   :rationale
+   "Clojure lazy sequences realize in chunks of up to\n                    32 elements and its sequence-over-transducer\n                    computes one element at creation; both are\n                    documented implementation latitude. mino realizes\n                    exactly the elements demanded, when demanded, so\n                    side effects inside lazy pipelines run once per\n                    consumed element and never more. Where the\n                    reference over-realizes relative to demand, mino\n                    does not follow. Recorded as mino ADR 70.",
+   :id :unchunked-realization}
   {:id :no-instant-host-calendar,
    :title "read-instant-calendar / -timestamp are absent",
    :rationale

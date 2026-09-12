@@ -489,6 +489,59 @@
   :since           "v0.1.0"
   :affected        [clojure.core.reducers/fjtask clojure.core.reducers/pool]}
 
+ {:id              :unnamed-chars-print-escaped
+  :title           "Unnamed characters print as \\uXXXX escapes"
+  :category-id     :printer
+  :rationale       "Clojure prints characters outside the named set
+                    as a backslash plus the raw glyph, even for
+                    unprintable control bytes. mino prints every BMP
+                    codepoint outside printable ASCII and the named
+                    set as the four-hex \\uXXXX escape, which is part
+                    of Clojure's own reader grammar, so the printed
+                    form reads back to the same character in both
+                    dialects while output never carries raw control
+                    bytes. Recorded as mino ADR 68."
+  :since           "2026.09.12-alpha1"
+  :dialect-example "(pr-str (char 1)) ;=> \"\\\\u0001\""
+  :clojure-example   "(pr-str (char 1)) ;=> a backslash and a raw 0x01 byte"
+  :affected        [clojure.core/pr clojure.core/pr-str clojure.core/prn]}
+
+ {:id              :counted-realized-report-own-structures
+  :title           "counted? and realized? answer for mino's own structures"
+  :category-id     :collections
+  :rationale       "Clojure lists carry a count field and bounded
+                    ranges size themselves arithmetically, so
+                    counted? is true for them; its iterate cell holds
+                    a pre-computed seed, so (realized? (range)) is
+                    true. mino cons lists and lazy ranges count by
+                    walking, and its lazy cells realize nothing until
+                    forced, so both predicates answer false there:
+                    they never promise a constant-time count or a
+                    realized element the structure does not have.
+                    Recorded as mino ADR 69."
+  :since           "2026.09.12-alpha1"
+  :dialect-example "(counted? '(1 2)) ;=> false"
+  :clojure-example   "(counted? '(1 2)) ;=> true"
+  :affected        [clojure.core/counted? clojure.core/realized?]}
+
+ {:id              :unchunked-realization
+  :title           "Sequences realize per element, never in chunks"
+  :category-id     :collections
+  :rationale       "Clojure lazy sequences realize in chunks of up to
+                    32 elements and its sequence-over-transducer
+                    computes one element at creation; both are
+                    documented implementation latitude. mino realizes
+                    exactly the elements demanded, when demanded, so
+                    side effects inside lazy pipelines run once per
+                    consumed element and never more. Where the
+                    reference over-realizes relative to demand, mino
+                    does not follow. Recorded as mino ADR 70."
+  :since           "2026.09.12-alpha1"
+  :dialect-example "(let [n (atom 0)] (first (map (fn [x] (swap! n inc) x) (vec (range 100)))) @n) ;=> 1"
+  :clojure-example   "same form ;=> 32 (one chunk)"
+  :affected        [clojure.core/lazy-seq clojure.core/sequence clojure.core/map
+                    clojure.core/filter clojure.core/range]}
+
  {:id              :no-instant-host-calendar
   :title           "read-instant-calendar / -timestamp are absent"
   :category-id     :jvm-statics
