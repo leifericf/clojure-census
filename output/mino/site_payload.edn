@@ -52,9 +52,9 @@
    "Hickey-test for what compare's contract is: a\n                    three-way ordering function. Sign-normalized\n                    return values are simpler and avoid leaking\n                    representation-specific deltas.",
    :id :compare-sign-normalized}
   {:id :one-integer-tier,
-   :title "Single integer type -- no Long/Integer/Short distinction",
+   :title "No boxed integer sizes -- int64 and bignum tiers only",
    :rationale
-   "mino has no JVM types; one integer representation\n                    suffices. Promotion within the integer tier never\n                    happens because there is only one tier.",
+   "mino has no JVM types; there is no Long/Integer/Short\n                    distinction. mino has two integer tiers: a native\n                    int64 tier (type :int) and an arbitrary-precision\n                    bignum tier (type :bigint). Literals too large for\n                    int64 parse as :bigint directly. Plain arithmetic on\n                    int64 values throws on overflow; use bigint coercion\n                    or N-suffixed literals to operate in the bignum tier.",
    :since "v0.1.0",
    :affected
    [clojure.core/integer? clojure.core/int? clojure.core/long],
@@ -189,11 +189,11 @@
     :description
     "Where reader attaches meta and which ops preserve it."}}
   {:id :pprint-minimal,
-   :title "pprint is minimal -- no cl-format directives",
+   :title "pprint does not round-trip inst values as reader syntax",
    :rationale
-   "mino's clojure.pprint supports pretty-printing\n                    basic forms; cl-format and table directives are\n                    not implemented. Targets the common case.",
+   "mino's clojure.pprint correctly pretty-prints maps,\n                    collections, code, reader conditionals (#?...), and\n                    tagged literals (user-defined, #uuid). cl-format and\n                    print-table are implemented. The remaining gap: #inst\n                    values read to a plain map internally, so pprint\n                    prints the component map rather than #inst reader\n                    syntax; pr-str is unaffected and emits #inst.",
    :since "v0.1.0",
-   :affected [clojure.pprint/cl-format clojure.pprint/print-table],
+   :affected [clojure.pprint/pprint],
    :doc-link "/coming-from-clojure#pprint",
    :category
    {:id :printer,
@@ -201,9 +201,9 @@
     :description
     "pr-str output for various values and dynamic-var states."}}
   {:id :spec-gen-minimal,
-   :title "clojure.spec generators ship as separate primitives",
+   :title "clojure.spec.gen.alpha lacks shrinking and stub/replace",
    :rationale
-   "mino's spec.alpha implements the documented\n                    surface; clojure.spec.gen.alpha is partially\n                    present and may diverge from clojure.test.check\n                    behavior on edge cases.",
+   "s/gen covers map-of, set literals, bare predicate\n                    fns, registered keyword refs (s/def'd specs), and\n                    s/keys. clojure.spec.test.alpha is present with\n                    instrument and enumerate-namespace. What is absent:\n                    gen/shrink-2 (no test.check shrinking integration)\n                    and stest/stub (the :stub/:replace options for\n                    generative testing).",
    :since "v0.1.0",
    :doc-link "/coming-from-clojure#spec",
    :category

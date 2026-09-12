@@ -29,11 +29,15 @@
   :doc-link        "/coming-from-clojure#ordering"}
 
  {:id              :one-integer-tier
-  :title           "Single integer type -- no Long/Integer/Short distinction"
+  :title           "No boxed integer sizes -- int64 and bignum tiers only"
   :category-id     :numeric-tower
-  :rationale       "mino has no JVM types; one integer representation
-                    suffices. Promotion within the integer tier never
-                    happens because there is only one tier."
+  :rationale       "mino has no JVM types; there is no Long/Integer/Short
+                    distinction. mino has two integer tiers: a native
+                    int64 tier (type :int) and an arbitrary-precision
+                    bignum tier (type :bigint). Literals too large for
+                    int64 parse as :bigint directly. Plain arithmetic on
+                    int64 values throws on overflow; use bigint coercion
+                    or N-suffixed literals to operate in the bignum tier."
   :since           "v0.1.0"
   :affected        [clojure.core/integer? clojure.core/int? clojure.core/long]}
 
@@ -155,22 +159,29 @@
   :since           "v0.1.0"}
 
  {:id              :pprint-minimal
-  :title           "pprint is minimal -- no cl-format directives"
+  :title           "pprint does not round-trip inst values as reader syntax"
   :category-id     :printer
-  :rationale       "mino's clojure.pprint supports pretty-printing
-                    basic forms; cl-format and table directives are
-                    not implemented. Targets the common case."
+  :rationale       "mino's clojure.pprint correctly pretty-prints maps,
+                    collections, code, reader conditionals (#?...), and
+                    tagged literals (user-defined, #uuid). cl-format and
+                    print-table are implemented. The remaining gap: #inst
+                    values read to a plain map internally, so pprint
+                    prints the component map rather than #inst reader
+                    syntax; pr-str is unaffected and emits #inst."
   :since           "v0.1.0"
-  :affected        [clojure.pprint/cl-format clojure.pprint/print-table]
+  :affected        [clojure.pprint/pprint]
   :doc-link        "/coming-from-clojure#pprint"}
 
  {:id              :spec-gen-minimal
-  :title           "clojure.spec generators ship as separate primitives"
+  :title           "clojure.spec.gen.alpha lacks shrinking and stub/replace"
   :category-id     :collections
-  :rationale       "mino's spec.alpha implements the documented
-                    surface; clojure.spec.gen.alpha is partially
-                    present and may diverge from clojure.test.check
-                    behavior on edge cases."
+  :rationale       "s/gen covers map-of, set literals, bare predicate
+                    fns, registered keyword refs (s/def'd specs), and
+                    s/keys. clojure.spec.test.alpha is present with
+                    instrument and enumerate-namespace. What is absent:
+                    gen/shrink-2 (no test.check shrinking integration)
+                    and stest/stub (the :stub/:replace options for
+                    generative testing)."
   :since           "v0.1.0"
   :doc-link        "/coming-from-clojure#spec"}
 
