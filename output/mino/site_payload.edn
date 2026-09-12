@@ -188,18 +188,6 @@
     :title "Metadata propagation",
     :description
     "Where reader attaches meta and which ops preserve it."}}
-  {:id :pprint-minimal,
-   :title "pprint does not round-trip inst values as reader syntax",
-   :rationale
-   "mino's clojure.pprint correctly pretty-prints maps,\n                    collections, code, reader conditionals (#?...), and\n                    tagged literals (user-defined, #uuid). cl-format and\n                    print-table are implemented. The remaining gap: #inst\n                    values read to a plain map internally, so pprint\n                    prints the component map rather than #inst reader\n                    syntax; pr-str is unaffected and emits #inst.",
-   :since "v0.1.0",
-   :affected [clojure.pprint/pprint],
-   :doc-link "/coming-from-clojure#pprint",
-   :category
-   {:id :printer,
-    :title "Printer behavior",
-    :description
-    "pr-str output for various values and dynamic-var states."}}
   {:id :spec-gen-minimal,
    :title "clojure.spec.gen.alpha lacks shrinking and stub/replace",
    :rationale
