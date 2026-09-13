@@ -1,11 +1,11 @@
 {
   "date": "2026-09-13",
   "dialect-tag": "mino",
-  "clojure-version": "2026.08.08-alpha1",
+  "clojure-version": "2026.09.12-alpha1",
   "headline": {
-    "in-both-count": 904,
+    "in-both-count": 906,
     "clojure-total": 995,
-    "percent": 0.9085427135678392
+    "percent": 0.9105527638190954
   },
   "per-namespace": {
     "clojure.zip": {
@@ -29,9 +29,9 @@
       "percent": 1.0
     },
     "clojure.core": {
-      "in-both-count": 593,
+      "in-both-count": 595,
       "clojure-total": 679,
-      "percent": 0.8733431516936672
+      "percent": 0.8762886597938144
     },
     "clojure.core.protocols": {
       "in-both-count": 10,

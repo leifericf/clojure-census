@@ -5,9 +5,9 @@
   :clojure-version "1.12.4"},
  :coverage
  {:headline
-  {:in-both-count 904,
+  {:in-both-count 906,
    :clojure-total 995,
-   :percent 0.9085427135678392},
+   :percent 0.9105527638190954},
   :per-namespace
   {clojure.spec.alpha
    {:in-both-count 87, :clojure-total 87, :percent 1.0},
@@ -19,9 +19,9 @@
    clojure.core.protocols
    {:in-both-count 10, :clojure-total 11, :percent 0.9090909090909091},
    clojure.core
-   {:in-both-count 593,
+   {:in-both-count 595,
     :clojure-total 679,
-    :percent 0.8733431516936672},
+    :percent 0.8762886597938144},
    clojure.set {:in-both-count 12, :clojure-total 12, :percent 1.0},
    clojure.pprint {:in-both-count 26, :clojure-total 26, :percent 1.0},
    clojure.math {:in-both-count 45, :clojure-total 45, :percent 1.0},
@@ -640,457 +640,449 @@
     :var *allow-unresolved-vars*,
     :verdict :jvm-bound,
     :reason
-    "JVM compiler, classloader, or Java-type machinery a host-free runtime cannot honor"}
+    "Moot by design: gates JVM eval-during-read, executor-pool wiring, or compiler/reader knobs mino has no analogue for"}
    {:namespace clojure.core,
     :var *compiler-options*,
     :verdict :jvm-bound,
     :reason
-    "JVM compiler, classloader, or Java-type machinery a host-free runtime cannot honor"}
+    "Host substrate: JVM arrays, classloader/AOT, reflection, stream and iterator bridges, fork-join, or the gvec internals a host-free runtime has no analogue for"}
    {:namespace clojure.core,
     :var *fn-loader*,
     :verdict :jvm-bound,
     :reason
-    "JVM compiler, classloader, or Java-type machinery a host-free runtime cannot honor"}
+    "Host substrate: JVM arrays, classloader/AOT, reflection, stream and iterator bridges, fork-join, or the gvec internals a host-free runtime has no analogue for"}
    {:namespace clojure.core,
     :var *read-eval*,
     :verdict :jvm-bound,
     :reason
-    "JVM compiler, classloader, or Java-type machinery a host-free runtime cannot honor"}
+    "Moot by design: gates JVM eval-during-read, executor-pool wiring, or compiler/reader knobs mino has no analogue for"}
    {:namespace clojure.core,
     :var *reader-resolver*,
     :verdict :jvm-bound,
     :reason
-    "JVM compiler, classloader, or Java-type machinery a host-free runtime cannot honor"}
+    "Moot by design: gates JVM eval-during-read, executor-pool wiring, or compiler/reader knobs mino has no analogue for"}
    {:namespace clojure.core,
     :var *suppress-read*,
     :verdict :jvm-bound,
     :reason
-    "JVM compiler, classloader, or Java-type machinery a host-free runtime cannot honor"}
+    "Moot by design: gates JVM eval-during-read, executor-pool wiring, or compiler/reader knobs mino has no analogue for"}
    {:namespace clojure.core,
     :var *use-context-classloader*,
     :verdict :jvm-bound,
     :reason
-    "JVM compiler, classloader, or Java-type machinery a host-free runtime cannot honor"}
+    "Host substrate: JVM arrays, classloader/AOT, reflection, stream and iterator bridges, fork-join, or the gvec internals a host-free runtime has no analogue for"}
    {:namespace clojure.core,
     :var *verbose-defrecords*,
     :verdict :jvm-bound,
     :reason
-    "JVM compiler, classloader, or Java-type machinery a host-free runtime cannot honor"}
+    "Moot by design: gates JVM eval-during-read, executor-pool wiring, or compiler/reader knobs mino has no analogue for"}
    {:namespace clojure.core,
     :var ->ArrayChunk,
     :verdict :jvm-bound,
     :reason
-    "JVM compiler, classloader, or Java-type machinery a host-free runtime cannot honor"}
+    "Host substrate: JVM arrays, classloader/AOT, reflection, stream and iterator bridges, fork-join, or the gvec internals a host-free runtime has no analogue for"}
    {:namespace clojure.core,
     :var ->Vec,
     :verdict :jvm-bound,
     :reason
-    "JVM compiler, classloader, or Java-type machinery a host-free runtime cannot honor"}
+    "Host substrate: JVM arrays, classloader/AOT, reflection, stream and iterator bridges, fork-join, or the gvec internals a host-free runtime has no analogue for"}
    {:namespace clojure.core,
     :var ->VecNode,
     :verdict :jvm-bound,
     :reason
-    "JVM compiler, classloader, or Java-type machinery a host-free runtime cannot honor"}
+    "Host substrate: JVM arrays, classloader/AOT, reflection, stream and iterator bridges, fork-join, or the gvec internals a host-free runtime has no analogue for"}
    {:namespace clojure.core,
     :var ->VecSeq,
     :verdict :jvm-bound,
     :reason
-    "JVM compiler, classloader, or Java-type machinery a host-free runtime cannot honor"}
+    "Host substrate: JVM arrays, classloader/AOT, reflection, stream and iterator bridges, fork-join, or the gvec internals a host-free runtime has no analogue for"}
    {:namespace clojure.core,
     :var -cache-protocol-fn,
     :verdict :jvm-bound,
     :reason
-    "JVM compiler, classloader, or Java-type machinery a host-free runtime cannot honor"}
+    "JVM-OO interop: proxy, gen-interface, bean, or protocol-dispatch machinery bridging into Java's class system, outside Clojure's own semantics"}
    {:namespace clojure.core,
     :var -reset-methods,
     :verdict :jvm-bound,
     :reason
-    "JVM compiler, classloader, or Java-type machinery a host-free runtime cannot honor"}
+    "JVM-OO interop: proxy, gen-interface, bean, or protocol-dispatch machinery bridging into Java's class system, outside Clojure's own semantics"}
    {:namespace clojure.core,
     :var ..,
     :verdict :jvm-bound,
     :reason
-    "JVM compiler, classloader, or Java-type machinery a host-free runtime cannot honor"}
+    "JVM-OO interop: proxy, gen-interface, bean, or protocol-dispatch machinery bridging into Java's class system, outside Clojure's own semantics"}
    {:namespace clojure.core,
     :var EMPTY-NODE,
     :verdict :jvm-bound,
     :reason
-    "JVM compiler, classloader, or Java-type machinery a host-free runtime cannot honor"}
+    "Host substrate: JVM arrays, classloader/AOT, reflection, stream and iterator bridges, fork-join, or the gvec internals a host-free runtime has no analogue for"}
    {:namespace clojure.core,
     :var PrintWriter-on,
     :verdict :jvm-bound,
     :reason
-    "JVM compiler, classloader, or Java-type machinery a host-free runtime cannot honor"}
+    "Host substrate: JVM arrays, classloader/AOT, reflection, stream and iterator bridges, fork-join, or the gvec internals a host-free runtime has no analogue for"}
    {:namespace clojure.core,
     :var StackTraceElement->vec,
     :verdict :jvm-bound,
     :reason
-    "JVM compiler, classloader, or Java-type machinery a host-free runtime cannot honor"}
+    "Host substrate: JVM arrays, classloader/AOT, reflection, stream and iterator bridges, fork-join, or the gvec internals a host-free runtime has no analogue for"}
    {:namespace clojure.core,
     :var accessor,
     :verdict :jvm-bound,
     :reason
-    "JVM compiler, classloader, or Java-type machinery a host-free runtime cannot honor"}
+    "Deprecated legacy superseded in mino: structmaps by defrecord, the plural agent-error API by agent-error/restart-agent"}
    {:namespace clojure.core,
     :var aclone,
     :verdict :jvm-bound,
     :reason
-    "JVM compiler, classloader, or Java-type machinery a host-free runtime cannot honor"}
+    "Host substrate: JVM arrays, classloader/AOT, reflection, stream and iterator bridges, fork-join, or the gvec internals a host-free runtime has no analogue for"}
    {:namespace clojure.core,
     :var add-classpath,
     :verdict :jvm-bound,
     :reason
-    "JVM compiler, classloader, or Java-type machinery a host-free runtime cannot honor"}
+    "Host substrate: JVM arrays, classloader/AOT, reflection, stream and iterator bridges, fork-join, or the gvec internals a host-free runtime has no analogue for"}
    {:namespace clojure.core,
     :var agent-errors,
     :verdict :jvm-bound,
     :reason
-    "JVM compiler, classloader, or Java-type machinery a host-free runtime cannot honor"}
+    "Deprecated legacy superseded in mino: structmaps by defrecord, the plural agent-error API by agent-error/restart-agent"}
    {:namespace clojure.core,
     :var amap,
     :verdict :jvm-bound,
     :reason
-    "JVM compiler, classloader, or Java-type machinery a host-free runtime cannot honor"}
+    "Host substrate: JVM arrays, classloader/AOT, reflection, stream and iterator bridges, fork-join, or the gvec internals a host-free runtime has no analogue for"}
    {:namespace clojure.core,
     :var areduce,
     :verdict :jvm-bound,
     :reason
-    "JVM compiler, classloader, or Java-type machinery a host-free runtime cannot honor"}
+    "Host substrate: JVM arrays, classloader/AOT, reflection, stream and iterator bridges, fork-join, or the gvec internals a host-free runtime has no analogue for"}
    {:namespace clojure.core,
     :var aset-boolean,
     :verdict :jvm-bound,
     :reason
-    "JVM compiler, classloader, or Java-type machinery a host-free runtime cannot honor"}
+    "Host substrate: JVM arrays, classloader/AOT, reflection, stream and iterator bridges, fork-join, or the gvec internals a host-free runtime has no analogue for"}
    {:namespace clojure.core,
     :var aset-byte,
     :verdict :jvm-bound,
     :reason
-    "JVM compiler, classloader, or Java-type machinery a host-free runtime cannot honor"}
+    "Host substrate: JVM arrays, classloader/AOT, reflection, stream and iterator bridges, fork-join, or the gvec internals a host-free runtime has no analogue for"}
    {:namespace clojure.core,
     :var aset-char,
     :verdict :jvm-bound,
     :reason
-    "JVM compiler, classloader, or Java-type machinery a host-free runtime cannot honor"}
+    "Host substrate: JVM arrays, classloader/AOT, reflection, stream and iterator bridges, fork-join, or the gvec internals a host-free runtime has no analogue for"}
    {:namespace clojure.core,
     :var aset-double,
     :verdict :jvm-bound,
     :reason
-    "JVM compiler, classloader, or Java-type machinery a host-free runtime cannot honor"}
+    "Host substrate: JVM arrays, classloader/AOT, reflection, stream and iterator bridges, fork-join, or the gvec internals a host-free runtime has no analogue for"}
    {:namespace clojure.core,
     :var aset-float,
     :verdict :jvm-bound,
     :reason
-    "JVM compiler, classloader, or Java-type machinery a host-free runtime cannot honor"}
+    "Host substrate: JVM arrays, classloader/AOT, reflection, stream and iterator bridges, fork-join, or the gvec internals a host-free runtime has no analogue for"}
    {:namespace clojure.core,
     :var aset-int,
     :verdict :jvm-bound,
     :reason
-    "JVM compiler, classloader, or Java-type machinery a host-free runtime cannot honor"}
+    "Host substrate: JVM arrays, classloader/AOT, reflection, stream and iterator bridges, fork-join, or the gvec internals a host-free runtime has no analogue for"}
    {:namespace clojure.core,
     :var aset-long,
     :verdict :jvm-bound,
     :reason
-    "JVM compiler, classloader, or Java-type machinery a host-free runtime cannot honor"}
+    "Host substrate: JVM arrays, classloader/AOT, reflection, stream and iterator bridges, fork-join, or the gvec internals a host-free runtime has no analogue for"}
    {:namespace clojure.core,
     :var aset-short,
     :verdict :jvm-bound,
     :reason
-    "JVM compiler, classloader, or Java-type machinery a host-free runtime cannot honor"}
+    "Host substrate: JVM arrays, classloader/AOT, reflection, stream and iterator bridges, fork-join, or the gvec internals a host-free runtime has no analogue for"}
    {:namespace clojure.core,
     :var await1,
     :verdict :jvm-bound,
     :reason
-    "JVM compiler, classloader, or Java-type machinery a host-free runtime cannot honor"}
+    "Deprecated legacy superseded in mino: structmaps by defrecord, the plural agent-error API by agent-error/restart-agent"}
    {:namespace clojure.core,
     :var bases,
     :verdict :jvm-bound,
     :reason
-    "JVM compiler, classloader, or Java-type machinery a host-free runtime cannot honor"}
+    "Host substrate: JVM arrays, classloader/AOT, reflection, stream and iterator bridges, fork-join, or the gvec internals a host-free runtime has no analogue for"}
    {:namespace clojure.core,
     :var bean,
     :verdict :jvm-bound,
     :reason
-    "JVM compiler, classloader, or Java-type machinery a host-free runtime cannot honor"}
+    "JVM-OO interop: proxy, gen-interface, bean, or protocol-dispatch machinery bridging into Java's class system, outside Clojure's own semantics"}
    {:namespace clojure.core,
     :var booleans,
     :verdict :jvm-bound,
     :reason
-    "JVM compiler, classloader, or Java-type machinery a host-free runtime cannot honor"}
+    "Host substrate: JVM arrays, classloader/AOT, reflection, stream and iterator bridges, fork-join, or the gvec internals a host-free runtime has no analogue for"}
    {:namespace clojure.core,
     :var bytes,
     :verdict :jvm-bound,
     :reason
-    "JVM compiler, classloader, or Java-type machinery a host-free runtime cannot honor"}
+    "Host substrate: JVM arrays, classloader/AOT, reflection, stream and iterator bridges, fork-join, or the gvec internals a host-free runtime has no analogue for"}
    {:namespace clojure.core,
     :var cast,
     :verdict :jvm-bound,
     :reason
-    "JVM compiler, classloader, or Java-type machinery a host-free runtime cannot honor"}
+    "Host substrate: JVM arrays, classloader/AOT, reflection, stream and iterator bridges, fork-join, or the gvec internals a host-free runtime has no analogue for"}
    {:namespace clojure.core,
     :var chars,
     :verdict :jvm-bound,
     :reason
-    "JVM compiler, classloader, or Java-type machinery a host-free runtime cannot honor"}
+    "Host substrate: JVM arrays, classloader/AOT, reflection, stream and iterator bridges, fork-join, or the gvec internals a host-free runtime has no analogue for"}
    {:namespace clojure.core,
     :var class?,
     :verdict :jvm-bound,
     :reason
-    "JVM compiler, classloader, or Java-type machinery a host-free runtime cannot honor"}
+    "Host substrate: JVM arrays, classloader/AOT, reflection, stream and iterator bridges, fork-join, or the gvec internals a host-free runtime has no analogue for"}
    {:namespace clojure.core,
     :var clear-agent-errors,
     :verdict :jvm-bound,
     :reason
-    "JVM compiler, classloader, or Java-type machinery a host-free runtime cannot honor"}
+    "Deprecated legacy superseded in mino: structmaps by defrecord, the plural agent-error API by agent-error/restart-agent"}
    {:namespace clojure.core,
     :var compile,
     :verdict :jvm-bound,
     :reason
-    "JVM compiler, classloader, or Java-type machinery a host-free runtime cannot honor"}
+    "Host substrate: JVM arrays, classloader/AOT, reflection, stream and iterator bridges, fork-join, or the gvec internals a host-free runtime has no analogue for"}
    {:namespace clojure.core,
     :var construct-proxy,
     :verdict :jvm-bound,
     :reason
-    "JVM compiler, classloader, or Java-type machinery a host-free runtime cannot honor"}
+    "JVM-OO interop: proxy, gen-interface, bean, or protocol-dispatch machinery bridging into Java's class system, outside Clojure's own semantics"}
    {:namespace clojure.core,
     :var create-struct,
     :verdict :jvm-bound,
     :reason
-    "JVM compiler, classloader, or Java-type machinery a host-free runtime cannot honor"}
+    "Deprecated legacy superseded in mino: structmaps by defrecord, the plural agent-error API by agent-error/restart-agent"}
    {:namespace clojure.core,
     :var defstruct,
     :verdict :jvm-bound,
     :reason
-    "JVM compiler, classloader, or Java-type machinery a host-free runtime cannot honor"}
+    "Deprecated legacy superseded in mino: structmaps by defrecord, the plural agent-error API by agent-error/restart-agent"}
    {:namespace clojure.core,
     :var doubles,
     :verdict :jvm-bound,
     :reason
-    "JVM compiler, classloader, or Java-type machinery a host-free runtime cannot honor"}
+    "Host substrate: JVM arrays, classloader/AOT, reflection, stream and iterator bridges, fork-join, or the gvec internals a host-free runtime has no analogue for"}
    {:namespace clojure.core,
     :var enumeration-seq,
     :verdict :jvm-bound,
     :reason
-    "JVM compiler, classloader, or Java-type machinery a host-free runtime cannot honor"}
+    "Host substrate: JVM arrays, classloader/AOT, reflection, stream and iterator bridges, fork-join, or the gvec internals a host-free runtime has no analogue for"}
    {:namespace clojure.core,
     :var find-protocol-impl,
     :verdict :jvm-bound,
     :reason
-    "JVM compiler, classloader, or Java-type machinery a host-free runtime cannot honor"}
+    "JVM-OO interop: proxy, gen-interface, bean, or protocol-dispatch machinery bridging into Java's class system, outside Clojure's own semantics"}
    {:namespace clojure.core,
     :var find-protocol-method,
     :verdict :jvm-bound,
     :reason
-    "JVM compiler, classloader, or Java-type machinery a host-free runtime cannot honor"}
+    "JVM-OO interop: proxy, gen-interface, bean, or protocol-dispatch machinery bridging into Java's class system, outside Clojure's own semantics"}
    {:namespace clojure.core.reducers,
     :var fjtask,
     :verdict :jvm-bound,
     :reason
-    "JVM compiler, classloader, or Java-type machinery a host-free runtime cannot honor"}
+    "Host substrate: JVM arrays, classloader/AOT, reflection, stream and iterator bridges, fork-join, or the gvec internals a host-free runtime has no analogue for"}
    {:namespace clojure.core,
     :var floats,
     :verdict :jvm-bound,
     :reason
-    "JVM compiler, classloader, or Java-type machinery a host-free runtime cannot honor"}
+    "Host substrate: JVM arrays, classloader/AOT, reflection, stream and iterator bridges, fork-join, or the gvec internals a host-free runtime has no analogue for"}
    {:namespace clojure.core,
     :var gen-interface,
     :verdict :jvm-bound,
     :reason
-    "JVM compiler, classloader, or Java-type machinery a host-free runtime cannot honor"}
+    "JVM-OO interop: proxy, gen-interface, bean, or protocol-dispatch machinery bridging into Java's class system, outside Clojure's own semantics"}
    {:namespace clojure.core,
     :var get-proxy-class,
     :verdict :jvm-bound,
     :reason
-    "JVM compiler, classloader, or Java-type machinery a host-free runtime cannot honor"}
+    "JVM-OO interop: proxy, gen-interface, bean, or protocol-dispatch machinery bridging into Java's class system, outside Clojure's own semantics"}
    {:namespace clojure.core,
     :var init-proxy,
     :verdict :jvm-bound,
     :reason
-    "JVM compiler, classloader, or Java-type machinery a host-free runtime cannot honor"}
+    "JVM-OO interop: proxy, gen-interface, bean, or protocol-dispatch machinery bridging into Java's class system, outside Clojure's own semantics"}
    {:namespace clojure.core,
     :var ints,
     :verdict :jvm-bound,
     :reason
-    "JVM compiler, classloader, or Java-type machinery a host-free runtime cannot honor"}
+    "Host substrate: JVM arrays, classloader/AOT, reflection, stream and iterator bridges, fork-join, or the gvec internals a host-free runtime has no analogue for"}
    {:namespace clojure.core.protocols,
     :var iterator-reduce!,
     :verdict :jvm-bound,
     :reason
-    "JVM compiler, classloader, or Java-type machinery a host-free runtime cannot honor"}
+    "Host substrate: JVM arrays, classloader/AOT, reflection, stream and iterator bridges, fork-join, or the gvec internals a host-free runtime has no analogue for"}
    {:namespace clojure.core,
     :var iterator-seq,
     :verdict :jvm-bound,
     :reason
-    "JVM compiler, classloader, or Java-type machinery a host-free runtime cannot honor"}
+    "Host substrate: JVM arrays, classloader/AOT, reflection, stream and iterator bridges, fork-join, or the gvec internals a host-free runtime has no analogue for"}
    {:namespace clojure.core,
     :var load,
     :verdict :jvm-bound,
     :reason
-    "JVM compiler, classloader, or Java-type machinery a host-free runtime cannot honor"}
+    "Host substrate: JVM arrays, classloader/AOT, reflection, stream and iterator bridges, fork-join, or the gvec internals a host-free runtime has no analogue for"}
    {:namespace clojure.core,
     :var load-reader,
     :verdict :jvm-bound,
     :reason
-    "JVM compiler, classloader, or Java-type machinery a host-free runtime cannot honor"}
+    "Host substrate: JVM arrays, classloader/AOT, reflection, stream and iterator bridges, fork-join, or the gvec internals a host-free runtime has no analogue for"}
    {:namespace clojure.core,
     :var longs,
     :verdict :jvm-bound,
     :reason
-    "JVM compiler, classloader, or Java-type machinery a host-free runtime cannot honor"}
+    "Host substrate: JVM arrays, classloader/AOT, reflection, stream and iterator bridges, fork-join, or the gvec internals a host-free runtime has no analogue for"}
    {:namespace clojure.core,
     :var make-array,
     :verdict :jvm-bound,
     :reason
-    "JVM compiler, classloader, or Java-type machinery a host-free runtime cannot honor"}
+    "Host substrate: JVM arrays, classloader/AOT, reflection, stream and iterator bridges, fork-join, or the gvec internals a host-free runtime has no analogue for"}
    {:namespace clojure.core,
     :var memfn,
     :verdict :jvm-bound,
     :reason
-    "JVM compiler, classloader, or Java-type machinery a host-free runtime cannot honor"}
+    "JVM-OO interop: proxy, gen-interface, bean, or protocol-dispatch machinery bridging into Java's class system, outside Clojure's own semantics"}
    {:namespace clojure.core,
     :var method-sig,
     :verdict :jvm-bound,
     :reason
-    "JVM compiler, classloader, or Java-type machinery a host-free runtime cannot honor"}
+    "Host substrate: JVM arrays, classloader/AOT, reflection, stream and iterator bridges, fork-join, or the gvec internals a host-free runtime has no analogue for"}
    {:namespace clojure.core,
     :var namespace-munge,
     :verdict :jvm-bound,
     :reason
-    "JVM compiler, classloader, or Java-type machinery a host-free runtime cannot honor"}
+    "JVM-OO interop: proxy, gen-interface, bean, or protocol-dispatch machinery bridging into Java's class system, outside Clojure's own semantics"}
    {:namespace clojure.core.reducers,
     :var pool,
     :verdict :jvm-bound,
     :reason
-    "JVM compiler, classloader, or Java-type machinery a host-free runtime cannot honor"}
+    "Host substrate: JVM arrays, classloader/AOT, reflection, stream and iterator bridges, fork-join, or the gvec internals a host-free runtime has no analogue for"}
    {:namespace clojure.core,
     :var primitives-classnames,
     :verdict :jvm-bound,
     :reason
-    "JVM compiler, classloader, or Java-type machinery a host-free runtime cannot honor"}
+    "Host substrate: JVM arrays, classloader/AOT, reflection, stream and iterator bridges, fork-join, or the gvec internals a host-free runtime has no analogue for"}
    {:namespace clojure.core,
     :var print-ctor,
     :verdict :jvm-bound,
     :reason
-    "JVM compiler, classloader, or Java-type machinery a host-free runtime cannot honor"}
+    "Moot by design: gates JVM eval-during-read, executor-pool wiring, or compiler/reader knobs mino has no analogue for"}
    {:namespace clojure.core,
     :var print-dup,
     :verdict :jvm-bound,
     :reason
-    "JVM compiler, classloader, or Java-type machinery a host-free runtime cannot honor"}
+    "Moot by design: gates JVM eval-during-read, executor-pool wiring, or compiler/reader knobs mino has no analogue for"}
    {:namespace clojure.core,
     :var proxy-call-with-super,
     :verdict :jvm-bound,
     :reason
-    "JVM compiler, classloader, or Java-type machinery a host-free runtime cannot honor"}
+    "JVM-OO interop: proxy, gen-interface, bean, or protocol-dispatch machinery bridging into Java's class system, outside Clojure's own semantics"}
    {:namespace clojure.core,
     :var proxy-mappings,
     :verdict :jvm-bound,
     :reason
-    "JVM compiler, classloader, or Java-type machinery a host-free runtime cannot honor"}
+    "JVM-OO interop: proxy, gen-interface, bean, or protocol-dispatch machinery bridging into Java's class system, outside Clojure's own semantics"}
    {:namespace clojure.core,
     :var proxy-name,
     :verdict :jvm-bound,
     :reason
-    "JVM compiler, classloader, or Java-type machinery a host-free runtime cannot honor"}
+    "JVM-OO interop: proxy, gen-interface, bean, or protocol-dispatch machinery bridging into Java's class system, outside Clojure's own semantics"}
    {:namespace clojure.core,
     :var proxy-super,
     :verdict :jvm-bound,
     :reason
-    "JVM compiler, classloader, or Java-type machinery a host-free runtime cannot honor"}
+    "JVM-OO interop: proxy, gen-interface, bean, or protocol-dispatch machinery bridging into Java's class system, outside Clojure's own semantics"}
    {:namespace clojure.instant,
     :var read-instant-calendar,
     :verdict :jvm-bound,
     :reason
-    "JVM compiler, classloader, or Java-type machinery a host-free runtime cannot honor"}
+    "Host substrate: JVM arrays, classloader/AOT, reflection, stream and iterator bridges, fork-join, or the gvec internals a host-free runtime has no analogue for"}
    {:namespace clojure.instant,
     :var read-instant-timestamp,
     :verdict :jvm-bound,
     :reason
-    "JVM compiler, classloader, or Java-type machinery a host-free runtime cannot honor"}
+    "Host substrate: JVM arrays, classloader/AOT, reflection, stream and iterator bridges, fork-join, or the gvec internals a host-free runtime has no analogue for"}
    {:namespace clojure.core,
     :var resultset-seq,
     :verdict :jvm-bound,
     :reason
-    "JVM compiler, classloader, or Java-type machinery a host-free runtime cannot honor"}
+    "Host substrate: JVM arrays, classloader/AOT, reflection, stream and iterator bridges, fork-join, or the gvec internals a host-free runtime has no analogue for"}
    {:namespace clojure.core,
     :var set-agent-send-executor!,
     :verdict :jvm-bound,
     :reason
-    "JVM compiler, classloader, or Java-type machinery a host-free runtime cannot honor"}
+    "Moot by design: gates JVM eval-during-read, executor-pool wiring, or compiler/reader knobs mino has no analogue for"}
    {:namespace clojure.core,
     :var set-agent-send-off-executor!,
     :verdict :jvm-bound,
     :reason
-    "JVM compiler, classloader, or Java-type machinery a host-free runtime cannot honor"}
+    "Moot by design: gates JVM eval-during-read, executor-pool wiring, or compiler/reader knobs mino has no analogue for"}
    {:namespace clojure.core,
     :var shorts,
     :verdict :jvm-bound,
     :reason
-    "JVM compiler, classloader, or Java-type machinery a host-free runtime cannot honor"}
+    "Host substrate: JVM arrays, classloader/AOT, reflection, stream and iterator bridges, fork-join, or the gvec internals a host-free runtime has no analogue for"}
    {:namespace clojure.core,
     :var stream-into!,
     :verdict :jvm-bound,
     :reason
-    "JVM compiler, classloader, or Java-type machinery a host-free runtime cannot honor"}
+    "Host substrate: JVM arrays, classloader/AOT, reflection, stream and iterator bridges, fork-join, or the gvec internals a host-free runtime has no analogue for"}
    {:namespace clojure.core,
     :var stream-reduce!,
     :verdict :jvm-bound,
     :reason
-    "JVM compiler, classloader, or Java-type machinery a host-free runtime cannot honor"}
+    "Host substrate: JVM arrays, classloader/AOT, reflection, stream and iterator bridges, fork-join, or the gvec internals a host-free runtime has no analogue for"}
    {:namespace clojure.core,
     :var stream-seq!,
     :verdict :jvm-bound,
     :reason
-    "JVM compiler, classloader, or Java-type machinery a host-free runtime cannot honor"}
+    "Host substrate: JVM arrays, classloader/AOT, reflection, stream and iterator bridges, fork-join, or the gvec internals a host-free runtime has no analogue for"}
    {:namespace clojure.core,
     :var stream-transduce!,
     :verdict :jvm-bound,
     :reason
-    "JVM compiler, classloader, or Java-type machinery a host-free runtime cannot honor"}
+    "Host substrate: JVM arrays, classloader/AOT, reflection, stream and iterator bridges, fork-join, or the gvec internals a host-free runtime has no analogue for"}
    {:namespace clojure.core,
     :var struct,
     :verdict :jvm-bound,
     :reason
-    "JVM compiler, classloader, or Java-type machinery a host-free runtime cannot honor"}
+    "Deprecated legacy superseded in mino: structmaps by defrecord, the plural agent-error API by agent-error/restart-agent"}
    {:namespace clojure.core,
     :var struct-map,
     :verdict :jvm-bound,
     :reason
-    "JVM compiler, classloader, or Java-type machinery a host-free runtime cannot honor"}
+    "Deprecated legacy superseded in mino: structmaps by defrecord, the plural agent-error API by agent-error/restart-agent"}
    {:namespace clojure.core,
     :var supers,
     :verdict :jvm-bound,
     :reason
-    "JVM compiler, classloader, or Java-type machinery a host-free runtime cannot honor"}
+    "Host substrate: JVM arrays, classloader/AOT, reflection, stream and iterator bridges, fork-join, or the gvec internals a host-free runtime has no analogue for"}
    {:namespace clojure.core,
     :var to-array-2d,
     :verdict :jvm-bound,
     :reason
-    "JVM compiler, classloader, or Java-type machinery a host-free runtime cannot honor"}
+    "Host substrate: JVM arrays, classloader/AOT, reflection, stream and iterator bridges, fork-join, or the gvec internals a host-free runtime has no analogue for"}
    {:namespace clojure.core,
     :var update-proxy,
     :verdict :jvm-bound,
     :reason
-    "JVM compiler, classloader, or Java-type machinery a host-free runtime cannot honor"}
+    "JVM-OO interop: proxy, gen-interface, bean, or protocol-dispatch machinery bridging into Java's class system, outside Clojure's own semantics"}
    {:namespace clojure.core,
     :var vector-of,
     :verdict :jvm-bound,
     :reason
-    "JVM compiler, classloader, or Java-type machinery a host-free runtime cannot honor"}
+    "Host substrate: JVM arrays, classloader/AOT, reflection, stream and iterator bridges, fork-join, or the gvec internals a host-free runtime has no analogue for"}
    {:namespace clojure.core,
     :var with-loading-context,
     :verdict :jvm-bound,
     :reason
-    "JVM compiler, classloader, or Java-type machinery a host-free runtime cannot honor"}],
-  :gap
-  [{:namespace clojure.core,
-    :var definline,
-    :verdict :gap,
-    :reason "Portable macro mino does not yet expose"}
-   {:namespace clojure.core,
-    :var munge,
-    :verdict :gap,
-    :reason "Portable name-mangling fn mino does not yet expose"}],
-  :count {:jvm-bound 89, :gap 2, :total 91}},
+    "Host substrate: JVM arrays, classloader/AOT, reflection, stream and iterator bridges, fork-join, or the gvec internals a host-free runtime has no analogue for"}],
+  :gap [],
+  :count {:jvm-bound 89, :gap 0, :total 89}},
  :mismatches
  [{:arglists-clojure ([array idx] [array idx & idxs]),
    :arglists-dialect ([array idx]),
@@ -1219,10 +1211,6 @@
    :arglists-dialect ([s]),
    :namespace clojure.core,
    :var read+string}
-  {:arglists-clojure ([sym] [env sym]),
-   :arglists-dialect ([sym]),
-   :namespace clojure.core,
-   :var resolve}
   {:arglists-clojure ([f & opts]),
    :arglists-dialect ([f]),
    :namespace clojure.core,

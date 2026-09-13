@@ -1,5 +1,5 @@
 {:dialect-tag "mino",
- :clojure-version "2026.08.08-alpha1",
+ :clojure-version "2026.09.12-alpha1",
  :namespaces
  {clojure.core
   {:vars
@@ -15,7 +15,7 @@
      :dynamic true},
     *clojure-version*
     {:doc
-     "The version of this runtime, as a map with :major :minor :incremental\n   and :qualifier keys. CalVer scheme matches MINO_VERSION in src/mino.h.",
+     "The version of this runtime, as a map with :major :minor :incremental\n   and :qualifier keys. CalVer scheme; decoded from (mino-version), which\n   returns MINO_VERSION from src/mino.h -- the single source of truth, so\n   this can never drift from the C version banner. Decoded with core\n   string ops rather than a regex so the version surface stays available\n   when a host installs a capability set that omits the regex engine.",
      :dynamic true},
     *command-line-args* {:dynamic true},
     *compile-files* {:dynamic true},
@@ -84,7 +84,7 @@
     ->Eduction
     {:arglists ([xform coll]),
      :doc
-     "Factory matching the value (eduction xform coll) returns. mino's\n   eduction values are sequences, so the factory applies xform to\n   coll the same way eduction does."},
+     "Factory matching the value (eduction xform coll) returns. mino's\n   eduction values re-apply the transducer stack per traversal; the\n   factory builds one the same way eduction does."},
     -empty-queue {},
     -thread-bound? {},
     -var-root {},
@@ -128,6 +128,7 @@
     add-days {},
     add-load-path! {},
     add-months {},
+    add-reader-features! {},
     add-tap
     {:arglists ([f]),
      :doc
@@ -295,6 +296,12 @@
     clojure-version
     {:arglists ([]),
      :doc "Returns the runtime version as a printable string."},
+    clojure.lang.IEditableCollection {},
+    clojure.lang.IPersistentMap {},
+    clojure.lang.IPersistentVector {},
+    clojure.lang.Keyword {},
+    clojure.lang.MapEntry {},
+    clojure.lang.Symbol {},
     coll-reduce {:arglists ([coll f init])},
     coll? {:arglists ([x]), :doc "Returns true if x is a collection."},
     comment
@@ -348,7 +355,7 @@
     counted?
     {:arglists ([coll]),
      :doc
-     "Returns true if (count x) is a constant-time operation. Per\n   Clojure this is the Counted protocol -- vectors, maps, sets, and\n   sorted variants. Strings are not Counted on the JVM (their count\n   walks java.lang.CharSequence)."},
+     "Returns true if (count x) is a constant-time operation: vectors,\n   maps, sets, and their sorted variants. The empty list also counts\n   in constant time. Cons lists and lazy seqs report false because\n   their count walks the sequence; strings report false per canon\n   (their count walks the character data)."},
     cpu-ms {},
     crc32 {},
     create-ns {:arglists ([sym])},
@@ -375,6 +382,11 @@
     default-data-readers
     {:doc
      "Default map of data reader functions keyed by tag symbol: 'inst\n     and 'uuid."},
+    definline
+    {:arglists ([name & decl]),
+     :doc
+     "Experimental - like defmacro, except defines a named function whose\n   body is the expansion of the template expr. On mino the :inline hint\n   is advisory (the JIT, not a source inliner, supplies the speed the\n   hint asks for on other hosts); the defined var is an ordinary,\n   first-class function. Cannot be used with variadic (&) args.",
+     :macro true},
     definterface {:arglists ([& _]), :macro true},
     deflate-compress {},
     deflate-decompress {},
@@ -496,7 +508,7 @@
     eduction
     {:arglists ([& args]),
      :doc
-     "Returns a lazy sequence of applying the given transducers to coll."},
+     "Returns a traversal recipe over applying the given transducers to\n   coll. The result prints and seqs like a seq, but caches nothing:\n   every reduce, seq, or print over it re-runs the transducer stack\n   (and any side effects) from the source. Takes any number of\n   transducers followed by coll."},
     empty {:arglists ([coll])},
     empty? {:arglists ([coll])},
     ensure {:arglists ([ref])},
@@ -709,7 +721,7 @@
     instance?
     {:arglists ([c x]),
      :doc
-     "Returns true if x is an instance of t. For record types defined\n   with defrecord, t is the type value and the test is type-pointer\n   identity. For built-in types or ad-hoc :type-tagged values, t may\n   be the keyword (type x) returns and the test is keyword equality."},
+     "Returns true if x is an instance of c. For record types defined\n   with defrecord, c is the type value and the test is type-pointer\n   identity. For built-in types or ad-hoc :type-tagged values, c may\n   be the keyword (type x) returns and the test is keyword equality.\n   A small set of frozen capability keywords (ADR 72) answer by\n   capability instead: :editable-collection is true for the\n   collections that support transients."},
     int {:arglists ([x])},
     int-array {:arglists ([size-or-seq] [size init-val-or-seq])},
     int? {:arglists ([x])},
@@ -924,6 +936,7 @@
     mino-thread-count {},
     mino-thread-id* {},
     mino-thread-limit {},
+    mino-version {},
     mix-collection-hash
     {:arglists ([hash-basis count]),
      :doc "Combines a hash-basis with the collection's count."},
@@ -941,6 +954,10 @@
      :doc
      "Claim x for owner, or reenter if owner already holds it. Returns\n  true when the claim succeeded, false when another thread holds x."},
     months-between {},
+    munge
+    {:arglists ([s]),
+     :doc
+     "Encodes s into a string legal as a host identifier, replacing every\n   character in the compiler CHAR_MAP with its reserved token. Symbols\n   munge to symbols; anything else munges to a string."},
     name {:arglists ([x])},
     namespace {:arglists ([x])},
     nano-time {},
@@ -1300,13 +1317,14 @@
      "Returns a lazy seq of n copies of x. Deprecated alias for\n   (take n (repeat x))."},
     require {:arglists ([& args])},
     requiring-resolve {:arglists ([sym])},
+    rerun-seq {},
     reset! {:arglists ([atom newval])},
     reset-meta!
     {:arglists ([iref metadata-map]),
      :doc
      "Atomically resets the metadata for a reference type to meta-map.\n   Returns meta-map."},
     reset-vals! {:arglists ([atom newval])},
-    resolve {:arglists ([sym])},
+    resolve {:arglists ([sym] [env sym])},
     rest {:arglists ([coll])},
     restart-agent {:arglists ([a new-state & options])},
     reverse {:arglists ([coll])},
@@ -1327,7 +1345,7 @@
     satisfies?
     {:arglists ([protocol x]),
      :doc
-     "Returns true if x's type has implementations for all methods of\n   proto."},
+     "Returns true if x's type has implementations for all methods of\n   proto. proto must be a protocol; anything else throws."},
     save-image {},
     second {:arglists ([x]), :doc "Returns the second item in coll."},
     secure-rand-bytes {},
@@ -1583,7 +1601,7 @@
      "Placeholder for the ~@ reader form. Only meaningful inside\n   syntax-quote; calling it directly throws."},
     unreduced
     {:arglists ([x]),
-     :doc "Unwraps a reduced value. If not reduced, returns x."},
+     :doc "If x is reduced?, returns (deref x), else returns x."},
     unsigned-bit-shift-right {:arglists ([x n])},
     update
     {:arglists ([m k f & args]),
@@ -2859,4 +2877,4 @@
    throw
    def},
  :spec-keys #{},
- :captured-at "2026-09-13T09:56:19Z"}
+ :captured-at "2026-09-13T18:59:04Z"}
