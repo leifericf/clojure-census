@@ -1,5 +1,5 @@
 {:dialect-tag "bb",
- :run-at "2026-09-12T09:16:43Z",
+ :run-at "2026-09-13T10:13:26Z",
  :totals
  {:match 22, :mismatch 0, :divergent-as-expected 0, :skipped 0},
  :parities
@@ -20,7 +20,7 @@
    :oracle
    {:status :value,
     :value {:clj-census/opaque "class java.lang.Long"},
-    :elapsed-ms 0},
+    :elapsed-ms 1},
    :dialect
    {:status :value,
     :value {:clj-census/opaque "class java.lang.Long"},
@@ -47,8 +47,8 @@
    :reason "values equivalent"}
   {:case-id :compare/strings-positive,
    :var clojure.core/compare,
-   :oracle {:status :value, :value 25, :elapsed-ms 0},
-   :dialect {:status :value, :value 25, :elapsed-ms 0},
+   :oracle {:status :value, :value 25, :elapsed-ms 1},
+   :dialect {:status :value, :value 25, :elapsed-ms 1},
    :verdict :match,
    :reason "values equivalent"}
   {:case-id :compare/strings-negative,
@@ -59,7 +59,7 @@
    :reason "values equivalent"}
   {:case-id :compare/strings-equal,
    :var clojure.core/compare,
-   :oracle {:status :value, :value 0, :elapsed-ms 0},
+   :oracle {:status :value, :value 0, :elapsed-ms 1},
    :dialect {:status :value, :value 0, :elapsed-ms 0},
    :verdict :match,
    :reason "values equivalent"}
@@ -71,7 +71,7 @@
    :reason "values equivalent"}
   {:case-id :compare/numbers-equal,
    :var clojure.core/compare,
-   :oracle {:status :value, :value 0, :elapsed-ms 1},
+   :oracle {:status :value, :value 0, :elapsed-ms 0},
    :dialect {:status :value, :value 0, :elapsed-ms 0},
    :verdict :match,
    :reason "values equivalent"}
@@ -136,7 +136,7 @@
    :oracle
    {:status :value,
     :value {:clj-census/opaque "class java.lang.String"},
-    :elapsed-ms 0},
+    :elapsed-ms 1},
    :dialect
    {:status :value,
     :value {:clj-census/opaque "class java.lang.String"},
@@ -148,7 +148,7 @@
    :oracle
    {:status :value,
     :value {:clj-census/opaque "class java.lang.Long"},
-    :elapsed-ms 0},
+    :elapsed-ms 1},
    :dialect
    {:status :value,
     :value {:clj-census/opaque "class java.lang.Long"},
