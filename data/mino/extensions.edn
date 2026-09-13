@@ -24,16 +24,6 @@
                    the jvm_statics module."
   :since          "v0.422.5"}
 
- {:id             :bits-kw-match
-  :title          "Keyword-based bitmask matching primitive"
-  :affected-names ["clojure.core/bits-kw-match"]
-  :category-id    :collections
-  :rationale      "Bit-level pattern matching against a keyword's
-                   internal representation. Designed for embedded use
-                   cases where bits-and-bytes ergonomics beat
-                   structural collection ops."
-  :since          "v0.422.0"}
-
  {:id             :time-ms-native
   :title          "Monotonic-clock primitive"
   :affected-names ["clojure.core/time-ms"]
@@ -43,15 +33,4 @@
                    epoch; suitable for measuring elapsed time within a
                    single process."
   :since          "v0.166.0"}
-
- {:id             :hpp-cpp-wrappers
-  :title          "C++ RAII wrappers in mino.hpp"
-  :affected-names ["clojure.core/cpp-wrappers"]
-  :category-id    :jvm-statics
-  :rationale      "Optional C++ header (mino.hpp) gives embedders RAII
-                   semantics over mino_state lifecycle and value
-                   ownership. Not a Clojure-visible API; documented
-                   here to flag that mino's embedding surface extends
-                   beyond the C ABI."
-  :since          "v0.421.0"}
 ]
