@@ -654,13 +654,74 @@
       (contains? jvm-bound-override
                  (symbol (name (:namespace m)) (name (:var m))))))
 
+;; The jvm-bound surface sorts into four kinds of thing, none of which
+;; is a portable facility mino is merely missing. Bucketing them lets
+;; the dashboard explain WHY each stays absent instead of repeating one
+;; boilerplate line. Names are the short (:var m) symbols, which are
+;; unique across the missing set.
+
+(def ^:private host-substrate
+  "The JVM itself: primitive arrays, classloader/AOT, reflection, the
+  stream/iterator/ResultSet bridges, fork-join, the gvec internal
+  deftypes, JVM IO, and the Calendar/Timestamp instant readers."
+  '#{aclone amap areduce aset-boolean aset-byte aset-char aset-double
+     aset-float aset-int aset-long aset-short make-array to-array-2d
+     booleans bytes chars doubles floats ints longs shorts vector-of
+     add-classpath compile load load-reader with-loading-context
+     *compiler-options* *fn-loader* *use-context-classloader*
+     bases supers class? cast method-sig primitives-classnames
+     StackTraceElement->vec enumeration-seq iterator-seq resultset-seq
+     stream-into! stream-reduce! stream-seq! stream-transduce!
+     iterator-reduce! fjtask pool ->ArrayChunk ->Vec ->VecNode ->VecSeq
+     EMPTY-NODE PrintWriter-on read-instant-calendar
+     read-instant-timestamp})
+
+(def ^:private jvm-oo-interop
+  "Escape hatches into Java's class-and-interface object system: proxy,
+  interface generation, bean, and the protocol-dispatch internals.
+  Clojure-the-language is not OO; these are the doors out of it."
+  '#{construct-proxy get-proxy-class init-proxy proxy-call-with-super
+     proxy-mappings proxy-name proxy-super update-proxy gen-interface
+     bean namespace-munge -cache-protocol-fn -reset-methods
+     find-protocol-impl find-protocol-method memfn ..})
+
+(def ^:private deprecated-legacy
+  "Superseded in mino: structmaps by defrecord, and the plural
+  agent-error API by agent-error/restart-agent. Absent on purpose."
+  '#{accessor create-struct defstruct struct struct-map
+     agent-errors clear-agent-errors await1})
+
+(def ^:private moot-by-design
+  "Gates and knobs with no mino analogue: JVM eval-during-read,
+  executor-pool wiring, print-for-eval-with-types, and compiler/reader
+  flags."
+  '#{*read-eval* *suppress-read* set-agent-send-executor!
+     set-agent-send-off-executor! print-dup print-ctor
+     *allow-unresolved-vars* *reader-resolver* *verbose-defrecords*})
+
 (defn- reason-for [m jvm-only]
-  (if (jvm-bound? m jvm-only)
-    "JVM compiler, classloader, or Java-type machinery a host-free runtime cannot honor"
-    (case (:var m)
-      definline "Portable macro mino does not yet expose"
-      munge     "Portable name-mangling fn mino does not yet expose"
-      "Genuine portable gap, a real coverage target")))
+  (let [v (:var m)]
+    (cond
+      (not (jvm-bound? m jvm-only))
+      (case v
+        definline "Portable macro mino does not yet expose"
+        munge     "Portable name-mangling fn mino does not yet expose"
+        "Genuine portable gap, a real coverage target")
+
+      (contains? host-substrate v)
+      "Host substrate: JVM arrays, classloader/AOT, reflection, stream and iterator bridges, fork-join, or the gvec internals a host-free runtime has no analogue for"
+
+      (contains? jvm-oo-interop v)
+      "JVM-OO interop: proxy, gen-interface, bean, or protocol-dispatch machinery bridging into Java's class system, outside Clojure's own semantics"
+
+      (contains? deprecated-legacy v)
+      "Deprecated legacy superseded in mino: structmaps by defrecord, the plural agent-error API by agent-error/restart-agent"
+
+      (contains? moot-by-design v)
+      "Moot by design: gates JVM eval-during-read, executor-pool wiring, or compiler/reader knobs mino has no analogue for"
+
+      :else
+      "JVM compiler, classloader, or Java-type machinery a host-free runtime cannot honor")))
 
 (defn- subcmd-gen-missing-reasons
   [_ctx [tag mino-path :as _args]]
