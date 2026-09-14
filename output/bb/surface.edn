@@ -1,5 +1,5 @@
 {:dialect-tag "bb",
- :clojure-version "1.12.5-SCI",
+ :clojure-version "1.12.6-SCI",
  :namespaces
  {clojure.core
   {:vars
@@ -952,4 +952,4 @@
    monitor-enter
    def},
  :spec-keys #{:clojure.spec.alpha/kvs->map},
- :captured-at "2026-09-13T10:13:24Z"}
+ :captured-at "2026-09-14T10:35:39Z"}
